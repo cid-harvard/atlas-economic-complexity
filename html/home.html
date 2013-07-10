@@ -98,7 +98,7 @@
 }
 #main #content .other_apps div{
   float: left;
-  margin: 0 30px 0 0;
+  margin: 0 27px 0 0;
 }
 #main #content .other_apps div a{
   display: inline-block;
@@ -109,11 +109,12 @@
   border: solid 1px #000;
 }
 #main #content .other_apps div img{
-  width: 200px;
+  width: 150px;
 }
 #main #content .other_apps div:last-child{
   margin: 0;
 }
+
 </style>
 {% endblock %}
 
@@ -146,21 +147,41 @@
     </div>
     
   </div>
-  <div class="other_apps">
+  <!-- <div class="other_apps">
     <h3>Explore More Apps</h3>
     <div class="item">
-      <a href="/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/"><img src="/media/img/home/teaser_tree_map.png"></a>
+      <a href="/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2009/"><img src="/media/img/home/teaser_tree_map.png"></a>
     </div>
     <div class="item">
       <a href="/explore/stacked/export/{{default_country.name_3char|lower}}/all/show/1995.2010.2/"><img src="/media/img/home/teaser_stacked.png"></a>
     </div>
     <div class="item">
-      <a href="/explore/map/export/show/all/3330/2010/"><img src="/media/img/home/teaser_map.png"></a>
+      <a href="/explore/map/export/show/all/3330/2009/"><img src="/media/img/home/teaser_map.png"></a>
     </div>
     <div class="item">
-      <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2010/"><img src="/media/img/home/teaser_product_space.png"></a>
+      <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2009/"><img src="/media/img/home/teaser_product_space.png"></a>
     </div>
-  </div>
+  </div> -->
+   
+  <div class="other_apps">
+    <h3>Explore More Apps</h3> 
+    
+    <div class="item" style="margin-left:9px;border:2px solid #B02420;">
+      <a href="/explore/pie_scatter/export/{{default_country.name_3char|lower}}/all/show/2011/"><img src="/media/img/home/pie_new.png"></a>
+    </div>    
+    <div class="item" style="border:2px solid #1272A8;">
+      <a href="/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2011/"><img src="/media/img/home/tree_map_new.png"></a>
+    </div>
+    <div class="item" style="border:2px solid #1272A8;">
+      <a href="/explore/stacked/export/{{default_country.name_3char|lower}}/all/show/1995.2011.2/"><img src="/media/img/home/stack_new.png"></a>
+    </div>
+    <div class="item" style="border:2px solid #1272A8">
+      <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2011/"><img src="/media/img/home/network_new.png"></a>
+    </div>
+    <div class="item">
+      <a href="/explore/map/export/show/all/3330/2009/"><img src="/media/img/home/teaser_map.png"></a>
+    </div>
+  </div>  
 </div> <!-- END #content div -->
 {% endblock %}
 
@@ -172,6 +193,6 @@
   $(".didyouknow").eq(vid).show();
   // Set explore URL to be the default country aka where the 
   // user's IP address says they are
-  $("nav a").eq(0).attr("href", "/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/")
+  $("nav a").eq(0).attr("href", "/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2011/")
 </script>
 {% endblock %}

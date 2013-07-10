@@ -523,6 +523,31 @@ text-decoration: none;
 .product_class .chzn-container .chzn-results li {
   padding: 3px 7px 4px;
 }
+/* Nesting */
+.nesting select {
+  width: 52px
+}
+.nesting .chzn-container-single .chzn-single {
+  height: 18px;
+  line-height: 18px;
+  padding: 0 0 0 3px;
+}
+.nesting .chzn-container-single .chzn-single div {
+  width: 15px;
+}
+.nesting .chzn-container-single .chzn-single div b {
+  background-position: -1px -3px;
+}
+.nesting .chzn-container-single .chzn-single span {
+  margin-right: 15px;
+}
+.nesting .chzn-container-single .chzn-search {
+  display: none;
+}
+.nesting .chzn-container .chzn-results li {
+  padding: 3px 7px 4px;
+}
+
 .app #main .pane_title{
   background: url('/media/img/all/containers_trans.png') no-repeat;
   background-position: -43px -104px;
@@ -545,6 +570,13 @@ text-decoration: none;
   width: 640px;
   z-index: 10;
 }
+
+.app #main #content #viz {
+  height: 380px;
+  border-bottom: 1px solid #cccccc;
+  position: relative;
+}
+
 .app #main #content #dataviz {
   height: 380px;
   border-bottom: 1px solid #cccccc;
@@ -583,12 +615,18 @@ text-decoration: none;
   text-align: center;
 }
 .app #main #content .key img {
-  width: 15px;
+  width: 25px;
 }
 .app #main #content .key#hs4 img {
   width: 25px;
 }
 .app #main #content .key#hs4 a {
+  padding: 2px 10px 2px 0;
+}
+.app #main #content .key#sitc1 img {
+  width: 25px;
+}
+.app #main #content .key#sitc1 a {
   padding: 2px 10px 2px 0;
 }
 .app #main #content .key a {
@@ -608,7 +646,7 @@ text-decoration: none;
  * Timeline
  */
 .app #main #content #timeline {
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
   overflow: hidden;
 }
 .app #main #content #timeline button{
@@ -650,11 +688,12 @@ text-decoration: none;
 .app #main #content #timeline #stacked_controls {
   display: none;
   margin: auto;
-  width: 515px;
+/*  width: 515px;*/
+  width: 600px;
 }
 .app #main #content #timeline #stacked_controls > div {
-  display: inline-block;
-  margin: 0 35px 0 0;
+  display: inline;
+  margin: 0 25px 0 0;
   vertical-align: top;
 }
 .app #main #content #timeline #stacked_controls > div:last-child {
@@ -662,11 +701,12 @@ text-decoration: none;
 }
 .app #main #content #timeline #stacked_controls p {
   margin: 0;
+  display:inline;
 }
 
 .app #loader {
   clear: both;
-  display: none;
+  display: block;
   height: 0;
   width: 640px;
   text-align: center;

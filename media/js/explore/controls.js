@@ -20,8 +20,8 @@ function Controls() {
       if(app_type == "stacked"){
         var years = year.split(".").map(function(y){ return parseInt(y); });
         years = d3.range(years[0], years[1]+1, years[2]);
-        $(".dropdown_container#year_start select").val(years[0]);
-        $(".dropdown_container#year_end select").val(years[years.length-1]);
+        // $(".dropdown_container#year_start select").val(years[0]);
+        // $(".dropdown_container#year_end select").val(years[years.length-1]);
         $(".dropdown_container#year_interval select").val(years[1] - years[0]);
         $(".dropdown_container#year_start select").trigger("liszt:updated");
         $(".dropdown_container#year_end select").trigger("liszt:updated");
@@ -67,13 +67,14 @@ function Controls() {
           "rca": "RCA", "share": "Share", "value": "Value"}
       }
       // set attr_data for private funcitons to have access to
-      attr_data = data.attr_data;
+      attr_data = data.attr_data
       
       // Filter data to this only values with the year set to this year
       var years = [parseInt(year)]
       if(app_type == "stacked"){
-        years = year.split(".").map(function(y){ return parseInt(y); });
-        years = d3.range(years[0], years[1]+1, years[2]);
+       // years = year.split(".").map(function(y){ return parseInt(y); });
+       // years = d3.range(years[0], years[1]+1, years[2]);
+       years = d3.range(year_start,parseInt(year_end)+1)
       }
       this_years_data = data.data.filter(function(d){ return years.indexOf(d.year) > -1; })
         .sort(function(a, b){
@@ -81,6 +82,7 @@ function Controls() {
           else if (b.year > a.year) { return 1; } 
           else { return b.value - a.value; }
         })
+  
       // Get the sum for calculating share
       this_years_sum = d3.sum(this_years_data, function(d) { return d.value; })
       
@@ -99,7 +101,7 @@ function Controls() {
       table_enter.append("tbody")
       
       var data_rows = table.select("tbody").selectAll("tr")
-        .data(this_years_data, function(d){ return d.year; })
+        .data(this_years_data, function(d,i){ return d.year+d.id; })
       
       // Add all the things to the table!!!
       data_rows.enter().append("tr")
@@ -132,19 +134,23 @@ function Controls() {
   function tbody_tr(rows){
     d3.keys(columns).forEach(function(c){
       rows.append("td").text(function(d){
-        var attr = attr_data[d.item_id]
-        if(!attr){
-          return ""
-        }
+        // console.log(d)
+        //var attr = attr_data[d.item_id]
+        
+        //if(!attr){
+        //  return ""
+        //}
         // if(c == "code"){
         //   console.log(d, c)
-        // }
+        //}
+        // console.log(d.share)
         if(c == "share"){
+          // return d.share;
           return d3.format(".2%")(d["value"] / this_years_sum);
         }
-        if(attr[c]){
-          return pretty(attr[c]);
-        }
+        //if(attr[c]){
+        //  return pretty(attr[c]);
+        //}
         return pretty(d[c]);
       })
     })
@@ -166,12 +172,13 @@ function Controls() {
   function toggle_view_table(){
     if(d3.select("#text_data").style("display") == "none"){
       d3.select(this).select("span").text("View app")
-      d3.select("#dataviz").style("display", "none")
+      d3.select("#viz").style("display", "none")
       d3.event.preventDefault();
       return d3.select("#text_data").style("display", "block")
     }
     d3.select(this).select("span").text("View as text")
-    d3.select("#dataviz").style("display", "block")
+    d3.select("#viz").style("display", "block")
+    d3.select("#viz").call(viz.order("asc"))
     d3.event.preventDefault();
     return d3.select("#text_data").style("display", "none")
   }

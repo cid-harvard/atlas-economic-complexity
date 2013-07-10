@@ -1,3 +1,4 @@
 Django
 MySQL-python
 numpy
+msgpack-python
