@@ -37,10 +37,10 @@ Adding the Observatory to computer via virtualenv
         git clone https://github.com/Harvard-CID/observatory_economic_complexity.git
 2. Create the virtual environment
 
-        mkvirtualenv atlas_economic_complexity
+        mkvirtualenv observatory_economic_complexity
 3. Activate this newly created environment
 
-        workon atlas_economic_complexity
+        workon observatory_economic_complexity
 4. Install the required Python libraries
 
         pip install -r requirements.txt
