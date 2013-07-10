@@ -34,7 +34,7 @@ Adding the Observatory to computer via virtualenv
 
 1. Clone from github (this will create an atlas_economic_complexity folder in the current directory)
 
-        git clone https://github.com/alexandersimoes/atlas_economic_complexity.git
+        git clone https://github.com/Harvard-CID/observatory_economic_complexity.git
 2. Create the virtual environment
 
         mkvirtualenv atlas_economic_complexity
