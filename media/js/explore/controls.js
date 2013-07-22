@@ -63,7 +63,7 @@ function Controls() {
       columns = {"year": "Year", "code": "Code", "name": "Name", 
         "rca": "RCA", "share": "Share", "value": "Value"}
       if(data.item_type == "country"){
-        columns = {"year": "Year", "name_3char": "Abbrv", "name": "Name", 
+        columns = {"year": "Year", "abbrv": "Abbrv", "name": "Name", 
           "rca": "RCA", "share": "Share", "value": "Value"}
       }
       // set attr_data for private funcitons to have access to
@@ -134,7 +134,7 @@ function Controls() {
   function tbody_tr(rows){
     d3.keys(columns).forEach(function(c){
       rows.append("td").text(function(d){
-        // console.log(d)
+        console.log(d)
         //var attr = attr_data[d.item_id]
         
         //if(!attr){
@@ -146,6 +146,8 @@ function Controls() {
         // console.log(d.share)
         if(c == "share"){
           // return d.share;
+          // console.log(d)
+          // return d3.format("%")(d["share"]);
           return d3.format(".2%")(d["value"] / this_years_sum);
         }
         //if(attr[c]){

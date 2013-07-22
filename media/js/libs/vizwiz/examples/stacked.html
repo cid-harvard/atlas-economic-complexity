@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="../src/vizwhiz.d3.css" rel="stylesheet" type="text/css">
+<style>
+
+body {
+  margin: 0px; padding:0;
+}
+
+/*div#viz {
+  margin: 0px 50px;
+}
+*/
+
+</style>
+<body>
+
+<div id="viz"></div>
+
+<script src="../lib/d3.js"></script>
+<script src="../lib/modernizr.custom.js"></script>
+<script src="../src/general.js"></script>
+<script src="../src/utils.js"></script>
+<script src="../src/tooltip.js"></script>
+<script src="../src/viz/viz.js"></script>
+<script src="../src/viz/stacked.js"></script>
+<script>
+
+  d3.json("data/attr_isic.json", function(raw_attrs){
+    d3.json("data/isic_mg.json", function(flat_data){
+      
+      var attrs = {}
+      raw_attrs.data.forEach(function(a){
+        attrs[a.id] = a
+      })
+
+      flat_data.data.forEach(function(d){
+        d.id = d.isic_id
+        d.nesting_0 = {"name":attrs[d.id.slice(0, 1)].name, "id":d.id.slice(0, 1)};
+        d.nesting_1 = {"name":attrs[d.id.slice(0, 3)].name, "id":d.id.slice(0, 3)};
+        d.nesting_2 = {"name":attrs[d.id.slice(0, 5)].name, "id":d.id.slice(0, 5)};
+        d.wage_avg = d.wage/d.num_emp
+      })
+      inner_html = function(obj) {
+        console.log(obj)
+        return "This is some test HTML"
+      }
+      //     
+      // viz = vizwhiz.viz()
+      //   .type("stacked")
+      //   .xaxis_var("year")
+      //   .attrs(attrs)
+      //   .value_var("val_usd")
+      //   .tooltip_info(["id", "val_usd", "complexity", "distance"])
+      //   .text_var("name")
+      //   .id_var("id")
+      //   .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
+      //   .nesting(["nesting_0","nesting_1","nesting_2"])
+      //   .depth("nesting_0")
+      //   // .text_format(function(d){return d.toUpperCase()})
+      //     
+      // d3.select("#viz")
+      //   .datum(flat_data.data)
+      //   .call(viz)
+        
+      viz = vizwhiz.viz()
+        .type("stacked")
+        .xaxis_var("year")
+        .attrs(attrs)
+        .value_var("wage")
+        .tooltip_info(["id", "wage", "num_emp", "wage_avg"])
+        .text_var("name")
+        .id_var("id")
+        .title("This is the Title of the Visualization")
+        // .sub_title("Cool Sub-title")
+        .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
+        .nesting(["nesting_0","nesting_1","nesting_2"])
+        .depth("nesting_0")
+        .click_function(inner_html)
+        // .layout("share")
+        // .labels(false)
+        // .year([2000,2003])
+        // .solo("50")
+        
+      d3.select("#viz")
+        .datum(flat_data.data)
+        .call(viz)
+    
+    })
+  })
+
+</script>

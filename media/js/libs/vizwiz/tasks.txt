@@ -1,0 +1,23 @@
+Outline of Tasks
+
+- List of tasks
+Updating the Tree Map Visualization
+
+Updating the Stacked Graph Vizualization
+
+Updating the Product Space (network) Vizualization
+
+Updating Django Model / Database to include new data fields
+ "Predictive" 
+  - Distance
+  - Complexity
+
+ "Magic numbers"
+  - Per Capita Constant
+  - Per Capita Current
+  - Constant
+
+
+
+- Identify what tasks you think you can get done before leaving
+- Outstanding issues

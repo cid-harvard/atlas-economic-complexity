@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="../src/vizwhiz.d3.css" rel="stylesheet" type="text/css">
+  <style>
+
+  body {
+    margin: 0px;
+  }
+
+  </style>
+</head>
+<body>
+
+<div id="viz"></div>
+
+<script src="../lib/d3.js"></script>
+<script src="../lib/d3.geo.tile.js"></script>
+<script src="../lib/topojson.js"></script>
+<script src="../lib/modernizr.custom.js"></script>
+<script src="../src/general.js"></script>
+<script src="../src/utils.js"></script>
+<script src="../src/tooltip.js"></script>
+<script src="../src/viz/viz.js"></script>
+<script src="../src/viz/geo_map.js"></script>
+<script>
+
+  d3.json("data/geo/mg_munic.json", function(shapes) {
+    d3.json("data/geo/land.json", function(land) {
+      d3.json("data/munic_a0112.json", function(geo_data) {
+        d3.json("data/attr_munic.json", function(attr) {
+          
+          var data = geo_data.data.filter(function(d,i){
+            d.id = d.bra_id
+            return d.id.substr(0,2) == "mg"
+          })
+          
+          data[0].year = 2009
+          
+          clicker = function(obj) {
+            return "Some HTML Content"
+          }
+          
+          viz = vizwhiz.viz()
+            .type("geo_map")
+            .coords(shapes)
+            .attrs(attr)
+            .map(land)
+            .tiles(false)
+            .id_var("id")
+            .value_var("wage")
+            .text_var("name")
+            .tooltip_info({"short": [],"long": ["wage", "id", "num_emp"]})
+            .click_function(clicker)
+            .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
+            // .highlight("ap000000")
+            .year(2010)
+            // .text_format(function(d){return d.toUpperCase()})
+            .number_format(function(d){return "$"+Math.round(d)+" USD"})
+          
+          d3.select("#viz")
+            .datum(data)
+            .call(viz);
+        
+        });
+      });
+    });
+  });
+  
+
+</script>
+</body>
+</html>
