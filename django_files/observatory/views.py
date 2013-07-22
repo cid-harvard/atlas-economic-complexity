@@ -420,6 +420,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       except Country.DoesNotExist:
         alert = {"title": "Country could not be found",
           "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='/about/data/country/'>list of countries</a>."%(country)}
+  
+  p_code = product
   if product != "show" and product != "all":
     p_code = product
     product = clean_product(p_code, prod_class)
@@ -513,6 +515,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "app_type": app_type,
     "redesign_api_uri": redesign_api_uri,
     "country_code": country_code,
+     "product_code": p_code,
     "item_type": item_type}, context_instance=RequestContext(request))
 
 '''<COUNTRY> / all / show / <YEAR>'''
