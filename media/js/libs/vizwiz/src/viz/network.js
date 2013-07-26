@@ -111,7 +111,7 @@ vizwhiz.network = function(vars) {
     if (last_highlight != vars.highlight) {
       
       // Remove all tooltips on page
-      vizwhiz.tooltip.remove()
+      vizwhiz.tooltip.remove(vars.type)
       d3.select("g.highlight").selectAll("*").remove()
       d3.select("g.hover").selectAll("*").remove()
       
@@ -175,54 +175,67 @@ vizwhiz.network = function(vars) {
         if (group == "highlight") {
           vars.zoom(c);
           
-          // Draw Info Panel
-          if (scale.x(highlight_extent.x[1]) > (vars.width-info_width-10)) {
-            var x_pos = 30
-          }
-          else {
-            var x_pos = vars.width-info_width-5
-          }
+          make_tooltip = function(html) {
+        
+            if (typeof html == "string") html = "<br>"+html
+
+            if (scale.x(highlight_extent.x[1]) > (vars.width-info_width-10)) {
+              var x_pos = 30
+            }
+            else {
+              var x_pos = vars.width-info_width-5
+            }
          
-          var prod = vars.nodes.filter(function(n){return n[vars.id_var] == vars.highlight})[0]
+            var prod = vars.nodes.filter(function(n){return n[vars.id_var] == vars.highlight})[0]
           
-          var tooltip_data = get_tooltip_data(vars.highlight)
+            var tooltip_data = get_tooltip_data(vars.highlight)
           
-          var tooltip_appends = "<div class='vizwhiz_network_title'>Primary Connections</div>"
+            var tooltip_appends = "<div class='vizwhiz_network_title'>Primary Connections</div>"
       
-          prim_nodes.forEach(function(n){
+            prim_nodes.forEach(function(n){
             
-            var parent = "d3.select(&quot;#"+vars.parent.node().id+"&quot;)"
+              var parent = "d3.select(&quot;#"+vars.parent.node().id+"&quot;)"
             
-            tooltip_appends += "<div class='vizwhiz_network_connection' onclick='"+parent+".call(chart.highlight(&quot;"+n[vars.id_var]+"&quot;))'>"
-            tooltip_appends += "<div class='vizwhiz_network_connection_node'"
-            tooltip_appends += " style='"
-            tooltip_appends += "background-color:"+fill_color(n)+";"
-            tooltip_appends += "border-color:"+stroke_color(n)+";"
-            tooltip_appends += "'"
-            tooltip_appends += "></div>"
-            tooltip_appends += "<div class='vizwhiz_network_connection_name'>"
-            tooltip_appends += find_variable(n[vars.id_var],vars.text_var)
-            tooltip_appends += "</div>"
-            tooltip_appends += "</div>"
-          })
+              tooltip_appends += "<div class='vizwhiz_network_connection' onclick='"+parent+".call(chart.highlight(&quot;"+n[vars.id_var]+"&quot;))'>"
+              tooltip_appends += "<div class='vizwhiz_network_connection_node'"
+              tooltip_appends += " style='"
+              tooltip_appends += "background-color:"+fill_color(n)+";"
+              tooltip_appends += "border-color:"+stroke_color(n)+";"
+              tooltip_appends += "'"
+              tooltip_appends += "></div>"
+              tooltip_appends += "<div class='vizwhiz_network_connection_name'>"
+              tooltip_appends += find_variable(n[vars.id_var],vars.text_var)
+              tooltip_appends += "</div>"
+              tooltip_appends += "</div>"
+            })
           
+            vizwhiz.tooltip.create({
+              "data": tooltip_data,
+              "title": find_variable(vars.highlight,vars.text_var),
+              "color": find_variable(vars.highlight,vars.color_var),
+              "icon": find_variable(vars.highlight,"icon"),
+              "x": x_pos,
+              "y": vars.margin.top+5,
+              "width": info_width,
+              "html": tooltip_appends+html,
+              "fixed": true,
+              "mouseevents": true,
+              "parent": vars.parent,
+              "background": vars.background,
+              "id": vars.type
+            })
+            
+          }
+          
+          var html = vars.click_function ? vars.click_function(vars.highlight) : ""
     
-          var html = vars.click_function ? "<br>"+vars.click_function(vars.data[vars.highlight]) : ""
-          
-          vizwhiz.tooltip.create({
-            "data": tooltip_data,
-            "title": find_variable(vars.highlight,vars.text_var),
-            "color": find_variable(vars.highlight,vars.color_var),
-            "icon": find_variable(vars.highlight,"icon"),
-            "x": x_pos,
-            "y": vars.margin.top+5,
-            "width": info_width,
-            "html": tooltip_appends+html,
-            "fixed": true,
-            "mouseevents": true,
-            "parent": vars.parent,
-            "background": vars.background
-          })
+          if (typeof html == "string") make_tooltip(html)
+          else {
+            d3.json(html.url,function(data){
+              html = html.callback(data)
+              make_tooltip(html)
+            })
+          }
           
         }
         
@@ -536,7 +549,14 @@ vizwhiz.network = function(vars) {
         var hidden = vars.spotlight && !active
         // Grey out nodes that are in the background or hidden by spotlight,
         // otherwise, use the active_color function
-        return (background_node || hidden) && !highlighted ? "#efefef" : fill_color(d);
+        if ((background_node || hidden) && !highlighted) {
+          return "#efefef"
+        }
+        else {
+          var active = find_variable(d[vars.id_var],vars.active_var)
+          if (active) this.parentNode.appendChild(this)
+          return fill_color(d)
+        }
         
       })
       .attr("stroke", function(d){
@@ -660,8 +680,8 @@ vizwhiz.network = function(vars) {
             .attr("fill",vizwhiz.utils.text_color(fill_color(d)))
             .attr("font-size",font_size+"px")
             .attr("text-anchor","middle")
-            .attr("font-family","Helvetica")
-            .attr("font-weight","bold")
+            .attr("font-family",vars.font)
+            .attr("font-weight",vars.font_weight)
             .each(function(e){
               var th = size < font_size+padding*2 ? font_size+padding*2 : size,
                   tw = ((font_size*5)/th)*(font_size*5)

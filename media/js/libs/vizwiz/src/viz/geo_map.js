@@ -113,7 +113,7 @@ vizwhiz.geo_map = function(vars) {
 
   vars.update = function() {
     
-    vizwhiz.tooltip.remove();
+    vizwhiz.tooltip.remove(vars.type);
     
     if (!vars.small && (hover || vars.highlight)) {
       
@@ -128,35 +128,53 @@ vizwhiz.geo_map = function(vars) {
         var color = "#888"
       }
       
+      make_tooltip = function(html) {
+        
+        if (typeof html == "string") html = "<br>"+html
+
+        vizwhiz.tooltip.create({
+          "data": tooltip_data,
+          "title": find_variable(id,vars.text_var),
+          "id": vars.type,
+          "icon": find_variable(id,"icon"),
+          "color": color,
+          "footer": footer,
+          "x": vars.width-info_width-5+vars.margin.left,
+          "y": vars.margin.top+5,
+          "fixed": true,
+          "width": info_width,
+          "html": html,
+          "parent": vars.parent,
+          "mouseevents": true,
+          "background": vars.background
+        })
+        
+      }
+      
       if (!data || !data[vars.value_var]) {
         var footer = vars.text_format("No Data Available")
+        make_tooltip(null)
       }
       else if (!vars.highlight) {
         var tooltip_data = get_tooltip_data(id,"short"),
-            footer = footer_text(),
-            html = null
+            footer = footer_text()
+        make_tooltip(null)
       }
       else {
         var tooltip_data = get_tooltip_data(id,"long"),
-            footer = vars.data_source,
-            html = vars.click_function ? vars.click_function(id) : null
+            footer = vars.data_source
+
+        var html = vars.click_function ? vars.click_function(id) : null
+
+        if (typeof html == "string") make_tooltip(html)
+        else if (html.url && html.callback) {
+          d3.json(html.url,function(data){
+            html = html.callback(data)
+            make_tooltip(html)
+          })
+        }
+            
       }
-      
-      vizwhiz.tooltip.create({
-        "data": tooltip_data,
-        "title": find_variable(id,vars.text_var),
-        "id": find_variable(id,vars.id_var),
-        "icon": find_variable(id,"icon"),
-        "color": color,
-        "footer": footer,
-        "x": vars.width-info_width-5+vars.margin.left,
-        "y": vars.margin.top+5,
-        "fixed": true,
-        "width": info_width,
-        "html": html,
-        "parent": vars.parent,
-        "background": vars.background
-      })
       
     }
     
@@ -361,7 +379,8 @@ vizwhiz.geo_map = function(vars) {
     .attr("text-anchor","middle")
     .attr("fill","#333")
     .attr("font-size","10px")
-    .attr("font-family","Helvetica")
+    .attr("font-family",vars.font)
+    .style("font-weight",vars.font_weight)
   
   scale.append("rect")
     .attr("id","scalecolor")
@@ -395,9 +414,9 @@ vizwhiz.geo_map = function(vars) {
       .attr("dy","1em")
       .attr("text-anchor","middle")
       .attr("fill","#333")
-      .style("font-weight","normal")
+      .attr("font-family",vars.font)
+      .style("font-weight",vars.font_weight)
       .attr("font-size","10px")
-      .attr("font-family","Helvetica")
   })
 
   if (!data_extent[0] || Object.keys(vars.data).length < 2 || vars.small) {

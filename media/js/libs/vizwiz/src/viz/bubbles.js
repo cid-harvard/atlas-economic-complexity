@@ -190,10 +190,10 @@ vizwhiz.bubbles = function(vars) {
       d3.select(this).append("text")
         .attr("opacity",0)
         .attr("text-anchor","middle")
-        .attr("font-weight","bold")
+        .attr("font-weight",vars.font_weight)
         .attr("font-size","12px")
-        .attr("font-family","Helvetica")
-        .attr("fill",d[vars.color_var])
+        .attr("font-family",vars.font)
+        .attr("fill",vizwhiz.utils.darker_color(d[vars.color_var]))
         .attr('x',0)
         .attr('y',function(dd) {
           return -(d.height/2)-title_height/4;
@@ -402,7 +402,7 @@ vizwhiz.bubbles = function(vars) {
       var tooltip_data = get_tooltip_data(d,"short")
       
       vizwhiz.tooltip.create({
-        "id": d[vars.id_var],
+        "id": vars.type,
         "color": find_variable(d[vars.id_var],vars.color_var),
         "icon": find_variable(d[vars.id_var],"icon"),
         "data": tooltip_data,
@@ -417,15 +417,15 @@ vizwhiz.bubbles = function(vars) {
       
     })
     .on(vizwhiz.evt.out, function(d){
-      vizwhiz.tooltip.remove(d[vars.id_var])
+      vizwhiz.tooltip.remove("bubbles")
     })
     .on(vizwhiz.evt.click, function(d){
-      
-      var html = vars.click_function ? vars.click_function(d) : null
-      if (html || vars.tooltip_info.long) {
 
-        var id = find_variable(d,vars.id_var)
-        vizwhiz.tooltip.remove(id)
+      var id = find_variable(d,vars.id_var)
+      var self = this
+      
+      make_tooltip = function(html) {
+        vizwhiz.tooltip.remove(vars.type)
         d3.selectAll(".axis_hover").remove()
         
         var tooltip_data = get_tooltip_data(d,"long")
@@ -434,16 +434,29 @@ vizwhiz.bubbles = function(vars) {
           "title": find_variable(d,vars.text_var),
           "color": find_variable(d,vars.color_var),
           "icon": find_variable(d,"icon"),
-          "id": id,
+          "id": vars.type,
           "fullscreen": true,
           "html": html,
           "footer": vars.data_source,
           "data": tooltip_data,
-          "mouseevents": this,
+          "mouseevents": self,
           "parent": vars.parent,
           "background": vars.background
         })
         
+      }
+      
+      var html = vars.click_function ? vars.click_function(id) : null
+      
+      if (typeof html == "string") make_tooltip(html)
+      else if (html && html.url && html.callback) {
+        d3.json(html.url,function(data){
+          html = html.callback(data)
+          make_tooltip(html)
+        })
+      }
+      else if (vars.tooltip_info.long) {
+        make_tooltip(html)
       }
       
     })

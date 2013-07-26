@@ -25,6 +25,8 @@ vizwhiz.viz = function() {
     "donut": true,
     "filter": [],
     "filtered_data": null,
+    "font": "sans-serif",
+    "font_weight": "lighter",
     "graph": {"timing": 0},
     "group_bgs": true,
     "grouping": "name",
@@ -76,6 +78,7 @@ vizwhiz.viz = function() {
     "sort": "total",
     "source_text": null,
     "spotlight": true,
+    "stack_type": "linear",
     "sub_title": null,
     "svg_height": window.innerHeight,
     "svg_width": window.innerWidth,
@@ -112,6 +115,8 @@ vizwhiz.viz = function() {
       nodes,
       links,
       removed_ids = [],
+      mirror_axis = false,
+      static_axis = true,
       xaxis_domain = null,
       yaxis_domain = null;
       
@@ -284,7 +289,7 @@ vizwhiz.viz = function() {
         vars.data = data_obj[data_type[vars.type]][vars.year];
       }
 
-      vizwhiz.tooltip.remove();
+      vizwhiz.tooltip.remove(vars.type);
       
       vars.svg = vars.parent.selectAll("svg").data([vars.data]);
       
@@ -344,20 +349,34 @@ vizwhiz.viz = function() {
       
       if (vars.type == "pie_scatter") {
         if (vars.dev) console.log("[viz-whiz] Setting Axes Domains")
-        if (xaxis_domain) vars.xaxis_domain = xaxis_domain
+        if (xaxis_domain instanceof Array) vars.xaxis_domain = xaxis_domain
+        else if (!static_axis) {
+          vars.xaxis_domain = d3.extent(data_obj[data_type[vars.type]][vars.depth][vars.spotlight][vars.year],function(d){
+            return d[vars.xaxis_var]
+          })
+        }
         else {
           vars.xaxis_domain = d3.extent(data_obj[data_type[vars.type]][vars.depth][vars.spotlight].all,function(d){
             return d[vars.xaxis_var]
           })
         }
-        if (yaxis_domain) vars.yaxis_domain = yaxis_domain
+        if (yaxis_domain instanceof Array) vars.yaxis_domain = yaxis_domain
+        else if (!static_axis) {
+          vars.yaxis_domain = d3.extent(data_obj[data_type[vars.type]][vars.depth][vars.spotlight][vars.year],function(d){
+            return d[vars.yaxis_var]
+          }).reverse()
+        }
         else {
           vars.yaxis_domain = d3.extent(data_obj[data_type[vars.type]][vars.depth][vars.spotlight].all,function(d){
             return d[vars.yaxis_var]
           }).reverse()
         }
+        if (mirror_axis) {
+          var domains = vars.yaxis_domain.concat(vars.xaxis_domain)
+          vars.xaxis_domain = d3.extent(domains)
+          vars.yaxis_domain = d3.extent(domains).reverse()
+        }
       }
-      
       // Calculate total_bar value
       if (!vars.total_bar || vars.type == "stacked") {
         var total_val = null
@@ -383,7 +402,11 @@ vizwhiz.viz = function() {
           })
         }
         else if (vars.type == "rings") {
-          var total_val = vars.data[vars.highlight][vars.value_var]
+          if (vars.data[vars.highlight])
+            var total_val = vars.data[vars.highlight][vars.value_var]
+          else {
+            var total_val = null
+          }
         }
         else {
           var total_val = d3.sum(d3.values(vars.data),function(d){
@@ -645,8 +668,8 @@ vizwhiz.viz = function() {
         .attr("font-size",font_size)
         .attr("fill","#333")
         .attr("text-anchor", "middle")
-        .attr("font-family", "Helvetica")
-        .style("font-weight", "normal")
+        .attr("font-family", vars.font)
+        .style("font-weight", vars.font_weight)
         .each(function(d){
           var width = vars.title_width ? vars.title_width : vars.svg_width
           width -= offset*2
@@ -733,7 +756,7 @@ vizwhiz.viz = function() {
     if (a.indexOf(vars.value_var) < 0) a.unshift(vars.value_var)
     if (["stacked","pie_scatter"].indexOf(vars.type) >= 0
          && a.indexOf(vars.xaxis_var) < 0) a.unshift(vars.xaxis_var)
-    if (["stacked"].indexOf(vars.type) >= 0
+    if (["stacked","pie_scatter"].indexOf(vars.type) >= 0
          && a.indexOf(vars.yaxis_var) < 0) a.unshift(vars.yaxis_var)
     
     var tooltip_data = []
@@ -943,6 +966,18 @@ vizwhiz.viz = function() {
     filter_change = true;
     return chart;
   };
+  
+  chart.font = function(x) {
+    if (!arguments.length) return vars.font;
+    vars.font = x;
+    return chart;
+  };
+  
+  chart.font_weight = function(x) {
+    if (!arguments.length) return vars.font_weight;
+    vars.font_weight = x;
+    return chart;
+  };
 
   chart.group_bgs = function(x) {
     if (!arguments.length) return vars.group_bgs;
@@ -1001,6 +1036,12 @@ vizwhiz.viz = function() {
       vars.map.style.land = style.land ? style.land : map.style.land;
       vars.map.style.water = style.water ? style.water : map.style.water;
     }
+    return chart;
+  };
+
+  chart.mirror_axis = function(x) {
+    if (!arguments.length) return mirror_axis;
+    mirror_axis = x;
     return chart;
   };
   
@@ -1089,6 +1130,18 @@ vizwhiz.viz = function() {
     if (typeof x == "boolean")  vars.spotlight = x;
     else if (x === "false") vars.spotlight = false;
     else vars.spotlight = true;
+    return chart;
+  };
+
+  chart.stack_type = function(x) {
+    if (!arguments.length) return vars.stack_type;
+    vars.stack_type = x;
+    return chart;
+  };
+
+  chart.static_axis = function(x) {
+    if (!arguments.length) return static_axis;
+    static_axis = x;
     return chart;
   };
   
@@ -1260,16 +1313,16 @@ vizwhiz.viz = function() {
   }
   
   var axis_style = {
-    "font-family": "Helvetica",
+    "font-family": vars.font,
     "font-size": "12px",
-    "font-weight": "normal",
+    "font-weight": vars.font_weight,
     "fill": "#888"
   }
   
   var label_style = {
-    "font-family": "Helvetica",
+    "font-family": vars.font,
     "font-size": "14px",
-    "font-weight": "normal",
+    "font-weight": vars.font_weight,
     "fill": "#333",
     "text-anchor": "middle"
   }
@@ -1404,14 +1457,6 @@ vizwhiz.viz = function() {
       .attr('y',0)
       .attr('width', vars.graph.width)
       .attr('height', vars.graph.height)
-      
-    vars.parent_enter.append("rect")
-      .attr("id", "border")
-      .attr("fill","none")
-      .attr('x', vars.graph.margin.left)
-      .attr('y', vars.graph.margin.top)
-      .attr('width', vars.graph.width)
-      .attr('height', vars.graph.height)
       .attr("stroke-width",1)
       .attr("stroke","#ccc")
       .attr("shape-rendering","crispEdges")
@@ -1469,12 +1514,6 @@ vizwhiz.viz = function() {
       .select("rect#background")
         .attr('width', vars.graph.width)
         .attr('height', vars.graph.height)
-      
-    d3.select("rect#border").transition().duration(vars.graph.timing)
-      .attr('x', vars.graph.margin.left)
-      .attr('y', vars.graph.margin.top)
-      .attr('width', vars.graph.width)
-      .attr('height', vars.graph.height)
 
     // Update X axis
     if (vars.type == "stacked") {

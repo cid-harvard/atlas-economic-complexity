@@ -50,8 +50,8 @@ vizwhiz.tree_map = function(vars) {
   cell_enter.append("text")
     .attr("opacity", 1)
     .attr("text-anchor","start")
-    .style("font-weight","bold")
-    .attr("font-family","Helvetica")
+    .style("font-weight",vars.font_weight)
+    .attr("font-family",vars.font)
     .attr('class','name')
     .attr('x','0.2em')
     .attr('y','0em')
@@ -66,8 +66,8 @@ vizwhiz.tree_map = function(vars) {
   cell_enter.append("text")
     .attr('class','share')
     .attr("text-anchor","middle")
-    .style("font-weight","bold")
-    .attr("font-family","Helvetica")
+    .style("font-weight",vars.font_weight)
+    .attr("font-family",vars.font)
     .attr("fill", function(d){
       var color = find_variable(d,vars.color_var)
       return vizwhiz.utils.text_color(color); 
@@ -117,8 +117,7 @@ vizwhiz.tree_map = function(vars) {
       
       d3.select("#cell_"+id).select("rect")
         .style("cursor","pointer")
-        .attr("stroke",vars.highlight_color)
-        .attr("stroke-width",2)
+        .attr("stroke-width",3)
 
       var tooltip_data = get_tooltip_data(d,"short")
       tooltip_data.push({"name": vars.text_format("share"), "value": d.share});
@@ -127,7 +126,7 @@ vizwhiz.tree_map = function(vars) {
         "title": find_variable(d,vars.text_var),
         "color": find_variable(d,vars.color_var),
         "icon": find_variable(d,"icon"),
-        "id": id,
+        "id": vars.type,
         "x": d3.event.pageX,
         "y": d3.event.pageY,
         "offset": 3,
@@ -143,25 +142,22 @@ vizwhiz.tree_map = function(vars) {
       var id = find_variable(d,vars.id_var)
       
       d3.select("#cell_"+id).select("rect")
-        .attr("stroke",vars.background)
         .attr("stroke-width",1)
       
-      vizwhiz.tooltip.remove(id)
+      vizwhiz.tooltip.remove(vars.type)
       
     })
     .on(vizwhiz.evt.click,function(d){
-      
-      var html = null
-      if (vars.click_function) html = vars.click_function(d)
-      if (html || vars.tooltip_info.long) {
         
-        var id = find_variable(d,vars.id_var)
+      var id = find_variable(d,vars.id_var)
+      var self = this
+      
+      make_tooltip = function(html) {
       
         d3.select("#cell_"+id).select("rect")
-          .attr("stroke",vars.background)
           .attr("stroke-width",1)
         
-        vizwhiz.tooltip.remove(id)
+        vizwhiz.tooltip.remove(vars.type)
         
         var tooltip_data = get_tooltip_data(d,"long")
         tooltip_data.push({"name": vars.text_format("share"), "value": d.share});
@@ -170,22 +166,34 @@ vizwhiz.tree_map = function(vars) {
           "title": find_variable(d,vars.text_var),
           "color": find_variable(d,vars.color_var),
           "icon": find_variable(d,"icon"),
-          "id": id,
+          "id": vars.type,
           "fullscreen": true,
           "html": html,
           "footer": vars.data_source,
           "data": tooltip_data,
-          "mouseevents": this,
+          "mouseevents": self,
           "parent": vars.parent,
           "background": vars.background
         })
         
       }
       
+      var html = vars.click_function ? vars.click_function(id) : null
+      
+      if (typeof html == "string") make_tooltip(html)
+      else if (html && html.url && html.callback) {
+        d3.json(html.url,function(data){
+          html = html.callback(data)
+          make_tooltip(html)
+        })
+      }
+      else if (vars.tooltip_info.long) {
+        make_tooltip(html)
+      }
+      
     })
     .on(vizwhiz.evt.move,function(d){
-      var id = find_variable(d,vars.id_var)
-      vizwhiz.tooltip.move(d3.event.pageX,d3.event.pageY,id)
+      vizwhiz.tooltip.move(d3.event.pageX,d3.event.pageY,vars.type)
     })
   
   cell.transition().duration(vizwhiz.timing)

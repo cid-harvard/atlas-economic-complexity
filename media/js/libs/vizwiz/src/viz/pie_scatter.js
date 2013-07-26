@@ -135,17 +135,17 @@ vizwhiz.pie_scatter = function(vars) {
   nodes
     .on(vizwhiz.evt.over, hover())
     .on(vizwhiz.evt.out, function(d){
-      var id = find_variable(d,vars.id_var)
-      vizwhiz.tooltip.remove(id)
+      vizwhiz.tooltip.remove(vars.type)
       d3.selectAll(".axis_hover").remove()
     })
     .on(vizwhiz.evt.click, function(d){
-      
-      var html = vars.click_function ? vars.click_function(d) : null
-      if (html || vars.tooltip_info.long) {
 
-        var id = find_variable(d,vars.id_var)
-        vizwhiz.tooltip.remove(id)
+      var id = find_variable(d,vars.id_var)
+      var self = this
+      
+      make_tooltip = function(html) {
+        
+        vizwhiz.tooltip.remove(vars.type)
         d3.selectAll(".axis_hover").remove()
         
         var tooltip_data = get_tooltip_data(d,"long")
@@ -161,16 +161,29 @@ vizwhiz.pie_scatter = function(vars) {
           "title": find_variable(d,vars.text_var),
           "color": find_variable(d,vars.color_var),
           "icon": find_variable(d,"icon"),
-          "id": id,
+          "id": vars.type,
           "fullscreen": true,
           "html": html,
           "footer": vars.data_source,
           "data": tooltip_data,
-          "mouseevents": this,
+          "mouseevents": self,
           "parent": vars.parent,
           "background": vars.background
         })
         
+      }
+      
+      var html = vars.click_function ? vars.click_function(id) : null
+      
+      if (typeof html == "string") make_tooltip(html)
+      else if (html && html.url && html.callback) {
+        d3.json(html.url,function(data){
+          html = html.callback(data)
+          make_tooltip(html)
+        })
+      }
+      else if (vars.tooltip_info.long) {
+        make_tooltip(html)
       }
       
     })
@@ -342,9 +355,9 @@ vizwhiz.pie_scatter = function(vars) {
           .attr("y", vars.graph.height)
           .attr("dy", 14)
           .attr("text-anchor","middle")
-          .style("font-weight","bold")
+          .style("font-weight",vars.font_weight)
           .attr("font-size","12px")
-          .attr("font-family","Helvetica")
+          .attr("font-family",vars.font)
           .attr("fill","#4c4c4c")
           .text(xtext)
       
@@ -369,9 +382,9 @@ vizwhiz.pie_scatter = function(vars) {
           .attr("y", y-10)
           .attr("dy", 14)
           .attr("text-anchor","middle")
-          .style("font-weight","bold")
+          .style("font-weight",vars.font_weight)
           .attr("font-size","12px")
-          .attr("font-family","Helvetica")
+          .attr("font-family",vars.font)
           .attr("fill","#4c4c4c")
           .text(ytext)
           
@@ -385,7 +398,7 @@ vizwhiz.pie_scatter = function(vars) {
         }
       
         vizwhiz.tooltip.create({
-          "id": d[vars.id_var],
+          "id": vars.type,
           "color": find_variable(d[vars.id_var],vars.color_var),
           "icon": find_variable(d[vars.id_var],"icon"),
           "data": tooltip_data,

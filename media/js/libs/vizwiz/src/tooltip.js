@@ -8,7 +8,7 @@ vizwhiz.tooltip.create = function(params) {
   params.max_width = params.max_width ? params.max_width : 386
   params.id = params.id ? params.id : "default"
   params.html = params.html ? params.html : null
-  params.size = params.fullscreen ? "large" : "small"
+  params.size = params.fullscreen || params.html ? "large" : "small"
   params.offset = params.offset ? params.offset : 0
   params.arrow_offset = params.arrow ? 8 : 0
   params.mouseevents = params.mouseevents ? params.mouseevents : false
@@ -87,13 +87,6 @@ vizwhiz.tooltip.create = function(params) {
   if (params.title || params.icon) {
     var header = body.append("div")
       .attr("class","vizwhiz_tooltip_header")
-      
-    if (params.id != "default") {
-      var title_id = header.append("div")
-        .attr("class","vizwhiz_tooltip_id")
-        .text(params.id)
-      title_width -= title_id.node().offsetWidth+6
-    }
   }
   
   if (params.fullscreen) {
@@ -116,7 +109,14 @@ vizwhiz.tooltip.create = function(params) {
     
     var newout = function() {
       var target = d3.event.toElement
-      if (!target || (!ischild(tooltip.node(),target) && target.className != "vizwhiz_tooltip_curtain")) {
+      if (target) {
+        var c = typeof target.className == "string" ? target.className : target.className.baseVal
+        var istooltip = c.indexOf("vizwhiz_tooltip") == 0
+      }
+      else {
+        var istooltip = false
+      }
+      if (!target || (!ischild(tooltip.node(),target) && !istooltip)) {
         oldout()
         d3.select(params.mouseevents).on(vizwhiz.evt.out,oldout)
       }
@@ -172,19 +172,26 @@ vizwhiz.tooltip.create = function(params) {
   
   if (params.data) {
       
+    var val_width = 0
+      
     params.data.forEach(function(d,i){
       var block = data_container.append("div")
         .attr("class","vizwhiz_tooltip_data_block")
-        .text(d.name)
+        
       if (d.highlight) {
         block
-          .style("font-weight","bold")
           .style("color",vizwhiz.utils.darker_color(params.color))
       }
       
       block.append("div")
+          .attr("class","vizwhiz_tooltip_data_name")
+          .text(d.name)
+      
+      var val = block.append("div")
           .attr("class","vizwhiz_tooltip_data_value")
           .text(d.value)
+      var w = parseFloat(val.style("width"),10)
+      if (w > val_width) val_width = w
           
       if (i != params.data.length-1) {
         data_container.append("div")
@@ -192,6 +199,9 @@ vizwhiz.tooltip.create = function(params) {
       }
           
     })
+    
+    data_container.selectAll(".vizwhiz_tooltip_data_name")
+      .style("padding-right",val_width+"px")
     
   }
     
@@ -229,7 +239,8 @@ vizwhiz.tooltip.create = function(params) {
   if (params.data || (!params.fullscreen && params.html)) {
     
     if (!params.fullscreen && params.html) {
-      var limit = params.fixed ? window.innerHeight-params.y-5 : window.innerHeight-10
+      var parent_height = params.parent.node().offsetHeight
+      var limit = params.fixed ? parent_height-params.y-5 : parent_height-10
       var h = params.height < limit ? params.height : limit
     }
     else {

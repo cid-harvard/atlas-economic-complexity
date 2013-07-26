@@ -45,23 +45,6 @@ body {
         console.log(obj)
         return "This is some test HTML"
       }
-      //     
-      // viz = vizwhiz.viz()
-      //   .type("stacked")
-      //   .xaxis_var("year")
-      //   .attrs(attrs)
-      //   .value_var("val_usd")
-      //   .tooltip_info(["id", "val_usd", "complexity", "distance"])
-      //   .text_var("name")
-      //   .id_var("id")
-      //   .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
-      //   .nesting(["nesting_0","nesting_1","nesting_2"])
-      //   .depth("nesting_0")
-      //   // .text_format(function(d){return d.toUpperCase()})
-      //     
-      // d3.select("#viz")
-      //   .datum(flat_data.data)
-      //   .call(viz)
         
       viz = vizwhiz.viz()
         .type("stacked")
@@ -76,11 +59,13 @@ body {
         .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
         .nesting(["nesting_0","nesting_1","nesting_2"])
         .depth("nesting_0")
+        .sort("color")
         .click_function(inner_html)
         // .layout("share")
         // .labels(false)
         // .year([2000,2003])
-        // .solo("50")
+        // .solo("i")
+        .stack_type("monotone")
         
       d3.select("#viz")
         .datum(flat_data.data)
