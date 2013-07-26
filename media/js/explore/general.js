@@ -1,7 +1,7 @@
 function build_app(api_uri, type_of_app, dimensions, embed){
   
   // show loading icon and clear current HTML container
-  d3.select("#dataviz").html("")
+  d3.select("#viz").html("")
   d3.select("#loader").style("display", "block");
   
   // get data from server
@@ -27,7 +27,7 @@ function build_app(api_uri, type_of_app, dimensions, embed){
 
     // call app function (depending on which is loaded with the page)
     // on the given selection(s)
-    d3.select("#dataviz")
+    d3.select("#viz")
       .style("height", dimensions[1]+"px")
       .datum(data)
       .call(app);
@@ -68,11 +68,13 @@ function clean_attr_data(attrs){
       name_property = attr["community__name"] ? "community__name" : "region__name",
       color_property = attr["community__color"] ? "community__color" : "region__color",
       text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
+      continent_property = attr["continent"] ? "continent" : "";
     attr["category_id"] = attr[id_property]; delete attr[id_property];
     attr["category_name"] = attr[name_property]; delete attr[name_property];
     attr["category_color"] = attr[color_property]; delete attr[color_property];
     attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
     attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
+    attr["category_continent"] = attr[continent_property]; delete attr[continent_property];
   })
 
   // turn flat attributes array into indexed object with ids
@@ -133,7 +135,7 @@ function make_mouseover(options){
     $("#mouseover").remove();
   }
   
-  var cont = $("<div id='mouseover'>").appendTo("#dataviz");
+  var cont = $("<div id='mouseover'>").appendTo("#viz");
   
   var cat = $("<div id='mouseover_cat'>").appendTo("#mouseover");
   cat.css("background", options.category_color)
@@ -152,12 +154,12 @@ function make_mouseover(options){
     })
   }
   
-  var left = d3.mouse(d3.select("#dataviz").node())[0];
+  var left = d3.mouse(d3.select("#viz").node())[0];
   left = (left + $("#mouseover").width()/2) > options.width ? options.width - $("#mouseover").width()/2 : left;
   left = (left - $("#mouseover").width()/2) < 0 ? $("#mouseover").width()/2 : left;
   
-  var top = d3.mouse(d3.select("#dataviz").node())[1] - $("#mouseover").height() - 40;
-  top = top < 0 ? d3.mouse(d3.select("#dataviz").node())[1] + 40 : top;
+  var top = d3.mouse(d3.select("#viz").node())[1] - $("#mouseover").height() - 40;
+  top = top < 0 ? d3.mouse(d3.select("#viz").node())[1] + 40 : top;
   
   cont.css({
     "left": left - ($("#mouseover").width()/2),

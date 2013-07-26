@@ -320,7 +320,6 @@ def app_redirect(request, app_name, trade_flow, filter, year):
 
 def explore(request, app_name, trade_flow, country1, country2, product, year="2011"):
   
-  # raise Exception(country1, country2, product, year)
   # Get URL query parameters
   was_redirected = request.GET.get("redirect", False)
   crawler = request.GET.get("_escaped_fragment_", False)
@@ -377,6 +376,13 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     year_interval = y[2]
     year2_list = year1_list
     year_interval_list = range(1, 11)
+    
+    if year_end not in years_available:
+      year_end = years_available[-1]
+    
+    if year_start not in years_available:
+      year_start = years_available[0]  
+    
     # year_interval = year[1] - year[0]
   else:
     year_start, year_end, year_interval = None, None, None
@@ -420,7 +426,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       except Country.DoesNotExist:
         alert = {"title": "Country could not be found",
           "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='/about/data/country/'>list of countries</a>."%(country)}
-  
+
   p_code = product
   if product != "show" and product != "all":
     p_code = product
@@ -469,7 +475,9 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       # trade_flow_list = ["export", "import"]
       if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
       if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
-      article = "to" if trade_flow == "export" else "from"
+      article = "to" if (trade_flow == "export" or trade_flow == "net_export") else "from"
+      if(trade_flow=="net_export" or trade_flow=="net_import"):
+        trade_flow = trade_flow.replace('_',' ')
       title = "What does %s %s %s %s?" % (countries[0].name, trade_flow, article, countries[1].name)
 
     # Bilateral Country / Show / Product / Year
@@ -477,7 +485,9 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
       if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
       item_type = "countries"    
-      article = "to" if trade_flow == "export" else "from"
+      article = "to" if (trade_flow == "export" or trade_flow == "net_export") else "from"
+      if(trade_flow=="net_export" or trade_flow=="net_import"):
+        trade_flow = trade_flow.replace('_',' ')
       title = "Where does %s %s %s %s?" % (countries[0].name, trade_flow, product.name_en, article)
   
   
@@ -487,7 +497,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       year_end = years_available[-1]
       request.session['swap'] = False
   # Return page without visualization data
-  
+
   return render_to_response("explore/index.html", {
     "warning": warning,
     "alert": alert,
@@ -515,7 +525,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "app_type": app_type,
     "redesign_api_uri": redesign_api_uri,
     "country_code": country_code,
-     "product_code": p_code,
+    "product_code": p_code,
     "item_type": item_type}, context_instance=RequestContext(request))
 
 '''<COUNTRY> / all / show / <YEAR>'''
@@ -611,8 +621,10 @@ def api_casy(request, trade_flow, country1, year):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
-  
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "community_id":r[4], "color":r[5], 
+               "community_name":r[6], "value":r[7], "rca":r[8], "distance":r[9], "opp_gain":r[10], "pci": r[11],
+               "share": (r[7] / total_val)*100, "code":r[2], "id":r[2]} for r in rows]
+      
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
       # SAVE key in cache.
@@ -703,7 +715,7 @@ def api_sapy(request, trade_flow, product, year):
   continent_list = list(Country.objects.all().distinct().values('continent'))
   continents = {}
   for i,k in enumerate(continent_list): 
-     continents[k['continent']] = i*1000
+     continents[k['continent']] = (1+i)*10
   
   """Define parameters for query"""
   year_where = "AND year = %s" % (year,) if crawler == "" else " "
@@ -741,7 +753,8 @@ def api_sapy(request, trade_flow, product, year):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
+             "id": r[1], "region_id":r[4],"continent":r[5]} for r in rows]
     
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
@@ -864,7 +877,8 @@ def api_csay(request, trade_flow, country1, year):
   
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
+             "id":r[1], "region_id":r[4], "continent":r[5]} for r in rows]
   
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
@@ -998,7 +1012,9 @@ def api_ccsy(request, trade_flow, country1, country2, year):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[7], "rca":r[5], 
+             "share": (r[7] / total_val)*100,
+             "community_id":r[4],"community_name":r[5],"color":r[6], "code":r[2], "id": r[2]} for r in rows]
   
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
@@ -1125,7 +1141,7 @@ def api_cspy(request, trade_flow, country1, product, year):
       """Add percentage value to return vals"""
       #rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100} for r in rows]
       rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
-               "region_id": r[4], "continent": r[5], "id":r[1]} for r in rows]
+             "region_id": r[4], "continent": r[5], "id":r[1]}  for r in rows]
                
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]] 
