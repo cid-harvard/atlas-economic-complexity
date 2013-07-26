@@ -188,7 +188,7 @@
             </ul>
           </div>
           <div>
-            <h3><a href="#">Predictive Tools</a></h3>
+            <h3><a href="#">Diversification Options</a></h3>
             <ul>
               <li><a class="casy" href="/explore/pie_scatter/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2011/">Pie Scatter Chart</a></li>
               <li><a class="disabled" href="#">Density Bars</a></li>
@@ -231,7 +231,7 @@
           <div class="ui_bottom" id="ui_bottom" style="bottom:0px">
           </div>
           {% if app_name == "stacked" %}  
-          <div id="stacked_controls" style="width:75%">
+          <div id="stacked_controls" style="width:70%">
             <!-- <div>
               <p>Year Interval: </p>
               <div class="slider" id="interval"></div>
@@ -430,6 +430,7 @@
           </select>
         </div>
         {% if app_name != "product_space" %}
+        {% if app_name != "map" %}
         <div class="nesting" style="float:right;">
           <span class="">Detail:</span>
           <select id="nesting_level" name="nesting" onchange="nest_drop_report(this.value)"> 
@@ -443,6 +444,7 @@
             <option value="nesting_2">Hi</option>
           </select>
         </div>  
+        {% endif %}
         {% endif %}
       </div>
       
@@ -575,7 +577,7 @@
 		redesign_api_uri = "{{redesign_api_uri}}",
     year_start = "{{year_start}}",
     year_end = "{{year_end}}",
-    product_code = "{{product_code}}"
+    product_code = "{{product_code}}",
     prod_class = "{{prod_class}}";
   
   // Use chosen plugin to make dropdowns look fancy
