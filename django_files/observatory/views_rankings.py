@@ -77,7 +77,7 @@ def get_rankings(category, year):
   rankings_list = []
   
   if category == "country":
-    year_rankings = Cy.objects.filter(year__in=[year, year-1]).values_list("eci_rank", "country__name_3char", "country__name_en", "eci", "year")
+    year_rankings = Cy.objects.filter(year__in=[year, year-1],eci_rank__isnull=False).values_list("eci_rank", "country__name_3char", "country__name_en", "eci", "year")
   elif category == "product":
     year_rankings = Sitc4_py.objects.filter(year__in=[year, year-1]).values_list("pci_rank", "product__code", "product__name_en", "pci", "year")
   
