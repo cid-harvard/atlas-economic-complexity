@@ -1,15 +1,27 @@
 #from django.conf.urls import patterns, include, url
 #from django.conf.urls import patterns, url
 from django.conf.urls.defaults import *
-# from django.views.generic.simple import redirect_to
-from django.views.generic import RedirectView
+#from django.views.generic.simple import redirect_to
 from django.conf.urls import patterns, include
+from django.views.generic import TemplateView, RedirectView
+
+class TextPlainView(TemplateView):
+  def render_to_response(self, context, **kwargs):
+    return super(TextPlainView, self).render_to_response(
+      context, content_type='text/plain', **kwargs)
+
 
 urlpatterns = patterns('',
   
+  ## Exploring new patterns
+  #(r'^redesign/', include('redesign.urls')),
+#  (r'^usa/', include('usa.urls')),
+#  (r'^redesign/', include('redesign.urls')), 
   ####                       
   ## Revisiting old patterns 
   ####                    
+  
+#  (r'^new_ps/', 'observatory.views.new_ps'),
   # internationalization ######################################################
   (r'^i18n/', include('django.conf.urls.i18n')),
   (r'^set_language/(?P<lang>[a-z-]{2,5})/$', 'observatory.views.set_language'),
@@ -24,7 +36,7 @@ urlpatterns = patterns('',
   # about section ###########################################################
   (r'^about/$', 'observatory.views.about'),
   (r'^about/team/$', "observatory.views.team"),
-  (r'^about/data/$', RedirectView.as_view(url='/about/data/sitc4/')),#redirect_to, {'url': '/about/data/sitc4/'}),
+  (r'^about/data/$', RedirectView.as_view(url='/about/data/sitc4/')), 
   (r'^about/data/(?P<data_type>\w+)/$', "observatory.views.about_data"),
   (r'^about/permissions/$', "observatory.views.permissions"),
   # blog
@@ -44,7 +56,7 @@ urlpatterns = patterns('',
   (r'^app/(?P<app_name>[a-z0-9_]+)/(?P<trade_flow>\w{6,10})/(?P<filter>[a-z0-9\.]+)/(?P<year>[0-9\.]+)/$', 'observatory.views.app_redirect'),
   
   # New app URL structure
-  (r'^explore/$', RedirectView.as_view(url='/explore/tree_map/export/usa/all/show/2011/')),#redirect_to, {'url': '/explore/tree_map/export/usa/all/show/2010/'}),
+  (r'^explore/$', RedirectView.as_view(url='/explore/tree_map/export/usa/all/show/2011/')), 
   (r'^explore/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/(?P<year>[0-9\.]+)/$', 'observatory.views.explore'),
   (r'^explore/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/$', 'observatory.views.explore'),
   
@@ -86,4 +98,9 @@ urlpatterns = patterns('',
   (r'^exhibit/country_selection/$', 'observatory.views_exhibit.country_selection'),
   (r'^exhibit/product_selection/$', 'observatory.views_exhibit.product_selection'),
   (r'^exhibit/year_selection/$', 'observatory.views_exhibit.year_selection'),
+
+  # ROBOTS.TXT AND FAVICO ########################################
+  url(r'^robots\.txt$', TextPlainView.as_view(template_name='robots.txt')),
+  url(r'^favicon\.ico$', RedirectView.as_view(url='/media/img/favicon.ico')),
+
 )
