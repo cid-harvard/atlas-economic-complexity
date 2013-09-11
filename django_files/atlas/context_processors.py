@@ -25,3 +25,9 @@ def supported_langs(request):
 		(get_language_info('ko'), 'kor'),
 	)
 	return {'supported_langs': supported_langs}
+
+from django.conf import settings 
+
+def settings_view(request):
+    # return the value you want as a dictionnary. you may add multiple values in there.
+    return {'HTTP_HOST': settings.HTTP_HOST}

@@ -40,6 +40,7 @@
 #        'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
 #    }, 
 #}
+HTTP_HOST = 'http://localhost:8000/'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -56,6 +57,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
   "django.core.context_processors.static",
   "django.contrib.messages.context_processors.messages",
   "atlas.context_processors.supported_langs",
+  "atlas.context_processors.settings_view",  
 )
 USE_L10N = True
 USE_TZ = True
@@ -95,6 +97,8 @@ INSTALLED_APPS = (
   'observatory',
   'blog'
 )
+
+
 
 
 REDIS = True
