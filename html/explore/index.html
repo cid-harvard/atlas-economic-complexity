@@ -62,9 +62,13 @@
   {% endif %}
   <div id="container">
     <header>
-      <div class="logo">
-        <h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
+      <div class="logo" style="background-color: #fafafa; width:200px; height:66px;">
+        <a href="/" title="Home" style="text-decoration: none;"><h1 style="font-size:35px; text-decoration: none; background: url(/media/img/all/logo_rainbow.png) repeat-x 100% 100%; padding-bottom: 3px; white-space: nowrap;">The Observatory</h1>
+        <h2 style="font-size:14px; margin-top:-3px; text-align:center; letter-spacing:1px; color:gray; text-transform:uppercase; text-decoration:none;">Of Economic Complexity</h2></a>
       </div>
+      <!-- <div class="logo">
+        <h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
+      </div>-->
       <nav>
         <ul>
           <li><a href="/explore">Explore</a></li>
@@ -292,7 +296,7 @@
         <!-- Trade Flow -->
         {% if app_name != "pie_scatter" %}
         <div class="dropdown_container" id="trade_flow">
-          <h3>{% trans "Trade Flow" %}</h3>
+          <h3 class="definition">{% trans "Trade Flow" %}</h3>
           <select data-url_pos="5">
             {% for tf in trade_flow_list %}
             {% if tf.0 == trade_flow %}
@@ -423,7 +427,7 @@
           <input type="text" class="embed_code" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/embed/tree_map/import/usa/show/all/2011/" frameborder="0" &gt;&lt;/iframe&gt;'></input>
         </div>
         <div class="product_class" style="float:right;">
-          <span>Product classification:</span>
+          <span class="definition">Product classification:</span>
           <select>
             <option value="sitc4" {% if prod_class == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
             <option value="hs4" {% if prod_class == "hs4" %} selected="selected" {% endif %}>HS4</option>
@@ -549,6 +553,25 @@
   {% if app_name == "product_space" %}<script src="/media/js/libs/vizwiz/src/viz/network.js"></script>{% endif %}
   {% if app_name == "map" %}<script src="/media/js/apps/map.js"></script>{% endif %}
   <script src="/media/js/explore/viz_general.js"></script> 
+
+  <!-- Glossary -->
+  <div id="glossary" style="display:none;">
+    {% include "about/glossary_text.html" %}
+  </div>
+
+  <script>
+    $("#glossary h4").each(function(index) {
+        var word = $(this).text();
+        var definition = $("#glossary").find("p")[index].innerHTML;
+
+        $(".definition").each(function () {
+          // Update all instances of that word in the content page with mouse over def.
+          var html = $(this).html();
+          html = html.replace(new RegExp(word, 'g'), '<font class="definition" title="'+definition+'">'+word+'</font>');
+          $(this).html(html);
+        });
+    });
+  </script> 
 
   <script>
   // google analytics

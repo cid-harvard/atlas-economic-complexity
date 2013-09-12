@@ -80,6 +80,15 @@ button:active {
   background:-moz-linear-gradient(0% 90% 90deg, #888, #999);
 }
 
+font.definition {
+  transition: 0s border-bottom;
+}
+
+font.definition:hover{
+  text-decoration:none;
+  border-bottom:1px dotted gray;    
+  transition-delay:0.5s;
+}
 
 /*
  * Page container

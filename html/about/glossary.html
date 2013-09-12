@@ -1,0 +1,35 @@
+{% extends "template.html" %}
+
+{% block page_title %}About - Glossary{% endblock %}
+{% block heading_title %}Glossary {% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+<!-- the left pane -->
+<div id="sidebar">
+  <nav role="navigation">
+  	<ul>
+  		<li><a href="/about/">About</a></li>
+  		<li><a href="/about/data/">Data</a></li>
+  		<li><a href="/about/team/">Team</a></li>
+  		<li><a href="/about/blog/">Development Blog</a></li>
+      <li><a href="/about/permissions/">Permissions</a></li>
+  		<li><a href="/about/glossary/" class="active">Glossary</a></li>
+  	</ul>
+  </nav>
+</div>
+
+<div id="content">
+  <h3>Glossary</h3>
+
+  {% include "about/glossary_text.html" %}
+  
+</div> <!-- END #content div -->
+{% endblock %}
+
+{% block js %}
+<script>
+
+</script>
+{% endblock %}
