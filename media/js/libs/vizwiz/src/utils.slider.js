@@ -59,7 +59,7 @@ function Slider() {
         .on(vizwhiz.evt.click, function(){
           if (!playing) {
             playing = true;
-            d3.select("#play_button i").attr("class","icon-pause")
+            d3.select("#play_button i").attr("class","glyphicon glyphicon-pause")
             // d3.select("#play_button").text("||")
             if (handles[0].index == data.length-1) var i = 0;
             else var i = handles[0].index+1;
@@ -70,7 +70,7 @@ function Slider() {
                 set_slider(i);
                 i++;
                 if (i == data.length) {
-                  d3.select("#play_button i").attr("class","icon-play")
+                  d3.select("#play_button i").attr("class","glyphicon glyphicon-play")
                   // d3.select("#play_button").text(">")
                   clearInterval(play_function);
                 }
@@ -80,12 +80,12 @@ function Slider() {
           } else {
             clearInterval(play_function);
             playing = false;
-            d3.select("#play_button i").attr("class","icon-play");
+            d3.select("#play_button i").attr("class","glyphicon glyphicon-play");
             // d3.select("#play_button").text(">")
           }
           
         })
-        .append("i").attr("class","icon-play")
+        .append("i").attr("class","glyphicon glyphicon-play")
       /////
       // Create the tickmarks for the slider
       ////
