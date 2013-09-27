@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 
 {% block page_title %}About - Glossary{% endblock %}
-{% block heading_title %}Glossary {% endblock %}
+
 
 {% block css %}{% endblock %}
 
@@ -9,19 +9,22 @@
 <!-- the left pane -->
 <div id="sidebar">
   <nav role="navigation">
-  	<ul>
-  		<li><a href="/about/">About</a></li>
-  		<li><a href="/about/data/">Data</a></li>
-  		<li><a href="/about/team/">Team</a></li>
-  		<li><a href="/about/blog/">Development Blog</a></li>
+    <ul>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/about/support/">Support & Founding Members</a></li>
+      <li><a href="/about/research/">Research</a></li>
+      <li><a href="/about/glossary/" class="active">Glossary</a></li>
+      <li><a href="/about/team/">The Team</a></li>
+      <li><a href="/about/data/">Data</a></li>
       <li><a href="/about/permissions/">Permissions</a></li>
-  		<li><a href="/about/glossary/" class="active">Glossary</a></li>
-  	</ul>
+      <li><a href="/about/press/">Press</a></li>
+    </ul>
   </nav>
 </div>
 
 <div id="content">
-  <h3>Glossary</h3>
+<div class="app_title" id="title"><h2>Glossary</h2></div>
+<br><br><br><br>
 
   {% include "about/glossary_text.html" %}
   
