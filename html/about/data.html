@@ -1,7 +1,6 @@
 {% extends "template.html" %}
 
 {% block page_title %}{{title}}{% endblock %}
-{% block heading_title %}{{title}}{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="/media/js/libs/bootstrap/bootstrap.css">
@@ -16,25 +15,59 @@ table {
 <!-- the left pane -->
 <div id="sidebar">
   <nav role="navigation">
-  	<ul>
-  		<li><a href="/about/">About</a></li>
-  		<li>
-  			<a href="/about/data/" class="active">Data</a>
-  			<ul>
-  				<li><a href="/about/data/sitc4/">SITC4</a></li>
-  				<li><a href="/about/data/hs4/">HS4</a></li>
-  				<li><a href="/about/data/country/">Country</a></li>
-  			</ul>
-  		</li>
-  		<li><a href="/about/team/">Team</a></li>
-  		<li><a href="/about/blog/">Development Blog</a></li>
-  		<li><a href="/about/permissions/">Permissions</a></li>
+    <ul>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/about/support/">Support & Founding Members</a></li>
+      <li><a href="/about/research/">Research</a></li>
       <li><a href="/about/glossary/">Glossary</a></li>
-  	</ul>
+      <li><a href="/about/team/">The Team</a></li>
+      <li><a href="/about/data/"class="active">Data & Sharing</a>
+        <ul>
+          <li><a href="/about/data/#notes">Notes</a></li>
+          <li><a href="/about/data/embed/">Embed</a></li>
+        </ul>
+      <!--
+        <ul>
+          <li><a href="/about/data/sitc4/">SITC4</a></li>
+          <li><a href="/about/data/hs4/">HS4</a></li>
+          <li><a href="/about/data/country/">Country</a></li>
+        </ul>
+        -->
+      </li>
+      <li><a href="/about/permissions/">Permissions</a></li>
+      <li><a href="/about/press/">Press</a></li>
+    </ul>
   </nav>
 </div>
 
 <div id="content">
+
+<div class="app_title" id="title"><h2>Data</h2></div>
+<br><br><br><br>
+
+
+<p>The Observatory provides access to bilateral trade data for roughly 200 countries, 50 years and 1000 different products of the Standardized International Trade Code at the four-digit level (SITC-4) revision 2 classification. The sources of the data used are:</p>
+
+<ul>
+  <li>1962 – 2000: The Center for International Data from Robert Feenstra</li>
+  <li>2001 – 2009: UN COMTRADE</li>
+  <li>2010 – 2011: ??</li>
+</ul>
+
+<h3>Notes</h3>
+
+
+<p>There are a few inhibitors to our own measurements: 
+
+<p>The Atlas relies on international trade data. We made this choice because it is the only dataset available that has rich detailed cross-country information linking countries to the products they produce using a standardized classification. It includes data on exports, but not production.</p>
+
+<p>Secondly, this dataset only includes goods, and not services. The latter does not flow through customs offices that are the source of our statistical records.</p>
+
+<p>Finally, we do not include information on non-tradable activities such as construction or restaurants. Producers and consumers meet in the same place for such activities, and while these interactions are an important part of the economic ecosystem, these factors are not represented by current data.</p>
+
+
+<!--
+
   <table class="table table-bordered table-condensed table-striped">
   	<thead>
   		<tr>
@@ -55,6 +88,8 @@ table {
   		{% endfor %}
   	</tbody>
   </table>
+-->
+
 </div> <!-- END #content div -->
 {% endblock %}
 
