@@ -94,6 +94,7 @@ INSTALLED_APPS = (
   'django.contrib.messages',
   'django.contrib.staticfiles',
   'django.contrib.humanize',
+  'django.contrib.sitemaps',
   'observatory',
   'blog'
 )
