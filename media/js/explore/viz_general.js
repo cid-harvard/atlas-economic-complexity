@@ -334,6 +334,20 @@
   
   set_year = function(arg)
   {
+
+    console.log("dragging slider", "viz_general.js", arg)
+    var treemap_title = d3.select('#text_title').text();
+    treemap_title = treemap_title.replace(viz.year(), arg);
+    d3.select('#text_title').text(treemap_title);
+    
+    // TODO: Check if IE compliant
+    window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
+
+  // TODO
+  // In which particular case are we?
+  // 
+   // What does %s %s?" % (countries[0].name, trade_flow.replace("_", " "), year)
+
     d3.select('#viz').call(viz.year(arg))
     // Set the controls to this year as well
     d3.select("#tool_pane").call(controls.year(arg)); 
@@ -609,20 +623,18 @@
       .attrs(attr)
       .text_var("name")
       .value_var("value")
-      .tooltip_info({"short":["value","distance", "complexity","year"]})
+      //.tooltip_info({"short":["value","distance", "complexity","year"]})
       .name_array(["name"])
       .total_bar({"prefix": "", "suffix": " USD"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
       .nesting_aggs({"distance":"mean","complexity":"mean"})
-      .depth("nesting_2")
+      .depth("nesting_1")
       .text_format(txt_format)
       .number_format(num_format)
       .font('PT Sans Narrow')
       .year(year)
       .data_source("Data provided by: ",prod_class)
 
- 
-    
     d3.select("#loader").style("display", "none");
     
     if(item_type=="country"){
@@ -1134,7 +1146,7 @@
     // initialize the app (build it for the first time)
     app = App()
       .width(width)
-      .height(440)
+      .height(520)
       .year(year)
 
     d3.select("#loader").style("display", "none");
@@ -1228,7 +1240,7 @@
                   .callback('set_stack_year')
                   .initial_value([parseInt(year_start),parseInt(year_end)])
                   //[parseInt(years_available[0]),parseInt(years_available.slice(-1)[0])])
-                  .max_width(540)
+                  .max_width(750)
                   .title("")
                 d3.select("#ui_bottom").append("div")
                   .attr("class","slider")
@@ -1245,7 +1257,7 @@
         timeline = Slider()
           .callback('set_year')
           .initial_value(parseInt(year))
-          .max_width(540)
+          .max_width(750)
           .title("")
         d3.select("#ui_bottom").append("div")
           .attr("class","slider")
@@ -1269,7 +1281,7 @@
         timeline = Slider()
                   .callback('set_scatter_year')
                   .initial_value(parseInt(year))
-                  .max_width(540)
+                  .max_width(750)
                   .title("")
                 d3.select("#ui_bottom").append("div")
                   .attr("class","slider")
@@ -1286,7 +1298,7 @@
         timeline = Slider()
           .callback('set_year')
           .initial_value(parseInt(year))
-          .max_width(540)
+          .max_width(750)
           .title("")
         d3.select("#ui_bottom").append("div")
           .attr("class","slider")
@@ -1302,7 +1314,7 @@
         timeline = Slider()
           .callback('set_map_year')
           .initial_value(parseInt(year))
-          .max_width(540)
+          .max_width(750)
           .title("")
         d3.select("#ui_bottom").append("div")
           .attr("class","slider")

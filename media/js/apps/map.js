@@ -1,6 +1,6 @@
 function App() {
   var width = 950, // default width
-    height = 500, // default height
+    height = 400, // default height
     margin = {top: 0, right: 0, bottom: 0, left: 0},
     highlight = null,
     layout = "value",
@@ -39,9 +39,9 @@ function App() {
       
       // Otherwise, create the basic structure for the app.
       var svg_enter = svg.enter().append("svg")
-        .attr("width",width)
-        .attr("height",440)
-      d3.select("svg").node().parentNode.style.height = "440px";
+        .attr("width",750)
+        .attr("height",520)
+      d3.select("svg").node().parentNode.style.height = "520px";
       
       // If it's the first time the app is being built, add this group element
       var viz_enter = svg_enter.append("g").attr("class", "viz")
@@ -56,12 +56,12 @@ function App() {
       //////////////////////////////////////////////////
       // Draw countries
       var map_projection = d3.geo.mercator()
-        .scale(100)
-        .translate([320, 220]);  
+        .scale(120)
+        .translate([370, 300]);  
 
       var value_range = get_range(current_years_data, 5);
       var value_range_big = get_range(current_years_data, 10);
-      var value_color = d3.scale.log()
+      var value_color = d3.scale.linear() // log
         .domain(value_range)
         .interpolate(d3.interpolateRgb)
         .range([color_gradient[0], color_gradient[1], color_gradient[2], color_gradient[3], color_gradient[4], color_gradient[5]])  
@@ -84,7 +84,7 @@ function App() {
         .enter().append("rect")
         .attr("class", "ticks")
         .attr("x", function(d, i) { return Math.round((50*Math.pow((590/50),i/10)))})
-        .attr("y", 0)
+        .attr("y", 100)
         .attr("width", 2)
         .attr("height", 10)
         .style("fill", "#fff");
@@ -93,7 +93,7 @@ function App() {
         .data(value_range_big)
         .enter().append("text")
         .attr("x", function(d, i) { return Math.round((50*Math.pow((590/50),i/10)))})
-        .attr("y", 12)
+        .attr("y", 120)
         .attr("dy", 12)
         .attr("text-anchor", "middle")
       
@@ -147,14 +147,13 @@ function App() {
     }
     
     rect.attr({
-        "x": 50, "y": 0,
-        "width": 540, "height": 10
+        "x": 50, "y": 100,
+        "width": 640, "height": 10
       })
       .style("fill", "url(#gradient)");
   }
   
   function mouseover(d){
-    console.log(d)
     if(!attr_data[d.properties.item_id]){ return }
     make_mouseover({
       "width": width,

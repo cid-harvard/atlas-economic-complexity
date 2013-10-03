@@ -79,7 +79,6 @@ function App() {
       d3.selectAll("tspan").remove()
       cell_enter.append("rect")
       cell_enter.append("text")
-
       /////////////////////////////////////////////////
       // Update
       //////////////////////////////////////////////////

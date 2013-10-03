@@ -4,7 +4,7 @@
 body {
   font-family: 'PT Sans Narrow', sans-serif, 'Arial';
   font-size: 14px;
-  background: #fafafa url('/media/img/all/containers.png') bottom right no-repeat;
+  background: #fafafa ; /* url('/media/img/all/containers.png') bottom right no-repeat */
   color: #343434;
   margin: 0;
   padding: 0;
@@ -97,7 +97,7 @@ font.definition:hover{
   margin: 0 auto;
   width: 960px;
   margin: 0 auto;
-  width: 1020px;
+  width: 1060px;
 }
 
 /*
@@ -144,7 +144,7 @@ header .logo {
 }
 header nav {
   float: right;
-  width: 448px;
+  width: 418px;
   text-align: center;
 }
 header nav ul {
@@ -152,7 +152,7 @@ header nav ul {
   border: solid 1px #ccc;
   float: right;
   display: inline;
-  height: 26px;
+  height: 46px;
   margin: -2px 0px 0px 0px;
   padding: 11px 0px 10px 0px;
   
@@ -163,14 +163,14 @@ header nav ul {
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-header nav ul li{
+header nav ul li {
   display: inline;
   margin: 0;
 }
 header nav ul li a{
   color: grey;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
-  font-size: 18px;
+  font-size: 20px;
   line-height: 25px;
   padding: 2px 15px 2px 15px;
   text-decoration: none;
@@ -203,8 +203,14 @@ header .language_select .chzn-container{
 }
 header h1 {
   font-size: 12px;
-  font-weight: 400;
   margin: 0;
+  font-size:35px; 
+  text-decoration: none; 
+  background: url(/media/img/all/logo_rainbow.png) repeat-x 100% 100%; 
+  padding-bottom: 3px; 
+  white-space: nowrap; 
+  text-transform: uppercase; 
+  font-weight:500;
 }
 header h1 a img {
   margin: -5px 0px 0px 0px;
@@ -232,7 +238,8 @@ header h1 a img {
   height: 50px;
 }
 .app_title h2 {
-  font-family: 'Cardo', serif, 'Times';
+ /*  font-family: 'Cardo', serif, 'Times'; */
+  font-family:'PT Sans Narrow',Helvetica,Arial;
   font-size: 30px;
   font-weight: normal;
   line-height: 36px;
@@ -351,7 +358,7 @@ header h1 a img {
   margin-left: 0px;
   padding-bottom: 0px;
   min-height: 440px;
-  width: 185px;
+  width: 195px;
   z-index: 1;
 }
 .app #main #app_pane > *{
@@ -430,7 +437,7 @@ text-decoration: none;
   font-size:90%;
   float: left;
   z-index: 0;
-  width:185px;
+  width:165px;
 }
 .app #main #tool_pane > *{
   padding: 0 10px;
@@ -565,7 +572,6 @@ text-decoration: none;
   padding: 10px !important;
 }
 
-
 /*
  * Center of the page, app canvas
  */  
@@ -576,7 +582,7 @@ text-decoration: none;
   float: left;
   overflow: hidden;
   padding: 0 !important;
-  width: 640px;
+  width: 850px;
   z-index: 10;
 }
 
@@ -717,7 +723,7 @@ text-decoration: none;
   clear: both;
   display: block;
   height: 0;
-  width: 640px;
+  width: 850px;
   text-align: center;
   position: relative;
   top: 150px;
@@ -1105,3 +1111,4 @@ dl.file_list p {
   position: absolute;
   top: 0;
 }
+

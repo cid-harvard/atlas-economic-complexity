@@ -44,7 +44,7 @@ function Controls() {
       d3.selectAll("#download a").on("click", download)
       
       // Build new app when button is clicked
-      d3.select("button#build").on("click", new_app)
+      d3.selectAll("button#build").on("click", new_app)
       
       // Actions for selecting the embed link
       d3.select("#tool_pane .embed_code").on("click", embed_link_click)
