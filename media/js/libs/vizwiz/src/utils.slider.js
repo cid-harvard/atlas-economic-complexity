@@ -15,7 +15,7 @@ function Slider() {
           current_hand = 0,
           // handles = [],
           parent = this,
-          tick_size = 3 * d3.max(data,function(d){ return d.toString().length }) + 20,
+          tick_size = 4 * d3.max(data,function(d){ return d.toString().length }) + 20, // NEW 4 instead of 3
           width = (tick_size*(data.length)+1),
           height = 23,
           playing = false,

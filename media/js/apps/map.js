@@ -61,7 +61,7 @@ function App() {
 
       var value_range = get_range(current_years_data, 5);
       var value_range_big = get_range(current_years_data, 10);
-      var value_color = d3.scale.linear() // log
+      var value_color = d3.scale.log() // log
         .domain(value_range)
         .interpolate(d3.interpolateRgb)
         .range([color_gradient[0], color_gradient[1], color_gradient[2], color_gradient[3], color_gradient[4], color_gradient[5]])  

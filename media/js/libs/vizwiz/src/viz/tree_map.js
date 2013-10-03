@@ -3,7 +3,7 @@ vizwhiz.tree_map = function(vars) {
   // Ok, to get started, lets run our heirarchically nested
   // data object through the d3 treemap function to get a
   // flat array of data with X, Y, width and height vars
-  var tmap_data = d3.layout.treemap()
+  var tmap_data = d3.layout.treemap().sticky(true)
     .round(false)
     .size([vars.width, vars.height])
     .children(function(d) { return d.children; })

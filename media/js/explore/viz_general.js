@@ -639,7 +639,7 @@
     
     if(item_type=="country"){
       
-      viz.depth("nesting_1")
+      viz.depth("nesting_2") // Updated to low level
          .attrs(region_attrs)
 
     }

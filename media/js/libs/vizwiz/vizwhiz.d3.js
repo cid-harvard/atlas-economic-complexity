@@ -3550,7 +3550,7 @@ vizwhiz.tree_map = function(vars) {
     .filter(function(d) {
       return !d.children;
     })
-    
+
   var cell = d3.select("g.parent").selectAll("g")
     .data(tmap_data, function(d){ return d[vars.id_var]; })
   
@@ -4320,6 +4320,7 @@ vizwhiz.geo_map = function(vars) {
   coord
     .on(vizwhiz.evt.over, function(d){
       if (!dragging) {
+        
         hover = d[vars.id_var]
         if (vars.highlight != d[vars.id_var]) {
           d3.select(this).style("cursor","pointer")
