@@ -129,12 +129,14 @@
 
           var current_flow = $("#trade_flow").find(":selected").val();
           var current_country1 = $("#country1").find(":selected").val();
+          current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1; 
+
 
           var current_country2 = $("#country-trade-partner").find(":selected").attr("value");
           current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2; 
 
 
-          var current_product = $("#country-product").find(":selected").val();
+          var current_product = $("#country_product_select").find(":selected").val();
           current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product; 
 
           var current_year2 = $("#year2").find(":selected").val();
@@ -148,16 +150,50 @@
 
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/all/show/2011/
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
-          if($(".tab-trade-partner-product").find(".active").index()==1)
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/";
+
+          // Where does United States export Crude Petroleum to?
+          // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
+          if($(".tab-trade-partner-product").find(".active").index()==0) {
+
+            // if a country is not selected..
+            if(current_country1=="all") {
+
+              url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";         
+
+            // What did United States export in 2011?
+            // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
+            } else if(current_product=="all") {
+
+              url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";         
+
+            } else {
+
+              url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/";
+            
+
+            }
+
+            // http://atlas.cid.harvard.edu/beta/explore/tree_map/import/usa/chn/show/2011/
 
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
-          else if($(".tab-trade-partner-product").find(".active").index()==0) 
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+current_year2+"/"
-          else
-            console.log("error");
+          } else if($(".tab-trade-partner-product").find(".active").index()==1) {
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+current_year2+"/"
 
-          window.location.assign(url);
+          } else {
+
+            console.log("error");
+          }
+
+
+          if(current_country1=="all" && current_product=="all") {
+            alert("Please, select at least one country or one product")
+          } else {
+
+        
+            window.location.assign(url);            
+          }
+
+
 
 
         // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/show/all/0101/2011/
@@ -166,9 +202,12 @@
           var current_product = $("#product").find(":selected").val();
           var current_product_trade_flow = $("#product-trade-flow").find(":selected").val();
 
-          console.log("products", current_product, current_product_trade_flow)
+          var current_product_country = $("#products_country1_select").find(":selected").val();
+          current_product_country = (typeof current_product_country == "undefined" || current_product_country == "") ? "all" : current_product_country; 
 
-          url += current_viz+"/"+current_product_trade_flow+"/show/all/"+current_product+"/"+current_year1+"/";
+          console.log("products", current_product, current_product_trade_flow, current_product_country)
+
+          url += current_viz+"/"+current_product_trade_flow+"/show/"+current_product_country+"/"+current_product+"/"+current_year1+"/";
           window.location.assign(url);
 
 
@@ -183,8 +222,8 @@
      
 
       <ul class="nav nav-tabs main-countries-products" id="myTab">
-        <li {% if not product_list %}class="active"{% endif %}><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span> <span style="font-size:18px;">Countries</span></a></li>
-        <li {% if product_list %}class="active"{% endif %}><a href="#tab-products"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray"></span> <span  style="font-size:18px;">Products</span></a></li>
+        <li class="active"><a href="#tab-countries"><!--<span class="glyphicon glyphicon-globe"></span>--> <span style="font-size:18px;">Selection</span></a></li>
+       <!-- <li><a href="#tab-products"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray"></span> <span  style="font-size:18px;">Products</span></a></li>-->
       </ul>
 
       </div>
@@ -197,17 +236,18 @@
 
       <!-- The left pane -->
       <div id="app_pane" style="width:230px">
-        <div class="tab-content" style="height:400px">
+        <div class="tab-content" style="height:400px"
 
           <!-- Country selection -->
-          <div class="tab-pane {% if not product_list %}active{% endif %}" id="tab-countries">
+          <div class="tab-pane active" id="tab-countries"> <!-- {% if not product_list %}active{% endif %} -->
             <span style="margin:10px 0px; font-weight:bold;">Select a Country:</span>
-            <div class="dropdown_container" id="country1" width="120px" style="margin-left: 0px;" onmouseover="$('.show-partner').css('visibility', 'visible');"  onmouseout="$('.show-partner').css('visibility', 'hidden');">
+            <div id="country1" width="120px" style="margin-left: 0px;" onmouseover="$('.show-partner').css('visibility', 'visible');"  onmouseout="$('.show-partner').css('visibility', 'hidden');">
 
               <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-              <select data-url_pos="5" id="country1_select">
+                  <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
 
+                <option value=""></option>
               {% if country1_list %}
 
                 {% for c in country1_list %}
@@ -257,9 +297,7 @@
               {% endfor %}
             </select>
           </div>
-
-      
-
+         
           <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:10px; width:190px;">
             <li{% if product_list %} class="active"{% endif %}><a href="#show-country-product"> <span  style="font-size:14px; color:gray;">Product</span></a></li>
             <li{% if not product_list %} class="active"{% endif %}><a href="#show-country-partner"><span style="font-size:14px;" class="definition">Trade Partner</span></a></li>
@@ -268,7 +306,6 @@
           <!-- Tab Trade Partner/Product -->
           <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:190px; margin-left:10px; height:60px">
           
-
             <div class="tab-pane {% if product_list %} active{% endif %}" id="show-country-product">
 
               <div id="country-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-country-product').css('visibility', 'visible');"  onmouseout="$('.show-country-product').css('visibility', 'hidden');">
@@ -350,7 +387,7 @@
 
 </div>
     <!-- Product Tab -->
-    <div class="tab-pane {% if product_list %}active{% endif %}" id="tab-products">
+    <div class="tab-pane " id="tab-products">
       <b style="margin:10px 0px">Select a Product:</b>
       <div class="dropdown_container" id="product" width="120px" style="margin-left: 10px;" onmouseover="$('.show-product').css('visibility', 'visible');"  onmouseout="$('.show-product').css('visibility', 'hidden');">
 
@@ -404,7 +441,7 @@
       
 
           <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px">
-            <li class="active"><a href="#show-country-partner"><span style="font-size:16px;" class="definition">Trade Partner</span></a></li>
+            <li class="active"><a href="#show-country-partner"><span style="font-size:16px;" class="definition">Country</span></a></li>
           </ul>
 
           <!-- Tab Trade Partner/Product -->
@@ -430,14 +467,16 @@
             </div>
   -->
 
-            <div class="tab-pane {% if product_list %} active{% endif %}" id="show-country-product">
+            <div class="tab-pane active" id="show-country-product">
 
               <div id="country-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-country-product').css('visibility', 'visible');"  onmouseout="$('.show-country-product').css('visibility', 'hidden');">
           
                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                <select data-url_pos="5" id="country1_products">
 
+
+                <select data-placeholder="All Countries" class="chosen-select-deselect" tabindex="-1" style="display: none;" id="products_country1_select">
+ <option value=""></option>
                   {% if country1_list %}
 
                     {% for c in country1_list %}
