@@ -5,6 +5,16 @@ from django.conf.urls.defaults import *
 from django.conf.urls import patterns, include
 from django.views.generic import TemplateView, RedirectView
 
+# sitemap
+from django.conf.urls.defaults import *
+from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
+
+
+sitemaps = {
+    'flatpages': FlatPageSitemap,
+}
+
+
 class TextPlainView(TemplateView):
   def render_to_response(self, context, **kwargs):
     return super(TextPlainView, self).render_to_response(
@@ -35,10 +45,16 @@ urlpatterns = patterns('',
   
   # about section ###########################################################
   (r'^about/$', 'observatory.views.about'),
-  (r'^about/team/$', "observatory.views.team"),
   (r'^about/data/$', RedirectView.as_view(url='/about/data/sitc4/')), 
   (r'^about/data/(?P<data_type>\w+)/$', "observatory.views.about_data"),
   (r'^about/permissions/$', "observatory.views.permissions"),
+  (r'^about/support/$', "observatory.views.support"),  
+  (r'^about/research/$', "observatory.views.research"),  
+  (r'^about/glossary/$', "observatory.views.glossary"),  
+  (r'^about/team/$', "observatory.views.team"), 
+  (r'^about/data/$', "observatory.views.data"), 
+  (r'^about/permissions/$', "observatory.views.permissions"), 
+  (r'^about/press/$', "observatory.views.press"), 
   # blog
   (r'^about/blog/$', "blog.views.blog_index"),
   url(r'^about/blog/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$', "blog.views.blog_post_detail", name="blog_post"),
@@ -102,5 +118,7 @@ urlpatterns = patterns('',
   # ROBOTS.TXT AND FAVICO ########################################
   url(r'^robots\.txt$', TextPlainView.as_view(template_name='robots.txt')),
   url(r'^favicon\.ico$', RedirectView.as_view(url='/media/img/favicon.ico')),
+
+  (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
 )
