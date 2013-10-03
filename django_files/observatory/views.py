@@ -26,11 +26,6 @@ if settings.REDIS:
   
 def fluid(request):
   return render_to_response("fluid.html", context_instance=RequestContext(request))
-
-def stock(request):
-  json_res = {}
-  json_res["hs4"] = Hs4.objects.get_all("en")
-  return render_to_response("stock.html",{"hs4":json.dumps(json_res)}, context_instance=RequestContext(request))  
   
 ###################
 ## Abandoned function? Does nothing.
@@ -53,16 +48,28 @@ def home(request):
     c = Country.objects.get(name_2char=country_code)
   except Country.DoesNotExist:
     c = Country.objects.get(name_2char="us")
+  
   return render_to_response("home.html", 
     {"default_country": c},
     context_instance=RequestContext(request))
 
 def about(request):
   return render_to_response("about/index.html", context_instance=RequestContext(request))
+def support(request):
+  return render_to_response("about/support.html", context_instance=RequestContext(request))
+def research(request):
+  return render_to_response("about/research.html", context_instance=RequestContext(request))
+def glossary(request):
+  return render_to_response("about/glossary.html", context_instance=RequestContext(request))  
 def team(request):
   return render_to_response("about/team.html", context_instance=RequestContext(request))
+def data(request):
+  return render_to_response("about/data.html", context_instance=RequestContext(request))  
 def permissions(request):
   return render_to_response("about/permissions.html", context_instance=RequestContext(request))
+def press(request):
+  return render_to_response("about/press.html", context_instance=RequestContext(request))
+
 def about_data(request, data_type):
   lang = request.session['django_language'] if 'django_language' in request.session else "en"
   lang = request.GET.get("lang", lang)
@@ -120,12 +127,10 @@ def set_product_classification(request, prod_class):
   if not next:
     next = '/'
   response = HttpResponseRedirect(next)
-
   if prod_class:
     if hasattr(request, 'session'):
       request.session['product_classification'] = prod_class
       request.session['classification'] = prod_class
-      request.session['swap'] = True 
   return response
 
 def download(request):
@@ -134,7 +139,7 @@ def download(request):
   except:
     pass
   import csv
-  #raise Exception(request.POST)
+  raise Exception(request.POST)
   content = request.POST.get("content")
   
   title = request.POST.get("title")
@@ -217,7 +222,7 @@ def app(request, app_name, trade_flow, filter, year):
       trade_flow_list = ["export", "import"]
       
       article = "to" if trade_flow == "export" else "from"
-      title = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
+      title = "Where did %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
       
       # cspy means country1 / countr2 / show / year
       if crawler == "" or format == "json":
@@ -236,7 +241,7 @@ def app(request, app_name, trade_flow, filter, year):
       trade_flow_list = ["export", "import"]
       
       article = "to" if trade_flow == "export" else "from"
-      title = "What does %s %s %s %s?" % (country1.name, trade_flow, article, country2.name)
+      title = "What did %s %s %s %s?" % (country1.name, trade_flow, article, country2.name)
       
       # ccsy means country1 / countr2 / show / year
       if crawler == "" or format == "json":
@@ -262,7 +267,7 @@ def app(request, app_name, trade_flow, filter, year):
     country1 = Country.objects.get(name_3char=filter)
     country1_list = Country.objects.get_all(lang)
     
-    title = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
+    title = "What did %s %s?" % (country1.name, trade_flow.replace("_", " "))
     
     # casy means country1 / all / show / year
     if crawler == "" or format == "json":
@@ -320,6 +325,7 @@ def app_redirect(request, app_name, trade_flow, filter, year):
 
 def explore(request, app_name, trade_flow, country1, country2, product, year="2011"):
   
+  # raise Exception(country1, country2, product, year)
   # Get URL query parameters
   was_redirected = request.GET.get("redirect", False)
   crawler = request.GET.get("_escaped_fragment_", False)
@@ -333,7 +339,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   prod_class = request.GET.get("product_classification", prod_class)
   options["product_classification"] = prod_class
   options = options.urlencode()
-  
+
   # get distince years from db, different for diff product classifications
   years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
   years_available.sort()
@@ -376,13 +382,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     year_interval = y[2]
     year2_list = year1_list
     year_interval_list = range(1, 11)
-    
-    if year_end not in years_available:
-      year_end = years_available[-1]
-    
-    if year_start not in years_available:
-      year_start = years_available[0]  
-    
     # year_interval = year[1] - year[0]
   else:
     year_start, year_end, year_interval = None, None, None
@@ -411,7 +410,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     data_as_text["total_value"] = view_response[1]
     data_as_text["columns"] = view_response[2]
 
-  
+
   app_type = get_app_type(country1, country2, product, year)
 
   # first check for errors
@@ -426,8 +425,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       except Country.DoesNotExist:
         alert = {"title": "Country could not be found",
           "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='/about/data/country/'>list of countries</a>."%(country)}
-
-  p_code = product
   if product != "show" and product != "all":
     p_code = product
     product = clean_product(p_code, prod_class)
@@ -450,20 +447,27 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   
   years_available.sort()
 
+
+  #if countries[0].name == "United States":
+  #  countries[0].name = "the United States"
+  
+
   
   if not alert:
     if app_type == "casy":
       # raise Exception(app_name)
       if app_name == "pie_scatter":
         title = "What products are feasible for %s?" % countries[0].name
-      else:  
-        title = "What does %s %s?" % (countries[0].name, trade_flow.replace("_", " "))
+      elif app_name == "stacked":
+        title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE
+      else:
+        title = "What did %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), year) # NEW TITLE HERE
 
     # Country but showing other country trade partners
     elif app_type == "csay":
       item_type = "countries"
       article = "to" if trade_flow == "export" else "from"
-      title = "Where does %s %s %s?" % (countries[0].name, trade_flow.replace("_", " "), article)
+      title = "Where did %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, year)
   
     # Product
     elif app_type == "sapy":
@@ -475,29 +479,19 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       # trade_flow_list = ["export", "import"]
       if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
       if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
-      article = "to" if (trade_flow == "export" or trade_flow == "net_export") else "from"
-      if(trade_flow=="net_export" or trade_flow=="net_import"):
-        trade_flow = trade_flow.replace('_',' ')
-      title = "What does %s %s %s %s?" % (countries[0].name, trade_flow, article, countries[1].name)
+      article = "to" if trade_flow == "export" else "from"
+      title = "What did %s %s %s %s in %s?" % (countries[0].name, trade_flow, article, countries[1].name, year)
 
     # Bilateral Country / Show / Product / Year
     elif app_type == "cspy":
       if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
       if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
       item_type = "countries"    
-      article = "to" if (trade_flow == "export" or trade_flow == "net_export") else "from"
-      if(trade_flow=="net_export" or trade_flow=="net_import"):
-        trade_flow = trade_flow.replace('_',' ')
+      article = "to" if trade_flow == "export" else "from"
       title = "Where does %s %s %s %s?" % (countries[0].name, trade_flow, product.name_en, article)
   
-  
-  if 'swap' in request.session:
-    if request.session['swap']:
-      year_start = years_available[0]
-      year_end = years_available[-1]
-      request.session['swap'] = False
   # Return page without visualization data
-
+  
   return render_to_response("explore/index.html", {
     "warning": warning,
     "alert": alert,
@@ -525,7 +519,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "app_type": app_type,
     "redesign_api_uri": redesign_api_uri,
     "country_code": country_code,
-    "product_code": p_code,
     "item_type": item_type}, context_instance=RequestContext(request))
 
 '''<COUNTRY> / all / show / <YEAR>'''
@@ -621,10 +614,8 @@ def api_casy(request, trade_flow, country1, year):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "community_id":r[4], "color":r[5], 
-               "community_name":r[6], "value":r[7], "rca":r[8], "distance":r[9], "opp_gain":r[10], "pci": r[11],
-               "share": (r[7] / total_val)*100, "code":r[2], "id":r[2]} for r in rows]
-      
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
       # SAVE key in cache.
@@ -715,7 +706,7 @@ def api_sapy(request, trade_flow, product, year):
   continent_list = list(Country.objects.all().distinct().values('continent'))
   continents = {}
   for i,k in enumerate(continent_list): 
-     continents[k['continent']] = (1+i)*10
+     continents[k['continent']] = i*1000
   
   """Define parameters for query"""
   year_where = "AND year = %s" % (year,) if crawler == "" else " "
@@ -753,8 +744,7 @@ def api_sapy(request, trade_flow, product, year):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
-             "id": r[1], "region_id":r[4],"continent":r[5]} for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
     
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
@@ -823,22 +813,6 @@ def api_csay(request, trade_flow, country1, year):
   for i,k in enumerate(continent_list): 
      continents[k['continent']] = i*1000
   
-  # get distince years from db, different for diff product classifications
-  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
-  years_available.sort()
-  
-  magic = Cy.objects.filter(country=country1.id,
-                            year__range=(years_available[0],
-                                        years_available[-1])).values('year',
-                                                                    'pc_constant',
-                                                                    'pc_current',
-                                                                    'notpc_constant')
-  magic_numbers = {}
-  for i in magic: 
-    magic_numbers[i['year']] = {"pc_constant":i['pc_constant'], 
-                                "pc_current":i['pc_current'],
-                                "notpc_constant":i["notpc_constant"]}
-  
   """Define parameters for query"""
   year_where = "AND year = %s" % (year,) if crawler == "" else " "
   rca_col = "null"
@@ -877,8 +851,7 @@ def api_csay(request, trade_flow, country1, year):
   
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
-             "id":r[1], "region_id":r[4], "continent":r[5]} for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
   
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
@@ -921,7 +894,6 @@ def api_csay(request, trade_flow, country1, year):
   json_response["region"]= region
   json_response["continents"]= continents
   json_response["class"] =  prod_class
-  json_response["magic_numbers"] = magic_numbers
   json_response["other"] = query_params
     
   """Return to browser as JSON for AJAX request"""
@@ -962,21 +934,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
     for i in attr_list: 
       attr[i['code']] = {'code':i['code'],'name':i[name],'item_id':i['id'],'color':i['community_id__color']}
 
-  # get distince years from db, different for diff product classifications
-  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
-  years_available.sort()
   
-  magic = Cy.objects.filter(country=country1.id,
-                            year__range=(years_available[0],
-                                        years_available[-1])).values('year',
-                                                                    'pc_constant',
-                                                                    'pc_current',
-                                                                    'notpc_constant')
-  magic_numbers = {}
-  for i in magic: 
-    magic_numbers[i['year']] = {"pc_constant":i['pc_constant'], 
-                                "pc_current":i['pc_current'],
-                                "notpc_constant":i["notpc_constant"]}
   
   '''Define parameters for query'''
   year_where = "AND year = %s" % (year,) if crawler == "" else " "
@@ -1012,9 +970,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[7], "rca":r[5], 
-             "share": (r[7] / total_val)*100,
-             "community_id":r[4],"community_name":r[5],"color":r[6], "code":r[2], "id": r[2]} for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
   
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
@@ -1055,7 +1011,6 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   json_response["prod_class"] =  prod_class
   json_response["attr"] = attr
   json_response["class"] =  prod_class
-  json_response["magic_numbers"] = magic_numbers
   json_response["other"] = query_params
 
   """Return to browser as JSON for AJAX request"""
@@ -1087,23 +1042,7 @@ def api_cspy(request, trade_flow, country1, product, year):
   continents = {}
   for i,k in enumerate(continent_list): 
      continents[k['continent']] = i*1000
-
-  # get distince years from db, different for diff product classifications
-  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
-  years_available.sort()
   
-  magic = Cy.objects.filter(country=country1.id,
-                            year__range=(years_available[0],
-                                        years_available[-1])).values('year',
-                                                                    'pc_constant',
-                                                                    'pc_current',
-                                                                    'notpc_constant')
-  magic_numbers = {}
-  for i in magic: 
-    magic_numbers[i['year']] = {"pc_constant":i['pc_constant'], 
-                                "pc_current":i['pc_current'],
-                                "notpc_constant":i["notpc_constant"]}
-                                
   '''Define parameters for query'''
   year_where = "AND year = %s" % (year,) if crawler == "" else " "
   rca_col = "null"
@@ -1141,7 +1080,7 @@ def api_cspy(request, trade_flow, country1, product, year):
       """Add percentage value to return vals"""
       #rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100} for r in rows]
       rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
-             "region_id": r[4], "continent": r[5], "id":r[1]}  for r in rows]
+               "region_id": r[4], "continent": r[5], "id":r[1]} for r in rows]
                
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]] 
@@ -1184,7 +1123,6 @@ def api_cspy(request, trade_flow, country1, product, year):
   json_response["region"]= region
   json_response["app_type"] = "cspy"
   json_response["class"] =  prod_class
-  json_response["magic_numbers"] = magic_numbers
   json_response["other"] = query_params
   
   '''Return to browser as JSON for AJAX request'''
