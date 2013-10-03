@@ -116,10 +116,11 @@
       <script>
       // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
 
-      function update_viz() {
-
-        var url = "http://127.0.0.1:8000/explore/";
-        var current_viz = $("#viz_apps").find(".active").attr("value");
+      function update_viz(viz) {
+      
+        var url = "/explore/";
+        var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
+        current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
 
         var current_year1 = $("#year1").find(":selected").val();
 
@@ -297,7 +298,7 @@
               {% endfor %}
             </select>
           </div>
-         
+       
           <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:10px; width:190px;">
             <li{% if product_list %} class="active"{% endif %}><a href="#show-country-product"> <span  style="font-size:14px; color:gray;">Product</span></a></li>
             <li{% if not product_list %} class="active"{% endif %}><a href="#show-country-partner"><span style="font-size:14px;" class="definition">Trade Partner</span></a></li>
@@ -352,19 +353,19 @@
 
 
 
-<div style="font-weight:bold; margin-top:10px; margin-left:10px">Visualization:</div>
+          <div style="font-weight:bold; margin-top:10px; margin-left:10px">Visualization:</div>
 
-<div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
-  <label value="tree_map" id="treemap_viz" name="viz_apps" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %}" onclick="window.location.assign(window.location.href.replace('map', 'tree_map'));" data-container="body" data-toggle="popover" data-placement="top" title="Treemap" data-content="<img src='/media/img/home/teaser_tree_map.png' style='width:100px; float:left; padding:10px'/>A <b>Treemap</b> is a method for displaying hierarchical data by using nested rectangles. Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches. A leaf node's rectangle has an area proportional to a specified dimension on the data. Often the leaf nodes are colored to show a separate dimension of the data.">
-    <input type="radio" id="option1" style="background:url(/media/img/home/teaser_tree_map.png) no-repeat;"> <img src="/media/img/home/teaser_tree_map.png" style="width:38px;"/>
-  </label>
-  <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="window.location.assign(window.location.href.replace('tree_map', 'map'));" data-container="body" data-toggle="popover" data-placement="top" title="Map" data-content="<img src='/media/img/home/teaser_map.png' style='width:100px; float:left; padding:10px'/>A <b>map</b> is a visual representation of an area – a symbolic depiction highlighting relationships between elements of that space such as objects, regions, and themes. Many maps are static two-dimensional, geometrically accurate (or approximately accurate) representations of three-dimensional space, while others are dynamic or interactive, even three-dimensional. Although most commonly used to depict geography, maps may represent any space, real or imagined, without regard to context or scale; e.g. brain mapping, DNA mapping and extraterrestrial mapping.">
-    <input type="radio" name="viz_apps" id="option2"> <img src="/media/img/home/teaser_map.png" style="width:38px;"/>
-  </label>
-  <label value="stacked" class="btn btn-default" disabled>
-    <input type="radio" name="viz_apps" id="option3" > <img src="/media/img/home/teaser_stacked.png" style="width:38px;"/>
-  </label>
-</div>
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
+            <label value="tree_map" id="treemap_viz" name="viz_apps" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %}" onclick="update_viz('tree_map');" data-container="body" data-toggle="popover" data-placement="top" title="Treemap" data-content="<img src='/media/img/home/teaser_tree_map.png' style='width:100px; float:left; padding:10px'/>A <b>Treemap</b> is a method for displaying hierarchical data by using nested rectangles. Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches. A leaf node's rectangle has an area proportional to a specified dimension on the data. Often the leaf nodes are colored to show a separate dimension of the data." {% if year_interval_list %}disabled{%endif%}>
+              <input type="radio" id="option1" style="background:url(/media/img/home/teaser_tree_map.png) no-repeat;"> <img src="/media/img/home/teaser_tree_map.png" style="width:38px;"/>
+            </label>
+            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-container="body" data-toggle="popover" data-placement="top" title="Map" data-content="<img src='/media/img/home/teaser_map.png' style='width:100px; float:left; padding:10px'/>A <b>map</b> is a visual representation of an area – a symbolic depiction highlighting relationships between elements of that space such as objects, regions, and themes. Many maps are static two-dimensional, geometrically accurate (or approximately accurate) representations of three-dimensional space, while others are dynamic or interactive, even three-dimensional. Although most commonly used to depict geography, maps may represent any space, real or imagined, without regard to context or scale; e.g. brain mapping, DNA mapping and extraterrestrial mapping." {% if year_interval_list %}disabled{%endif%}>
+              <input type="radio" name="viz_apps" id="option2"> <img src="/media/img/home/teaser_map.png" style="width:38px;"/>
+            </label>
+            <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%}" onclick="update_viz();" {% if not year_interval_list %}disabled{%endif%}>
+              <input type="radio" name="viz_apps" id="option3" > <img src="/media/img/home/teaser_stacked.png" style="width:38px;"/>
+            </label>
+          </div>
 
           </div>
           <!-- Diversification TAB -->
@@ -373,9 +374,10 @@
                        
 
             <div class="btn-toolbar" style="margin-left:10px;">
-              <a href="/explore/product_space/export/usa/all/show/2011/"><div class="btn-group"><label type="button" class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left"><img src="/media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
-
-</label></div></a>
+              <a href="/explore/product_space/export/usa/all/show/2011/"><div class="btn-group">
+                <label type="button" class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left">
+                  <img src="/media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
+                </label></div></a>
               <br><br>
               <a href="/explore/pie_scatter/export/usa/all/show/2011/">
               <div class="btn-group"><label type="button" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px"><img src="/media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label></div>
@@ -817,11 +819,16 @@
           </select>
 
 
+{{prod_class}}
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
+            <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="stic4"> SITC4
+            </label>
+             <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="hs4"> HS4
+            </label>
+          </div>
 
-<div class="btn-group product_class">
-  <label type="button" class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}" value="sitc4">SITC4</label>
-  <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4">HS4</label>
-</div>
 
 
          {% if app_name == "map" %}
