@@ -1,9 +1,213 @@
 {% extends "template.html" %}
 
+
+  <link rel="stylesheet" href="/media/js/libs/bootstrap/css/bootstrap.css"/>
 {% block page_title %}{% endblock %}
 {% block heading_title %}{% endblock %}
 
 {% block css %} 
+
+<style>
+
+
+.carousel {
+  position: relative;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-inner > .item {
+  position: relative;
+  display: none;
+  -webkit-transition: 0.6s ease-in-out left;
+          transition: 0.6s ease-in-out left;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  line-height: 1;
+}
+
+.carousel-inner > .active,
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  display: block;
+}
+
+.carousel-inner > .active {
+  left: 0;
+}
+
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.carousel-inner > .next {
+  left: 100%;
+}
+
+.carousel-inner > .prev {
+  left: -100%;
+}
+
+.carousel-inner > .next.left,
+.carousel-inner > .prev.right {
+  left: 0;
+}
+
+.carousel-inner > .active.left {
+  left: -100%;
+}
+
+.carousel-inner > .active.right {
+  left: 100%;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 15%;
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+/*  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);*/
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.carousel-control.left {
+  background-color:black;
+  opacity: 0;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+
+.carousel-control.right {
+  right: 0;
+  left: auto;
+  background-color:black;
+  opacity: 0;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+
+.carousel-control:hover,
+.carousel-control:focus {
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.1;
+  filter: alpha(opacity=90);
+}
+
+.carousel-control .icon-prev,
+.carousel-control .icon-next,
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  display: inline-block;
+}
+
+.carousel-control .icon-prev,
+.carousel-control .icon-next {
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  font-family: serif;
+}
+
+.carousel-control .icon-prev:before {
+  content: '\2039';
+}
+
+.carousel-control .icon-next:before {
+  content: '\203a';
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  z-index: 15;
+  width: 60%;
+  padding-left: 0;
+  margin-left: -30%;
+  text-align: center;
+  list-style: none;
+}
+
+.carousel-indicators li {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 1px;
+  text-indent: -999px;
+  cursor: pointer;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+}
+
+.carousel-indicators .active {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  background-color: #ffffff;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0px;
+  z-index: 10;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: #ffffff;
+  text-align: center;
+ /* text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);*/
+  padding-left:0px;
+  margin:0px; background-color: white; opacity:.8; width:300px; left:0px; 
+}
+
+.carousel-caption .btn {
+  text-shadow: none;
+}
+
+@media screen and (min-width: 768px) {
+  .carousel-control .icon-prev,
+  .carousel-control .icon-next {
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -15px;
+    font-size: 30px;
+  }
+  .carousel-caption {
+    right: 0%;
+    left: 0%;
+    width: 100%;
+   
+  }
+  .carousel-indicators {
+    bottom: 20px;
+  }
+}
+
+</style>
+
 <style>
 #main #content .didyouknow_container{
 	height: 415px;
@@ -99,14 +303,15 @@
 #main #content .other_apps div{
   float: left;
   margin: 0 27px 0 0;
+  border: 2px solid white;
 }
 #main #content .other_apps div a{
   display: inline-block;
-  border: solid 1px #ccc;
+  border: solid 2px #ccc;
   padding: 10px;
 }
 #main #content .other_apps div a:hover{
-  border: solid 1px #000;
+  border: solid 2px #000;
 }
 #main #content .other_apps div img{
   width: 150px;
@@ -115,81 +320,178 @@
   margin: 0;
 }
 
-</style>
-{% endblock %}
+/* New stuff */
+.other_apps:hover {
+   border: solid 2px gray;
+}
 
-{% block content %}
-<div id="content">
-  <div class="didyouknow_container">
-    
-    <div class="didyouknow">
-      <div class="text">
-        <img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Netherlands/Flag-Pins-Netherlands-Netherlands.jpg" />
-        <h2 style="font-size: 38px;">Learn about The Netherlands &amp; Flowers</h2>
-        <br style="clear:both"/><br />
-        <p>Watch the video for a brief introduction of how The Observatory works.</p>
-      </div>
-      <div class="app">
-        <!-- <iframe src="http://player.vimeo.com/video/40565955?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>-->
-         <iframe width="600" height="443" src="//www.youtube.com/embed/bqNHKke7jqY?rel=0" frameborder="0"  allowfullscreen></iframe>
-      </div>
+.other_apps_first:hover {
+  background-color:white ;
+   border: solid 2px black;
+
+}
+
+
+.other_apps {
+
+  border: 1px solid white;
+}
+
+.earth_teaser {
+  background:url('/media/img/home/teaser_earth_fade.png') no-repeat;
+  background-size:420px 300px;
+  margin-left:9px; 
+  border:2px solid white; 
+  margin-top:10px;
+  width:420px;
+  height:300px;
+}      
+
+
+.earth_teaser:hover {
+  background:url('/media/img/home/teaser_earth.png') no-repeat;
+  background-size:420px 300px;
+  margin-left:9px; 
+  border:2px solid white; 
+  margin-top:10px;
+  width:420px;
+  height:300px;
+}      
+
+
+.products_teaser:hover {
+  background:url('/media/img/home/teaser_products.png') no-repeat;
+  background-size:420px 300px;
+  margin-left:9px; 
+  border:2px solid white; 
+  margin-top:10px;
+  width:420px;
+  height:300px;
+}     
+
+.products_teaser {
+  background:url('/media/img/home/teaser_products_fade.png') no-repeat;
+  background-size:420px 300px;
+  margin-left:9px; 
+  border:2px solid white; 
+  margin-top:10px;
+  width:420px;
+  height:300px;
+}      
+
+</style>
+
+  {% endblock %}
+
+  {% block content %}
+  <div id="content">
+
+  <div id="carousel-example-generic" class="carousel slide" style="width:550px; height:300px;float:left; margin-left:20px; margin-top:20px">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <a href="/explore/stacked/export/usa/all/show/2011.1996.1/">
+        <img src="/media/img/home/us_exports.png" alt="..." style="width:540px; height:300px">
+        <div class="carousel-caption">
+          <h3 style="font-size:25px; color:gray;">What does United States export between 2011 and 1996?</h3>
+          <p>...</p>
+        </div>
+      </a>
     </div>
-    <!--
-    <div class="didyouknow">
-      <div class="text">
-        <img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Chile/Flag-Pins-Chile-Chile.jpg" />
-        <h2 style="font-size: 38px;">Learn about Chile &amp; Wine</h2>
-        <br style="clear:both"/><br />
-        <p>Watch the video for a brief introduction of how The Observatory works.</p>
-      </div>
-      <div class="app">
-        <iframe src="http://player.vimeo.com/video/40565954?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-      </div>
+    <div class="item">
+      <a href="/explore/tree_map/import/usa/all/show/2011/">
+        <img src="/media/img/home/us_imports.png" alt="..." style="width:550px; height:300px">
+        <div class="carousel-caption">
+          <h3 style="font-size:25px; color:gray;">What does United States import in 2011?</h3>
+          <p>...</p>
+        </div>
+      </a>
     </div>
-    
+    <div class="item">
+      <a href="/explore/map/export/show/all/0101/2011/">
+        <img src="/media/img/home/horses_export.png" alt="..." style="width:550px; height:300px">
+        <div class="carousel-caption">
+          <h3 style="font-size:25px; color:gray;">Who exports Horses in 2011?</h3>
+          <p>...</p>
+        </div>
+      </a>
+    </div>
   </div>
- <div class="other_apps">
-    <h3>Explore More Apps</h3>
-    <div class="item">
-      <a href="/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2009/"><img src="/media/img/home/teaser_tree_map.png"></a>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <span class="icon-prev"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <span class="icon-next"></span>
+  </a>
+</div>
+
+    <div style="float:left; width:350px; margin-bottom:30px; font-size: 30px; font-style:italic; background: url(/media/img/home/quote.jpg) no-repeat; background-size:100px; padding-left:40px; padding-top:40px; color:gray">
+      Explore Growth Opportunities
     </div>
-    <div class="item">
-      <a href="/explore/stacked/export/{{default_country.name_3char|lower}}/all/show/1995.2010.2/"><img src="/media/img/home/teaser_stacked.png"></a>
+
+<!--
+    <div style="float:right; margin-left:20px; margin-top:20px; border: solid 2px white; width:500px; padding:20px">
+      <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2011/" style="text-decoration:none;">
+        <div id="slides">    
+          <img src="" alt="Product Space">
+          <img src="" alt="Product Space">
+          <img src="" alt="Product Space">
+          <img src="/media/img/home/teaser_product_space.png" alt="Product Space">
+          <img src="/media/img/home/teaser_products.png" alt="Product Space">
+          <img src="/media/img/home/teaser_stacked.png" alt="Product Space">
+        </div>
+      </a>
     </div>
-    <div class="item">
-      <a href="/explore/map/export/show/all/3330/2009/"><img src="/media/img/home/teaser_map.png"></a>
-    </div>
-    <div class="item">
-      <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2009/"><img src="/media/img/home/teaser_product_space.png"></a>
-    </div>
-  </div> -->
-   
-  <div class="other_apps">
-    <h3>Explore More Apps</h3> 
+-->
+
     
-    <div class="item" style="margin-left:9px;border:2px solid #B02420;">
-      <a href="/explore/pie_scatter/export/{{default_country.name_3char|lower}}/all/show/2011/"><img src="/media/img/home/pie_new.png"></a>
-    </div>    
-    <div class="item" style="border:2px solid #1272A8;">
-      <a href="/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2011/"><img src="/media/img/home/tree_map_new.png"></a>
+  <a href="http://www.youtube.com/watch?v=bqNHKke7jqY&feature=c4-overview&list=UUW1gPGq7LEQCQujj-qgq6VQ">
+
+    <div class=" other_apps_first other_apps" style="float:left;width:370px; height:180px; padding:5px; margin-left:20px;border:1px solid lightgray; background-color:#fafafa;">
+     
+     <div style="width:190px; height:160px;">
+<h3>Learn About<br> <span style="text-transform: uppercase;">The Atlas</span></h3> 
+      <p>The Observatory is a powerful interactive tool that enables users to visually mapvisualize trade flows among countries and products, and explore productive opportunities...</p>
+</div>
+      <div style="border:2px solid white; background:url('/media/img/home/teaser_video_obs.png') no-repeat; background-size:130px 130px; width:130px; height:160px;"></div>   
+      
     </div>
-    <div class="item" style="border:2px solid #1272A8;">
-      <a href="/explore/stacked/export/{{default_country.name_3char|lower}}/all/show/1995.2011.2/"><img src="/media/img/home/stack_new.png"></a>
-    </div>
-    <div class="item" style="border:2px solid #1272A8">
-      <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2011/"><img src="/media/img/home/network_new.png"></a>
-    </div>
-    <div class="item">
-      <a href="/explore/map/export/show/all/3330/2009/"><img src="/media/img/home/teaser_map.png"></a>
-    </div>
-  </div>  
-</div> <!-- END #content div -->
+  </a>
+
+  <p style="clear:both"></p>
+
+  <a href="/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/">
+    <div class="other_apps" style="float:left; width:455px; margin:20px; border: solid 1px lightgray;">
+      <h3 style="float:left; margin-left:50px;font-size:30px">Browse Countries »</h3> </a>
+
+      <!--<div class="earth_teaser" style="margin-top:0px"></div>-->
+      <div id="map" style="width:450px; height:300px"></div>
+    </div> 
+ 
+  <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2010/">
+    <div class="other_apps" style="float:left; width:455px; margin:20px; border: solid 1px lightgray;">
+      <h3 style="float:left; margin-left:50px;font-size:30px">Browse Products »</h3>
+      <div class="products_teaser" style="margin-top:0px"></div>
+    </div> 
+  </a>
+
+
 {% endblock %}
 
 
 {% block js %}
 <script>
-  // Rotate featured video randomly
+  // Use to be: Rotate featured video randomly
+  // -> Will be re-used for showing stories randomly
   // var vid = Math.round(Math.random());
   var vid = 0;
    $(".didyouknow").eq(vid).show();
@@ -197,4 +499,206 @@
   // user's IP address says they are
   $("nav a").eq(0).attr("href", "/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2011/")
 </script>
+
+
+    <script>
+      $(function(){
+
+        $("#carousel-example-generic").carousel({ interval: 2000 });
+      })
+    </script>
+
+
+
+<script src="/media/js/libs/d3/d3.v3.min.js"></script>
+<script src="/media/js/libs/d3/d3.geo.projection.min.js"></script>
+<script src="/media/js/libs/d3/topojson.min.js"></script>
+<script>
+
+var ratio = window.devicePixelRatio || 1,
+    width = 450 * ratio,
+    height = 300 * ratio;
+
+var options = [
+  {name: "Aitoff", projection: d3.geo.aitoff()},
+  //{name: "Albers", projection: d3.geo.albers().scale(145).parallels([20, 50])},
+  {name: "August", projection: d3.geo.august().scale(60)},
+  {name: "Baker", projection: d3.geo.baker().scale(100)},
+  {name: "Boggs", projection: d3.geo.boggs()},
+  {name: "Bonne", projection: d3.geo.bonne().scale(100)},
+  {name: "Bromley", projection: d3.geo.bromley()},
+  {name: "Collignon", projection: d3.geo.collignon().scale(93)},
+  {name: "Craster Parabolic", projection: d3.geo.craster()},
+  {name: "Eckert I", projection: d3.geo.eckert1().scale(165)},
+  {name: "Eckert II", projection: d3.geo.eckert2().scale(165)},
+  {name: "Eckert III", projection: d3.geo.eckert3().scale(180)},
+  {name: "Eckert IV", projection: d3.geo.eckert4().scale(180)},
+  {name: "Eckert V", projection: d3.geo.eckert5().scale(170)},
+  {name: "Eckert VI", projection: d3.geo.eckert6().scale(170)},
+  {name: "Eisenlohr", projection: d3.geo.eisenlohr().scale(60)},
+  {name: "Equirectangular (Plate Carrée)", projection: d3.geo.equirectangular()},
+  {name: "Fahey", projection: d3.geo.fahey().scale(120)},
+  {name: "Gall Stereographic", projection: d3.geo.cylindricalStereographic().parallel(45).scale(140)},
+  {name: "Goode Homolosine", projection: d3.geo.homolosine()},
+  {name: "Ginzburg IV", projection: d3.geo.ginzburg4().scale(120)},
+  {name: "Ginzburg V", projection: d3.geo.ginzburg5().scale(120)},
+  {name: "Ginzburg VI", projection: d3.geo.ginzburg6().scale(120)},
+  {name: "Ginzburg VIII", projection: d3.geo.ginzburg8().scale(120)},
+  {name: "Ginzburg IX", projection: d3.geo.ginzburg9().scale(120)},
+  {name: "Gringorten", projection: d3.geo.gringorten().scale(220)},
+  {name: "Guyou", projection: d3.geo.guyou().scale(150)},
+  {name: "Hammer", projection: d3.geo.hammer().scale(165)},
+  {name: "Hill", projection: d3.geo.hill().scale(120)},
+  {name: "Kavrayskiy VII", projection: d3.geo.kavrayskiy7()},
+  {name: "Lagrange", projection: d3.geo.lagrange().scale(120)},
+  {name: "Lambert cylindrical equal-area", projection: d3.geo.cylindricalEqualArea()},
+  {name: "Larrivée", projection: d3.geo.larrivee().scale(95)},
+  {name: "Laskowski", projection: d3.geo.laskowski().scale(120)},
+  {name: "Loximuthal", projection: d3.geo.loximuthal()},
+  {name: "Mercator", projection: d3.geo.mercator().scale(100)},
+  {name: "Miller", projection: d3.geo.miller().scale(100)},
+  {name: "McBryde–Thomas Flat-Polar Parabolic", projection: d3.geo.mtFlatPolarParabolic()},
+  {name: "McBryde–Thomas Flat-Polar Quartic", projection: d3.geo.mtFlatPolarQuartic()},
+  {name: "McBryde–Thomas Flat-Polar Sinusoidal", projection: d3.geo.mtFlatPolarSinusoidal()},
+  {name: "Mollweide", projection: d3.geo.mollweide().scale(165)},
+  {name: "Natural Earth", projection: d3.geo.naturalEarth()},
+  {name: "Nell–Hammer", projection: d3.geo.nellHammer()},
+  {name: "Polyconic", projection: d3.geo.polyconic().scale(100)},
+  {name: "Rectangular Polyconic", projection: d3.geo.rectangularPolyconic().scale(120)},
+  {name: "Robinson", projection: d3.geo.robinson()},
+  {name: "Sinusoidal", projection: d3.geo.sinusoidal()},
+  {name: "Sinu-Mollweide", projection: d3.geo.sinuMollweide()},
+  {name: "Times", projection: d3.geo.times().scale(140)},
+  {name: "Van der Grinten", projection: d3.geo.vanDerGrinten().scale(75)},
+  {name: "Van der Grinten II", projection: d3.geo.vanDerGrinten2().scale(75)},
+  {name: "Van der Grinten III", projection: d3.geo.vanDerGrinten3().scale(75)},
+  {name: "Van der Grinten IV", projection: d3.geo.vanDerGrinten4().scale(120)},
+  {name: "Wagner IV", projection: d3.geo.wagner4()},
+  {name: "Wagner VI", projection: d3.geo.wagner6()},
+  {name: "Wagner VII", projection: d3.geo.wagner7()},
+  {name: "Winkel Tripel", projection: d3.geo.winkel3()}
+];
+
+var initial = [-71, 42, 0],
+    rotate = initial.slice(),
+    pause = 0,
+    velocity = [.010, -.002],
+    t0 = Date.now();
+
+var 
+    i = 0,
+    n = options.length - 1;
+
+var projection = d3.geo.vanDerGrinten4().scale(127); //options[i].projection;
+
+var graticule = d3.geo.graticule()(),
+    land,
+    boundaries;
+
+var canvas = d3.select("#map").append("canvas")
+    .attr("width", width)
+    .attr("height", height)
+    .style("width", width / ratio + "px")
+    .style("height", height / ratio + "px")
+    .call(d3.behavior.drag()
+      .origin(function() { return {x: rotate[0], y: -rotate[1]}; })
+      .on("dragstart", function() { pause |= 1; })
+      .on("drag", function(d) {
+        rotate[0] = d3.event.x;
+        rotate[1] = -d3.event.y;
+        projection.rotate(rotate);
+        redraw(path);
+      })
+      .on("dragend", function() {
+        pause &= ~1;
+        t0 = Date.now();
+        initial = rotate.slice();
+      }));
+
+var context = canvas.node().getContext("2d");
+context.fillStyle = "#f9f9f9";
+context.strokeStyle = "#000";
+
+var path = d3.geo.path()
+    .projection(projection)
+    .context(context);
+
+var menu = d3.select("#projection-menu")
+    .on("change", change);
+
+menu.selectAll("option")
+    .data(options)
+  .enter().append("option")
+    .text(function(d) { return d.name; });
+
+
+function change() {
+  clearInterval(interval);
+  update(options[this.selectedIndex]);
+}
+
+function pathTween(projection0, projection1, rotate) {
+  projection0.rotate([0, 0, 0]);
+  projection1.rotate([0, 0, 0]);
+  var t = 0,
+      projection = d3.geo.projection(function(λ, φ) {
+          λ *= 180 / Math.PI, φ *= 180 / Math.PI;
+          var p0 = projection0([λ, φ]), p1 = projection1([λ, φ]);
+          return [(1 - t) * p0[0] + t * p1[0], (1 - t) * -p0[1] + t * -p1[1]];
+        })
+        .rotate(rotate)
+        .scale(1)
+        .translate([width / 2, height / 2])
+        .clipExtent(projection0.clipExtent()),
+      path = d3.geo.path().projection(projection).context(context);
+  return function() {
+    return function(u) {
+      t = u;
+      redraw(path);
+    };
+  };
+}
+
+function update(option) {
+  pause |= 2;
+  canvas.transition()
+      .duration(750)
+      .tween("path", pathTween(projection, projection = option.projection, initial = rotate.slice()))
+      .each("end", function() {
+        pause &= ~2;
+        t0 = Date.now();
+      });
+  path.projection(projection);
+}
+
+d3.timer(function() {
+  if (pause) return;
+  var t = Date.now() - t0;
+  rotate[0] = initial[0] + velocity[0] * t;
+  rotate[1] = initial[1] + velocity[1] * t;
+  projection.rotate(rotate);
+  redraw(path);
+});
+
+function redraw(path) {
+  context.clearRect(0, 0, width, height);
+  context.lineWidth = .5 * ratio;
+  if (land) {
+    context.strokeStyle = "#000";
+    context.beginPath(), path(land), context.fill(), context.stroke();
+    context.beginPath(), path(boundaries), context.stroke();
+  }
+  context.strokeStyle = "#999";
+  context.beginPath(), path(graticule), context.stroke();
+  context.lineWidth = 2.5 * ratio, context.strokeStyle = "#000";
+  context.beginPath(), path({type: "Sphere"}), context.stroke();
+}
+
+d3.json("/media/js/libs/d3/world-110m.json", function(error, world) {
+  land = topojson.feature(world, world.objects.land);
+  boundaries = topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; });
+});
+
+</script>
+
 {% endblock %}
