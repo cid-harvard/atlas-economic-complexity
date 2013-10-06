@@ -612,12 +612,12 @@ vizwhiz.network = function(vars) {
       .on(vizwhiz.evt.over, function(d){
         
         d3.select(this).style("cursor","pointer")
-        d3.select(this).style("cursor","-moz-zoom-in")
-        d3.select(this).style("cursor","-webkit-zoom-in")
+        //d3.select(this).style("cursor","-moz-zoom-in")
+        //d3.select(this).style("cursor","-webkit-zoom-in")
           
         if (d[vars.id_var] == vars.highlight) {
-          d3.select(this).style("cursor","-moz-zoom-out")
-          d3.select(this).style("cursor","-webkit-zoom-out")
+          //d3.select(this).style("cursor","-moz-zoom-out")
+          //d3.select(this).style("cursor","-webkit-zoom-out")
         }
         
         if (d[vars.id_var] != hover) {

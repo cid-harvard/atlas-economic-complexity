@@ -223,7 +223,7 @@
      
 
       <ul class="nav nav-tabs main-countries-products" id="myTab">
-        <li class="active"><a href="#tab-countries"><!--<span class="glyphicon glyphicon-globe"></span>--> <span style="font-size:18px;">Selection</span></a></li>
+        <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
        <!-- <li><a href="#tab-products"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray"></span> <span  style="font-size:18px;">Products</span></a></li>-->
       </ul>
 
@@ -350,8 +350,6 @@
 
 
           </div>
-
-
 
           <div style="font-weight:bold; margin-top:10px; margin-left:10px">Visualization:</div>
 
@@ -810,26 +808,25 @@
         </div>
 
 
-
         <div class="product_class" style="float:left;">
+          
           <span class="definition" style="font-weight:bold;">Product classification:</span>
+          
+          <!--
           <select>
             <option value="sitc4" {% if prod_class == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
             <option value="hs4" {% if prod_class == "hs4" %} selected="selected" {% endif %}>HS4</option>
           </select>
+          -->
 
-
-{{prod_class}}
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
             <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
-              <input type="radio" name="product_class" value="stic4"> SITC4
+              <input type="radio" name="product_class" value="sitc4"> SITC4
             </label>
              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
               <input type="radio" name="product_class" value="hs4"> HS4
             </label>
           </div>
-
-
 
          {% if app_name == "map" %}
 
@@ -842,10 +839,11 @@
          {% endif %}
 
         </div>
+
         {% if app_name != "product_space" %}
         {% if app_name != "map" %}
-        <div class="nesting" style="float:right;">
-          <span class="">Detail:</span>
+        <div class="nesting" style="float:left;">
+          <span class="definition" style="font-weight:bold;">Details:</span>
           <select id="nesting_level" name="nesting" onchange="nest_drop_report(this.value)"> 
             <option value="nesting_0" >Low</option>
             {% if app_type == "casy" %}
@@ -857,25 +855,42 @@
             <option value="nesting_2">Hi</option>
           </select>
         </div>  
-
-        <div id="stacked_capita" style="margin-left:10px" class="ui-buttonset">
-          <span style=""><p>Detail:</p></span>
-          
-            <input type="radio" id="current" name="capita" checked="checked" class="ui-helper-hidden-accessible"><label style="margin-top:4px" for="current" aria-pressed="false" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left" role="button" aria-disabled="false"><span class="ui-button-text">Low</span></label>
-            <input type="radio" id="notpc_constant" name="capita" class="ui-helper-hidden-accessible"><label for="notpc_constant" aria-pressed="true" class="ui-button ui-widget ui-state-default ui-button-text-only ui-state-active" role="button" aria-disabled="false"><span class="ui-button-text">Mid</span></label>
-            <input type="radio" id="pc_current" name="capita" class="ui-helper-hidden-accessible"><label style="" for="pc_current" aria-pressed="false" class="ui-button ui-widget ui-state-default ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Hi</span></label>
-          
-        </div>
-
         {% endif %}
         {% endif %}
+
+{{nesting_level}}
+
+{% if app_name != "product_space" %}
+        {% if app_name != "map" %}
+        <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
+          <span class="definition" style="font-weight:bold;">Details:</span>
+          
+          <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="sitc4"> Low
+            </label>
+
+            {% if app_type == "casy" %}
+            <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="hs4"> Mid
+            </label>
+            {% endif %}
+            {% if app_type == "ccsy" %}
+            <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="hs4"> Mid
+            </label>
+            {% endif %}
+            <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="hs4"> Hi
+            </label>
+        </div>  
+        {% endif %}
+        {% endif %}
+
+          
+          </div>
 
          </div>  
            
-      </div><!-- END content -->
-      
-
-
 
        <style>
 
@@ -1299,12 +1314,25 @@ width:40%;">
       $("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
       $("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
-
-
       $("#sidebar-create-story").tooltip();
 
-    });
 
+      // get all list elements
+
+      // set the
+
+      //$("#country1").find(":selected").val();
+/*
+      $("#country1_select").find("*").each(function(i) {
+        console.log("val", i, $(this).val());
+      });
+
+      $(".active-result").find("*").each(function(i) {
+        console.log("val", i, $(this).val());
+      });
+      
+*/
+    });
 
 
     $( "#select-country-trade-partner" ).change(function() {
@@ -1332,32 +1360,46 @@ width:40%;">
 
 
   <style>
-/*
-    .chosen-results li {
-         background: url('/media/img/icons/flag_usa.png') no-repeat;
-       background-size:25px;
-        padding-left: 25px;
-        margin-top:-4px;
-    }
-    .chosen-single span {
+
+
+
+    #country1 .chosen-results li {
       background: url('/media/img/icons/flag_usa.png') no-repeat;
+      background-size:25px;
+      padding-left: 25px;
+      margin-top:-4px;
+    }
+   
+ #country1 .chosen-results li:hover {
+      background-size:25px;
+      padding-left: 25px;
+      margin-top:-4px;
+    
+      background-color: lightblue;
+    }
+   
+
+
+    #country1 .chosen-single span {
+      background: url('/media/img/icons/flag_fra.png') no-repeat;
       background-size:25px;
       padding-left: 30px;
       margin-top:-2px;
     }
+    /*
     li.active-result { 
-        background: url('/media/img/icons/flag_usa.png') no-repeat;
+        background: url('/media/img/icons/flag_fra.png') no-repeat;
       background-size:25px;
       padding-left: 30px;
       margin-top:-2px;  
     }
+ 
     .chosen-results, .chosen-single { 
         background: url('/media/img/icons/flag_usa.png') no-repeat;
       background-size:25px;
       padding-left: 30px;
       margin-top:-2px;  
-    }*/
-
+    } */
   </style>
 
   </body>

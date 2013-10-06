@@ -350,6 +350,10 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   # What is actually being shown on the page
   item_type = "product"
   
+  # To make sure it cannot be another product class
+  if prod_class != "hs4" and prod_class != "sitc4":
+    prod_class = "sitc4"
+
   # Test for country exceptions
   if prod_class == "hs4":
     # redirect if and exception country
@@ -447,9 +451,10 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   
   years_available.sort()
 
+  list_countries_the = ["Cayman Islands", "Central African Republic", "Channel Islands", "Congo, Dem. Rep."]
 
-  #if countries[0].name == "United States":
-  #  countries[0].name = "the United States"
+  if countries[0] and countries[0].name in list_countries_the:
+    countries[0].name = "the "+countries[0].name
   
 
   

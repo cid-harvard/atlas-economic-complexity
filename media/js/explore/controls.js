@@ -49,13 +49,14 @@ function Controls() {
       // Actions for selecting the embed link
       d3.select("#tool_pane .embed_code").on("click", embed_link_click)
       
-      // OLD CONTROLS: Change the product classification
+      
+      /* // OLD CONTROLS: Change the product classification
       $(".product_class select").chosen().change(function(){
         // set session data to new product classificaiton
         var prod_class = $(this).val();
         window.location = "/set_product_classification/"+prod_class+"/";
       });
-
+        */
       $("input[name='product_class']").change(function() {
         var prod_class = $(this).val();
         window.location = "/set_product_classification/"+prod_class+"/";
