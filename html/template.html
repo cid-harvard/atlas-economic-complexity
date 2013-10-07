@@ -4,20 +4,22 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
+  <base href="{{HTTP_HOST}}">
+
   <title>The Observatory of Economic Complexity :: {% block page_title %}{% endblock %}</title>
   <meta name="description" content="Networks in Macro Economics">
   <meta name="author" content="Alexander Simoes">
 
-  <link rel="shortcut icon" type="image/x-icon" href="{{HTTP_HOST}}media/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="media/img/favicon.ico">
 
   <!-- Load non-standard fonts -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
 
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/css/normalize.css">
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/css/style.css">	
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/chosen/chosen.css" />
+  <link rel="stylesheet" href="media/css/normalize.css">
+  <link rel="stylesheet" href="media/css/style.css">	
+  <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -28,32 +30,19 @@
   <div id="container">
     <header>
       <div class="logo" style="background-color: #fafafa; width:280px; height:66px;">
-        <a href="{{HTTP_HOST}}" title="Home" style="text-decoration: none;">
-        <h1 style="font-size:46px;">&nbsp;&nbsp;The Atlas Of</h1>
+        <a href="" title="Home" style="text-decoration: none;">
+        <h1 style="font-size:46px; background: url(media/img/all/logo_rainbow.png) repeat-x 100% 100%;">&nbsp;&nbsp;The Atlas Of</h1>
         <h2 style="font-size:28px; margin-top:-3px; text-align:center; letter-spacing:1px; color:gray; text-transform:uppercase; text-decoration:none;">&nbsp;Economic Complexity</h2></a> 
       </div>  
-    
       <nav>
         <ul style="height:24px">
-          <li><a href="{{HTTP_HOST}}explore">Explore</a></li>
-          <li><a href="{{HTTP_HOST}}stories">Stories</a></li>
-          <li><a href="{{HTTP_HOST}}book">Book</a></li>
-          <li><a href="{{HTTP_HOST}}rankings">Rankings</a></li>
-          <li><a href="{{HTTP_HOST}}about">About</a></li>
+          <li><a href="explore">Explore</a></li>
+          <li><a href="stories">Stories</a></li>
+          <li><a href="book">Book</a></li>
+          <li><a href="rankings">Rankings</a></li>
+          <li><a href="about">About</a></li>
         </ul>
       </nav> 
-      <!--
-    		<div class="language_select">
-    		  <div class="text">
-    			  Language:
-    			</div>
-    			<select>
-    	          {% for lang in supported_langs %}
-    				<option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
-    	          {% endfor %}
-    			</select>
-    		</div>
-        -->
       <br class="clear">
     </header>
 
@@ -63,73 +52,67 @@
       <!-- main content -->
       {% block content %}{% endblock %}
 
-
     </div> <!-- END #main -->
 
+    <div style="clear:both; margin-top:0px; margin-bottom:30px;"></div>
 
-  <div style="clear:both; margin-top:0px; margin-bottom:30px;"></div>
-
-
-    <footer>
+     <footer>
       <p>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="{{HTTP_HOST}}" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="{{HTTP_HOST}}about/permissions/" rel="cc:morePermissions">{{HTTP_HOST}}about/permissions/</a>.
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
       </p>
-	    <p>
-		    <a href="http://macroconnections.media.mit.edu/"><img src="{{HTTP_HOST}}media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" /></a>
-		    <a href="http://www.hks.harvard.edu/centers/cid"><img src="{{HTTP_HOST}}media/img/all/LogoTrans.png" alt="Center for International Development Logo" /></a>		
-	    </p>	
-      <p>
-      <div class="language_select">
+
+      <p style="margin-left:auto; margin-right:auto; width:40%;">
+        <a href="http://macroconnections.media.mit.edu/"><img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/></a>
+        <a href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/></a>
+        <div class="language_select" style="float:left; margin-top:-10px">
           <div class="text">
             Language:
           </div>
           <select>
-                {% for lang in supported_langs %}
+            {% for lang in supported_langs %}
             <option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
-                {% endfor %}
+            {% endfor %}
           </select>
         </div>
-      <p>
+      </p>
+
     </footer>
+
 
   </div> <!-- END #container -->
 
-  <script src="{{HTTP_HOST}}media/js/libs/jquery/jquery-1.7.1.min.js"></script>	
-	<script src="{{HTTP_HOST}}media/js/libs/chosen/chosen.jquery.min.js" ></script>
-  
-  
-
-  <script src="{{HTTP_HOST}}media/js/libs/bootstrap/js/bootstrap.js"></script>
-  <script src="{{HTTP_HOST}}media/js/libs/bootstrap/js/carousel.js"></script>
+  <script src="media/js/libs/jquery/jquery-1.10.2.min.js"></script>	
+	<script src="media/js/libs/chosen/chosen.jquery.min.js" ></script>
+  <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
 
   <script>
 	
-	// language select dropdown
-	$(".language_select select").chosen();
-	$(".language_select .chzn-search").hide();
-	$(".language_select select").chosen().change(function(){
-		// set session data to new language
-		var language = $(this).val();
-		window.location = "/set_language/"+language+"/";
-	});
-	
-  // google analytics
-  var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-  s.parentNode.insertBefore(g,s)}(document,'script'));
+  	// language select dropdown
+  	$(".language_select select").chosen();
+  	$(".language_select .chzn-search").hide();
+  	$(".language_select select").chosen().change(function(){
+  		// set session data to new language
+  		var language = $(this).val();
+  		window.location = "/set_language/"+language+"/";
+  	});
+  	
+    // google analytics
+    var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
 
-  // current nav styling
-	$(function(){
-		var current_page = document.location.pathname.split("/")[1];
-		$("nav ul a").each(function(i, el){
-			if($(el).text().toLowerCase() == current_page){
-				$(el).addClass("current");
-			}
-		})
-	})
+    // current nav styling
+  	$(function(){
+  		var current_page = document.location.pathname.split("/")[1];
+  		$("nav ul a").each(function(i, el){
+  			if($(el).text().toLowerCase() == current_page){
+  				$(el).addClass("current");
+  			}
+  		})
+  	})
 	</script>
 	{% block js %}{% endblock %}
 	

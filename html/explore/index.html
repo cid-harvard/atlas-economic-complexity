@@ -60,7 +60,7 @@
     <header>
      <div class="logo" style="background-color: #fafafa; width:200px; height:66px;">
         <a href="/" title="Home" style="text-decoration: none;">
-        <h1>&nbsp;&nbsp;The Atlas Of</h1>
+        <h1 style="background: url({{HTTP_HOST}}media/img/all/logo_rainbow.png) repeat-x 100% 100%;">&nbsp;&nbsp;The Atlas Of</h1>
         <h2 style="font-size:14px; margin-top:-3px; text-align:center; letter-spacing:1px; color:gray; text-transform:uppercase; text-decoration:none;">&nbsp;Economic Complexity</h2></a> 
       </div>  
       <nav>
@@ -71,7 +71,6 @@
           <li><a href="{{HTTP_HOST}}rankings">Rankings</a></li>
           <li><a href="{{HTTP_HOST}}book">Book</a></li>
           <li><a href="{{HTTP_HOST}}about">About</a></li>
-          <!-- <li><a href="/api">API</a></li>-->
         </ul>
       </nav> 
      
@@ -263,7 +262,7 @@
             </div>
 
           <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
-            <li {% if app_name != "product_space" and app_name != "pie_scatter" %}class="active"{% endif %}><a href="#tab-trade"><span style="font-size:14px;">Trade Flow</span></a></li>
+            <li {% if app_name != "product_space" and app_name != "pie_scatter" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;">Trade Flow</span></a></li>
             <li {% if app_name == "product_space" or app_name == "pie_scatter" %}class="active"{% endif %}><a href="#tab-diversification"><span style="font-size:14px; color:gray;">Diversification</span></a></li>
           </ul>
 
@@ -294,8 +293,8 @@
           </div>
        
           <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:10px; width:190px;">
-            <li{% if product_list %} class="active"{% endif %}><a href="#show-country-product"> <span  style="font-size:14px; color:gray;">Product</span></a></li>
-            <li{% if not product_list %} class="active"{% endif %}><a href="#show-country-partner"><span style="font-size:14px;">Trade Partner</span></a></li>
+            <li{% if product_list %} class="active"{% endif %}><a href="#show-country-product"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray;"></span>  <span style="font-size:14px; color:gray;">Product</span></a></li>
+            <li{% if not product_list %} class="active"{% endif %}><a href="#show-country-partner"><span class="glyphicon glyphicon-globe" style="font-size:14px; color:gray;"></span> <span style="font-size:14px;">Partner</span></a></li>
           </ul>
 
           <!-- Tab Trade Partner/Product -->
