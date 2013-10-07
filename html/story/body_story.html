@@ -1,0 +1,162 @@
+
+  <style>
+  .ui-front {
+    z-index:1000000 !important; /* The default is 100. !important overrides the default. */
+}
+</style>
+
+        {% if isbrowsemode %}
+		<script>
+/**
+ * Script to Re-Play the visualization in Story Replay mode
+ */
+          var JSDetails = "{{browseModeJScript}}";
+          JSDetails = JSDetails.replace(/&quot;/g, "\"");
+          JSDetails = JSDetails.replace(/&amp;/g, '&');
+          JSDetails = JSON.parse(JSDetails);
+          
+          var explore_year = JSDetails.explore_year
+          var PID = JSDetails.productCommunityID;
+          var PName = JSDetails.productCommunityName;
+          var continentFromJS = JSDetails.continent;
+          
+           setTimeout(function() { if (typeof PID != 'undefined') {
+            d3.selectAll(".key a").style("opacity",".1")
+                              .style("pointer-events","none")
+                              .style("cursor","default");
+            d3.select("a."+PID).style("opacity","1")
+                               .style("pointer-events","auto")  
+                               .style("cursor","")                 
+                               .attr("active","true"); 
+             d3.select("#viz").call(viz.solo([PName])); 
+          }
+          if (typeof explore_year!= 'undefined') {
+            set_year(explore_year);
+          }
+          if ((typeof continentFromJS != 'undefined')) {
+            d3.selectAll(".key a").style("opacity",".1")
+                              .style("pointer-events","none")
+                              .style("cursor","default");
+            d3.select("#viz").call(viz.solo([continentFromJS]));
+            d3.selectAll("."+continentFromJS).style("opacity","1")
+                                         .style("pointer-events","auto")  
+                                         .style("cursor","")                 
+                                         .attr("active","true");
+          }
+          }, 6000);
+        </script>
+		{% endif %}
+<script>
+
+/**
+ * open login dialog to save story
+ */
+function showSaveStoryDialog()
+{	  
+	$('#dialog-modal-endStory').dialog('close');
+	{% if userId %}
+		$("#storyChapterJSON").val(localStorage.getItem('JsonChapterDetail')); 
+		$("#storyDetail").val(localStorage.getItem('JsonStoryDetails'));	
+        $("#saveDataInDB").submit();
+	{% else %}
+    $("#storyChapterJSON").val(localStorage.getItem('JsonChapterDetail')); 
+	$("#storyDetail").val(localStorage.getItem('JsonStoryDetails'));
+	$("#dialog-modal-saveStory").dialog('open');
+	{% endif %}
+	return false;
+}
+/**
+ * Form submit to save anonymous story
+ */
+
+function submitAnonymousLogin()
+{
+    $("#saveDataInDB").submit();
+
+	}
+
+/**
+ * open dialog to create a new story
+ */
+function showCreateStoryDialog()
+{
+	$('#dialog-modal-createStory').dialog('open');
+  $('#dialog-modal-createStory').css("z-index", '100');
+	$("#storyForm").show();
+	$("#storyUnderCreation").hide();
+	{% if iscreatemode %}
+	$("#storyForm").hide();
+	$("#storyUnderCreation").show();
+	{% endif %}
+	return false;
+}
+
+/**
+ * Store Chapter details as JSON
+ */
+      function storeChapterDetails() {
+        var url = window.location.href;
+        var chapterName = $('#chap_title').val();
+        var chapterDescription = $('#chap_desc').val();
+        var jsonObj = [];
+	var item={};
+        var jsDetails = {};
+	for(var i=0, len=sessionStorage.length; i<len; i++) {
+		var key = sessionStorage.key(i);
+		var value = sessionStorage[key];
+                item[key]=value;
+	}
+        jsDetails["URL"] = url;
+        jsDetails["chapterName"]=chapterName;
+        jsDetails["chapterDescription"]= chapterDescription;
+        jsDetails["JS"] = item;
+        var jsonInStorage = localStorage.getItem("JsonChapterDetail");
+        if(jsonInStorage == null)
+        {
+          jsonObj.push(jsDetails);
+          localStorage.setItem("JsonChapterDetail",JSON.stringify(jsonObj));
+          localStorage.setItem("urlCount","1");
+        }
+        if(jsonInStorage != null)
+        {
+          var urlCount = parseInt(localStorage.getItem("urlCount"));
+          try
+          {
+            var stringifiedObj = jsonInStorage;
+            stringifiedObj = (JSON.parse(stringifiedObj));
+            stringifiedObj = stringifiedObj.reverse();
+            var parsedObj={};
+            for (i=0;i<urlCount;i++) {
+              parsedObj = stringifiedObj.pop();
+              jsonObj.push(parsedObj);
+              /*jsonObj.push(JSON.parse(jsonInStorage).pop());    */
+            }
+            jsonObj.push(jsDetails);
+            urlCount = urlCount+1;
+            localStorage.setItem("urlCount",urlCount);
+          }
+          catch(e)
+          {
+            console.log(e);
+          }
+          localStorage.setItem("JsonChapterDetail",JSON.stringify(jsonObj));
+        }
+        $("#dialog-modal-createChapter").dialog("close");
+      }
+      
+/**
+ * Store Story details as JSON
+ */
+     function storeStoryDetails(){
+        var storyName = $('#story_name').val();
+        var storyDescription = $('#story_desc').val();
+	var item={};
+        var json=[]
+        item["storyName"] = storyName;
+        item["storyDescription"] = storyDescription;
+        json.push(item);
+        localStorage.clear();
+        localStorage.setItem("JsonStoryDetails",JSON.stringify(json));
+        $("#dialog-modal-createStory").dialog("close");
+      }
+    </script>

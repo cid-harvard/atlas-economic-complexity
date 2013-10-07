@@ -1,0 +1,72 @@
+
+ <div id="dialog-modal-createStory" title="Create an Observ-a-Story" style="z-index:100">
+    <div id="storyForm">
+      <form action="/createStory/" name="patron" method="post" class="sform" onsubmit="storeStoryDetails();">
+        {% csrf_token %}
+        <table>
+			<tr class="vertalign">
+				<td><label for="story_name">Enter the story name</label></td>
+				<td><input name="story_name" id="story_name" value="{{story_name}}" class="textfields" type="text"  autofocus required></td>
+			</tr>
+			<tr class="vertalign">
+				<td><label for="story_desc">Enter the story description</label></td>
+				<td><textarea name="story_desc" id="story_desc" value="{{story_desc}}" rows="6" class="textfields"></textarea></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Submit" style="margin-top: 20px; margin-left:20px;" ></input></td>
+			</tr>
+		</table>
+      </form>
+  </div> 
+    <div id = "storyUnderCreation">
+      <h2 style="color: green">Story is under creation.</br>Please continue adding chapters.</h2>
+    </div>  
+ </div>
+ <div id="dialog-modal-createChapter" title="Add Chapter">
+    <div>
+      <form name="patron" id="chapterCreationModal" onsubmit="storeChapterDetails(); return false;" method="post" class="sform">
+        {% csrf_token %}
+        <table>
+			<tr class="vertalign">
+				<td><label for="chap_title">Enter chapter details</label></td>
+				<td><input name="chap_title" id="chap_title" value="{{chap_title}}" class="textfields" type="text"  autofocus required></td>
+			</tr>
+			<tr class="vertalign">
+				<td><label for="chap_desc">Enter chapter description</label></td>
+				<td><textarea name="chap_desc" rows="6" class="textfields" id="chap_desc" value="{{chap_desc}}"></textarea></td>
+			</tr>
+			<tr>
+                                <td></td>
+				<td><input type="submit" value="Submit" style="margin-top: 20px; margin-left:20px;"></input></td>
+			</tr>
+		</table>
+      </form>
+    </div>
+</div>
+ <div id = "dialog-modal-endStory" title="End Story">
+   <h4 align="center">Would you like to save or delete this story?</h4>
+   <input type = "button" value="Save" style="margin-left: 100px;" onclick="showSaveStoryDialog()"></input>
+   <input type = "button" value="Cancel" style="margin-left: 150px;" onclick="location.href='/cancelstory/', localStorage.clear();"></input>
+</div>
+
+    <div id="dialog-modal-saveStory" title="Save Story">
+	<h4 align="center">How would you like to save this story?</h4>
+	<form action="" method="post" id="saveDataInDB1" >
+		{% csrf_token %} 
+		<img src="/media/img/sign-in-with-google.png" alt="Login Using Google" onclick="googleLogin()"
+			style="width: 200px; height: 40px; cursor: pointer" /> <img
+			src="/media/img/sign-in-with-facebook.png" alt="Login Using Facebook"
+			onclick="fbLogin()"
+			style="width: 200px; height: 40px; margin-left: 60px; cursor: pointer" />
+		<input type="button" id="anonymousLogin" value="Anonymous" onclick="submitAnonymousLogin();"style="width: 175px; margin-top: 30px; margin-left: 30%;"></input> 
+
+	</form>
+</div>
+<form action='/endSaveStory/' method="post" id="saveDataInDB">
+	{% csrf_token %} 
+	<input type="hidden" id="storyChapterJSON" name="storyChapterJSON"></input> 
+	<input type="hidden" id="storyDetail" name="storyDetail"></input>
+	<input type="hidden" id="socialMediaIntegrationData"name="socialMediaIntegrationData"></input>
+	
+</form>

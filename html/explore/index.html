@@ -907,6 +907,17 @@
 
         <h4 id="sidebar-create-story" data-toggle="tooltip" title="Create a new story and share it to the world!" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Create a Story</h4>
 
+        <ul>
+              <li><a class="createstory" href="#" onclick="showCreateStoryDialog()">Create</a></li>
+              <li><a class="retrievestory" href="#" onclick="location.href=/stories/">Browse</a></li>
+            </ul>
+
+    {% if iscreatemode %}
+         <button id="add" class="btnaddstory" onclick="openCreateChapterDialog()" style="margin: 15px 10px 0 10px;">Add to Story</button>
+         <button id="end" class="btnendstory" onclick="endStory()" style="margin: 15px 10px 0 10px;">End Story</button>
+         <br/>
+    {% endif %}   
+
           <a href="#"><span class="glyphicon glyphicon-off"></span></a>
           <a href="#"><span class="glyphicon glyphicon-camera"></span></a>
           <a href="#"><span class="glyphicon glyphicon-list-alt"></span></a>
@@ -1151,7 +1162,8 @@
   <!-- The JavaScript -->
   <!-- Libraries -->
   <script src="/media/js/libs/jquery/jquery-1.10.2.js"></script>
-  <script src="/media/js/libs/jquery-ui/jquery-ui.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+
   <script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
 
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -1169,6 +1181,7 @@
 
   <!-- App -->
   <script src="/media/js/explore/general.js"></script>
+  <script src="/media/js/story/createStory.js"></script> 
   <script src="/media/js/explore/key.js"></script>
   <script src="/media/js/explore/timeline.js"></script>
   <script src="/media/js/explore/controls.js"></script>
@@ -1186,6 +1199,7 @@
   {% if app_name == "product_space" %}<script src="/media/js/libs/vizwiz/src/viz/network.js"></script>{% endif %}
   {% if app_name == "map" %}<script src="/media/js/apps/map.js"></script>{% endif %}
   <script src="/media/js/explore/viz_general.js"></script> 
+
 
   <!-- Glossary -->
   <div id="glossary" style="display:none;">
@@ -1209,9 +1223,9 @@
         }  
     });
 
-
-
   </script> 
+
+  {% include "story/init_story.html" %}
 
   <script>
   // google analytics
@@ -1263,17 +1277,6 @@
     }
   })
   
-  /*
-  // Accordion for app selection
-  $(".accordion").accordion({
-    collapsible: true,
-    active: false,
-    autoHeight: false,
-    header: "> div > h3"
-  });
-  $(".accordion").accordion("option", "active", app_types.indexOf(app_name));
-  */
-
   // Check to see if the title overflows (in the case of long product names)
   function isOverflowed(element){
       return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
@@ -1288,6 +1291,10 @@
   // to build the app. Look in viz_general.js for more info.
   build_viz_app(api_uri, 750, 520);
 
+
+  </script>
+   {% include "story/body_story.html" %}
+  <script>
 
   $(function () {
 
@@ -1355,7 +1362,6 @@
   </script>
 
 
-
     <style>
 
       #country1 .chosen-results li {
@@ -1395,4 +1401,8 @@
     </style>
 
   </body>
+
+  {% include "story/story_forms.html" %}
+
+
 </html>

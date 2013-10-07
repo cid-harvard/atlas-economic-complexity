@@ -66,7 +66,26 @@ urlpatterns = patterns('',
   (r'^api/$', 'observatory.views.api'),
   (r'^api/apps/$', 'observatory.views.api_apps'),
   (r'^api/data/$', 'observatory.views.api_data'),
-  
+
+  # Story #####
+  (r'^deleteStory/$','observatory.views.deleteStory'),
+  (r'^logOut/$','observatory.views.logOut'),
+  (r'^updateEditForm/$','observatory.views.updateEditForm'),
+  (r'^stories/view/(?P<browseStoryId>\d+)/$','observatory.views.viewStory'),
+  (r'^stories/edit/$','observatory.views.editStoryForm'),
+  (r'^cancelstory/$','observatory.views.cancelstory'),
+  (r'^endSaveStory/$','observatory.views.endSaveStory'),
+  (r'^published/$','observatory.views.published'),
+  (r'^likeCount/$','observatory.views.likeCount'),
+  (r'^featured/$','observatory.views.featured'),
+  (r'^endbrowsestory/$','observatory.views.endbrowsestory'),  
+  (r'^browsestories/(?P<browseStoryId>\d+)/$','observatory.views.browsestories'),
+  (r'^stories/$','observatory.views.browseStoryForm'),
+  (r'^endSaveStory/$','observatory.views.endSaveStory'),
+  (r'^browseStoryNext/$','observatory.views.browseStoryNext'),
+  (r'^browseStoryPrev/$','observatory.views.browseStoryPrev'),
+  (r'^createStory/$','observatory.views.createStory'),
+
   # Explore (App) #############################################################
   # Legacy app redirect
   (r'^app/(?P<app_name>[a-z0-9_]+)/(?P<trade_flow>\w{6,10})/(?P<filter>[a-z0-9\.]+)/(?P<year>[0-9\.]+)/$', 'observatory.views.app_redirect'),
