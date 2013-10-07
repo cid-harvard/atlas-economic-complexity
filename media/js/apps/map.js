@@ -13,7 +13,11 @@ function App() {
   function map(selection) {
     selection.each(function(data, i) {
       
-      color_gradient = ["#f2ecb4", "#f2e671", "#f6d626", "#f9b344", "#eb8c30", "#e84d24"]
+      //color_gradient = ["#f2ecb4", "#f2e671", "#f6d626", "#f9b344", "#eb8c30", "#e84d24"];
+
+      // http://colorbrewer2.org/?type=sequential&scheme=YlOrBr&n=6
+      color_gradient = ["#f2ecb4", "#fee391", "#fec44f", "#fe9929", "#d95f0e", "#993404"];
+
       attr_data = data["attr_data"]
       // console.log(attr_data)
       geo_data = get_world_geography();
@@ -61,7 +65,7 @@ function App() {
 
       var value_range = get_range(current_years_data, 5);
       var value_range_big = get_range(current_years_data, 10);
-      var value_color = d3.scale.log() // log
+      var value_color = d3.scale.linear() // log
         .domain(value_range)
         .interpolate(d3.interpolateRgb)
         .range([color_gradient[0], color_gradient[1], color_gradient[2], color_gradient[3], color_gradient[4], color_gradient[5]])  
@@ -181,13 +185,14 @@ function App() {
       if(c.value > 0) return c.value
     });
     var linear_10_buckets = [min, (min+(max-min)*0.1), (min+(max-min)*0.2), (min+(max-min)*0.3), (min+(max-min)*0.4), (min+(max-min)*0.5), (min+(max-min)*0.6), (min+(max-min)*0.7), (min+(max-min)*0.8), (min+(max-min)*0.9), max];
+    var linear_5_buckets = [min, (min+(max-min)*0.2), (min+(max-min)*0.4), (min+(max-min)*0.6), (min+(max-min)*0.8), max];
     var log_10_buckets = [min, (min*Math.pow((max/min),0.1)), (min*Math.pow((max/min),0.2)), (min*Math.pow((max/min),0.3)), (min*Math.pow((max/min),0.4)), (min*Math.pow((max/min),0.5)), (min*Math.pow((max/min),0.6)), (min*Math.pow((max/min),0.7)), (min*Math.pow((max/min),0.8)), (min*Math.pow((max/min),0.9)), max];
     var log_5_buckets = [min, (min*Math.pow((max/min),0.2)), (min*Math.pow((max/min),0.4)), (min*Math.pow((max/min),0.6)), (min*Math.pow((max/min),0.8)), max];
     // console.log(linear_10_buckets)
     // console.log(log_10_buckets)
     // console.log(log_5_buckets)
-    if (size == 10 ) return log_10_buckets;
-    if (size == 5 ) return log_5_buckets;
+    if (size == 10 ) return linear_10_buckets; //log_10_buckets;
+    if (size == 5 ) return linear_5_buckets; //log_5_buckets;
   }
   
   function get_world_geography(){
