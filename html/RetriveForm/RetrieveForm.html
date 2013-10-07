@@ -109,7 +109,7 @@
 	</select> 
          <div class="buttonSection">
          <input type="Submit" class="retriveButton viewButton" value="View" id="viewButton" onclick=""></input>
-         <input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url "observatory.views.editStoryForm" %}'"></input>
+         <input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url observatory.views.editStoryForm %}'"></input>
          <input type="button" class="retriveButton" value="Publish" id="publishButton"></input>
 		{% for story in checkAdmin %}
 		{% if story.isadmin %}

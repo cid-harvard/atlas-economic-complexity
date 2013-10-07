@@ -790,6 +790,20 @@ def app_redirect(request, app_name, trade_flow, filter, year):
 
 def explore(request, app_name, trade_flow, country1, country2, product, year="2011"):
   
+  iscreatemode=False
+  iscreatemode = request.session['create'] if 'create' in request.session else False
+  isbrowsemode=False
+  isbrowsemode = request.session['retrieve'] if 'retrieve' in request.session else False
+  NoOfChapter=request.session['BrowseStoryChapNos'] if 'BrowseStoryChapNos' in request.session else ""
+  browseStoryName=request.session['browseStoryName'] if 'browseStoryName' in request.session else ""
+  browseStoryDesc=request.session['browseStoryDesc'] if 'browseStoryDesc' in request.session else ""
+  browseChapterName=request.session['browseStoryChapName'] if 'browseStoryChapName' in request.session else ""
+  browseChapterDesc=request.session['browseStoryChapterDesc'] if 'browseStoryChapterDesc'in request.session else ""
+  browseModeJScript=request.session['browseStoryJScript'] if 'browseStoryJScript' in request.session else ""
+  NoOfChpt=request.session['NoOfchap'] if 'NoOfchap' in request.session else ""
+  userName=request.session['username'] if 'username' in request.session else ""
+  userId=request.session['userid'] if 'userid' in request.session else ""
+
   # raise Exception(country1, country2, product, year)
   # Get URL query parameters
   was_redirected = request.GET.get("redirect", False)
@@ -963,6 +977,16 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   # Return page without visualization data
   
   return render_to_response("explore/index.html", {
+    "browseModeJScript": browseModeJScript,
+    "browseChapterDesc" : browseChapterDesc,
+    "browseChapterName": browseChapterName,
+    "NoOfChapter" : NoOfChapter,
+    "browseStoryName": browseStoryName,
+    "browseStoryDesc" : browseStoryDesc,
+    "isbrowsemode": isbrowsemode,
+    "iscreatemode": iscreatemode,
+    "userName":userName,
+    "userId":userId,
     "warning": warning,
     "alert": alert,
     "prod_class": prod_class,
