@@ -881,10 +881,11 @@
 
        <style>
 
-       #tool_pane > a > .glyphicon {
+       #tool_pane  .glyphicon {
           font-size:18px;
            color:lightgray;
            margin:5px;
+           cursor:pointer;
         }
 
        #tool_pane > .glyphicon:hover {
@@ -896,19 +897,18 @@
       <!-- The right pane -->
       <div id="tool_pane" style="width:50px">
 
-        <h4 id="sidebar-create-story" data-toggle="tooltip" title="Create a new story and share it to the world!" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Create a Story</h4>
+        <h4 id="sidebar-create-story" data-toggle="tooltip" title="Create a new story and share it to the world!" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Tell-a-Story</h4>
 
-        <a  href="#" onclick="showCreateStoryDialog()"><span class="glyphicon glyphicon-plus-sign"></span></a>
-        <a href="#" onclick="location.href=/stories/"><span class="glyphicon glyphicon-list-alt"></span></a>
+        <span class="glyphicon glyphicon-plus-sign" onclick="showCreateStoryDialog()">&nbsp;</span>
+        <span class="glyphicon glyphicon-list-alt" onclick="window.location.assign('stories/');">&nbsp;</span>
            
 
        {% if iscreatemode %}
-         <a  href="#" onclick="openCreateChapterDialog()"><span class="glyphicon glyphicon-plus"></span></a>
-         <a  href="#" onclick="endStory()"><span class="glyphicon glyphicon-stop"></span></a>
-         
-         <br/>
+         <span class="glyphicon glyphicon-plus" onclick="openCreateChapterDialog()"></span>
+         <span class="glyphicon glyphicon-stop" onclick="endStory()"></span>
        {% endif %}   
-
+       
+       <br/>
        <br/>
           <!--
           <a href="#"><span class="glyphicon glyphicon-camera"></span></a>
@@ -939,7 +939,7 @@
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Feedback</h4>
     
         <a href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank"><span class="glyphicon glyphicon-envelope" style="margin:5px; font-size:18px; color:lightgray"></span></a>
-     
+            <br/>       <br/>
         <!--
         <!-- Trade Flow 
         {% if app_name != "pie_scatter" %}
