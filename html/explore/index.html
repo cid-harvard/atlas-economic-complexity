@@ -370,11 +370,11 @@
             <div class="btn-toolbar" style="margin-left:10px;">
               <a href="{{HTTP_HOST}}/explore/product_space/export/usa/all/show/2011/"><div class="btn-group">
                 <label type="button" class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left">
-                  <img src="/media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
+                  <img src="{{HTTP_HOST}}media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
                 </label></div></a>
               <br><br>
               <a href="{{HTTP_HOST}}/explore/pie_scatter/export/usa/all/show/2011/">
-              <div class="btn-group"><label type="button" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px"><img src="/media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label></div>
+              <div class="btn-group"><label type="button" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px"><img src="{{HTTP_HOST}}media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label></div>
               </a>
             </div>
 
@@ -710,7 +710,7 @@
 
         <!-- ajax loading gif -->
         <div id="loader">
-          <img src="/media/img/all/loader.gif" alt="loading" /><br />Loading...
+          <img src="{{HTTP_HOST}}media/img/all/loader.gif" alt="loading" /><br />Loading...
         </div>
         
         <!-- the canvas for the visualization -->
@@ -924,11 +924,11 @@
 
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this Page</h4>
     
-        <a class="addthis_button_facebook"> <img src="/media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
-        <a class="addthis_button_twitter" ><img src="/media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        <a class="addthis_button_facebook"> <img src="{{HTTP_HOST}}media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
+        <a class="addthis_button_twitter" ><img src="{{HTTP_HOST}}media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
         <a
-        class="addthis_button_google_plusone_share" ><img src="/media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
-        <a class="addthis_button_email"><img src="/media/img/all/email_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        class="addthis_button_google_plusone_share" ><img src="{{HTTP_HOST}}media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        <a class="addthis_button_email"><img src="{{HTTP_HOST}}media/img/all/email_badge.png" style="height:30px; margin: 5px 0px"/></a>
         
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Download</h4>
         
@@ -938,7 +938,7 @@
 
         <br>
         <br>
-        <img src="/media/img/app/text.png" style="width:20px" />
+        <img src="{{HTTP_HOST}}media/img/app/text.png" style="width:20px" />
         <a class="text" href="#"> <span>{% trans "Data" %}</span></a>
         <br>
         <br>
@@ -1082,8 +1082,8 @@
       </p>
 
       <p style="margin-left:auto; margin-right:auto; width:40%;">
-        <img src="/media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/>
-        <img src="/media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/>		
+        <img src="{{HTTP_HOST}}media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/>
+        <img src="{{HTTP_HOST}}media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/>		
         <div class="language_select" style="float:left; margin-top:-10px">
           <div class="text">
             Language:
@@ -1161,17 +1161,17 @@
 
   <!-- The JavaScript -->
   <!-- Libraries -->
-  <script src="/media/js/libs/jquery/jquery-1.10.2.js"></script>
+  <script src="{{HTTP_HOST}}media/js/libs/jquery/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
 
-  <script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
+  <script src="{{HTTP_HOST}}media/js/libs/tipsy/tipsy.jquery.js" ></script>
 
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 
-  <script src="/media/js/libs/bootstrap/js/bootstrap.js"></script>
-  <script src="/media/js/libs/chosen/chosen.jquery.js" ></script>
+  <script src="{{HTTP_HOST}}media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="{{HTTP_HOST}}media/js/libs/chosen/chosen.jquery.js" ></script>
   <script>
     $(function() {
       $('.chosen-select').chosen();
