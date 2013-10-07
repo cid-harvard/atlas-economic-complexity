@@ -350,14 +350,14 @@
           <div style="font-weight:bold; margin-top:10px; margin-left:10px">Visualization:</div>
 
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
-            <label value="tree_map" id="treemap_viz" name="viz_apps" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %}" onclick="update_viz('tree_map');" data-container="body" data-toggle="popover" data-placement="top" title="Treemap" data-content="<img src='/media/img/home/teaser_tree_map.png' style='width:100px; float:left; padding:10px'/>A <b>Treemap</b> is a method for displaying hierarchical data by using nested rectangles. Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches. A leaf node's rectangle has an area proportional to a specified dimension on the data. Often the leaf nodes are colored to show a separate dimension of the data." {% if year_interval_list %}disabled{%endif%}>
-              <input type="radio" id="option1" style="background:url(/media/img/home/teaser_tree_map.png) no-repeat;"> <img src="/media/img/home/teaser_tree_map.png" style="width:38px;"/>
+            <label value="tree_map" id="treemap_viz" name="viz_apps" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %}" onclick="update_viz('tree_map');" data-container="body" data-toggle="popover" data-placement="top" title="Treemap" data-content="<img src='{{HTTP_HOST}}media/img/home/teaser_tree_map.png' style='width:100px; float:left; padding:10px'/>A <b>Treemap</b> is a method for displaying hierarchical data by using nested rectangles. Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches. A leaf node's rectangle has an area proportional to a specified dimension on the data. Often the leaf nodes are colored to show a separate dimension of the data." {% if year_interval_list %}disabled{%endif%}>
+              <input type="radio" id="option1" style="background:url({{HTTP_HOST}}media/img/home/teaser_tree_map.png) no-repeat;"> <img src="{{HTTP_HOST}}media/img/home/teaser_tree_map.png" style="width:38px;"/>
             </label>
-            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-container="body" data-toggle="popover" data-placement="top" title="Map" data-content="<img src='/media/img/home/teaser_map.png' style='width:100px; float:left; padding:10px'/>A <b>map</b> is a visual representation of an area – a symbolic depiction highlighting relationships between elements of that space such as objects, regions, and themes. Many maps are static two-dimensional, geometrically accurate (or approximately accurate) representations of three-dimensional space, while others are dynamic or interactive, even three-dimensional. Although most commonly used to depict geography, maps may represent any space, real or imagined, without regard to context or scale; e.g. brain mapping, DNA mapping and extraterrestrial mapping." {% if year_interval_list %}disabled{%endif%}>
-              <input type="radio" name="viz_apps" id="option2"> <img src="/media/img/home/teaser_map.png" style="width:38px;"/>
+            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-container="body" data-toggle="popover" data-placement="top" title="Map" data-content="<img src='{{HTTP_HOST}}media/img/home/teaser_map.png' style='width:100px; float:left; padding:10px'/>A <b>map</b> is a visual representation of an area – a symbolic depiction highlighting relationships between elements of that space such as objects, regions, and themes. Many maps are static two-dimensional, geometrically accurate (or approximately accurate) representations of three-dimensional space, while others are dynamic or interactive, even three-dimensional. Although most commonly used to depict geography, maps may represent any space, real or imagined, without regard to context or scale; e.g. brain mapping, DNA mapping and extraterrestrial mapping." {% if year_interval_list %}disabled{%endif%}>
+              <input type="radio" name="viz_apps" id="option2"> <img src="{{HTTP_HOST}}media/img/home/teaser_map.png" style="width:38px;"/>
             </label>
             <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%}" onclick="update_viz();" {% if not year_interval_list %}disabled{%endif%}>
-              <input type="radio" name="viz_apps" id="option3" > <img src="/media/img/home/teaser_stacked.png" style="width:38px;"/>
+              <input type="radio" name="viz_apps" id="option3" > <img src="{{HTTP_HOST}}media/img/home/teaser_stacked.png" style="width:38px;"/>
             </label>
           </div>
 
@@ -1180,25 +1180,25 @@
   </script>
 
   <!-- App -->
-  <script src="/media/js/explore/general.js"></script>
-  <script src="/media/js/story/createStory.js"></script> 
-  <script src="/media/js/explore/key.js"></script>
-  <script src="/media/js/explore/timeline.js"></script>
-  <script src="/media/js/explore/controls.js"></script>
-  <script src="/media/js/apps/related.js"></script>
-  <script src="/media/js/libs/vizwiz/lib/d3.js"></script>
-  <script src="/media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
-  <script src="/media/js/libs/vizwiz/src/general.js"></script>
-  <script src="/media/js/libs/vizwiz/src/utils.js"></script>
-  <script src="/media/js/libs/vizwiz/src/tooltip.js"></script>
-  <script src="/media/js/libs/vizwiz/src/utils.slider.js"></script>
-  <script src="/media/js/libs/vizwiz/src/viz/viz.js"></script>
-  {% if app_name == "tree_map" %}<script src="/media/js/libs/vizwiz/src/viz/tree_map.js"></script>{% endif %}
-  {% if app_name == "stacked" %}<script src="/media/js/libs/vizwiz/src/viz/stacked.js"></script>{% endif %}
-  {% if app_name == "pie_scatter" %}<script src="/media/js/libs/vizwiz/src/viz/pie_scatter.js"></script>{% endif %}
-  {% if app_name == "product_space" %}<script src="/media/js/libs/vizwiz/src/viz/network.js"></script>{% endif %}
-  {% if app_name == "map" %}<script src="/media/js/apps/map.js"></script>{% endif %}
-  <script src="/media/js/explore/viz_general.js"></script> 
+  <script src="{{HTTP_HOST}}media/js/explore/general.js"></script>
+  <script src="{{HTTP_HOST}}media/js/story/createStory.js"></script> 
+  <script src="{{HTTP_HOST}}media/js/explore/key.js"></script>
+  <script src="{{HTTP_HOST}}media/js/explore/timeline.js"></script>
+  <script src="{{HTTP_HOST}}media/js/explore/controls.js"></script>
+  <script src="{{HTTP_HOST}}media/js/apps/related.js"></script>
+  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/lib/d3.js"></script>
+  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
+  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/general.js"></script>
+  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/utils.js"></script>
+  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/tooltip.js"></script>
+  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/utils.slider.js"></script>
+  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/viz.js"></script>
+  {% if app_name == "tree_map" %}<script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/tree_map.js"></script>{% endif %}
+  {% if app_name == "stacked" %}<script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/stacked.js"></script>{% endif %}
+  {% if app_name == "pie_scatter" %}<script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/pie_scatter.js"></script>{% endif %}
+  {% if app_name == "product_space" %}<script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/network.js"></script>{% endif %}
+  {% if app_name == "map" %}<script src="{{HTTP_HOST}}media/js/apps/map.js"></script>{% endif %}
+  <script src="{{HTTP_HOST}}media/js/explore/viz_general.js"></script> 
 
 
   <!-- Glossary -->
@@ -1365,7 +1365,7 @@
     <style>
 
       #country1 .chosen-results li {
-        background: url('/media/img/icons/flag_usa.png') no-repeat;
+        background: url('{{HTTP_HOST}}media/img/icons/flag_usa.png') no-repeat;
         background-size:25px;
         padding-left: 25px;
         margin-top:-4px;
@@ -1379,7 +1379,7 @@
       }
      
       #country1 .chosen-single span {
-        background: url('/media/img/icons/flag_fra.png') no-repeat;
+        background: url('{{HTTP_HOST}}media/img/icons/flag_fra.png') no-repeat;
         background-size:25px;
         padding-left: 30px;
         margin-top:-2px;
