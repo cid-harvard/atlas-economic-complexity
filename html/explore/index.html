@@ -3,8 +3,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <base href="{{HTTP_HOST}}">
 
   <title>The Observatory | {{title}} ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})</title>
   <meta name="description" content="Networks in Macro Economics">
@@ -14,22 +17,22 @@
         the additional URL query parameter _escaped_fragment_= -->
   <meta name="fragment" content="!">
   
-  <link rel="shortcut icon" type="image/x-icon" href="{{HTTP_HOST}}media/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="media/img/favicon.ico">
     <!-- Load non-standard fonts -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
   
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/bootstrap/css/bootstrap.css"/>
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/css/normalize.css">
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/css/style.css">
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/chosen/chosen.css" />
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/tipsy/tipsy.css" />
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/vizwiz/src/utils.slider.css" />
+  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="media/css/normalize.css">
+  <link rel="stylesheet" href="media/css/style.css">
+  <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
+  <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
+  <link rel="stylesheet" href="media/js/libs/vizwiz/src/utils.slider.css" />
 
-  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
   <!-- VizWiz -->
-  <link href="{{HTTP_HOST}}media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
+  <link href="media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
   
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -60,17 +63,17 @@
     <header>
      <div class="logo" style="background-color: #fafafa; width:200px; height:66px;">
         <a href="/" title="Home" style="text-decoration: none;">
-        <h1 style="background: url({{HTTP_HOST}}media/img/all/logo_rainbow.png) repeat-x 100% 100%;">&nbsp;&nbsp;The Atlas Of</h1>
+        <h1 style="background: url(media/img/all/logo_rainbow.png) repeat-x 100% 100%;">&nbsp;&nbsp;The Atlas Of</h1>
         <h2 style="font-size:14px; margin-top:-3px; text-align:center; letter-spacing:1px; color:gray; text-transform:uppercase; text-decoration:none;">&nbsp;Economic Complexity</h2></a> 
       </div>  
       <nav>
         <ul>
-          <li><a href="{{HTTP_HOST}}explore">Explore</a></li>
+          <li><a href="explore">Explore</a></li>
           <!-- <li><a href="/country/usa/">Profiles</a></li> -->
-          <li><a href="{{HTTP_HOST}}stories">Stories</a></li>
-          <li><a href="{{HTTP_HOST}}rankings">Rankings</a></li>
-          <li><a href="{{HTTP_HOST}}book">Book</a></li>
-          <li><a href="{{HTTP_HOST}}about">About</a></li>
+          <li><a href="stories">Stories</a></li>
+          <li><a href="rankings">Rankings</a></li>
+          <li><a href="book">Book</a></li>
+          <li><a href="about">About</a></li>
         </ul>
       </nav> 
      
@@ -110,7 +113,7 @@
 
       function update_viz(viz) {
       
-        var url = "{{HTTP_HOST}}explore/";
+        var url = "explore/";
         var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
         current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
 
@@ -339,14 +342,14 @@
           <div style="font-weight:bold; margin-top:10px; margin-left:10px">Visualization:</div>
 
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
-            <label value="tree_map" id="treemap_viz" name="viz_apps" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %}" onclick="update_viz('tree_map');" data-container="body" data-toggle="popover" data-placement="top" title="Treemap" data-content="<img src='{{HTTP_HOST}}media/img/home/teaser_tree_map.png' style='width:100px; float:left; padding:10px'/>A <b>Treemap</b> is a method for displaying hierarchical data by using nested rectangles. Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches. A leaf node's rectangle has an area proportional to a specified dimension on the data. Often the leaf nodes are colored to show a separate dimension of the data." {% if year_interval_list %}disabled{%endif%}>
-              <input type="radio" id="option1" style="background:url({{HTTP_HOST}}media/img/home/teaser_tree_map.png) no-repeat;"> <img src="{{HTTP_HOST}}media/img/home/teaser_tree_map.png" style="width:38px;"/>
+            <label value="tree_map" id="treemap_viz" name="viz_apps" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %}" onclick="update_viz('tree_map');" data-container="body" data-toggle="popover" data-placement="top" title="Treemap" data-content="<img src='media/img/home/teaser_tree_map.png' style='width:100px; float:left; padding:10px'/>A <b>Treemap</b> is a method for displaying hierarchical data by using nested rectangles. Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches. A leaf node's rectangle has an area proportional to a specified dimension on the data. Often the leaf nodes are colored to show a separate dimension of the data." {% if year_interval_list %}disabled{%endif%}>
+              <input type="radio" id="option1" style="background:url(media/img/home/teaser_tree_map.png) no-repeat;"> <img src="media/img/home/teaser_tree_map.png" style="width:38px;"/>
             </label>
-            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-container="body" data-toggle="popover" data-placement="top" title="Map" data-content="<img src='{{HTTP_HOST}}media/img/home/teaser_map.png' style='width:100px; float:left; padding:10px'/>A <b>map</b> is a visual representation of an area – a symbolic depiction highlighting relationships between elements of that space such as objects, regions, and themes. Many maps are static two-dimensional, geometrically accurate (or approximately accurate) representations of three-dimensional space, while others are dynamic or interactive, even three-dimensional. Although most commonly used to depict geography, maps may represent any space, real or imagined, without regard to context or scale; e.g. brain mapping, DNA mapping and extraterrestrial mapping." {% if year_interval_list %}disabled{%endif%}>
-              <input type="radio" name="viz_apps" id="option2"> <img src="{{HTTP_HOST}}media/img/home/teaser_map.png" style="width:38px;"/>
+            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-container="body" data-toggle="popover" data-placement="top" title="Map" data-content="<img src='media/img/home/teaser_map.png' style='width:100px; float:left; padding:10px'/>A <b>map</b> is a visual representation of an area – a symbolic depiction highlighting relationships between elements of that space such as objects, regions, and themes. Many maps are static two-dimensional, geometrically accurate (or approximately accurate) representations of three-dimensional space, while others are dynamic or interactive, even three-dimensional. Although most commonly used to depict geography, maps may represent any space, real or imagined, without regard to context or scale; e.g. brain mapping, DNA mapping and extraterrestrial mapping." {% if year_interval_list %}disabled{%endif%}>
+              <input type="radio" name="viz_apps" id="option2"> <img src="media/img/home/teaser_map.png" style="width:38px;"/>
             </label>
             <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%}" onclick="update_viz();" {% if not year_interval_list %}disabled{%endif%}>
-              <input type="radio" name="viz_apps" id="option3" > <img src="{{HTTP_HOST}}media/img/home/teaser_stacked.png" style="width:38px;"/>
+              <input type="radio" name="viz_apps" id="option3" > <img src="media/img/home/teaser_stacked.png" style="width:38px;"/>
             </label>
           </div>
 
@@ -356,13 +359,13 @@
 
            <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" %}active{% endif %}" id="tab-diversification">
             <div class="btn-toolbar" style="margin-left:10px;">
-              <a href="{{HTTP_HOST}}explore/product_space/export/usa/all/show/2011/"><div class="btn-group">
+              <a href="explore/product_space/export/usa/all/show/2011/"><div class="btn-group">
                 <label type="button" class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left">
-                  <img src="{{HTTP_HOST}}media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
+                  <img src="media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
                 </label></div></a>
               <br><br>
-              <a href="{{HTTP_HOST}}explore/pie_scatter/export/usa/all/show/2011/">
-              <div class="btn-group"><label type="button" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px"><img src="{{HTTP_HOST}}media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label></div>
+              <a href="explore/pie_scatter/export/usa/all/show/2011/">
+              <div class="btn-group"><label type="button" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px"><img src="media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label></div>
               </a>
             </div>
 
@@ -697,7 +700,7 @@
 
         <!-- ajax loading gif -->
         <div id="loader">
-          <img src="{{HTTP_HOST}}media/img/all/loader.gif" alt="loading" /><br />Loading...
+          <img src="media/img/all/loader.gif" alt="loading" /><br />Loading...
         </div>
         
         <!-- the canvas for the visualization -->
@@ -913,11 +916,11 @@
     -->
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this Page</h4>
     
-        <a class="addthis_button_facebook"> <img src="{{HTTP_HOST}}media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
-        <a class="addthis_button_twitter" ><img src="{{HTTP_HOST}}media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        <a class="addthis_button_facebook"> <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
+        <a class="addthis_button_twitter" ><img src="media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
         <a
-        class="addthis_button_google_plusone_share" ><img src="{{HTTP_HOST}}media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
-        <a class="addthis_button_email"><img src="{{HTTP_HOST}}media/img/all/email_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        class="addthis_button_google_plusone_share" ><img src="media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        <a class="addthis_button_email"><img src="media/img/all/email_badge.png" style="height:30px; margin: 5px 0px"/></a>
         
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Download</h4>
         
@@ -927,7 +930,7 @@
 
         <br>
         <br>
-        <img src="{{HTTP_HOST}}media/img/app/text.png" style="width:20px" />
+        <img src="media/img/app/text.png" style="width:20px" />
         <a class="text" href="#"> <span>{% trans "Data" %}</span></a>
         <br>
         <br>
@@ -1071,8 +1074,8 @@
       </p>
 
       <p style="margin-left:auto; margin-right:auto; width:40%;">
-        <img src="{{HTTP_HOST}}media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/>
-        <img src="{{HTTP_HOST}}media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/>		
+        <img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/>
+        <img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/>		
         <div class="language_select" style="float:left; margin-top:-10px">
           <div class="text">
             Language:
@@ -1150,17 +1153,17 @@
 
   <!-- The JavaScript -->
   <!-- Libraries -->
-  <script src="{{HTTP_HOST}}media/js/libs/jquery/jquery-1.10.2.js"></script>
+  <script src="media/js/libs/jquery/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
 
-  <script src="{{HTTP_HOST}}media/js/libs/tipsy/tipsy.jquery.js" ></script>
+  <script src="media/js/libs/tipsy/tipsy.jquery.js" ></script>
 
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 
-  <script src="{{HTTP_HOST}}media/js/libs/bootstrap/js/bootstrap.js"></script>
-  <script src="{{HTTP_HOST}}media/js/libs/chosen/chosen.jquery.js" ></script>
+  <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="media/js/libs/chosen/chosen.jquery.js" ></script>
   <script>
     $(function() {
       $('.chosen-select').chosen();
@@ -1169,25 +1172,25 @@
   </script>
 
   <!-- App -->
-  <script src="{{HTTP_HOST}}media/js/explore/general.js"></script>
-  <script src="{{HTTP_HOST}}media/js/story/createStory.js"></script> 
-  <script src="{{HTTP_HOST}}media/js/explore/key.js"></script>
-  <script src="{{HTTP_HOST}}media/js/explore/timeline.js"></script>
-  <script src="{{HTTP_HOST}}media/js/explore/controls.js"></script>
-  <script src="{{HTTP_HOST}}media/js/apps/related.js"></script>
-  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/lib/d3.js"></script>
-  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
-  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/general.js"></script>
-  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/utils.js"></script>
-  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/tooltip.js"></script>
-  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/utils.slider.js"></script>
-  <script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/viz.js"></script>
-  {% if app_name == "tree_map" %}<script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/tree_map.js"></script>{% endif %}
-  {% if app_name == "stacked" %}<script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/stacked.js"></script>{% endif %}
-  {% if app_name == "pie_scatter" %}<script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/pie_scatter.js"></script>{% endif %}
-  {% if app_name == "product_space" %}<script src="{{HTTP_HOST}}media/js/libs/vizwiz/src/viz/network.js"></script>{% endif %}
-  {% if app_name == "map" %}<script src="{{HTTP_HOST}}media/js/apps/map.js"></script>{% endif %}
-  <script src="{{HTTP_HOST}}media/js/explore/viz_general.js"></script> 
+  <script src="media/js/explore/general.js"></script>
+  <script src="media/js/story/createStory.js"></script> 
+  <script src="media/js/explore/key.js"></script>
+  <script src="media/js/explore/timeline.js"></script>
+  <script src="media/js/explore/controls.js"></script>
+  <script src="media/js/apps/related.js"></script>
+  <script src="media/js/libs/vizwiz/lib/d3.js"></script>
+  <script src="media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
+  <script src="media/js/libs/vizwiz/src/general.js"></script>
+  <script src="media/js/libs/vizwiz/src/utils.js"></script>
+  <script src="media/js/libs/vizwiz/src/tooltip.js"></script>
+  <script src="media/js/libs/vizwiz/src/utils.slider.js"></script>
+  <script src="media/js/libs/vizwiz/src/viz/viz.js"></script>
+  {% if app_name == "tree_map" %}<script src="media/js/libs/vizwiz/src/viz/tree_map.js"></script>{% endif %}
+  {% if app_name == "stacked" %}<script src="media/js/libs/vizwiz/src/viz/stacked.js"></script>{% endif %}
+  {% if app_name == "pie_scatter" %}<script src="media/js/libs/vizwiz/src/viz/pie_scatter.js"></script>{% endif %}
+  {% if app_name == "product_space" %}<script src="media/js/libs/vizwiz/src/viz/network.js"></script>{% endif %}
+  {% if app_name == "map" %}<script src="media/js/apps/map.js"></script>{% endif %}
+  <script src="media/js/explore/viz_general.js"></script> 
 
 
   <!-- Glossary -->
@@ -1287,6 +1290,8 @@
 
   $(function () {
 
+        $(this).scrollTop(0);
+
     $(".chosen-select").chosen(); 
     $('.chosen-container').css('width', '150px');
     $('#country1_select_chosen').css('width', '170px');
@@ -1354,7 +1359,7 @@
     <style>
 
       #country1 .chosen-results li {
-        background: url('{{HTTP_HOST}}media/img/icons/flag_fra.png') no-repeat;
+        background: url('media/img/icons/flag_fra.png') no-repeat;
         background-size:25px;
         padding-left: 25px;
         margin-top:-4px;
@@ -1368,7 +1373,7 @@
       }
      
       #country1 .chosen-single span {
-        background: url('{{HTTP_HOST}}media/img/icons/flag_usa.png') no-repeat;
+        background: url('media/img/icons/flag_usa.png') no-repeat;
         background-size:25px;
         padding-left: 30px;
         margin-top:-2px;

@@ -239,7 +239,7 @@ header h1 a img {
 }
 .app_title h2 {
  /*  font-family: 'Cardo', serif, 'Times'; */
-  font-family:'PT Sans Narrow',Helvetica,Arial;
+ /* font-family:'PT Sans Narrow',Helvetica,Arial;*/
   font-size: 30px;
   font-weight: normal;
   line-height: 36px;
@@ -881,7 +881,7 @@ footer p img{
 }
 #main #sidebar h3 {
   border-bottom: 1px solid #ccc;
-  font-family: 'Cardo', sans-serif, 'Arial';
+  /*font-family: 'Cardo', sans-serif, 'Arial';*/
   font-size: 20px;
   font-weight: normal;
   margin: 0;
