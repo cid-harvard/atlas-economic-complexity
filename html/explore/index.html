@@ -81,7 +81,6 @@
       
       <div class="app_title" id="icons" style="width:230px; height:60px; margin-left:10px;">
         
-
         <!-- Left icon 
         {% if product_list and not country1_list %}
         <img class="img left community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="product.name_en">
@@ -183,11 +182,8 @@
             alert("Please, select at least one country or one product")
           } else {
 
-        
             window.location.assign(url);            
           }
-
-
 
 
         // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/show/all/0101/2011/
@@ -229,8 +225,8 @@
       <br style="clear:both">
 
       <!-- The left pane -->
-      <div id="app_pane" style="width:230px">
-        <div class="tab-content" style="height:400px"
+      <div id="app_pane" style="width:230px; height:550px">
+        <div class="tab-content" style="height:400px">
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-countries"> <!-- {% if not product_list %}active{% endif %} -->
@@ -242,22 +238,21 @@
                   <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
 
                 <option value=""></option>
-              {% if country1_list %}
+                  {% if country1_list %}
 
-                {% for c in country1_list %}
-                {% if c.id == country1.id %}
-                <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-                {% else %}
-                <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                {% endif %}
-                {% endfor %}
+                    {% for c in country1_list %}
+                    {% if c.id == country1.id %}
+                    <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+                    {% else %}
+                    <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+                    {% endif %}
+                    {% endfor %}
 
-              {% else %}
+                  {% else %}
 
-                {% include "explore/list_countries.html" %}
+                    {% include "explore/list_countries.html" %}
 
-              {% endif %}
-
+                  {% endif %}
               </select>
             </div>
 
@@ -267,8 +262,6 @@
           </ul>
 
         <!-- TRADE / DIVERSIFICATION -->
-
-
         <div class="tab-content"  style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:210px; height:290px;">
 
           <!-- Country selection -->
@@ -341,7 +334,6 @@
               </div>
             </div>
 
-
           </div>
 
           <div style="font-weight:bold; margin-top:10px; margin-left:10px">Visualization:</div>
@@ -359,26 +351,24 @@
           </div>
 
           </div>
+
           <!-- Diversification TAB -->
 
            <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" %}active{% endif %}" id="tab-diversification">
-                       
-
             <div class="btn-toolbar" style="margin-left:10px;">
-              <a href="{{HTTP_HOST}}/explore/product_space/export/usa/all/show/2011/"><div class="btn-group">
+              <a href="{{HTTP_HOST}}explore/product_space/export/usa/all/show/2011/"><div class="btn-group">
                 <label type="button" class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left">
                   <img src="{{HTTP_HOST}}media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
                 </label></div></a>
               <br><br>
-              <a href="{{HTTP_HOST}}/explore/pie_scatter/export/usa/all/show/2011/">
+              <a href="{{HTTP_HOST}}explore/pie_scatter/export/usa/all/show/2011/">
               <div class="btn-group"><label type="button" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px"><img src="{{HTTP_HOST}}media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label></div>
               </a>
             </div>
 
+          </div>
+        </div>
       </div>
-    </div>
-
-</div>
     <!-- Product Tab -->
     <div class="tab-pane " id="tab-products">
       <b style="margin:10px 0px">Select a Product:</b>
@@ -418,7 +408,7 @@
 
       <div class="dropdown_container" id="product-trade-flow" width="120px" style="margin-left: 10px;" onmouseover="$('.show-trade-flow').css('visibility', 'visible');"  onmouseout="$('.show-trade-flow').css('visibility', 'hidden');">
             
-            <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
+      <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
         <select data-url_pos="5">
           {% for tf in trade_flow_list %}
@@ -429,13 +419,13 @@
           {% endif %}
           {% endfor %}
         </select>
+
       </div>
 
-      
 
-          <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px">
-            <li class="active"><a href="#show-country-partner"><span style="font-size:16px;" class="definition">Country</span></a></li>
-          </ul>
+      <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px">
+        <li class="active"><a href="#show-country-partner"><span style="font-size:16px;" class="definition">Country</span></a></li>
+      </ul>
 
           <!-- Tab Trade Partner/Product -->
           <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px">
@@ -811,8 +801,7 @@
             <option value="hs4" {% if prod_class == "hs4" %} selected="selected" {% endif %}>HS4</option>
           </select>
           -->
-
-          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
             <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
               <input type="radio" name="product_class" value="sitc4"> SITC4
             </label>
@@ -823,17 +812,19 @@
 
          {% if app_name == "map" %}
 
+         <!-- TO BE IMPLEMENTED
           <b>Scale: </b>
           <div class="btn-group product_class">
             <label type="button" class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}" value="sitc4">Linear</label>
             <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4">Log</label>
           </div>
+          -->
 
          {% endif %}
 
         </div>
-
-        {% if app_name != "product_space" %}
+<!--
+      {% if app_name != "product_space" %}
         {% if app_name != "map" %}
         <div class="nesting" style="float:left;">
           <span class="definition" style="font-weight:bold;">Details:</span>
@@ -849,40 +840,40 @@
           </select>
         </div>  
         {% endif %}
-        {% endif %}
+      {% endif %}
+-->
 
-{{nesting_level}}
-
-{% if app_name != "product_space" %}
+      {% if app_name != "product_space" %}
         {% if app_name != "map" %}
-        <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
-          <span class="definition" style="font-weight:bold;">Details:</span>
           
-          <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
-              <input type="radio" name="product_class" value="sitc4"> Low
-            </label>
+            <span class="definition" style="font-weight:bold; margin-left:20px;">Level of details:</span>
+            
+            <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
 
-            {% if app_type == "casy" %}
-            <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-              <input type="radio" name="product_class" value="hs4"> Mid
+            <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="sitc4"> Low
+              </label>
+
+              {% if app_type == "casy" %}
+              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="hs4"> Mid
+              </label>
+              {% endif %}
+              {% if app_type == "ccsy" %}
+              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="hs4"> Mid
+              </label>
+              {% endif %}
+              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="hs4"> Hi
             </label>
-            {% endif %}
-            {% if app_type == "ccsy" %}
-            <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-              <input type="radio" name="product_class" value="hs4"> Mid
-            </label>
-            {% endif %}
-            <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-              <input type="radio" name="product_class" value="hs4"> Hi
-            </label>
-        </div>  
+          </div>  
         {% endif %}
-        {% endif %}
+      {% endif %}
 
           
-          </div>
-
-         </div>  
+        </div>
+       </div>  
            
 
        <style>
@@ -904,21 +895,22 @@
 
         <h4 id="sidebar-create-story" data-toggle="tooltip" title="Create a new story and share it to the world!" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Create a Story</h4>
 
-        <ul>
-              <li><a class="createstory" href="#" onclick="showCreateStoryDialog()">Create</a></li>
-              <li><a class="retrievestory" href="#" onclick="location.href=/stories/">Browse</a></li>
-            </ul>
+        <a  href="#" onclick="showCreateStoryDialog()"><span class="glyphicon glyphicon-plus-sign"></span></a>
+        <a href="#" onclick="location.href=/stories/"><span class="glyphicon glyphicon-list-alt"></span></a>
+           
 
-    {% if iscreatemode %}
-         <button id="add" class="btnaddstory" onclick="openCreateChapterDialog()" style="margin: 15px 10px 0 10px;">Add to Story</button>
-         <button id="end" class="btnendstory" onclick="endStory()" style="margin: 15px 10px 0 10px;">End Story</button>
+       {% if iscreatemode %}
+         <a  href="#" onclick="openCreateChapterDialog()"><span class="glyphicon glyphicon-plus"></span></a>
+         <a  href="#" onclick="endStory()"><span class="glyphicon glyphicon-stop"></span></a>
+         
          <br/>
-    {% endif %}   
+       {% endif %}   
 
-          <a href="#"><span class="glyphicon glyphicon-off"></span></a>
+       <br/>
+          <!--
           <a href="#"><span class="glyphicon glyphicon-camera"></span></a>
-          <a href="#"><span class="glyphicon glyphicon-list-alt"></span></a>
-
+          <a href="#"></a>
+    -->
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this Page</h4>
     
         <a class="addthis_button_facebook"> <img src="{{HTTP_HOST}}media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
@@ -1362,7 +1354,7 @@
     <style>
 
       #country1 .chosen-results li {
-        background: url('{{HTTP_HOST}}media/img/icons/flag_usa.png') no-repeat;
+        background: url('{{HTTP_HOST}}media/img/icons/flag_fra.png') no-repeat;
         background-size:25px;
         padding-left: 25px;
         margin-top:-4px;
@@ -1376,7 +1368,7 @@
       }
      
       #country1 .chosen-single span {
-        background: url('{{HTTP_HOST}}media/img/icons/flag_fra.png') no-repeat;
+        background: url('{{HTTP_HOST}}media/img/icons/flag_usa.png') no-repeat;
         background-size:25px;
         padding-left: 30px;
         margin-top:-2px;
