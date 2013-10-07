@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 
 {% block page_title %}About - Glossary{% endblock %}
-
+{% block heading_title %}Glossary{% endblock %}
 
 {% block css %}{% endblock %}
 
@@ -14,19 +14,26 @@
       <li><a href="/about/support/">Support & Founding Members</a></li>
       <li><a href="/about/research/">Research</a></li>
       <li><a href="/about/glossary/" class="active">Glossary</a></li>
-      <li><a href="/about/team/">The Team</a></li>
-      <li><a href="/about/data/">Data</a></li>
-      <li><a href="/about/permissions/">Permissions</a></li>
-      <li><a href="/about/press/">Press</a></li>
+      <li><a href="/about/data/">Data & Sharing</a></li>
     </ul>
   </nav>
 </div>
 
-<div id="content">
-<div class="app_title" id="title"><h2>Glossary</h2></div>
-<br><br><br><br>
+<style>
+#content h4 {
+    text-transform: uppercase;
+  text-align: left;
+  font-size: 18px;
+  margin-bottom: 2px;
+  color: black;
+  font-weight:500;00;
+}
 
-  {% include "about/glossary_text.html" %}
+</style>
+
+<div id="content">
+
+{% include "about/glossary_text.html" %}
   
 </div> <!-- END #content div -->
 {% endblock %}

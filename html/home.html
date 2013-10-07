@@ -300,8 +300,7 @@
 }
 #main #content .other_apps div{
   float: left;
-  margin: 0 27px 0 0;
-  border: 2px solid white;
+  margin: 0 27px 15px 0;
 }
 #main #content .other_apps div a{
   display: inline-block;
@@ -460,7 +459,7 @@
 <h3>Learn About<br> <span style="text-transform: uppercase;">The Atlas</span></h3> 
       <p>The Observatory is a powerful interactive tool that enables users to visually mapvisualize trade flows among countries and products, and explore productive opportunities...</p>
 </div>
-      <div style="border:2px solid white; background:url('{{HTTP_HOST}}media/img/home/teaser_video_obs.png') no-repeat; background-size:130px 130px; width:130px; height:160px;"></div>   
+      <div style="background:url('{{HTTP_HOST}}media/img/home/teaser_video_obs.png') no-repeat; background-size:130px 130px; width:130px; height:160px;"></div>   
       
     </div>
   </a>
@@ -495,7 +494,7 @@
    $(".didyouknow").eq(vid).show();
   // Set explore URL to be the default country aka where the 
   // user's IP address says they are
-  $("nav a").eq(0).attr("href", "/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2011/")
+  $("nav a").eq(0).attr("href", "{{HTTP_HOST}}explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2011/")
 </script>
 
 

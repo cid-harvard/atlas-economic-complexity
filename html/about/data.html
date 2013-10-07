@@ -1,6 +1,8 @@
 {% extends "template.html" %}
 
-{% block page_title %}{{title}}{% endblock %}
+{% block page_title %}About{% endblock %}
+
+{% block heading_title %}Data & Sharing{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="/media/js/libs/bootstrap/bootstrap.css">
@@ -20,30 +22,29 @@ table {
       <li><a href="/about/support/">Support & Founding Members</a></li>
       <li><a href="/about/research/">Research</a></li>
       <li><a href="/about/glossary/">Glossary</a></li>
-      <li><a href="/about/team/">The Team</a></li>
       <li><a href="/about/data/"class="active">Data & Sharing</a>
         <ul>
           <li><a href="/about/data/#notes">Notes</a></li>
-          <li><a href="/about/data/embed/">Embed</a></li>
+          <li><a href="/about/data/#reuse">Reuse and Contribution</a></li>
         </ul>
-      <!--
-        <ul>
-          <li><a href="/about/data/sitc4/">SITC4</a></li>
-          <li><a href="/about/data/hs4/">HS4</a></li>
-          <li><a href="/about/data/country/">Country</a></li>
-        </ul>
-        -->
       </li>
-      <li><a href="/about/permissions/">Permissions</a></li>
-      <li><a href="/about/press/">Press</a></li>
     </ul>
   </nav>
 </div>
 
 <div id="content">
 
-<div class="app_title" id="title"><h2>Data</h2></div>
-<br><br><br><br>
+<div class="app_title" id="title">
+
+
+The Atlas online provides access to bilateral trade data for roughly 200 countries spanning 50 years and across 1000 different products, using the Standardized International Trade Code at the four-digit level (SITC-4) revision 2 classification. The Atlas online also provides world trade data in the Harmonized System Classification (HS4) maintained by the Centre d’Etudes Prospectives et d’Informations Internationales (CEPII) dating back to 1995. The sources of the data used are:
+
+1962 – 2000: The Center for International Data from Robert Feenstra
+2001 – 2009: UN COMTRADE
+2010 – 2011: UN COMTRADE
+
+
+
 
 
 <p>The Observatory provides access to bilateral trade data for roughly 200 countries, 50 years and 1000 different products of the Standardized International Trade Code at the four-digit level (SITC-4) revision 2 classification. The sources of the data used are:</p>
