@@ -54,7 +54,7 @@ urlpatterns = patterns('',
   (r'^about/team/$', "observatory.views.team"), 
   (r'^about/data/$', "observatory.views.data"), 
   (r'^about/permissions/$', "observatory.views.permissions"), 
-  (r'^about/press/$', "observatory.views.press"), 
+  (r'^about/privacy/$', "observatory.views.privacy"), 
   # blog
   (r'^about/blog/$', "blog.views.blog_index"),
   url(r'^about/blog/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$', "blog.views.blog_post_detail", name="blog_post"),
