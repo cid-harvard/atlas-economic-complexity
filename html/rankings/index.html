@@ -161,7 +161,7 @@ button {
   border: 1px solid #666;
 }
 .dropdown dt a {
-  font-family: 'Cardo', serif, 'Times';
+  /*font-family: 'Cardo', serif, 'Times';*/
   font-size: 30px;
   font-weight: normal;
   line-height: 36px;
@@ -200,21 +200,21 @@ button {
 
 <!-- the left pane -->
 <div id="sidebar">
-  <h3><a href="/rankings/country/">Country Rankings</a></h3>
+  <h3><a href="rankings/country/">Country Rankings</a></h3>
   <p>Rank countries based on their economic complexity for a given year</p>
-  <h3><a href="/rankings/product/">Product Rankings</a></h3>
+  <h3><a href="rankings/product/">Product Rankings</a></h3>
   <p>Rank products in the SITC4 classification based on their complexity for a given year</p>
   <h3>Download</h3>
   <p>
-    <a href="/rankings/{{category}}/{{year}}/download/">&raquo; Download {{year}} data</a><br />
-    <a href="/rankings/{{category}}/download/">&raquo; Download all years data</a>
+    <a href="rankings/{{category}}/{{year}}/download/">&raquo; Download {{year}} data</a><br />
+    <a href="rankings/{{category}}/download/">&raquo; Download all years data</a>
   </p>
 </div>
 
 <div id="content">
   
   <div class="change_year">
-    <a class="prev" href="/rankings/{{category}}/{{year|add:'-1'}}/">&laquo; Previous Year</a>
+    <a class="prev" href="rankings/{{category}}/{{year|add:'-1'}}/">&laquo; Previous Year</a>
     <dl class="dropdown">
       <dt><a href="#"><span>{{year}}</span></a></dt>
       <dd>
@@ -225,7 +225,7 @@ button {
         </ul>
       </dd>
     </dl>
-    <a class="next" href="/rankings/{{category}}/{{year|add:'1'}}/">Next Year &raquo;</a>
+    <a class="next" href="rankings/{{category}}/{{year|add:'1'}}/">Next Year &raquo;</a>
   </div>
   
   <table class="sortable"><thead><tr>
@@ -253,7 +253,7 @@ button {
     <tr>
       <td><span>{{r.0}}</span></td>
       <td>{{r.1}}</td>
-      <td>{% if category == "country" %}<a href="/country/{{r.1|lower}}/">{{r.2}}</a>{% else %}{{r.2}}{% endif %}</td>
+      <td>{% if category == "country" %}<a href="country/{{r.1|lower}}/">{{r.2}}</a>{% else %}{{r.2}}{% endif %}</td>
       <td>{{r.3}}</td>
       <td>{% if r.4 > 0 %}<div class="arrow_up"></div>{% endif %}{% if r.4 == 0 %}-{% endif %}{% if r.4 < 0 %}<div class="arrow_down"></div>{% endif %}</td>
       <td>{{r.4}}</td>
@@ -263,7 +263,7 @@ button {
   </tbody>
   </table>
   <button>Download as CSV</button>
-  <form class="download" method="POST" action="/download/">
+  <form class="download" method="POST" action="download/">
     {% csrf_token %}
     <input type="hidden" name="title" value="" />
     <input type="hidden" name="format" value="csv" />
@@ -274,8 +274,8 @@ button {
 {% endblock %}
 
 {% block js %}
-<script src="/media/js/libs/d3/d3.v2.min.js"></script>
-<script src="/media/js/libs/sorttable/sorttable.js"></script>
+<script src="media/js/libs/d3/d3.v3.min.js"></script>
+<script src="media/js/libs/sorttable/sorttable.js"></script>
 <script>
 
 // Add color to rankings

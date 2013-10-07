@@ -3,8 +3,9 @@
 {% load humanize %}
 {% block page_title %}{{country.name}} Exports, Imports and Trade Partners{% endblock %}
 {% block heading_title %}
-Learn More About: Trade in 
-<dl class="dropdown" style="float:left">
+<span style="float:left">Learn More About: Trade in </span>
+
+<dl class="dropdown" style="float:left; margin-left:10px; margin-top:-2px">
   <dt><a href="#"><span>{{country.name}}</span></a></dt>
   <dd>
     <ul>
@@ -93,7 +94,7 @@ table td:nth-child(4){
   border: 1px solid #666;
 }
 .dropdown dt a {
-  font-family: 'Cardo', serif, 'Times';
+  /*font-family: 'Cardo', serif, 'Times';*/
   font-size: 30px;
   font-weight: normal;
   line-height: 36px;
