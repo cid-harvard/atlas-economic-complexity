@@ -14,22 +14,22 @@
         the additional URL query parameter _escaped_fragment_= -->
   <meta name="fragment" content="!">
   
-  <link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="{{HTTP_HOST}}media/img/favicon.ico">
     <!-- Load non-standard fonts -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
   
-  <link rel="stylesheet" href="/media/js/libs/bootstrap/css/bootstrap.css"/>
-  <link rel="stylesheet" href="/media/css/normalize.css">
-  <link rel="stylesheet" href="/media/css/style.css">
-  <link rel="stylesheet" href="/media/js/libs/chosen/chosen.css" />
-  <link rel="stylesheet" href="/media/js/libs/tipsy/tipsy.css" />
-  <link rel="stylesheet" href="/media/js/libs/vizwiz/src/utils.slider.css" />
+  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="{{HTTP_HOST}}media/css/normalize.css">
+  <link rel="stylesheet" href="{{HTTP_HOST}}media/css/style.css">
+  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/chosen/chosen.css" />
+  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/tipsy/tipsy.css" />
+  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/vizwiz/src/utils.slider.css" />
 
-  <link rel="stylesheet" href="/media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
   <!-- VizWiz -->
-  <link href="/media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
+  <link href="{{HTTP_HOST}}media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
   
   
   
@@ -67,12 +67,12 @@
       </div>  
       <nav>
         <ul>
-          <li><a href="/explore">Explore</a></li>
+          <li><a href="{{HTTP_HOST}}explore">Explore</a></li>
           <!-- <li><a href="/country/usa/">Profiles</a></li> -->
-          <li><a href="/stories">Stories</a></li>
-          <li><a href="/rankings">Rankings</a></li>
-          <li><a href="/book">Book</a></li>
-          <li><a href="/about">About</a></li>
+          <li><a href="{{HTTP_HOST}}stories">Stories</a></li>
+          <li><a href="{{HTTP_HOST}}rankings">Rankings</a></li>
+          <li><a href="{{HTTP_HOST}}book">Book</a></li>
+          <li><a href="{{HTTP_HOST}}about">About</a></li>
           <!-- <li><a href="/api">API</a></li>-->
         </ul>
       </nav> 
@@ -114,7 +114,7 @@
 
       function update_viz(viz) {
       
-        var url = "/explore/";
+        var url = "{{HTTP_HOST}}explore/";
         var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
         current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
 
@@ -368,12 +368,12 @@
                        
 
             <div class="btn-toolbar" style="margin-left:10px;">
-              <a href="/explore/product_space/export/usa/all/show/2011/"><div class="btn-group">
+              <a href="{{HTTP_HOST}}/explore/product_space/export/usa/all/show/2011/"><div class="btn-group">
                 <label type="button" class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left">
                   <img src="/media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
                 </label></div></a>
               <br><br>
-              <a href="/explore/pie_scatter/export/usa/all/show/2011/">
+              <a href="{{HTTP_HOST}}/explore/pie_scatter/export/usa/all/show/2011/">
               <div class="btn-group"><label type="button" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px"><img src="/media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label></div>
               </a>
             </div>

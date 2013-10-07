@@ -40,7 +40,7 @@
 #        'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
 #    }, 
 #}
-HTTP_HOST = 'http://localhost:8000/'
+# HTTP_HOST = '/'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

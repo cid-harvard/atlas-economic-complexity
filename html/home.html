@@ -1,7 +1,5 @@
 {% extends "template.html" %}
-
-
-  <link rel="stylesheet" href="/media/js/libs/bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" href="{{HTTP_HOST}}media/js/libs/bootstrap/css/bootstrap.css"/>
 {% block page_title %}{% endblock %}
 {% block heading_title %}{% endblock %}
 
@@ -338,7 +336,7 @@
 }
 
 .earth_teaser {
-  background:url('/media/img/home/teaser_earth_fade.png') no-repeat;
+  background:url('{{HTTP_HOST}}media/img/home/teaser_earth_fade.png') no-repeat;
   background-size:420px 300px;
   margin-left:9px; 
   border:2px solid white; 
@@ -349,7 +347,7 @@
 
 
 .earth_teaser:hover {
-  background:url('/media/img/home/teaser_earth.png') no-repeat;
+  background:url('{{HTTP_HOST}}media/img/home/teaser_earth.png') no-repeat;
   background-size:420px 300px;
   margin-left:9px; 
   border:2px solid white; 
@@ -360,7 +358,7 @@
 
 
 .products_teaser:hover {
-  background:url('/media/img/home/teaser_products.png') no-repeat;
+  background:url('{{HTTP_HOST}}media/img/home/teaser_products.png') no-repeat;
   background-size:420px 300px;
   margin-left:9px; 
   border:2px solid white; 
@@ -370,7 +368,7 @@
 }     
 
 .products_teaser {
-  background:url('/media/img/home/teaser_products_fade.png') no-repeat;
+  background:url('{{HTTP_HOST}}media/img/home/teaser_products_fade.png') no-repeat;
   background-size:420px 300px;
   margin-left:9px; 
   border:2px solid white; 
@@ -397,8 +395,8 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <a href="/explore/stacked/export/usa/all/show/2011.1996.1/">
-        <img src="/media/img/home/us_exports.png" alt="..." style="width:540px; height:300px">
+      <a href="{{HTTP_HOST}}explore/stacked/export/usa/all/show/2011.1996.1/">
+        <img src="{{HTTP_HOST}}media/img/home/us_exports.png" alt="..." style="width:540px; height:300px">
         <div class="carousel-caption">
           <h3 style="font-size:25px; color:gray;">What does United States export between 2011 and 1996?</h3>
           <p>...</p>
@@ -406,8 +404,8 @@
       </a>
     </div>
     <div class="item">
-      <a href="/explore/tree_map/import/usa/all/show/2011/">
-        <img src="/media/img/home/us_imports.png" alt="..." style="width:550px; height:300px">
+      <a href="{{HTTP_HOST}}explore/tree_map/import/usa/all/show/2011/">
+        <img src="{{HTTP_HOST}}media/img/home/us_imports.png" alt="..." style="width:550px; height:300px">
         <div class="carousel-caption">
           <h3 style="font-size:25px; color:gray;">What does United States import in 2011?</h3>
           <p>...</p>
@@ -415,8 +413,8 @@
       </a>
     </div>
     <div class="item">
-      <a href="/explore/map/export/show/all/0101/2011/">
-        <img src="/media/img/home/horses_export.png" alt="..." style="width:550px; height:300px">
+      <a href="{{HTTP_HOST}}explore/map/export/show/all/0101/2011/">
+        <img src="{{HTTP_HOST}}media/img/home/horses_export.png" alt="..." style="width:550px; height:300px">
         <div class="carousel-caption">
           <h3 style="font-size:25px; color:gray;">Who exports Horses in 2011?</h3>
           <p>...</p>
@@ -456,7 +454,7 @@
     
   <a href="http://www.youtube.com/watch?v=bqNHKke7jqY&feature=c4-overview&list=UUW1gPGq7LEQCQujj-qgq6VQ">
 
-    <div class=" other_apps_first other_apps" style="float:left;width:370px; height:180px; padding:5px; margin-left:20px;border:1px solid lightgray; background-color:#fafafa;">
+    <div class="other_apps_first other_apps" style="float:left;width:370px; height:180px; padding:5px; margin-left:20px;border:1px solid lightgray; background-color:#fafafa;">
      
      <div style="width:190px; height:160px;">
 <h3>Learn About<br> <span style="text-transform: uppercase;">The Atlas</span></h3> 
@@ -469,7 +467,7 @@
 
   <p style="clear:both"></p>
 
-  <a href="/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/">
+  <a href="{{HTTP_HOST}}explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/">
     <div class="other_apps" style="float:left; width:455px; margin:20px; border: solid 1px lightgray;">
       <h3 style="float:left; margin-left:50px;font-size:30px">Browse Countries »</h3> </a>
 
@@ -477,7 +475,7 @@
       <div id="map" style="width:450px; height:300px"></div>
     </div> 
  
-  <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2010/">
+  <a href="{{HTTP_HOST}}explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2010/">
     <div class="other_apps" style="float:left; width:455px; margin:20px; border: solid 1px lightgray;">
       <h3 style="float:left; margin-left:50px;font-size:30px">Browse Products »</h3>
       <div class="products_teaser" style="margin-top:0px"></div>
@@ -510,9 +508,9 @@
 
 
 
-<script src="/media/js/libs/d3/d3.v3.min.js"></script>
-<script src="/media/js/libs/d3/d3.geo.projection.min.js"></script>
-<script src="/media/js/libs/d3/topojson.min.js"></script>
+<script src="{{HTTP_HOST}}media/js/libs/d3/d3.v3.min.js"></script>
+<script src="{{HTTP_HOST}}media/js/libs/d3/d3.geo.projection.min.js"></script>
+<script src="{{HTTP_HOST}}media/js/libs/d3/topojson.min.js"></script>
 <script>
 
 var ratio = window.devicePixelRatio || 1,
@@ -694,7 +692,7 @@ function redraw(path) {
   context.beginPath(), path({type: "Sphere"}), context.stroke();
 }
 
-d3.json("/media/js/libs/d3/world-110m.json", function(error, world) {
+d3.json("{{HTTP_HOST}}media/js/libs/d3/world-110m.json", function(error, world) {
   land = topojson.feature(world, world.objects.land);
   boundaries = topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; });
 });
