@@ -88,71 +88,79 @@
     {% endif %}
     <div style="clear:both"></div>
     <div id="browseMain" role="main">
-       <div id="browseTitle">
-				<h1 align="center">Browse Stories</h1>
+		<div id="browseTitle">
+			<h1 align="center">Browse Stories</h1>
 		</div>
-<div id="browseStories">
-  <ul>
-    <li style="width: 30%;"><a href="#myStories" style="padding-left: 40%;width:100%;">Mine</a></li>
-    <li style="width: 30%;"><a href="#popular" style="padding-left: 40%;width:100%;">Popular</a></li>
-    <li style="width: 30%;"><a href="#featured" style="padding-left: 40%;width:100%;">Featured</a></li>
-    
-  </ul>
-  <div id="myStories" class="storyList">
- <form  name="patron" method="post" class="sform" >
-   	 {% csrf_token %}
-            <br/>
-       <select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)">
-        {% for story in mineStory %}
-        <option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option>
-	{% endfor %}
-	</select> 
-         <div class="buttonSection">
-         <input type="Submit" class="retriveButton viewButton" value="View" id="viewButton" onclick=""></input>
-         <input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url observatory.views.editStoryForm %}'"></input>
-         <input type="button" class="retriveButton" value="Publish" id="publishButton"></input>
-		{% for story in checkAdmin %}
-		{% if story.isadmin %}
-	  <input type="button" class="retriveButton" value="Featured" id="featureButton"></input>
-		{% endif %}
-		{% endfor %}
-	<input type="button" class="retriveButton" value="Delete" id="deleteButton" ></input>
-	</div>
-	</form>
-   </div>
-  <div id="popular" class="storyList">
-  <form  name="patron" method="post" class="sform" >
-   	 {% csrf_token %}
-  
-<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)">
-        {% for story in popularStory %}
-        <option value="{{story.story_id}}"  data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option>
-	{% endfor %}
-	</select> 
-         <div class="buttonSection">
-         <input type="Submit" class="retriveButton viewButton" value="View"  style="margin-top: 20%;" onclick=""></input>    	
-	</div>
-	</form>
-  </div>
-   <div id="featured" class="storyList">
-  <form  name="patron" method="post" class="sform" >
-   	 {% csrf_token %}
- 
-    <select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)">
-
-        {% for story in featureStory %}
-        <option value="{{story.story_id}}"  data-chaptercount="{{story.number_of_chapters}}" >{{story.story_name}}</option> 
-	{% endfor %}
-	</select>
-         <div class="buttonSection">
-         <input type="Submit" class="retriveButton viewButton" value="View"  style="margin-top: 20%;" onclick=""></input>    	
-	</div>
-	</form>
-  </div>
-</div>   
-   
-        
-    </div> <!-- END #main -->
+		<div id="browseStories">
+			<ul>
+				<li><a href="#myStories">Mine</a></li>
+				<li><a href="#popular">Popular</a></li>
+				<li><a href="#featured">Featured</a></li>
+				<li><a href="#published">All Stories</a></li>
+			</ul>
+		<div id="myStories" class="storyList">
+			<form name="patron" method="post" class="sform">
+				{% csrf_token %} <br /> 
+				<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
+				{% for story in mineStory %}
+					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}"data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
+				{% endfor %}
+				</select>
+				<div class="buttonSection">
+					<input type="Submit" class="retriveButton viewButton disabled" value="View" id="viewButton" onclick=""></input> 
+					<input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url "observatory.views.editStoryForm" %}'"></input> 
+					<input type="button" class="retriveButton" value="Publish" id="publishButton"></input> 
+					{% for story in checkAdmin %} 
+					{% if story.isadmin %}
+					<input type="button" class="retriveButton" value="Featured" id="featureButton"></input> 
+					{% endif %} 
+					{% endfor %} 
+					<input type="button"class="retriveButton" value="Delete" id="deleteButton"></input>
+				</div>
+			</form>
+		</div>
+		<div id="popular" class="storyList">
+			<form name="patron" method="post" class="sform">
+				{% csrf_token %} 
+				<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
+					{% for story in popularStory %}
+					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
+					{% endfor %}
+				</select>
+				<div class="buttonSection">
+					<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
+				</div>
+		 	</form>
+		</div>
+		<div id="featured" class="storyList">
+			<form name="patron" method="post" class="sform">
+				{% csrf_token %} 
+				<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
+					{% for story in featureStory %}
+					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option>
+					{% endfor %}
+				</select>
+						<div class="buttonSection">
+							<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
+						</div>
+					</form>
+				</div>
+				<div id="published" class="storyList">
+					<form name="patron" method="post" class="sform">
+						{% csrf_token %} 
+						<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)">
+							{% for story in publishStory %}
+							<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
+							{% endfor %}
+						</select>
+						<div class="buttonSection">
+							<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- END #main -->
     <footer>
       <p>
         <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
