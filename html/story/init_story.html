@@ -1,4 +1,88 @@
 
+<script> 
+/**
+ * Initiate certain events on document.ready event
+ */
+$(function() {
+	sessionStorage.clear();
+	
+	$('#dialog-modal-createStory').modal({
+		show: false,
+		keyboard: false
+		});
+
+	$('#dialog-modal-createChapter').modal({
+		show: false,
+		keyboard: false
+		});
+	$('#dialog-modal-endStory').modal({
+		show: false,
+		keyboard: false
+		});
+	$('#storyUnderCreation').modal({
+		show: false,
+		keyboard: false
+		});
+	$('#dialog-modal-saveStory').modal({
+		show: false,
+		keyboard: false
+		});
+	
+
+	$("#BrowsePrev").click(function(){
+		$.ajax({
+			'type': 'GET',
+			'url': '/browseStoryPrev/',
+			'contentType': 'application/json',
+			'data': {
+				'csrfmiddlewaretoken': '{{ csrf_token }}',
+			},
+			'success': function(data) {
+				var newDoc = document.open("text/html", "replace");
+				newDoc.write(data);
+				newDoc.close();
+				},
+			'error': function(xhr, textStatus, errorThrown) {
+				alert("Please report this error: "+textStatus);
+			}
+		});
+	});
+	$("#BrowseNext").click(function(){
+		$.ajax({
+			'type': 'GET',
+			'url': '/browseStoryNext/',
+			'contentType': 'application/json',
+			'data': {
+				'csrfmiddlewaretoken': '{{ csrf_token }}',
+			},
+			'success': function(data) {
+				var newDoc = document.open("text/html", "replace");
+				newDoc.write(data);
+				newDoc.close();
+			},
+			'error': function(xhr, textStatus, errorThrown) {
+				alert("Please report this error: "+textStatus);
+			}
+		});
+	});
+	$("#likeImage").click(function(){
+		$.ajax({
+			'type': 'GET',
+			'url': '/likeCount/',
+			'contentType': 'application/json',
+			'data': {
+				'csrfmiddlewaretoken': '{{ csrf_token }}',
+			},
+			'success': function(data) {
+			},
+			'error': function(xhr, textStatus, errorThrown) {
+				alert("Please report this error: "+textStatus);
+			}
+		});
+	});
+});
+
+  </script> 
 {% if isbrowsemode %}
 <script>
 if(localStorage.getItem("chapterCount")==null)
@@ -37,101 +121,3 @@ localStorage.setItem("chapterCount","1");
 </script>
 {% endif %}
 
-<script> 
-/**
- * Initiate certain events on document.ready event
- */
-$(document).ready(function() {
-	sessionStorage.clear();
-	$( "#dialog-modal-createStory" ).dialog({
-		height: 320,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false
-	});
-	$( "#dialog-modal-createChapter" ).dialog({
-		height: 320,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false,
-		zIndex: 25000
-	});
-	$( "#dialog-modal-endStory" ).dialog({
-		height: 250,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false
-	});
-	$( "#dialog-modal-saveStory" ).dialog({
-		height: 280,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false
-	});
-
-	$("#BrowsePrev").click(function(){
-		$.ajax({
-			'type': 'POST',
-			'url': '/browseStoryPrev/',
-			'contentType': 'application/json',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-			},
-			'success': function(data) {
-				var newDoc = document.open("text/html", "replace");
-				newDoc.write(data);
-				newDoc.close();
-				},
-			'error': function(xhr, textStatus, errorThrown) {
-				alert("Please report this error: "+textStatus);
-			}
-		});
-	});
-	$("#BrowseNext").click(function(){
-		$.ajax({
-			'type': 'POST',
-			'url': '/browseStoryNext/',
-			'contentType': 'application/json',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-			},
-			'success': function(data) {
-				var newDoc = document.open("text/html", "replace");
-				newDoc.write(data);
-				newDoc.close();
-			},
-			'error': function(xhr, textStatus, errorThrown) {
-				alert("Please report this error: "+textStatus);
-			}
-		});
-	});
-	$("#likeImage").click(function(){
-		$.ajax({
-			'type': 'POST',
-			'url': '/likeCount/',
-			'contentType': 'application/json',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-			},
-			'success': function(data) {
-			},
-			'error': function(xhr, textStatus, errorThrown) {
-				alert("Please report this error: "+textStatus);
-			}
-		});
-	});
-});
-
-  </script> 

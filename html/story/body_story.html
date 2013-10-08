@@ -53,7 +53,7 @@
  */
 function showSaveStoryDialog()
 {	  
-	$('#dialog-modal-endStory').dialog('close');
+	$('#dialog-modal-endStory').modal('hide');
 	{% if userId %}
 		$("#storyChapterJSON").val(localStorage.getItem('JsonChapterDetail')); 
 		$("#storyDetail").val(localStorage.getItem('JsonStoryDetails'));	
@@ -61,7 +61,7 @@ function showSaveStoryDialog()
 	{% else %}
     $("#storyChapterJSON").val(localStorage.getItem('JsonChapterDetail')); 
 	$("#storyDetail").val(localStorage.getItem('JsonStoryDetails'));
-	$("#dialog-modal-saveStory").dialog('open');
+	$("#dialog-modal-saveStory").modal('show');
 	{% endif %}
 	return false;
 }
@@ -80,15 +80,28 @@ function submitAnonymousLogin()
  */
 function showCreateStoryDialog()
 {
-	$('#dialog-modal-createStory').dialog('open');
-  $('#dialog-modal-createStory').css("z-index", '100');
-	$("#storyForm").show();
-	$("#storyUnderCreation").hide();
 	{% if iscreatemode %}
-	$("#storyForm").hide();
-	$("#storyUnderCreation").show();
-	{% endif %}
+	$('#storyUnderCreation').modal('show');
+	{% else %}	
+	{
+	$('#dialog-modal-createStory').modal('show');
+	}	
+	{% endif %} 
 	return false;
+}
+/**
+ * open dialog to add chapter to story
+ */
+function openCreateChapterDialog()
+{
+	$('#dialog-modal-createChapter').modal('show');
+}
+
+/**
+ * open end story dialog
+ */
+function endStory() {
+	$('#dialog-modal-endStory').modal('show');
 }
 
 /**
@@ -141,7 +154,7 @@ function showCreateStoryDialog()
           }
           localStorage.setItem("JsonChapterDetail",JSON.stringify(jsonObj));
         }
-        $("#dialog-modal-createChapter").dialog("close");
+        $("#dialog-modal-createChapter").modal("hide");
       }
       
 /**
@@ -157,6 +170,6 @@ function showCreateStoryDialog()
         json.push(item);
         localStorage.clear();
         localStorage.setItem("JsonStoryDetails",JSON.stringify(json));
-        $("#dialog-modal-createStory").dialog("close");
+        $("#dialog-modal-createStory").modal("hide");
       }
     </script>

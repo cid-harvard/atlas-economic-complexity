@@ -20,6 +20,7 @@
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
   
   <link rel="stylesheet" href="/media/css/normalize.css">
+  <link rel="stylesheet" href="/media/js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="/media/css/style.css">
   <link rel="stylesheet" href="/media/js/libs/chosen/chosen.css" />
   <link rel="stylesheet" href="/media/js/libs/tipsy/tipsy.css" />
@@ -88,71 +89,79 @@
     {% endif %}
     <div style="clear:both"></div>
     <div id="browseMain" role="main">
-       <div id="browseTitle">
-				<h1 align="center">Browse Stories</h1>
+		<div id="browseTitle">
+			<h1 align="center">Browse Stories</h1>
 		</div>
-<div id="browseStories">
-  <ul>
-    <li style="width: 30%;"><a href="#myStories" style="padding-left: 40%;width:100%;">Mine</a></li>
-    <li style="width: 30%;"><a href="#popular" style="padding-left: 40%;width:100%;">Popular</a></li>
-    <li style="width: 30%;"><a href="#featured" style="padding-left: 40%;width:100%;">Featured</a></li>
-    
-  </ul>
-  <div id="myStories" class="storyList">
- <form  name="patron" method="post" class="sform" >
-   	 {% csrf_token %}
-            <br/>
-       <select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)">
-        {% for story in mineStory %}
-        <option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option>
-	{% endfor %}
-	</select> 
-         <div class="buttonSection">
-         <input type="Submit" class="retriveButton viewButton" value="View" id="viewButton" onclick=""></input>
-         <input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url observatory.views.editStoryForm %}'"></input>
-         <input type="button" class="retriveButton" value="Publish" id="publishButton"></input>
-		{% for story in checkAdmin %}
-		{% if story.isadmin %}
-	  <input type="button" class="retriveButton" value="Featured" id="featureButton"></input>
-		{% endif %}
-		{% endfor %}
-	<input type="button" class="retriveButton" value="Delete" id="deleteButton" ></input>
-	</div>
-	</form>
-   </div>
-  <div id="popular" class="storyList">
-  <form  name="patron" method="post" class="sform" >
-   	 {% csrf_token %}
-  
-<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)">
-        {% for story in popularStory %}
-        <option value="{{story.story_id}}"  data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option>
-	{% endfor %}
-	</select> 
-         <div class="buttonSection">
-         <input type="Submit" class="retriveButton viewButton" value="View"  style="margin-top: 20%;" onclick=""></input>    	
-	</div>
-	</form>
-  </div>
-   <div id="featured" class="storyList">
-  <form  name="patron" method="post" class="sform" >
-   	 {% csrf_token %}
- 
-    <select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)">
-
-        {% for story in featureStory %}
-        <option value="{{story.story_id}}"  data-chaptercount="{{story.number_of_chapters}}" >{{story.story_name}}</option> 
-	{% endfor %}
-	</select>
-         <div class="buttonSection">
-         <input type="Submit" class="retriveButton viewButton" value="View"  style="margin-top: 20%;" onclick=""></input>    	
-	</div>
-	</form>
-  </div>
-</div>   
-   
-        
-    </div> <!-- END #main -->
+		<div id="browseStories">
+			<ul>
+				<li><a href="#myStories">Mine</a></li>
+				<li><a href="#popular">Popular</a></li>
+				<li><a href="#featured">Featured</a></li>
+				<li><a href="#published">All Stories</a></li>
+			</ul>
+		<div id="myStories" class="storyList">
+			<form name="patron" method="post" class="sform">
+				{% csrf_token %} <br /> 
+				<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
+				{% for story in mineStory %}
+					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}"data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
+				{% endfor %}
+				</select>
+				<div class="buttonSection">
+					<input type="Submit" class="retriveButton viewButton disabled" value="View" id="viewButton" onclick=""></input> 
+					<input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url "observatory.views.editStoryForm" %}'"></input> 
+					<input type="button" class="retriveButton" value="Publish" id="publishButton"></input> 
+					{% for story in checkAdmin %} 
+					{% if story.isadmin %}
+					<input type="button" class="retriveButton" value="Featured" id="featureButton"></input> 
+					{% endif %} 
+					{% endfor %} 
+					<input type="button"class="retriveButton" value="Delete" id="deleteButton"></input>
+				</div>
+			</form>
+		</div>
+		<div id="popular" class="storyList">
+			<form name="patron" method="post" class="sform">
+				{% csrf_token %} 
+				<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
+					{% for story in popularStory %}
+					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
+					{% endfor %}
+				</select>
+				<div class="buttonSection">
+					<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
+				</div>
+		 	</form>
+		</div>
+		<div id="featured" class="storyList">
+			<form name="patron" method="post" class="sform">
+				{% csrf_token %} 
+				<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
+					{% for story in featureStory %}
+					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option>
+					{% endfor %}
+				</select>
+						<div class="buttonSection">
+							<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
+						</div>
+					</form>
+				</div>
+				<div id="published" class="storyList">
+					<form name="patron" method="post" class="sform">
+						{% csrf_token %} 
+						<select name="Stories" id="Stories" class="retriveDropList" size="10" onChange="selectOption(this)">
+							{% for story in publishStory %}
+							<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
+							{% endfor %}
+						</select>
+						<div class="buttonSection">
+							<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- END #main -->
     <footer>
       <p>
         <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
@@ -184,7 +193,8 @@
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
   <script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
-    <script src="/media/js/explore/createStory.js"></script> 
+  <script src="/media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="/media/js/explore/createStory.js"></script> 
   
  <script> 
  
@@ -304,15 +314,11 @@
 			}
 		});
 	});
- $( "#dialog-modal-browseStory" ).dialog({
-		height: 200,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false
-	});
+ $('#dialog-modal-browseStory').modal({
+		show: false,
+		keyboard: false
+		});
+ 
  $('#browseStories').tabs({
 	beforeActivate: function(event ,ui){
 		var userId={{ userId }};
@@ -323,7 +329,7 @@
         	  }
        		 else 
        		{
-       		$('#dialog-modal-browseStory').dialog('open');
+       		$('#dialog-modal-browseStory').modal('show');
        		  return false;
        			 }
         	 }
@@ -382,13 +388,22 @@
  
   </script>
 </body>
-<div id = "dialog-modal-browseStory" title="Save Story">
-    <h4 align="center">Login to Browse Stories</h4>
-    <form action='/stories/' method="post" id="saveDataInDB">
-      {% csrf_token %}
-      <img src="/media/img/sign-in-with-google.png" alt="Login Using Google" onclick="googleLogin()" style="width: 200px; height: 40px;cursor:pointer"/>
+ <div class="modal fade" id="dialog-modal-browseStory" role="dialog" aria-labelledby="Save Story" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Login to Browse Stories</h4>
+      </div>
+       <form  id="saveDataInDB"  method="post" action='/stories/'>
+      <div class="modal-body">
+        {% csrf_token %}
+      <img src="/media/img/sign-in-with-google.png" alt="Login Using Google" onclick="googleLogin()" style="width: 200px; height: 40px;cursor:pointer;margin-left:30px"/>
       <img src="/media/img/sign-in-with-facebook.png" alt="Login Using Facebook" onclick="fbLogin()"style="width: 200px; height: 40px;margin-left: 60px;cursor:pointer"/>
       <input type="hidden" id="socialMediaIntegrationData" name="socialMediaIntegrationData"></input>
-    </form>
+      </div>
+     </form> 
+    </div>
   </div>
-</html>
+</div>
+

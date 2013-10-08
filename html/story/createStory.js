@@ -20,26 +20,6 @@ function addVisualizationToDB() {
 	return true;
 }
 
-/**
- * open end story dialog
- */
-function endStory() {
-	$('#dialog-modal-endStory').dialog('open');
-	return false;
-}
-
-/**
- * open dialog to add chapter to story
- */
-function openCreateChapterDialog()
-{
-	$('#dialog-modal-createChapter').dialog('open');
-	return false;
-}
-
-
-
-
 
 /**
  * check chapter count to enable/disable next and prev buttons
