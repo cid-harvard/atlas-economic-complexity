@@ -1,85 +1,33 @@
 
-{% if isbrowsemode %}
-<script>
-if(localStorage.getItem("chapterCount")==null)
-{
-localStorage.setItem("chapterCount","1");
-}	
-  var noOfChapters={{NoOfChapter}};
-  $("#timeline").hide();
-  $("#app_pane").hide();
-  $("#tool_pane").hide();
-  $("#content").css("width","100%");
-  $("#viz").css("width","100%");
-  $('.app #loader ').css("margin","auto");
-  {% if app_name == "map" %}
-  {
-	  $("#viz").css("padding-left","20%"); 
-  }
-  {% endif %}
-  if(noOfChapters==1)
-	  {
-	  $('#BrowsePrev').addClass("disabled");
-	  $('#BrowseNext').addClass("disabled");
-	  $("#likeImage").show();
-	  }
-  else if(parseInt(localStorage.getItem("chapterCount"))==noOfChapters)
-	  {
-	  $('#BrowsePrev').removeClass("disabled");
-	  $('#BrowseNext').addClass("disabled");
-	  }
-  else if(parseInt(localStorage.getItem("chapterCount"))==1)
-	  {
-	  $("#likeImage").show();
-	  $('#BrowsePrev').addClass("disabled");
-	  $('#BrowseNext').removeClass("disabled");
-	  }
-</script>
-{% endif %}
-
 <script> 
 /**
  * Initiate certain events on document.ready event
  */
-$(document).ready(function() {
+$(function() {
 	sessionStorage.clear();
-	$( "#dialog-modal-createStory" ).dialog({
-		height: 320,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false
-	});
-	$( "#dialog-modal-createChapter" ).dialog({
-		height: 320,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false,
-		zIndex: 25000
-	});
-	$( "#dialog-modal-endStory" ).dialog({
-		height: 250,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false
-	});
-	$( "#dialog-modal-saveStory" ).dialog({
-		height: 280,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false
-	});
+	
+	$('#dialog-modal-createStory').modal({
+		show: false,
+		keyboard: false
+		});
+
+	$('#dialog-modal-createChapter').modal({
+		show: false,
+		keyboard: false
+		});
+	$('#dialog-modal-endStory').modal({
+		show: false,
+		keyboard: false
+		});
+	$('#storyUnderCreation').modal({
+		show: false,
+		keyboard: false
+		});
+	$('#dialog-modal-saveStory').modal({
+		show: false,
+		keyboard: false
+		});
+	
 
 	$("#BrowsePrev").click(function(){
 		$.ajax({
@@ -135,3 +83,41 @@ $(document).ready(function() {
 });
 
   </script> 
+{% if isbrowsemode %}
+<script>
+if(localStorage.getItem("chapterCount")==null)
+{
+localStorage.setItem("chapterCount","1");
+}	
+  var noOfChapters={{NoOfChapter}};
+  $("#timeline").hide();
+  $("#app_pane").hide();
+  $("#tool_pane").hide();
+  $("#content").css("width","100%");
+  $("#viz").css("width","100%");
+  $('.app #loader ').css("margin","auto");
+  {% if app_name == "map" %}
+  {
+	  $("#viz").css("padding-left","20%"); 
+  }
+  {% endif %}
+  if(noOfChapters==1)
+	  {
+	  $('#BrowsePrev').addClass("disabled");
+	  $('#BrowseNext').addClass("disabled");
+	  $("#likeImage").show();
+	  }
+  else if(parseInt(localStorage.getItem("chapterCount"))==noOfChapters)
+	  {
+	  $('#BrowsePrev').removeClass("disabled");
+	  $('#BrowseNext').addClass("disabled");
+	  }
+  else if(parseInt(localStorage.getItem("chapterCount"))==1)
+	  {
+	  $("#likeImage").show();
+	  $('#BrowsePrev').addClass("disabled");
+	  $('#BrowseNext').removeClass("disabled");
+	  }
+</script>
+{% endif %}
+

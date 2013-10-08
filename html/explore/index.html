@@ -23,8 +23,8 @@
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
   
-  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="media/css/normalize.css">
+  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="media/css/style.css">
   <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
   <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
@@ -70,7 +70,7 @@
         <ul>
           <li><a href="explore">Explore</a></li>
           <!-- <li><a href="/country/usa/">Profiles</a></li> -->
-          <li><a href="stories">Stories</a></li>
+          <li><a href="stories" >Stories</a></li>
           <li><a href="rankings">Rankings</a></li>
           <li><a href="book">Book</a></li>
           <li><a href="about">About</a></li>
@@ -1216,9 +1216,6 @@
     });
 
   </script> 
-
-  {% include "story/init_story.html" %}
-
   <script>
   // google analytics
   var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
@@ -1285,6 +1282,7 @@
 
 
   </script>
+  {% include "story/init_story.html" %}
    {% include "story/body_story.html" %}
   <script>
 

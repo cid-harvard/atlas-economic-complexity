@@ -1112,3 +1112,393 @@ dl.file_list p {
   top: 0;
 }
 
+/*user Details*/
+
+#userSession
+{
+width: 100%;
+float: left;
+margin-top: 10px;
+}
+#logoutBtn
+{
+width: 50px;
+display: block;
+float: right;
+margin-right: 3%;
+}
+
+#loggedInUser
+{
+	float: right;
+padding-right: 20px;
+margin: 0.5em;
+font-size:16px;
+}
+
+/* Edit  stories*/
+
+#editMain
+{
+width:100%;
+z-index:1001;
+padding-bottom: 30px;
+margin:30px 0px 30px 0px;
+box-shadow:0 2px 4px 2px #888888;
+}
+#editMain p
+{
+display: inline-block;
+margin: 0.5em 0;
+}
+
+#editStoryName 
+{ 
+font-size: 18px;
+}
+#editStoryDesc 
+{
+	font-size: 16px;
+}
+ [contenteditable="true"] { padding: 5px 10px;outline:none;margin-top:5px;border: 1px dashed #E7E6DB;font-family: 'PT Sans Narrow',Helvetica,Arial; }
+ [contenteditable="true"]:hover { box-shadow:0 2px 4px 2px #888888;}
+ 
+#sortable 
+{ 
+list-style-type: none;
+margin: 0;
+padding: 0;
+width: 60%;
+}
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+.queueTable
+{
+border-collapse: collapse;
+width: 100%;
+table-layout: fixed;
+}
+.queueTable thead
+{
+	display: table-header-group;
+vertical-align: middle;
+border-color: inherit;
+}
+.queueTable tbody
+{
+	display: table-row-group;
+vertical-align: middle;
+border-color: inherit;
+}
+.queueTable thead tr
+{
+	vertical-align: bottom;
+
+}
+.queueTable thead th
+{
+	padding: 1em 0 2px;
+	color: #666;
+	border-bottom: 3px solid #D9D5BE;
+}
+
+.queueTable tbody tr
+{
+	vertical-align: middle;
+	background-color: #F0F0F0;
+	border-bottom: 3px solid #fff;
+}
+.queueTable tbody td
+{
+	color: #666;
+height: 3em;
+empty-cells: show;
+text-align: center;
+word-wrap: break-word;
+}
+.co
+{
+	width:5%;
+}
+.ct
+{
+	width:40%;
+}
+.remove
+{
+	width:5%;
+}
+.editRow
+{
+		width:5%;
+	
+}
+.cd
+{
+	width:45%;
+}
+.ctText 
+{
+padding:4px 5px;
+}
+.cdText
+{
+padding:4px 5px;
+}
+.deleteBtn
+{
+display: block;
+width: 16px;
+height: 16px;
+margin: 4px auto;
+color: #339;
+font-weight: bold;
+text-decoration: none;
+background: transparent url('/media/img/app/q-sprites.gif') 0 -64px no-repeat;
+}
+.editBtn
+{
+display: block;
+width: 16px;
+height: 16px;
+margin: 4px auto;
+color: #339;
+font-weight: bold;
+text-decoration: none;
+background: transparent url('/media/img/app/editImage.png')  no-repeat;
+}
+#editChapters h2
+{
+background: url('/media/img/all/containers_trans.png') no-repeat;
+background-position: -43px -104px;
+background-repeat: repeat-x;
+font: bold 10pt/1em Arial, Geneva, sans-serif;
+border-bottom: 1px solid #D9D5BE;
+padding: .75em 10em 1em 1em;
+margin: 0;
+color: #343434;
+position: relative;
+font-size:14px;
+}
+ #editChapters .color
+{
+	color: #343434;
+}
+#editChapters
+{
+z-index: 10;
+background-color: #FFF;
+padding: 5px;
+border: 1px solid #E7E6DB;
+width: 90%;
+margin: auto;
+margin-top: 20px;
+}
+#MainQueueForm
+{
+	padding:3px;
+}
+#updateStoryBtn
+{
+border-radius: 0px;
+height: 30px;
+float: right;
+margin-left: 15px;
+}
+#CancelStoryBtn
+{
+border-radius: 0px;
+height: 30px;
+float: right;
+}
+
+
+ /* Browse  stories*/
+
+#browseMain
+{
+	width:100%;
+z-index:1001;
+padding-bottom: 30px;
+margin:20px 0px 30px 0px;
+box-shadow:0 2px 4px 2px #888888;
+float:left;
+}
+#browseTitle
+{
+	height:15%;
+	width:100%;
+	padding-top: 10px;
+}
+#browseStories
+{
+	height: 75%;
+width: 90%;
+margin-left:5%;
+background-color: white;
+padding:0px;
+float:left;
+}
+.storyList
+{
+	float:left;
+	width:90%;
+	margin-left:5%;
+}
+#Stories
+{
+height: 150px;
+overflow: scroll;
+width: 50%;
+border: 1px solid #999999;
+background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+font-family: Verdana,Arial,sans-serif;
+font-size: 15px;
+float:left;
+border-radius: 8px;
+box-shadow: 0 2px 4px 0px #888888;
+padding:10px;
+}
+#popular
+{
+	display:none;
+}
+#featured
+{
+	display:none;
+}
+#published
+{
+		display:none;
+	
+}
+#browseStories ul li
+{
+	width:24.4%
+}
+#browseStories ul li a
+{
+	padding-left: 38%;
+	width:100%;
+}
+ 
+#browseStories ul
+{
+	padding:0px;
+}
+.buttonSection
+{
+width: 30%;
+margin-left: 10%;
+float:left;
+}
+.RetrieveStory {
+width: 144px;
+
+}
+.retriveButton {
+width: 150px;
+height: 30px;
+margin-bottom: 10px;
+}
+.retriveDropList{
+font-size: 16px;
+margin-left: 20px;
+}
+.chap_desc {
+text-align: center;
+}
+.ch_title {
+margin-left: 06px;
+}
+
+/*view Stories */
+.addstory {
+margin-left: -08px;
+}
+.prenext {
+margin-left: -08px;
+}
+.BrowseNextPrev
+{
+	padding:5px;
+}
+#BrowsePrev {
+color: white;
+margin-left: 27%;
+margin-right: 10%;
+font-family: 'PT Sans Narrow',Helvetica,Arial;
+width: 175px;
+background: #888;
+display: block;
+float: left;
+}
+#BrowseNext {
+color: white;
+font-family: 'PT Sans Narrow',Helvetica,Arial;
+width: 175px;
+background: #888;
+display: block;
+float:left;
+}
+.disabled
+{
+	disabled:true;
+	opacity:0.5;
+}
+
+.endbstory
+{
+	color: white;
+font-family: 'PT Sans Narrow',Helvetica,Arial;
+width: 175px;
+background: #888;
+display: block;
+}
+
+#likeImage 
+{
+		margin-left:20%;
+		display:none;
+}
+#likeImage:hover
+{
+	opacity:0.5;
+}
+
+
+
+/* dialog box */
+
+
+ textarea
+    {
+      resize: none;
+    }
+.ui-dialog
+    {
+      z-index: 10000 !important ;
+    }
+
+.errorlabel
+	 {
+	color: red;
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+.textfields
+	{
+		width:300px; 
+		margin-left: 20px;
+	}
+.vertalign
+	{
+		vertical-align: top;
+		margin-top:5px;
+	}
+.ui-dialog {
+            z-index: 25000 !important;
+        }
+
+
