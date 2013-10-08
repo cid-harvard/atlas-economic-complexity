@@ -30,6 +30,8 @@
   <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
   <link rel="stylesheet" href="media/js/libs/vizwiz/src/utils.slider.css" />
 
+<link rel="stylesheet" href="media/css/countries.css" />
+
   <link rel="stylesheet" href="media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
   <!-- VizWiz -->
   <link href="media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
@@ -1358,13 +1360,24 @@
 
     <style>
 
-      #country1 .chosen-results li {
+
+
+      /* <ul class="chosen-results">
+      <li class="active-result" style="" data-option-array-index="194">Turks and Caicos Islands</li>
+      */
+
+      .chosen-results li.active-result[data-option-array-index="194"] {
         background: url('media/img/icons/flag_fra.png') no-repeat;
+      }
+
+
+      #country1 .chosen-results li.active-result {
         background-size:25px;
         padding-left: 25px;
         margin-top:-4px;
       }
      
+
       #country1 .chosen-results li:hover {
         background-size:25px;
         padding-left: 25px;
@@ -1372,12 +1385,16 @@
         background-color: lightblue;
       }
      
+     /*
+
       #country1 .chosen-single span {
         background: url('media/img/icons/flag_usa.png') no-repeat;
         background-size:25px;
         padding-left: 30px;
         margin-top:-2px;
       }
+*/
+
       /*
       li.active-result { 
           background: url('/media/img/icons/flag_fra.png') no-repeat;

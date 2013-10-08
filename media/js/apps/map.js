@@ -13,10 +13,10 @@ function App() {
   function map(selection) {
     selection.each(function(data, i) {
       
-      //color_gradient = ["#f2ecb4", "#f2e671", "#f6d626", "#f9b344", "#eb8c30", "#e84d24"];
+      color_gradient = ["#f2ecb4", "#f2e671", "#f6d626", "#f9b344", "#eb8c30", "#e84d24"];
 
       // http://colorbrewer2.org/?type=sequential&scheme=YlOrBr&n=6
-      color_gradient = ["#f2ecb4", "#fee391", "#fec44f", "#fe9929", "#d95f0e", "#993404"];
+      //color_gradient = ["#f2ecb4", "#fee391", "#fec44f", "#fe9929", "#d95f0e", "#993404"];
 
       attr_data = data["attr_data"]
       // console.log(attr_data)
