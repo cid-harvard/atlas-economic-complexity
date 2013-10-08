@@ -56,7 +56,7 @@ class patronform(ModelForm):
 
 
 ###############################################################################
-# Observa-Story-Chapter-Table
+# Observa-Story-User-Table
 ###############################################################################
 
 class observatoryuser(models.Model):
@@ -71,6 +71,20 @@ class observatoryuser(models.Model):
 	def __unicode__(self):
 		return u"%s" % (self.user_id)
 
+
+
+##############################################################################
+# Observa-Story-Likemode deatils
+#############################################################################
+
+class observatory_like(models.Model):
+	user_id=models.IntegerField()
+        story_id=models.IntegerField()
+	class Meta:
+		db_table = "observatory_likemode"
+
+	def __unicode__(self):
+		return u"%s" % (self.user_id)
 
 
 ###############################################################################

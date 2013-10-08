@@ -146,7 +146,7 @@ def endSaveStory(request):
   return redirect('/stories/')
 
 #######################################
-#browse story
+#browse story form
 #######################################
 def browseStoryForm(request):
     if 'userid'  in request.session:
@@ -191,22 +191,25 @@ def browseStoryForm(request):
       userUniqueId=1
     userName=request.session['username'] if 'username' in request.session else ""
     checkAdmin=observatoryuser.objects.values('isadmin').filter(user_id=userUniqueId)
-    print checkAdmin
     mineStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(user_id=userUniqueId)
-    featureStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(Q(featured=1) & (Q(published=1) | Q(user_id=userUniqueId)))
-    popularStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(Q(likecount__gte=1) & (Q(published=1) | Q(user_id=userUniqueId))).order_by('-likecount')
-    return render_to_response('RetriveForm/RetrieveForm.html',{
-  'checkAdmin':checkAdmin,
+    featureStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(Q(featured=1) & (Q(published=1))) 
+    popularStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1).order_by('-likecount')[0:10]
+    publishStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1)
+    return render_to_response('story/RetrieveForm.html',{
+        'publishStory':publishStory,
+	'checkAdmin':checkAdmin,
         'userName':userName,
-  'userId':request.session['userid'] if 'userid' in request.session else 0,
-  'mineStory':mineStory,
-  'featureStory':featureStory,
-  'popularStory':popularStory},context_instance=RequestContext(request))
+	'userId':request.session['userid'] if 'userid' in request.session else 0,
+	'mineStory':mineStory,
+	'featureStory':featureStory,
+	'popularStory':popularStory},context_instance=RequestContext(request))
 
 ########################################
 #end browse story
 ########################################
 def endbrowsestory(request):
+  likeBtnEnable=False
+  request.session['likeBtnEnable']=likeBtnEnable
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
   return redirect('/stories/')
@@ -231,7 +234,7 @@ def editStoryForm(request):
    serialNumber=0
    updateNumberOfChapters=observastory.objects.filter(story_id=editStoryId).update(number_of_chapters=serialNumber)
   temp={'storychapter':chapters,'observastory':stories}
-  return render_to_response('editStoryForm/editStoryForm.html',temp,context_instance=RequestContext(request))
+  return render_to_response('story/editStoryForm.html',temp,context_instance=RequestContext(request))
 
 ############################################
 # update story form
@@ -239,10 +242,8 @@ def editStoryForm(request):
 counter=0
 def updateEditForm(request):
   storyId=request.session['editStoryId']
-  print storyId
   if "storyTitle" in request.POST:
    storyTitle=request.POST["storyTitle"]
-   print storyTitle
   if "storyDesc" in request.POST:
    storyDesc=request.POST["storyDesc"]
   if request.POST["chapterJson"]:
@@ -297,9 +298,15 @@ def featured(request):
 # likecount
 #################################################
 def likeCount(request):
-   browseStoryId=request.session['browseStoryIds']
-   updateLikeCount=observastory.objects.filter(story_id=browseStoryId).update(likecount=F('likecount')+1)
-   return HttpResponse(True)
+  browseStoryId=request.session['browseStoryId'] if 'browseStoryIds' in request.session else 0
+  updateLikeCount=observastory.objects.filter(story_id=browseStoryId).update(likecount=F('likecount')+1) 
+  likeBtnEnable=request.session['likeBtnEnable'] if 'likeBtnEnable' in request.session else False
+  userId=request.session['userid'] if 'userid' in request.session else 0
+  if userId > 0:
+   saveToLikeTable=observatory_like(user_id=userId,story_id=browseStoryId)
+   saveToLikeTable.save()
+  request.session['likeBtnEnable']=False
+  return HttpResponse(request.session['likeBtnEnable'])
 
 ####################################################
 # logout
@@ -343,7 +350,7 @@ def cancelstory(request):
 browseArrayStoryId=0
 browseModeIndex=0
 def browsestories(request,browseStoryId):
-  print browseStoryId
+  request.session['browseStoryId']=browseStoryId
   request.session['index']=0
   isbrowsemode=True
   request.session['retrieve']=isbrowsemode
@@ -351,6 +358,13 @@ def browsestories(request,browseStoryId):
   global browseArrayStoryId
   browseArrayStoryId = browseStoryId
   request.session['browseStoryIds']=browseStoryId
+  userId=request.session['userid'] if 'userid' in request.session else 0
+  if observatory_like.objects.filter(user_id=userId,story_id=browseStoryId).exists() == True:
+    likeBtnEnable=False
+    request.session['likeBtnEnable']=likeBtnEnable
+  else:
+     likeBtnEnable=True
+     request.session['likeBtnEnable']=likeBtnEnable
   browseStoryName=observastory.objects.values_list('story_name', flat=True).filter(story_id=browseStoryId)
   for browseStoryNames in browseStoryName:
     request.session['browseStoryName']=browseStoryNames
@@ -394,7 +408,7 @@ def browsestories(request,browseStoryId):
    for browseStoryChapterUrl in browseStoryChapUrl:
     return redirect(browseStoryChapterUrl)
 def viewStory(request,browseStoryId):
-  return render_to_response('RetriveForm/viewStory.html',{'browseStoryId':browseStoryId},context_instance=RequestContext(request))
+  return render_to_response('story/viewStory.html',{'browseStoryId':browseStoryId},context_instance=RequestContext(request))
 
 ####################################################################
 # next browse story
@@ -500,6 +514,10 @@ def new_ps(request):
   return render_to_response("new_ps.html", {"ps_nodes":json.dumps(ps_nodes, indent=2)},context_instance=RequestContext(request))
 
 def home(request):
+  iscreatemode=False
+  request.session['create']=iscreatemode
+  isbrowsemode=False
+  request.session['retrieve']=isbrowsemode
   import urllib2
   try:
     ip = request.META["HTTP_X_FORWARDED_FOR"]
@@ -803,7 +821,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   NoOfChpt=request.session['NoOfchap'] if 'NoOfchap' in request.session else ""
   userName=request.session['username'] if 'username' in request.session else ""
   userId=request.session['userid'] if 'userid' in request.session else ""
-
+  likeBtnEnable=request.session['likeBtnEnable'] if 'likeBtnEnable' in request.session else False 
   # raise Exception(country1, country2, product, year)
   # Get URL query parameters
   was_redirected = request.GET.get("redirect", False)
@@ -977,6 +995,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   # Return page without visualization data
   
   return render_to_response("explore/index.html", {
+    "likeBtnEnable":likeBtnEnable,
     "browseModeJScript": browseModeJScript,
     "browseChapterDesc" : browseChapterDesc,
     "browseChapterName": browseChapterName,
