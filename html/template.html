@@ -49,6 +49,15 @@
     <div id="main" role="main" style="margin-top:70px">
       <div class="app_title" id="title" ><h2 style="margin-left:300px; width:800px" id="text_title">{% block heading_title %}{% endblock %}</h2></div>
 
+    <style>
+      #content  h3, #content h2, h4 {
+        text-transform: uppercase;
+      }
+
+      #content h3:not(:first-child), #content h4:not(:first-child) {
+        margin: 50px 0px 0px 0px;
+      }
+    </style>
       <!-- main content -->
       {% block content %}{% endblock %}
 
