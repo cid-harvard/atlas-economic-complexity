@@ -20,6 +20,7 @@
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
   
   <link rel="stylesheet" href="/media/css/normalize.css">
+  <link rel="stylesheet" href="/media/js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="/media/css/style.css">
   <link rel="stylesheet" href="/media/js/libs/chosen/chosen.css" />
   <link rel="stylesheet" href="/media/js/libs/tipsy/tipsy.css" />
@@ -192,7 +193,8 @@
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
   <script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
-    <script src="/media/js/explore/createStory.js"></script> 
+  <script src="/media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="/media/js/explore/createStory.js"></script> 
   
  <script> 
  
@@ -312,15 +314,11 @@
 			}
 		});
 	});
- $( "#dialog-modal-browseStory" ).dialog({
-		height: 200,
-		width: 500,
-		autoOpen: false,
-		modal: true,
-		closeOnEscape:true,
-		draggable: false ,
-		resizable: false
-	});
+ $('#dialog-modal-browseStory').modal({
+		show: false,
+		keyboard: false
+		});
+ 
  $('#browseStories').tabs({
 	beforeActivate: function(event ,ui){
 		var userId={{ userId }};
@@ -331,7 +329,7 @@
         	  }
        		 else 
        		{
-       		$('#dialog-modal-browseStory').dialog('open');
+       		$('#dialog-modal-browseStory').modal('show');
        		  return false;
        			 }
         	 }
@@ -390,13 +388,22 @@
  
   </script>
 </body>
-<div id = "dialog-modal-browseStory" title="Save Story">
-    <h4 align="center">Login to Browse Stories</h4>
-    <form action='/stories/' method="post" id="saveDataInDB">
-      {% csrf_token %}
-      <img src="/media/img/sign-in-with-google.png" alt="Login Using Google" onclick="googleLogin()" style="width: 200px; height: 40px;cursor:pointer"/>
+ <div class="modal fade" id="dialog-modal-browseStory" role="dialog" aria-labelledby="Save Story" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Login to Browse Stories</h4>
+      </div>
+       <form  id="saveDataInDB"  method="post" action='/stories/'>
+      <div class="modal-body">
+        {% csrf_token %}
+      <img src="/media/img/sign-in-with-google.png" alt="Login Using Google" onclick="googleLogin()" style="width: 200px; height: 40px;cursor:pointer;margin-left:30px"/>
       <img src="/media/img/sign-in-with-facebook.png" alt="Login Using Facebook" onclick="fbLogin()"style="width: 200px; height: 40px;margin-left: 60px;cursor:pointer"/>
       <input type="hidden" id="socialMediaIntegrationData" name="socialMediaIntegrationData"></input>
-    </form>
+      </div>
+     </form> 
+    </div>
   </div>
-</html>
+</div>
+

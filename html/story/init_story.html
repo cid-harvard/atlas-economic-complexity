@@ -31,7 +31,7 @@ $(function() {
 
 	$("#BrowsePrev").click(function(){
 		$.ajax({
-			'type': 'POST',
+			'type': 'GET',
 			'url': '/browseStoryPrev/',
 			'contentType': 'application/json',
 			'data': {
@@ -49,7 +49,7 @@ $(function() {
 	});
 	$("#BrowseNext").click(function(){
 		$.ajax({
-			'type': 'POST',
+			'type': 'GET',
 			'url': '/browseStoryNext/',
 			'contentType': 'application/json',
 			'data': {
@@ -67,7 +67,7 @@ $(function() {
 	});
 	$("#likeImage").click(function(){
 		$.ajax({
-			'type': 'POST',
+			'type': 'GET',
 			'url': '/likeCount/',
 			'contentType': 'application/json',
 			'data': {
