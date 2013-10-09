@@ -155,6 +155,7 @@ function endStory() {
           localStorage.setItem("JsonChapterDetail",JSON.stringify(jsonObj));
         }
         $("#dialog-modal-createChapter").modal("hide");
+        toastr.success("Chapter added to story....");
       }
       
 /**
