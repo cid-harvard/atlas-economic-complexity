@@ -37,6 +37,8 @@
   
   function nest_drop_report(nest_level) 
   {
+
+    console.log("nest_drop_report", nest_level);
     // Find Out app_type
     switch (app_name)
     {
@@ -628,7 +630,7 @@
       .total_bar({"prefix": "", "suffix": " USD"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
       .nesting_aggs({"distance":"mean","complexity":"mean"})
-      .depth("nesting_1")
+      .depth("nesting_2")
       .text_format(txt_format)
       .number_format(num_format)
       .font('PT Sans Narrow')
