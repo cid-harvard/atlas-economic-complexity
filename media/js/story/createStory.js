@@ -1,5 +1,3 @@
-
-
 /**
  * capture javaScript visualization and add it to DB
  */
@@ -54,8 +52,8 @@ var OAUTHURL    =   'https://accounts.google.com/o/oauth2/auth?';
 var VALIDURL    =   'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=';
 var SCOPE       =   'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
 var CLIENTID    =   '448770529527.apps.googleusercontent.com';
-var REDIRECT    =   'http://localhost:8080/stories/'
-	var LOGOUT      =   'http://accounts.google.com/Logout';
+var REDIRECT    =   'http://atlas.cid.harvard.edu/rc1/stories/';
+var LOGOUT      =   'http://accounts.google.com/Logout';
 var TYPE        =   'token';
 var _url        =   OAUTHURL + 'scope=' + SCOPE + '&client_id=' + CLIENTID + '&redirect_uri=' + REDIRECT + '&response_type=' + TYPE;
 var acToken;
@@ -144,7 +142,7 @@ function gup(url, name) {
 function fbLogin() {
 	var appID = "453239931458692";
 	var path = 'http://www.facebook.com/dialog/oauth?';
-	var REDIRECT1    =   'http://localhost:8080'
+	var REDIRECT1    = 'http://atlas.cid.harvard.edu/rc1';
 		var queryParams = ['client_id=' + appID,
 		                   'redirect_uri=' + window.location,
 		                   'response_type=token'];
