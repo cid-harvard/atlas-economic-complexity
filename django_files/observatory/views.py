@@ -953,17 +953,20 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   if countries[0] and countries[0].name in list_countries_the:
     countries[0].name = "the "+countries[0].name
   
-
+  prod_or_partner = "partner" # quick fix should be merged with item_type
   
   if not alert:
     if app_type == "casy":
       # raise Exception(app_name)
       if app_name == "pie_scatter":
         title = "What products are feasible for %s?" % countries[0].name
+      elif app_name == "product_space":
+        title = "How related are %s products in %s?" % (countries[0].name, year)       # INSERTED NEW TITLE HERE
       elif app_name == "stacked":
         title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE
       else:
-        title = "What did %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), year) # NEW TITLE HERE
+        title = "What did %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), year)                             # NEW TITLE HERE
+        prod_or_partner = "product"
 
     # Country but showing other country trade partners
     elif app_type == "csay":
@@ -974,7 +977,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     # Product
     elif app_type == "sapy":
       item_type = "countries"
-      title = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
+      title = "Who did %ss %s in %s?" % (trade_flow.replace("_", " "), product.name_en, year)
   
     # Bilateral Country x Country
     elif app_type == "ccsy":
@@ -990,8 +993,9 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
       item_type = "countries"    
       article = "to" if trade_flow == "export" else "from"
-      title = "Where does %s %s %s %s?" % (countries[0].name, trade_flow, product.name_en, article)
-  
+      title = "Where did %s %s %s %s in %s?" % (countries[0].name, trade_flow, product.name_en, article, year)
+      prod_or_partner = "product"
+
   # Return page without visualization data
   
   return render_to_response("explore/index.html", {
@@ -1032,6 +1036,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "app_type": app_type,
     "redesign_api_uri": redesign_api_uri,
     "country_code": country_code,
+    "prod_or_partner": prod_or_partner,
     "item_type": item_type}, context_instance=RequestContext(request))
 
 '''<COUNTRY> / all / show / <YEAR>'''
