@@ -27,7 +27,7 @@ function Key() {
           .call(key_icon)
       }
       // put tooltip on mouseover
-      $('#key a').tipsy({"gravity":'s',"fade":true});      
+     // $('#key a').toopt({"gravity":'s',"fade":true});      
     })
   }
   
