@@ -342,6 +342,7 @@ header h1 a img {
 		height: 100%;
 	}
 
+
 /*
  * Left hand side the app selection pane
  */  
@@ -1111,6 +1112,13 @@ dl.file_list p {
   top: 0;
 }
 
+#content h3, #content h2, h4 {
+  text-transform: uppercase;
+}
+
+#content h3:not(:first-child), #content h4:not(:first-child) {
+  margin: 50px 0px 0px 0px;
+}
 
 /*user Details*/
 
