@@ -136,7 +136,7 @@
           current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1; 
 
 
-          var current_country2 = $("#country-trade-partner").find(":selected").attr("value");
+          var current_country2 = $("#country-trade-partner").find(":selected").val();
           current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2; 
 
 
@@ -181,7 +181,22 @@
 
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
           } else if($(".tab-trade-partner-product").find(".active").index()==1) {
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+current_year2+"/"
+
+            if(current_country2=="all") {
+
+              // Where does United States export to?
+              // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/all/2011/
+              url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";         
+            
+            // What did United States export in 2011?
+            // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
+            } else {
+
+              url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+current_year2+"/"
+
+            }
+
+            
 
           } else {
 
@@ -297,36 +312,36 @@
           </div>
        
           <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:10px; width:190px;">
-            <li{% if product_list %} class="active"{% endif %}><a href="#show-country-product"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray;"></span>  <span style="font-size:14px; color:gray;">Product</span></a></li>
-            <li{% if not product_list %} class="active"{% endif %}><a href="#show-country-partner"><span class="glyphicon glyphicon-globe" style="font-size:14px; color:gray;"></span> <span style="font-size:14px;">Partner</span></a></li>
+            <li{% if prod_or_partner == "product" %} class="active"{% endif %}><a href="#show-country-product"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray;"></span>  <span style="font-size:14px; color:gray;">Product</span></a></li>
+            <li{% if prod_or_partner == "partner" %} class="active"{% endif %}><a href="#show-country-partner"><span class="glyphicon glyphicon-globe" style="font-size:14px; color:gray;"></span> <span style="font-size:14px;">Partner</span></a></li>
           </ul>
 
           <!-- Tab Trade Partner/Product -->
           <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:190px; margin-left:10px; height:60px">
           
-            <div class="tab-pane {% if product_list %} active{% endif %}" id="show-country-product">
+            <div class="tab-pane {% if prod_or_partner == "product" %} active{% endif %}" id="show-country-product">
 
               <div id="country-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-country-product').css('visibility', 'visible');"  onmouseout="$('.show-country-product').css('visibility', 'hidden');">
           
                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
                 <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
-                 <option value=""></option>
-                 {{ product_list }}
-                  {% for p in product_list %}
-                  {% if p.id == product.id %}
+                  <option value=""></option>
+                    {{ product_list }}
+                    {% for p in product_list %}
+                    {% if p.id == product.id %}
                   <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-                  {% else %}
+                    {% else %}
                   <option value="{{p.code}}">{{ p.name }}</option>
-                  {% endif %}
-                  {% endfor %}
-                  {% include "explore/list_products.html" %}
+                    {% endif %}
+                    {% endfor %}
+                    {% include "explore/list_products.html" %}
                 </select>
 
               </div>
             </div>
 
-            <div class="tab-pane {% if not product_list %} active{% endif %}" id="show-country-partner">
+            <div class="tab-pane {% if prod_or_partner == "partner" %} active{% endif %}" id="show-country-partner">
 
               <div id="country-trade-partner" style="margin-left: 10px;" onmouseover="$('.show-trade-partner').css('visibility', 'visible');" onmouseout="$('.show-trade-partner').css('visibility', 'hidden');">
 
@@ -467,11 +482,10 @@
           
                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-
-
                 <select data-placeholder="All Countries" class="chosen-select-deselect" tabindex="-1" style="display: none;" id="products_country1_select">
- <option value=""></option>
-                  {% if country1_list %}
+                    <option value=""></option>
+                    
+                    {% if country1_list %}
 
                     {% for c in country1_list %}
                     {% if c.id == country1.id %}
@@ -882,24 +896,24 @@
           
             <span class="definition" style="font-weight:bold; margin-left:20px;">Level of details:</span>
             
-            <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
 
-            <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
-                <input type="radio" name="product_class" value="sitc4"> Low
+            <label class="btn btn-default">
+                <input type="radio" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
               </label>
 
               {% if app_type == "casy" %}
-              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-                <input type="radio" name="product_class" value="hs4"> Mid
+              <label class="btn btn-default">
+                <input type="radio" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
               </label>
               {% endif %}
               {% if app_type == "ccsy" %}
-              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-                <input type="radio" name="product_class" value="hs4"> Mid
+              <label class="btn btn-default">
+                <input type="radio" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
               </label>
               {% endif %}
-              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-                <input type="radio" name="product_class" value="hs4"> Hi
+              <label class="btn btn-default active">
+                <input type="radio" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
             </label>
           </div>  
         {% endif %}
@@ -1273,6 +1287,7 @@
     country2 = "{{country2}}",
     product = "{{product}}",
     item_type = "{{item_type}}",
+    prod_or_partner = "{{prod_or_partner}}",
     lang= "{{lang}}",
     embed=false,
 		redesign_api_uri = "{{redesign_api_uri}}",
@@ -1318,11 +1333,57 @@
 
   </script>
    {% include "story/body_story.html" %}
+
+
+
+
+    <style>
+
+
+
+      /* <ul class="chosen-results">
+      <li class="active-result" style="" data-option-array-index="194">Turks and Caicos Islands</li>
+      */
+
+
+      #country1 .chosen-results li.active-result, #country-trade-partner .chosen-results li.active-result {
+        background-size:25px;
+        padding-left: 25px;
+        margin-top:-4px;
+      }
+     
+
+      #country1 .chosen-results li:hover, #country-trade-partner .chosen-results li:hover {
+        background-size:25px;
+        padding-left: 25px;
+        margin-top:-4px;
+        background-color: lightblue;
+      }
+     
+     
+
+      /*
+      li.active-result { 
+          background: url('/media/img/icons/flag_fra.png') no-repeat;
+        background-size:25px;
+        padding-left: 30px;
+        margin-top:-2px;  
+      }
+   
+      .chosen-results, .chosen-single { 
+          background: url('/media/img/icons/flag_usa.png') no-repeat;
+        background-size:25px;
+        padding-left: 30px;
+        margin-top:-2px;  
+      } */
+    </style>
+
+
   <script>
 
   $(function () {
 
-        $(this).scrollTop(0);
+    $(this).scrollTop(0);
 
     $(".chosen-select").chosen(); 
     $('.chosen-container').css('width', '150px');
@@ -1361,22 +1422,51 @@
       });
       
 */
-    });
 
 
-    $( "#select-country-trade-partner" ).change(function() {
-    
-      // If billateral then only treemap
-      if($(this).val()!="") {
 
-        $("#map_viz").removeClass("active");
-        $("#map_viz").prop("disabled", true);
+  $("#country1 select").change(function() {
+    console.log($(this).val())
+    $("#country1_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$(this).val()+".png') no-repeat");
+    $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
+    $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
+    $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
+  });
 
-        $("#treemap_viz").removeClass("active");
-        $("#treemap_viz").addClass("active");
+  $("#country-trade-partner select").change(function() {
+    $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$(this).val()+".png') no-repeat");
+    $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
+    $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
+    $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
+  });
 
-      }
-    });
+
+  // For some reason, $("#country1_select_chosen select").trigger("chosen:updated"); does not work
+  $("#country1_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$("#country1 select").val()+".png') no-repeat");
+  $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
+  $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
+  $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
+
+  $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$("#country-trade-partner select").val()+".png') no-repeat");
+  $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
+  $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
+  $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
+
+  $("#select-country-trade-partner").change(function() {
+
+    // If billateral then only treemap
+    if($(this).val()!="") {
+
+      $("#map_viz").removeClass("active");
+      $("#map_viz").prop("disabled", true);
+
+      $("#treemap_viz").removeClass("active");
+      $("#treemap_viz").addClass("active");
+
+    }
+  });
+
+});
 
 
     $(function () {
@@ -1387,59 +1477,6 @@
     });
   </script>
 
-
-    <style>
-
-
-
-      /* <ul class="chosen-results">
-      <li class="active-result" style="" data-option-array-index="194">Turks and Caicos Islands</li>
-      */
-
-      .chosen-results li.active-result[data-option-array-index="194"] {
-        background: url('media/img/icons/flag_fra.png') no-repeat;
-      }
-
-
-      #country1 .chosen-results li.active-result {
-        background-size:25px;
-        padding-left: 25px;
-        margin-top:-4px;
-      }
-     
-
-      #country1 .chosen-results li:hover {
-        background-size:25px;
-        padding-left: 25px;
-        margin-top:-4px;
-        background-color: lightblue;
-      }
-     
-     /*
-
-      #country1 .chosen-single span {
-        background: url('media/img/icons/flag_usa.png') no-repeat;
-        background-size:25px;
-        padding-left: 30px;
-        margin-top:-2px;
-      }
-*/
-
-      /*
-      li.active-result { 
-          background: url('/media/img/icons/flag_fra.png') no-repeat;
-        background-size:25px;
-        padding-left: 30px;
-        margin-top:-2px;  
-      }
-   
-      .chosen-results, .chosen-single { 
-          background: url('/media/img/icons/flag_usa.png') no-repeat;
-        background-size:25px;
-        padding-left: 30px;
-        margin-top:-2px;  
-      } */
-    </style>
 
   </body>
 
