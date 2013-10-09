@@ -111,6 +111,8 @@ function Key() {
         d3.selectAll(".key a").style("opacity","1")
                               .style("pointer-events","auto")  
                               .style("cursor","");    
+        sessionStorage.removeItem("productCommunityName");
+        sessionStorage.removeItem("productCommunityID"); 
       }
       // Otherwise, we need to filter just this community
       // by using VizWiz soloing functionality 
@@ -132,6 +134,7 @@ function Key() {
                                    .attr("active","true"); 
           
           d3.select("#viz").call(viz.solo([d.continent]));
+          sessionStorage.setItem("continent",d.continent);
           // app_name=="stacked" ? stack_solo_filter(d.continent) : d3.select("#viz").call(viz.solo([d.continent]));
         }
         // or we can simply filter by product community name
@@ -143,6 +146,8 @@ function Key() {
                          .attr("active","true"); 
           d3.select("#viz").call(viz.solo([d.name]));               
           // app_name=="stacked" ? stack_solo_filter(d.name) : d3.select("#viz").call(viz.solo([d.name]));
+	  sessionStorage.setItem("productCommunityName",d.name);
+          sessionStorage.setItem("productCommunityID",this.className.replace(" ","."));	
           
         }              
                        
