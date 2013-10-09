@@ -1460,10 +1460,14 @@ display: block;
 {
 		margin-left:20%;
 		display:none;
+		
 }
 #likeImage:hover
 {
 	opacity:0.5;
+	cursor: pointer;
+	
+	
 }
 
 

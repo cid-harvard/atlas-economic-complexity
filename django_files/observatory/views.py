@@ -326,7 +326,7 @@ def logOut(request):
 def deleteStory(request): 
   if 'userid'  in request.session:
    if request.is_ajax():
-    deleteStoryId=request.POST.get('storyId')
+    deleteStoryId=request.GET.get('storyId')
     deleteStory=observastory.objects.filter(story_id=deleteStoryId).delete()
     chapterIds=storychapter.objects.filter(story_id=deleteStoryId)
     if chapterIds is not None:
@@ -537,6 +537,8 @@ def home(request):
     context_instance=RequestContext(request))
 
 def about(request):
+  isbrowsemode=False
+  request.session['retrieve']=isbrowsemode
   return render_to_response("about/index.html", context_instance=RequestContext(request))
 def support(request):
   return render_to_response("about/support.html", context_instance=RequestContext(request))
@@ -574,6 +576,8 @@ def about_data(request, data_type):
     context_instance=RequestContext(request))
 
 def api(request):
+  isbrowsemode=False
+  request.session['retrieve']=isbrowsemode
   return render_to_response("api/index.html", context_instance=RequestContext(request))
 
 def api_apps(request):
@@ -583,6 +587,8 @@ def api_data(request):
   return render_to_response("api/data.html", context_instance=RequestContext(request))
 
 def book(request):
+  isbrowsemode=False
+  request.session['retrieve']=isbrowsemode
   return render_to_response("book/index.html", context_instance=RequestContext(request))
 
 def set_language(request, lang):
@@ -820,7 +826,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   browseModeJScript=request.session['browseStoryJScript'] if 'browseStoryJScript' in request.session else ""
   NoOfChpt=request.session['NoOfchap'] if 'NoOfchap' in request.session else ""
   userName=request.session['username'] if 'username' in request.session else ""
-  userId=request.session['userid'] if 'userid' in request.session else ""
+  userId=request.session['userid'] if 'userid' in request.session else 0
   likeBtnEnable=request.session['likeBtnEnable'] if 'likeBtnEnable' in request.session else False 
   # raise Exception(country1, country2, product, year)
   # Get URL query parameters

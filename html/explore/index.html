@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="media/css/normalize.css">
   <link rel="stylesheet" href="media/css/style.css">
+  <link rel="stylesheet" href="media/js/libs/toastr/toastr.min.css" />
   <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
   <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
   <link rel="stylesheet" href="media/js/libs/vizwiz/src/utils.slider.css" />
@@ -83,7 +84,12 @@
     </header>
     
     <div id="main" role="main">
-      
+      {% if userId %}
+       <div id="userSession">
+       	 <button id="logoutBtn"  onclick="location.href='/logOut/'">Logout</button>	
+       	 <p id="loggedInUser">Hello {{ userName }}</p> 
+       </div>
+       {% endif %}
       <div class="app_title" id="icons" style="width:230px; height:60px; margin-left:10px;">
         
         <!-- Left icon 
@@ -237,13 +243,13 @@
       </ul>
 
       </div>
-
+	  
       <div class="app_title" id="title">
         <h2 style="margin-left:10px; width:700px;" id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2>
       </div>
       
       <br style="clear:both">
-
+	 
       <!-- The left pane -->
       <div id="app_pane" style="width:230px; height:550px">
         <div class="tab-content" style="height:400px">
@@ -713,7 +719,17 @@
       
       <!-- the Visualization -->
       <div id="content" style="width: 750px; min-height:600px;">
-
+		{% if isbrowsemode %}
+			<div style="margin-left: 20px; width: 75%; float:left">
+				<h2>{{ browseStoryName }}</h2>
+				<p>{{ browseStoryDesc }}</p>
+			</div>
+			<div style="float:right;margin-right: 20px;margin-top: 20px;">
+				<button id="endrstory" class="endbstory" 
+				onclick="location.href='/endbrowsestory/',clearLocalStorage()">End Story</button>
+			</div>
+			<div style="clear:both"></div>
+		{% endif %}
         <!-- ajax loading gif -->
         <div id="loader">
           <img src="media/img/all/loader.gif" alt="loading" /><br />Loading...
@@ -729,7 +745,20 @@
         
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
-        
+        {% if isbrowsemode %}
+			<div style="margin-left: 20px; width: 80%;">
+				<h3 style="margin-bottom: 0px;">{{ browseChapterName }}</h3>
+				<p>{{ browseChapterDesc }}</p>
+			</div>
+			<div class="BrowseNextPrev">
+				<div style="clear: both;"></div>
+				<button id="BrowsePrev" class="BrowsePrev" onclick="checkChapterCount(-1)">Prev</button>	
+				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button> 
+				{% if userId %}
+				<a><img src="/media/img/app/like.png" id="likeImage" alt="like" /></a>
+				{% endif %}	
+			</div>       
+       {% endif %}
         <!-- Container for the timeline -->
          <div id="timeline">
           <div class="ui_bottom" id="ui_bottom" style="bottom:0px">
@@ -1214,6 +1243,7 @@
   <script src="media/js/explore/timeline.js"></script>
   <script src="media/js/explore/controls.js"></script>
   <script src="media/js/apps/related.js"></script>
+  <script src="media/js/libs/toastr/toastr.min.js"></script>
   <script src="media/js/libs/vizwiz/lib/d3.js"></script>
   <script src="media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
   <script src="media/js/libs/vizwiz/src/general.js"></script>

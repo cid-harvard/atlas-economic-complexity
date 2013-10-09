@@ -7,7 +7,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">Create an Observ-a-Story</h4>
       </div>
-       <form action="/createStory/" name="patron" method="post" class="sform" onsubmit="storeStoryDetails();">
+      <form action="/createStory/" name="patron" method="post" class="sform" onsubmit="storeStoryDetails();">
       <div class="modal-body">
         {% csrf_token %}
         <table>
@@ -53,7 +53,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">Add Chapter</h4>
       </div>
-       <form  id="chapterCreationModal" name="patron" method="post" class="sform" onsubmit="storeChapterDetails(); return false;">
+      <form  id="chapterCreationModal" name="patron" method="post" class="sform" onsubmit="storeChapterDetails(); return false;">
       <div class="modal-body">
         {% csrf_token %}
         <table>
@@ -80,7 +80,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <h2 >Would you like to save or delete this story?.</h2> 
+        <h2 >Would you like to save or delete this story?</h2> 
       </div>
       <div class="modal-footer">
        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='/cancelstory/', localStorage.clear();">Cancel</button>
@@ -97,7 +97,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">How would you like to save this story?</h4>
       </div>
-       <form  id="saveDataInDB1"  method="post" action="">
+      <form  id="saveDataInDB1"  method="post" action="">
       <div class="modal-body">
         {% csrf_token %}
         <img src="/media/img/sign-in-with-google.png" alt="Login Using Google" onclick="googleLogin()"
@@ -116,5 +116,4 @@
 	<input type="hidden" id="storyChapterJSON" name="storyChapterJSON"></input> 
 	<input type="hidden" id="storyDetail" name="storyDetail"></input>
 	<input type="hidden" id="socialMediaIntegrationData"name="socialMediaIntegrationData"></input>
-	
 </form>
