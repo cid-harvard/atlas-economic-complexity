@@ -984,7 +984,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     elif app_type == "sapy":
       item_type = "countries"
       title = "Who did %ss %s in %s?" % (trade_flow.replace("_", " "), product.name_en, year)
-  
+      prod_or_partner = "product"
+      
     # Bilateral Country x Country
     elif app_type == "ccsy":
       # trade_flow_list = ["export", "import"]
