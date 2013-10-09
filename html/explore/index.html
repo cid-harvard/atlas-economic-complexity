@@ -771,9 +771,13 @@
           </div>  
           {% endif %}
           {% if app_name == "pie_scatter" %}
-           <div id="pie_controls" style="margin-left:18px">
+
+
+            <span class="definition" style="font-weight:bold; float:left;">Y-Axis:</span>
+
+            <div id="pie_controls" style="margin-left:18px; float:left;">
              <div id="pie_yvar">
-               <p>Y-Axis:</p>
+               
                <input type="radio" id="complexity" name="yvar" checked="checked" /><label for="complexity">Complexity</label>
                <input type="radio" id="opp_gain" name="yvar" /><label for="opp_gain">Opportunity Gain</label>
              </div>
@@ -783,6 +787,22 @@
                <input type="radio" id="spot_on" name="pie_spot" /><label for="spot_on">On</label>
              </div>
            </div>   
+
+
+
+          <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
+           <div id="pie_yvar">
+            <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="sitc4"> SITC4
+            </label>
+             <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="hs4"> HS4
+            </label>
+                       </div>
+          </div>
+
+
+
           {% endif %}
 
 
