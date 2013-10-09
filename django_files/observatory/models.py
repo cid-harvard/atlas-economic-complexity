@@ -9,14 +9,14 @@ from django.forms import ModelForm
 #Observa-Story Table
 ###############################################################################
 class observastory(models.Model):
-	story_id=models.AutoField(primary_key=True)
-	story_name=models.CharField(max_length=500)
+	story_id=models.AutoField(max_length=11,primary_key=True)
+	story_name=models.CharField(max_length=200)
 	story_desc=models.CharField(max_length=2000,blank=True, null=True)
 	published=models.BooleanField(default=0)
         featured=models.BooleanField(default=0)
 	likecount=models.IntegerField(default=0)
-        user_id=models.IntegerField(default=1)
-        number_of_chapters=models.IntegerField(default=0)
+        user_id=models.IntegerField(max_length=11,default=1)
+        number_of_chapters=models.IntegerField(max_length=11,default=0)
 	class Meta:
 		db_table = "observatory_story"
                 
@@ -34,14 +34,14 @@ class storyform(ModelForm):
 ###############################################################################
 
 class storychapter(models.Model):
-	chapter_id=models.IntegerField(primary_key=True)
-	story_id=models.IntegerField()
-	chapter_details=models.CharField(max_length=2000)
-	chapter_url=models.CharField(max_length=100)
+	chapter_id=models.IntegerField(max_length=11,primary_key=True)
+	story_id=models.IntegerField(max_length=11)
+	chapter_details=models.CharField(max_length=2000,null=True)
+	chapter_url=models.CharField(max_length=500)
         chapter_desc=models.CharField(max_length=500,blank=True, null=True)
-        chapter_title=models.CharField(max_length=500)
-	chapter_js_details = models.CharField(max_length=500)
-        serial_number=models.IntegerField()
+        chapter_title=models.CharField(max_length=300)
+	chapter_js_details = models.CharField(max_length=2000)
+        serial_number=models.IntegerField(max_length=11)
 
 	class Meta:
 		db_table = "observatory_story_chapter"
@@ -60,10 +60,10 @@ class patronform(ModelForm):
 ###############################################################################
 
 class observatoryuser(models.Model):
-	user_id=models.AutoField(primary_key=True)
-        user_name=models.CharField(max_length=500)
-        user_email=models.EmailField(max_length=500)
-	user_auth_type=models.CharField(max_length=500)
+	user_id=models.AutoField(max_length=11,primary_key=True)
+        user_name=models.CharField(max_length=200)
+        user_email=models.EmailField(max_length=50,null=True)
+	user_auth_type=models.CharField(max_length=100,null=True)
 	isadmin =models.BooleanField(default=0)
 	class Meta:
 		db_table = "observatory_user"
@@ -78,8 +78,8 @@ class observatoryuser(models.Model):
 #############################################################################
 
 class observatory_like(models.Model):
-	user_id=models.IntegerField()
-        story_id=models.IntegerField()
+	user_id=models.IntegerField(max_length=11)
+        story_id=models.IntegerField(max_length=11)
 	class Meta:
 		db_table = "observatory_likemode"
 
