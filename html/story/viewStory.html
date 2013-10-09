@@ -15,7 +15,7 @@
   $(document).ready(function(){
         $.ajax({
             'type': 'GET',
-            'url': '/stories/view/'+{{ browseStoryId }}+'/',
+            'url': '/browsestories/'+{{ browseStoryId }}+'/',
 	    'contentType': 'application/json',
             'data': {
                'csrfmiddlewaretoken': '{{ csrf_token }}',

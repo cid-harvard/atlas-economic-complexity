@@ -144,7 +144,7 @@ function gup(url, name) {
 function fbLogin() {
 	var appID = "453239931458692";
 	var path = 'http://www.facebook.com/dialog/oauth?';
-	var REDIRECT1    =   'http://localhost:8080/explore/'
+	var REDIRECT1    =   'http://localhost:8080'
 		var queryParams = ['client_id=' + appID,
 		                   'redirect_uri=' + window.location,
 		                   'response_type=token'];
