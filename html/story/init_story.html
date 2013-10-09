@@ -27,7 +27,20 @@ $(function() {
 		show: false,
 		keyboard: false
 		});
-	
+	toastr.options = {
+			  "closeButton": false,
+			  "debug": false,
+			  "positionClass": "toast-bottom-right",
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
 
 	$("#BrowsePrev").click(function(){
 		$.ajax({
@@ -74,6 +87,7 @@ $(function() {
 				'csrfmiddlewaretoken': '{{ csrf_token }}',
 			},
 			'success': function(data) {
+				$("#likeImage").addClass("disabled");
 			},
 			'error': function(xhr, textStatus, errorThrown) {
 				alert("Please report this error: "+textStatus);
@@ -118,6 +132,15 @@ localStorage.setItem("chapterCount","1");
 	  $('#BrowsePrev').addClass("disabled");
 	  $('#BrowseNext').removeClass("disabled");
 	  }
+  {% if likeBtnEnable %}
+	{
+	$("#likeImage").removeClass("disabled");
+	}
+	{% else %}
+	{
+	$("#likeImage").addClass("disabled");
+	}
+	{% endif %}
 </script>
 {% endif %}
 
