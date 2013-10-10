@@ -34,7 +34,7 @@ if settings.REDIS:
 if not settings.DB_PREFIX:
   DB_PREFIX = ''
 else:
-  DB_PREFIX = '_'+settings.DB_PREFIX
+  DB_PREFIX = settings.DB_PREFIX.join('_')
 
 
 #####################################
