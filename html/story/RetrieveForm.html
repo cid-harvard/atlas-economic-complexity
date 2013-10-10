@@ -96,7 +96,7 @@
 				<li><a href="#myStories">Mine</a></li>
 				<li><a href="#popular">Popular</a></li>
 				<li><a href="#featured">Featured</a></li>
-				<li><a href="#published">All Stories</a></li>
+				<li style="width:14%;"><a href="#published" style="padding-left:20%;">All Stories</a></li>
 			</ul>
 		<div id="myStories" class="storyList">
 			<form name="patron" method="post" class="sform">
@@ -154,7 +154,7 @@
 							{% endfor %}
 						</select>
 						<div class="buttonSection">
-							<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
+							<input type="Submit" class="retriveButton viewButton disabled" value="View"  onclick=""></input>
 							{% for story in checkAdmin %} 
 							  {% if story.isadmin %}
 								<input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url "observatory.views.editStoryForm" %}'"></input> 
@@ -346,7 +346,6 @@
      },
   activate:function(event,ui){
 	 var id=$(ui.newPanel).prop('id');
-	 $("#"+id+" #Stories").prop("selected","selected");
 	 $("#"+id+" #Stories").children('option:first-child').prop("selected","selected");
  	}
    
@@ -391,8 +390,10 @@
   {
 	  {% if userId %}	  
 	  $( "#browseStories" ).tabs( "option", "active", 0 ); 
+	  $("#myStories #Stories").children('option:first-child').prop("selected","selected");
 	{% else %}
-		  $( "#browseStories" ).tabs( "option", "active", 1 ); 
+		  $( "#browseStories" ).tabs( "option", "active", 3 );
+		  $("#published #Stories").children('option:first-child').prop("selected","selected");
 	{% endif %}
 		  return false;
   }
