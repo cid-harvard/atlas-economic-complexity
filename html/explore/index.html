@@ -195,6 +195,8 @@
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
           } else if($(".tab-trade-partner-product").find(".active").index()==1) {
 
+
+
             if(current_country2=="all") {
 
               // Where does United States export to?
@@ -228,7 +230,18 @@
         // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/show/all/0101/2011/
         } else if($(".main-countries-products").find(".active").index()==1) {
 
-          alert("diversification", current_viz)
+          // Product space or diversification?
+
+
+          var current_viz = (typeof viz != "undefined" )  ? viz : $("#div_apps").find(".active").attr("value");
+
+          // Can 
+          current_product_trade_flow = "export";
+
+
+          current_country1 = $("#country1").find(":selected").val();
+          console.log("diver", current_viz, current_country1)
+
 
           var current_product = $("#product").find(":selected").val();
           var current_product_trade_flow = $("#product-trade-flow").find(":selected").val();
@@ -238,7 +251,11 @@
 
           console.log("products", current_product, current_product_trade_flow, current_product_country)
 
-          url += current_viz+"/"+current_product_trade_flow+"/show/"+current_product_country+"/"+current_product+"/"+current_year1+"/";
+
+          // Product space http://127.0.0.1:8000/explore/product_space/export/usa/all/show/2011/
+          url += current_viz+"/"+current_product_trade_flow+"/"+current_country1+"/"+"all/show/"+current_year1+"/";
+          
+          console.log("url", url)
           window.location.assign(url);
 
 
@@ -252,7 +269,7 @@
       </script>
      
 
-      <ul class="nav nav-tabs main-countries-products" id="myTab">
+      <ul class="nav nav-tabs" id="myTab">
         <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
        <!-- <li><a href="#tab-products"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray"></span> <span  style="font-size:18px;">Products</span></a></li>-->
       </ul>
@@ -398,7 +415,7 @@
               <input type="radio" id="option1" style="background:url(media/img/home/teaser_tree_map.png) no-repeat;"> <img src="media/img/home/teaser_tree_map.png" style="width:38px;"/>
             </label>
             <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-container="body" data-toggle="popover" data-placement="top" title="Map" {% if year_interval_list %}disabled{%endif%}>
-              <input type="radio" name="viz_apps" id="option2"> <img src="media/img/home/teaser_map.png" style="width:38px;"/>
+               <input type="radio" id="option1" style="background:url(media/img/home/teaser_map.png) no-repeat;"> <img src="media/img/home/teaser_map.png" style="width:38px;"/>
             </label>
             <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%}" onclick="update_viz();" {% if not year_interval_list %}disabled{%endif%}>
               <input type="radio" name="viz_apps" id="option3" > <img src="media/img/home/teaser_stacked.png" style="width:38px;"/>
@@ -410,16 +427,18 @@
           <!-- Diversification TAB -->
 
            <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" %}active{% endif %}" id="tab-diversification">
-            <div class="btn-toolbar" style="margin-left:10px;">
-              <a href="explore/product_space/export/usa/all/show/2011/"><div class="btn-group">
-                <label type="button" class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left">
-                  <img src="media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
-                </label></div></a>
+
+                <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
+                  <label value="product_space" type="radio"  class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left" onclick="update_viz('product_space');"><input type="radio" name="viz_apps">
+                    <img src="media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
+                  </label>
               <br><br>
-              <a href="explore/pie_scatter/export/usa/all/show/2011/">
-              <div class="btn-group"><label type="button" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px"><img src="media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label></div>
-              </a>
+                
+               <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps">
+               <img src="media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label>
+
             </div>
+               
 
           </div>
         </div>
@@ -1036,7 +1055,7 @@
         
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Download</h4>
         
-          <span class="glyphicon glyphicon-save" style="margin:5px; font-size:18px; color:lightgray"></span> 
+          <!--<span class="glyphicon glyphicon-save" style="margin:5px; font-size:18px; color:lightgray"></span> -->
           <a class="pdf" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">PDF</a>
           <a class="svg" href="#" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">SVG</a>
           <a class="png" href="#" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">PNG</a>
