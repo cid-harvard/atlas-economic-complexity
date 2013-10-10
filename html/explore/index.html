@@ -114,7 +114,33 @@
         -->
 
       <script>
-      // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
+
+      /* Sets the available visualizations
+        -Triggered at every change in the left panel
+        -Disable visualizations that cannot be used, given a set of parameters
+
+      */
+      function available_viz() {
+      
+        var main_countries_products = $(".main-countries-products").find(".active").index();
+        var partner_product = $(".tab-trade-partner-product").find(".active").index();
+
+        if(main_countries_products==0) {
+
+          // What did the United States export in 2011?
+          if(partner_product==0) {
+
+            $("label[value=stacked]").attr("disabled", true)
+            $("label[value=map]").attr("disabled", true)
+
+          }
+
+
+        }
+
+        console.log("available viz")
+
+      }
 
       function update_viz(viz) {
       
@@ -293,7 +319,7 @@
 
               <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                  <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
+                <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" tabindex="-1" style="display: none;">
 
                 <option value=""></option>
                   {% if country1_list %}
@@ -1044,7 +1070,7 @@
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this Page</h4>
     
 
-        <a class="addthis_button_facebook" tooltipbs" data-placement="right" data-toggle="tooltip" title="Share this page using Facebook" > <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
+        <a class="addthis_button_facebook" tooltipbs" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"> <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
 
         <a class="addthis_button_twitter" ><img src="media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
         <a
@@ -1418,13 +1444,6 @@
    {% include "story/body_story.html" %}
 
     <style>
-
-
-      /* <ul class="chosen-results">
-      <li class="active-result" style="" data-option-array-index="194">Turks and Caicos Islands</li>
-      */
-
-
       #country1 .chosen-results li.active-result, #country-trade-partner .chosen-results li.active-result {
         background-size:25px;
         padding-left: 25px;
@@ -1437,30 +1456,19 @@
         margin-top:-4px;
         background-color: lightblue;
       }
-     
-      /*
-      li.active-result { 
-          background: url('/media/img/icons/flag_fra.png') no-repeat;
-        background-size:25px;
-        padding-left: 30px;
-        margin-top:-2px;  
-      }
-   
-      .chosen-results, .chosen-single { 
-          background: url('/media/img/icons/flag_usa.png') no-repeat;
-        background-size:25px;
-        padding-left: 30px;
-        margin-top:-2px;  
-      } */
+    
     </style>
 
 
   <script>
 
+
+  // Page init scripts
   $(function () {
 
+    // Be sure we came back to the top of the page
     $(this).scrollTop(0);
-
+    
     $(".chosen-select").chosen(); 
     $('.chosen-container').css('width', '150px');
     $('#country1_select_chosen').css('width', '170px');
@@ -1481,24 +1489,8 @@
       //$("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
 
-      $(".tooltipbs").tooltip({delay: { show: 500, hide: 100 }});
+    $(".tooltipbs").tooltip({delay: { show: 500, hide: 100 }});
 
-
-      // get all list elements
-
-      // set the
-
-      //$("#country1").find(":selected").val();
-/*
-      $("#country1_select").find("*").each(function(i) {
-        console.log("val", i, $(this).val());
-      });
-
-      $(".active-result").find("*").each(function(i) {
-        console.log("val", i, $(this).val());
-      });
-      
-*/
 
   $("#country1 select").change(function() {
     $("#country1_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$(this).val()+".png') no-repeat");
@@ -1527,45 +1519,23 @@
   $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
   $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
 
-/*
-  $("#select-country-trade-partner").change(function() {
+  $('#myTab a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+    available_viz();
+  })
 
-    // If billateral then only treemap
-    if($(this).val()!="") {
 
-      $("#map_viz").removeClass("active");
-      $("#map_viz").prop("disabled", true);
-
-      $("#treemap_viz").removeClass("active");
-      $("#treemap_viz").addClass("active");
-
-    }
-  });
-
-*/
+  // Set which visualization is available or not
+  available_viz();  
 
 });
 
-
-
-    jQuery(function ($) {
-        $("a").tooltip({})
-    });
-
-
-
-    $(function () {
-      $('#myTab a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-      })
-    });
   </script>
 
 
   </body>
 
   {% include "story/story_forms.html" %}
-
 
 </html>
