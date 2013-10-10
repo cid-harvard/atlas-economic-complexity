@@ -34,7 +34,7 @@ if settings.REDIS:
 if not settings.DB_PREFIX:
   DB_PREFIX = ''
 else:
-  DB_PREFIX = settings.DB_PREFIX + '_'
+  DB_PREFIX = settings.DB_PREFIX
 
 
 #####################################
@@ -1133,7 +1133,7 @@ def api_casy(request, trade_flow, country1, year):
     WHERE country_id=%s and cpy.product_id = p.id %s and p.community_id = c.id and py.product_id=p.id and cpy.year=py.year
     HAVING val > 0
     ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, prod_class, prod_class, prod_class, country1.id, year_where)
+    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, prod_class, DB_PREFIX, prod_class, DB_PREFIX, prod_class, country1.id, year_where)
   
   """Prepare JSON response"""
   json_response = {}
@@ -1264,7 +1264,7 @@ def api_sapy(request, trade_flow, product, year):
     WHERE product_id=%s and cpy.country_id = c.id %s
     HAVING val > 0
     ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, product.id, year_where)
+    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, product.id, year_where)
   
   """Prepare JSON response"""
   json_response = {}
@@ -1368,7 +1368,7 @@ def api_csay(request, trade_flow, country1, year):
     GROUP BY year, destination_id
     HAVING val > 0
     ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, country1.id, year_where)
+    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, country1.id, year_where)
 
   """Prepare JSON response"""
   json_response = {}
@@ -1490,7 +1490,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
     WHERE origin_id=%s and destination_id=%s and ccpy.product_id = p.id and p.community_id = c.id %s
     HAVING val > 0
     ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, prod_class, prod_class, country1.id, country2.id, year_where)
+    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, prod_class, DB_PREFIX, prod_class, country1.id, country2.id, year_where)
   
   """Prepare JSON response"""
   json_response = {}
@@ -1598,7 +1598,7 @@ def api_cspy(request, trade_flow, country1, product, year):
     GROUP BY year, destination_id
     HAVING val > 0
     ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, country1.id, product.id, year_where)
+    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, country1.id, product.id, year_where)
   
   """Prepare JSON response"""
   json_response = {}
