@@ -1313,8 +1313,8 @@
   // whatever you wanna call it. This is the single most important function.
   // It triggers the data call to the server to fetch the data used in turn
   // to build the app. Look in viz_general.js for more info.
-  build_viz_app(api_uri, 750, 520);
-
+  var contentWidth=$("#content").width();
+  build_viz_app(api_uri,contentWidth,520);
 
   </script>
    {% include "story/body_story.html" %}
