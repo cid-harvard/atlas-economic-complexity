@@ -191,10 +191,10 @@ def browseStoryForm(request):
       userUniqueId=1
     userName=request.session['username'] if 'username' in request.session else ""
     checkAdmin=observatoryuser.objects.values('isadmin').filter(user_id=userUniqueId)
-    mineStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(user_id=userUniqueId)
-    featureStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(Q(featured=1) & (Q(published=1))) 
+    mineStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(user_id=userUniqueId).order_by('-story_id')
+    featureStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(Q(featured=1) & (Q(published=1))).order_by('-story_id') 
     popularStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1).order_by('-likecount')[0:10]
-    publishStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1)
+    publishStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1).order_by('-story_id')
     return render_to_response('story/retrieveForm.html',{
         'publishStory':publishStory,
 	'checkAdmin':checkAdmin,
