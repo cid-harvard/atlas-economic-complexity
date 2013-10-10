@@ -125,57 +125,104 @@
         var main_countries_products = $(".main-countries-products").find(".active").index();
         var partner_product = $(".tab-trade-partner-product").find(".active").index();
 
+
+        var current_year2 = $("#year2").find(":selected").val();
+        current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2; 
+
         if(main_countries_products==0) {
 
           // What did the United States export in 2011?
           if(partner_product==0) {
 
-            // Activate Treemap
-            $("label[value=stacked]").css("opacity", 1);
-            $("label[value=stacked]").attr("data-original-title", "Treemap")
-            $("label[value=stacked]").tooltip('fixTitle')
-            $('label[value=stacked]').click(function() { return update_viz(); } );    
 
-            // Disable map
-            $("label[value=map]").css("opacity", .1);
-            $("label[value=map]").attr("data-original-title", "No map available")
-            $("label[value=map]").tooltip('fixTitle')
-            $('label[value=map]').click(function() { return false; } );    
+            if(current_year2=="") {
+              // Activate Treemap
+              $("label[value=stacked]").css("opacity", 1);
+              $("label[value=stacked]").attr("data-original-title", "Treemap")
+              $("label[value=stacked]").tooltip('fixTitle')
+              $('label[value=stacked]').click(function() { return update_viz(); } );    
 
-            // Disable stacked
-            $("label[value=stacked]").css("opacity", .1);
-            $("label[value=stacked]").attr("data-original-title", "You need to select a time period")
-            $("label[value=stacked]").tooltip('fixTitle')
-            $('label[value=stacked]').click(function() { return false; } );     
-  
+              // Disable map
+              $("label[value=map]").css("opacity", .1);
+              $("label[value=map]").attr("data-original-title", "No map available")
+              $("label[value=map]").tooltip('fixTitle')
+              $('label[value=map]').click(function() { return false; } );    
+
+              // Disable stacked
+              $("label[value=stacked]").css("opacity", .1);
+              $("label[value=stacked]").attr("data-original-title", "You need to select a time period")
+              $("label[value=stacked]").tooltip('fixTitle')
+              $('label[value=stacked]').click(function() { return false; } );     
+
+            } else {
+
+
+              // Disable Treemap
+              $("label[value=treemap]").css("opacity", .1);
+              $("label[value=treemap]").attr("data-original-title", "You need to de-select one year")
+              $("label[value=treemap]").tooltip('fixTitle')
+              $('label[value=treemap]').click(function() { return false; } );    
+
+              // Disable map
+              $("label[value=map]").css("opacity", .1);
+              $("label[value=map]").attr("data-original-title", "No map available")
+              $("label[value=map]").tooltip('fixTitle')
+              $('label[value=map]').click(function() { return false; } );    
+
+              // Disable stacked
+              $("label[value=stacked]").css("opacity", 1);
+              $("label[value=stacked]").attr("data-original-title", "Stacked Graph")
+              $("label[value=stacked]").tooltip('fixTitle')
+              $('label[value=stacked]').click(function() { return update_viz("stacked"); } );   
+
+            }
           } else {
 
-            // Activate Treemap
-            $("label[value=stacked]").css("opacity", 1);
-            $("label[value=stacked]").attr("data-original-title", "Treemap")
-            $("label[value=stacked]").tooltip('fixTitle')
-            $('label[value=stacked]').click(function() { return update_viz(); } );    
+            if(current_year2=="") {
 
-            // Activate map
-            $("label[value=map]").css("opacity", 1);
-            $("label[value=map]").attr("data-original-title", "Map")
-            $("label[value=map]").tooltip('fixTitle')
-            $('label[value=map]').click(function() { return update_viz("map"); } );    
+              // Activate Treemap
+              $("label[value=treemap]").css("opacity", 1);
+              $("label[value=treemap]").attr("data-original-title", "Treemap")
+              $("label[value=treemap]").tooltip('fixTitle')
+              $('label[value=treemap]').click(function() { return update_viz(); } );    
 
-            // Disable stacked
-            $("label[value=stacked]").css("opacity", .1);
-            $("label[value=stacked]").attr("data-original-title", "You need to select a time period")
-            $("label[value=stacked]").tooltip('fixTitle')
-            $('label[value=stacked]').click(function() { return false; } );    
+              // Activate map
+              $("label[value=map]").css("opacity", 1);
+              $("label[value=map]").attr("data-original-title", "Map")
+              $("label[value=map]").tooltip('fixTitle')
+              $('label[value=map]').click(function() { return update_viz("map"); } );    
 
-  
+              // Disable stacked
+              $("label[value=stacked]").css("opacity", .1);
+              $("label[value=stacked]").attr("data-original-title", "You need to select a time period")
+              $("label[value=stacked]").tooltip('fixTitle')
+              $('label[value=stacked]').click(function() { return false; } );    
+
+
+            } else {
+
+              // Disable Treemap
+              $("label[value=treemap]").css("opacity", .1);
+              $("label[value=treemap]").attr("data-original-title", "You need to de-select one year")
+              $("label[value=treemap]").tooltip('fixTitle')
+              $('label[value=treemap]').click(function() { return false; } );    
+
+              // Disable map
+              $("label[value=map]").css("opacity", .1);
+              $("label[value=map]").attr("data-original-title", "No map available")
+              $("label[value=map]").tooltip('fixTitle')
+              $('label[value=map]').click(function() { return false; } );    
+
+              // Disable stacked
+              $("label[value=stacked]").css("opacity", 1);
+              $("label[value=stacked]").attr("data-original-title", "Stacked Graph")
+              $("label[value=stacked]").tooltip('fixTitle')
+              $('label[value=stacked]').click(function() { return update_viz("stacked"); } );   
+
+            }
+
           }
-
-
         }
-
-        console.log("available viz")
-
       }
 
       function update_viz(viz) {
@@ -183,9 +230,7 @@
         var url = "explore/";
         var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
         current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
-
         var current_year1 = $("#year1").find(":selected").val();
-
 
         // COUNTRIES
         if($(".main-countries-products").find(".active").index()==0) { 
@@ -194,30 +239,23 @@
           var current_country1 = $("#country1").find(":selected").val();
           current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1; 
 
-
           var current_country2 = $("#country-trade-partner").find(":selected").val();
           current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2; 
-
 
           var current_product = $("#country_product_select").find(":selected").val();
           current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product; 
 
           var current_year2 = $("#year2").find(":selected").val();
-          current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : "."+current_year2+".1"; 
-
-
-          console.log("y2s", current_year2, current_country2)
+          current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2; 
 
 
           if(current_country2!="all")
             current_viz = "tree_map";
 
           if(current_year2!="") { 
+            // Automatically switch
             current_viz = "stacked";
-            console.log("SWTICH to stacked", current_year2)
           } 
-          // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/all/show/2011/
-          // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
 
           // Where does United States export Crude Petroleum to?
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
@@ -226,15 +264,17 @@
             // if a country is not selected..
             if(current_country1=="all") {
 
-              console.log("alll", current_year2)
-
               if(current_year2=="") { 
                 url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";         
 
               } else {
+                if(parseInt(current_year1)<parseInt(current_year2)) {
+                  var tmp = current_year1;
+                  current_year1 = current_year2;
+                  current_year2 = tmp;
+                }
               
-                url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+current_year2+"/";      
-                alert(url)
+                url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"."+current_year2+".2/";
               } 
 
 
@@ -242,14 +282,27 @@
             // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
             } else if(current_product=="all") {
 
-              current_viz = "tree_map";
-              url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";         
+
+              if(current_year2=="") { 
+                current_viz = "tree_map";
+                url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";         
+              } else {
+              
+                if(parseInt(current_year1)>parseInt(current_year2)) {
+                  var tmp = current_year1;
+                  current_year1 = current_year2;
+                  current_year2 = tmp;
+                }
+
+                // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/all/1995.2011.2/
+                url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"."+current_year2+".2/"
+               
+              }
+
 
             } else {
 
               url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/";
-            
-              console.log("else")
 
             }
 
@@ -876,20 +929,46 @@
           </div>
           {% if app_name == "stacked" %}  
           <div id="stacked_controls" style="width:70%">
+
+
+
+
+        <div  style="float:left;">
+          
+
+
+
             <!-- <div>
               <p>Year Interval: </p>
               <div class="slider" id="interval"></div>
             </div> -->
             <div id="stacked_labels">
-              <p>Labels:</p>
+              <span class="definition" style="font-weight:bold;">Labels:</span>
               <input type="radio" id="true" name="labels" checked="checked" /><label for="true">On</label>
               <input type="radio" id="false" name="labels" /><label for="false">Off</label>
             </div>
+
+            <!--
             <div id="stacked_layout">
               <p>Layout:</p>
               <input type="radio" id="value" name="layout" checked="checked" /><label for="value">Value</label>
               <input type="radio" id="share" name="layout" /><label for="share">Share</label>
             </div>
+            -->
+
+            <span class="definition" style="font-weight:bold; margin-left:20px;">layout:</span>
+            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+              <label class="btn btn-default active">
+                <input type="radio" id="value" name="layout" checked="checked"> Value
+              </label>
+
+              <label class="btn btn-default">
+                <input type="radio" id="share" name="layout" > Share
+              </label>
+
+            </div>  
+
+
             <div id="stacked_order">
               <p>Ordering:</p>
               <input type="radio" id="community" name="order" checked="checked" /><label for="community">Community</label>
@@ -906,6 +985,9 @@
                 <input type="radio" id="pc_current" name="capita" /><label style="" for="pc_current">Per Capita Current</label>
                 <input type="radio" id="pc_constant" name="capita" /><label for="pc_constant">Per Capita Constant</label>
               </span>
+            </div>
+
+
             </div>
             {% endif %}
           </div>  
@@ -1038,10 +1120,8 @@
         {% if app_name != "map" %}
           
             <span class="definition" style="font-weight:bold; margin-left:20px;">Level of details:</span>
-            
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
-
-            <label class="btn btn-default">
+              <label class="btn btn-default">
                 <input type="radio" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
               </label>
 
@@ -1057,8 +1137,8 @@
               {% endif %}
               <label class="btn btn-default active">
                 <input type="radio" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
-            </label>
-          </div>  
+              </label>
+            </div>  
         {% endif %}
       {% endif %}
 
