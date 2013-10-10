@@ -397,7 +397,7 @@
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" onclick="update_viz('tree_map');" data-placement="top" data-toggle="tooltip" title="Treemap Visualization" {% if year_interval_list %}disabled{%endif%}>
               <input type="radio" id="option1" style="background:url(media/img/home/teaser_tree_map.png) no-repeat;"> <img src="media/img/home/teaser_tree_map.png" style="width:38px;"/>
             </label>
-            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-container="body" data-toggle="popover" data-placement="top" title="Map" data-content="<img src='media/img/home/teaser_map.png' style='width:100px; float:left; padding:10px'/>A <b>map</b> is a visual representation of an area – a symbolic depiction highlighting relationships between elements of that space such as objects, regions, and themes. Many maps are static two-dimensional, geometrically accurate (or approximately accurate) representations of three-dimensional space, while others are dynamic or interactive, even three-dimensional. Although most commonly used to depict geography, maps may represent any space, real or imagined, without regard to context or scale; e.g. brain mapping, DNA mapping and extraterrestrial mapping." {% if year_interval_list %}disabled{%endif%}>
+            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-container="body" data-toggle="popover" data-placement="top" title="Map" {% if year_interval_list %}disabled{%endif%}>
               <input type="radio" name="viz_apps" id="option2"> <img src="media/img/home/teaser_map.png" style="width:38px;"/>
             </label>
             <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%}" onclick="update_viz();" {% if not year_interval_list %}disabled{%endif%}>
@@ -1003,11 +1003,11 @@
       <!-- The right pane -->
       <div id="tool_pane" style="width:50px">
 
-        <h4 id="sidebar-create-story" class="tooltipbs" data-toggle="tooltip" data-placement="top" title="Create a new story and share it to the world!" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Tell-a-Story</h4>
+        <h4 id="sidebar-create-story" class="tooltipbs" data-toggle="tooltip" data-placement="top" title="Create stories" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Tell-a-Story</h4>
 
 
-        <span class="glyphicon glyphicon-plus-sign tooltipbs" data-placement="left" data-toggle="tooltip" title="Create a new story!" onclick="showCreateStoryDialog()">&nbsp;</span>
-        <span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="left" data-toggle="tooltip" title="Browse existing stories!"  onclick="window.location.assign('stories/');">&nbsp;</span>
+        <span class="glyphicon glyphicon-plus-sign tooltipbs" data-placement="right" data-toggle="tooltip" title="Create a new story" onclick="showCreateStoryDialog()">&nbsp;</span>
+        <span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');">&nbsp;</span>
            
 
        {% if iscreatemode %}
@@ -1023,7 +1023,7 @@
     -->
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this Page</h4>
     
-        <a class="addthis_button_facebook" tooltipbs" data-placement="left" data-toggle="tooltip" title="Share this page using Facebook" > <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
+        <a class="addthis_button_facebook" tooltipbs" data-placement="right" data-toggle="tooltip" title="Share this page using Facebook" > <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
         <a class="addthis_button_twitter" ><img src="media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
         <a
         class="addthis_button_google_plusone_share" ><img src="media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
@@ -1452,8 +1452,8 @@
     $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
 
       // TODO: reduce into one single selector
-      $("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
-      $("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
+      //$("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
+      //$("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
 
       $(".tooltipbs").tooltip({delay: { show: 500, hide: 100 }});
