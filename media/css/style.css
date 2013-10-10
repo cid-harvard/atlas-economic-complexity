@@ -1461,14 +1461,19 @@ display: block;
 {
 		margin-left:20%;
 		display:none;
-		
+		float:left;		
 }
 #likeImage:hover
 {
 	opacity:0.5;
-	cursor: pointer;
-	
-	
+	cursor: pointer;	
+}
+#likeCount
+{
+	float:left;
+	margin-top:12px;
+	margin-left:10px;
+	display:none;
 }
 
 

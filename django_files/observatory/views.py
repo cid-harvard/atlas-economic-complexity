@@ -305,8 +305,12 @@ def likeCount(request):
   if userId > 0:
    saveToLikeTable=observatory_like(user_id=userId,story_id=browseStoryId)
    saveToLikeTable.save()
+  story=observastory.objects.get(story_id=browseStoryId)
+  request.session['likeCount']=story.likecount
   request.session['likeBtnEnable']=False
-  return HttpResponse(request.session['likeBtnEnable'])
+  json_response = {}
+  json_response["likecount"]=request.session['likeCount']
+  return HttpResponse(json.dumps(json_response))
 
 ####################################################
 # logout
@@ -318,7 +322,7 @@ def logout(request):
   request.session['retrieve']=isbrowsemode
   del request.session['userid'] 
   del request.session['username'] 
-  return redirect('/explore/tree_map/export/usa/all/show/2010/')
+  return redirect('/explore/')
 
 #####################################################
 # delete story
@@ -359,8 +363,8 @@ def browsestories(request,browseStoryId):
   browseArrayStoryId = browseStoryId
   request.session['browseStoryIds']=browseStoryId
   userId=request.session['userid'] if 'userid' in request.session else 0
-  likeCount=observastory.objects.values('likecount').filter(story_id=browseStoryId)
-  request.session['likeCount']=likeCount
+  story=observastory.objects.get(story_id=browseStoryId)
+  request.session['likeCount']=story.likecount
   if observatory_like.objects.filter(user_id=userId,story_id=browseStoryId).exists() == True:
     likeBtnEnable=False
     request.session['likeBtnEnable']=likeBtnEnable
