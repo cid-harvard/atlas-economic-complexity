@@ -27,7 +27,11 @@ function Key() {
           .call(key_icon)
       }
       // put tooltip on mouseover
-     // $('#key a').toopt({"gravity":'s',"fade":true});      
+     // $('#key a').toopt({"gravity":'s',"fade":true}); 
+
+
+
+
     })
   }
   
@@ -74,11 +78,13 @@ function Key() {
   // Format the anchor how we want for the given category
   function key_icon(a){
     a.attr("title", function(d){ return d.name; })
+    a.attr("data-placement", "bottom")
+   
     // .attr("class", function(d){ return showing + " cat_"+d.id; })
     // depending on whether we're showing products or countries
     // show icons or just text of that region
     if(showing == "product"){
-      a.attr("class", function(d){ return showing + " cat_"+d.id; })
+      a.attr("class", function(d){ return showing + " tooltipbs cat_"+d.id; })
       a.append("img")
         .attr("src", function(d){
           return "/media/img/icons/community_"+d.id+".png"
@@ -86,7 +92,7 @@ function Key() {
     }
     else {
        a.style("background", function(d){ return d.color; })
-        .attr("class", function(d){ return showing + " cat_"+d.id+" "+d.continent; })
+        .attr("class", function(d){ return showing + " tooltipbs cat_"+d.id+" "+d.continent; })
         .attr("continent", function(d){ return d.continent; })
         .text(function(d){ return name(d.name);})
     }
@@ -161,7 +167,9 @@ function Key() {
       }
       
     })
-     
+    
+    // Update tooltips 
+    $(".tooltipbs").tooltip({delay: { show: 500, hide: 100 }});
   }
   
   
