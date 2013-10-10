@@ -51,8 +51,8 @@ function clearLocalStorage()
 var OAUTHURL    =   'https://accounts.google.com/o/oauth2/auth?';
 var VALIDURL    =   'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=';
 var SCOPE       =   'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
-var CLIENTID    =   '448770529527.apps.googleusercontent.com';
-var REDIRECT    =   'http://atlas.cid.harvard.edu/rc1/stories/';
+var CLIENTID    =   '1017841618490.apps.googleusercontent.com';
+var REDIRECT    =   'http://' + window.location.host;
 var LOGOUT      =   'http://accounts.google.com/Logout';
 var TYPE        =   'token';
 var _url        =   OAUTHURL + 'scope=' + SCOPE + '&client_id=' + CLIENTID + '&redirect_uri=' + REDIRECT + '&response_type=' + TYPE;
@@ -140,9 +140,9 @@ function gup(url, name) {
  *   login using facebook
  */
 function fbLogin() {
-	var appID = "453239931458692";
+	var appID = "497327947029493";
 	var path = 'http://www.facebook.com/dialog/oauth?';
-	var REDIRECT1    = 'http://atlas.cid.harvard.edu/rc1';
+	var REDIRECT1    =  window.location.host;
 		var queryParams = ['client_id=' + appID,
 		                   'redirect_uri=' + window.location,
 		                   'response_type=token'];
