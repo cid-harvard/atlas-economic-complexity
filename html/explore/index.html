@@ -132,6 +132,10 @@
 
             $("label[value=stacked]").attr("disabled", true)
             $("label[value=map]").attr("disabled", true)
+            $("label[value=stacked]").attr("title", "You need to select a time period")
+
+            $("label[value=tree_map]").attr("disabled", false);
+            $("label[value=stacked]").attr("title", "You need to select a time period")
 
           }
 
@@ -317,9 +321,9 @@
             <span style="margin:10px 0px; font-weight:bold;">Select a Country:</span>
             <div id="country1" width="120px" style="margin-left: 0px;" onmouseover="$('.show-partner').css('visibility', 'visible');"  onmouseout="$('.show-partner').css('visibility', 'hidden');">
 
-              <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
+              <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" tabindex="-1" style="display: none;">
+                <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
 
                 <option value=""></option>
                   {% if country1_list %}
@@ -356,7 +360,7 @@
           <div class="dropdown_container" id="trade_flow" style="margin-left: 8px;" onmouseover="$('.show-trade-flow').css('visibility', 'visible');"  onmouseout="$('.show-trade-flow').css('visibility', 'hidden');">
             
 
-            <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
+            <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
             <select data-url_pos="5">
               {% for tf in trade_flow_list %}
@@ -381,7 +385,7 @@
 
               <div id="country-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-country-product').css('visibility', 'visible');"  onmouseout="$('.show-country-product').css('visibility', 'hidden');">
           
-                <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
+                <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
                 <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
                   <option value=""></option>
@@ -403,7 +407,7 @@
 
               <div id="country-trade-partner" style="margin-left: 10px;" onmouseover="$('.show-trade-partner').css('visibility', 'visible');" onmouseout="$('.show-trade-partner').css('visibility', 'hidden');">
 
-                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-trade-partner" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
+                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-trade-partner tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
                   <select data-placeholder="All Countries" id="country_trade_partner_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
                     <option value=""></option>
@@ -437,13 +441,13 @@
 
 
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
-            <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" onclick="update_viz('tree_map');" data-placement="top" data-toggle="tooltip" title="Treemap Visualization" {% if year_interval_list %}disabled{%endif%}>
+            <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" onclick="update_viz('tree_map');" data-placement="top" data-toggle="tooltip" title="" {% if year_interval_list %}disabled{%endif%}>
               <input type="radio" id="option1" style="background:url(media/img/home/teaser_tree_map.png) no-repeat;"> <img src="media/img/home/teaser_tree_map.png" style="width:38px;"/>
             </label>
-            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-container="body" data-toggle="popover" data-placement="top" title="Map" {% if year_interval_list %}disabled{%endif%}>
+            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" onclick="update_viz('map');" data-placement="top" data-toggle="tooltip" title="" {% if year_interval_list %}disabled{%endif%}>
                <input type="radio" id="option1" style="background:url(media/img/home/teaser_map.png) no-repeat;"> <img src="media/img/home/teaser_map.png" style="width:38px;"/>
             </label>
-            <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%}" onclick="update_viz();" {% if not year_interval_list %}disabled{%endif%}>
+            <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" onclick="update_viz();" data-placement="top" data-toggle="tooltip" title="" {% if not year_interval_list %}disabled{%endif%}>
               <input type="radio" name="viz_apps" id="option3" > <img src="media/img/home/teaser_stacked.png" style="width:38px;"/>
             </label>
           </div>
@@ -606,8 +610,7 @@
 
       <div class="tab-pane active" id="country-year">
 
-        <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh over-time" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
+        <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh over-time tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top"style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
         <div class="dropdown_container " id="year1" style="float:left; margin-left:10px;">
            <select data-url_pos="5" id="year1_select" style="width:80px"  data-placeholder="All Countries">
@@ -1052,8 +1055,8 @@
         <h4 id="sidebar-create-story" class="tooltipbs" data-toggle="tooltip" data-placement="top" title="Create stories" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Tell-a-Story</h4>
 
 
-        <span class="glyphicon glyphicon-plus-sign tooltipbs" data-placement="right" data-toggle="tooltip" title="Create a new story" onclick="showCreateStoryDialog()">&nbsp;</span>
-        <span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');">&nbsp;</span>
+        <span class="glyphicon glyphicon-plus-sign tooltipbs" data-placement="right" data-toggle="tooltip" title="Create a new story" onclick="showCreateStoryDialog()"></span>
+        <span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');"></span>
            
 
        {% if iscreatemode %}
@@ -1371,6 +1374,24 @@
 
   {% include "story/init_story.html" %}
 
+
+    <style>
+      #country1 .chosen-results li.active-result, #country-trade-partner .chosen-results li.active-result {
+        background-size:25px;
+        padding-left: 25px;
+        margin-top:-4px;
+      }
+     
+      #country1 .chosen-results li:hover, #country-trade-partner .chosen-results li:hover {
+        background-size:25px;
+        padding-left: 25px;
+        margin-top:-4px;
+        background-color: lightblue;
+      }
+    
+    </style>
+
+
   <script>
   // google analytics
   var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
@@ -1438,29 +1459,6 @@
   //To display visualization in full screen ,while viewing stories
   var contentWidth=$("#content").width();
   
-  build_viz_app(api_uri,contentWidth,520);
-
-  </script>
-   {% include "story/body_story.html" %}
-
-    <style>
-      #country1 .chosen-results li.active-result, #country-trade-partner .chosen-results li.active-result {
-        background-size:25px;
-        padding-left: 25px;
-        margin-top:-4px;
-      }
-     
-      #country1 .chosen-results li:hover, #country-trade-partner .chosen-results li:hover {
-        background-size:25px;
-        padding-left: 25px;
-        margin-top:-4px;
-        background-color: lightblue;
-      }
-    
-    </style>
-
-
-  <script>
 
 
   // Page init scripts
@@ -1497,6 +1495,7 @@
     $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
     $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
     $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
+   
   });
 
   $("#country-trade-partner select").change(function() {
@@ -1504,8 +1503,12 @@
     $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
     $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
     $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
+   
   });
 
+  $("select").change(function() {
+    available_viz();
+  });
 
 
   // For some reason, $("#country1_select_chosen select").trigger("chosen:updated"); does not work
@@ -1529,9 +1532,13 @@
   // Set which visualization is available or not
   available_viz();  
 
+  build_viz_app(api_uri,contentWidth,520);    
+
 });
 
+
   </script>
+   {% include "story/body_story.html" %}
 
 
   </body>
