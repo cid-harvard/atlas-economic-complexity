@@ -6,9 +6,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
   <base href="{{HTTP_HOST}}">
-
   <title>The Observatory | {{title}} ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})</title>
   <meta name="description" content="Networks in Macro Economics">
   <meta name="author" content="Alexander Simoes">
@@ -85,7 +83,7 @@
     <div id="main" role="main">
       {% if userId %}
        <div id="userSession">
-       	 <button id="logoutBtn"  onclick="location.href='/logOut/'">Logout</button>	
+       	 <button id="logoutBtn"  onclick="location.href='/logout/'">Logout</button>	
        	 <p id="loggedInUser">Hello {{ userName }}</p> 
        </div>
        {% endif %}
@@ -785,6 +783,9 @@
 				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button> 
 				{% if userId %}
 				<a><img src="/media/img/app/like.png" id="likeImage" alt="like" /></a>
+				{% for story in likeCount %}
+                   <h3 id="likeCount">{{story.likecount}} Likes</h3>
+                {% endfor %}
 				{% endif %}	
 			</div>       
        {% endif %}
