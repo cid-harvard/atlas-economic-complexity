@@ -29,12 +29,12 @@ if settings.REDIS:
   import redis_cache
   from redis_cache import get_redis_connection
   import msgpack
-  s
+  
 
 if not settings.DB_PREFIX:
   DB_PREFIX = ''
 else:
-  DB_PREFIX = settings.DB_PREFIX.join('_')
+  DB_PREFIX = settings.DB_PREFIX + '_'
 
 
 #####################################
@@ -980,7 +980,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       elif app_name == "stacked":
         title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE
       else:
-        title = "What did %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), year)                             # NEW TITLE HERE
+        title = "What did %s %s in %s? %s" % (countries[0].name, trade_flow.replace("_", " "), year, DB_PREFIX)                             # NEW TITLE HERE
         prod_or_partner = "product"
 
     # Country but showing other country trade partners
