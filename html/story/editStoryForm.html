@@ -5,29 +5,28 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>The Observatory | {{title}} ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})</title>
+  <title>The Observatory |Edit {% for objstory in observastory %} {{objstory.story_name}} {% endfor %}</title>
+  <base href="{{HTTP_HOST}}"> 
   <meta name="description" content="Networks in Macro Economics">
   <meta name="author" content="Alexander Simoes">
   <!-- Necessary for google to crawl the site, since it is purely ajax based.
         When the crawler reaches the page it will request the current URL plus
         the additional URL query parameter _escaped_fragment_= -->
   <meta name="fragment" content="!" charset=utf-8>
-  <link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="media/img/favicon.ico">
   
   <!-- Load non-standard fonts -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
   
-  <link rel="stylesheet" href="/media/css/normalize.css">
-  <link rel="stylesheet" href="/media/css/style.css">
-  <link rel="stylesheet" href="/media/js/libs/chosen/chosen.css" />
-  <link rel="stylesheet" href="/media/js/libs/tipsy/tipsy.css" />
-  <link rel="stylesheet" href="/media/js/libs/vizwiz/src/utils.slider.css" />
-  <link rel="stylesheet" href="/media/js/libs/bootstrap/css/bootstrap-icon.css" />
+  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="media/css/normalize.css">
+  <link rel="stylesheet" href="media/css/style.css">
+  <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
+  <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
+  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap-icon.css" />
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-  <!-- VizWiz -->
-  <link href="/media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
   
  
   
@@ -35,7 +34,7 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body class="app">
+<body>
   {% if alert %}
   <div class="alert">
     <div>
@@ -58,101 +57,100 @@
   {% endif %}
   <div id="container">
     <header>
-      <div class="logo">
-        <h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
-      </div>
+     <div class="logo" style="background-color: #fafafa; width:165px; height:66px;">
+        <a href="" title="Home" style="text-decoration: none;">
+        <h1 style="background: url(media/img/all/logo_rainbow.png) repeat-x 100% 100%; padding-bottom:22px; color: black; font-size:43px;">The Atlas</h1>
+        <h2 style="font-size:14px; margin-top:-25px; text-align:center; margin-left:0px; letter-spacing:1px; color:white; text-transform:uppercase; text-decoration:none; background-color: #a0a6a9;">of Economic Complexity</h2></a> 
+      </div>  
       <nav>
         <ul>
-          <li><a href="/explore">Explore</a></li>
-          <li><a href="/country/usa/">Profiles</a></li>
-          <li><a href="/book">Book</a></li>
-          <li><a href="/rankings">Rankings</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/api">API</a></li>
+          <li><a href="explore">Explore</a></li>
+          <!-- <li><a href="/country/usa/">Profiles</a></li> -->
+          <li><a href="stories">Stories</a></li>
+          <li><a href="rankings">Rankings</a></li>
+          <li><a href="book">Book</a></li>
+          <li><a href="about">About</a></li>
         </ul>
-      </nav> 
-      <div class="language_select">
-        <div class="text">
-          Language:
-        </div>
-        <select >
-          {% for lang in supported_langs %}
-          <option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
-          {% endfor %}
-        </select>
-      </div>
+      </nav>   
       <br class="clear">
     </header>
     <div style="clear:both"></div>
     <div id="editMain" role="main">
-    <form method="POST" id="MainQueueForm" name="MainQueueForm">
+    	<form method="POST" id="MainQueueForm" name="MainQueueForm">
               {% csrf_token %}             
-                <input type="Submit" id="updateStoryBtn" value="Update" onClick="this.form.action='{% url "observatory.views.updateEditForm" %}'"></input>
-			    <input type="button" id="CancelStoryBtn" value="Cancel" onclick="location.href=/stories/"></input>
-                <p style="font-size:14px">Story Title :</p>
-                <div style="clear:both;"></div>
-       {% for objstory in observastory %}
-     <div id="editStoryName" contenteditable="true">{{objstory.story_name}}</div>
-      <p style="font-size:14px">Description:</p>  
-     <div id="editStoryDesc" contenteditable="true">{{objstory.story_desc}}</div>
-
-	{% if objstory.number_of_chapters %}   
-	<div id="editChapters">
-	<div  id="chapterList">
-            <h2><span class="color">Chapter List</span> </h2>
-   </div>  
-<table id="sortChapters" class="queueTable" >
-	<thead>
-		<tr><th class="co">Order</th><th class="ct">Title</th><th class="cd">Description</th><th class="editRow">Edit</th><th class="remove">Remove</th></tr>
-	</thead>
-	<tbody>
-
-	
-	 {% for story in storychapter %}
-		<tr data-chapter="{{story.chapter_id}}" data-isRemoved="N"><td >{{story.serial_number}}</td><td class="ctText" >{{ story.chapter_title }}</td><td class="cdText">{{ story.chapter_desc }}</td><td class="edit"><a href="#" class="editBtn"></a></td><td class="del"><a href="#" class="deleteBtn"></a></td></tr>
-	{% endfor %}
-	</tbody>
-</table> 
-    </div>
-    {% endif %}
-    {% endfor %}
-     <input type="hidden" name="storyTitle" id="storyTitle" value="" />
-	<input type="hidden" name="storyDesc" id="storyDesc" value="" />	
-    <input type="hidden" name="chapterJson" id="chapterJson" value=""></input>
+               <input type="Submit" id="updateStoryBtn" value="Update" onClick="this.form.action='{% url observatory.views.updateEditForm %}'"></input>
+			   <input type="button" id="CancelStoryBtn" value="Cancel" onclick="location.href=stories/"></input>
+               <p style="font-size:14px">Story Title :</p>
+               <div style="clear:both;"></div>
+       	{% for objstory in observastory %}
+     	<div id="editStoryName" contenteditable="true">{{objstory.story_name}}</div>
+      	<p style="font-size:14px">Description:</p>  
+     	<div id="editStoryDesc" contenteditable="true">{{objstory.story_desc}}</div>
+		{% if objstory.number_of_chapters %}   
+			<div id="editChapters">
+				<div  id="chapterList">
+            		<h2><span class="color">Chapter List</span> </h2>
+   				</div>  
+				<table id="sortChapters" class="queueTable" >
+					<thead>
+						<tr>
+							<th class="co">Order</th>
+							<th class="ct">Title</th>
+							<th class="cd">Description</th>
+							<th class="editRow">Edit</th>
+							<th class="remove">Remove</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for story in storychapter %}
+						<tr data-chapter="{{story.chapter_id}}" data-isRemoved="N">
+							<td >{{story.serial_number}}</td>
+							<td class="ctText" >{{ story.chapter_title }}</td>
+							<td class="cdText">{{ story.chapter_desc }}</td>
+							<td class="edit"><a href="#" class="editBtn"></a></td>
+							<td class="del"><a href="#" class="deleteBtn"></a></td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table> 
+    		</div>
+    	{% endif %}
+    	{% endfor %}
+    	<input type="hidden" name="storyTitle" id="storyTitle" value="" />
+		<input type="hidden" name="storyDesc" id="storyDesc" value="" />	
+    	<input type="hidden" name="chapterJson" id="chapterJson" value=""></input>
     </form>
-    </div>
-    <footer>
+  </div>
+  <footer>
       <p>
         <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
       </p>
-      <p>
-        <img src="/media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" />
-        <img src="/media/img/all/logo_cid.png" alt="Center for International Development Logo" />		
+      <p style="margin-left:350px; margin-right:auto; width:40%;">
+        <img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/>
+        <img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/>		
+        <div class="language_select" style="float:left; margin-top:-10px">
+          <div class="text">
+            Language:
+          </div>
+          <select>
+            {% for lang in supported_langs %}
+            <option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
+            {% endfor %}
+          </select>
+        </div>
       </p>
-    </footer>
-    
-    <form class="download" method="POST" action="/download/">
-      {% csrf_token %}
-      <input type="hidden" name="url" value="" />
-      <input type="hidden" name="title" value="" />
-      <input type="hidden" name="format" value="svg" />
-      <input type="hidden" name="content" value="" />
-    </form>
-    <canvas style="display: none;" id="canvas" width="640px" height="500px"></canvas>
-    
-   
-    
+    </footer> 
   </div> <!-- END #container -->
 
   <!-- The JavaScript -->
   <!-- Libraries -->
-  <script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src="media/js/libs/jquery/jquery-1.7.1.min.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
-  <script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
-  <script src="/media/js/explore/editStory.js"></script> 
+  <script src="media/js/libs/tipsy/tipsy.jquery.js" ></script>
+  <script src="media/js/libs/chosen/chosen.jquery.min.js" ></script>
+  <script src="media/js/story/editStory.js"></script> 
  
 
 </body>

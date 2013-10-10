@@ -191,11 +191,11 @@ def browseStoryForm(request):
       userUniqueId=1
     userName=request.session['username'] if 'username' in request.session else ""
     checkAdmin=observatoryuser.objects.values('isadmin').filter(user_id=userUniqueId)
-    mineStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(user_id=userUniqueId)
-    featureStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(Q(featured=1) & (Q(published=1))) 
+    mineStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(user_id=userUniqueId).order_by('-story_id')
+    featureStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(Q(featured=1) & (Q(published=1))).order_by('-story_id') 
     popularStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1).order_by('-likecount')[0:10]
-    publishStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1)
-    return render_to_response('story/RetrieveForm.html',{
+    publishStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1).order_by('-story_id')
+    return render_to_response('story/retrieveForm.html',{
         'publishStory':publishStory,
 	'checkAdmin':checkAdmin,
         'userName':userName,
@@ -311,7 +311,7 @@ def likeCount(request):
 ####################################################
 # logout
 ####################################################
-def logOut(request):
+def logout(request):
   iscreatemode=False
   request.session['create']=iscreatemode
   isbrowsemode=False
@@ -359,6 +359,8 @@ def browsestories(request,browseStoryId):
   browseArrayStoryId = browseStoryId
   request.session['browseStoryIds']=browseStoryId
   userId=request.session['userid'] if 'userid' in request.session else 0
+  likeCount=observastory.objects.values('likecount').filter(story_id=browseStoryId)
+  request.session['likeCount']=likeCount
   if observatory_like.objects.filter(user_id=userId,story_id=browseStoryId).exists() == True:
     likeBtnEnable=False
     request.session['likeBtnEnable']=likeBtnEnable
@@ -828,6 +830,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   userName=request.session['username'] if 'username' in request.session else ""
   userId=request.session['userid'] if 'userid' in request.session else 0
   likeBtnEnable=request.session['likeBtnEnable'] if 'likeBtnEnable' in request.session else False 
+  likeCount=request.session['likeCount'] if 'likeCount' in request.session else ""
+  
   # raise Exception(country1, country2, product, year)
   # Get URL query parameters
   was_redirected = request.GET.get("redirect", False)
@@ -1009,6 +1013,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "likeBtnEnable":likeBtnEnable,
     "browseModeJScript": browseModeJScript,
     "browseChapterDesc" : browseChapterDesc,
+    "likeCount":likeCount,
     "browseChapterName": browseChapterName,
     "NoOfChapter" : NoOfChapter,
     "browseStoryName": browseStoryName,

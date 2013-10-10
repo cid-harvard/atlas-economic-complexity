@@ -1120,7 +1120,6 @@ dl.file_list p {
 {
 width: 100%;
 float: left;
-margin-top: 10px;
 }
 #logoutBtn
 {
@@ -1347,7 +1346,7 @@ float:left;
 	width:90%;
 	margin-left:5%;
 }
-#Stories
+#stories
 {
 height: 150px;
 overflow: scroll;
@@ -1376,7 +1375,7 @@ padding:10px;
 }
 #browseStories ul li
 {
-	width:24.4%
+	width:28%;
 }
 #browseStories ul li a
 {

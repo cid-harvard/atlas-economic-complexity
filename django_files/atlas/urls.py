@@ -69,7 +69,7 @@ urlpatterns = patterns('',
 
   # Story #####
   (r'^deleteStory/$','observatory.views.deleteStory'),
-  (r'^logOut/$','observatory.views.logOut'),
+  (r'^logout/$','observatory.views.logout'),
   (r'^updateEditForm/$','observatory.views.updateEditForm'),
   (r'^stories/view/(?P<browseStoryId>\d+)/$','observatory.views.viewStory'),
   (r'^stories/edit/$','observatory.views.editStoryForm'),

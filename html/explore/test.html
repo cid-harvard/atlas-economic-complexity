@@ -1,0 +1,768 @@
+{% load i18n %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <base href="{{HTTP_HOST}}">
+
+  <title>The Observatory | {{title}} ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})</title>
+  <meta name="description" content="Networks in Macro Economics">
+  <meta name="author" content="Alexander Simoes">
+  <!-- Necessary for google to crawl the site, since it is purely ajax based.
+        When the crawler reaches the page it will request the current URL plus
+        the additional URL query parameter _escaped_fragment_= -->
+  <meta name="fragment" content="!">
+  
+  <link rel="shortcut icon" type="image/x-icon" href="media/img/favicon.ico">
+    <!-- Load non-standard fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
+  
+  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="media/css/normalize.css">
+  <link rel="stylesheet" href="media/css/style.css">
+  <link rel="stylesheet" href="media/js/libs/toastr/toastr.min.css" />
+  <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
+  <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
+  <link rel="stylesheet" href="media/js/libs/vizwiz/src/utils.slider.css" />
+
+<link rel="stylesheet" href="media/css/countries.css" />
+
+  <link rel="stylesheet" href="media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
+  <!-- VizWiz -->
+  <link href="media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
+  
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body class="app">
+ 
+  <div id="container">
+  
+    <div id="main" role="main">
+      
+        
+       
+      <script>
+      
+
+      function update_viz(viz) {
+      
+        var url = "explore/";
+        var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
+        current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
+
+        var current_year1 = $("#year1").find(":selected").val();
+
+
+        // COUNTRIES
+        if($(".main-countries-products").find(".active").index()==0) { 
+
+          var current_flow = $("#trade_flow").find(":selected").val();
+          var current_country1 = $("#country1").find(":selected").val();
+          current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1; 
+
+
+          var current_country2 = $("#country-trade-partner").find(":selected").attr("value");
+          current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2; 
+
+
+          var current_product = $("#country_product_select").find(":selected").val();
+          current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product; 
+
+          var current_year2 = $("#year2").find(":selected").val();
+          current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : "."+current_year2+".1"; 
+
+          if(current_country2!="all")
+            current_viz = "tree_map";
+
+          if(current_year2!="")
+            current_viz = "stacked";
+
+          // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/all/show/2011/
+          // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
+
+          // Where does United States export Crude Petroleum to?
+          // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
+          if($(".tab-trade-partner-product").find(".active").index()==0) {
+
+            // if a country is not selected..
+            if(current_country1=="all") {
+
+              url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";         
+
+            // What did United States export in 2011?
+            // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
+            } else if(current_product=="all") {
+
+              url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";         
+
+            } else {
+
+              url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/";
+            
+
+            }
+
+            // http://atlas.cid.harvard.edu/beta/explore/tree_map/import/usa/chn/show/2011/
+
+          // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
+          } else if($(".tab-trade-partner-product").find(".active").index()==1) {
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+current_year2+"/"
+
+          } else {
+
+            console.log("error");
+          }
+
+
+          if(current_country1=="all" && current_product=="all") {
+            alert("Please, select at least one country or one product")
+          } else {
+
+            window.location.assign(url);            
+          }
+
+
+        // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/show/all/0101/2011/
+        } else if($(".main-countries-products").find(".active").index()==1) {
+
+          var current_product = $("#product").find(":selected").val();
+          var current_product_trade_flow = $("#product-trade-flow").find(":selected").val();
+
+          var current_product_country = $("#products_country1_select").find(":selected").val();
+          current_product_country = (typeof current_product_country == "undefined" || current_product_country == "") ? "all" : current_product_country; 
+
+          console.log("products", current_product, current_product_trade_flow, current_product_country)
+
+          url += current_viz+"/"+current_product_trade_flow+"/show/"+current_product_country+"/"+current_product+"/"+current_year1+"/";
+          window.location.assign(url);
+
+
+        } else {
+          console.log("ERROR IN SELECTEC COUNTRIES/PRODUCTS TAB");
+
+        }
+
+      }
+
+      </script>
+     
+
+ 
+
+
+              </div>
+            </div>
+
+
+
+  
+
+
+  <!-- END -->
+ 
+      
+      <!-- the Visualization -->
+      <div id="content" style="width: 750px; min-height:600px;">
+		
+        <!-- ajax loading gif -->
+        <div id="loader">
+          <img src="media/img/all/loader.gif" alt="loading" /><br />Loading...
+        </div>
+        
+        <!-- the canvas for the visualization -->
+        <div id="text_data">
+
+        </div>
+        
+        <!-- Container for the visualization -->
+        <div id="viz" style="width: 750px; min-height:520px"></div>
+        
+        <!-- Container for the key/legend -->
+        <div class="key {{prod_class}}" style="min-height:50px"></div>
+        
+        
+
+<
+        </div>
+
+
+      {% if app_name != "product_space" %}
+        {% if app_name != "map" %}
+          
+            <span class="definition" style="font-weight:bold; margin-left:20px;">Level of details:</span>
+            
+            <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+
+            <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="sitc4"> Low
+              </label>
+
+              {% if app_type == "casy" %}
+              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="hs4"> Mid
+              </label>
+              {% endif %}
+              {% if app_type == "ccsy" %}
+              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="hs4"> Mid
+              </label>
+              {% endif %}
+              <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="hs4"> Hi
+            </label>
+          </div>  
+        {% endif %}
+      {% endif %}
+
+          
+        </div>
+       </div>  
+           
+
+       <style>
+
+       #tool_pane  .glyphicon {
+          font-size:18px;
+           color:lightgray;
+           margin:5px;
+           cursor:pointer;
+        }
+
+       #tool_pane > .glyphicon:hover {
+         color:black;
+        }
+       </style>
+
+
+      <!-- The right pane -->
+      <div id="tool_pane" style="width:50px">
+
+        <h4 id="sidebar-create-story" data-toggle="tooltip" title="Create a new story and share it to the world!" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Tell-a-Story</h4>
+
+        <span class="glyphicon glyphicon-plus-sign" onclick="showCreateStoryDialog()">&nbsp;</span>
+        <span class="glyphicon glyphicon-list-alt" onclick="window.location.assign('stories/');">&nbsp;</span>
+           
+
+       {% if iscreatemode %}
+         <span class="glyphicon glyphicon-plus" onclick="openCreateChapterDialog()"></span>
+         <span class="glyphicon glyphicon-stop" onclick="endStory()"></span>
+       {% endif %}   
+
+       <br/>
+       <br/>
+          <!--
+          <a href="#"><span class="glyphicon glyphicon-camera"></span></a>
+          <a href="#"></a>
+    -->
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this Page</h4>
+    
+        <a class="addthis_button_facebook"> <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
+        <a class="addthis_button_twitter" ><img src="media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        <a
+        class="addthis_button_google_plusone_share" ><img src="media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        <a class="addthis_button_email"><img src="media/img/all/email_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Download</h4>
+        
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;<...>
+      
+        <span class="glyphicon glyphicon-save" style="margin:5px; font-size:18px; color:lightgray"></span>
+
+        <br>
+        <br>
+        <img src="media/img/app/text.png" style="width:20px" />
+        <a class="text" href="#"> <span>{% trans "Data" %}</span></a>
+        <br>
+        <br>
+        <br>
+
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Feedback</h4>
+    
+        <a href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank"><span class="glyphicon glyphicon-envelope" style="margin:5px; font-size:18px; color:lightgray"></span></a>
+            <br/>       <br/>
+        <!--
+        <!-- Trade Flow 
+        {% if app_name != "pie_scatter" %}
+        <div class="dropdown_container" id="trade_flow">
+          <h3 class="definition">{% trans "Trade Flow" %}</h3>
+          <select data-url_pos="5">
+            {% for tf in trade_flow_list %}
+            {% if tf.0 == trade_flow %}
+            <option value="{{tf.0}}" selected="selected">{{ tf.1 }}</option>
+            {% else %}
+            <option value="{{tf.0}}">{{ tf.1 }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+        <!-- Country List 
+        {% if country1_list  %}
+        <div class="dropdown_container" id="country1">
+          {% if country2_list %}
+          <h3>{% trans "Origin Country" %}</h3>
+          {% else %}
+          <h3>{% trans "Country" %}</h3>
+          {% endif %}
+          <select data-url_pos="5">
+            {% for c in country1_list %}
+            {% if c.id == country1.id %}
+            <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+            {% else %}
+            <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+
+        <!-- Country List 
+        {% if country2_list %}
+        <div class="dropdown_container" id="country2">
+          <h3>{% trans "Destination Country" %}</h3>
+          <select data-url_pos="5" id="country2_select">
+            {% for c in country2_list %}
+            {% if c.id == country2.id %}
+            <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+            {% else %}
+            <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+        
+        <!-- Product List 
+        {% if product_list %}
+        <div class="dropdown_container" id="product">
+          <h3>{% trans "Product" %}</h3>
+          <select data-url_pos="5">
+            {% for p in product_list %}
+            {% if p.id == product.id %}
+            <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+            {% else %}
+            <option value="{{p.code}}">{{ p.name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+        
+        <!-- Year List 
+        {% if year2_list %}
+        <div class="dropdown_container" id="year_start">
+          <h3>{% trans "Start Year" %}</h3>
+        {% else %}
+        <div class="dropdown_container" id="year">
+          <h3>{% trans "Year" %}</h3>
+          {% endif %}
+          <select data-url_pos="5" id="year1_select">
+            {% for y in year1_list %}
+            {% if y == year or y == year_start %}
+            <option value="{{y}}" selected="selected">{{ y }}</option>
+            {% else %}
+            <option value="{{y}}">{{ y }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        
+        <!-- Year2 List 
+        {% if year2_list %}
+        <div class="dropdown_container" id="year_end">
+          <h3>{% trans "End Year" %}</h3>
+          <select data-url_pos="5">
+            {% for y in year2_list %}
+            {% if y == year_end %}
+            <option value="{{y}}" selected="selected">{{ y }}</option>
+            {% else %}
+            <option value="{{y}}">{{ y }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+        
+        <!-- Year interval List 
+        {% if year_interval_list %}
+        <div class="dropdown_container" id="year_interval" style="display:none">
+          <h3>{% trans "Year Interval" %}</h3>
+          <select data-url_pos="5">
+            {% for i in year_interval_list %}
+            {% if i == year_interval %}
+            <option value="{{i}}" selected="selected">{{ i }}</option>
+            {% else %}
+            <option value="{{i}}">{{ i }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+
+        <button id="build">{% trans "Build Visualization" %} &raquo;</button>
+
+        -->
+
+      </div> <!-- END Right pane -->
+    </div> <!-- END #main -->
+
+    <footer>
+      <p>
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+        <br />
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+      </p>
+
+      <p style="margin-left:auto; margin-right:auto; width:40%;">
+        <img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/>
+        <img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/>		
+        <div class="language_select" style="float:left; margin-top:-10px">
+          <div class="text">
+            Language:
+          </div>
+          <select>
+            {% for lang in supported_langs %}
+            <option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </p>
+
+    </footer>
+    
+    <form class="download" method="POST" action="/download/">
+      {% csrf_token %}
+      <input type="hidden" name="url" value="" />
+      <input type="hidden" name="title" value="" />
+      <input type="hidden" name="format" value="svg" />
+      <input type="hidden" name="content" value="" />
+    </form>
+
+    <canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
+    
+    <!--  Related -->
+    <!-- <div id="related">
+      <a id="prev" href="#">&laquo;</a>
+      <a id="next" href="#">&raquo;</a>
+      <a id="toggle" href="#">Related</a>
+      <div>
+        <p>
+          Show related countries based on 
+          <select>
+            <option value="833">GNI per capita</option>
+            <option value="804">GDP</option>
+            <option value="1151">Population</option>
+            <option value="0">Productive Structure</option>
+            <option value="704">Exports of goods and services</option>
+          </select>
+        </p>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+      </div>
+    </div> -->
+    
+  </div> <!-- END #container -->
+
+  <!-- The JavaScript -->
+  <!-- Libraries -->
+  <script src="media/js/libs/jquery/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+
+  <script src="media/js/libs/tipsy/tipsy.jquery.js" ></script>
+
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+  <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="media/js/libs/chosen/chosen.jquery.js" ></script>
+  <script>
+    $(function() {
+      $('.chosen-select').chosen();
+      $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+    });
+  </script>
+
+  <!-- App -->
+  <script src="media/js/explore/general.js"></script>
+  <script src="media/js/story/createStory.js"></script> 
+  <script src="media/js/explore/key.js"></script>
+  <script src="media/js/explore/timeline.js"></script>
+  <script src="media/js/explore/controls.js"></script>
+  <script src="media/js/apps/related.js"></script>
+  <script src="media/js/libs/toastr/toastr.min.js"></script>
+  <script src="media/js/libs/vizwiz/lib/d3.js"></script>
+  <script src="media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
+  <script src="media/js/libs/vizwiz/src/general.js"></script>
+  <script src="media/js/libs/vizwiz/src/utils.js"></script>
+  <script src="media/js/libs/vizwiz/src/tooltip.js"></script>
+  <script src="media/js/libs/vizwiz/src/utils.slider.js"></script>
+  <script src="media/js/libs/vizwiz/src/viz/viz.js"></script>
+  {% if app_name == "tree_map" %}<script src="media/js/libs/vizwiz/src/viz/tree_map.js"></script>{% endif %}
+  {% if app_name == "stacked" %}<script src="media/js/libs/vizwiz/src/viz/stacked.js"></script>{% endif %}
+  {% if app_name == "pie_scatter" %}<script src="media/js/libs/vizwiz/src/viz/pie_scatter.js"></script>{% endif %}
+  {% if app_name == "product_space" %}<script src="media/js/libs/vizwiz/src/viz/network.js"></script>{% endif %}
+  {% if app_name == "map" %}<script src="media/js/apps/map.js"></script>{% endif %}
+  <script src="media/js/explore/viz_general.js"></script> 
+
+
+  <!-- Glossary -->
+  <div id="glossary" style="display:none;">
+    {% include "about/glossary_text.html" %}
+  </div>
+
+  <script>
+    $("#glossary h4").each(function(index) {
+        if($("#glossary").length > 0) {
+          var word = $(this).text();
+          var definition = $("#glossary").find("p")[index].innerHTML;
+
+          $(".definition").each(function () {
+            // Update all instances of that word in the content page with mouse over def.
+            var html = $(this).html();
+            html = html.replace(new RegExp(word, 'g'), '<font class="definition trigger-link" data-container="body" data-toggle="popover" data-placement="top" data-content="'+definition+'" title="<b>'+word+'</b>">'+word+'</font>');
+            $(this).html(html);
+           $(this).children().popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
+
+          });
+        }  
+    });
+
+  </script> 
+
+  {% include "story/init_story.html" %}
+
+  <script>
+  // google analytics
+  var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+  
+  // variables from server
+  var app,
+    app_types = ["tree_map", "stacked", "product_space", "pie_scatter", "map"],
+    app_type ="{{app_type}}",
+    warning = "{{warning}}",
+    is_alert = "{{alert}}",
+    api_uri = "{{api_uri}}",
+    year =  "{{year}}",
+    app_name = "{{app_name}}",
+    years_available = {{years_available|safe}},
+    trade_flow = "{{trade_flow}}",
+    country1 = "{{country1}}",
+    country2 = "{{country2}}",
+    product = "{{product}}",
+    item_type = "{{item_type}}",
+    lang= "{{lang}}",
+    embed=false,
+		redesign_api_uri = "{{redesign_api_uri}}",
+    year_start = "{{year_start}}",
+    year_end = "{{year_end}}",
+    product_code = "{{product_code}}",
+    prod_class = "{{prod_class}}";
+  
+  // Use chosen plugin to make dropdowns look fancy
+  $(".dropdown_container select").chosen()
+  $(".nesting select").chosen()
+  // language select dropdown
+  $(".language_select select").chosen();
+  $(".language_select .chzn-search").hide();
+  $(".language_select select").chosen().change(function(){
+    // set session data to new language
+    var language = $(this).val();
+    window.location = "/set_language/"+language+"/";
+  });
+  
+  // set active link in top nav for current page
+  var current_page = "explore";
+  $("nav ul a").each(function(i, el){
+    if($(el).text().toLowerCase() == current_page){
+      $(el).addClass("current");
+    }
+  })
+  
+  // Check to see if the title overflows (in the case of long product names)
+  function isOverflowed(element){
+      return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+  }
+  
+  var title = d3.select("#title")
+  isOverflowed(title.node()) ? $("#title").children().css("font-size","26px") : console.log("fits") 
+
+  // Allllllright, here goes. The meat and potatoes. The big kahuna...
+  // whatever you wanna call it. This is the single most important function.
+  // It triggers the data call to the server to fetch the data used in turn
+  // to build the app. Look in viz_general.js for more info.
+  var api_uri="/api/import/tha/alb/show/2002.2006.1/?lang=en&amp;product_classification=hs4",
+  
+  var contentWidth=$("#content").width();
+  build_viz_app(api_uri,contentWidth,520);
+
+  </script>
+   {% include "story/body_story.html" %}
+  <script>
+
+  $(function () {
+
+        $(this).scrollTop(0);
+
+    $(".chosen-select").chosen(); 
+    $('.chosen-container').css('width', '150px');
+    $('#country1_select_chosen').css('width', '170px');
+    //$('#country1_select_chosen').css('font-size', '18px');    
+    $('#year1_select_chosen').css('width', '60px');
+    $('#year2_select_chosen').css('width', '80px');
+
+
+    $('#country_trade_partner_select_chosen').css('width', '140px');
+    $('#country_product_select_chosen').css('width', '140px');
+      // new one
+
+   // $('.chosen-select').chosen();
+    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+      // TODO: reduce into one single selector
+      $("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
+      $("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
+
+      $("#sidebar-create-story").tooltip();
+
+
+      // get all list elements
+
+      // set the
+
+      //$("#country1").find(":selected").val();
+/*
+      $("#country1_select").find("*").each(function(i) {
+        console.log("val", i, $(this).val());
+      });
+
+      $(".active-result").find("*").each(function(i) {
+        console.log("val", i, $(this).val());
+      });
+      
+*/
+    });
+
+
+    $( "#select-country-trade-partner" ).change(function() {
+    
+      // If billateral then only treemap
+      if($(this).val()!="") {
+
+        $("#map_viz").removeClass("active");
+        $("#map_viz").prop("disabled", true);
+
+        $("#treemap_viz").removeClass("active");
+        $("#treemap_viz").addClass("active");
+
+      }
+    });
+
+
+    $(function () {
+      $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+    });
+  </script>
+
+
+    <style>
+
+
+
+      /* <ul class="chosen-results">
+      <li class="active-result" style="" data-option-array-index="194">Turks and Caicos Islands</li>
+      */
+
+      .chosen-results li.active-result[data-option-array-index="194"] {
+        background: url('media/img/icons/flag_fra.png') no-repeat;
+      }
+
+
+      #country1 .chosen-results li.active-result {
+        background-size:25px;
+        padding-left: 25px;
+        margin-top:-4px;
+      }
+     
+
+      #country1 .chosen-results li:hover {
+        background-size:25px;
+        padding-left: 25px;
+        margin-top:-4px;
+        background-color: lightblue;
+      }
+     
+     /*
+
+      #country1 .chosen-single span {
+        background: url('media/img/icons/flag_usa.png') no-repeat;
+        background-size:25px;
+        padding-left: 30px;
+        margin-top:-2px;
+      }
+*/
+
+      /*
+      li.active-result { 
+          background: url('/media/img/icons/flag_fra.png') no-repeat;
+        background-size:25px;
+        padding-left: 30px;
+        margin-top:-2px;  
+      }
+   
+      .chosen-results, .chosen-single { 
+          background: url('/media/img/icons/flag_usa.png') no-repeat;
+        background-size:25px;
+        padding-left: 30px;
+        margin-top:-2px;  
+      } */
+    </style>
+
+  </body>
+
+  {% include "story/story_forms.html" %}
+
+
+</html>
