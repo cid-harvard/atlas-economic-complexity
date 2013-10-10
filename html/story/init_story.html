@@ -88,6 +88,7 @@ $(function() {
 			},
 			'success': function(data) {
 				$("#likeImage").addClass("disabled");
+				$("#likeCount").text((JSON.parse(data).likecount) +" "+"Likes"  );
 			},
 			'error': function(xhr, textStatus, errorThrown) {
 				alert("Please report this error: "+textStatus);
@@ -120,6 +121,8 @@ localStorage.setItem("chapterCount","1");
 	  $('#BrowsePrev').addClass("disabled");
 	  $('#BrowseNext').addClass("disabled");
 	  $("#likeImage").show();
+	  $("#likeCount").show();
+
 	  }
   else if(parseInt(localStorage.getItem("chapterCount"))==noOfChapters)
 	  {
@@ -129,6 +132,7 @@ localStorage.setItem("chapterCount","1");
   else if(parseInt(localStorage.getItem("chapterCount"))==1)
 	  {
 	  $("#likeImage").show();
+	  $("#likeCount").show();
 	  $('#BrowsePrev').addClass("disabled");
 	  $('#BrowseNext').removeClass("disabled");
 	  }

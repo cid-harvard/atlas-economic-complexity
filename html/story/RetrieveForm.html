@@ -276,6 +276,8 @@
   activate:function(event,ui){
 	 var id=$(ui.newPanel).prop('id');
 	 $("#"+id+" #stories").children('option:first-child').prop("selected","selected");
+	 var option=$("#"+id+" #stories").children('option:first-child');
+	 selectOption(option);
  	}
    
 });
@@ -320,11 +322,15 @@
 	  {% if userId %}	  
 	  $( "#browseStories" ).tabs( "option", "active", 0 ); 
 	  $("#myStories #stories").children('option:first-child').prop("selected","selected");
-	{% else %}
+	  var option=$("#myStories #stories").children('option:first-child');
+	  selectOption(option);
+	  {% else %}
 		  $( "#browseStories" ).tabs( "option", "active", 3 );
 		  $("#published #stories").children('option:first-child').prop("selected","selected");
-	{% endif %}
-		  return false;
+		  var option=$("#published #stories").children('option:first-child');
+		  selectOption(option);
+	  {% endif %}
+	  return false;
   }
   
  

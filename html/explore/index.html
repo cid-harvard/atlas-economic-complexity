@@ -804,9 +804,7 @@
 				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button> 
 				{% if userId %}
 				<a><img src="/media/img/app/like.png" id="likeImage" alt="like" /></a>
-				{% for story in likeCount %}
-                   <h3 id="likeCount">{{story.likecount}} Likes</h3>
-                {% endfor %}
+                   <h3 id="likeCount">{{likecount}} Likes</h3>
 				{% endif %}	
 			</div>       
        {% endif %}
@@ -1410,7 +1408,10 @@
   // whatever you wanna call it. This is the single most important function.
   // It triggers the data call to the server to fetch the data used in turn
   // to build the app. Look in viz_general.js for more info.
+  
+  //To display visualization in full screen ,while viewing stories
   var contentWidth=$("#content").width();
+  
   build_viz_app(api_uri,contentWidth,520);
 
   </script>
