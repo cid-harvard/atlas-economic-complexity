@@ -79,7 +79,7 @@
     	<form method="POST" id="MainQueueForm" name="MainQueueForm">
               {% csrf_token %}             
                <input type="Submit" id="updateStoryBtn" value="Update" onClick="this.form.action='{% url observatory.views.updateEditForm %}'"></input>
-			   <input type="button" id="CancelStoryBtn" value="Cancel" onclick="location.href=stories/"></input>
+			   <input type="button" id="CancelStoryBtn" value="Cancel" onclick="location.href=/stories/"></input>
                <p style="font-size:14px">Story Title :</p>
                <div style="clear:both;"></div>
        	{% for objstory in observastory %}
