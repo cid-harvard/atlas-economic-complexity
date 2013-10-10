@@ -980,7 +980,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       elif app_name == "stacked":
         title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE
       else:
-        title = "What did %s %s in %s? %s" % (countries[0].name, trade_flow.replace("_", " "), year, DB_PREFIX)                             # NEW TITLE HERE
+        title = "What did %s %s in %s? %sobservatory_" % (countries[0].name, trade_flow.replace("_", " "), year, DB_PREFIX)                             # NEW TITLE HERE
         prod_or_partner = "product"
 
     # Country but showing other country trade partners
@@ -1129,7 +1129,7 @@ def api_casy(request, trade_flow, country1, year):
   """Create query [year, id, abbrv, name_lang, val, export_rca]"""
   q = """
     SELECT cpy.year, p.id, p.code, p.name_%s, p.community_id, c.color,c.name, %s, %s, distance, opp_gain, py.pci
-    FROM %sobservatory_%s_cpy as cpy, observatory_%s as p, observatory_%s_community as c, observatory_%s_py as py 
+    FROM %sobservatory_%s_cpy as cpy, %sobservatory_%s as p, %sobservatory_%s_community as c, %sobservatory_%s_py as py 
     WHERE country_id=%s and cpy.product_id = p.id %s and p.community_id = c.id and py.product_id=p.id and cpy.year=py.year
     HAVING val > 0
     ORDER BY val DESC
@@ -1260,7 +1260,7 @@ def api_sapy(request, trade_flow, product, year):
   """Create query [year, id, abbrv, name_lang, val, export_rca]"""
   q = """
     SELECT year, c.id, c.name_3char, c.name_%s, c.region_id, c.continent, %s, %s 
-    FROM %sobservatory_%s_cpy as cpy, observatory_country as c 
+    FROM %sobservatory_%s_cpy as cpy, %sobservatory_country as c 
     WHERE product_id=%s and cpy.country_id = c.id %s
     HAVING val > 0
     ORDER BY val DESC
@@ -1363,7 +1363,7 @@ def api_csay(request, trade_flow, country1, year):
   '''Create query [year, id, abbrv, name_lang, val, rca]'''
   q = """
     SELECT year, c.id, c.name_3char, c.name_%s, c.region_id, c.continent, %s, %s
-    FROM %sobservatory_%s_ccpy as ccpy, observatory_country as c 
+    FROM %sobservatory_%s_ccpy as ccpy, %sobservatory_country as c 
     WHERE origin_id=%s and ccpy.destination_id = c.id %s
     GROUP BY year, destination_id
     HAVING val > 0
@@ -1486,7 +1486,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   '''Create query'''
   q = """
     SELECT year, p.id, p.code, p.name_%s, p.community_id, c.name, c.color, %s, %s
-    FROM %sobservatory_%s_ccpy as ccpy, observatory_%s as p, observatory_%s_community as c 
+    FROM %sobservatory_%s_ccpy as ccpy, %sobservatory_%s as p, %sobservatory_%s_community as c 
     WHERE origin_id=%s and destination_id=%s and ccpy.product_id = p.id and p.community_id = c.id %s
     HAVING val > 0
     ORDER BY val DESC
@@ -1593,7 +1593,7 @@ def api_cspy(request, trade_flow, country1, product, year):
   '''Create query'''
   q = """
     SELECT year, c.id, c.name_3char, c.name_%s, c.region_id, c.continent, %s, %s 
-    FROM %sobservatory_%s_ccpy as ccpy, observatory_country as c 
+    FROM %sobservatory_%s_ccpy as ccpy, %sobservatory_country as c 
     WHERE origin_id=%s and ccpy.product_id=%s and ccpy.destination_id = c.id %s
     GROUP BY year, destination_id
     HAVING val > 0
