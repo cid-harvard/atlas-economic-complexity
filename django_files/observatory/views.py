@@ -327,7 +327,7 @@ def logout(request):
   request.session['retrieve']=isbrowsemode
   del request.session['userid'] 
   del request.session['username'] 
-  return redirect('/explore/')
+  return redirect('explore/')
 
 #####################################################
 # delete story
@@ -874,9 +874,9 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   if prod_class == "hs4":
     # redirect if and exception country
     if country1 == "bel" or country1 == "lux":
-      return redirect('/explore/%s/%s/blx/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
+      return redirect('explore/%s/%s/blx/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
     if country1 == "bwa" or country1 == "lso" or country1 == "nam" or country1 == "swz":
-      return redirect('/explore/%s/%s/zaf/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
+      return redirect('explore/%s/%s/zaf/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
   if was_redirected:
     # display warning is redirected from exception
     if country1 == "blx":
@@ -913,16 +913,16 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   
   
   
-  api_uri = "/api/%s/%s/%s/%s/%s/?%s" % (trade_flow, country1, country2, product, year, options)
+  api_uri = "api/%s/%s/%s/%s/%s/?%s" % (trade_flow, country1, country2, product, year, options)
   
-  redesign_api_uri = "/redesign/api/%s/%s/%s/%s/%s/%s" % (prod_class, trade_flow, country1, country2, product, year)
+  redesign_api_uri = "redesign/api/%s/%s/%s/%s/%s/%s" % (prod_class, trade_flow, country1, country2, product, year)
   
   country_code = None
   if country1 != "show" and country1 != "all": country_code = country1
   
   
   if crawler == "":
-    view, args, kwargs = resolve("/api/%s/%s/%s/%s/%s/" % (trade_flow, country1, country2, product, year))
+    view, args, kwargs = resolve("api/%s/%s/%s/%s/%s/" % (trade_flow, country1, country2, product, year))
     kwargs['request'] = request
     view_response = view(*args, **kwargs)
     raise Exception(view_response)
@@ -944,7 +944,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
         country_lists[i] = Country.objects.get_all(lang)
       except Country.DoesNotExist:
         alert = {"title": "Country could not be found",
-          "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='/about/data/country/'>list of countries</a>."%(country)}
+          "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='about/data/country/'>list of countries</a>."%(country)}
   if product != "show" and product != "all":
     p_code = product
     product = clean_product(p_code, prod_class)
@@ -956,7 +956,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
         product_list = Hs4.objects.get_all(lang)
         request.session['product_classification'] = "hs4"
     else:
-      alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(p_code)}
+      alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='about/data/hs4/'>list of HS4 products</a>."%(p_code)}
   
   if countries[0]:
     # get distinct years from db, different for diff product classifications
