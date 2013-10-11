@@ -163,7 +163,7 @@ def endSaveStory(request):
   request.session['create']=iscreatemode
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
-  return redirect('stories/')
+  return redirect('/stories/')
 
 #######################################
 #browse story form
@@ -272,7 +272,7 @@ def endbrowsestory(request):
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
   #redirect to browse story page
-  return redirect('stories/')
+  return redirect('/stories/')
 
 #######################################
 # edit story form
@@ -336,7 +336,7 @@ def updateEditForm(request):
    counter += 1
   #Update edited story details
   story=observastory.objects.filter(story_id=storyId).update(story_name=storyTitle,story_desc=storyDesc)
-  return redirect('stories/')
+  return redirect('/stories/')
 ################################################
 # publish
 ################################################
@@ -420,7 +420,7 @@ def logout(request):
   #delete userid and username in session
   del request.session['userid'] 
   del request.session['username'] 
-  return redirect('explore/')
+  return redirect('/explore/')
 
 
 #####################################################
@@ -606,7 +606,7 @@ def browseStoryPrev(request):
 def endbrowse(request):
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
-  return redirect('explore/')
+  return redirect('/explore/')
   
 def fluid(request):
   return render_to_response("fluid.html", context_instance=RequestContext(request))
