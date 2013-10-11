@@ -307,6 +307,20 @@
   
   set_stack_year = function(arg)
   {   
+
+    var stacked_title = d3.select('#text_title').text();
+    stacked_title = stacked_title.replace(viz.year()[0], arg[0]);
+    stacked_title = stacked_title.replace(viz.year()[1], arg[1]);
+    d3.select('#text_title').text(stacked_title);
+    
+    var href = window.location.href;
+    href = href.replace(viz.year()[0], arg[0]);
+    href = href.replace(viz.year()[1], arg[1]);  
+
+    // TODO: Check if IE compliant
+    window.history.pushState('The Atlas', d3.select('#text_title').text(), href);
+
+
     d3.select("#viz").call(viz.year([arg[0],arg[1]]))
     
     $(".dropdown_container#year_start select").val(arg[0]);

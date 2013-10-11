@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <base href="{{HTTP_HOST}}">
-  <title>The Observatory | {{title}} </title><!-- ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %}) -->
+  <title>The Atlas Of Economic Complexity | {{title}} </title><!-- ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})
   <meta name="description" content="Networks in Macro Economics">
   <meta name="author" content="Alexander Simoes">
   <!-- Necessary for google to crawl the site, since it is purely ajax based.
@@ -150,7 +150,7 @@
 
               // Disable stacked
               $("label[value=stacked]").css("opacity", .1);
-              $("label[value=stacked]").attr("data-original-title", "You need to select a time period")
+              $("label[value=stacked]").attr("data-original-title", "Select a time period")
               $("label[value=stacked]").tooltip('fixTitle')
               $('label[value=stacked]').click(function() { return false; } );     
 
@@ -159,13 +159,13 @@
 
               // Disable Treemap
               $("label[value=tree_map]").css("opacity", .1);
-              $("label[value=tree_map]").attr("data-original-title", "You need to de-select one year")
+              $("label[value=tree_map]").attr("data-original-title", "Un-select end year")
               $("label[value=tree_map]").tooltip('fixTitle')
               $('label[value=tree_map]').click(function() { return false; } );    
 
               // Disable map
               $("label[value=map]").css("opacity", .1);
-              $("label[value=map]").attr("data-original-title", "No map available")
+              $("label[value=map]").attr("data-original-title", "Un-select end year")
               $("label[value=map]").tooltip('fixTitle')
               $('label[value=map]').click(function() { return false; } );    
 
@@ -196,7 +196,7 @@
 
               // Disable stacked
               $("label[value=stacked]").css("opacity", .1);
-              $("label[value=stacked]").attr("data-original-title", "You need to select a time period")
+              $("label[value=stacked]").attr("data-original-title", "Select a time period")
               $("label[value=stacked]").tooltip('fixTitle')
               $('label[value=stacked]').click(function() { return false; } );    
 
@@ -205,13 +205,13 @@
 
               // Disable Treemap
               $("label[value=tree_map]").css("opacity", .1);
-              $("label[value=tree_map]").attr("data-original-title", "You need to de-select one year")
+              $("label[value=tree_map]").attr("data-original-title", "Un-select end year")
               $("label[value=tree_map]").tooltip('fixTitle')
               $('label[value=tree_map]').click(function() { return false; } );    
 
               // Disable map
               $("label[value=map]").css("opacity", .1);
-              $("label[value=map]").attr("data-original-title", "No map available")
+              $("label[value=map]").attr("data-original-title", "Un-select end year")
               $("label[value=map]").tooltip('fixTitle')
               $('label[value=map]').click(function() { return false; } );    
 
@@ -1188,12 +1188,13 @@
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this</h4>
     
 
-        <a class="addthis_button_facebook" tooltipbs" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"> <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
+        <a href="#" class="addthis_button_facebook tooltipbs" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"> <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
 
-        <a class="addthis_button_twitter" ><img src="media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
-        <a
-        class="addthis_button_google_plusone_share" ><img src="media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
-        <a class="addthis_button_email"><img src="media/img/all/email_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        <a class="addthis_button_twitter tooltipbs" title="Share this page with Twitter"><img src="media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        
+        <a class="addthis_button_google_plusone_share tooipbs" title="Share this page with Google+"><img src="media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
+
+        <a class="addthis_button_email tooltipbs" title="Share this page with Email"><img src="media/img/all/email_badge.png" style="height:30px; margin: 5px 0px"/></a>
         
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Download</h4>
         
