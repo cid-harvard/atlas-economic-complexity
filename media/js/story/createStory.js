@@ -142,12 +142,10 @@ function gup(url, name) {
 function fbLogin() {
 	var appID = "497327947029493";
 	var path = 'http://www.facebook.com/dialog/oauth?';
-
 	var REDIRECT1    =  window.location.host;
-
-	var queryParams = ['client_id=' + appID,
-	                   'redirect_uri=' + window.location,
-	                   'response_type=token'];
+		var queryParams = ['client_id=' + appID,
+		                   'redirect_uri=' + window.location,
+		                   'response_type=token'];
 	var query = queryParams.join('&');
 	var url = path + query;
 
@@ -184,8 +182,10 @@ function displayUser(user) {
 	if (user.id != null && user.id != "undefined") {
 		var jsonObj = [];
 		var item={};
-		item["name"]=user.name;
-		item["email"]=user.link;
+		var fbUniqueURL = user.link;
+		var fbName = fbUniqueURL.substring(fbUniqueURL.lastIndexOf('/')+1,fbUniqueURL.length);
+		item["name"]= user.name;
+		item["email"]=fbName;
 		item["source"]='facebook';
 		jsonObj.push(item);
 		if (typeof user.name != 'undefined') {
