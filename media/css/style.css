@@ -1201,6 +1201,7 @@ border-color: inherit;
 	padding: 1em 0 2px;
 	color: #666;
 	border-bottom: 3px solid #D9D5BE;
+	text-align: center;
 }
 
 .queueTable tbody tr
@@ -1208,6 +1209,7 @@ border-color: inherit;
 	vertical-align: middle;
 	background-color: #F0F0F0;
 	border-bottom: 3px solid #fff;
+	text-align: center;
 }
 .queueTable tbody td
 {
