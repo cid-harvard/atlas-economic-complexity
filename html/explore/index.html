@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <base href="{{HTTP_HOST}}">
-  <title>The Atlas Of Economic Complexity | {{title}} </title><!-- ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})
+  <title>{{title}} </title><!-- The Atlas Of Economic Complexity | ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})
   <meta name="description" content="Networks in Macro Economics">
   <meta name="author" content="Alexander Simoes">
   <!-- Necessary for google to crawl the site, since it is purely ajax based.
@@ -144,7 +144,7 @@
 
               // Disable map
               $("label[value=map]").css("opacity", .1);
-              $("label[value=map]").attr("data-original-title", "Select a trade partner to view map")
+              $("label[value=map]").attr("data-original-title", "Select a trade partner")
               $("label[value=map]").tooltip('fixTitle')
               $('label[value=map]').click(function() { return false; } );    
 
@@ -533,13 +533,13 @@
 
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip" title="Treemap" >
-              <input type="radio" id="option1" style="background:url(media/img/home/teaser_tree_map.png) no-repeat;"> <img src="media/img/home/teaser_tree_map.png" style="width:38px;"/>
+              <input type="radio" style="background:url(media/img/home/teaser_tree_map.png) no-repeat;"> <img src="media/img/home/teaser_tree_map.png" style="width:38px;"/>
             </label>
-            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Map" >
-               <input type="radio" id="option1" style="background:url(media/img/home/teaser_map.png) no-repeat;"> <img src="media/img/home/teaser_map.png" style="width:38px;"/>
+            <label value="map" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Map" >
+               <input type="radio" style="background:url(media/img/home/teaser_map.png) no-repeat;"> <img src="media/img/home/teaser_map.png" style="width:38px;"/>
             </label>
             <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Stacked Graph" >
-              <input type="radio" name="viz_apps" id="option3" > <img src="media/img/home/teaser_stacked.png" style="width:38px;"/>
+              <input type="radio" name="viz_apps"> <img src="media/img/home/teaser_stacked.png" style="width:38px;"/>
             </label>
           </div>
 
@@ -1340,16 +1340,17 @@
       </div> <!-- END Right pane -->
     </div> <!-- END #main -->
 
-    <footer>
+    <footer style="margin-left: 140px;">
       <p>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth<br> opportunities for more than a hundred countries worldwide.</span>
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
       </p>
 
-      <p style="margin-left:350px; margin-right:auto; width:40%;">
-        <img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/>
-        <img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/>		
+      <p style="margin-left:190px; margin-right:auto; width:500px">
+        <a href="http://macroconnections.media.mit.edu/"><img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/></a>
+        <a href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/></a>
         <div class="language_select" style="float:left; margin-top:-10px">
           <div class="text">
             Language:
