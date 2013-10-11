@@ -358,9 +358,20 @@
   
   set_map_year = function(arg)
   {
+    console.log(arg+"", "->", app.year()+"")
+    var map_title = d3.select('#text_title').text();
+    map_title = map_title.replace(app.year(), arg);
+    d3.select('#text_title').text(map_title);
+
+    console.log("titile", map_title, app.year(), arg)
+    
+    // TODO: Check if IE compliant
+    window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(app.year(), arg));
+
     d3.select("#viz").call(app.year(parseInt(arg)));
     // Set the controls to this year as well
     d3.select("#tool_pane").call(controls.year(arg)); 
+
   }
   
   construct_nest = function(flat)
