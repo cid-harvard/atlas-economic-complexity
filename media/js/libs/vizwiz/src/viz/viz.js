@@ -385,7 +385,7 @@ vizwhiz.viz = function() {
         if (vars.dev) console.log("[viz-whiz] Calculating Total Value")
         
         if (vars.type == "tree_map") {
-          var total_val = check_child(vars.data)
+
           
           function check_child(c) {
             if (c[vars.value_var]) return c[vars.value_var]
@@ -394,6 +394,9 @@ vizwhiz.viz = function() {
                 return check_child(c2)
               })
           }
+
+          var total_val = check_child(vars.data)
+
           }
         }
         else if (vars.data instanceof Array) {
