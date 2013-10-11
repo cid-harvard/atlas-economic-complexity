@@ -783,7 +783,7 @@
 				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button> 
 				{% if userId %}
 				<a><img src="/media/img/app/like.png" id="likeImage" alt="like" /></a>
-                   <h3 id="likeCount">{{likecount}} Likes</h3>
+                   <h3 id="likeCount">{{likeCount}} Likes</h3>
 				{% endif %}	
 			</div>       
        {% endif %}
@@ -1347,7 +1347,7 @@
     prod_or_partner = "{{prod_or_partner}}",
     lang= "{{lang}}",
     embed=false,
-		redesign_api_uri = "{{redesign_api_uri}}",
+    redesign_api_uri = "{{redesign_api_uri}}",
     year_start = "{{year_start}}",
     year_end = "{{year_end}}",
     product_code = "{{product_code}}",
@@ -1390,7 +1390,6 @@
   var contentWidth=$("#content").width();
   
   build_viz_app(api_uri,contentWidth,520);
-
   </script>
    {% include "story/body_story.html" %}
 
