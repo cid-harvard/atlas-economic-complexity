@@ -170,6 +170,8 @@ def endSaveStory(request):
 #######################################
 def browseStoryForm(request):
     #check userid in session
+    isbrowsemode=False
+    request.session['retrieve']=isbrowsemode
     if 'userid'  in request.session:
      userUniqueId=request.session['userid'] 
     elif "socialMediaIntegrationData" in request.POST:
@@ -601,6 +603,10 @@ def browseStoryPrev(request):
   chapterUrl=chapterDetails.chapter_url
   return redirect(chapterUrl)
 
+def endbrowse(request):
+  isbrowsemode=False
+  request.session['retrieve']=isbrowsemode
+  return redirect('/explore/')
   
 def fluid(request):
   return render_to_response("fluid.html", context_instance=RequestContext(request))

@@ -68,6 +68,7 @@ urlpatterns = patterns('',
   (r'^api/data/$', 'observatory.views.api_data'),
 
   # Story #####
+  (r'^endbrowse/$','observatory.views.endbrowse'),
   (r'^deleteStory/$','observatory.views.deleteStory'),
   (r'^logout/$','observatory.views.logout'),
   (r'^updateEditForm/$','observatory.views.updateEditForm'),
