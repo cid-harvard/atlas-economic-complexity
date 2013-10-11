@@ -483,10 +483,48 @@
       <div id="map" style="width:450px; height:300px"></div>
     </div> 
  
+<style>
+
+.products-tmb {
+  float:left;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border: 1px solid white;
+}
+
+.products-tmb:hover {
+  border: 1px solid lightgray;
+
+}
+
+</style>
+
   <a href="explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2010/">
     <div class="other_apps" style="float:left; width:455px; margin:20px; border: solid 1px lightgray;">
-      <h3 style="float:left; margin-left:50px;font-size:30px">Browse Products »</h3>
-      <div class="products_teaser" style="margin-top:0px"></div>
+      <h3 style="float:left; margin-left:50px;font-size:30px">Browse Products »</h3><p style="clear:both">
+      <div style="padding-left:20px; padding-bottom:30px">
+        <div style="background: url('media/img/icons/community_0.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_10.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_20.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_30.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_40.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_50.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_60.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_70.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_80.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_20.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_10.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_0.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_10.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_20.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_30.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_40.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_50.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_60.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_70.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <div style="background: url('media/img/icons/community_80.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+      </div>
     </div> 
   </a>
 
@@ -526,63 +564,7 @@ var ratio = window.devicePixelRatio || 1,
     height = 300 * ratio;
 
 var options = [
-  {name: "Aitoff", projection: d3.geo.aitoff()},
-  //{name: "Albers", projection: d3.geo.albers().scale(145).parallels([20, 50])},
-  {name: "August", projection: d3.geo.august().scale(60)},
-  {name: "Baker", projection: d3.geo.baker().scale(100)},
-  {name: "Boggs", projection: d3.geo.boggs()},
-  {name: "Bonne", projection: d3.geo.bonne().scale(100)},
-  {name: "Bromley", projection: d3.geo.bromley()},
-  {name: "Collignon", projection: d3.geo.collignon().scale(93)},
-  {name: "Craster Parabolic", projection: d3.geo.craster()},
-  {name: "Eckert I", projection: d3.geo.eckert1().scale(165)},
-  {name: "Eckert II", projection: d3.geo.eckert2().scale(165)},
-  {name: "Eckert III", projection: d3.geo.eckert3().scale(180)},
-  {name: "Eckert IV", projection: d3.geo.eckert4().scale(180)},
-  {name: "Eckert V", projection: d3.geo.eckert5().scale(170)},
-  {name: "Eckert VI", projection: d3.geo.eckert6().scale(170)},
-  {name: "Eisenlohr", projection: d3.geo.eisenlohr().scale(60)},
-  {name: "Equirectangular (Plate Carrée)", projection: d3.geo.equirectangular()},
-  {name: "Fahey", projection: d3.geo.fahey().scale(120)},
-  {name: "Gall Stereographic", projection: d3.geo.cylindricalStereographic().parallel(45).scale(140)},
-  {name: "Goode Homolosine", projection: d3.geo.homolosine()},
-  {name: "Ginzburg IV", projection: d3.geo.ginzburg4().scale(120)},
-  {name: "Ginzburg V", projection: d3.geo.ginzburg5().scale(120)},
-  {name: "Ginzburg VI", projection: d3.geo.ginzburg6().scale(120)},
-  {name: "Ginzburg VIII", projection: d3.geo.ginzburg8().scale(120)},
-  {name: "Ginzburg IX", projection: d3.geo.ginzburg9().scale(120)},
-  {name: "Gringorten", projection: d3.geo.gringorten().scale(220)},
-  {name: "Guyou", projection: d3.geo.guyou().scale(150)},
-  {name: "Hammer", projection: d3.geo.hammer().scale(165)},
-  {name: "Hill", projection: d3.geo.hill().scale(120)},
-  {name: "Kavrayskiy VII", projection: d3.geo.kavrayskiy7()},
-  {name: "Lagrange", projection: d3.geo.lagrange().scale(120)},
-  {name: "Lambert cylindrical equal-area", projection: d3.geo.cylindricalEqualArea()},
-  {name: "Larrivée", projection: d3.geo.larrivee().scale(95)},
-  {name: "Laskowski", projection: d3.geo.laskowski().scale(120)},
-  {name: "Loximuthal", projection: d3.geo.loximuthal()},
-  {name: "Mercator", projection: d3.geo.mercator().scale(100)},
-  {name: "Miller", projection: d3.geo.miller().scale(100)},
-  {name: "McBryde–Thomas Flat-Polar Parabolic", projection: d3.geo.mtFlatPolarParabolic()},
-  {name: "McBryde–Thomas Flat-Polar Quartic", projection: d3.geo.mtFlatPolarQuartic()},
-  {name: "McBryde–Thomas Flat-Polar Sinusoidal", projection: d3.geo.mtFlatPolarSinusoidal()},
-  {name: "Mollweide", projection: d3.geo.mollweide().scale(165)},
-  {name: "Natural Earth", projection: d3.geo.naturalEarth()},
-  {name: "Nell–Hammer", projection: d3.geo.nellHammer()},
-  {name: "Polyconic", projection: d3.geo.polyconic().scale(100)},
-  {name: "Rectangular Polyconic", projection: d3.geo.rectangularPolyconic().scale(120)},
-  {name: "Robinson", projection: d3.geo.robinson()},
-  {name: "Sinusoidal", projection: d3.geo.sinusoidal()},
-  {name: "Sinu-Mollweide", projection: d3.geo.sinuMollweide()},
-  {name: "Times", projection: d3.geo.times().scale(140)},
-  {name: "Van der Grinten", projection: d3.geo.vanDerGrinten().scale(75)},
-  {name: "Van der Grinten II", projection: d3.geo.vanDerGrinten2().scale(75)},
-  {name: "Van der Grinten III", projection: d3.geo.vanDerGrinten3().scale(75)},
-  {name: "Van der Grinten IV", projection: d3.geo.vanDerGrinten4().scale(120)},
-  {name: "Wagner IV", projection: d3.geo.wagner4()},
-  {name: "Wagner VI", projection: d3.geo.wagner6()},
-  {name: "Wagner VII", projection: d3.geo.wagner7()},
-  {name: "Winkel Tripel", projection: d3.geo.winkel3()}
+  {name: "Van der Grinten IV", projection: d3.geo.vanDerGrinten4().scale(120)}
 ];
 
 var initial = [-71, 42, 0],

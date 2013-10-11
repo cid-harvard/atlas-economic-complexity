@@ -41,6 +41,7 @@
 #    }, 
 #}
 # HTTP_HOST = '/'
+# DB_PREFIX = ''
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
