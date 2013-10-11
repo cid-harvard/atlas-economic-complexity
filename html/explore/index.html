@@ -975,7 +975,7 @@
           <div class="ui_bottom" id="ui_bottom" style="bottom:0px">
           </div>
           {% if app_name == "stacked" %}  
-          <div id="stacked_controls" style="width:70%">
+          <div id="stacked_controls" style="width:90%">
 
 
 
@@ -989,11 +989,31 @@
               <p>Year Interval: </p>
               <div class="slider" id="interval"></div>
             </div> -->
-            <div id="stacked_labels">
-              <span class="definition" style="font-weight:bold;">Labels:</span>
-              <input type="radio" id="true" name="labels" checked="checked" /><label for="true">On</label>
-              <input type="radio" id="false" name="labels" /><label for="false">Off</label>
+           
+
+            <span class="definition" style="font-weight:bold; margin-left:20px;">Labels:</span>
+            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+              <label class="btn btn-default active">
+                <input type="radio" id="true" name="labels" checked="checked"> On
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="false" name="labels" > Off
+              </label>
+            </div>  
+
+<!--
+            <div id="stacked_labels" class="ui-buttonset">
+              <p>Labels:</p>
+              <input type="radio" id="true" name="labels" checked="checked" class="ui-helper-hidden-accessible">
+
+              <label for="true" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" role="button" aria-disabled="false"><span class="ui-button-text">On</span>
+
+              </label>
+              <input type="radio" id="false" name="labels" class="ui-helper-hidden-accessible"><label for="false" aria-pressed="false" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" role="button" aria-disabled="false"><span class="ui-button-text">Off</span>
+
+              </label>
             </div>
+-->
 
             <!--
             <div id="stacked_layout">
@@ -1003,7 +1023,7 @@
             </div>
             -->
 
-            <span class="definition" style="font-weight:bold; margin-left:20px;">layout:</span>
+            <span class="definition" style="font-weight:bold; margin-left:20px;">Layout:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
               <label class="btn btn-default active">
                 <input type="radio" id="value" name="layout" checked="checked"> Value
@@ -1016,12 +1036,45 @@
             </div>  
 
 
+
+            <span class="definition" style="font-weight:bold; margin-left:20px;">Ordering:</span>
+            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+              <label class="btn btn-default active">
+                <input type="radio" id="community" name="order" checked="checked"> Community
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="totals" name="order" > Totals
+              </label>
+            </div>  
+
+            <!--
             <div id="stacked_order">
               <p>Ordering:</p>
               <input type="radio" id="community" name="order" checked="checked" /><label for="community">Community</label>
               <input type="radio" id="totals" name="order" /><label for="totals">Totals</label>
             </div>
+            -->
+
             {% if app_type != "sapy" %} 
+
+            <br>
+            <span class="definition" style="font-weight:bold; margin-left:20px;">Adjust:</span>
+            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+              <label class="btn btn-default active">
+                <input type="radio" id="community" name="capita" checked="checked"> Current
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="totals" name="capita" > Constant
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="totals" name="capita" > Per Capita Current
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="totals" name="capita" > Per Capita Constant
+              </label>
+            </div>  
+
+<!--
             <div id="stacked_capita" style="margin-left:40px">
               <p>Adjust:</p>
               <span style="">
@@ -1033,7 +1086,7 @@
                 <input type="radio" id="pc_constant" name="capita" /><label for="pc_constant">Per Capita Constant</label>
               </span>
             </div>
-
+-->
 
             </div>
             {% endif %}
@@ -1163,8 +1216,11 @@
       {% endif %}
 -->
 
+
       {% if app_name != "product_space" %}
         {% if app_name != "map" %}
+          
+        <div class="product_class" style="float:left;">
           
             <span class="definition" style="font-weight:bold; margin-left:20px;">Level of details:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
@@ -1186,6 +1242,7 @@
                 <input type="radio" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
               </label>
             </div>  
+          </div>
         {% endif %}
       {% endif %}
 
@@ -1243,7 +1300,10 @@
     </div>    
     <div id = "downloadPlaceholder" >
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Download</h4>    
-        
+
+        <div class="control_container" id="download">
+      
+
           <!--<span class="glyphicon glyphicon-save" style="margin:5px; font-size:18px; color:lightgray"></span> -->
           <a class="pdf" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">PDF</a>
           <a class="svg" href="#" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">SVG</a>
@@ -1251,6 +1311,9 @@
           <a class="csv" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">CSV</a>
       
          <a class="text" href="#" style="font-size:14px; color:lightgray; margin:3px; text-align:center;"> <span>{% trans "Data" %}</span></a>
+
+        </div>
+
         <br>
 
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Feedback</h4>
