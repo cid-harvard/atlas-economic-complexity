@@ -78,19 +78,19 @@
 				{% csrf_token %}
 				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
 				{% for story in mineStory %}
-					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}"data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
+					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
 				{% endfor %}
 				</select>
 				<div class="buttonSection">
 					<input type="Submit" class="retriveButton viewButton disabled" value="View" id="viewButton" onclick=""></input> 
 					<input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url observatory.views.editStoryForm %}'"></input> 
-					<input type="button" class="retriveButton" value="Publish" id="publishButton"></input> 
+					<input type="button" class="retriveButton" value="Publish" id="publishButton" onclick="publishStory(this)"></input> 
 					{% for story in checkAdmin %} 
 					{% if story.isadmin %}
-					<input type="button" class="retriveButton" value="Feature" id="featureButton"></input> 
+					<input type="button" class="retriveButton" value="Feature" id="featureButton" onclick="featureStory(this)"></input> 
 					{% endif %} 
 					{% endfor %} 
-					<input type="button"class="retriveButton" value="Delete" id="deleteButton"></input>
+					<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="deleteStory(this);"></input>
 				</div>
 			</form>
 		</div>
@@ -125,7 +125,7 @@
 				{% csrf_token %} 
 				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)">
 					{% for story in publishStory %}
-						<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
+					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
 					{% endfor %}
 				</select>
 				<div class="buttonSection">
@@ -133,9 +133,9 @@
 						{% for story in checkAdmin %} 
 							  {% if story.isadmin %}
 								<input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url observatory.views.editStoryForm %}'"></input> 
-								<input type="button" class="retriveButton" value="Publish" id="publishButton"></input> 
-								<input type="button" class="retriveButton" value="Feature" id="featureButton"></input> 
-								<input type="button"class="retriveButton" value="Delete" id="deleteButton"></input>
+								<input type="button" class="retriveButton" value="Publish" id="publishButton" onclick="publishStory(this)"></input> 
+								<input type="button" class="retriveButton" value="Feature" id="featureButton" onclick="featureStory(this);"></input> 
+								<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="deleteStory(this);"></input>
 							  {% endif %} 
 						{% endfor %} 
 				</div>
@@ -191,67 +191,8 @@
 	$("#popular").show();
 	$("#featured").show();
 	$( "#browseStories" ).tabs(); 
-	disableTabs();
+	activateTabs();
 	
-  $("#deleteButton").click(function(){
-		storyId=$("#stories").children('option:selected').val();
-		$.ajax({
-			'type': 'GET',
-			'url': 'deleteStory/',
-			'contentType': 'application/json',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-				'storyId':storyId,
-			},
-			'success': function(data) {
-			var newDoc = document.open("text/html", "replace");
-			newDoc.write(data);
-			newDoc.close();
-			/*$("#browseStories").tabs("refresh");*/
-			},
-			'error': function(xhr, textStatus, errorThrown) {
-				alert("error")
-			}
-		});
-	});
- $("#featureButton").click(function(){
-		storyId=$("#stories").children('option:selected').val();
-		$.ajax({
-			'type': 'POST',
-			'url': 'featured/',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-				'storyId':storyId,
-			},
-			'success': function(data) {
-			var newDoc = document.open("text/html", "replace");
-			newDoc.write(data);
-			newDoc.close();
-			},
-			'error': function(xhr, textStatus, errorThrown) {
-			}
-		});
-		
-	});
- $("#publishButton").click(function(){
-		storyId=$("#stories").children('option:selected').val();
-		$.ajax({
-			'type': 'POST',
-			'url': 'published/',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-				'storyId':storyId,
-			},
-			'success': function(data) {
-			var newDoc = document.open("text/html", "replace");
-			newDoc.write(data);
-			newDoc.close();
-			},
-			'error': function(xhr, textStatus, errorThrown) {
-			alert("error");
-			}
-		});
-	});
  $('#dialog-modal-browseStory').modal({
 		show: false,
 		keyboard: false
@@ -275,23 +216,52 @@
      },
   activate:function(event,ui){
 	 var id=$(ui.newPanel).prop('id');
-	 $("#"+id+" #stories").children('option:first-child').prop("selected","selected");
+	 var $form=$(ui.newPanel).children("form");
+	 var $stories=$form.children("select");
+	 $stories.children('option:first-child').prop("selected","selected");
+	 $stories.addClass("ui-state-focus");
+	 $stories.addClass("ui-state-active");
 	 var option=$("#"+id+" #stories").children('option:first-child');
 	 selectOption(option);
+	/*  var $form=$("#"+id).children("form");
+		var $stories=$form.children("select");
+		 var option=$("#"+id+" "+$stories).children('option:first-child'); */
  	}
    
+	});	
 });
-
+ 
+ /**
+ * Check if chapter is in edit mode and return
+ */
+function changeOption(button,isPublished)
+{
+	var $button=$(button);
+	var $tab=$button.parents().eq(2);
+	var $form=$tab.children("form");
+	var $stories=$form.children("select");
+	if(isPublished)
+	{
+	$stories.children('option:selected').attr("data-publish", "True");
+	}
+ else{
+	$stories.children('option:selected').attr("data-publish", "False");
+	}
+	var option=$("#stories").children('option:selected');
+	selectOption($stories.children('option:selected'));
 	
-	
-});
-		
-  function selectOption(option)
+}
+/**
+* check state of story on selection
+*/
+ function selectOption(option)
   {
 	var storyId=$(option).val();
 	var  viewhref="this.form.action='stories/view/"+storyId+"/'";
 	$(".viewButton").attr('onclick', viewhref);
-		if($(option).children('option:selected').data('publish')=="True")
+	/* alert($(option).children('option:selected'));
+	alert($(option).children('option:selected').attr('data-publish')); */
+		if($(option).children('option:selected').attr('data-publish') =="True")
 			{
 			$("#publishButton").prop('value', 'Unpublish');
 			}
@@ -299,7 +269,7 @@
 			{
 			$("#publishButton").prop('value', 'Publish');
 			}
-		if($(option).children('option:selected').data('featured')=="True")
+		if($(option).children('option:selected').attr('data-featured')=="True")
 			{
 			$("#featureButton").prop('value',"Unfeature");
 			}
@@ -316,8 +286,103 @@
 		$(".viewButton").removeClass("disabled");
 		}
  }
-  
-  function disableTabs()
+ /**
+ * feature or unfeature a story
+ */
+ function featureStory(option)
+ {
+	 var button=option;
+		var $tab=$(button).parents().eq(2);
+		var $form=$tab.children("form");
+		var $stories=$form.children("select");
+		storyId=$stories.children('option:selected').val();
+		$.ajax({
+			'type': 'POST',
+			'url': '/featured/',
+			'data': {
+				'csrfmiddlewaretoken': '{{ csrf_token }}',
+				'storyId':storyId,
+			},
+			'success': function(data) {
+				var isFeatured=JSON.parse(data).isFeatured;
+				if(isFeatured)
+				{
+				$stories.children('option:selected').attr("data-featured", "True");
+				$(button).prop('value', 'Unfeature');
+				}
+			 else{
+				$stories.children('option:selected').attr("data-featured", "False");
+				$(button).prop('value', 'Feature');
+				}
+			},
+			'error': function(xhr, textStatus, errorThrown) {
+			}
+		}); 
+ }
+ /**
+  * publish or unpublish a story
+  */
+ function publishStory(option)
+ {
+	    var button=option;
+		var $tab=$(button).parents().eq(2);
+		var $form=$tab.children("form");
+		var $stories=$form.children("select");
+		storyId=$("#stories").children('option:selected').val();
+		$.ajax({
+			'type': 'POST',
+			'url': '/published/',
+			'data': {
+				'csrfmiddlewaretoken': '{{ csrf_token }}',
+				'storyId':storyId,
+			},
+			'success': function(data) {
+				var isPublished=JSON.parse(data).isPublished;
+				if(isPublished)
+				{
+				$stories.children('option:selected').attr("data-publish", "True");
+				$(button).prop('value', 'Unpublish');
+				}
+			 else{
+				$stories.children('option:selected').attr("data-publish", "False");
+				$(button).prop('value', 'Publish');
+				}	
+			},
+			'error': function(xhr, textStatus, errorThrown) {
+			alert("error");
+			}
+		});
+ }
+ /**
+  * delete a story
+  */
+ function deleteStory(option)
+ {
+	 var button=option;
+		var $tab=$(button).parents().eq(2);
+		var $form=$tab.children("form");
+		var $stories=$form.children("select");
+		storyId=$stories.children('option:selected').val();		
+		$.ajax({
+			'type': 'POST',
+			'url': '/deleteStory/',
+			'data': {
+				'csrfmiddlewaretoken': '{{ csrf_token }}',
+				'storyId':storyId,
+			},
+			'success': function(data) {
+			var storyId=JSON.parse(data).storyId;
+			$stories.children('option:selected').remove();
+			},
+			'error': function(xhr, textStatus, errorThrown) {
+				alert("error")
+			}
+		});
+ }
+ /**
+  * activate tab based on type of user
+  */
+function activateTabs()
   {
 	  {% if userId %}	  
 	  $( "#browseStories" ).tabs( "option", "active", 0 ); 

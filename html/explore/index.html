@@ -919,7 +919,7 @@
 				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button> 
 				{% if userId %}
 				<a><img src="/media/img/app/like.png" id="likeImage" alt="like" /></a>
-                   <h3 id="likeCount">{{likecount}} Likes</h3>
+                   <h3 id="likeCount">{{likeCount}} Likes</h3>
 				{% endif %}	
 			</div>       
        {% endif %}
@@ -1569,9 +1569,6 @@
   // It triggers the data call to the server to fetch the data used in turn
   // to build the app. Look in viz_general.js for more info.
   
-  //To display visualization in full screen ,while viewing stories
-  var contentWidth=$("#content").width();
-  
 
 
   // Page init scripts
@@ -1599,11 +1596,10 @@
       //$("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
       //$("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
-
     $(".tooltipbs").tooltip({delay: { show: 1500, hide: 100 }});
 
 
-  $("#country1 select").change(function() {
+    $("#country1 select").change(function() {
     $("#country1_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$(this).val()+".png') no-repeat");
     $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
     $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
@@ -1641,10 +1637,12 @@
     available_viz();
   })
 
-
   // Set which visualization is available or not
   available_viz();  
 
+//To display visualization in full screen ,while viewing stories
+  var contentWidth=$("#content").width();
+  
   build_viz_app(api_uri,contentWidth,520);    
 
 });
