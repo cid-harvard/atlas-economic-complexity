@@ -259,6 +259,9 @@
             current_viz = "stacked";
           } 
 
+          if(current_year2=="" && current_viz == "stacked")
+            current_viz = "tree_map";
+
           // Where does United States export Crude Petroleum to?
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
           if($(".tab-trade-partner-product").find(".active").index()==0) {
@@ -1123,7 +1126,7 @@
           
             <span class="definition" style="font-weight:bold; margin-left:20px;">Level of details:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
-              <label class="btn btn-default">
+              <label class="btn btn-default {% if app_name == "stacked" %} active {% endif %}">
                 <input type="radio" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
               </label>
 
@@ -1137,7 +1140,7 @@
                 <input type="radio" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
               </label>
               {% endif %}
-              <label class="btn btn-default active">
+              <label class="btn btn-default {% if app_name != "stacked" %} active {% endif %}">
                 <input type="radio" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
               </label>
             </div>  
