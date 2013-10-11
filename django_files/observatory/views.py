@@ -1073,7 +1073,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       if app_name == "pie_scatter":
         title = "What products are feasible for %s?" % countries[0].name
       elif app_name == "product_space":
-        title = "How related are %s products in %s?" % (countries[0].name, year)       # INSERTED NEW TITLE HERE
+        title = "How nearby are %s products in %s?" % (countries[0].name, year)       # INSERTED NEW TITLE HERE
       elif app_name == "stacked":
         title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE
       else:
