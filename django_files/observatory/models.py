@@ -2,7 +2,13 @@
 from django.db import models
 from django.db.models import Sum
 from django.forms import ModelForm
+from django.conf import settings
 
+
+if not settings.DB_PREFIX:
+  DB_PREFIX = ''
+else:
+  DB_PREFIX = settings.DB_PREFIX
 
 
 ###############################################################################
@@ -95,6 +101,10 @@ class Country_region(models.Model):
 	color = models.CharField(max_length=7, null=True)
 	text_color = models.CharField(max_length=7, null=True)
 
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_country_region"
+
 	def __unicode__(self):
 		return self.name
 
@@ -124,6 +134,10 @@ class Country_manager(models.Manager):
     ))
 
 class Country(models.Model):
+
+	class Meta:
+		db_table = settings.DB_PREFIX+"observatory_country"
+
 	name = models.CharField(max_length=200)
 	name_numeric = models.PositiveSmallIntegerField(max_length=4, null=True)
 	name_2char = models.CharField(max_length=2, null=True)
@@ -162,6 +176,10 @@ class Country(models.Model):
 	objects = Country_manager()
 
 class Cy(models.Model):
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_cy"
+
 	country = models.ForeignKey(Country)
 	year = models.PositiveSmallIntegerField(max_length=4)
 	eci = models.FloatField(null=True)
@@ -190,6 +208,10 @@ class Sitc4_leamer(models.Model):
 
 # Colors for Michele Coscia community clustering algorithm
 class Sitc4_community(models.Model):
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_sitc4_community"
+
 	code = models.CharField(max_length=4)
 	name = models.CharField(max_length=100, null=True)
 	color = models.CharField(max_length=7, null=True)
@@ -227,6 +249,10 @@ class Sitc4_manager(models.Manager):
 		))
 		
 class Sitc4(models.Model):
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_sitc4"
+
 	name = models.CharField(max_length=255)
 	code = models.CharField(max_length=4)
 	conversion_code = models.CharField(max_length=4)
@@ -267,6 +293,10 @@ class Sitc4(models.Model):
 	objects = Sitc4_manager()
 
 class Sitc4_py(models.Model):
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_sitc4_py"
+
 	product = models.ForeignKey(Sitc4)
 	year = models.PositiveSmallIntegerField(max_length=4)
 	pci = models.FloatField(null=True)
@@ -277,11 +307,16 @@ class Sitc4_py(models.Model):
 		return "%s rank: %d" % (self.product.name, self.pci_rank)
 
 class Hs4_py(models.Model):
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_hs4_py"
+
 	product = models.ForeignKey(Sitc4)
 	year = models.PositiveSmallIntegerField(max_length=4)
 	pci = models.FloatField(null=True)
 	pci_rank = models.PositiveSmallIntegerField(max_length=4)
 	world_trade = models.FloatField(null=True)
+
 
 	def __unicode__(self):
 		return "%s rank: %d" % (self.product.name, self.pci_rank)
@@ -290,6 +325,10 @@ class Hs4_py(models.Model):
 # Colors for HS4 clusters 
 # http://www.foreign-trade.com/reference/hscode.htm
 class Hs4_community(models.Model):
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_hs4_community"
+
 	code = models.CharField(max_length=4)
 	name = models.CharField(max_length=100, null=True)
 	color = models.CharField(max_length=7, null=True)
@@ -325,6 +364,10 @@ class Hs4_manager(models.Manager):
 		))
 # HS4 Products
 class Hs4(models.Model):
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_hs4"
+
 	name = models.CharField(max_length=255)
 	code = models.CharField(max_length=4)
 	conversion_code = models.CharField(max_length=4)
@@ -430,6 +473,10 @@ class Sitc4_cpy_manager(models.Manager):
 			return list(data.extra(select={'item_id': "country_id"}).values("item_id", "year", "value", "export_rca"))
 
 class Sitc4_cpy(models.Model):
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_sitc4_cpy"
+
 	country = models.ForeignKey(Country)
 	product = models.ForeignKey(Sitc4)
 	year = models.PositiveSmallIntegerField(max_length=4)
@@ -509,6 +556,10 @@ class Hs4_cpy_manager(models.Manager):
 			return list(data.extra(select={'item_id': "country_id"}).values("item_id", "year", "value", "export_rca"))
 
 class Hs4_cpy(models.Model):
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_hs4_cpy"
+
 	country = models.ForeignKey(Country)
 	product = models.ForeignKey(Hs4)
 	year = models.PositiveSmallIntegerField(max_length=4)
