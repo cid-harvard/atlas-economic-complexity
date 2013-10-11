@@ -38,6 +38,10 @@ if not settings.DB_PREFIX:
 else:
   DB_PREFIX = settings.DB_PREFIX
 
+if not settings.HTTP_HOST:
+  HTTP_HOST = '/'
+else:
+  HTTP_HOST = settings.HTTP_HOST
 
 #####################################
 #create story
@@ -163,7 +167,7 @@ def endSaveStory(request):
   request.session['create']=iscreatemode
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
-  return redirect('/stories/')
+  return redirect(HTTP_HOST+'stories/')
 
 #######################################
 #browse story form
@@ -231,6 +235,7 @@ def browseStoryForm(request):
     for mineStory in dictMineStory:
      story_ids= mineStory['story_id']
      #encrypt story_id
+     story_ids=int(story_ids)*777
      mineStory['story_id'] = base64.b64encode(str(story_ids))
     #Get Feature story details
     dictFeatureStory={}
@@ -238,6 +243,7 @@ def browseStoryForm(request):
     for featureStory in dictFeatureStory:
      story_ids= featureStory['story_id']
      #encrypt story_id
+     story_ids=int(story_ids)*777
      featureStory['story_id'] = base64.b64encode(str(story_ids))
     #Get Popular story details
     dictPopularStory={}
@@ -245,6 +251,7 @@ def browseStoryForm(request):
     for popularStory in dictPopularStory:
      story_ids= popularStory['story_id']
      #encrypt story_id
+     story_ids=int(story_ids)*777
      popularStory['story_id'] = base64.b64encode(str(story_ids))
     #Get Publish story details
     dictPublishStory={}
@@ -252,6 +259,7 @@ def browseStoryForm(request):
     for publishStory in dictPublishStory:
      story_ids= publishStory['story_id']
      #encrypt story_id
+     story_ids=int(story_ids)*777
      publishStory['story_id'] = base64.b64encode(str(story_ids))
     return render_to_response('story/retrieveForm.html',{
         'publishStory':dictPublishStory,
@@ -261,6 +269,7 @@ def browseStoryForm(request):
 	'mineStory':dictMineStory,
 	'featureStory':dictFeatureStory,
 	'popularStory':dictPopularStory},context_instance=RequestContext(request))
+
 
 ########################################
 #end browse story
@@ -272,7 +281,7 @@ def endbrowsestory(request):
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
   #redirect to browse story page
-  return redirect('/stories/')
+  return redirect(HTTP_HOST+'stories/')
 
 #######################################
 # edit story form
@@ -283,6 +292,7 @@ def editStoryForm(request):
    editStoryIdWithEncode=request.POST["Stories"]
    #Decrypt edit storyid
    editStoryId = base64.b64decode(editStoryIdWithEncode)
+   editStoryId=int(editStoryId)/777
    request.session['editStoryId']=editStoryId
   editStoryId=request.session['editStoryId']
   #Get story details
@@ -336,55 +346,40 @@ def updateEditForm(request):
    counter += 1
   #Update edited story details
   story=observastory.objects.filter(story_id=storyId).update(story_name=storyTitle,story_desc=storyDesc)
-  return redirect('/stories/')
+  return redirect(HTTP_HOST+'stories/')
 ################################################
 # publish
 ################################################
 def published(request):
-   isPublished=False
-   #Get storyid
-   browseStoryIdWithEncode=request.POST.get('storyId')
-   #Decrypt story id
-   browseStoryId = base64.b64decode(browseStoryIdWithEncode)
-   #Get publish value
+  if request.is_ajax():
+   browseStoryId=request.POST.get('storyId')
+   browseStoryId=base64.b64decode(browseStoryId)
+   browseStoryId=int(browseStoryId)/777
    browseStroyIdPublish=observastory.objects.values_list('published').filter(story_id=browseStoryId)
    for publishValue in browseStroyIdPublish:
     for value in publishValue:
      if value == 1:
-      #Update publish value
       updatePublishValue=observastory.objects.filter(story_id=browseStoryId).update(published=0)
-      isPublished=False
      else:
-      #Update publish value
       updatePublishValue=observastory.objects.filter(story_id=browseStoryId).update(published=1) 
-      isPublished=True
-   json_response = {}
-   json_response["isPublished"]=isPublished
-   return HttpResponse(json.dumps(json_response))
+   return redirect(HTTP_HOST+'stories/')
 
 ################################################
 # featured
 ################################################
 def featured(request):
-    isFeatured=False 
-    #Get browse storyid
-    browseStoryIdWithEncode=request.POST.get('storyId')
-    browseStoryId = base64.b64decode(browseStoryIdWithEncode)
-    #Get feature value
+   if request.is_ajax():
+    browseStoryId=request.POST.get('storyId')
+    browseStoryId=base64.b64decode(browseStoryId)
+    browseStoryId=int(browseStoryId)/777
     browseStroyIdFeature=observastory.objects.values_list('featured').filter(story_id=browseStoryId)
     for featureValue in browseStroyIdFeature:
      for value in featureValue:
-      if value == 1:
-       #Update feature vale
-       updateFeatureValue=observastory.objects.filter(story_id=browseStoryId).update(featured=0)
-       isFeatured=False
-      else: 
-       #Update feature vale
-       updateFeatureValue=observastory.objects.filter(story_id=browseStoryId).update(featured=1)  
-       isFeatured=True
-    json_response = {}
-    json_response["isFeatured"]=isFeatured
-    return HttpResponse(json.dumps(json_response))
+      if value == 0:
+       updateFeatureValue=observastory.objects.filter(story_id=browseStoryId).update(featured=1)
+      else:
+       updateFeatureValue=observastory.objects.filter(story_id=browseStoryId).update(featured=0)   
+    return redirect(HTTP_HOST+'stories/')
 
 #################################################
 # likecount
@@ -418,9 +413,11 @@ def logout(request):
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
   #delete userid and username in session
-  del request.session['userid'] 
-  del request.session['username'] 
-  return redirect('/explore/')
+  if 'userid' in request.session:
+   del request.session['userid'] 
+  if 'username' in request.session: 
+   del request.session['username'] 
+  return redirect(HTTP_HOST+'explore/')
 
 
 #####################################################
@@ -428,16 +425,15 @@ def logout(request):
 #####################################################
 def deleteStory(request): 
   if 'userid'  in request.session:
-    #Get browse storyid
-    browseStoryIdWithEncode=request.POST.get('storyId')
-    deleteStoryId = base64.b64decode(browseStoryIdWithEncode)
+   if request.is_ajax():
+    deleteStoryId=request.POST.get('storyId')
+    deleteStoryId=base64.b64decode(deleteStoryId)
+    deleteStoryId=int(deleteStoryId)/777
     chapterIds=storychapter.objects.filter(story_id=deleteStoryId)
     if chapterIds is not None:
      deleteStory=storychapter.objects.filter(story_id=deleteStoryId).delete()
-    deleteStory=observastory.objects.filter(story_id=deleteStoryId).delete()
-    json_response = {}
-    json_response["storyId"]=deleteStoryId
-    return HttpResponse(json.dumps(json_response))
+    deleteStory=observastory.objects.filter(story_id=deleteStoryId).delete()  
+   return redirect(HTTP_HOST+'stories/')
 
 
 #####################################################
@@ -520,6 +516,7 @@ def browsestories(request,browseStoryId):
 def viewStory(request,browseStoryId):
   #Get browse story id and decrypt story id
   browseStoryId=base64.b64decode(browseStoryId)
+  browseStoryId=int(browseStoryId)/777
   return render_to_response('story/viewStory.html',{'browseStoryId':browseStoryId},context_instance=RequestContext(request))
 
 ####################################################################
@@ -606,7 +603,7 @@ def browseStoryPrev(request):
 def endbrowse(request):
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
-  return redirect('/explore/')
+  return redirect(HTTP_HOST+'explore/')
   
 def fluid(request):
   return render_to_response("fluid.html", context_instance=RequestContext(request))
