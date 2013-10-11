@@ -218,13 +218,32 @@
 	 var id=$(ui.newPanel).prop('id');
 	 var $form=$(ui.newPanel).children("form");
 	 var $stories=$form.children("select");
+	 $.ajax({
+			'type': 'POST',
+			'url':'stories/',
+			'data': {
+				'csrfmiddlewaretoken': '{{ csrf_token }}',
+			},
+			'success': function(data) {
+				console.log(data);
+				},
+			'error': function(xhr, textStatus, errorThrown) {
+				alert(error);
+			}
+		}); 
 	 $stories.focus();
 	 $stories.children('option:first-child').prop("selected","selected");
 	 $stories.children('option:first-child').focus();
 	 selectOption($stories.children('option:first-child'));
+	 
  	}
    
 	});	
+ 
+ 
+// $.template('storyViewTemplate', '<option value="{{story_id}}" data-publish="{{published}}" data-featured="{{featured}}" data-chaptercount="{{number_of_chapters}}">{{story_name}}</option>'); 
+ 
+
 });
  
  
