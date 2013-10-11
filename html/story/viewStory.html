@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="utf-8">
+  <meta charset="utf-8">
+  <base href="{{HTTP_HOST}}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
- <script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+ <script src="media/js/libs/jquery/jquery-1.7.1.min.js"></script>
 </head>
 <body>
   <!-- The JavaScript -->
@@ -15,7 +16,7 @@
   $(document).ready(function(){
         $.ajax({
             'type': 'GET',
-            'url': '/browsestories/'+{{ browseStoryId }}+'/',
+            'url': 'browsestories/'+{{ browseStoryId }}+'/',
 	    'contentType': 'application/json',
             'data': {
                'csrfmiddlewaretoken': '{{ csrf_token }}',

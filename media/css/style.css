@@ -1308,7 +1308,7 @@ height: 30px;
 float: right;
 margin-left: 15px;
 }
-#CancelStoryBtn
+#cancelStoryBtn
 {
 border-radius: 0px;
 height: 30px;
@@ -1461,7 +1461,7 @@ display: block;
 
 #likeImage 
 {
-		margin-left:20%;
+		margin-left:18%;
 		display:none;
 		float:left;		
 }
@@ -1472,9 +1472,8 @@ display: block;
 }
 #likeCount
 {
-	float:left;
+	float:right;
 	margin-top:12px;
-	margin-left:10px;
 	display:none;
 }
 

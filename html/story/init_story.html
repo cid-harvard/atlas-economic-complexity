@@ -45,7 +45,7 @@ $(function() {
 	$("#BrowsePrev").click(function(){
 		$.ajax({
 			'type': 'GET',
-			'url': '/browseStoryPrev/',
+			'url': 'browseStoryPrev/',
 			'contentType': 'application/json',
 			'data': {
 				'csrfmiddlewaretoken': '{{ csrf_token }}',
@@ -54,6 +54,7 @@ $(function() {
 				var newDoc = document.open("text/html", "replace");
 				newDoc.write(data);
 				newDoc.close();
+				initSharePlugin();
 				},
 			'error': function(xhr, textStatus, errorThrown) {
 				alert("Please report this error: "+textStatus);
@@ -63,7 +64,7 @@ $(function() {
 	$("#BrowseNext").click(function(){
 		$.ajax({
 			'type': 'GET',
-			'url': '/browseStoryNext/',
+			'url': 'browseStoryNext/',
 			'contentType': 'application/json',
 			'data': {
 				'csrfmiddlewaretoken': '{{ csrf_token }}',
@@ -72,6 +73,7 @@ $(function() {
 				var newDoc = document.open("text/html", "replace");
 				newDoc.write(data);
 				newDoc.close();
+				initSharePlugin();
 			},
 			'error': function(xhr, textStatus, errorThrown) {
 				alert("Please report this error: "+textStatus);
@@ -81,7 +83,7 @@ $(function() {
 	$("#likeImage").click(function(){
 		$.ajax({
 			'type': 'GET',
-			'url': '/likeCount/',
+			'url': 'likeCount/',
 			'contentType': 'application/json',
 			'data': {
 				'csrfmiddlewaretoken': '{{ csrf_token }}',
@@ -96,7 +98,20 @@ $(function() {
 		});
 	});
 });
-
+function initSharePlugin()
+{
+var script = 'http://s7.addthis.com/js/250/addthis_widget.js#domready=1';
+if (window.addthis){
+    window.addthis = null;
+    window._adr = null;
+window._atc = null;
+window._atd = null;
+window._ate = null;
+window._atr = null;
+window._atw = null;
+}
+$.getScript( script );
+}
   </script> 
 {% if isbrowsemode %}
 <script>
@@ -107,8 +122,10 @@ localStorage.setItem("chapterCount","1");
   var noOfChapters={{NoOfChapter}};
   $("#timeline").hide();
   $("#app_pane").hide();
-  $("#tool_pane").hide();
-  $("#content").css("width","100%");
+  //$("#tool_pane").hide();
+  $("#downloadPlaceholder").hide();
+  $("#createStoryPlaceHolder").hide();
+  $("#content").css("width","95%");
   $("#viz").css("width","100%");
   $('.app #loader ').css("margin","auto");
   {% if app_name == "map" %}
