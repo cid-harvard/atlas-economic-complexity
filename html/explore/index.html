@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <base href="{{HTTP_HOST}}">
-  <title>The Observatory | {{title}} ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})</title>
+  <title>The Atlas Of Economic Complexity | {{title}} </title><!-- ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})
   <meta name="description" content="Networks in Macro Economics">
   <meta name="author" content="Alexander Simoes">
   <!-- Necessary for google to crawl the site, since it is purely ajax based.
@@ -137,20 +137,20 @@
 
             if(current_year2=="") {
               // Activate Treemap
-              $("label[value=stacked]").css("opacity", 1);
-              $("label[value=stacked]").attr("data-original-title", "Treemap")
-              $("label[value=stacked]").tooltip('fixTitle')
-              $('label[value=stacked]').click(function() { return update_viz(); } );    
+              $("label[value=tree_map]").css("opacity", 1);
+              $("label[value=tree_map]").attr("data-original-title", "Treemap")
+              $("label[value=tree_map]").tooltip('fixTitle')
+              $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );    
 
               // Disable map
               $("label[value=map]").css("opacity", .1);
-              $("label[value=map]").attr("data-original-title", "No map available")
+              $("label[value=map]").attr("data-original-title", "Select a trade partner to view map")
               $("label[value=map]").tooltip('fixTitle')
               $('label[value=map]').click(function() { return false; } );    
 
               // Disable stacked
               $("label[value=stacked]").css("opacity", .1);
-              $("label[value=stacked]").attr("data-original-title", "You need to select a time period")
+              $("label[value=stacked]").attr("data-original-title", "Select a time period")
               $("label[value=stacked]").tooltip('fixTitle')
               $('label[value=stacked]').click(function() { return false; } );     
 
@@ -158,14 +158,14 @@
 
 
               // Disable Treemap
-              $("label[value=treemap]").css("opacity", .1);
-              $("label[value=treemap]").attr("data-original-title", "You need to de-select one year")
-              $("label[value=treemap]").tooltip('fixTitle')
-              $('label[value=treemap]').click(function() { return false; } );    
+              $("label[value=tree_map]").css("opacity", .1);
+              $("label[value=tree_map]").attr("data-original-title", "Un-select end year")
+              $("label[value=tree_map]").tooltip('fixTitle')
+              $('label[value=tree_map]').click(function() { return false; } );    
 
               // Disable map
               $("label[value=map]").css("opacity", .1);
-              $("label[value=map]").attr("data-original-title", "No map available")
+              $("label[value=map]").attr("data-original-title", "Un-select end year")
               $("label[value=map]").tooltip('fixTitle')
               $('label[value=map]').click(function() { return false; } );    
 
@@ -176,15 +176,17 @@
               $('label[value=stacked]').click(function() { return update_viz("stacked"); } );   
 
             }
+
+
           } else {
 
             if(current_year2=="") {
 
               // Activate Treemap
-              $("label[value=treemap]").css("opacity", 1);
-              $("label[value=treemap]").attr("data-original-title", "Treemap")
-              $("label[value=treemap]").tooltip('fixTitle')
-              $('label[value=treemap]').click(function() { return update_viz(); } );    
+              $("label[value=tree_map]").css("opacity", 1);
+              $("label[value=tree_map]").attr("data-original-title", "Treemap")
+              $("label[value=tree_map]").tooltip('fixTitle')
+              $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );    
 
               // Activate map
               $("label[value=map]").css("opacity", 1);
@@ -194,7 +196,7 @@
 
               // Disable stacked
               $("label[value=stacked]").css("opacity", .1);
-              $("label[value=stacked]").attr("data-original-title", "You need to select a time period")
+              $("label[value=stacked]").attr("data-original-title", "Select a time period")
               $("label[value=stacked]").tooltip('fixTitle')
               $('label[value=stacked]').click(function() { return false; } );    
 
@@ -202,14 +204,14 @@
             } else {
 
               // Disable Treemap
-              $("label[value=treemap]").css("opacity", .1);
-              $("label[value=treemap]").attr("data-original-title", "You need to de-select one year")
-              $("label[value=treemap]").tooltip('fixTitle')
-              $('label[value=treemap]').click(function() { return false; } );    
+              $("label[value=tree_map]").css("opacity", .1);
+              $("label[value=tree_map]").attr("data-original-title", "Un-select end year")
+              $("label[value=tree_map]").tooltip('fixTitle')
+              $('label[value=tree_map]').click(function() { return false; } );    
 
               // Disable map
               $("label[value=map]").css("opacity", .1);
-              $("label[value=map]").attr("data-original-title", "No map available")
+              $("label[value=map]").attr("data-original-title", "Un-select end year")
               $("label[value=map]").tooltip('fixTitle')
               $('label[value=map]').click(function() { return false; } );    
 
@@ -256,6 +258,9 @@
             // Automatically switch
             current_viz = "stacked";
           } 
+
+          if(current_year2=="" && current_viz == "stacked")
+            current_viz = "tree_map";
 
           // Where does United States export Crude Petroleum to?
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
@@ -530,10 +535,10 @@
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip" title="Treemap" >
               <input type="radio" id="option1" style="background:url(media/img/home/teaser_tree_map.png) no-repeat;"> <img src="media/img/home/teaser_tree_map.png" style="width:38px;"/>
             </label>
-            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="" >
+            <label value="map" id="map_viz" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Map" >
                <input type="radio" id="option1" style="background:url(media/img/home/teaser_map.png) no-repeat;"> <img src="media/img/home/teaser_map.png" style="width:38px;"/>
             </label>
-            <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="" >
+            <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Stacked Graph" >
               <input type="radio" name="viz_apps" id="option3" > <img src="media/img/home/teaser_stacked.png" style="width:38px;"/>
             </label>
           </div>
@@ -1121,7 +1126,7 @@
           
             <span class="definition" style="font-weight:bold; margin-left:20px;">Level of details:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
-              <label class="btn btn-default">
+              <label class="btn btn-default {% if app_name == "stacked" %} active {% endif %}">
                 <input type="radio" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
               </label>
 
@@ -1135,7 +1140,7 @@
                 <input type="radio" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
               </label>
               {% endif %}
-              <label class="btn btn-default active">
+              <label class="btn btn-default {% if app_name != "stacked" %} active {% endif %}">
                 <input type="radio" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
               </label>
             </div>  
@@ -1184,20 +1189,17 @@
           <a href="#"><span class="glyphicon glyphicon-camera"></span></a>
           <a href="#"></a>
     -->
+
     <div id="shareThisPlaceholder">
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this Page</h4>
-    
 
-        <a class="addthis_button_facebook" tooltipbs" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"> <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
-
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this</h4>
+        <a href="#" class="addthis_button_facebook tooltipbs" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"> <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
         <a class="addthis_button_twitter" ><img src="media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
-        <a
-        class="addthis_button_google_plusone_share" ><img src="media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
+        <a class="addthis_button_google_plusone_share" ><img src="media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
         <a class="addthis_button_email"><img src="media/img/all/email_badge.png" style="height:30px; margin: 5px 0px"/></a>
     </div>    
     <div id = "downloadPlaceholder" >
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Download</h4>
-        
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Download</h4>     
           <!--<span class="glyphicon glyphicon-save" style="margin:5px; font-size:18px; color:lightgray"></span> -->
           <a class="pdf" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">PDF</a>
           <a class="svg" href="#" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">SVG</a>
@@ -1573,8 +1575,6 @@
   // It triggers the data call to the server to fetch the data used in turn
   // to build the app. Look in viz_general.js for more info.
   
-  
-  
 
 
   // Page init scripts
@@ -1602,11 +1602,10 @@
       //$("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
       //$("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
-
     $(".tooltipbs").tooltip({delay: { show: 1500, hide: 100 }});
 
 
-  $("#country1 select").change(function() {
+    $("#country1 select").change(function() {
     $("#country1_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$(this).val()+".png') no-repeat");
     $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
     $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
@@ -1644,7 +1643,6 @@
     available_viz();
   })
 
-
   // Set which visualization is available or not
   available_viz();  
 
@@ -1657,8 +1655,8 @@
 
 
   </script>
-   {% include "story/body_story.html" %}
 
+   {% include "story/body_story.html" %}
 
   </body>
 

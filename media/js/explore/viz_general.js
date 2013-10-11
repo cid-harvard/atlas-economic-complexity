@@ -307,6 +307,20 @@
   
   set_stack_year = function(arg)
   {   
+
+    var stacked_title = d3.select('#text_title').text();
+    stacked_title = stacked_title.replace(viz.year()[0], arg[0]);
+    stacked_title = stacked_title.replace(viz.year()[1], arg[1]);
+    d3.select('#text_title').text(stacked_title);
+    
+    var href = window.location.href;
+    href = href.replace(viz.year()[0], arg[0]);
+    href = href.replace(viz.year()[1], arg[1]);  
+
+    // TODO: Check if IE compliant
+    window.history.pushState('The Atlas', d3.select('#text_title').text(), href);
+
+
     d3.select("#viz").call(viz.year([arg[0],arg[1]]))
     
     $(".dropdown_container#year_start select").val(arg[0]);
@@ -358,9 +372,20 @@
   
   set_map_year = function(arg)
   {
+    console.log(arg+"", "->", app.year()+"")
+    var map_title = d3.select('#text_title').text();
+    map_title = map_title.replace(app.year(), arg);
+    d3.select('#text_title').text(map_title);
+
+    console.log("titile", map_title, app.year(), arg)
+    
+    // TODO: Check if IE compliant
+    window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(app.year(), arg));
+
     d3.select("#viz").call(app.year(parseInt(arg)));
     // Set the controls to this year as well
     d3.select("#tool_pane").call(controls.year(arg)); 
+
   }
   
   construct_nest = function(flat)
