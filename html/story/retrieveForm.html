@@ -76,7 +76,8 @@
 		<div id="myStories" class="storyList">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %}
-				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)" > 
+				{% if mineStory %}
+				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)" > 				
 				{% for story in mineStory %}
 					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
 				{% endfor %}
@@ -92,11 +93,15 @@
 					{% endfor %} 
 					<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="deleteStory(this);"></input>
 				</div>
+				{% else %}
+				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+				{% endif %} 
 			</form>
 		</div>
 		<div id="popular" class="storyList">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
+				{% if popularStory %}
 				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
 					{% for story in popularStory %}
 					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
@@ -105,11 +110,15 @@
 				<div class="buttonSection">
 					<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
 				</div>
+				{% else %}
+				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+				{% endif %}
 		 	</form>
 		</div>
 		<div id="featured" class="storyList">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
+				{% if featureStory %}
 				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
 					{% for story in featureStory %}
 					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option>
@@ -118,27 +127,36 @@
 						<div class="buttonSection">
 							<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
 						</div>
+				{% else %}
+				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+				{% endif %}		
 			</form>
 		</div>
 		<div id="published" class="storyList">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
+				{% if publishStory %}
 				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)" >
 					{% for story in publishStory %}
 					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
 					{% endfor %}
 				</select>
 				<div class="buttonSection">
-					<input type="Submit" class="retriveButton viewButton disabled" value="View"  onclick=""></input>
 						{% for story in checkAdmin %} 
 							  {% if story.isadmin %}
+							  	<input type="Submit" class="retriveButton viewButton disabled" value="View"  onclick=""></input>							  
 								<input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url observatory.views.editStoryForm %}'"></input> 
 								<input type="button" class="retriveButton" value="Publish" id="publishButton" onclick="publishStory(this)"></input> 
 								<input type="button" class="retriveButton" value="Feature" id="featureButton" onclick="featureStory(this);"></input> 
 								<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="deleteStory(this);"></input>
+							  {% else %}
+							    <input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>							    
 							  {% endif %} 
 						{% endfor %} 
 				</div>
+				{% else %}
+				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+				{% endif %}	
 			</form>
 		</div>
 	</div>
@@ -199,6 +217,10 @@
 		});
  
  $('#browseStories').tabs({
+	 create:function(event,ui){
+    	 var id=$(ui.newPanel).prop('id');
+    	 alert(id);
+     },
 	beforeActivate: function(event ,ui){
 		var userId={{ userId }};
          if( ui.newTab.index()==0){
@@ -218,27 +240,12 @@
 	 var id=$(ui.newPanel).prop('id');
 	 var $form=$(ui.newPanel).children("form");
 	 var $stories=$form.children("select");
-	 $.ajax({
-			'type': 'POST',
-			'url':'stories/',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-			},
-			'success': function(data) {
-				console.log(data);
-				},
-			'error': function(xhr, textStatus, errorThrown) {
-				alert(error);
-			}
-		}); 
-	 $stories.focus();
 	 $stories.children('option:first-child').prop("selected","selected");
 	 $stories.children('option:first-child').focus();
-	 selectOption($stories.children('option:first-child'));
-	 
+	 $stories.focus();
+	 selectStory("#"+id);
  	}
-   
-	});	
+});	
  
  
 // $.template('storyViewTemplate', '<option value="{{story_id}}" data-publish="{{published}}" data-featured="{{featured}}" data-chaptercount="{{number_of_chapters}}">{{story_name}}</option>'); 
@@ -298,16 +305,9 @@
 				'storyId':storyId,
 			},
 			'success': function(data) {
-				var isFeatured=JSON.parse(data).isFeatured;
-				if(isFeatured)
-				{
-				$stories.children('option:selected').attr("data-featured", "True");
-				$(button).prop('value', 'Unfeature');
-				}
-			 else{
-				$stories.children('option:selected').attr("data-featured", "False");
-				$(button).prop('value', 'Feature');
-				}
+				var newDoc = document.open("text/html", "replace");
+				newDoc.write(data);
+				newDoc.close();
 			},
 			'error': function(xhr, textStatus, errorThrown) {
 			}
@@ -331,16 +331,9 @@
 				'storyId':storyId,
 			},
 			'success': function(data) {
-				var isPublished=JSON.parse(data).isPublished;
-				if(isPublished)
-				{
-				$stories.children('option:selected').attr("data-publish", "True");
-				$(button).prop('value', 'Unpublish');
-				}
-			 else{
-				$stories.children('option:selected').attr("data-publish", "False");
-				$(button).prop('value', 'Publish');
-				}	
+				var newDoc = document.open("text/html", "replace");
+				newDoc.write(data);
+				newDoc.close();
 			},
 			'error': function(xhr, textStatus, errorThrown) {
 			alert("error");
@@ -365,8 +358,9 @@
 				'storyId':storyId,
 			},
 			'success': function(data) {
-			var storyId=JSON.parse(data).storyId;
-			$stories.children('option:selected').remove();
+				var newDoc = document.open("text/html", "replace");
+				newDoc.write(data);
+				newDoc.close();
 			},
 			'error': function(xhr, textStatus, errorThrown) {
 				alert("error")
@@ -384,20 +378,49 @@ function activateTabs()
 	  $("#myStories #stories").focus();
 	  $("#myStories #stories").children('option:first-child').focus();
 	  var option=$("#myStories #stories").children('option:first-child');
-	  selectOption(option);
+	  selectStory("#myStories");
 	  {% else %}
 		  $( "#browseStories" ).tabs( "option", "active", 3 );
 		  $("#published #stories").children('option:first-child').prop("selected","selected");
 		  $("#published #stories").focus();
 		  $("#published #stories").children('option:first-child').focus();
 		  var option=$("#published #stories").children('option:first-child');
-		  selectOption(option);
+		  selectStory("#published");
 	  {% endif %}
 	  return false;
   }
-  
  
-  </script>
+ function selectStory(id)
+ {
+	 var storyId=$(id+" #stories").children('option:first-child').val();
+		var  viewhref="this.form.action='stories/view/"+storyId+"/'";
+		$(".viewButton").attr('onclick', viewhref);
+			if($(id+" #stories").children('option:selected').attr('data-publish') =="True")
+				{
+				$("#publishButton").prop('value', 'Unpublish');
+				}
+			else
+				{
+				$("#publishButton").prop('value', 'Publish');
+				}
+			if($(id+" #stories").children('option:selected').attr('data-featured')=="True")
+				{
+				$("#featureButton").prop('value',"Unfeature");
+				}
+			else
+				{
+				$("#featureButton").prop('value',"Feature");
+				}
+			if($(id+" #stories").children('option:selected').data('chaptercount')=="0")
+			{
+			$(".viewButton").addClass("disabled");
+			}
+		   else
+			{
+			$(".viewButton").removeClass("disabled");
+			}
+ }
+</script>
 </body>
  <div class="modal fade" id="dialog-modal-browseStory" role="dialog" aria-labelledby="Save Story" aria-hidden="true">
   <div class="modal-dialog">

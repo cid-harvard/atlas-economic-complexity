@@ -1362,6 +1362,16 @@ border-radius: 8px;
 box-shadow: 0 2px 4px 0px #888888;
 padding:10px;
 }
+.emptyStoryMessage
+{
+	text-align:center;
+	font-size:18px;
+}
+.emptyStoryMessage a
+{
+	color:blue !important;
+	text-decoration:underline;
+}
 #popular
 {
 	display:none;
