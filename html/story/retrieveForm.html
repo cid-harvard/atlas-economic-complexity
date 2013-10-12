@@ -397,19 +397,19 @@ function activateTabs()
 		$(".viewButton").attr('onclick', viewhref);
 			if($(id+" #stories").children('option:selected').attr('data-publish') =="True")
 				{
-				$("#publishButton").prop('value', 'Unpublish');
+				$(id+" #publishButton").prop('value', 'Unpublish');
 				}
 			else
 				{
-				$("#publishButton").prop('value', 'Publish');
+				$(id+" #publishButton").prop('value', 'Publish');
 				}
 			if($(id+" #stories").children('option:selected').attr('data-featured')=="True")
 				{
-				$("#featureButton").prop('value',"Unfeature");
+				$(id+" #featureButton").prop('value',"Unfeature");
 				}
 			else
 				{
-				$("#featureButton").prop('value',"Feature");
+				$(id+" #featureButton").prop('value',"Feature");
 				}
 			if($(id+" #stories").children('option:selected').data('chaptercount')=="0")
 			{

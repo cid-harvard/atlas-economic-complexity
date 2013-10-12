@@ -362,7 +362,7 @@ def published(request):
       updatePublishValue=observastory.objects.filter(story_id=browseStoryId).update(published=0)
      else:
       updatePublishValue=observastory.objects.filter(story_id=browseStoryId).update(published=1) 
-   return redirect(HTTP_HOST+'stories/')
+  return redirect(HTTP_HOST+'stories/')
 
 ################################################
 # featured
