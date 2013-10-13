@@ -89,7 +89,9 @@
 		{% if objstory.number_of_chapters %}   
 			<div id="editChapters">
 				<div  id="chapterList">
-            		<h2><span class="color">Chapter List</span> </h2>
+            		<h2 style="background: url('media/img/all/containers_trans.png') -43px -104px;">
+            			<span class="color">Chapter List</span>
+            	    </h2>
    				</div>  
 				<table id="sortChapters" class="queueTable" >
 					<thead>
@@ -107,8 +109,8 @@
 							<td >{{story.serial_number}}</td>
 							<td class="ctText" >{{ story.chapter_title }}</td>
 							<td class="cdText">{{ story.chapter_desc }}</td>
-							<td class="edit"><a href="#" class="editBtn"></a></td>
-							<td class="del"><a href="#" class="deleteBtn"></a></td>
+							<td class="edit"><a href="#" class="editBtn" style="background: transparent url('media/img/app/editImage.png')  no-repeat;"></a></td>
+							<td class="del"><a href="#" class="deleteBtn" style="background:transparent url('media/img/app/q-sprites.gif') 0 -64px no-repeat;"></a></td>
 						</tr>
 					{% endfor %}
 					</tbody>
@@ -121,15 +123,17 @@
     	<input type="hidden" name="chapterJson" id="chapterJson" value=""></input>
     </form>
   </div>
-  <footer>
+   <footer >
       <p>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth<br> opportunities for more than a hundred countries worldwide.</span>
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
       </p>
-      <p style="margin-left:350px; margin-right:auto; width:40%;">
-        <img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/>
-        <img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/>		
+
+      <p style="margin-left:auto; margin-right:auto; width:500px">
+        <a href="http://macroconnections.media.mit.edu/"><img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/></a>
+        <a href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/></a>
         <div class="language_select" style="float:left; margin-top:-10px">
           <div class="text">
             Language:
@@ -141,7 +145,8 @@
           </select>
         </div>
       </p>
-    </footer> 
+
+    </footer>
   </div> <!-- END #container -->
 
   <!-- The JavaScript -->

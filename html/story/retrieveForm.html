@@ -77,7 +77,7 @@
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %}
 				{% if mineStory %}
-				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)" > 				
+				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this,'myStories')" > 				
 				{% for story in mineStory %}
 					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
 				{% endfor %}
@@ -91,7 +91,7 @@
 					<input type="button" class="retriveButton" value="Feature" id="featureButton" onclick="featureStory(this)"></input> 
 					{% endif %} 
 					{% endfor %} 
-					<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="deleteStory(this);"></input>
+					<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="showConfirmDeleteDialog(this);"></input>
 				</div>
 				{% else %}
 				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
@@ -102,7 +102,7 @@
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
 				{% if popularStory %}
-				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
+				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this,'popular')"> 
 					{% for story in popularStory %}
 					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
 					{% endfor %}
@@ -119,7 +119,7 @@
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
 				{% if featureStory %}
-				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)"> 
+				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this,'featured')"> 
 					{% for story in featureStory %}
 					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option>
 					{% endfor %}
@@ -136,7 +136,7 @@
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
 				{% if publishStory %}
-				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this)" >
+				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this, 'published')">
 					{% for story in publishStory %}
 					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
 					{% endfor %}
@@ -148,7 +148,7 @@
 								<input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url observatory.views.editStoryForm %}'"></input> 
 								<input type="button" class="retriveButton" value="Publish" id="publishButton" onclick="publishStory(this)"></input> 
 								<input type="button" class="retriveButton" value="Feature" id="featureButton" onclick="featureStory(this);"></input> 
-								<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="deleteStory(this);"></input>
+								<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="showConfirmDeleteDialog(this);"></input>
 							  {% else %}
 							    <input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>							    
 							  {% endif %} 
@@ -162,15 +162,17 @@
 	</div>
 </div>
 		<!-- END #main -->
-    <footer>
+     <footer >
       <p>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth<br> opportunities for more than a hundred countries worldwide.</span>
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
       </p>
-      <p style="margin-left:350px; margin-right:auto; width:40%;">
-        <img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/>
-        <img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/>		
+
+      <p style="margin-left:auto; margin-right:auto; width:500px">
+        <a href="http://macroconnections.media.mit.edu/"><img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/></a>
+        <a href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/></a>
         <div class="language_select" style="float:left; margin-top:-10px">
           <div class="text">
             Language:
@@ -181,8 +183,9 @@
             {% endfor %}
           </select>
         </div>
-    </p>
-   </footer>
+      </p>
+
+    </footer>
   </div> <!-- END #container -->
 
   <!-- The JavaScript -->
@@ -215,12 +218,11 @@
 		show: false,
 		keyboard: false
 		});
- 
+ $('dialog-modal-confirmDelete').modal({
+		show: false,
+		keyboard: false
+		});
  $('#browseStories').tabs({
-	 create:function(event,ui){
-    	 var id=$(ui.newPanel).prop('id');
-    	 alert(id);
-     },
 	beforeActivate: function(event ,ui){
 		var userId={{ userId }};
          if( ui.newTab.index()==0){
@@ -257,26 +259,27 @@
 /**
 * check state of story on selection
 */
- function selectOption(option)
+ function selectOption(option,storyType)
   {
+	var tabId="#"+storyType;
 	var storyId=$(option).val();
 	var  viewhref="this.form.action='stories/view/"+storyId+"/'";
 	$(".viewButton").attr('onclick', viewhref);
 		if($(option).children('option:selected').attr('data-publish') =="True")
 			{
-			$("#publishButton").prop('value', 'Unpublish');
+			$(tabId+" #publishButton").prop('value', 'Unpublish');
 			}
 		else
 			{
-			$("#publishButton").prop('value', 'Publish');
+			$(tabId+" #publishButton").prop('value', 'Publish');
 			}
 		if($(option).children('option:selected').attr('data-featured')=="True")
 			{
-			$("#featureButton").prop('value',"Unfeature");
+			$(tabId+" #featureButton").prop('value',"Unfeature");
 			}
 		else
 			{
-			$("#featureButton").prop('value',"Feature");
+			$(tabId+" #featureButton").prop('value',"Feature");
 			}
 		if($(option).children('option:selected').data('chaptercount')=="0")
 		{
@@ -368,6 +371,17 @@
 		});
  }
  /**
+  * show confirm delete message
+  */
+ function showConfirmDeleteDialog(option)
+ {
+ $("#dialog-modal-confirmDelete").modal('show');
+ $("#deleteConfirmed").on("click",function(){
+	 deleteStory(option);
+ });
+ }
+
+ /**
   * activate tab based on type of user
   */
 function activateTabs()
@@ -392,7 +406,7 @@ function activateTabs()
  
  function selectStory(id)
  {
-	 var storyId=$(id+" #stories").children('option:first-child').val();
+	    var storyId=$(id+" #stories").children('option:first-child').val();
 		var  viewhref="this.form.action='stories/view/"+storyId+"/'";
 		$(".viewButton").attr('onclick', viewhref);
 			if($(id+" #stories").children('option:selected').attr('data-publish') =="True")
@@ -440,4 +454,16 @@ function activateTabs()
     </div>
   </div>
 </div>
-
+<div class="modal fade" id="dialog-modal-confirmDelete"  role="dialog" aria-labelledby="Confirm Delete" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h2 >Are you sure?</h2> 
+      </div>
+      <div class="modal-footer">
+       <button type="button" id="deleteConfirmed" class="btn btn-default" data-dismiss="modal" >Ok</button>
+       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

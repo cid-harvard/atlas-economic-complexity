@@ -481,7 +481,7 @@ def browsestories(request,browseStoryId):
   request.session['browseStoryName']=storyDetals.story_name
   request.session['browseStoryDesc']=storyDetals.story_desc
   #Get chapter ids and remove unicode
-  browseStoryChapIds=storychapter.objects.values_list('serial_number', flat=True).filter(story_id=browseStoryId)
+  browseStoryChapIds=storychapter.objects.values_list('serial_number', flat=True).filter(story_id=browseStoryId).order_by('serial_number')
   browseStoryChapIdsToSring=str(browseStoryChapIds)[1:-1]
   browseStoryChapIdsRemoveL=browseStoryChapIdsToSring.replace('L','')
   browseStoryChapIdsToArray=browseStoryChapIdsRemoveL.split(",")
@@ -558,7 +558,6 @@ def browseStoryNext(request):
   chapterUrl=chapterDetails.chapter_url
   #Redirect url
   return redirect(chapterUrl)
-
   browseStoryChapIds=[]
 ###########################################################
 #prev browse story
