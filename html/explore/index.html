@@ -21,7 +21,7 @@
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
   
-  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="media/css/normalize.css">
   <link rel="stylesheet" href="media/css/style.css">
   <link rel="stylesheet" href="media/js/libs/toastr/toastr.min.css" />
@@ -32,6 +32,7 @@
 
   <link rel="stylesheet" href="media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
   <!-- VizWiz -->
+
   <link href="media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
   
   <!--[if lt IE 9]>
@@ -1298,17 +1299,17 @@
 
       <!-- The right pane -->
       <div id="tool_pane" style="width:50px">
-	<div id= "createStoryPlaceHolder"   >
-        <h4 id="sidebar-create-story" class="tooltipbs" data-toggle="tooltip" data-placement="top" title="Create stories" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Tell-a-Story</h4>
+	     <div id= "createStoryPlaceHolder">
+        <h4 id="sidebar-create-story" class="tooltipbs" data-toggle="tooltip" data-placement="top" title="Create stories" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Create-a-Story</h4>
 
 
-        <span class="glyphicon glyphicon-plus-sign tooltipbs" data-placement="right" data-toggle="tooltip" title="Create a new story" onclick="showCreateStoryDialog()"></span>
-        <span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');"></span>
+        <span class="glyphicon glyphicon-plus-sign tooltipbs" data-placement="right" data-toggle="tooltip" {% if not iscreatemode %} title="Create a new story" onclick="showCreateStoryDialog()" {% endif %}  {% if iscreatemode %}  style="color:lightgray" title="Story is under construction!" {% endif %}></span>
+        <!--<span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');"></span>-->
            
 
        {% if iscreatemode %}
-         <span class="glyphicon glyphicon-plus" onclick="openCreateChapterDialog()"></span>
-         <span class="glyphicon glyphicon-stop" onclick="endStory()"></span>
+         <span class="glyphicon glyphicon-plus tooltipbs" data-placement="right" data-toggle="tooltip" onclick="openCreateChapterDialog()" title="Add a new chapter"></span>
+         <span class="glyphicon glyphicon-stop tooltipbs" data-placement="right" data-toggle="tooltip" onclick="endStory()" title="End the story" style="margin-left: 4px"></span>
        {% endif %}   
 
        <br/>
@@ -1321,19 +1322,22 @@
 
     <div id="shareThisPlaceholder">
 
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share this</h4>
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share</h4>
 
         <a href="#" class="addthis_button_facebook tooltipbs" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"> <img src="media/img/all/facebook_badge.png" style="height:30px; margin: 5px 0px"/></a> 
         <a class="addthis_button_twitter" ><img src="media/img/all/twitter_badge.png" style="height:30px; margin: 5px 0px"/></a>
         <a class="addthis_button_google_plusone_share" ><img src="media/img/all/googleplus_badge.png" style="height:30px; margin: 5px 0px"/></a>
         <a class="addthis_button_email"><img src="media/img/all/email_badge.png" style="height:30px; margin: 5px 0px"/></a>
+
+       <br/>
+       
+       <br/>
     </div>    
     <div id = "downloadPlaceholder" >
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Download</h4>    
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>    
 
         <div class="control_container" id="download">
       
-
           <!--<span class="glyphicon glyphicon-save" style="margin:5px; font-size:18px; color:lightgray"></span> -->
           <a class="pdf" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">PDF</a>
           <a class="svg" href="#" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">SVG</a>
@@ -1346,7 +1350,7 @@
 
         <br>
 
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center;">Feedback</h4>
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">Feedback</h4>
     
         <a href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank"><span class="glyphicon glyphicon-envelope" style="margin:5px; font-size:18px; color:lightgray"></span></a>
             <br/>       <br/>

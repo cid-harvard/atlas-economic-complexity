@@ -46,6 +46,7 @@ dl dd {
   pointer-events: none;
 }
 
+/*
 button {
   font-family: 'PT Sans Narrow',Helvetica,Arial;
   text-decoration: none;
@@ -79,7 +80,7 @@ button:active {
   background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#999));
   background:-moz-linear-gradient(0% 90% 90deg, #888, #999);
 }
-
+*/
 font.definition {
   transition: 0s border-bottom;
 }
@@ -1323,9 +1324,9 @@ float: right;
 z-index:1001;
 padding-bottom: 30px;
 margin:20px 0px 30px 0px;
-box-shadow:0 2px 4px 2px #888888;
 float:left;
 }
+
 #browseTitle
 {
 	height:15%;
