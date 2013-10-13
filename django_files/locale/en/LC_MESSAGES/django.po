@@ -43,26 +43,26 @@ msgstr "Products"
 msgid "Bilateral"
 msgstr "Bilateral"
 
-msgid "Exports"
-msgstr "Exports"
+msgid "Export"
+msgstr "Export"
 
 msgid "Imports"
 msgstr "Imports"
 
-msgid "Net Exports"
-msgstr "Net Exports"
+msgid "Net Export"
+msgstr "Net Export"
 
 msgid "Net Imports"
 msgstr "Net Imports"
 
-msgid "Exports To Destination"
-msgstr "Exports To Destination"
+msgid "Export To Destination"
+msgstr "Export To Destination"
 
 msgid "Imports From Origin"
 msgstr "Imports From Origin"
 
-msgid "Exports by Product"
-msgstr "Exports by Product"
+msgid "Export by Product"
+msgstr "Export by Product"
 
 msgid "Imports by Product"
 msgstr "Imports by Product"
