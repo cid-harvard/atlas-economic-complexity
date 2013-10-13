@@ -311,9 +311,9 @@
   float: left;
   margin: 0 27px 15px 0;
 }
-#main #content .other_apps div a{
+#main #content .other_apps div a {
   display: inline-block;
-  border: solid 2px #ccc;
+  border: solid 2px white;
   padding: 10px;
 }
 #main #content .other_apps div a:hover{
@@ -459,19 +459,40 @@
     </div>
 -->
 
-    
-  <a href="http://www.youtube.com/watch?v=bqNHKke7jqY&feature=c4-overview&list=UUW1gPGq7LEQCQujj-qgq6VQ">
+      <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg"></a>
+
 
     <div class="other_apps_first other_apps" style="float:left;width:370px; height:180px; padding:5px; margin-left:20px;border:1px solid lightgray; background-color:#fafafa;">
      
-     <div style="width:190px; height:160px;">
-<h3>Learn About<br> <span style="text-transform: uppercase;">The Atlas</span></h3> 
-      <p>The Observatory is a powerful interactive tool that enables users to visually mapvisualize trade flows among countries and products, and explore productive opportunities...</p>
-</div>
+      <div style="width:190px; height:160px;">
+        <h3>Learn About<br> <span style="text-transform: uppercase;">The Atlas</span></h3> 
+        <p>The Observatory is a powerful interactive tool that enables users to visually mapvisualize trade flows among countries and products, and explore productive opportunities...</p>
+      </div>
       <div style="background:url('media/img/home/teaser_video_obs.png') no-repeat; background-size:130px 130px; width:130px; height:160px;"></div>   
       
     </div>
-  </a>
+    
+
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          test
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
 
   <p style="clear:both"></p>
 
@@ -485,48 +506,31 @@
  
 <style>
 
-.products-tmb {
+
+.products-tmb, a.products-tmb {
   float:left;
   width: 50px;
   height: 50px;
   margin: 5px;
-  border: 1px solid white;
+  width: 30px; 
+  height:30px; 
 }
 
 .products-tmb:hover {
-  border: 1px solid lightgray;
+  border: solid 2px #ccc;
 
 }
 
 </style>
 
-  <a href="explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2010/">
     <div class="other_apps" style="float:left; width:455px; margin:20px; border: solid 1px lightgray;">
       <h3 style="float:left; margin-left:50px;font-size:30px">Browse Products »</h3><p style="clear:both">
       <div style="padding-left:20px; padding-bottom:30px">
-        <a href="explore/tree_map/export/show/all/0101/2010/"> <div style="background: url('media/img/icons/community_101.png') no-repeat; background-size:50px;" class="products-tmb"> </div> </a>
-        <div style="background: url('media/img/icons/community_10.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_20.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_30.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_40.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_50.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_60.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_70.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_80.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_20.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_10.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_0.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_10.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_20.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_30.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_40.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_50.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_60.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_70.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
-        <div style="background: url('media/img/icons/community_80.png') no-repeat; background-size:50px;" class="products-tmb"> </div>
+        <a href="explore/tree_map/export/show/all/0101/2010/" class="products-tmb" style="background: url('media/img/icons/community_10.png') no-repeat; background-size:50px;" title="Click to view product"></a>
+        <a href="explore/tree_map/export/show/all/0102/2010/" class="products-tmb" style="background: url('media/img/icons/community_81.png') no-repeat; background-size:50px;"></a>
+
       </div>
     </div> 
-  </a>
 
 
 {% endblock %}
@@ -557,6 +561,23 @@
 <script src="media/js/libs/d3/d3.v3.min.js"></script>
 <script src="media/js/libs/d3/d3.geo.projection.min.js"></script>
 <script src="media/js/libs/d3/topojson.min.js"></script>
+
+
+<script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+
+
+
+<script>
+$(function() {
+
+  $('#myModal').modal({
+    show: false,
+    keyboard: false
+    });
+
+});
+</script>
+
 <script>
 
 var ratio = window.devicePixelRatio || 1,
