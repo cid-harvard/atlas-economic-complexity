@@ -423,17 +423,13 @@
         } else if($(".main-countries-products").find(".active").index()==1) {
 
           // Product space or diversification?
-
-
           var current_viz = (typeof viz != "undefined" )  ? viz : $("#div_apps").find(".active").attr("value");
 
-          // Can 
           current_product_trade_flow = "export";
 
 
           current_country1 = $("#country1").find(":selected").val();
           console.log("diver", current_viz, current_country1)
-
 
           var current_product = $("#product").find(":selected").val();
           var current_product_trade_flow = $("#product-trade-flow").find(":selected").val();
@@ -447,12 +443,17 @@
           // Product space http://127.0.0.1:8000/explore/product_space/export/usa/all/show/2011/
           url += current_viz+"/"+current_product_trade_flow+"/"+current_country1+"/"+"all/show/"+current_year1+"/";
           
-          console.log("url", url)
+          // Make sure we have country for product space and diversity
+          if( (current_viz == "product_space" || current_viz=="pie_scatter") && current_country1 == "") {
+            alert("Please select at least one country");  
+            return;
+          } 
+
           window.location.assign(url);
 
 
         } else {
-          console.log("ERROR IN SELECTEC COUNTRIES/PRODUCTS TAB");
+          console.log("ERROR IN SELECTING COUNTRIES/PRODUCTS TAB");
 
         }
 
