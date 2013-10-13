@@ -1257,7 +1257,7 @@ margin: 4px auto;
 color: #339;
 font-weight: bold;
 text-decoration: none;
-background: transparent url('/media/img/app/q-sprites.gif') 0 -64px no-repeat;
+background: transparent url('media/img/app/q-sprites.gif') 0 -64px no-repeat;
 }
 .editBtn
 {
@@ -1268,12 +1268,10 @@ margin: 4px auto;
 color: #339;
 font-weight: bold;
 text-decoration: none;
-background: transparent url('/media/img/app/editImage.png')  no-repeat;
+background: transparent url('media/img/app/editImage.png')  no-repeat;
 }
-#editChapters h2
+#chapterList h2
 {
-background: url('/media/img/all/containers_trans.png') no-repeat;
-background-position: -43px -104px;
 background-repeat: repeat-x;
 font: bold 10pt/1em Arial, Geneva, sans-serif;
 border-bottom: 1px solid #D9D5BE;
@@ -1283,6 +1281,7 @@ color: #343434;
 position: relative;
 font-size:14px;
 }
+
  #editChapters .color
 {
 	color: #343434;
