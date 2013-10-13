@@ -52,9 +52,14 @@
           <li><a href="about">About</a></li>
         </ul>
       </nav> 
+
      
       <br class="clear">
     </header>
+
+
+
+
     {% if  userId  %}
       <div id="userSession">
        <button id="logoutBtn"  onclick="location.href='logout/'">Logout</button>	
@@ -62,13 +67,13 @@
       </div>
     {% endif %}
     <div style="clear:both"></div>
-    <div id="browseMain">
-		<div id="browseTitle">
-			<h1 align="center">Browse Stories</h1>
-		</div>
+    <div id="browseMain" style="width:900px; margin-left:150px">
+		<div class="app_title" id="title">
+        <h2 style="margin-left:100px; width:700px;" id="text_title">Browse Stories</h2>
+      </div>
 		<div id="browseStories">
 			<ul>
-				<li><a href="stories/#myStories">Mine</a></li>
+				<li><a href="stories/#myStories">Mine (<img src="media/img/all/googleplus_badge.png" style="height:15px;"><img src="media/img/all/facebook_badge.png" style="height:15px; margin-left: 5px">)</a></li>
 				<li><a href="stories/#popular">Popular</a></li>
 				<li><a href="stories/#featured">Featured</a></li>
 				<li style="width:14%;"><a href="stories/#published" style="padding-left:20%;">All Stories</a></li>
@@ -441,7 +446,7 @@ function activateTabs()
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Login to Browse Stories</h4>
+        <h4 class="modal-title">Login to browse your own stories</h4>
       </div>
        <form  id="saveDataInDB"  method="post" action='stories/'>
       <div class="modal-body">
