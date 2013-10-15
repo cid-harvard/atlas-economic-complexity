@@ -475,7 +475,8 @@
       </div>
       
       <br style="clear:both">
-	 
+	 {% if isbrowsemode %}
+	 {% else %}
       <!-- The left pane -->
       <div id="app_pane" style="width:230px; height:550px">
         <div class="tab-content" style="height:400px">
@@ -624,12 +625,12 @@
 
                 <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
                   <label value="product_space" type="radio"  class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left" onclick="update_viz('product_space');"><input type="radio" name="viz_apps">
-                    <img src="media/img/home/pie_new.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
+                    <img src="media/img/home/teaser_product_space.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
                   </label>
               <br><br>
                 
                <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps">
-               <img src="media/img/home/teaser_product_space.png" style="width:50px;"/> <b>Products Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label>
+               <img src="media/img/home/pie_new2.png" style="width:50px;"/> <b>Product Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label>
 
             </div>
                
@@ -957,10 +958,10 @@
           </div>
         </div>-->
       </div> <!-- END app selection pane -->
-      
+      {% endif %}
       <!-- the Visualization -->
-      <div id="content" style="width: 750px; min-height:600px;">
-		{% if isbrowsemode %}
+    {% if isbrowsemode %}
+         <div id="content" style="width: 95%; min-height:600px;">
 			<div style="margin-left: 20px; width: 75%; float:left">
 				<h2>{{ browseStoryName }}</h2>
 				<p>{{ browseStoryDesc }}</p>
@@ -970,7 +971,37 @@
 				onclick="location.href='endbrowsestory/',clearLocalStorage()">Exit</button>
 			</div>
 			<div style="clear:both"></div>
-		{% endif %}
+        <!-- ajax loading gif -->
+        <div id="loader">
+          <img src="media/img/all/loader.gif" alt="loading" /><br />Loading...
+        </div>
+        
+        <!-- the canvas for the visualization -->
+        <div id="text_data">
+
+        </div>
+        
+        <!-- Container for the visualization -->
+        <div id="viz" style="width: 100%; min-height:520px"></div>
+        
+        <!-- Container for the key/legend -->
+        <div class="key {{prod_class}}" style="min-height:50px"></div>
+			<div style="margin-left: 20px; width: 80%;">
+				<h3 style="margin-bottom: 0px;">{{ browseChapterName }}</h3>
+				<p>{{ browseChapterDesc }}</p>
+			</div>
+		<div class="BrowseNextPrev">
+				<div style="clear: both;"></div>
+				<button id="BrowsePrev" class="BrowsePrev" onclick="checkChapterCount(-1)">Prev</button>	
+				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button> 
+				{% if userId %}
+				<a><img src="media/img/app/like.png" id="likeImage" alt="like" /></a>
+                   <h3 id="likeCount">{{likeCount}} Likes</h3>
+				{% endif %}	
+		</div> 
+</div>      
+    {% else %}
+      <div id="content" style="width: 750px; min-height:600px;">
         <!-- ajax loading gif -->
         <div id="loader">
           <img src="media/img/all/loader.gif" alt="loading" /><br />Loading...
@@ -986,21 +1017,6 @@
         
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
-        {% if isbrowsemode %}
-			<div style="margin-left: 20px; width: 80%;">
-				<h3 style="margin-bottom: 0px;">{{ browseChapterName }}</h3>
-				<p>{{ browseChapterDesc }}</p>
-			</div>
-			<div class="BrowseNextPrev">
-				<div style="clear: both;"></div>
-				<button id="BrowsePrev" class="BrowsePrev" onclick="checkChapterCount(-1)">Prev</button>	
-				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button> 
-				{% if userId %}
-				<a><img src="media/img/app/like.png" id="likeImage" alt="like" /></a>
-                   <h3 id="likeCount">{{likeCount}} Likes</h3>
-				{% endif %}	
-			</div>       
-       {% endif %}
         <!-- Container for the timeline -->
          <div id="timeline">
           <div class="ui_bottom" id="ui_bottom" style="bottom:0px">
@@ -1253,7 +1269,7 @@
           
         <div class="product_class" style="float:left;">
           
-            <span class="definition" style="font-weight:bold; margin-left:20px;">Level of details:</span>
+            <span class="definition" style="font-weight:bold; margin-left:20px;">Level of detail:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
               <label class="btn btn-default {% if app_name == "stacked" %} active {% endif %}">
                 <input type="radio" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
@@ -1276,11 +1292,10 @@
           </div>
         {% endif %}
       {% endif %}
-
-          
-        </div>
-       </div>  
+	</div>
+ </div>  
            
+       {% endif %}
 
        <style>
 
@@ -1299,13 +1314,12 @@
 
       <!-- The right pane -->
       <div id="tool_pane" style="width:50px">
-	     <div id= "createStoryPlaceHolder">
+      {% if isbrowsemode %}
+      {% else %}
+      <div id= "createStoryPlaceHolder">
         <h4 id="sidebar-create-story" class="tooltipbs" data-toggle="tooltip" data-placement="top" title="Create stories" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Create-a-Story</h4>
-
-
-        <span class="glyphicon glyphicon-plus-sign tooltipbs" data-placement="right" data-toggle="tooltip" {% if not iscreatemode %} title="Create a new story" onclick="showCreateStoryDialog()" {% endif %}  {% if iscreatemode %}  style="color:lightgray" title="Story is under construction!" {% endif %}></span>
+		<span class="glyphicon glyphicon-plus-sign tooltipbs" data-placement="right" data-toggle="tooltip" {% if not iscreatemode %} title="Create a new story" onclick="showCreateStoryDialog()" {% endif %}  {% if iscreatemode %}  style="color:lightgray" title="Story is under construction!" {% endif %}></span>
         <!--<span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');"></span>-->
-           
 
        {% if iscreatemode %}
          <span class="glyphicon glyphicon-plus tooltipbs" data-placement="right" data-toggle="tooltip" onclick="openCreateChapterDialog()" title="Add a new chapter"></span>
@@ -1315,6 +1329,8 @@
        <br/>
        <br/>
        </div>
+      {% endif %}   
+       
           <!--
           <a href="#"><span class="glyphicon glyphicon-camera"></span></a>
           <a href="#"></a>
@@ -1332,7 +1348,9 @@
        <br/>
 
        <br/>
-    </div>    
+    </div> 
+     {% if isbrowsemode %}
+     {% else %}   
     <div id = "downloadPlaceholder" >
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>    
 
@@ -1355,6 +1373,7 @@
         <a href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank"><span class="glyphicon glyphicon-envelope" style="margin:5px; font-size:18px; color:lightgray"></span></a>
             <br/>       <br/>
     </div>
+    {% endif %}
         <!--
         <!-- Trade Flow 
         {% if app_name != "pie_scatter" %}
@@ -1790,7 +1809,6 @@
 
 //To display visualization in full screen ,while viewing stories
   var contentWidth=$("#content").width();
-  
   build_viz_app(api_uri,contentWidth,520);    
 
 });

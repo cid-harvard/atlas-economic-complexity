@@ -2,3 +2,4 @@ Django==1.4.5
 MySQL-python
 numpy
 msgpack-python
+pycrypto==2.6

@@ -23,6 +23,7 @@ from django.db.models import Max
 from django.forms import ModelForm
 import msgpack
 import re
+import fpe
 # Import for cache
 if settings.REDIS:
   from django.core.cache import cache, get_cache
@@ -42,7 +43,16 @@ if not settings.HTTP_HOST:
   HTTP_HOST = '/'
 else:
   HTTP_HOST = settings.HTTP_HOST
+  
+if not settings.SECRET_KEY:
+  SECRET_KEY = 'my_pets_name_is_eloise'
+else:
+  SECRET_KEY = settings.SECRET_KEY
 
+#object used to Encrypt/Decrypt
+#####################################
+fpe_obj = fpe.FPEInteger(key=b'mypetsnameeloise', radix=10, width=10)
+  
 #####################################
 #create story
 #####################################
@@ -235,32 +245,32 @@ def browseStoryForm(request):
     for mineStory in dictMineStory:
      story_ids= mineStory['story_id']
      #encrypt story_id
-     story_ids=int(story_ids)*777
-     mineStory['story_id'] = base64.b64encode(str(story_ids))
+     story_ids=int(story_ids)
+     mineStory['story_id'] = fpe_obj.encrypt(story_ids)
     #Get Feature story details
     dictFeatureStory={}
     dictFeatureStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(Q(featured=1) & (Q(published=1))).order_by('-story_id')
     for featureStory in dictFeatureStory:
      story_ids= featureStory['story_id']
      #encrypt story_id
-     story_ids=int(story_ids)*777
-     featureStory['story_id'] = base64.b64encode(str(story_ids))
+     story_ids=int(story_ids)
+     featureStory['story_id'] = fpe_obj.encrypt(story_ids)
     #Get Popular story details
     dictPopularStory={}
     dictPopularStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1).order_by('-likecount')[0:10]
     for popularStory in dictPopularStory:
      story_ids= popularStory['story_id']
      #encrypt story_id
-     story_ids=int(story_ids)*777
-     popularStory['story_id'] = base64.b64encode(str(story_ids))
+     story_ids=int(story_ids)
+     popularStory['story_id'] = fpe_obj.encrypt(story_ids)
     #Get Publish story details
     dictPublishStory={}
     dictPublishStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(published=1).order_by('-story_id')
     for publishStory in dictPublishStory:
      story_ids= publishStory['story_id']
      #encrypt story_id
-     story_ids=int(story_ids)*777
-     publishStory['story_id'] = base64.b64encode(str(story_ids))
+     story_ids=int(story_ids)
+     publishStory['story_id'] = fpe_obj.encrypt(story_ids)
     return render_to_response('story/retrieveForm.html',{
         'publishStory':dictPublishStory,
 	'checkAdmin':checkAdmin,
@@ -291,8 +301,7 @@ def editStoryForm(request):
    #Get editstoryid
    editStoryIdWithEncode=request.POST["Stories"]
    #Decrypt edit storyid
-   editStoryId = base64.b64decode(editStoryIdWithEncode)
-   editStoryId=int(editStoryId)/777
+   editStoryId = fpe_obj.decrypt(int(editStoryIdWithEncode))
    request.session['editStoryId']=editStoryId
   editStoryId=request.session['editStoryId']
   #Get story details
@@ -353,8 +362,8 @@ def updateEditForm(request):
 def published(request):
   if request.is_ajax():
    browseStoryId=request.POST.get('storyId')
-   browseStoryId=base64.b64decode(browseStoryId)
-   browseStoryId=int(browseStoryId)/777
+   browseStoryId=fpe_obj.decrypt(int(browseStoryId))
+   #browseStoryId=int(browseStoryId)/777
    browseStroyIdPublish=observastory.objects.values_list('published').filter(story_id=browseStoryId)
    for publishValue in browseStroyIdPublish:
     for value in publishValue:
@@ -370,8 +379,8 @@ def published(request):
 def featured(request):
    if request.is_ajax():
     browseStoryId=request.POST.get('storyId')
-    browseStoryId=base64.b64decode(browseStoryId)
-    browseStoryId=int(browseStoryId)/777
+    browseStoryId=fpe_obj.decrypt(int(browseStoryId))
+    #browseStoryId=int(browseStoryId)/777
     browseStroyIdFeature=observastory.objects.values_list('featured').filter(story_id=browseStoryId)
     for featureValue in browseStroyIdFeature:
      for value in featureValue:
@@ -427,8 +436,8 @@ def deleteStory(request):
   if 'userid'  in request.session:
    if request.is_ajax():
     deleteStoryId=request.POST.get('storyId')
-    deleteStoryId=base64.b64decode(deleteStoryId)
-    deleteStoryId=int(deleteStoryId)/777
+    deleteStoryId=fpe_obj.decrypt(int(deleteStoryId))
+    #deleteStoryId=int(deleteStoryId)/777
     chapterIds=storychapter.objects.filter(story_id=deleteStoryId)
     if chapterIds is not None:
      deleteStory=storychapter.objects.filter(story_id=deleteStoryId).delete()
@@ -493,7 +502,7 @@ def browsestories(request,browseStoryId):
    if browseModeIndex == len(browseStoryChapterIds):
     browseModeIndex=0
   #Get sessions varibales  
-  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[browseModeIndex])]
+  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[browseModeIndex],story_id=browseStoryId)]
   request.session['sesBrowseModeIndex']=browseModeIndex
   #remove unicode from session variable and set session variable
   for browseStorySesData in browseStorySesVar:
@@ -515,8 +524,8 @@ def browsestories(request,browseStoryId):
    return redirect(chapterUrl)
 def viewStory(request,browseStoryId):
   #Get browse story id and decrypt story id
-  browseStoryId=base64.b64decode(browseStoryId)
-  browseStoryId=int(browseStoryId)/777
+  browseStoryId=fpe_obj.decrypt(int(browseStoryId))
+  #browseStoryId=int(browseStoryId)/777
   return render_to_response('story/viewStory.html',{'browseStoryId':browseStoryId},context_instance=RequestContext(request))
 
 ####################################################################
@@ -539,7 +548,7 @@ def browseStoryNext(request):
    if index == len(browseStoryChapIds):
     index=0 
   #Get session variables
-  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapIds[index])]
+  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapIds[index],story_id=browseStoryId)]
   request.session['index']=index
   for browseStorySesData in browseStorySesVar:
    browseStorySesDataToArray=browseStorySesData.split(',')
@@ -580,7 +589,7 @@ def browseStoryPrev(request):
    index=index-1
    request.session['index']=index
   #Get session variables
-  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[index])]
+  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[index],story_id=browseStoryId)]
   for browseStorySesData in browseStorySesVar:
    browseStorySesDataToArray=browseStorySesData.split(',')
    for  indexvar in range(0, len(browseStorySesDataToArray)):
@@ -1067,9 +1076,9 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     if app_type == "casy":
       # raise Exception(app_name)
       if app_name == "pie_scatter":
-        title = "What products are feasible for %s?" % countries[0].name
+        title = "Which products are feasible for %s?" % countries[0].name
       elif app_name == "product_space":
-        title = "How nearby are %s products in %s?" % (countries[0].name, year)       # INSERTED NEW TITLE HERE
+        title = "What did the %s export in %s?" % (countries[0].name, year)       # INSERTED NEW TITLE HERE
       elif app_name == "stacked":
         title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE
       else:
@@ -1085,7 +1094,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     # Product
     elif app_type == "sapy":
       item_type = "countries"
-      title = "Who did %ss %s in %s?" % (trade_flow.replace("_", " "), product.name_en, year)
+      title = "Who %sed %s in %s?" % (trade_flow.replace("_", " "), product.name_en, year)
       prod_or_partner = "product"
       
     # Bilateral Country x Country
