@@ -8,12 +8,18 @@ from django.views.generic import TemplateView, RedirectView
 # sitemap
 from django.conf.urls.defaults import *
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
+from django.conf import settings
 
 
 sitemaps = {
     'flatpages': FlatPageSitemap,
 }
 
+
+if not settings.HTTP_HOST:
+  HTTP_HOST = '/'
+else:
+  HTTP_HOST = settings.HTTP_HOST
 
 class TextPlainView(TemplateView):
   def render_to_response(self, context, **kwargs):
@@ -92,7 +98,7 @@ urlpatterns = patterns('',
   (r'^app/(?P<app_name>[a-z0-9_]+)/(?P<trade_flow>\w{6,10})/(?P<filter>[a-z0-9\.]+)/(?P<year>[0-9\.]+)/$', 'observatory.views.app_redirect'),
   
   # New app URL structure
-  (r'^explore/$', RedirectView.as_view(url='/explore/tree_map/export/usa/all/show/2011/')), 
+  (r'^explore/$', RedirectView.as_view(url=HTTP_HOST+'explore/tree_map/export/usa/all/show/2011/')), 
   (r'^explore/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/(?P<year>[0-9\.]+)/$', 'observatory.views.explore'),
   (r'^explore/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/$', 'observatory.views.explore'),
   
