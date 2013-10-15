@@ -120,13 +120,6 @@ if(localStorage.getItem("chapterCount")==null)
 localStorage.setItem("chapterCount","1");
 }	
   var noOfChapters={{NoOfChapter}};
-  $("#timeline").hide();
-  $("#app_pane").hide();
-  //$("#tool_pane").hide();
-  $("#downloadPlaceholder").hide();
-  $("#createStoryPlaceHolder").hide();
-  $("#content").css("width","95%");
-  $("#viz").css("width","100%");
   $("footer").css("margin-left","0");
   $('.app #loader ').css("margin","auto");
   {% if app_name == "map" %}

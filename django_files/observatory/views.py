@@ -502,7 +502,7 @@ def browsestories(request,browseStoryId):
    if browseModeIndex == len(browseStoryChapterIds):
     browseModeIndex=0
   #Get sessions varibales  
-  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[browseModeIndex])]
+  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[browseModeIndex],story_id=browseStoryId)]
   request.session['sesBrowseModeIndex']=browseModeIndex
   #remove unicode from session variable and set session variable
   for browseStorySesData in browseStorySesVar:
@@ -548,7 +548,7 @@ def browseStoryNext(request):
    if index == len(browseStoryChapIds):
     index=0 
   #Get session variables
-  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapIds[index])]
+  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapIds[index],story_id=browseStoryId)]
   request.session['index']=index
   for browseStorySesData in browseStorySesVar:
    browseStorySesDataToArray=browseStorySesData.split(',')
@@ -589,7 +589,7 @@ def browseStoryPrev(request):
    index=index-1
    request.session['index']=index
   #Get session variables
-  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[index])]
+  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[index],story_id=browseStoryId)]
   for browseStorySesData in browseStorySesVar:
    browseStorySesDataToArray=browseStorySesData.split(',')
    for  indexvar in range(0, len(browseStorySesDataToArray)):
