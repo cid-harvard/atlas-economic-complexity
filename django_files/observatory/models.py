@@ -101,7 +101,6 @@ class Country_region(models.Model):
 	color = models.CharField(max_length=7, null=True)
 	text_color = models.CharField(max_length=7, null=True)
 
-
 	class Meta:
 		db_table = DB_PREFIX+"observatory_country_region"
 
@@ -136,7 +135,7 @@ class Country_manager(models.Manager):
 class Country(models.Model):
 
 	class Meta:
-		db_table = settings.DB_PREFIX+"observatory_country"
+		db_table = DB_PREFIX+"observatory_country"
 
 	name = models.CharField(max_length=200)
 	name_numeric = models.PositiveSmallIntegerField(max_length=4, null=True)
@@ -705,6 +704,10 @@ class Sitc4_ccpy_manager(models.Manager):
 		# 	meta["filter_id"] = "origin_id"
 	
 class Sitc4_ccpy(models.Model):
+
+  class Meta:
+    db_table = DB_PREFIX+"observatory_sitc4_ccpy"
+
   year = models.PositiveSmallIntegerField(max_length=4)
   origin = models.ForeignKey(Country, related_name="sitc4_ccpys_origin")
   destination = models.ForeignKey(Country, related_name="sitc4_ccpys_destination")
@@ -823,6 +826,11 @@ class Hs4_ccpy_manager(models.Manager):
       return list(data.extra(select={'item_id': "destination_id"}).values("item_id", "year", 'value'))
 
 class Hs4_ccpy(models.Model):
+
+
+	class Meta:
+		db_table = DB_PREFIX+"observatory_hs4_ccpy"
+
 	year = models.PositiveSmallIntegerField(max_length=4)
 	origin = models.ForeignKey(Country, related_name="hs4_ccpys_origin")
 	destination = models.ForeignKey(Country, related_name="hs4_ccpys_destination")

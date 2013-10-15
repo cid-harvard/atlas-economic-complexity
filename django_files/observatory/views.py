@@ -1413,7 +1413,7 @@ def api_sapy(request, trade_flow, product, year):
     
   json_response["attr_data"] = Country.objects.get_all(lang)
   json_response["product"] = product.to_json()
-  json_response["title"] = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
+  json_response["title"] = "Who %sed %s?" % (trade_flow.replace("_", " "), product.name_en)
   json_response["year"] = year
   json_response["item_type"] = "country"
   json_response["app_type"] = "sapy"

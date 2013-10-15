@@ -935,8 +935,8 @@
   
   network = function()
   { 
-    (prod_class=="hs4") ? req = "media/js/libs/vizwiz/examples/data/network_hs.json" : 
-                          req = "media/js/libs/vizwiz/examples/data/network_sitc2.json"
+    (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
+                          req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json"
     
     d3.json(req, function(hs) {
       viz = vizwhiz.viz()
