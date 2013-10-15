@@ -1668,7 +1668,8 @@
         margin-top:-4px;
         background-color: lightblue;
       }
-    
+
+
     </style>
 
 
@@ -1772,6 +1773,8 @@
     $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
     $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
    
+    $("#country1_select_chosen .chosen-single span").css("color", "black");
+
   });
 
   $("#country-trade-partner select").change(function() {
@@ -1792,6 +1795,20 @@
   $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
   $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
   $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
+
+  $("#country1_select_chosen .chosen-results").hover(function() {
+
+    $("#country1_select_chosen .chosen-results").css("color", "black");
+
+  });
+
+/*
+$("p").hover(function(){
+  $("p").css("background-color","yellow");
+  },function(){
+  $("p").css("background-color","pink");
+});
+*/
 
   $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$("#country-trade-partner select").val()+".png') no-repeat");
   $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
