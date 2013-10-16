@@ -1351,12 +1351,15 @@
     </div> 
      {% if isbrowsemode %}
      {% else %}   
+     
     <div id = "downloadPlaceholder" >
+    <!--
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>    
 
-        <div class="control_container" id="download">
+        <div class="control_container tooltipbs" id="download" style="pointer-events: none; cursor: default;" data-placement="right" data-toggle="tooltip" title="Not Available">
       
           <!--<span class="glyphicon glyphicon-save" style="margin:5px; font-size:18px; color:lightgray"></span> -->
+          <!--
           <a class="pdf" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">PDF</a>
           <a class="svg" href="#" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">SVG</a>
           <a class="png" href="#" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">PNG</a>
@@ -1367,12 +1370,13 @@
         </div>
 
         <br>
-
+  -->
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">Feedback</h4>
     
         <a href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank"><span class="glyphicon glyphicon-envelope" style="margin:5px; font-size:18px; color:lightgray"></span></a>
             <br/>       <br/>
     </div>
+  
     {% endif %}
         <!--
         <!-- Trade Flow 
@@ -1592,7 +1596,7 @@
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
 
 
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="media/js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 

@@ -743,6 +743,7 @@
        
        if (app_type!="sapy")
        {
+        
          magic_numbers = rawData["magic_numbers"]
          viz.tooltip_info({"short": ["distance", "year", "pc_current","pc_constant","notpc_constant"]})
          flat_data.map(function(d){
