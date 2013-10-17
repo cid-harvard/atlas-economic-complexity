@@ -13,6 +13,7 @@ import base64
 from django.db.models import F
 from django.db.models import Q
 import json
+from django.core import serializers
 from django.core.urlresolvers import reverse
 # Project specific
 from django.utils.translation import gettext as _
@@ -96,19 +97,15 @@ def endSaveStory(request):
     chapterName=data['chapterName']
     chapterDescription=data['chapterDescription']
     chapterJs=json.dumps(data['JS'])
+    prod_class= json.dumps(data['prod_class'])
+    language=json.dumps(data['language'])
+    product_classifiction='product_classification'+':'+prod_class
+    classification='django_language'+':'+language
+    sesParameters= (product_classifiction,classification)
     chapterSerialNo=counter+1
     #Get session parameters
-    productClassification=request.session['product_classification'] if 'product_classification' in request.session else "hs4"
-    sesProductClassification='product_classification'+':'+productClassification
-    lang=request.session['django_language'] if 'django_language' in request.session else "en"
-    sesLang='django_language'+':'+lang
-    classification=request.session['classification'] if 'classification' in request.session else "hs4"
-    sesClassification='classification'+':'+classification
-    swap=request.session['swap'] if 'swap' in request.session else "False"
-    sesSwap='swap'+':'+str(swap)
-    sessionVar=(sesProductClassification,sesLang,sesClassification,sesSwap)
-    sessionVarToString=str(sessionVar)[1:-1]
-    chapter_details=sessionVarToString.replace("u'","'")
+    sesParametersToString=str(sesParameters)[1:-1]
+    chapter_details=sesParametersToString.replace('"','')
     #save session parameter and chapter details to storychapter table
     saveToChapterTable=storychapter(story_id=storyId,chapter_url=chapterUrl,chapter_title=chapterName,chapter_desc=chapterDescription,chapter_js_details=chapterJs,chapter_details=chapter_details,serial_number=chapterSerialNo)
     saveToChapterTable.save()
@@ -238,7 +235,8 @@ def browseStoryForm(request):
     #Username
     userName=request.session['username'] if 'username' in request.session else ""
     #Get Adminvalue
-    checkAdmin=observatoryuser.objects.values('isadmin').filter(user_id=userUniqueId)
+    checkAdmin=observatoryuser.objects.get(user_id=userUniqueId)
+    checkAdmin=checkAdmin.isadmin
     #Get Mine story details
     dictMineStory={}
     dictMineStory=observastory.objects.values('story_name','story_id','published','featured','number_of_chapters').filter(user_id=userUniqueId).order_by('-story_id')
@@ -280,7 +278,76 @@ def browseStoryForm(request):
 	'featureStory':dictFeatureStory,
 	'popularStory':dictPopularStory},context_instance=RequestContext(request))
 
+#######################################
+#mine story list
+#######################################
+def minestory(request):
+    userUniqueId=request.session['userid'] if 'userid' in request.session else 1
+    print "hello"
+    #Get Mine story details
+    dictMineStory=[]
+    dictMineStory=observastory.objects.all().filter(user_id=userUniqueId).order_by('-story_id')
+    serializeMineStory = serializers.serialize('json', dictMineStory)
+    jsonMineStory=json.loads(serializeMineStory)
+    for mineStory in jsonMineStory:
+     story_ids= mineStory['pk']
+     #encrypt story_id
+     story_ids=int(story_ids)
+     mineStory['pk'] = fpe_obj.encrypt(story_ids)
+    jsonMineStory=json.dumps(jsonMineStory)
+    print jsonMineStory   
+    return HttpResponse(jsonMineStory)
 
+###########################################
+#feature story list
+###########################################
+def featurestory(request):
+ #Get Feature story details
+    dictFeatureStory=[]
+    dictFeatureStory=observastory.objects.all().filter(Q(featured=1) & (Q(published=1))).order_by('-story_id')
+    serializeFeatureStory = serializers.serialize('json', dictFeatureStory)
+    jsonFeatureStory= json.loads(serializeFeatureStory)
+    for featureStory in jsonFeatureStory:
+     story_ids= featureStory['pk']
+     #encrypt story_id
+     story_ids=int(story_ids)
+     featureStory['pk'] = fpe_obj.encrypt(story_ids)
+    jsonFeatureStory=json.dumps(jsonFeatureStory)
+    return HttpResponse(jsonFeatureStory)
+
+###########################################
+#popular story list
+###########################################
+def popularstory(request):
+ #Get Popular story details
+    dictPopularStory=[]
+    dictPopularStory=observastory.objects.all().filter(published=1).order_by('-likecount')[0:10]
+    serializePopularStory = serializers.serialize('json', dictPopularStory)
+    jsonPopularStory= json.loads(serializePopularStory)
+    for popularStory in jsonPopularStory:
+     story_ids=popularStory['pk']
+     #encrypt story_id
+     story_ids=int(story_ids)
+     popularStory['pk']=fpe_obj.encrypt(story_ids)
+    jsonPopularStory=json.dumps(jsonPopularStory)
+    return HttpResponse(jsonPopularStory)
+
+###########################################
+#publish story list
+###########################################
+def publishstory(request):
+#Get Publish story details
+    dictPublishStory=[]
+    dictPublishStory=observastory.objects.all().filter(published=1).order_by('-story_id')
+    serializePublishStory = serializers.serialize('json', dictPublishStory)
+    jsonPublishStory= json.loads(serializePublishStory)
+    for publishStory in jsonPublishStory:
+     story_ids= publishStory['pk']
+     #encrypt story_id
+     story_ids=int(story_ids)
+     publishStory['pk']=fpe_obj.encrypt(story_ids)
+    jsonPublishStory=json.dumps(jsonPublishStory)
+    return HttpResponse(jsonPublishStory)
 ########################################
 #end browse story
 ########################################
@@ -296,13 +363,12 @@ def endbrowsestory(request):
 #######################################
 # edit story form
 #######################################
-def editStoryForm(request):
-  if "Stories" in request.POST:
-   #Get editstoryid
-   editStoryIdWithEncode=request.POST["Stories"]
-   #Decrypt edit storyid
-   editStoryId = fpe_obj.decrypt(int(editStoryIdWithEncode))
-   request.session['editStoryId']=editStoryId
+def editStoryForm(request,editStoryId):
+  #Get editstoryid
+  editStoryIdWithEncode=editStoryId
+  #Decrypt edit storyid
+  editStoryId = fpe_obj.decrypt(int(editStoryIdWithEncode))
+  request.session['editStoryId']=editStoryId
   editStoryId=request.session['editStoryId']
   #Get story details
   stories=observastory.objects.values('story_name','story_desc','number_of_chapters').filter(story_id=editStoryId)
@@ -320,7 +386,6 @@ def editStoryForm(request):
    updateNumberOfChapters=observastory.objects.filter(story_id=editStoryId).update(number_of_chapters=serialNumber)
   temp={'storychapter':chapters,'observastory':stories}
   return render_to_response('story/editStoryForm.html',temp,context_instance=RequestContext(request))
-
 ############################################
 # update story form
 ############################################
@@ -360,36 +425,75 @@ def updateEditForm(request):
 # publish
 ################################################
 def published(request):
-  if request.is_ajax():
+   isPublished=False
+   #Get Story id
    browseStoryId=request.POST.get('storyId')
+   print browseStoryId
+   #Decrypt story id
    browseStoryId=fpe_obj.decrypt(int(browseStoryId))
-   #browseStoryId=int(browseStoryId)/777
+   print browseStoryId
+   #Get publish value
    browseStroyIdPublish=observastory.objects.values_list('published').filter(story_id=browseStoryId)
    for publishValue in browseStroyIdPublish:
     for value in publishValue:
      if value == 1:
+      #Update publish value
       updatePublishValue=observastory.objects.filter(story_id=browseStoryId).update(published=0)
+      isPublished=False
      else:
+      #Update publish value
       updatePublishValue=observastory.objects.filter(story_id=browseStoryId).update(published=1) 
-  return redirect(HTTP_HOST+'stories/')
+      isPublished=True
+   #Load in to json response
+   json_response = {}
+   json_response["isPublished"]=isPublished
+   return HttpResponse(json.dumps(json_response))
+
+#####################################################
+# delete story
+#####################################################
+def deleteStory(request): 
+  #Check  user id in session
+  if 'userid'  in request.session:
+    #Get Story id
+    deleteStoryId=request.POST.get('storyId')
+    #Decrypt story id
+    deleteStoryId=fpe_obj.decrypt(int(deleteStoryId))
+    #Delete story in chapter table
+    chapterIds=storychapter.objects.filter(story_id=deleteStoryId)
+    if chapterIds is not None:
+     deleteStory=storychapter.objects.filter(story_id=deleteStoryId).delete()
+    #Delete story in story table
+    deleteStory=observastory.objects.filter(story_id=deleteStoryId).delete()
+    #Load in to json response
+    json_response = {}
+    json_response["storyId"]=deleteStoryId
+    return HttpResponse(json.dumps(json_response))
 
 ################################################
 # featured
 ################################################
 def featured(request):
-   if request.is_ajax():
+    isFeatured=False
+    #Get Story id
     browseStoryId=request.POST.get('storyId')
+    #Decrypt story id
     browseStoryId=fpe_obj.decrypt(int(browseStoryId))
-    #browseStoryId=int(browseStoryId)/777
+    #Get featured value
     browseStroyIdFeature=observastory.objects.values_list('featured').filter(story_id=browseStoryId)
     for featureValue in browseStroyIdFeature:
      for value in featureValue:
-      if value == 0:
-       updateFeatureValue=observastory.objects.filter(story_id=browseStoryId).update(featured=1)
+      if value == 1:
+       #Update featured value
+       updateFeatureValue=observastory.objects.filter(story_id=browseStoryId).update(featured=0)
+       isFeatured=False
       else:
-       updateFeatureValue=observastory.objects.filter(story_id=browseStoryId).update(featured=0)   
-    return redirect(HTTP_HOST+'stories/')
-
+       #Update featured value
+       updateFeatureValue=observastory.objects.filter(story_id=browseStoryId).update(featured=1)
+       isFeatured=True
+    json_response = {}
+    json_response["isFeatured"]=isFeatured
+    return HttpResponse(json.dumps(json_response))
 #################################################
 # likecount
 #################################################
@@ -427,23 +531,6 @@ def logout(request):
   if 'username' in request.session: 
    del request.session['username'] 
   return redirect(HTTP_HOST+'explore/')
-
-
-#####################################################
-# delete story
-#####################################################
-def deleteStory(request): 
-  if 'userid'  in request.session:
-   if request.is_ajax():
-    deleteStoryId=request.POST.get('storyId')
-    deleteStoryId=fpe_obj.decrypt(int(deleteStoryId))
-    #deleteStoryId=int(deleteStoryId)/777
-    chapterIds=storychapter.objects.filter(story_id=deleteStoryId)
-    if chapterIds is not None:
-     deleteStory=storychapter.objects.filter(story_id=deleteStoryId).delete()
-    deleteStory=observastory.objects.filter(story_id=deleteStoryId).delete()  
-   return redirect(HTTP_HOST+'stories/')
-
 
 #####################################################
 # end delete story
@@ -953,7 +1040,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   prod_class = request.GET.get("product_classification", prod_class)
   options["product_classification"] = prod_class
   options = options.urlencode()
-
+  #Get session parameters
+  language=lang
   # get distince years from db, different for diff product classifications
   years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
   years_available.sort()
@@ -1129,6 +1217,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "iscreatemode": iscreatemode,
     "userName":userName,
     "userId":userId,
+    "language":language,
     "warning": warning,
     "alert": alert,
     "prod_class": prod_class,
