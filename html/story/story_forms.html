@@ -80,10 +80,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <h2>Would you like to save this story?</h2> 
+        <h2 id="saveTitle">Would you like to save this story?</h2> 
+        <h2 id="alternateSaveTitle">Add chapters to story to save it.</h2>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"  onclick="showSaveStoryDialog()">Yes, save it</button>
+        <button type="submit" class="btn btn-primary" id="saveStoryBtn"  onclick="showSaveStoryDialog()">Yes, save it</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="location.href='cancelstory/', localStorage.clear();">No, delete it</button>
        <button type="button" class="btn btn-default" data-dismiss="modal">I want to continue adding chapters</button>
       </div>

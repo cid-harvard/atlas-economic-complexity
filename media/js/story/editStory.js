@@ -87,7 +87,7 @@ $(function() {
 		      _cell.data('text', _cell.html()).html('');
 		      
 		      var $input = $('<textarea rows="4" />')
-		        .val(_cell.data('text'))
+		        .val(_cell.data('text').split('<br>').join('\n').split('&nbsp;').join(' '))
 		        .width(_cell.width()-30);
 		        
 		      _cell.append($input);
