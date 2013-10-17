@@ -119,6 +119,19 @@ function openCreateChapterDialog()
  * open end story dialog
  */
 function endStory() {
+    var jsonInStorage = localStorage.getItem("JsonChapterDetail");
+		if(!jsonInStorage )
+		{
+		$("#saveTitle").hide();
+		$("#alternateSaveTitle").show();
+		$("#saveStoryBtn").addClass("disabled");
+		}
+		else
+			{
+			$("#saveTitle").show();
+			$("#alternateSaveTitle").hide();
+			$("#saveStoryBtn").removeClass("disabled");
+			}
 	$('#dialog-modal-endStory').modal('show');
 }
 
@@ -141,6 +154,8 @@ function endStory() {
         jsDetails["chapterName"]=chapterName;
         jsDetails["chapterDescription"]= chapterDescription;
         jsDetails["JS"] = item;
+        jsDetails["prod_class"] = "{{prod_class}}";
+        jsDetails["language"] = "{{language}}";
         var jsonInStorage = localStorage.getItem("JsonChapterDetail");
         if(jsonInStorage == null)
         {

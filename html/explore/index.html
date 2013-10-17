@@ -21,7 +21,7 @@
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
   
-    <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="media/css/normalize.css">
   <link rel="stylesheet" href="media/css/style.css">
   <link rel="stylesheet" href="media/js/libs/toastr/toastr.min.css" />
@@ -84,7 +84,7 @@
     <div id="main" role="main">
       {% if userId %}
        <div id="userSession">
-       	 <button id="logoutBtn"  onclick="location.href='logout/'">Logout</button>	
+       	 <button id="logoutBtn"  onclick="location.href='logout/'" style="font-family: inherit;">Logout</button>	
        	 <p id="loggedInUser">Hello {{ userName }}</p> 
        </div>
        {% endif %}
@@ -1707,7 +1707,6 @@
     year_end = "{{year_end}}",
     product_code = "{{product_code}}",
     prod_class = "{{prod_class}}";
-  
   // Use chosen plugin to make dropdowns look fancy
   $(".dropdown_container select").chosen()
   $(".nesting select").chosen()
