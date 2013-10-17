@@ -1,80 +1,14 @@
-{% load i18n %}
-{% load humanize %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>The Observatory |Edit {% for objstory in observastory %} {{objstory.story_name}} {% endfor %}</title>
-  <base href="{{HTTP_HOST}}"> 
-  <meta name="description" content="Networks in Macro Economics">
-  <meta name="author" content="Alexander Simoes">
-  <!-- Necessary for google to crawl the site, since it is purely ajax based.
-        When the crawler reaches the page it will request the current URL plus
-        the additional URL query parameter _escaped_fragment_= -->
-  <meta name="fragment" content="!" charset=utf-8>
-  <link rel="shortcut icon" type="image/x-icon" href="media/img/favicon.ico">
-  
-  <!-- Load non-standard fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
-  <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
-  
-  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
-  <link rel="stylesheet" href="media/css/normalize.css">
-  <link rel="stylesheet" href="media/css/style.css">
-  <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
+{% extends "template.html" %}
+
+{% block page_title %}The Observatory |Edit {% for objstory in observastory %} {{objstory.story_name}} {% endfor %}{% endblock %}
+{% block heading_title %} Edit Stories{% endblock %}
+
+{% block css %}
   <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
-  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap-icon.css" />
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+{% endblock %}
   
- 
-  
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-</head>
-<body>
-  {% if alert %}
-  <div class="alert">
-    <div>
-      {% if alert.title %}
-      <h4>{{alert.title}}</h4>
-      {% endif %}
-      {% if alert.text %}{{alert.text|safe}}{% endif %}
-    </div>
-  </div>
-  {% endif %}
-  {% if warning %}
-  <div class="warning">
-    <div>
-      {% if warning.title %}
-      <h4>{{warning.title}}</h4>
-      {% endif %}
-      {% if warning.text %}{{warning.text|safe}}{% endif %}
-    </div>
-  </div>
-  {% endif %}
-  <div id="container">
-    <header>
-     <div class="logo" style="background-color: #fafafa; width:165px; height:66px;">
-        <a href="" title="Home" style="text-decoration: none;">
-        <h1 style="background: url(media/img/all/logo_rainbow.png) repeat-x 100% 100%; padding-bottom:22px; color: black; font-size:43px;">The Atlas</h1>
-        <h2 style="font-size:14px; margin-top:-25px; text-align:center; margin-left:0px; letter-spacing:1px; color:white; text-transform:uppercase; text-decoration:none; background-color: #a0a6a9;">of Economic Complexity</h2></a> 
-      </div>  
-      <nav>
-        <ul>
-          <li><a href="explore">Explore</a></li>
-          <!-- <li><a href="/country/usa/">Profiles</a></li> -->
-          <li><a href="stories">Stories</a></li>
-          <li><a href="rankings">Rankings</a></li>
-          <li><a href="book">Book</a></li>
-          <li><a href="about">About</a></li>
-        </ul>
-      </nav>   
-      <br class="clear">
-    </header>
-    <div style="clear:both"></div>
+ {% block content %}
     <div id="editMain" role="main">
     	<form method="POST" id="MainQueueForm" name="MainQueueForm">
               {% csrf_token %}             
@@ -83,7 +17,7 @@
                <p style="font-size:14px">Story Title :</p>
                <div style="clear:both;"></div>
        	{% for objstory in observastory %}
-     	<div id="editStoryName" contenteditable="true">{{objstory.story_name}}</div>
+     	<div id="editStoryName" contenteditable="true"><div>{{objstory.story_name}}</div></div>
       	<p style="font-size:14px">Description:</p>  
      	<div id="editStoryDesc" contenteditable="true">{{objstory.story_desc}}</div>
 		{% if objstory.number_of_chapters %}   
@@ -93,7 +27,7 @@
             			<span class="color">Chapter List</span>
             	    </h2>
    				</div>  
-				<table id="sortChapters" class="queueTable" >
+				<table id="sortChapters" class="chapterTable" >
 					<thead>
 						<tr>
 							<th class="co">Order</th>
@@ -123,41 +57,15 @@
     	<input type="hidden" name="chapterJson" id="chapterJson" value=""></input>
     </form>
   </div>
-   <footer >
-      <p>
-        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth<br> opportunities for more than a hundred countries worldwide.</span>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
-        <br />
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
-      </p>
-
-      <p style="margin-left:auto; margin-right:auto; width:500px">
-        <a href="http://macroconnections.media.mit.edu/"><img src="media/img/all/logo_macro.png" alt="MIT MacroConnections Logo" style="float:left"/></a>
-        <a href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/></a>
-        <div class="language_select" style="float:left; margin-top:-10px">
-          <div class="text">
-            Language:
-          </div>
-          <select>
-            {% for lang in supported_langs %}
-            <option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </p>
-
-    </footer>
-  </div> <!-- END #container -->
-
+ {% endblock %}
+   
+{% block js %}
   <!-- The JavaScript -->
   <!-- Libraries -->
   <script src="media/js/libs/jquery/jquery-1.7.1.min.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="media/js/libs/tipsy/tipsy.jquery.js" ></script>
-  <script src="media/js/libs/chosen/chosen.jquery.min.js" ></script>
   <script src="media/js/story/editStory.js"></script> 
  
+ {% endblock %}
 
-</body>
-
-</html>
