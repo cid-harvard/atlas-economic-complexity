@@ -3,644 +3,644 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Explore -->
   <url>
-    <loc>http://atlas.media.mit.edu/explore/</loc>
+    <loc>http://atlas.cid.harvard.edu/explore/</loc>
   </url>
   <!-- Book -->
   <url>
-    <loc>http://atlas.media.mit.edu/book/</loc>
+    <loc>http://atlas.cid.harvard.edu/book/</loc>
   </url>
   <!-- Rankings -->
   <url>
-    <loc>http://atlas.media.mit.edu/rankings/country/</loc>
+    <loc>http://atlas.cid.harvard.edu/rankings/country/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/rankings/product/</loc>
+    <loc>http://atlas.cid.harvard.edu/rankings/product/</loc>
   </url>
   <!-- About -->
   <url>
-    <loc>http://atlas.media.mit.edu/about/</loc>
+    <loc>http://atlas.cid.harvard.edu/about/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/about/data/</loc>
+    <loc>http://atlas.cid.harvard.edu/about/data/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/about/team/</loc>
+    <loc>http://atlas.cid.harvard.edu/about/team/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/about/blog/</loc>
+    <loc>http://atlas.cid.harvard.edu/about/blog/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/about/permissions/</loc>
+    <loc>http://atlas.cid.harvard.edu/about/permissions/</loc>
   </url>
   <!-- API -->
   <url>
-    <loc>http://atlas.media.mit.edu/api/</loc>
+    <loc>http://atlas.cid.harvard.edu/api/</loc>
   </url>
   <!-- Country Overview Pages -->
   <url>
-    <loc>http://atlas.media.mit.edu/country/abw/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/abw/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/afg/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/afg/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ago/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ago/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/aia/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/aia/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/alb/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/alb/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/and/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/and/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/are/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/are/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/arg/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/arg/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/arm/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/arm/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ata/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ata/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/atg/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/atg/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/aus/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/aus/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/aut/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/aut/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/aze/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/aze/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bdi/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bdi/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bel/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bel/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ben/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ben/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bfa/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bfa/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bgd/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bgd/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bgr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bgr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bhr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bhr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bhs/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bhs/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bih/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bih/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/blr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/blr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/blz/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/blz/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bmu/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bmu/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bol/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bol/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bra/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bra/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/brb/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/brb/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/brn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/brn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/btn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/btn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/bwa/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/bwa/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/caf/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/caf/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/can/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/can/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/che/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/che/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/chi/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/chi/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/chl/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/chl/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/chn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/chn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/civ/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/civ/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/cmr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/cmr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/cod/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/cod/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/cog/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/cog/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/col/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/col/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/com/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/com/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/cpv/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/cpv/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/cri/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/cri/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/cub/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/cub/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/cym/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/cym/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/cyp/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/cyp/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/cze/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/cze/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/deu/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/deu/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/dji/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/dji/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/dma/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/dma/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/dnk/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/dnk/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/dom/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/dom/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/dza/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/dza/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ecu/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ecu/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/egy/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/egy/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/eri/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/eri/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/esh/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/esh/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/esp/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/esp/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/est/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/est/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/eth/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/eth/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/fin/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/fin/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/fji/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/fji/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/flk/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/flk/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/fra/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/fra/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/fro/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/fro/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/fsm/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/fsm/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/gab/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/gab/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/gbr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/gbr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/geo/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/geo/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/gha/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/gha/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/gin/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/gin/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/gmb/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/gmb/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/gnb/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/gnb/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/gnq/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/gnq/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/grc/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/grc/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/grd/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/grd/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/grl/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/grl/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/gtm/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/gtm/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/guf/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/guf/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/gum/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/gum/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/guy/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/guy/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/hkg/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/hkg/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/hnd/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/hnd/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/hrv/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/hrv/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/hti/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/hti/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/hun/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/hun/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/idn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/idn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ind/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ind/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/irl/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/irl/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/irn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/irn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/irq/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/irq/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/isl/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/isl/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/isr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/isr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ita/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ita/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/jam/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/jam/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/jor/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/jor/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/jpn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/jpn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/kaz/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/kaz/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ken/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ken/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/kgz/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/kgz/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/khm/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/khm/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/kna/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/kna/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/kor/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/kor/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/kwt/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/kwt/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/lao/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/lao/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/lbn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/lbn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/lbr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/lbr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/lby/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/lby/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/lca/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/lca/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/lka/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/lka/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/lso/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/lso/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ltu/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ltu/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/lux/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/lux/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mac/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mac/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mar/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mar/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mdg/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mdg/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mdv/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mdv/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mex/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mex/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mhl/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mhl/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mkd/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mkd/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mli/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mli/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mmr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mmr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mng/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mng/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/moz/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/moz/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mrt/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mrt/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mtq/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mtq/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mus/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mus/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mwi/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mwi/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/mys/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/mys/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/myt/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/myt/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/nam/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/nam/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ner/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ner/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/nfk/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/nfk/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/nga/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/nga/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/nic/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/nic/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/nld/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/nld/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/nor/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/nor/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/npl/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/npl/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/nzl/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/nzl/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/omn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/omn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/pak/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/pak/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/pan/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/pan/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/per/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/per/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/phl/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/phl/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/png/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/png/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/pol/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/pol/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/pri/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/pri/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/prk/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/prk/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/prt/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/prt/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/pry/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/pry/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/pse/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/pse/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/qat/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/qat/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/rou/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/rou/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/rus/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/rus/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/rwa/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/rwa/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/sau/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/sau/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/sdn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/sdn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/sen/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/sen/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/sgp/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/sgp/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/shn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/shn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/sle/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/sle/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/slv/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/slv/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/som/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/som/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/spm/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/spm/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/srb/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/srb/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ssd/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ssd/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/stp/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/stp/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/sur/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/sur/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/svk/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/svk/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/svn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/svn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/swe/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/swe/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/swz/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/swz/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/syc/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/syc/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/syr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/syr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tca/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tca/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tcd/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tcd/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tgo/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tgo/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tha/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tha/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tjk/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tjk/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tkm/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tkm/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tto/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tto/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tun/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tun/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tur/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tur/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/twn/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/twn/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/tza/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/tza/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/uga/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/uga/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ukr/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ukr/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ury/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ury/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/usa/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/usa/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/uzb/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/uzb/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/vct/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/vct/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/ven/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/ven/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/vir/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/vir/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/vnm/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/vnm/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/wbg/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/wbg/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/yem/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/yem/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/zaf/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/zaf/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/zmb/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/zmb/</loc>
   </url>
   <url>
-    <loc>http://atlas.media.mit.edu/country/zwe/</loc>
+    <loc>http://atlas.cid.harvard.edu/country/zwe/</loc>
   </url>
 </urlset>

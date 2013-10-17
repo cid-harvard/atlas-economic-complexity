@@ -145,6 +145,7 @@ urlpatterns = patterns('',
   url(r'^robots\.txt$', TextPlainView.as_view(template_name='robots.txt')),
   url(r'^favicon\.ico$', RedirectView.as_view(url='/media/img/favicon.ico')),
 
-  (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+  url(r'^sitemap\.xml$', RedirectView.as_view(url='/media/sitemaps/sitemap_index.xml')),
+  #(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
 )
