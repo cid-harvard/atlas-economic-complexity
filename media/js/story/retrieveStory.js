@@ -19,7 +19,7 @@ $(document).ready(function() {
 function populateTable(jsonObj,tab,isAdmin)
 {
 	$("#"+tab+" table").dataTable().fnClearTable();
-	 $("#"+tab+" table").dataTable().fnDestroy();
+	$("#"+tab+" table").dataTable().fnDestroy();
 	var storyList=[];
 	 for(var i=0;i<jsonObj.length;i++)
 		 {
@@ -55,9 +55,8 @@ function populateTable(jsonObj,tab,isAdmin)
 				"bPaginate": true,
 				"bLengthChange": true,
 				"bFilter": true,
-				"bSort": true,
+				"bSort": false,
 				"sDom": '<"top"i>rt<"bottom"flp><"clear">',
-				"aaSorting": [[ 0, "desc" ]],
 				"aoColumns": [
 				              { sWidth: '50%' },
 				              { sWidth: '10%' },
@@ -73,9 +72,8 @@ function populateTable(jsonObj,tab,isAdmin)
 				"bPaginate": true,
 				"bLengthChange": true,
 				"bFilter": true,
-				"bSort": true,
+				"bSort": false,
 				"sDom": '<"top"i>rt<"bottom"flp><"clear">',
-				"aaSorting": [[ 0, "desc" ]],
 				"aoColumns": [
 				              { sWidth: '80%' },
 				              { sWidth: '20%' }
@@ -134,11 +132,12 @@ function ajaxTabUpdater(url,csrf_token)
 				'storyId':storyId,
 			},
 			'success': function(data) {
-				var $tab=$(option).parents("tbody");
-				if($tab.prop("id")=="publishedData")
-					{
-				$(option).parents("tr").remove();
-					}
+	//uncomment this code to remove stories from all stories tab as soon as its unpublished			
+//				var $tab=$(option).parents("tbody");
+//				if($tab.prop("id")=="publishedData")
+//					{
+//				$(option).parents("tr").remove();
+//					}
 			},
 			'error': function(xhr, textStatus, errorThrown) {
 			alert(errorThrown);
@@ -159,7 +158,10 @@ function ajaxTabUpdater(url,csrf_token)
 				'storyId':storyId,
 			},
 			'success': function(data) {
-				$(option).parents("tr").remove();
+				var $row=$(option).parents("tr");
+				var tab=$(option).parents(".storyTable").attr("id");
+				var row=$row[0];
+				$("#"+tab+" table").dataTable().fnDeleteRow(row);
 			},
 			'error': function(xhr, textStatus, errorThrown) {
 				alert(errorThrown)

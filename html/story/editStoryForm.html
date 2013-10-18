@@ -17,7 +17,7 @@
                <p style="font-size:14px">Story Title :</p>
                <div style="clear:both;"></div>
        	{% for objstory in observastory %}
-     	<div id="editStoryName" contenteditable="true"><div>{{objstory.story_name}}</div></div>
+     	<div id="editStoryName" contenteditable="true">{{objstory.story_name}}</div>
       	<p style="font-size:14px">Description:</p>  
      	<div id="editStoryDesc" contenteditable="true">{{objstory.story_desc}}</div>
 		{% if objstory.number_of_chapters %}   

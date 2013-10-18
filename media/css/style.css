@@ -1345,20 +1345,29 @@ border: 1px solid #cccccc !important;
 border-radius: 10px 0px 0px 10px;
 padding: 10px;
 text-align: left;
+float:left;
 width: 265px;
+box-sizing: content-box;
+-webkit-box-sizing:content-box;
+-moz-box-sizing:content-box;
 }
 #dataSection
 {
 background-color: #fff !important;
 border: 1px solid #cccccc !important;
 border-radius: 0px 10px 10px 0px;
+padding:10px;
 float: left;
-width: 70%;
+width:700px;
+box-sizing: content-box;
+-webkit-box-sizing:content-box;
+-moz-box-sizing:content-box;
 }
 .storyTable{
 float: left !important;
 width: 100% !important;
-margin-left: 1% !important;
+margin:0px !important;
+padding:0px !important;
 }
 .storyList
 {
@@ -1413,7 +1422,7 @@ border-color: inherit;
 	color: #666;
 height: 3em;
 empty-cells: show;
-text-align: center;
+text-align: left !important;
 word-wrap: break-word;
 }
 #stories
@@ -1432,10 +1441,10 @@ padding:10px;
 }
 .emptyStoryMessage
 {
-	text-align: center;
+text-align: center;
 font-size: 18px;
-height: 138px;
-padding: 46px;
+height: 149px;
+padding: 50px;
 }
 .emptyStoryMessage a
 {
@@ -1537,31 +1546,7 @@ table.dataTable tr.even
 border-bottom:1px solid #D0D0D0 ;
 	
 }
-.view
-{
-	text-align:left !important;
-	
-}
-.edit
-{
-	text-align:left !important;
-	
-}
-.del
-{
-	text-align:left !important;
-	
-}
-.stText
-{
-		text-align:left !important;
-	
-}
-.sdText
-{
-		text-align:left !important;
-	
-}
+
 .editButton
 {
 display: block;
