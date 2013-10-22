@@ -13,11 +13,11 @@
         <table>
 			<tr class="vertalign">
 				<td><label for="story_name" style="font-weight:normal">Story Title</label></td>
-				<td><input name="story_name" id="story_name" value="{{story_name}}" class="textfields" type="text" autofocus required></td>
+				<td><input name="story_name" id="story_name" value="{{story_name}}" maxLength="200" class="textfields" type="text" autofocus required></td>
 			</tr>
 			<tr class="vertalign">
 				<td><label for="story_desc" style="font-weight:normal">Description</label></td>
-				<td><textarea name="story_desc" id="story_desc" value="{{story_desc}}" rows="6" class="textfields"></textarea></td>
+				<td><textarea name="story_desc" id="story_desc" value="{{story_desc}}" maxLength="2000" rows="6" class="textfields"></textarea></td>
 			</tr>
 		</table>
       </div>
@@ -59,11 +59,11 @@
         <table>
 			<tr class="vertalign">
 				<td><label for="chap_title" style="font-weight:normal">Chapter details</label></td>
-				<td><input name="chap_title" id="chap_title" value="{{chap_title}}" class="textfields" type="text"  autofocus required></td>
+				<td><input name="chap_title" id="chap_title" value="{{chap_title}}" class="textfields" maxLength="300" type="text"  autofocus required></td>
 			</tr>
 			<tr class="vertalign">
 				<td><label for="chap_desc" style="font-weight:normal">Chapter description</label></td>
-				<td><textarea name="chap_desc" rows="6" class="textfields" id="chap_desc" value="{{chap_desc}}"></textarea></td>
+				<td><textarea name="chap_desc" rows="6" class="textfields" id="chap_desc" maxLength="500" value="{{chap_desc}}"></textarea></td>
 			</tr>
 		</table>
       </div>

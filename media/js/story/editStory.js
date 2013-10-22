@@ -55,7 +55,7 @@ $(function() {
 			  }
 			else{
 				$editableText.data('text', $editableText.html()).html('');
-				var $input = $('<textarea rows="2"  style="float:left;"/>')
+				var $input = $('<textarea rows="2"  style="float:left;" maxLength="200"/>')
 		        .val($editableText.data('text').split('<br>').join('\n').split('&nbsp;').join(' '))
 		        .width($editableText.width()-10);
 				$editableText.append($input);
@@ -135,7 +135,7 @@ $(function() {
 		      var _cell = $(this);
 		      _cell.data('text', _cell.html()).html('');
 		      
-		      var $input = $('<textarea rows="4" />')
+		      var $input = $('<textarea rows="4" maxLength="300"/>')
 		        .val(_cell.data('text').split('<br>').join('\n').split('&nbsp;').join(' '))
 		        .width(_cell.width()-30);
 		        
