@@ -18,8 +18,6 @@ $(document).ready(function() {
  */
 function populateTable(jsonObj,tab,isAdmin)
 {
-
-
 	if ($("#"+tab+" table").hasClass("dataTable"))
 		{
 	$("#"+tab+" table").dataTable().fnClearTable();
@@ -95,9 +93,7 @@ function populateTable(jsonObj,tab,isAdmin)
 				             ]
 			});
 		 }
-
 		}
-
 }
 /**
  * ajax call to update tabs
@@ -180,7 +176,6 @@ function ajaxTabUpdater(url,csrf_token)
 				var tab=$(option).parents(".storyTable").attr("id");
 				var row=$row[0];
 				$("#"+tab+" table").dataTable().fnDeleteRow(row);
-
 				if($("#"+tab+" table").dataTable().fnGetData().length==0)
 					{
 					$("#"+tab+"  .emptyStoryMessage").show();
