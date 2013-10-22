@@ -6,7 +6,7 @@ $(document).ready(function() {
 		keyboard: false
 		});
 //initialize delete confirmation modal popup	
- $('dialog-modal-confirmDelete').modal({
+ $('#dialog-modal-confirmDelete').modal({
 		show: false,
 		keyboard: false
 		});
@@ -18,8 +18,23 @@ $(document).ready(function() {
  */
 function populateTable(jsonObj,tab,isAdmin)
 {
+
+
+	if ($("#"+tab+" table").hasClass("dataTable"))
+		{
 	$("#"+tab+" table").dataTable().fnClearTable();
 	$("#"+tab+" table").dataTable().fnDestroy();
+		}
+	if(jsonObj.length==0)
+	{
+			$("#"+tab+" table").hide();
+			$("#"+tab+" .emptyStoryMessage").show();
+			
+	}
+	else
+		{
+		$("#"+tab+"  .emptyStoryMessage").hide();
+		$("#"+tab+" table").show();
 	var storyList=[];
 	 for(var i=0;i<jsonObj.length;i++)
 		 {
@@ -80,6 +95,9 @@ function populateTable(jsonObj,tab,isAdmin)
 				             ]
 			});
 		 }
+
+		}
+
 }
 /**
  * ajax call to update tabs
@@ -162,6 +180,13 @@ function ajaxTabUpdater(url,csrf_token)
 				var tab=$(option).parents(".storyTable").attr("id");
 				var row=$row[0];
 				$("#"+tab+" table").dataTable().fnDeleteRow(row);
+
+				if($("#"+tab+" table").dataTable().fnGetData().length==0)
+					{
+					$("#"+tab+"  .emptyStoryMessage").show();
+					$("#"+tab+" table").hide();
+					$("#"+tab+" .dataTables_wrapper").remove();
+					}
 			},
 			'error': function(xhr, textStatus, errorThrown) {
 				alert(errorThrown)

@@ -38,7 +38,6 @@
 		<div id="mystories" class="storyTable">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %}
-				{% if mineStory %}
 				<table name="Stories" class="storiesTable">
 					<thead>
 						<tr>
@@ -53,15 +52,12 @@
 					 <tbody id="myStoriesData">
 					</tbody> 
 				</table> 
-				{% else %}
 				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
-				{% endif %} 
 			</form>
 		</div>
 		<div id="popular" class="storyTable">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
-				{% if popularStory %}
 				<table name="Stories" class="storiesTable" >
 					<thead>
 						<tr>
@@ -72,16 +68,12 @@
 					<tbody>
 				   </tbody>
 				</table> 
-				
-				{% else %}
 				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
-				{% endif %}
 		 	</form>
 		</div>
 		<div id="featured" class="storyTable">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
-				{% if featureStory %}
 				<table name="Stories" class="storiesTable" >
 					<thead>
 						<tr>
@@ -92,15 +84,13 @@
 					<tbody>
 					</tbody>
 				</table> 
-				{% else %}
 				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
-				{% endif %}		
 			</form>
 		</div>
 		<div id="published" class="storyTable">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
-				{% if publishStory %}
+			<p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
 				<table name="Stories" class="storiesTable" >
 				{% if checkAdmin %}
 					<thead>
@@ -120,13 +110,14 @@
 							<th class="vs">View</th>
 						</tr>
 					</thead>
+
 				{% endif %}	
 					<tbody id="publishedData" >
 					</tbody>
 				</table> 
-				{% else %}
-				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
-				{% endif %}	
+					<tbody id="publishedData" >
+					</tbody>
+				</table> 
 			</form>
 		</div>
 	</div>	

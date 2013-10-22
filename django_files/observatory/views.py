@@ -97,17 +97,16 @@ def endSaveStory(request):
     chapterName=data['chapterName']
     chapterDescription=data['chapterDescription']
     chapterJs=json.dumps(data['JS'])
-    prod_class= json.dumps(data['prod_class'])
-    language=json.dumps(data['language'])
-    product_classifiction='product_classification'+':'+prod_class
-    classification='django_language'+':'+language
-    sesParameters= (product_classifiction,classification)
-    chapterSerialNo=counter+1
+    prod_class= data['prod_class']
+    language=data['language']
     #Get session parameters
-    sesParametersToString=str(sesParameters)[1:-1]
-    chapter_details=sesParametersToString.replace('"','')
+    sessionParameters={}
+    sessionParameters['product_classification']=prod_class
+    sessionParameters['django_language']=language
+    sessionParameters = json.dumps(sessionParameters)[1:-1]  
+    chapterSerialNo=counter+1
     #save session parameter and chapter details to storychapter table
-    saveToChapterTable=storychapter(story_id=storyId,chapter_url=chapterUrl,chapter_title=chapterName,chapter_desc=chapterDescription,chapter_js_details=chapterJs,chapter_details=chapter_details,serial_number=chapterSerialNo)
+    saveToChapterTable=storychapter(story_id=storyId,chapter_url=chapterUrl,chapter_title=chapterName,chapter_desc=chapterDescription,chapter_js_details=chapterJs,chapter_details=sessionParameters,serial_number=chapterSerialNo)
     saveToChapterTable.save()
   #check user in session
   if 'userid'  in request.session:
@@ -129,43 +128,37 @@ def endSaveStory(request):
      #check user auth_type
      if source == 'google':
      #check useremail exits
-      checkEmail=observatoryuser.objects.filter(user_email=email).exists()
-      if checkEmail == True:
+      if observatoryuser.objects.filter(user_email=email).exists() == True:
        #Get userid
-       getUserId=observatoryuser.objects.values_list('user_id',flat=True).filter(user_email=email)
-       for userId in getUserId:
-        request.session['userid']=userId
-        storyId=request.session['storyId']
-        updateUserId=observastory.objects.filter(story_id=storyId).update(user_id=userId)
+       getUserId=observatoryuser.objects.get(user_email=email)
+       request.session['userid']=getUserId.user_id
+       storyId=request.session['storyId']
+       updateUserId=observastory.objects.filter(story_id=storyId).update(user_id=getUserId.user_id)
       else:
        #Create userid and get user id
        observaUser=observatoryuser(user_name=name,user_email=email,user_auth_type=source)
        observaUser.save()
-       getUserId=observatoryuser.objects.values_list('user_id',flat=True).filter(user_email=email)
-       for userId in getUserId:
-        storyId=request.session['storyId']
-        request.session['userid']=userId
-        updateUserId=observastory.objects.filter(story_id=storyId).update(user_id=userId) 
+       getUserId=observatoryuser.objects.get(user_email=email)
+       request.session['userid']=getUserId.user_id
+       storyId=request.session['storyId']
+       updateUserId=observastory.objects.filter(story_id=storyId).update(user_id=getUserId.user_id) 
      #check user auth_type
      if source == 'facebook':
-      checkEmail=observatoryuser.objects.filter(user_email=email).exists()
       #check useremail exits
-      if checkEmail == True:
+      if observatoryuser.objects.filter(user_email=email).exists() == True:
        #Get userid
-       getUserId=observatoryuser.objects.values_list('user_id',flat=True).filter(user_email=email)
-       for userId in getUserId:
-        request.session['userid']=userId
-        storyId=request.session['storyId']
-        updateUserId=observastory.objects.filter(story_id=storyId).update(user_id=userId)
+       getUserId=observatoryuser.objects.get(user_email=email)
+       request.session['userid']=getUserId.user_id
+       storyId=request.session['storyId']
+       updateUserId=observastory.objects.filter(story_id=storyId).update(user_id=getUserId.user_id)
       else:
        #Create userid and get user id
        observaUser=observatoryuser(user_name=name,user_email=email,user_auth_type=source)
        observaUser.save()
-       getUserId=observatoryuser.objects.values_list('user_id',flat=True).filter(user_email=email)
-       for userId in getUserId:
-        request.session['userid']=userId
-        storyId=request.session['storyId']
-        updateUserId=observastory.objects.filter(story_id=storyId).update(user_id=userId) 
+       getUserId=observatoryuser.objects.get(user_email=email)
+       request.session['userid']=getUserId.user_id
+       storyId=request.session['storyId']
+       updateUserId=observastory.objects.filter(story_id=storyId).update(user_id=getUserId.user_id) 
    else:
     storyId=request.session['storyId'] 
     #update publish value
@@ -202,31 +195,27 @@ def browseStoryForm(request):
          #check useremail exits
          if observatoryuser.objects.filter(user_email=email).exists() == True:
           #Get userid
-          getUserId=observatoryuser.objects.values_list('user_id',flat=True).filter(user_email=email)
-          for userId in getUserId:
-           request.session['userid']=userId
+          getUserId=observatoryuser.objects.get(user_email=email)
+      	  request.session['userid']=getUserId.user_id
          else:
 	  #Create userid and Get userid
           observaUser=observatoryuser(user_name=name,user_email=email,user_auth_type=source)
           observaUser.save()
-          getUserId=observatoryuser.objects.values_list('user_id',flat=True).filter(user_email=email)
-          for userId in getUserId:
-           request.session['userid']=userId
+          getUserId=observatoryuser.objects.get(user_email=email)
+          request.session['userid']=getUserId.user_id
         #check user auth_type
         if source == 'facebook':
          #check useremail exits
          if observatoryuser.objects.filter(user_email=email).exists() == True:
           #Get userid
-          getUserId=observatoryuser.objects.values_list('user_id',flat=True).filter(user_email=email)
-          for userId in getUserId:
-           request.session['userid']=userId         
+          getUserId=observatoryuser.objects.get(user_email=email)
+          request.session['userid']=getUserId.user_id     
          else:
 	  #Create userid and Get userid
           observaUser=observatoryuser(user_name=name,user_email=email,user_auth_type=source)
           observaUser.save()
-          getUserId=observatoryuser.objects.values_list('user_id',flat=True).filter(user_email=email)
-          for userId in getUserId:
-           request.session['userid']=userId 
+          getUserId=observatoryuser.objects.get(user_email=email)
+          request.session['userid']=getUserId.user_id
        userUniqueId=request.session['userid'] 
       else:
         userUniqueId=1
@@ -283,7 +272,6 @@ def browseStoryForm(request):
 #######################################
 def minestory(request):
     userUniqueId=request.session['userid'] if 'userid' in request.session else 1
-    print "hello"
     #Get Mine story details
     dictMineStory=[]
     dictMineStory=observastory.objects.all().filter(user_id=userUniqueId).order_by('-story_id')
@@ -295,7 +283,6 @@ def minestory(request):
      story_ids=int(story_ids)
      mineStory['pk'] = fpe_obj.encrypt(story_ids)
     jsonMineStory=json.dumps(jsonMineStory)
-    print jsonMineStory   
     return HttpResponse(jsonMineStory)
 
 ###########################################
@@ -428,10 +415,8 @@ def published(request):
    isPublished=False
    #Get Story id
    browseStoryId=request.POST.get('storyId')
-   print browseStoryId
    #Decrypt story id
    browseStoryId=fpe_obj.decrypt(int(browseStoryId))
-   print browseStoryId
    #Get publish value
    browseStroyIdPublish=observastory.objects.values_list('published').filter(story_id=browseStoryId)
    for publishValue in browseStroyIdPublish:
@@ -589,30 +574,26 @@ def browsestories(request,browseStoryId):
    if browseModeIndex == len(browseStoryChapterIds):
     browseModeIndex=0
   #Get sessions varibales  
-  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[browseModeIndex],story_id=browseStoryId)]
-  request.session['sesBrowseModeIndex']=browseModeIndex
-  #remove unicode from session variable and set session variable
-  for browseStorySesData in browseStorySesVar:
-   browseStorySesDataToArray=browseStorySesData.split(',')
-   for indexvar in range(0, len(browseStorySesDataToArray)):
-    browseStorySessionData=browseStorySesDataToArray[indexvar].split(':')
-    browseStorySesArrayLeft= browseStorySessionData[0].replace('\'','')
-    browseStorySesArrayRight= browseStorySessionData[1].replace('\'','')
-    sessionall=browseStorySesArrayLeft.strip()
-    browseStorySesValues=browseStorySesArrayRight.strip()
-    request.session[sessionall]=browseStorySesValues
+  chapterDetails=storychapter.objects.get(serial_number=browseStoryChapterIds[browseModeIndex],story_id=browseStoryId)
+  browseStorySesVar=chapterDetails.chapter_details
+  browseStorySesDataToArray=browseStorySesVar.split(',')
+  for indexvar in range(0, len(browseStorySesDataToArray)):
+   browseStorySessionData=browseStorySesDataToArray[indexvar].split(':')
+   browseStorySesArrayLeft= browseStorySessionData[0]
+   browseStorySesArrayRight= browseStorySessionData[1]
+   sessionall=browseStorySesArrayLeft.strip()[1:-1]
+   browseStorySesValues=browseStorySesArrayRight.strip()[1:-1]
+   request.session[sessionall]=browseStorySesValues
    #Get chapter details
-   chapterDetails=storychapter.objects.get(serial_number=browseStoryChapterIds[browseModeIndex],story_id=browseStoryId)
-   request.session['browseStoryJScript']=chapterDetails.chapter_js_details
-   request.session['browseStoryChapName']=chapterDetails.chapter_title
-   request.session['browseStoryChapterDesc']=chapterDetails.chapter_desc
-   chapterUrl=chapterDetails.chapter_url
-   #Redirect chapter url
-   return redirect(chapterUrl)
+  request.session['browseStoryJScript']=chapterDetails.chapter_js_details
+  request.session['browseStoryChapName']=chapterDetails.chapter_title
+  request.session['browseStoryChapterDesc']=chapterDetails.chapter_desc
+  chapterUrl=chapterDetails.chapter_url
+  #Redirect chapter url
+  return redirect(chapterUrl)
 def viewStory(request,browseStoryId):
   #Get browse story id and decrypt story id
   browseStoryId=fpe_obj.decrypt(int(browseStoryId))
-  #browseStoryId=int(browseStoryId)/777
   return render_to_response('story/viewStory.html',{'browseStoryId':browseStoryId},context_instance=RequestContext(request))
 
 ####################################################################
@@ -634,20 +615,19 @@ def browseStoryNext(request):
    index=index+1
    if index == len(browseStoryChapIds):
     index=0 
-  #Get session variables
-  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapIds[index],story_id=browseStoryId)]
-  request.session['index']=index
-  for browseStorySesData in browseStorySesVar:
-   browseStorySesDataToArray=browseStorySesData.split(',')
-   for indexvar in range(0, len(browseStorySesDataToArray)):
-    browseStorySessionData=browseStorySesDataToArray[indexvar].split(':')
-    browseStorySesLeft= browseStorySessionData[0].replace('\'','')
-    browseStorySesRight= browseStorySessionData[1].replace('\'','')
-    sessionall=browseStorySesLeft.strip()
-    browseStorySesValues=browseStorySesRight.strip()
-    request.session[sessionall]=browseStorySesValues
-  #Get chapter details
+  #Get sessions varibales  
   chapterDetails=storychapter.objects.get(serial_number=browseStoryChapIds[index],story_id=browseStoryId)
+  request.session['index']=index	
+  browseStorySesVar=chapterDetails.chapter_details
+  browseStorySesDataToArray=browseStorySesVar.split(',')
+  for indexvar in range(0, len(browseStorySesDataToArray)):
+   browseStorySessionData=browseStorySesDataToArray[indexvar].split(':')
+   browseStorySesLeft= browseStorySessionData[0]
+   browseStorySesRight= browseStorySessionData[1]
+   sessionall=browseStorySesLeft.strip()[1:-1]
+   browseStorySesValues=browseStorySesRight.strip()[1:-1]
+   request.session[sessionall]=browseStorySesValues
+  #Get chapter details
   request.session['browseStoryJScript']=chapterDetails.chapter_js_details
   request.session['browseStoryChapName']=chapterDetails.chapter_title
   request.session['browseStoryChapterDesc']=chapterDetails.chapter_desc
@@ -675,19 +655,19 @@ def browseStoryPrev(request):
     index=len(browseStoryChapterIds)
    index=index-1
    request.session['index']=index
-  #Get session variables
-  browseStorySesVar=[chapter_details.encode("utf8") for chapter_details in storychapter.objects.values_list('chapter_details', flat=True).filter(serial_number=browseStoryChapterIds[index],story_id=browseStoryId)]
-  for browseStorySesData in browseStorySesVar:
-   browseStorySesDataToArray=browseStorySesData.split(',')
-   for  indexvar in range(0, len(browseStorySesDataToArray)):
-    browseStorySessionData=browseStorySesDataToArray[indexvar].split(':')
-    browseStorySesDataLeft= browseStorySessionData[0].replace('\'','')
-    browseStorySesDataRight= browseStorySessionData[1].replace('\'','')
-    sessionall=browseStorySesDataLeft.strip()
-    browseStorySesValues=browseStorySesDataRight.strip()
-    request.session[sessionall]=browseStorySesValues
-  #Get chapter details
+  #Get sessions varibales  
   chapterDetails=storychapter.objects.get(serial_number=browseStoryChapterIds[index],story_id=browseStoryId)
+  browseStorySesVar=chapterDetails.chapter_details
+  request.session['index']=index	
+  browseStorySesDataToArray=browseStorySesVar.split(',')
+  for  indexvar in range(0, len(browseStorySesDataToArray)):
+   browseStorySessionData=browseStorySesDataToArray[indexvar].split(':')
+   browseStorySesDataLeft= browseStorySessionData[0]
+   browseStorySesDataRight= browseStorySessionData[1]
+   sessionall=browseStorySesDataLeft.strip()[1:-1]
+   browseStorySesValues=browseStorySesDataRight.strip()[1:-1]
+   request.session[sessionall]=browseStorySesValues
+  #Get chapter details
   request.session['browseStoryJScript']=chapterDetails.chapter_js_details
   request.session['browseStoryChapName']=chapterDetails.chapter_title
   request.session['browseStoryChapterDesc']=chapterDetails.chapter_desc

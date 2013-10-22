@@ -36,8 +36,35 @@ $(function() {
 			createJsonObject(this);
 		})
 		
+		
+		
+	
 });
   
+/**
+* Edit story title and description on click of edit button
+*/
+   function editTitle(button)
+	{
+			var $editableBlock=$(button).parents(".editable");
+			var $editableText=$editableBlock.children(".editableText");
+			if($editableBlock.data('flag')) { 
+				$editableText.html($editableBlock.find('textarea').val());
+			   $editableBlock.data('flag',false);
+
+			  }
+			else{
+				$editableText.data('text', $editableText.html()).html('');
+				var $input = $('<textarea rows="2"  style="float:left;"/>')
+		        .val($editableText.data('text').split('<br>').join('\n').split('&nbsp;').join(' '))
+		        .width($editableText.width()-10);
+				$editableText.append($input);
+			    $editableBlock.data('flag', true);
+				
+			}
+			
+		}
+
 /**
 * Check if chapter is in edit mode and return
 */
@@ -60,7 +87,29 @@ $(function() {
 		    _row.data('flag',false);
 		  } 
 	  })
+	  checkTitleEditMode();
   }
+  /**
+  * Check if title and description is in edit mode and return
+  */ 
+ function  checkTitleEditMode()
+ {
+	 var $editables=$("#MainQueueForm").children(".editable");
+	 $editables.each(function(){
+		  var _editable=$(this);
+		  var $cells = _editable.children(".editableText").not('.edit');
+	 
+	  if(_editable.data('flag')) { // in edit mode, move back to table
+		    // cell methods
+		    $cells.each(function () {
+		      var _cell = $(this);
+		      _cell.html(_cell.find('textarea').val());
+		    })
+		    
+		    _editable.data('flag',false);
+		  } 
+	  })
+ }
   
 /**
 * Edit Chapter on click of edit button
@@ -140,6 +189,6 @@ $(function() {
 			});	
 			
 			$("#chapterJson").val(JSON.stringify(jsonObj));		
-			$("#storyTitle").val($("#editStoryName").html());
-			$("#storyDesc").val($("#editStoryDesc").html());
+			$("#storyTitle").val($("#editStoryName .editableText").html());
+			$("#storyDesc").val($("#editStoryDesc .editableText").html());
 		}  

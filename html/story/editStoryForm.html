@@ -17,9 +17,16 @@
                <p style="font-size:14px">Story Title :</p>
                <div style="clear:both;"></div>
        	{% for objstory in observastory %}
-     	<div id="editStoryName" contenteditable="true">{{objstory.story_name}}</div>
+     	<div id="editStoryName" class="editable" title="click to edit" data-flag="false">
+     		<div class="editableText">{{objstory.story_name}}</div>     	
+     		<input type="button" class="editTitleBtn" style="background: transparent url('media/img/app/editImage.png')  no-repeat;" onclick="editTitle(this);"></input>
+     	</div>
       	<p style="font-size:14px">Description:</p>  
-     	<div id="editStoryDesc" contenteditable="true">{{objstory.story_desc}}</div>
+     	<div id="editStoryDesc" class="editable" title="click to edit" data-flag="false">
+     		<div class="editableText">{{objstory.story_desc}}</div>
+     		<input type="button" class="editTitleBtn" style="background: transparent url('media/img/app/editImage.png')  no-repeat;" onclick="editTitle(this);"></input>	
+     	</div>
+     	<div style="clear:both"></div>
 		{% if objstory.number_of_chapters %}   
 			<div id="editChapters">
 				<div  id="chapterList">

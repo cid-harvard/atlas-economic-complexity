@@ -1163,9 +1163,28 @@ font-size: 18px;
 {
 	font-size: 16px;
 }
- [contenteditable="true"] { padding: 5px 10px;outline:none;margin-top:5px;border: 1px dashed #E7E6DB;font-family: 'PT Sans Narrow',Helvetica,Arial; }
- [contenteditable="true"]:hover { box-shadow:0 2px 4px 2px #888888;}
- 
+.editable{
+	padding: 5px 10px;
+	outline:none;
+	margin-top:5px;
+	border: 1px dashed #E7E6DB;
+	font-family: 'PT Sans Narrow',Helvetica,Arial; 
+	float:left;
+	width:97%;
+	
+}
+
+ /* [contenteditable="true"] { padding: 5px 10px;outline:none;margin-top:5px;border: 1px dashed #E7E6DB;font-family: 'PT Sans Narrow',Helvetica,Arial; }
+ [contenteditable="true"]:hover { box-shadow:0 2px 4px 2px #888888;} */
+ .editableText
+ {
+ width: 98%;
+float: left;
+ }
+ .editableText textarea{
+ font-family: 'PT Sans Narrow',Helvetica,Arial; 
+font-size:inherit;
+ }
 #sortable 
 { 
 list-style-type: none;
@@ -1260,6 +1279,17 @@ padding:4px 5px;
 .cdText
 {
 padding:4px 5px;
+}
+.editTitleBtn
+{
+border:none;
+padding:0px;
+width: 16px;
+height: 16px;
+margin: 4px auto;
+color: #339;
+background: transparent url('media/img/app/editImage.png')  no-repeat;
+float:right;
 }
 .deleteBtn
 {
@@ -1445,6 +1475,7 @@ text-align: center;
 font-size: 18px;
 height: 149px;
 padding: 50px;
+display:none;
 }
 .emptyStoryMessage a
 {
