@@ -920,7 +920,7 @@ def app_redirect(request, app_name, trade_flow, filter, year):
   else:
     country1, country2, product = filter, "all", "show"
   # raise Exception("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
-  return HttpResponsePermanentRedirect("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
+  return HttpResponsePermanentRedirect(HTTP_HOST+"explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
 
 def explore(request, app_name, trade_flow, country1, country2, product, year="2011"):
   iscreatemode=False
@@ -972,9 +972,9 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   if prod_class == "hs4":
     # redirect if and exception country
     if country1 == "bel" or country1 == "lux":
-      return redirect('explore/%s/%s/blx/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
+      return redirect(HTTP_HOST+'explore/%s/%s/blx/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
     if country1 == "bwa" or country1 == "lso" or country1 == "nam" or country1 == "swz":
-      return redirect('explore/%s/%s/zaf/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
+      return redirect(HTTP_HOST+'explore/%s/%s/zaf/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
   if was_redirected:
     # display warning is redirected from exception
     if country1 == "blx":
