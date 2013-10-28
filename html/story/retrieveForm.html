@@ -1,446 +1,124 @@
-{% load i18n %}
-{% load humanize %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>The Atlas Of Economic Complexity | Browse Stories</title>
-  <base href="{{HTTP_HOST}}">
-  <meta name="description" content="Networks in Macro Economics">
-  <meta name="author" content="Alexander Simoes">
-  <!-- Necessary for google to crawl the site, since it is purely ajax based.
-        When the crawler reaches the page it will request the current URL plus
-        the additional URL query parameter _escaped_fragment_= -->
-  <meta name="fragment" content="!" charset=utf-8>
-  <link rel="shortcut icon" type="image/x-icon" href="media/img/favicon.ico">
-  
-  <!-- Load non-standard fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
-  <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
-  
+{% extends "template.html" %}
+
+{% block page_title %}The Observatory |Browse Stories {% endblock %}
+{% block heading_title %}Browse Stories{% endblock %}
+
+
+  {% block css %}
+
   <link rel="stylesheet" href="media/css/normalize.css">
   <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
-  <link rel="stylesheet" href="media/css/style.css">
-  <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
   <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
   <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap-icon.css" />
+  <link rel="stylesheet" href="media/js/libs/jquery-dataTables/jquery.dataTables.css" />
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
   
- 
+  <style>
+  header nav ul{ height:46px !important;}
   
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-</head>
-<body>
-  <div id="container"> 
-    <header>
-     <div class="logo" style="background-color: #fafafa; width:165px; height:66px;">
-        <a href="" title="Home" style="text-decoration: none;">
-        <h1 style="background: url(media/img/all/logo_rainbow.png) repeat-x 100% 100%; padding-bottom:22px; color: black; font-size:43px;">The Atlas</h1>
-        <h2 style="font-size:14px; margin-top:-25px; text-align:center; margin-left:0px; letter-spacing:1px; color:white; text-transform:uppercase; text-decoration:none; background-color: #a0a6a9;">of Economic Complexity</h2></a> 
-      </div>  
-      <nav>
-        <ul>
-          <li><a href="explore">Explore</a></li>
-          <!-- <li><a href="/country/usa/">Profiles</a></li> -->
-          <li><a href="stories">Stories</a></li>
-          <li><a href="rankings">Rankings</a></li>
-          <li><a href="book">Book</a></li>
-          <li><a href="about">About</a></li>
-        </ul>
-      </nav> 
-
-     
-      <br class="clear">
-    </header>
-
-
-
-
-    {% if  userId  %}
-      <div id="userSession">
-       <button id="logoutBtn"  onclick="location.href='logout/'">Logout</button>	
-       <p id="loggedInUser">Hello {{ userName }}</p> 
-      </div>
-    {% endif %}
-    <div style="clear:both"></div>
-    <div id="browseMain" style="width:900px; margin-left:150px">
-		<div class="app_title" id="title">
-        <h2 style="margin-left:100px; width:700px;" id="text_title">Browse Stories</h2>
-      </div>
-		<div id="browseStories">
-			<ul>
-				<li><a href="stories/#myStories">Mine (<img src="media/img/all/googleplus_badge.png" style="height:15px;"><img src="media/img/all/facebook_badge.png" style="height:15px; margin-left: 5px">)</a></li>
+  #main{
+  margin-top:0px !important;
+  }
+  #logoutBtn
+  {
+  margin-right:5%;
+  }
+  </style>
+ {% endblock %}
+ 
+ {% block content %}
+	 <div id="browseStories">
+			<ul id="tabSection">
+				<li><a href="stories/#mystories">Mine (<img src="media/img/all/googleplus_badge.png" style="height:15px;"><img src="media/img/all/facebook_badge.png" style="height:15px; margin-left: 5px">)</a></li>
 				<li><a href="stories/#popular">Popular</a></li>
 				<li><a href="stories/#featured">Featured</a></li>
-				<li style="width:14%;"><a href="stories/#published" style="padding-left:20%;">All Stories</a></li>
+				<li><a href="stories/#published">All Stories</a></li>
 			</ul>
-		<div id="myStories" class="storyList">
+		<div id="dataSection">
+		<div id="mystories" class="storyTable">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %}
-				{% if mineStory %}
-				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this,'myStories')" > 				
-				{% for story in mineStory %}
-					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
-				{% endfor %}
-				</select>
-				<div class="buttonSection">
-					<input type="Submit" class="retriveButton viewButton disabled" value="View" id="viewButton" onclick=""></input> 
-					<input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url observatory.views.editStoryForm %}'"></input> 
-					<input type="button" class="retriveButton" value="Publish" id="publishButton" onclick="publishStory(this)"></input> 
-					{% for story in checkAdmin %} 
-					{% if story.isadmin %}
-					<input type="button" class="retriveButton" value="Feature" id="featureButton" onclick="featureStory(this)"></input> 
-					{% endif %} 
-					{% endfor %} 
-					<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="showConfirmDeleteDialog(this);"></input>
-				</div>
-				{% else %}
+				<table name="Stories" class="storiesTable">
+					<thead>
+						<tr>
+							<th class="st">Title</th>
+							<th class="vs">View</th>
+							<th class="es">Edit</th>
+							<th class="ps">Publish</th>
+							<th class="fs">Feature</th>
+							<th class="rs">Remove</th>
+						</tr>
+					</thead>
+					 <tbody id="myStoriesData">
+					</tbody> 
+				</table> 
 				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
-				{% endif %} 
 			</form>
 		</div>
-		<div id="popular" class="storyList">
+		<div id="popular" class="storyTable">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
-				{% if popularStory %}
-				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this,'popular')"> 
-					{% for story in popularStory %}
-					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
-					{% endfor %}
-				</select>
-				<div class="buttonSection">
-					<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
-				</div>
-				{% else %}
+				<table name="Stories" class="storiesTable" >
+					<thead>
+						<tr>
+							<th class="st">Title</th>
+							<th class="vs">View</th>
+						</tr>
+					</thead>
+					<tbody>
+				   </tbody>
+				</table> 
 				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
-				{% endif %}
 		 	</form>
 		</div>
-		<div id="featured" class="storyList">
+		<div id="featured" class="storyTable">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
-				{% if featureStory %}
-				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this,'featured')"> 
-					{% for story in featureStory %}
-					<option value="{{story.story_id}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option>
-					{% endfor %}
-				</select>
-						<div class="buttonSection">
-							<input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>
-						</div>
-				{% else %}
+				<table name="Stories" class="storiesTable" >
+					<thead>
+						<tr>
+							<th class="st">Title</th>
+							<th class="vs">View</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table> 
 				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
-				{% endif %}		
 			</form>
 		</div>
-		<div id="published" class="storyList">
+		<div id="published" class="storyTable">
 			<form name="storyForm" method="post" class="sform">
 				{% csrf_token %} 
-				{% if publishStory %}
-				<select name="Stories" id="stories" class="retriveDropList" size="10" onChange="selectOption(this, 'published')">
-					{% for story in publishStory %}
-					<option value="{{story.story_id}}" data-publish="{{story.published}}" data-featured="{{story.featured}}" data-chaptercount="{{story.number_of_chapters}}">{{story.story_name}}</option> 
-					{% endfor %}
-				</select>
-				<div class="buttonSection">
-						{% for story in checkAdmin %} 
-							  {% if story.isadmin %}
-							  	<input type="Submit" class="retriveButton viewButton disabled" value="View"  onclick=""></input>							  
-								<input type="Submit" class="retriveButton" value="Edit" onClick="this.form.action='{% url observatory.views.editStoryForm %}'"></input> 
-								<input type="button" class="retriveButton" value="Publish" id="publishButton" onclick="publishStory(this)"></input> 
-								<input type="button" class="retriveButton" value="Feature" id="featureButton" onclick="featureStory(this);"></input> 
-								<input type="button"class="retriveButton" value="Delete" id="deleteButton" onclick="showConfirmDeleteDialog(this);"></input>
-							  {% else %}
-							    <input type="Submit" class="retriveButton viewButton disabled" value="View" style="margin-top: 20%;" onclick=""></input>							    
-							  {% endif %} 
-						{% endfor %} 
-				</div>
-				{% else %}
-				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+			<p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+				<table name="Stories" class="storiesTable" >
+				{% if checkAdmin %}
+					<thead>
+						<tr>
+							<th class="st" >Title</th>
+							<th class="vs">View</th>
+							<th class="es">Edit</th>
+							<th class="ps">Publish</th>
+							<th class="fs">Feature</th>
+							<th class="rs">Remove</th>
+						</tr>
+					</thead>
+				{% else %}	
+					<thead>
+						<tr>
+							<th class="st">Title</th>
+							<th class="vs">View</th>
+						</tr>
+					</thead>
 				{% endif %}	
+					<tbody id="publishedData" >
+					</tbody>
+				</table> 
 			</form>
 		</div>
+	</div>	
 	</div>
-</div>
-		<!-- END #main -->
-     <footer >
-      <p>
-        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth<br> opportunities for more than a hundred countries worldwide.</span>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
-        <br />
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
-      </p>
-
-      <p style="margin-left:370px; margin-right:auto; width:500px">
-        <a href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/></a>
-        <div class="language_select" style="float:left; margin-top:-10px">
-          <div class="text">
-            Language:
-          </div>
-          <select>
-            {% for lang in supported_langs %}
-            <option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </p>
-
-    </footer>
-  </div> <!-- END #container -->
-
-  <!-- The JavaScript -->
-  <!-- Libraries -->
-  <script src="media/js/libs/jquery/jquery-1.7.1.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <script src="media/js/libs/tipsy/tipsy.jquery.js" ></script>
-  <script src="media/js/libs/chosen/chosen.jquery.min.js" ></script>
-  <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
-  <script src="media/js/story/createStory.js"></script> 
-  <script src="media/js/story/editStory.js"></script> 
-  
-  
- <script> 
- 
-
-  // google analytics
-  var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-  s.parentNode.insertBefore(g,s)}(document,'script'));
-  
- $(document).ready(function() {
-	$("#popular").show();
-	$("#featured").show();
-	$("#browseStories").tabs(); 
-	activateTabs();
-	
- $('#dialog-modal-browseStory').modal({
-		show: false,
-		keyboard: false
-		});
- $('dialog-modal-confirmDelete').modal({
-		show: false,
-		keyboard: false
-		});
- $('#browseStories').tabs({
-	beforeActivate: function(event ,ui){
-		var userId={{ userId }};
-         if( ui.newTab.index()==0){
-        	if (userId) {  
-      		  return true;
-        	  }
-       		else {
-       		  $('#dialog-modal-browseStory').modal('show');
-       		  return false;
-       		  }
-        }
-        else{
-       	  return true;
-        }
-     },
-  activate:function(event,ui){
-	 var id=$(ui.newPanel).prop('id');
-	 var $form=$(ui.newPanel).children("form");
-	 var $stories=$form.children("select");
-	 $stories.children('option:first-child').prop("selected","selected");
-	 $stories.children('option:first-child').focus();
-	 $stories.focus();
-	 selectStory("#"+id);
- 	}
-});	
- 
- 
-// $.template('storyViewTemplate', '<option value="{{story_id}}" data-publish="{{published}}" data-featured="{{featured}}" data-chaptercount="{{number_of_chapters}}">{{story_name}}</option>'); 
- 
-
-});
- 
- 
-/**
-* check state of story on selection
-*/
- function selectOption(option,storyType)
-  {
-	var tabId="#"+storyType;
-	var storyId=$(option).val();
-	var  viewhref="this.form.action='stories/view/"+storyId+"/'";
-	$(".viewButton").attr('onclick', viewhref);
-		if($(option).children('option:selected').attr('data-publish') =="True")
-			{
-			$(tabId+" #publishButton").prop('value', 'Unpublish');
-			}
-		else
-			{
-			$(tabId+" #publishButton").prop('value', 'Publish');
-			}
-		if($(option).children('option:selected').attr('data-featured')=="True")
-			{
-			$(tabId+" #featureButton").prop('value',"Unfeature");
-			}
-		else
-			{
-			$(tabId+" #featureButton").prop('value',"Feature");
-			}
-		if($(option).children('option:selected').data('chaptercount')=="0")
-		{
-		$(".viewButton").addClass("disabled");
-		}
-	   else
-		{
-		$(".viewButton").removeClass("disabled");
-		}
- }
- /**
- * feature or unfeature a story
- */
- function featureStory(option)
- {
-	 var button=option;
-		var $tab=$(button).parents().eq(2);
-		var $form=$tab.children("form");
-		var $stories=$form.children("select");
-		storyId=$stories.children('option:selected').val();
-		$.ajax({
-			'type': 'POST',
-			'url': 'featured/',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-				'storyId':storyId,
-			},
-			'success': function(data) {
-				var newDoc = document.open("text/html", "replace");
-				newDoc.write(data);
-				newDoc.close();
-			},
-			'error': function(xhr, textStatus, errorThrown) {
-			}
-		}); 
- }
- /**
-  * publish or unpublish a story
-  */
- function publishStory(option)
- {
-	    var button=option;
-		var $tab=$(button).parents().eq(2);
-		var $form=$tab.children("form");
-		var $stories=$form.children("select");
-		storyId=$("#stories").children('option:selected').val();
-		$.ajax({
-			'type': 'POST',
-			'url': 'published/',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-				'storyId':storyId,
-			},
-			'success': function(data) {
-				var newDoc = document.open("text/html", "replace");
-				newDoc.write(data);
-				newDoc.close();
-			},
-			'error': function(xhr, textStatus, errorThrown) {
-			alert("error");
-			}
-		});
- }
- /**
-  * delete a story
-  */
- function deleteStory(option)
- {
-	 var button=option;
-		var $tab=$(button).parents().eq(2);
-		var $form=$tab.children("form");
-		var $stories=$form.children("select");
-		storyId=$stories.children('option:selected').val();		
-		$.ajax({
-			'type': 'POST',
-			'url': 'deleteStory/',
-			'data': {
-				'csrfmiddlewaretoken': '{{ csrf_token }}',
-				'storyId':storyId,
-			},
-			'success': function(data) {
-				var newDoc = document.open("text/html", "replace");
-				newDoc.write(data);
-				newDoc.close();
-			},
-			'error': function(xhr, textStatus, errorThrown) {
-				alert("error")
-			}
-		});
- }
- /**
-  * show confirm delete message
-  */
- function showConfirmDeleteDialog(option)
- {
- $("#dialog-modal-confirmDelete").modal('show');
- $("#deleteConfirmed").on("click",function(){
-	 deleteStory(option);
- });
- }
-
- /**
-  * activate tab based on type of user
-  */
-function activateTabs()
-  {
-	  {% if userId %}	  
-	  $( "#browseStories" ).tabs( "option", "active", 0 ); 
-	  $("#myStories #stories").children('option:first-child').prop("selected","selected");
-	  $("#myStories #stories").focus();
-	  $("#myStories #stories").children('option:first-child').focus();
-	  var option=$("#myStories #stories").children('option:first-child');
-	  selectStory("#myStories");
-	  {% else %}
-		  $( "#browseStories" ).tabs( "option", "active", 3 );
-		  $("#published #stories").children('option:first-child').prop("selected","selected");
-		  $("#published #stories").focus();
-		  $("#published #stories").children('option:first-child').focus();
-		  var option=$("#published #stories").children('option:first-child');
-		  selectStory("#published");
-	  {% endif %}
-	  return false;
-  }
- 
- function selectStory(id)
- {
-	    var storyId=$(id+" #stories").children('option:first-child').val();
-		var  viewhref="this.form.action='stories/view/"+storyId+"/'";
-		$(".viewButton").attr('onclick', viewhref);
-			if($(id+" #stories").children('option:selected').attr('data-publish') =="True")
-				{
-				$(id+" #publishButton").prop('value', 'Unpublish');
-				}
-			else
-				{
-				$(id+" #publishButton").prop('value', 'Publish');
-				}
-			if($(id+" #stories").children('option:selected').attr('data-featured')=="True")
-				{
-				$(id+" #featureButton").prop('value',"Unfeature");
-				}
-			else
-				{
-				$(id+" #featureButton").prop('value',"Feature");
-				}
-			if($(id+" #stories").children('option:selected').data('chaptercount')=="0")
-			{
-			$(".viewButton").addClass("disabled");
-			}
-		   else
-			{
-			$(".viewButton").removeClass("disabled");
-			}
- }
-</script>
-</body>
- <div class="modal fade" id="dialog-modal-browseStory" role="dialog" aria-labelledby="Save Story" aria-hidden="true">
+<div class="modal fade" id="dialog-modal-browseStory" role="dialog" aria-labelledby="Save Story" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -471,3 +149,130 @@ function activateTabs()
     </div>
   </div>
 </div>
+ 
+{% endblock %}
+   
+{% block js %}
+
+  <!-- The JavaScript -->
+  <!-- Libraries -->
+  <script src="media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="media/js/libs/tipsy/tipsy.jquery.js" ></script>
+  <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="media/js/libs/jquery-dataTables/jquery.dataTables.min.js"></script>
+  <script src="media/js/libs/jquery-template/jquery.tmpl.min.js"></script>
+  <script src="media/js/story/createStory.js"></script> 
+  <script src="media/js/story/retrieveStory.js"></script> 
+  
+  
+  
+ <script> 
+$(document).ready(function() { 
+	
+	$("#popular").show();
+	$("#featured").show();
+    $("#browseStories").tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+	$("#browseStories li").removeClass( "ui-corner-top" );
+	$("#browseStories ul").removeClass("ui-corner-all");	
+    activateTabs();
+    var userSession=('<div id="userSession"><button id="logoutBtn"  onclick="location.href='+"'logout/'"+'">Logout</button><p id="loggedInUser">Hello {{ userName }}</p></div>');
+     {% if  userId  %}
+    {
+    	$("#main").prepend(userSession);
+    } 
+    {% endif %}
+//activate tabs based on user login	
+  $('#browseStories').tabs({
+ 	beforeActivate: function(event ,ui){
+ 		var userId={{ userId }};
+          if( ui.newTab.index()==0){
+         	if (userId) {  
+       		  return true;
+         	  }
+        		else {
+        		  $('#dialog-modal-browseStory').modal('show');
+        		  return false;
+        		  }
+         }
+         else{
+        	  return true;
+         }
+      },
+   activate:function(event,ui){
+ 	 var tab=$(ui.newPanel).prop('id');
+ 	 ajaxTabUpdater(tab+'/','{{ csrf_token }}').done(function(response){
+ 		  var jsonObj = JSON.parse(response);
+ 		  populateTable(jsonObj,tab,"{{checkAdmin}}");
+ 		})
+ 		.fail(function(response){
+ 			alert("server not reachable");
+ 		});	
+  	}
+ });
+});
+ /**
+  * activate tab based on type of user
+  */
+function activateTabs()
+  {
+	{% if userId %}	 
+	  $("#browseStories" ).tabs( "option", "active", 0 ); 
+	  ajaxTabUpdater('mystories/','{{ csrf_token }}').done(function(response){
+		  var jsonObj = JSON.parse(response);
+		  populateTable(jsonObj,"mystories","{{checkAdmin}}");
+
+		})
+		.fail(function(response){
+			alert("server not reachable");
+		});	
+	  {% else %}
+		  $( "#browseStories" ).tabs( "option", "active", 3 );
+		  ajaxTabUpdater('published/','{{ csrf_token }}').done(function(response){
+			  var jsonObj = JSON.parse(response);
+			  populateTable(jsonObj,"published","{{checkAdmin}}");
+			   	
+			})
+			.fail(function(response){
+				alert("server not reachable");
+			});	
+	  {% endif %}
+	  return false;
+  }
+
+
+
+</script>
+<script id="storyListTemplate1" type="text/x-jquery-tmpl"> 
+		
+			 <tr value="${pk}" data-chapterCount="${number_of_chapters}">
+				<td>${story_name}</td>
+				<td class="view">
+					<a href="stories/view/${pk}/" class="viewBtn  ${number_of_chapters}" >
+						<img src="media/img/app/view-fullscreen.png"></img>
+					</a>
+				</td>
+				<td class="edit">
+						<a href="stories/edit/${pk}/" name="Stories" class="editButton"  style="background: transparent url('media/img/app/editImage.png')  no-repeat;"></a>
+				</td>
+				<td class="stText"><input name="published" value="${pk}" class="publishBox"  type="checkbox" onclick="publishStory(this,'{{ csrf_token }}');"  ${published}/></td>
+				<td class="sdText"><input name="featured" value="${pk}" class="featureBox" type="checkbox" onclick="featureStory(this,'{{ csrf_token }}');"  ${featured} /></td>
+				<td class="del">
+						<input type="button" class="deleteButton"  data-value="${pk}" style="background:transparent url('media/img/app/q-sprites.gif') 0 -64px no-repeat;border:none;padding:0px;" onclick="showConfirmDeleteDialog(this,'{{ csrf_token }}')"></button>
+				</td>
+			</tr>
+		
+</script>
+<script id="storyListTemplate2" type="text/x-jquery-tmpl"> 
+					<tr value="${pk}">
+						    <td>${story_name}</td>
+							<td class="view">
+								<a href="stories/view/${pk}/" class="viewBtn ${number_of_chapters}" >
+										<img src="media/img/app/view-fullscreen.png"></img>
+								</a>
+							</td>
+					</tr>
+</script>
+ {% endblock %}
+
+ 
