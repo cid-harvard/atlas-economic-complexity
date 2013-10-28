@@ -763,6 +763,18 @@ footer p img{
 	margin: 0 20px;
 }
 
+footer.credits {
+  margin-left:230px;
+}
+
+footer.logos {
+  margin-left:100px;
+}
+
+#sticky-anchor {
+  margin-top:40px;
+}
+
 /*
  * Fix for FF
  */

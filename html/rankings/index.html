@@ -198,21 +198,22 @@ button {
 
 {% block content %}
 
-<!-- the left pane -->
-<div id="sidebar">
-  <h3><a href="rankings/country/">Country Rankings</a></h3>
-  <p>Rank countries based on their economic complexity for a given year</p>
-  <h3><a href="rankings/product/">Product Rankings</a></h3>
-  <p>Rank products in the SITC4 classification based on their complexity for a given year</p>
-  <h3>Download</h3>
-  <p>
-    <a href="rankings/{{category}}/{{year}}/download/">&raquo; Download {{year}} data</a><br />
-    <a href="rankings/{{category}}/download/">&raquo; Download all years data</a>
-  </p>
+<div id="sticky-anchor"></div>
+<div id="sticky">
+  <div id="sidebar">
+    <h3><a href="rankings/country/">Country Rankings</a></h3>
+    <p>Rank countries based on their economic complexity for a given year</p>
+    <h3><a href="rankings/product/">Product Rankings</a></h3>
+    <p>Rank products in the SITC4 classification based on their complexity for a given year</p>
+    <h3>Download</h3>
+    <p>
+      <a href="rankings/{{category}}/{{year}}/download/">&raquo; Download {{year}} data</a><br />
+      <a href="rankings/{{category}}/download/">&raquo; Download all years data</a>
+    </p>
+  </div>
 </div>
 
-<div id="content">
-  
+<div id="content" style="float:none; margin-left:291px;">  
   <div class="change_year">
     <a class="prev" href="rankings/{{category}}/{{year|add:'-1'}}/">&laquo; Previous Year</a>
     <dl class="dropdown">

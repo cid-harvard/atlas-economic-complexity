@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
-{% block page_title %}{% endblock %}
+{% block page_title %}Home{% endblock %}
 {% block heading_title %}{% endblock %}
 
 {% block css %} 
@@ -215,9 +215,20 @@
   }
 }
 
-</style>
+.products-tmb, a.products-tmb {
+  float:left;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  width: 30px; 
+  height:30px; 
+}
 
-<style>
+.products-tmb:hover {
+  border: solid 2px #ccc;
+
+}
+
 #main #content .didyouknow_container{
 	height: 415px;
 }
@@ -390,6 +401,10 @@
   height:300px;
 }      
 
+footer.credits, footer.logos {
+  margin-left:0px;
+}
+
 </style>
 
   {% endblock %}
@@ -450,25 +465,9 @@
       Explore Growth Opportunities
     </div>
 
-<!--
-    <div style="float:right; margin-left:20px; margin-top:20px; border: solid 2px white; width:500px; padding:20px">
-      <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2011/" style="text-decoration:none;">
-        <div id="slides">    
-          <img src="" alt="Product Space">
-          <img src="" alt="Product Space">
-          <img src="" alt="Product Space">
-          <img src="/media/img/home/teaser_product_space.png" alt="Product Space">
-          <img src="/media/img/home/teaser_products.png" alt="Product Space">
-          <img src="/media/img/home/teaser_stacked.png" alt="Product Space">
-        </div>
-      </a>
-    </div>
--->
-
-
   <a href="http://www.youtube.com/watch?v=0JC24CBVsdo">
 
-    <div class="other_apps_first other_apps" style="float:left;width:370px; height:180px; padding:5px; margin-left:20px;border:1px solid lightgray; background-color:#fafafa;">
+    <div class="other_apps_first other_apps" style="float:left;width:370px; height:200px; padding:5px; margin-left:20px;border:1px solid lightgray; background-color:#fafafa;">
      
       <div style="width:210px; height:160px; text-align:justify;">
         <h3 style="text-transform: none; font-size:30px">What is  <span style="text-transform: uppercase;">THE ATLAS?</span></h3> 
@@ -497,19 +496,7 @@
 <style>
 
 
-.products-tmb, a.products-tmb {
-  float:left;
-  width: 50px;
-  height: 50px;
-  margin: 5px;
-  width: 30px; 
-  height:30px; 
-}
 
-.products-tmb:hover {
-  border: solid 2px #ccc;
-
-}
 
 </style>
 
@@ -561,22 +548,10 @@
 </script>
 
 
-    <script>
-      $(function(){
-
-        $("#carousel-example-generic").carousel({ interval: 2000 });
-      })
-    </script>
-
-
-
 <script src="media/js/libs/d3/d3.v3.min.js"></script>
 <script src="media/js/libs/d3/d3.geo.projection.min.js"></script>
 <script src="media/js/libs/d3/topojson.min.js"></script>
-
 <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
-
-
 
 <script>
 $(function() {
@@ -585,6 +560,8 @@ $(function() {
     show: true,
     keyboard: false
     });
+
+  $("#carousel-example-generic").carousel({ interval: 2000 });
 
 });
 </script>

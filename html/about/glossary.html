@@ -6,17 +6,19 @@
 {% block css %}{% endblock %}
 
 {% block content %}
-<!-- the left pane -->
-<div id="sidebar">
-  <nav role="navigation">
-    <ul>
-      <li><a href="about/">About</a></li>
-      <li><a href="about/support/">Support & Founding Members</a></li>
-      <li><a href="about/research/">Research</a></li>
-      <li><a href="about/glossary/" class="active">Glossary</a></li>
-      <li><a href="about/data/">Data & Sharing</a></li>
-    </ul>
-  </nav>
+<div id="sticky-anchor"></div>
+<div id="sticky">
+  <div id="sidebar">
+    <nav role="navigation">
+      <ul>
+        <li><a href="about/">About</a></li>
+        <li><a href="about/support/">Support & Founding Members</a></li>
+        <li><a href="about/research/">Research</a></li>
+        <li><a href="about/glossary/" class="active">Glossary</a></li>
+        <li><a href="about/data/">Data & Sharing</a></li>
+      </ul>
+    </nav>
+  </div>
 </div>
 
 <style>
@@ -31,7 +33,7 @@
 
 </style>
 
-<div id="content">
+<div id="content" style="float:none; margin-left:291px;">
 
 {% include "about/glossary_text.html" %}
   
