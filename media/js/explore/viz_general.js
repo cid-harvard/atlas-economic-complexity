@@ -272,7 +272,7 @@
        } 
       });
       unq = solos.getUnique();
-      console.log(unq)
+      console.log("unq", unq)
       d3.select("#viz").call(viz.solo(unq));  
   }
   // Do I still need this?

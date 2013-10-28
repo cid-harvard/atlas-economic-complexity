@@ -108,7 +108,7 @@ function Key() {
       })
     a.on("click", function(d){
       // If this node is already selected, return to unsorted
-      console.log(d3.select(this))
+      console.log("click", d3.select(this), d)
       if (d3.select(this).attr("active") == "true")
       {
         d3.select("#viz").call(viz.solo([]));
@@ -152,9 +152,9 @@ function Key() {
                          .attr("active","true"); 
           d3.select("#viz").call(viz.solo([d.name]));               
           // app_name=="stacked" ? stack_solo_filter(d.name) : d3.select("#viz").call(viz.solo([d.name]));
-	  sessionStorage.setItem("productCommunityName",d.name);
+	        sessionStorage.setItem("productCommunityName",d.name);
           sessionStorage.setItem("productCommunityID",this.className.replace(" ","."));	
-          
+          console.log("Filter by", d.name)
         }              
                        
       }
@@ -206,7 +206,7 @@ function Key() {
        } 
       });
       unq = solos.getUnique();
-      console.log(unq)
+      console.log("unq", unq)
       d3.select("#viz").call(viz.solo(unq));  
   }
   ////////////////////////////////////////////

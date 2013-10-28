@@ -1112,6 +1112,7 @@ vizwhiz.viz = function() {
         vars.solo.push(x)
       }
     }
+    console.log("vars", vars, x)
     filter_change = true;
     return chart;
   };

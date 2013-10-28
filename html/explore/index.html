@@ -486,7 +486,7 @@
             <span style="margin:10px 0px; font-weight:bold;">Select a Country:</span>
             <div id="country1" width="120px" style="margin-left: 0px;" onmouseover="$('.show-partner').css('visibility', 'visible');"  onmouseout="$('.show-partner').css('visibility', 'hidden');">
 
-              <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
+              <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
                 <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
 
@@ -622,19 +622,48 @@
           <!-- Diversification TAB -->
 
            <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" %}active{% endif %}" id="tab-diversification">
-
                 <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
                   <label value="product_space" type="radio"  class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:190px; text-align:left" onclick="update_viz('product_space');"><input type="radio" name="viz_apps">
-                    <img src="media/img/home/teaser_product_space.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces, and<br> the feasibility of and trajectory for<br> product diversification.
+                    <img src="media/img/home/teaser_product_space.png" style="width:50px;"/> <b>The Product Space</b><br> A map that visualizes the products<br> a country currently produces.
                   </label>
-              <br><br>
-                
+              <br/><br/>
                <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps">
                <img src="media/img/home/pie_new2.png" style="width:50px;"/> <b>Product Feasibility</b><br> Shows how many different types of<br> products a country is able to make. </label>
-
             </div>
                
+                <br>
+          {% if app_name == "product_space" %}
+              <script>
+              
+              function find_product() {
+                d3.select("#viz").call(chart.highlight([]))
+                d3.select("#viz").call(chart.highlight($("#find-product").find(":selected").val()))
+               // alert($("#find-product").find(":selected").val());
+              }
+               // d3.select("#viz").call(chart.highlight("2306"))
+               </script>
 
+              <div id="find-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-find-product').css('visibility', 'visible');"  onmouseout="$('.show-find-product').css('visibility', 'hidden');">
+          
+                <button type="button" onclick="find_product();" class="glyphicon glyphicon-refresh show-find-product tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; margin-top:20px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
+
+                <div style="margin:5px" >
+                 <span style="font-size:14px; margin:4px;">Find a product:</span><br>
+                  <select data-placeholder="All Products" id="find_product_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
+                    <option value=""></option>
+                      {{ product_list }}
+                      {% for p in product_list %}
+                      {% if p.id == product.id %}
+                    <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+                      {% else %}
+                    <option value="{{p.code}}">{{ p.name }}</option>
+                      {% endif %}
+                      {% endfor %}
+                      {% include "explore/list_products.html" %}
+                  </select>
+               </div>
+              </div>
+                {% endif %}
           </div>
         </div>
       </div>
@@ -1236,7 +1265,11 @@
           function updateRCA(v) {
             d3.select("#rca-threshold").text(v);
 
+            // d3.select("#viz").call(viz.solo(unq));  
             
+
+            // for text filter
+            // .call(chart.highlight(&quot;"+n[vars.id_var]+"&quot;)
           }
 
           </script>

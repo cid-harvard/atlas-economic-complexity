@@ -226,7 +226,7 @@ vizwhiz.network = function(vars) {
             })
             
           }
-          
+          console.log("high vars", vars.highlight)
           var html = vars.click_function ? vars.click_function(vars.highlight) : ""
     
           if (typeof html == "string") make_tooltip(html)
