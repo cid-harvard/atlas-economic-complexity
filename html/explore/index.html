@@ -1230,6 +1230,35 @@
             </label>
           </div>
 
+          {% if app_name == "product_space" %}
+
+          <script>
+          function updateRCA(v) {
+            d3.select("#rca-threshold").text(v);
+
+            
+          }
+
+          </script>
+
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
+          <span class="definition" style="font-weight:bold; margin-left:20px">RCA Threshold: <span id="rca-threshold" style="font-weight:normal;">1</span></span></br>
+          
+          0 <input type="range" name="points" min="0" max="2" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 2
+          </div>
+
+
+         <!-- TO BE IMPLEMENTED
+          <b>Node Color: </b>
+          <div class="btn-group product_class">
+            <label type="button" class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}" value="sitc4"> Categorie</label>
+            <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4"> Community</label>
+          </div>
+          -->
+
+         {% endif %}
+
+
          {% if app_name == "map" %}
 
          <!-- TO BE IMPLEMENTED
