@@ -126,6 +126,41 @@
   		})
   	})
 	</script>
+
+<style>
+#sticky {
+  padding: 0.5ex;
+  width: 600px;
+
+
+  border-radius: 0.5ex;
+}
+#sticky.stick {
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+
+  border-radius: 0 0 0.5em 0.5em;
+}
+</style>
+
+<script>
+function sticky_relocate() {
+  var window_top = $(window).scrollTop();
+  var div_top = $('#sticky-anchor').offset().top;
+  if (window_top > div_top) {
+    $('#sticky').addClass('stick');
+  } else {
+    $('#sticky').removeClass('stick');
+  }
+}
+
+$(function() {
+  $(window).scroll(sticky_relocate);
+  sticky_relocate();
+});
+</script>
+
 	{% block js %}{% endblock %}
 	
 </body>

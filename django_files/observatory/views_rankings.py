@@ -36,7 +36,7 @@ def download(request, category="country", year=None):
   import csv
   
   min_year = 1964
-  max_year = 2008 if category == "country" else 2009
+  max_year = 2009 if category == "country" else 2009
   
   if category == "country":
     header_row = ["rank", "abbrv", "country", "eci_value", "delta", "year"]

@@ -3,7 +3,7 @@ vizwhiz.network = function(vars) {
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Function that handles the zooming and panning of the visualization
   //-------------------------------------------------------------------
-  
+  console.log("net", vars)
   vars.zoom = function(direction) {
     
     var zoom_extent = zoom_behavior.scaleExtent()
