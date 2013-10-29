@@ -148,7 +148,7 @@
               // Activate Treemap
               $("label[value=tree_map]").css("opacity", 1);
               $("label[value=tree_map]").attr("data-original-title", "Treemap")
-              $("label[value=tree_map]").tooltip('fixTitle')
+             // $("label[value=tree_map]").tooltip('fixTitle')
               $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );    
 
               if(current_product=="all") {
@@ -156,7 +156,7 @@
                 // Disable map 
                 $("label[value=map]").css("opacity", .1);
                 $("label[value=map]").attr("data-original-title", "Select a trade partner")
-                $("label[value=map]").tooltip('fixTitle')
+               // $("label[value=map]").tooltip('fixTitle')
                 $('label[value=map]').click(function() { return false; } );    
 
               } else {
@@ -164,7 +164,7 @@
                 // Activate map
                 $("label[value=map]").css("opacity", 1);
                 $("label[value=map]").attr("data-original-title", "Map")
-                $("label[value=map]").tooltip('fixTitle')
+               // $("label[value=map]").tooltip('fixTitle')
                 $('label[value=map]').click(function() { return update_viz("map"); } );
 
               }
@@ -173,7 +173,7 @@
               // Disable stacked
               $("label[value=stacked]").css("opacity", .1);
               $("label[value=stacked]").attr("data-original-title", "Select a time period")
-              $("label[value=stacked]").tooltip('fixTitle')
+              //$("label[value=stacked]").tooltip('fixTitle')
               $('label[value=stacked]').click(function() { return false; } );     
               
 
@@ -182,19 +182,19 @@
               // Disable Treemap
               $("label[value=tree_map]").css("opacity", .1);
               $("label[value=tree_map]").attr("data-original-title", "Un-select end year")
-              $("label[value=tree_map]").tooltip('fixTitle')
+             // $("label[value=tree_map]").tooltip('fixTitle')
               $('label[value=tree_map]').click(function() { return false; } );    
 
               // Disable map
               $("label[value=map]").css("opacity", .1);
               $("label[value=map]").attr("data-original-title", "Un-select end year")
-              $("label[value=map]").tooltip('fixTitle')
+             // $("label[value=map]").tooltip('fixTitle')
               $('label[value=map]').click(function() { return false; } );    
 
               // Disable stacked
               $("label[value=stacked]").css("opacity", 1);
               $("label[value=stacked]").attr("data-original-title", "Stacked Graph")
-              $("label[value=stacked]").tooltip('fixTitle')
+             // $("label[value=stacked]").tooltip('fixTitle')
               $('label[value=stacked]').click(function() { return update_viz("stacked"); } );   
 
             }
@@ -207,7 +207,7 @@
               // Activate Treemap
               $("label[value=tree_map]").css("opacity", 1);
               $("label[value=tree_map]").attr("data-original-title", "Treemap")
-              $("label[value=tree_map]").tooltip('fixTitle')
+             // $("label[value=tree_map]").tooltip('fixTitle')
               $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );    
 
 
@@ -218,7 +218,7 @@
                 // Disable map
                 $("label[value=map]").css("opacity", .1);
                 $("label[value=map]").attr("data-original-title", "Un-select trade partner")
-                $("label[value=map]").tooltip('fixTitle')
+             //   $("label[value=map]").tooltip('fixTitle')
                 $('label[value=map]').click(function() { return false; } );    
 
               } else {
@@ -226,7 +226,7 @@
                 // Activate map
                 $("label[value=map]").css("opacity", 1);
                 $("label[value=map]").attr("data-original-title", "Map")
-                $("label[value=map]").tooltip('fixTitle')
+              //  $("label[value=map]").tooltip('fixTitle')
                 $('label[value=map]').click(function() { return update_viz("map"); } );
               }
                   
@@ -234,7 +234,7 @@
               // Disable stacked
               $("label[value=stacked]").css("opacity", .1);
               $("label[value=stacked]").attr("data-original-title", "Select a time period")
-              $("label[value=stacked]").tooltip('fixTitle')
+             // $("label[value=stacked]").tooltip('fixTitle')
               $('label[value=stacked]').click(function() { return false; } );    
 
 
@@ -243,19 +243,19 @@
               // Disable Treemap
               $("label[value=tree_map]").css("opacity", .1);
               $("label[value=tree_map]").attr("data-original-title", "Un-select end year")
-              $("label[value=tree_map]").tooltip('fixTitle')
+            //  $("label[value=tree_map]").tooltip('fixTitle')
               $('label[value=tree_map]').click(function() { return false; } );    
 
               // Disable map
               $("label[value=map]").css("opacity", .1);
               $("label[value=map]").attr("data-original-title", "Un-select end year")
-              $("label[value=map]").tooltip('fixTitle')
+            //  $("label[value=map]").tooltip('fixTitle')
               $('label[value=map]').click(function() { return false; } );    
 
               // Disable stacked
               $("label[value=stacked]").css("opacity", 1);
               $("label[value=stacked]").attr("data-original-title", "Stacked Graph")
-              $("label[value=stacked]").tooltip('fixTitle')
+            //  $("label[value=stacked]").tooltip('fixTitle')
               $('label[value=stacked]').click(function() { return update_viz("stacked"); } );   
 
             }
@@ -1292,7 +1292,7 @@
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
           <span class="definition" style="font-weight:bold; margin-left:20px">RCA Threshold: <span id="rca-threshold" style="font-weight:normal;">1</span></span></br>
           
-          0 <input type="range" name="points" min="0" max="10" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 2
+          0 <input type="range" name="points" min="0" max="10" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 10
           </div>
 
 
@@ -1837,7 +1837,7 @@
       //$("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
       //$("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
-    $(".tooltipbs").tooltip({delay: { show: 1500, hide: 100 }});
+   // $(".tooltipbs").tooltip({delay: { show: 1500, hide: 100 }});
 
 
     $("#country1 select").change(function() {

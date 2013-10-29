@@ -169,7 +169,7 @@ function Key() {
     })
     
     // Update tooltips 
-    $(".tooltipbs").tooltip({delay: { show: 500, hide: 100 }});
+   // $(".tooltipbs").tooltip({delay: { show: 500, hide: 100 }});
   }
   
   
