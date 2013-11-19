@@ -29,8 +29,8 @@ import fpe
 if settings.REDIS:
   from django.core.cache import cache, get_cache
   import redis
-  import redis_cache
-  from redis_cache import get_redis_connection
+  #import redis_cache
+  #from redis_cache import get_redis_connection
   import msgpack
 
   
@@ -1311,10 +1311,12 @@ def api_casy(request, trade_flow, country1, year):
   
   """Check cache"""
   if settings.REDIS:
-    raw = get_redis_connection('default')
-    key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)  
+    #raw = get_redis_connection('default')
+    raw = redis.Redis("localhost")
+    key = "%s-%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)  
     # See if this key is already in the cache
-    cache_query = raw.hget(key, 'data')
+    #cache_query = raw.hget(key, 'data')
+    cache_query = raw.get(key)
     if (cache_query == None):
   
       rows = raw_q(query=q, params=None)
@@ -1328,8 +1330,8 @@ def api_casy(request, trade_flow, country1, year):
       
       json_response["data"] = rows 
       
-      raw.hset(key, 'data', msgpack.dumps(rows))
-    
+     # raw.hset(key, 'data', msgpack.dumps(rows))
+      raw.set(key, msgpack.dumps(rows))
     else:
       # If already cached, now simply retrieve
       encoded = cache_query
@@ -1351,7 +1353,7 @@ def api_casy(request, trade_flow, country1, year):
       return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
     
     json_response["data"] = rows 
-    
+  
   json_response["attr"] = attr
   json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang)
   json_response["country1"] = country1.to_json()
@@ -1364,9 +1366,21 @@ def api_casy(request, trade_flow, country1, year):
   json_response["prod_class"] =  prod_class
   json_response["other"] = query_params
 
+  response = HttpResponse(json.dumps(json_response))
+  #response.headers['Content-Encoding'] = 'gzip'
+  #response.headers['Content-Length'] = str(len(response.content))
   # raise Exception(time.time() - start)
   """Return to browser as JSON for AJAX request"""
-  return HttpResponse(json.dumps(json_response))
+  return response #HttpResponse(response)
+
+#e.time() - start)
+ # """Return to browser as JSON for AJAX request"""
+ # response = HttpResponse(json.dumps(json_response))
+
+#  return resoponse #, 'Content-Encoding', 'gzip', 'Content-Length', str(len(json.dumps(json_response))))
+
+
+
 
 def api_sapy(request, trade_flow, product, year):
   """Init variables"""
@@ -1601,7 +1615,7 @@ def api_csay(request, trade_flow, country1, year):
   json_response["continents"]= continents
   json_response["class"] =  prod_class
   json_response["other"] = query_params
-    
+     
   """Return to browser as JSON for AJAX request"""
   return HttpResponse(json.dumps(json_response))
 
@@ -1829,7 +1843,7 @@ def api_cspy(request, trade_flow, country1, product, year):
   json_response["region"]= region
   json_response["app_type"] = "cspy"
   json_response["class"] =  prod_class
-  json_response["other"] = query_params
+  json_response["other"] = query_params 
   
   '''Return to browser as JSON for AJAX request'''
   return HttpResponse(json.dumps(json_response))
