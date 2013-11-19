@@ -1313,7 +1313,7 @@ def api_casy(request, trade_flow, country1, year):
   if settings.REDIS:
     #raw = get_redis_connection('default')
     raw = redis.Redis("localhost")
-    key = "%s-%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)  
+    key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)  
     # See if this key is already in the cache
     #cache_query = raw.hget(key, 'data')
     cache_query = raw.get(key)
@@ -1322,7 +1322,11 @@ def api_casy(request, trade_flow, country1, year):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+      """Add percentage value to return vals"""
+      # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[7], "rca":r[8], 
+             "distance":r[9],"opp_gain":r[10], "pci": r[11], "share": (r[7] / total_val)*100,
+             "community_id": r[4], "color": r[5], "community_name":r[6], "code":r[2], "id": r[2]} for r in rows]
   
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
@@ -1330,8 +1334,8 @@ def api_casy(request, trade_flow, country1, year):
       
       json_response["data"] = rows 
       
-     # raw.hset(key, 'data', msgpack.dumps(rows))
-      raw.set(key, msgpack.dumps(rows))
+      raw.set(key, msgpack.dumps(rows))#, 'data', json.dumps(rows))
+    
     else:
       # If already cached, now simply retrieve
       encoded = cache_query
@@ -1347,8 +1351,7 @@ def api_casy(request, trade_flow, country1, year):
     rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[7], "rca":r[8], 
              "distance":r[9],"opp_gain":r[10], "pci": r[11], "share": (r[7] / total_val)*100,
              "community_id": r[4], "color": r[5], "community_name":r[6], "code":r[2], "id": r[2]} for r in rows]
-    
-    
+        
     if crawler == "":
       return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
     
@@ -1367,15 +1370,9 @@ def api_casy(request, trade_flow, country1, year):
   json_response["other"] = query_params
 
   response = HttpResponse(json.dumps(json_response))
-  #response.headers['Content-Encoding'] = 'gzip'
-  #response.headers['Content-Length'] = str(len(response.content))
   # raise Exception(time.time() - start)
   """Return to browser as JSON for AJAX request"""
-  return response #HttpResponse(response)
-
-#e.time() - start)
- # """Return to browser as JSON for AJAX request"""
- # response = HttpResponse(json.dumps(json_response))
+  return response
 
 #  return resoponse #, 'Content-Encoding', 'gzip', 'Content-Length', str(len(json.dumps(json_response))))
 
