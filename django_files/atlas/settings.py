@@ -101,10 +101,6 @@ INSTALLED_APPS = (
 )
 
 
-
-
-REDIS = True
-
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.cache.RedisCache',
