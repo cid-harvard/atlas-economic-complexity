@@ -33,8 +33,6 @@ if settings.REDIS:
   #from redis_cache import get_redis_connection
   import msgpack
 
-  
-
 if not settings.DB_PREFIX:
   DB_PREFIX = ''
 else:
@@ -1227,6 +1225,35 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "prod_or_partner": prod_or_partner,
     "item_type": item_type}, context_instance=RequestContext(request))
 
+
+'''attr_products / <PROD_CLASS>'''
+def attr_products(request, prod_class):
+
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+
+  '''Grab extraneous details'''
+  ## Classification & Django Data Call
+  name = "name_%s" % lang
+
+  # Get attribute information  
+  if prod_class == "sitc4":
+    world_trade = list(Sitc4_py.objects.all().values('year','product_id','world_trade'))
+    attr_list = list(Sitc4.objects.all().values('code',name,'id','color'))
+    attr = {}
+    for i in attr_list: 
+      attr[i['code']] = {'code':i['code'],'name':i[name],'color':i['color']}
+     #.extra(where=['CHAR_LENGTH(code) = 2'])
+    
+  elif prod_class == "hs4":
+    world_trade = list(Hs4_py.objects.all().values('year','product_id','world_trade'))
+    attr_list = list(Hs4.objects.all().values('code',name,'id','community_id__color'))
+    attr = {}
+    for i in attr_list: 
+      attr[i['code']] = {'code':i['code'],'name':i[name],'item_id':i['id'],'color':i['community_id__color']}
+
+  return HttpResponse(Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang))
+
 '''<COUNTRY> / all / show / <YEAR>'''
 def api_casy(request, trade_flow, country1, year):
   # import time
@@ -1374,9 +1401,8 @@ def api_casy(request, trade_flow, country1, year):
   """Return to browser as JSON for AJAX request"""
   return response
 
-#  return resoponse #, 'Content-Encoding', 'gzip', 'Content-Length', str(len(json.dumps(json_response))))
-
-
+  # It seems it autoamtically does the following
+  # return resoponse #, 'Content-Encoding', 'gzip', 'Content-Length', str(len(json.dumps(json_response))))
 
 
 def api_sapy(request, trade_flow, product, year):
@@ -1453,23 +1479,26 @@ def api_sapy(request, trade_flow, product, year):
   
   """Check cache"""
   if settings.REDIS:
-    raw = get_redis_connection('default')
+    raw = redis.Redis("localhost")
     key = "%s:%s:%s:%s:%s" % ("show", "all", product.id, prod_class, trade_flow)
     # See if this key is already in the cache
-    cache_query = raw.hget(key, 'data')
+    cache_query = raw.get(key)
     if (cache_query == None):
       rows = raw_q(query=q, params=None)
-      total_val = sum([r[4] for r in rows])
+      total_val = sum([r[6] for r in rows])
+      # raise Exception(total_val)
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+      # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
+               "id": r[1], "region_id":r[4],"continent":r[5]} for r in rows]
     
       if crawler == "":
-        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
       
       json_response["data"] = rows
       
       # SAVE key in cache.
-      raw.hset(key, 'data', msgpack.dumps(rows))   
+      raw.set(key, msgpack.dumps(rows))   
     
     else:
       # If already cached, now simply retrieve
@@ -1505,6 +1534,8 @@ def api_sapy(request, trade_flow, product, year):
   """Return to browser as JSON for AJAX request"""
   return HttpResponse(json.dumps(json_response))
 
+
+'''<COUNTRY> / show / product / <YEAR>'''
 def api_csay(request, trade_flow, country1, year):
   """Init variables"""
   prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
@@ -1557,26 +1588,26 @@ def api_csay(request, trade_flow, country1, year):
   
   """Check cache"""
   if settings.REDIS:
-    raw = get_redis_connection('default')
+    raw = redis.Redis("localhost")
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", "all", prod_class, trade_flow)
     # See if this key is already in the cache
-    cache_query = raw.hget(key, 'data')
+    cache_query = raw.get(key)
     if (cache_query == None):
       rows = raw_q(query=q, params=None)
-  
-      #article = "to" if trade_flow == "export" else "from"
-  
-      total_val = sum([r[4] for r in rows])
+      total_val = sum([r[6] for r in rows])
+    
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
-  
+      # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
+               "id":r[1], "region_id":r[4], "continent":r[5]} for r in rows]
+    
       if crawler == "":
-        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
         
       json_response["data"] = rows
         
       # SAVE key in cache.
-      raw.hset(key, 'data', msgpack.dumps(rows))
+      raw.set(key, msgpack.dumps(rows))
   
     else:
       # If already cached, now simply retrieve
@@ -1678,24 +1709,29 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   json_response = {}
   
   """Check cache"""
-  if settings.REDIS:  
-    raw = get_redis_connection('default')
+  if settings.REDIS:
+    #raw = get_redis_connection('default')
+    raw = redis.Redis("localhost")
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, country2.name_3char, "show", prod_class, trade_flow)
     # See if this key is already in the cache
-    cache_query = raw.hget(key, 'data')
+    cache_query = raw.get(key)
     if(cache_query == None):    
       rows = raw_q(query=q, params=None)
-      total_val = sum([r[4] for r in rows])
+      total_val = sum([r[7] for r in rows])
+    
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
-  
+      # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[7], "rca":r[5], 
+               "share": (r[7] / total_val)*100,
+               "community_id":r[4],"community_name":r[5],"color":r[6], "code":r[2], "id": r[2]} for r in rows]
+    
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
         
-      json_response["data"] = rows  
+      json_response["data"] = rows
         
       # SAVE key in cache.
-      raw.hset(key, 'data', msgpack.dumps(rows))
+      raw.set(key, msgpack.dumps(rows))
     
     else: 
       # If already cached, now simply retrieve
@@ -1787,25 +1823,27 @@ def api_cspy(request, trade_flow, country1, product, year):
   
   """Check cache"""
   if settings.REDIS:
-    raw = get_redis_connection('default')
+    raw = redis.Redis("localhost")    
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", product.id,  prod_class, trade_flow)
     # See if this key is already in the cache
-    cache_query = raw.hget(key, 'data')
+    cache_query = raw.get(key)
+
     if (cache_query == None):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[6] for r in rows])
+    
       """Add percentage value to return vals"""
-      #rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100} for r in rows]
+      # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
       rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
                "region_id": r[4], "continent": r[5], "id":r[1]} for r in rows]
-               
+    
       if crawler == "":
-        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]] 
-      
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+        
       json_response["data"] = rows
-         
+           
       # SAVE key in cache.
-      raw.hset(key, 'data', msgpack.dumps(rows))
+      raw.set(key, msgpack.dumps(rows))
     
     else:
       # If already cached, now simply retrieve
