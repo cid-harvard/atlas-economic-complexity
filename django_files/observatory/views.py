@@ -9,6 +9,8 @@ from django.conf import settings
 from django.contrib.sessions.models import Session
 from django.utils.translation import ungettext
 # General
+import os
+import collections
 import base64
 from django.db.models import F
 from django.db.models import Q
@@ -1020,10 +1022,40 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   options = options.urlencode()
   #Get session parameters
   language=lang
+  # Setup the hash dictionary
+  request_hash_dictionary = collections.OrderedDict()
+  
+  # Add prod class to request hash dictionary
+  request_hash_dictionary['lang'] = lang
+  request_hash_dictionary['prod_class'] = prod_class
+
+  # Add the arguments to the request hash dictionary
+  request_hash_dictionary['trade_flow'] = trade_flow
+  request_hash_dictionary['country1'] = country1
+  request_hash_dictionary['country2'] = country2
+  request_hash_dictionary['product_type'] = product
+  request_hash_dictionary['year'] = year
+
+  # We are here, so let us store this data somewhere
+  request_hash_string = "_".join( request_hash_dictionary.values() )
+  
+  # Check staic image mode 
+  if( settings.STATIC_IMAGE_MODE == "PNG" ):
+    # Check if we have a valid PNG image to display for this
+    if os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".png"):
+        # display the  static images
+        displayviz=True
+        displayImage="media/data/" + request_hash_string + ".png"
+    else:
+        displayviz=False
+        displayImage="media/img/all/loader.gif"
+  else:
+    displayviz=False
+    displayImage="media/img/all/loader.gif"
+  
   # get distince years from db, different for diff product classifications
   years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
   years_available.sort()
-
   country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
   warning, alert, title = None, None, None
   data_as_text = {}
@@ -1183,6 +1215,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   # Return page without visualization data
   
   return render_to_response("explore/index.html", {
+    "displayviz":displayviz,
+    "displayImage":displayImage,
     "likeBtnEnable":likeBtnEnable,
     "browseModeJScript": browseModeJScript,
     "browseChapterDesc" : browseChapterDesc,
@@ -1258,7 +1292,11 @@ def attr_products(request, prod_class):
 def api_casy(request, trade_flow, country1, year):
   # import time
   # start = time.time()
-  
+  # Setup the hash dictionary
+  request_hash_dictionary = collections.OrderedDict()
+ 
+  # Store the country code
+  country_code = country1
   '''Init variables'''
   prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
   prod_class = request.GET.get("prod_class", prod_class)
@@ -1275,7 +1313,43 @@ def api_casy(request, trade_flow, country1, year):
   '''Grab extraneous details'''
   ## Clasification & Django Data Call
   name = "name_%s" % lang
+# Add prod class to request hash dictionary
+  request_hash_dictionary['lang'] = lang
+  request_hash_dictionary['prod_class'] = prod_class
+  
+  # Add the arguments to the request hash dictionary
+  request_hash_dictionary['trade_flow'] = trade_flow
+  request_hash_dictionary['country'] = country_code
+  request_hash_dictionary['product_type'] = 'all'
+  request_hash_dictionary['product_display'] = 'show'
+  request_hash_dictionary['year'] = year
 
+  # We are here, so let us store this data somewhere
+  request_hash_string = "_".join( request_hash_dictionary.values() ) #base64.b64encode( request_unique_hash )
+  # Check staic image mode 
+  #if( settings.STATIC_IMAGE_MODE == "PNG" ):
+  if ( os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg" ) is True ):
+    # Check the request data type
+    if ( request.GET.get( 'data_type', '' ) == '' ):
+      # Let us get the data from the file
+      response_json_data = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg", "r" )
+      
+      # Set the return data
+      returnData = response_json_data.read()
+
+      #"""Return to browser as JSON for AJAX request"""
+      return HttpResponse( returnData )
+    elif ( request.GET.get( 'data_type', '' ) == 'json' ):
+      # Check if we have the valid json file
+      if ( os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json" ) is True ):
+        # Let us get the data from the file
+        response_json_data = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json", "r" )
+    
+        # Set the return data
+        returnData = response_json_data.read()
+
+        #"""Return to browser as JSON for AJAX request"""
+        return HttpResponse( returnData )
   # Get attribute information  
   if prod_class == "sitc4":
     world_trade = list(Sitc4_py.objects.all().values('year','product_id','world_trade'))
@@ -1396,16 +1470,24 @@ def api_casy(request, trade_flow, country1, year):
   json_response["prod_class"] =  prod_class
   json_response["other"] = query_params
 
-  response = HttpResponse(json.dumps(json_response))
+  if not os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json" ):
+    response_json_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json", "w+" )
+    response_json_file.write( json.dumps( json_response ) )
+    response_json_file.close()
+
   # raise Exception(time.time() - start)
   """Return to browser as JSON for AJAX request"""
-  return response
-
+  return HttpResponse(json.dumps(json_response))
   # It seems it autoamtically does the following
   # return resoponse #, 'Content-Encoding', 'gzip', 'Content-Length', str(len(json.dumps(json_response))))
 
 
 def api_sapy(request, trade_flow, product, year):
+  import pickle
+  import base64
+
+  # Setup the hash dictionary
+  request_hash_dictionary = { 'trade_flow': trade_flow, 'product': product, 'year': year }
   """Init variables"""
   prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
   prod_class = request.GET.get("prod_class", prod_class)
@@ -1422,6 +1504,19 @@ def api_sapy(request, trade_flow, product, year):
   '''Grab extraneous details'''
   ## Clasification & Django Data Call
   name = "name_%s" % lang
+  # Add prod class to request hash dictionary
+  request_hash_dictionary['prod_class'] = prod_class
+
+  # We are here, so let us store this data somewhere
+  request_unique_hash = pickle.dumps( request_hash_dictionary )
+  request_hash_string = base64.b64encode( request_unique_hash )
+ 
+  if os.path.exists("/home/srinivas/harvard/observatory_economic_complexity-beta/media/img/viz_imgs/" + request_hash_string + ".json"):
+    #print "Coming in to file exists ..."
+    # Let us get the data from the file
+    response_json_data = open( "/home/srinivas/harvard/observatory_economic_complexity-beta/media/img/viz_imgs/" + request_hash_string + ".json", "r" )
+   # """Return to browser as JSON for AJAX request"""
+    return HttpResponse( response_json_data.read() )
   
   '''Grab extraneous details'''
   if prod_class == "sitc4":
@@ -1530,6 +1625,11 @@ def api_sapy(request, trade_flow, product, year):
   json_response["region"]= region
   json_response["continents"] = continents
   json_response["other"] = query_params  
+  if not os.path.exists("/home/srinivas/harvard/observatory_economic_complexity-beta/media/img/viz_imgs/" + request_hash_string + ".json"):
+    # Let us get the data from the file
+    response_json_file = open( "/home/srinivas/harvard/observatory_economic_complexity-beta/media/img/viz_imgs/" + request_hash_string + ".svg", "w+" )
+    response_json_file.write( json.dumps( json_response ) )
+    response_json_file.close()
   # raise Exception(time.time() - start)
   """Return to browser as JSON for AJAX request"""
   return HttpResponse(json.dumps(json_response))
