@@ -42,6 +42,9 @@
 #}
 # HTTP_HOST = '/'
 # DB_PREFIX = ''
+#
+# FOR VERBOSE JS OUTPUT
+# DEV = False
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

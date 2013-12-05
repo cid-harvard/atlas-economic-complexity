@@ -943,6 +943,7 @@
       .font('PT Sans Narrow')
       .number_format(num_format)
       .stack_type("monotone")
+    
       // .year([year_start,year_end])
       //.year([years_available[0],years_available.slice(-1)[0]])
 
