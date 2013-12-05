@@ -1289,7 +1289,6 @@ def attr_products(request, prod_class):
 
 '''<COUNTRY> / all / show / <YEAR>'''
 def api_casy(request, trade_flow, country1, year):
-  print "casy"
   # import time
   # start = time.time()
   # Setup the hash dictionary
@@ -1483,7 +1482,6 @@ def api_casy(request, trade_flow, country1, year):
 
 
 def api_sapy(request, trade_flow, product, year):
-  print "sapy"
   # Setup the hash dictionary
   #request_hash_dictionary = { 'trade_flow': trade_flow, 'product': product, 'year': year }
   """Init variables"""
@@ -1656,7 +1654,6 @@ def api_sapy(request, trade_flow, product, year):
 
 '''<COUNTRY> / show / product / <YEAR>'''
 def api_csay(request, trade_flow, country1, year):
-  print "casy"
   """Init variables"""
   prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
   prod_class = request.GET.get("prod_class", prod_class)
@@ -1808,7 +1805,6 @@ def api_csay(request, trade_flow, country1, year):
   return HttpResponse(json.dumps(json_response))
   
 def api_ccsy(request, trade_flow, country1, country2, year):
-  print "ccsy"
   # import time
   # start = time.time()
   '''Init variables'''
@@ -1980,7 +1976,6 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   return HttpResponse(json.dumps(json_response))
 
 def api_cspy(request, trade_flow, country1, product, year):
-  print "cspy"
   '''Init variables'''
   prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
   prod_class = request.GET.get("prod_class", prod_class)
