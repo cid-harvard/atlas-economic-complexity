@@ -35,6 +35,8 @@
 
   <link href="media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
   
+  <link href="media/js/libs/d3plus/d3plus.css" rel="stylesheet" type="text/css"> 
+
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -121,8 +123,14 @@
         -Disable visualizations that cannot be used, given a set of parameters
 
       */
+
+      var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter"];
+      var dev = {% if DEV %}true{% else %}false{% endif %};
+
       function available_viz() {
-      
+
+        var disable_viz = true;      
+
         var main_countries_products = $(".main-countries-products").find(".active").index();
         var partner_product = $(".tab-trade-partner-product").find(".active").index();
 
@@ -137,6 +145,14 @@
         current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product; 
 
         $("#year2").css("display", "block");
+
+        if(!disable_viz) {
+
+          $('label[value=map]').click(function() { return update_viz("map"); } );   
+          $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );
+          $('label[value=stacked]').click(function() { return update_viz("stacked"); } );
+          return;
+        }
 
         if(main_countries_products==0) {
 
@@ -168,7 +184,6 @@
                 $('label[value=map]').click(function() { return update_viz("map"); } );
 
               }
-
 
               // Disable stacked
               $("label[value=stacked]").css("opacity", .1);
@@ -277,7 +292,7 @@
         var url = host + "explore/";
 
         var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
-        current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
+//        current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
         var current_year1 = $("#year1").find(":selected").val();
 
         // COUNTRIES
@@ -301,7 +316,7 @@
           if(current_country2!="all")
             current_viz = "tree_map";
 
-          if(current_year2!="") { 
+          if(current_year2!="" && viz == "") { 
             // Automatically switch
             current_viz = "stacked";
           } 
@@ -629,7 +644,7 @@
                   
               <p style="clear:both"></p><br>
                <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps">
-               <img src="media/img/home/pie_new2.png" style="width:50px; float:left;  margin-right:10px; "/></label>
+               <img src="media/img/home/teaser_pie_scatter.png" style="width:50px; float:left;  margin-right:10px; "/></label>
                <div style="width:100px; text-align:none; float:right;"> <b>Product Feasibility</b> Opportunities for a country to diversify and potential gains.</div>
 
 
@@ -791,14 +806,9 @@
 
     </div> <!-- End Product Tab -->
   
-
-
   <!-- END -->
 
-
   </div>
-
-
 
   <!-- Year tab -->
   <div class="tab-content">
@@ -1700,17 +1710,45 @@
   <script src="media/js/explore/controls.js"></script>
   <script src="media/js/apps/related.js"></script>
   <script src="media/js/libs/toastr/toastr.min.js"></script>
-  <script src="media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
-  <script src="media/js/libs/vizwiz/src/general.js"></script>
-  <script src="media/js/libs/vizwiz/src/utils.js"></script>
-  <script src="media/js/libs/vizwiz/src/tooltip.js"></script>
+
+  {% if app_name != "map" %}
+<!--
+    <script src="media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
+    <script src="media/js/libs/vizwiz/src/general.js"></script>
+    <script src="media/js/libs/vizwiz/src/utils.js"></script>
+    <script src="media/js/libs/vizwiz/src/tooltip.js"></script>
+    <script src="media/js/libs/vizwiz/src/utils.slider.js"></script>
+    <script src="media/js/libs/vizwiz/src/viz/viz.js"></script>
+-->
+  <script src="media/js/libs/d3plus/lib/modernizr.custom.js"></script>
+  <script src="media/js/libs/d3plus/src/general.js"></script>
+  <script src="media/js/libs/d3plus/src/utils.js"></script>
+  <script src="media/js/libs/d3plus/src/tooltip.js"></script>
   <script src="media/js/libs/vizwiz/src/utils.slider.js"></script>
-  <script src="media/js/libs/vizwiz/src/viz/viz.js"></script>
-  {% if app_name == "tree_map" %}<script src="media/js/libs/vizwiz/src/viz/tree_map.js"></script>{% endif %}
-  {% if app_name == "stacked" %}<script src="media/js/libs/vizwiz/src/viz/stacked.js"></script>{% endif %}
-  {% if app_name == "pie_scatter" %}<script src="media/js/libs/vizwiz/src/viz/pie_scatter.js"></script>{% endif %}
-  {% if app_name == "product_space" %}<script src="media/js/libs/vizwiz/src/viz/network.js"></script>{% endif %}
-  {% if app_name == "map" %}<script src="media/js/apps/map.js"></script>{% endif %}
+  <script src="media/js/libs/d3plus/src/viz/viz.js"></script>
+
+    {% if app_name == "tree_map" %}<script src="media/js/libs/d3plus/src/viz/tree_map.js"></script>{% endif %}
+    {% if app_name == "stacked" %}<script src="media/js/libs/d3plus/src/viz/stacked.js"></script>{% endif %}
+    {% if app_name == "pie_scatter" %}<script src="media/js/libs/d3plus/src/viz/pie_scatter.js"></script>{% endif %}
+    {% if app_name == "product_space" %}<script src="media/js/libs/d3plus/src/viz/network.js"></script>{% endif %}
+    {% if app_name == "map" %}<script src="media/js/libs/d3plus/src/viz/geo_map.js"></script>{% endif %}
+    {% if app_name == "rings" %}<script src="media/js/libs/d3plus/src/viz/rings.js"></script>{% endif %}
+
+  {% endif %}
+
+  {% if app_name == "map" %}
+    <script src="media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
+    <script src="media/js/libs/vizwiz/src/general.js"></script>
+    <script src="media/js/libs/vizwiz/src/utils.js"></script>
+    <script src="media/js/libs/vizwiz/src/tooltip.js"></script>
+    <script src="media/js/libs/vizwiz/src/utils.slider.js"></script>
+    <script src="media/js/libs/vizwiz/src/viz/viz.js"></script>
+
+  <script src="media/js/apps/map.js"></script>
+
+
+  {% endif %}
+
   <script src="media/js/explore/viz_general.js"></script> 
 
 
@@ -1906,7 +1944,21 @@ $("p").hover(function(){
 
 //To display visualization in full screen ,while viewing stories
   var contentWidth=$("#content").width();
-  build_viz_app(api_uri,contentWidth,520);    
+  build_viz_app(api_uri, contentWidth, 520);    
+
+
+  // TO FIX
+  setTimeout(function () { 
+   function find_hash(str) {
+      return location.hash.substr(location.hash.indexOf(str+'=')).split('&')[0].split('=')[1]
+    }
+
+    if(typeof(find_hash("highlight")) != "undefined") {
+      console.log(find_hash("highlight"));
+      d3.select("#viz").call(chart.highlight(find_hash("highlight")))
+    }
+
+  }, 5000);
 
 });
 
