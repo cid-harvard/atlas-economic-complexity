@@ -41,7 +41,7 @@ TEMPLATE_DIRS = (
 SECRET_KEY = 'my_pets_name_is_eloise'
 
 #Image cache folder 
-DATA_FILES_PATH = os.path.join( SITE_ROOT,'..', 'media/data' )
+DATA_FILES_PATH = os.path.join( SITE_ROOT,'..', 'media/data/test' )
 
 #Set image mode Option are "SVG" and "PNG"
 STATIC_IMAGE_MODE = "SVG"

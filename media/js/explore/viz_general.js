@@ -1259,7 +1259,7 @@
           height = h;
           width = w;  
 
-          // Try replacing the data from g parent
+          // Try replacing the data from g 
           rawData.firstChild.childNodes[3].setAttribute( 'class', 'parent-old' );
           
           // Set the data now to the viz container
