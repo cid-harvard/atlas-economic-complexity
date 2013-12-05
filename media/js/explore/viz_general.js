@@ -866,8 +866,11 @@
       .year(year)
      // .data_source("Data provided by: ",prod_class)
 
-    d3.select("#loader").style("display", "none");
     
+    //d3.select("#loader").style("display", "none");
+
+
+
     if(item_type=="country"){
       
       viz.depth("nesting_2") // Updated to low level
@@ -911,8 +914,12 @@
       d3.select("#tool_pane")
         .datum(rawData)
         .call(controls); 
-    }      
-
+    } 
+    
+    d3.select("#loader").style("display", "none");
+    //d3.select("#viz").style("height", "0px");
+    //d3.select("#viz svg").style("display", "none");
+    //d3.select("#loader").style("display", "none");
   }
   
   stack = function()
@@ -956,7 +963,7 @@
            d.notpc_constant = magic_numbers[d.year]["notpc_constant"] * d.value
          })
        }
-       
+       viz.tooltip
        if(item_type=="country")
        {
          viz.depth("nesting_1")
@@ -1440,20 +1447,81 @@
   // the sparkplug that drives my vizwiz engine
   //
   
-  function build_viz_app(api_uri, w, h) {
 
-    d3.json(api_uri,function(raw) {
+    function checkParameterExists(parameter)
+    {
+       //Get Query String from url
+       fullQString = window.location.search.substring(1);
+       
+       paramCount = 0;
+       queryStringComplete = "?";
+
+       if(fullQString.length > 0)
+       {
+           //Split Query String into separate parameters
+           paramArray = fullQString.split("&");
+           
+           //Loop through params, check if parameter exists.  
+           for (i=0;i<paramArray.length;i++)
+           {
+             currentParameter = paramArray[i].split("=");
+             if(currentParameter[0] == parameter) //Parameter already exists in current url
+             {
+                return true;
+             }
+           }
+       }
+       
+       return false;
+    }
+
+  function build_viz_app(api_uri,w,h){
+    // Are we headless
+    var headless_flag = checkParameterExists( "headless" );
+
+    // Only do the below if we are not running headless
+    if ( headless_flag == false ) {
+        d3.html(api_uri,function(raw)
+        {
+          // This needs to be global 
+          rawData = raw;
+          height = h;
+          width = w;  
+
+          // Try replacing the data from g 
+          rawData.firstChild.childNodes[3].setAttribute( 'class', 'parent-old' );
+          
+          // Set the data now to the viz container
+          jQuery( "#loader" ).html( rawData );
+          /*jQuery.each( jQuery( ".product_class.clone_loader" ), function ( index, el ) {
+            // Append to the loader as well
+            jQuery( "#loader" ).append( jQuery( el ).clone().attr( "style", "position: relative; top: 540px; left: 10px; float: left;" ) );
+          } );*/
+          d3.select("#loader").style("width", "750px").style("height", "670px").style("margin-top", "-150px").style("text-align", "left");
+
+          // Reset the min-height for now on the #viz node
+          d3.select("#viz").style( "min-height", "0px" ).style( "height", "0px" );
+        });
+    }
+  }  
+
+  function build_viz_app_original(api_uri,w,h) {
+
+  d3.json(api_uri,function(raw) {
 
     (prod_class=="hs4") ? product_file = "media/js/data/sitc4_attr_en.json" : 
                           product_file = "media/js/data/hs4_attr_en.json"
 
-    d3.json(product_file, function(attr_data_file) {
+    //d3.json(product_file, function(attr_data_file) {
+
+
+    d3.json(api_uri + '&amp;data_type=json',function(raw) {
 
       // This needs to be global 
       rawData = raw;
       height = h;
-      width = w;
-      
+      width = w;    
+
       item_type = raw["item_type"]
       flat_data=raw["data"]
       attr=raw["attr"]
@@ -1464,7 +1532,8 @@
 
       if(dev)
         console.log("attr_data", attr_data)
-      
+
+
       if(app_type=="casy"){
 
 
@@ -1483,7 +1552,6 @@
         w_years.forEach(function(d){
           world_totals[d] = world_trade.filter(function(p){ return p.year == d}) 
         })
-        
       }
       
       if (prod_class == "sitc4" && (app_type == "casy" || app_type == "ccsy"|| app_type=="sapy")){
@@ -1496,7 +1564,7 @@
     
       // attr_data = clean_attr_data(attr_data)
       rawData.attr_data = clean_attr_data(rawData.attr_data)
-    
+
       if (app_name=="stacked")
       {
         flat_data = construct_nest(flat_data)
@@ -1643,8 +1711,9 @@ if(app_name=="rings")
       //   d3.select('#play_button').style("display","none")          
       // }
     
-
       }) // attr  
     }) // api_uri
-  }  
+ // });
+
+}  
   // 
