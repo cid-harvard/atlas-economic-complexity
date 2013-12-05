@@ -351,6 +351,13 @@
   set_year = function(arg)
   {
 
+    var SHOW_DIFF = true;
+
+    if(typeof(start_year) == "undefined")
+      start_year = viz.year();
+
+   console.log("mouse drag start", start_year, arg);
+
     console.log("dragging slider", "viz_general.js", arg)
     var treemap_title = d3.select('#text_title').text();
     treemap_title = treemap_title.replace(viz.year(), arg);
@@ -359,13 +366,146 @@
     // TODO: Check if IE compliant
     window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
 
-  // TODO
-  // In which particular case are we?
-  // 
-   // What does %s %s?" % (countries[0].name, trade_flow.replace("_", " "), year)
+    // TODO
+    // In which particular case are we?
+    // 
+    // What does %s %s?" % (countries[0].name, trade_flow.replace("_", " "), year)
+  /*
+    if(SHOW_DIFF) {
 
-    d3.select('#viz').call(viz.year(arg))
-    // Set the controls to this year as well
+      flat_data = flat_data.filter(function(d) { return !(d.year==2020); });
+
+      d3.select('.handle').on("mousedown", function() { 
+        start_year = arg;
+     
+      })      
+
+      d3.select('.handle').on("mouseup", function() { d3.select('#viz').call(viz.year(arg)) })      
+
+
+      var treemap_title = d3.select('#text_title').text();
+      treemap_title = treemap_title.replace(viz.year(), arg);
+      d3.select('#text_title').text(treemap_title);
+      
+      // TODO: Check if IE compliant
+      window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
+
+
+      flat_data1 = flat_data.filter(function(d) { return d.year == parseInt(start_year)});
+      flat_data2 = flat_data.filter(function(d) { return d.year == parseInt(arg)});
+
+
+      if(typeof(flat_data.filter(function(d) { return (d.year==(2010+50)); })[0]) == "undefined") {
+
+        console.log("PRE-Processing..")
+
+        for(y=1995; y<=2011; y++) {
+
+          var flat_data2 = flat_data.filter(function(d) { return d.year == y});
+
+          for(var i=0; i<flat_data1.length; i++) {
+          
+              var node = {};
+              node.abbrv = flat_data1[i].abbrv;
+              node.code = flat_data1[i].code;
+              node.color = flat_data1[i].color;
+              node.community_id = flat_data1[i].community_id;
+              node.community_name = flat_data1[i].community_name;
+            //  node.distance: 0.646177
+              node.id = flat_data1[i].id;
+              node.item_id = flat_data1[i].item_id;
+              node.name = flat_data1[i].name;
+              node.nesting_0 = flat_data1[i].nesting_0
+              node.nesting_1 = flat_data1[i].nesting_1
+              node.nesting_2 = flat_data1[i].nesting_2
+            //  node.opp_gain: 0.631009
+            //  node.pci: -3.20168
+            //  node.rca: null
+              node.share = flat_data1[i].share;
+              node.value = flat_data1[i].value;
+
+              node.value2 = 0;
+
+              for(var j=0; j<flat_data2.length; j++) {
+                if(flat_data1[i].id == flat_data2[j].id) {
+                  node.value2 = flat_data2[j].value - flat_data1[i].value;
+
+                }
+              }
+
+            //  if(node.value>0) {
+                node.year = y+50;
+            //  } else {
+            //    node.year = 2021;
+            //  }
+                node.share = Math.abs(node.share)
+                //node.value2 = Math.abs(node.value2)
+                flat_data.push(node);
+
+             // var node = {};
+             // node.year = 2021;
+             // node.value = exp_year1[i].value - exp_year2[j].value;
+             // node.share = exp_year1[i].share - exp_year2[j].share;
+            //  export_us.data.push(node);
+                    
+          }
+
+
+          pos_extent = d3.extent(flat_data, function(d) { 
+            if(d.year == y+50)
+              return d.value2; 
+          })
+
+          var color_scale = d3.scale.linear().domain([pos_extent[0], 0, pos_extent[1]]).range(["red", "black", "green"]);
+
+          flat_data.data = flat_data.map(function(d) {
+            if(d.year == y+50) {
+              d.color = color_scale(d.value2)
+              d.value2 = Math.abs(d.value2);
+            }
+            return d;
+          })
+
+        }
+        
+      }
+
+
+
+
+     viz
+      .type("tree_map")
+      .height(height)
+      .width(width)
+      .id_var("id")
+      .attrs(attr)
+      .text_var("name")
+      .value_var("value")
+      .tooltip_info({"short":["value"], "long": ["value", "distance", "year", 'id'], "other": [ "toto"]})
+      .name_array(["name"])
+      .title(title)
+      .total_bar({"prefix": "", "suffix": " USD"})
+      .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"distance":"mean","complexity":"mean"})
+      .font("Helvetica Neue")
+      .year(arg+50);
+
+      // Change the data by creating a new year
+      d3.select('#viz').datum(flat_data).call(viz);
+      
+      // Change the color mapping
+
+    } else {
+*/
+      viz.year(arg);
+      d3.select('#viz').call(viz)
+  /*
+
+    }
+*/
+
+
+  // Set the controls to this year as well
     d3.select("#tool_pane").call(controls.year(arg)); 
     $(".app_title#icons h2").text(arg)
   }
@@ -639,9 +779,69 @@
     }
   }
   
-  tree = function()
-  {
-    viz = vizwhiz.viz()
+  tree = function() {
+
+    if(dev) console.log("flat_data", flat_data)
+    if(dev) console.log("attr", attr)
+          
+
+        var inner_html = function(obj) {
+          if(dev) console.log(obj)
+
+          var html = "<div class='d3plus_tooltip_title'>More Visualizations </div><br><br>";
+          html += " <table>";
+
+          for(v=0; v<list_viz.length; v++) {
+            
+            if(list_viz[v] != $("#viz_apps").find(".active").attr("value")) {
+
+              var title = "No Title";
+
+              if(list_viz[v] == "tree_map")
+                title = "Tree Map";
+              else if(list_viz[v] == "map")
+                title = "Geographical Map";
+              else if(list_viz[v] == "stacked")
+                title = "Stacked Graph";
+              else if(list_viz[v] == "product_space")
+                title = "Product Space";
+              else if(list_viz[v] == "pie_scatter")
+                title = "Scattered Pie Chart";
+
+              html += "<tr><td><img src='/media/img/home/teaser_"+list_viz[v]+".png' style='width:60px;'></td><td><a onclick='update_viz(\""+list_viz[v]+"\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>"+title+"</a></td></tr></a>";
+
+            }
+          }
+
+
+          html += "</table>";
+          
+          html += "<br><br><div class='d3plus_tooltip_title'>Related Stories </div><br>";
+
+          html += "[None]";
+
+
+          return html;
+        }
+/*
+        <ol class="slats">
+    <li class="group">
+      <a href="#">
+        <img src="/media/img/about/cesar_hidalgo.png" alt="thumbnail">
+        <h3>Cesar Hidalgo</h3>
+        <p>César is the Asahi Broadcast Corporation Career Development Professor and an Assistant Professor at the MIT Media Lab, as well as a faculty associate at Harvard's University Center for International Development. His work focuses on improving the understanding of systems using and developing concepts of complexity, evolution and network science. <span class="meta">MIT Media Lab</span></p>
+      </a>
+    </li>
+    <li class="group">
+      <a href="#">
+        <img src="/media/img/about/ricardo_hausmann.png" alt="thumbnail">
+        <h3>Ricardo Hausmann</h3>
+        <p>Ricardo Hausmann is Director of the Center for International Development and Professor of the Practice of Economic Development at Harvard University. <span class="meta">Harvard Kennedy School</span></p>
+      </a>
+    </li>
+  </ol>
+*/
+    viz = d3plus.viz();
     viz
       .type("tree_map")
       .height(height)
@@ -650,17 +850,21 @@
       .attrs(attr)
       .text_var("name")
       .value_var("value")
-      //.tooltip_info({"short":["value","distance", "complexity","year"]})
+      .tooltip_info({"short":["value"], "long": ["value", "distance", "year", 'id'], "other": [ "toto"]})
       .name_array(["name"])
+      //.title("")
       .total_bar({"prefix": "", "suffix": " USD"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
       .nesting_aggs({"distance":"mean","complexity":"mean"})
+      .font("Helvetica Neue")
+      .click_function(inner_html)
+      .font_weight("lighter")
       .depth("nesting_2")
       .text_format(txt_format)
       .number_format(num_format)
       .font('PT Sans Narrow')
       .year(year)
-      .data_source("Data provided by: ",prod_class)
+     // .data_source("Data provided by: ",prod_class)
 
     d3.select("#loader").style("display", "none");
     
@@ -715,15 +919,15 @@
   {
     var years = year.split('.')  
 
-    viz = vizwhiz.viz()
+    viz = d3plus.viz()
       .type("stacked")
       .height(height)
-      .width(width)
+      .width(748)
       .value_var("value")
       .sort("color")
       .xaxis_var("year")
       .attrs(attr)
-      .tooltip_info({"short": ["value", "distance", "year"]})
+      .tooltip_info({"short": ["value", "distance", "year"], "long": ["value", "distance", "year"]})
       .text_var("name")
       .id_var("id")
       .nesting(["nesting_0","nesting_1","nesting_2"])
@@ -849,13 +1053,13 @@
     // exists = rawData["scatter"]
     // if(exists)
     // {
-      viz = vizwhiz.viz()
+      viz = d3plus.viz()
     
       viz
         .type("pie_scatter")
         .height(height)
         .width(width)
-        .tooltip_info({"short": ["value", "distance", "complexity","rca"]})
+        .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
         .text_var("name")
         .id_var("id")
         .attrs(attr)
@@ -871,7 +1075,7 @@
         .spotlight(false)
         .dev(false)
         .font('PT Sans Narrow')
-        .static_axis(false)
+    //    .static_axis(false)
         .year(year)
       
       d3.select("#loader").style("display", "none");
@@ -940,7 +1144,7 @@
                           req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json"
     
     d3.json(req, function(hs) {
-      viz = vizwhiz.viz()
+      viz = d3plus.viz()
       
       viz_nodes = hs.nodes
       viz_links = hs.edges
@@ -976,7 +1180,7 @@
       })
       
       data = []
-      the_years = vizwhiz.utils.uniques(flat_data,"year")
+      the_years = d3plus.utils.uniques(flat_data,"year")
       the_years.forEach(function(year){
         var this_year = flat_data.filter(function(p){ return p.year == year})
         
@@ -1119,6 +1323,23 @@
       //   })
       // })      
 
+        var inner_html = function(obj) {
+          console.log(obj)
+
+          var html = "<br>";
+          html += " <table>";
+          html += "<tr><td><img src='/media/img/home/teaser_map.png' style='width:60px;'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Countries who export cars</a></td></tr>"
+          
+          html += "<tr><td><img src='/media/img/home/us_exports.png' style='width:60px'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Cars exports over time</a></td></tr>"
+
+          html += "<tr><td><img src='/media/img/home/us_imports_ps.png' style='width:60px'></td><td><a href='/explore/product_space/export/usa/all/show/2011/#highlight=8703' style='font-size:14px; margin-left: 10px'>Cars in the Product Space</a></td></tr>"
+          
+          html += "<tr><td><img src='/media/img/home/teaser_pie.png' style='width:60px'></td><td><a href='/explore/pie_scatter/export/usa/all/show/2011/' style='font-size:14px; margin-left: 10px'>Feasability of Cars</a></td></tr>"
+
+
+          html += "</table>";
+          return html;
+        }
   
     viz
       .type("network")
@@ -1131,6 +1352,7 @@
       .name_array(["value"])
       .nesting(["nesting_0","nesting_1","nesting_2"])
       .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
+      .click_function(inner_html)
       // .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .text_format(txt_format)
       .number_format(num_format)
@@ -1166,6 +1388,7 @@
         .datum(rawData)
         .call(controls); 
     }      
+    
   }  
   
   map = function()
@@ -1217,9 +1440,15 @@
   // the sparkplug that drives my vizwiz engine
   //
   
-  function build_viz_app(api_uri,w,h){
-    d3.json(api_uri,function(raw)
-    {
+  function build_viz_app(api_uri, w, h) {
+
+    d3.json(api_uri,function(raw) {
+
+    (prod_class=="hs4") ? product_file = "media/js/data/sitc4_attr_en.json" : 
+                          product_file = "media/js/data/hs4_attr_en.json"
+
+    d3.json(product_file, function(attr_data_file) {
+
       // This needs to be global 
       rawData = raw;
       height = h;
@@ -1233,15 +1462,24 @@
       prod_class = raw["prod_class"]
       region_attrs = {}
 
-      
+      if(dev)
+        console.log("attr_data", attr_data)
       
       if(app_type=="casy"){
+
+
+      //if(dev)
+      //  console.log("attr_data_file", attr_data_file.attr_data)
+
+        // No attr=raw["attr"] for this one, so where to get it?
+        // json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang);
+      //  attr_data = attr_data_file.attr_data;
         // magic_numbers = rawData["magic_numbers"]
         world_trade = rawData["world_trade"]
         code_look = rawData["code_look"]
         
         world_totals = {}
-        w_years = vizwhiz.utils.uniques(world_trade,"year")
+        w_years = d3plus.utils.uniques(world_trade,"year")
         w_years.forEach(function(d){
           world_totals[d] = world_trade.filter(function(p){ return p.year == d}) 
         })
@@ -1353,6 +1591,13 @@
         
       }
     
+    /*
+if(app_name=="rings")
+      {
+       alert("rings")
+      }
+    */
+
       // // Create Year Toggle
       // if (app_name == "tree_map") {
       //   timeline = Slider()
@@ -1398,6 +1643,8 @@
       //   d3.select('#play_button').style("display","none")          
       // }
     
-    })
+
+      }) // attr  
+    }) // api_uri
   }  
   // 
