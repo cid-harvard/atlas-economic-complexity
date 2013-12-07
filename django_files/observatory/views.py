@@ -805,7 +805,7 @@ def download(request):
   except:
     pass
   import csv
-  raise Exception(request.POST)
+  #raise Exception(request.POST)
   content = request.POST.get("content")
   
   title = request.POST.get("title")
@@ -989,6 +989,32 @@ def app_redirect(request, app_name, trade_flow, filter, year):
   # raise Exception("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
   return HttpResponsePermanentRedirect(HTTP_HOST+"explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
 
+@csrf_exempt
+def generate_png(request):
+  import rsvg
+  import cairo
+  content=request.POST.get('svg_data')
+  content=content.strip()
+  #file_name="test"
+  file_name="test123 with zero"
+  #Now we want to write this to file
+  svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "w+" )
+  svg_file.write( content )
+  svg_file.close()
+  # Create the blank image surface
+  img = cairo.ImageSurface( cairo.FORMAT_ARGB32, 750, 480 )
+
+  # Get the context
+  ctx = cairo.Context( img )
+
+  # Dump SVG data to the image context
+  handler = rsvg.Handle( None,str(content) )
+  handler.render_cairo( ctx )
+
+  # Create the final png image
+  final_png = img.write_to_png( settings.DATA_FILES_PATH + "/" + file_name + ".png" )
+  return HttpResponse( "Success" )  
+  
 def explore(request, app_name, trade_flow, country1, country2, product, year="2011"):
   iscreatemode=False
   iscreatemode = request.session['create'] if 'create' in request.session else False
@@ -1005,7 +1031,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   userId=request.session['userid'] if 'userid' in request.session else 0
   likeBtnEnable=request.session['likeBtnEnable'] if 'likeBtnEnable' in request.session else False 
   likeCount=request.session['likeCount'] if 'likeCount' in request.session else ""
-  
+  #Set app_name to session
+  request.session['app_name']=app_name
   # raise Exception(country1, country2, product, year)
   # Get URL query parameters
   was_redirected = request.GET.get("redirect", False)
@@ -1026,6 +1053,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   request_hash_dictionary = collections.OrderedDict()
   
   # Add prod class to request hash dictionary
+  request_hash_dictionary['app_name'] = app_name
   request_hash_dictionary['lang'] = lang
   request_hash_dictionary['prod_class'] = prod_class
 
@@ -1212,7 +1240,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       prod_or_partner = "product"
 
   # Return page without visualization data
-  
+
   return render_to_response("explore/index.html", {
     "displayviz":displayviz,
     "displayImage":displayImage,
@@ -1289,6 +1317,7 @@ def attr_products(request, prod_class):
 
 '''<COUNTRY> / all / show / <YEAR>'''
 def api_casy(request, trade_flow, country1, year):
+
   # import time
   # start = time.time()
   # Setup the hash dictionary
@@ -1308,11 +1337,13 @@ def api_casy(request, trade_flow, country1, year):
   query_params = request.GET.copy()
   query_params["lang"] = lang
   query_params["product_classification"] = prod_class
-  
+  #Get app_name  from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   '''Grab extraneous details'''
   ## Clasification & Django Data Call
   name = "name_%s" % lang
   # Add prod class to request hash dictionary
+  request_hash_dictionary['app_name'] = app_name
   request_hash_dictionary['lang'] = lang
   request_hash_dictionary['prod_class'] = prod_class
   
@@ -1325,6 +1356,7 @@ def api_casy(request, trade_flow, country1, year):
 
   # We are here, so let us store this data somewhere
   request_hash_string = "_".join( request_hash_dictionary.values() ) #base64.b64encode( request_unique_hash )
+  print request_hash_string
   # Check staic image mode 
   #if( settings.STATIC_IMAGE_MODE == "PNG" ):
   if ( os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg" ) is True ):
@@ -1497,13 +1529,16 @@ def api_sapy(request, trade_flow, product, year):
   query_params = request.GET.copy()
   query_params["lang"] = lang
   query_params["product_classification"] = prod_class
+  #Get app_name from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
   # Setup the hash dictionary
-  request_hash_dictionary1 = collections.OrderedDict()
+  request_hash_dictionary = collections.OrderedDict()
   # Add prod class to request hash dictionary
-  request_hash_dictionary1['lang'] = lang
-  request_hash_dictionary1['prod_class'] = prod_class
+  request_hash_dictionary['app_name'] = app_name
+  request_hash_dictionary['lang'] = lang
+  request_hash_dictionary['prod_class'] = prod_class
   # Add the arguments to the request hash dictionary
   request_hash_dictionary['trade_flow'] = trade_flow
   request_hash_dictionary['country1'] =  'show'
@@ -1661,6 +1696,8 @@ def api_csay(request, trade_flow, country1, year):
   lang = request.GET.get("lang", lang)
   crawler = request.GET.get("_escaped_fragment_", False)
   country1 = Country.objects.get(name_3char=country1)
+  #Get app_name from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   """Set query params with our changes"""
   query_params = request.GET.copy()
   query_params["lang"] = lang
@@ -1668,10 +1705,11 @@ def api_csay(request, trade_flow, country1, year):
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
   # Setup the hash dictionary
-  request_hash_dictionary1 = collections.OrderedDict()
+  request_hash_dictionary = collections.OrderedDict()
   # Add prod class to request hash dictionary
-  request_hash_dictionary1['lang'] = lang
-  request_hash_dictionary1['prod_class'] = prod_class
+  request_hash_dictionary['app_name'] = app_name
+  request_hash_dictionary['lang'] = lang
+  request_hash_dictionary['prod_class'] = prod_class
   # Add the arguments to the request hash dictionary
   request_hash_dictionary['trade_flow'] = trade_flow
   request_hash_dictionary['country1'] =  country1.name_3char.lower()
@@ -1819,6 +1857,8 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
   country_code1=Country.objects.filter(name_3char=country1)
+  #Get app_name from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   '''Set query params with our changes'''
   query_params = request.GET.copy()
   query_params["lang"] = lang
@@ -1828,8 +1868,9 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   # Setup the hash dictionary
   request_hash_dictionary1 = collections.OrderedDict()
   # Add prod class to request hash dictionary
-  request_hash_dictionary1['lang'] = lang
-  request_hash_dictionary1['prod_class'] = prod_class
+  request_hash_dictionary['app_name'] = app_name
+  request_hash_dictionary['lang'] = lang
+  request_hash_dictionary['prod_class'] = prod_class
   
   #Set country_code to Country
   country_code1=Country.objects.get(name=country1)
@@ -1983,6 +2024,8 @@ def api_cspy(request, trade_flow, country1, product, year):
   lang = request.GET.get("lang", lang)
   crawler = request.GET.get("_escaped_fragment_", False)
   country1 = Country.objects.get(name_3char=country1)
+  #Get app_name from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   product = clean_product(product, prod_class)
   article = "to" if trade_flow == "export" else "from"
   
@@ -1993,6 +2036,7 @@ def api_cspy(request, trade_flow, country1, product, year):
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
   # Add prod class to request hash dictionary
+  request_hash_dictionary['app_name'] = app_name
   request_hash_dictionary['lang'] = lang
   request_hash_dictionary['prod_class'] = prod_class
   #Set product code to particular product

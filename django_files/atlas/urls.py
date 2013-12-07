@@ -74,6 +74,7 @@ urlpatterns = patterns('',
   (r'^api/data/$', 'observatory.views.api_data'),
 
   # Story #####
+  (r'^generate_png/$','observatory.views.generate_png'),
   (r'^mystories/$','observatory.views.minestory'),
   (r'^featured/$','observatory.views.featurestory'),
   (r'^popular/$','observatory.views.popularstory'),

@@ -4,8 +4,6 @@
 # Need to create a settings_local.py file adjacent to this one with the
 # following variables:
 # 
-import os.path
-import django
 
 DATABASES = {
      'default': {
@@ -18,33 +16,28 @@ DATABASES = {
      }
 }
 
-#Get the absolute path of the settings_local.py file's directory
-SITE_ROOT = os.path.dirname(os.path.realpath('__file__'))
-
-#Get  Root path of the settings_local.py file's directory
-ROOT_PATH = os.path.dirname(__file__)
 
 
 STATICFILES_DIRS = (
-   os.path.join( SITE_ROOT,'..', 'media' ),
+   "/home/srinivas/HarvardRepo/observatory_economic_complexity/media",
 )
  
 LOCALE_PATHS = (
-      os.path.join(ROOT_PATH, 'locale'),
+    '/home/srinivas/HarvardRepo/observatory_economic_complexity/django_files/locale',
 )
  
 TEMPLATE_DIRS = (
-   os.path.join( SITE_ROOT,'..', 'html' ),
+  '/home/srinivas/HarvardRepo/observatory_economic_complexity/html',
 
 )
  
 SECRET_KEY = 'my_pets_name_is_eloise'
 
 #Image cache folder 
-DATA_FILES_PATH = os.path.join( SITE_ROOT,'..', 'media/data/' )
+DATA_FILES_PATH ="/home/srinivas/HarvardRepo/observatory_economic_complexity/media/data/"
 
 #Set image mode Option are "SVG" and "PNG"
-STATIC_IMAGE_MODE = "SVG"
+STATIC_IMAGE_MODE = "PNG"
 
 # IF YOU ARE RUNNING THE SERVER LOCALLY (AND DO NOT WANT TO INSTALL REDIS): 
 # Set the REDIS flag to false

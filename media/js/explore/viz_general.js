@@ -1258,6 +1258,7 @@
           rawData = raw;
           height = h;
           width = w;  
+          
 
           // Try replacing the data from g 
           rawData.firstChild.childNodes[3].setAttribute( 'class', 'parent-old' );
@@ -1268,7 +1269,7 @@
             // Append to the loader as well
             jQuery( "#loader" ).append( jQuery( el ).clone().attr( "style", "position: relative; top: 540px; left: 10px; float: left;" ) );
           } );*/
-          d3.select("#loader").style("width", "750px").style("height", "670px").style("margin-top", "-150px").style("text-align", "left");
+          d3.select("#loader").style("width", "750px").style("height", "670px").style("margin-top", "-150px").style("text-align", "left");  
 
           // Reset the min-height for now on the #viz node
           d3.select("#viz").style( "min-height", "0px" ).style( "height", "0px" );
@@ -1279,29 +1280,30 @@
   function build_viz_app_original(api_uri,w,h){
     d3.json(api_uri + '&amp;data_type=json',function(raw)
     {
+    
       // This needs to be global 
       rawData = raw;
       height = h;
       width = w;    
 
-      item_type = raw["item_type"]
-      flat_data=raw["data"]
-      attr=raw["attr"]
-      attr_data = raw["attr_data"]
-      app_type= raw["app_type"]
-      prod_class = raw["prod_class"]
-      region_attrs = {}
+      item_type = raw["item_type"];
+      flat_data=raw["data"];
+      attr=raw["attr"];
+      attr_data = raw["attr_data"];
+      app_type= raw["app_type"];
+      prod_class = raw["prod_class"];
+      region_attrs = {};
 
       if(app_type=="casy"){
         // magic_numbers = rawData["magic_numbers"]
         world_trade = rawData["world_trade"]
         code_look = rawData["code_look"]
         
-        world_totals = {}
-        w_years = vizwhiz.utils.uniques(world_trade,"year")
+        world_totals = {};
+        w_years = vizwhiz.utils.uniques(world_trade,"year");
         w_years.forEach(function(d){
           world_totals[d] = world_trade.filter(function(p){ return p.year == d}) 
-        })
+        });
       }
       
       if (prod_class == "sitc4" && (app_type == "casy" || app_type == "ccsy"|| app_type=="sapy")){
@@ -1309,7 +1311,7 @@
           g.sitc1_name = attr[g.code.slice(0, 1)+"000"].name; 
           g.sitc1_id = parseInt(g.code.slice(0, 1)+"000");
           g.sitc1_color = attr[g.code.slice(0, 1)+"000"].color
-        })
+        });
       }
     
       // attr_data = clean_attr_data(attr_data)
@@ -1320,35 +1322,35 @@
         flat_data = construct_nest(flat_data)
         stack();
         
-        timeline = Slider()
-                  .callback('set_stack_year')
-                  .initial_value([parseInt(year_start),parseInt(year_end)])
+      //  timeline = Slider()
+        //          .callback('set_stack_year')
+         //         .initial_value([parseInt(year_start),parseInt(year_end)])
                   //[parseInt(years_available[0]),parseInt(years_available.slice(-1)[0])])
-                  .max_width(670)
-                  .title("")
-                d3.select("#ui_bottom").append("div")
-                  .attr("class","slider")
-                  .datum(years_available)
-                  .call(timeline)
+          //        .max_width(670)
+            //      .title("")
+           //     d3.select("#ui_bottom").append("div")
+           //       .attr("class","slider")
+           //       .datum(years_available)
+           //       .call(timeline)
         // get rid of play button -->                  
-        d3.select('#play_button').style("display","none") 
+      //  d3.select('#play_button').style("display","none") 
       } 
       if (app_name=="tree_map")
       {
         flat_data = construct_nest(flat_data);
         tree();
         
-        timeline = Slider()
-          .callback('set_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
+      //  timeline = Slider()
+        //  .callback('set_year')
+         // .initial_value(parseInt(year))
+         // .max_width(670)
+         // .title("")
+       // d3.select("#ui_bottom").append("div")
+        //  .attr("class","slider")
           // .style("overflow","auto")
-          .datum(years_available)
-          .call(timeline)
-        d3.select("#ui_bottom").append("br")
+        //  .datum(years_available)
+        //  .call(timeline)
+       // d3.select("#ui_bottom").append("br")
         
       }
       if (app_name=="pie_scatter")
@@ -1356,21 +1358,21 @@
         if (prod_class == "sitc4"){
           flat_data = flat_data.filter(function(d){
             return d.distance != 0;
-          })
+          });
         }
         flat_data = construct_scatter_nest(flat_data);
         // where = flat_data.filter(function(d){ return d.year == year; })
         pie_scatter();
         
-        timeline = Slider()
-                  .callback('set_scatter_year')
-                  .initial_value(parseInt(year))
-                  .max_width(670)
-                  .title("")
-                d3.select("#ui_bottom").append("div")
-                  .attr("class","slider")
-                  .datum(years_available)
-                  .call(timeline)
+      //  timeline = Slider()
+       //           .callback('set_scatter_year')
+        //          .initial_value(parseInt(year))
+        //          .max_width(670)
+        //          .title("")
+        //        d3.select("#ui_bottom").append("div")
+        //          .attr("class","slider")
+       //           .datum(years_available)
+       //           .call(timeline)
         // get rid of play button -->                  
         // d3.select('#play_button').style("display","none") 
       }
@@ -1379,33 +1381,33 @@
         flat_data = construct_scatter_nest(flat_data);
         network();
         
-        timeline = Slider()
-          .callback('set_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
+      //  timeline = Slider()
+       //   .callback('set_year')
+       //   .initial_value(parseInt(year))
+       //   .max_width(670)
+      //    .title("")
+     //   d3.select("#ui_bottom").append("div")
+      //    .attr("class","slider")
           // .style("overflow","auto")
-          .datum(years_available)
-          .call(timeline)
-        d3.select("#ui_bottom").append("br")
+      //    .datum(years_available)
+      //    .call(timeline)
+     //   d3.select("#ui_bottom").append("br")
       }
       if(app_name=="map")
       {
-        map()
+        map();
         
-        timeline = Slider()
-          .callback('set_map_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
+     //   timeline = Slider()
+      //    .callback('set_map_year')
+      //    .initial_value(parseInt(year))
+      //    .max_width(670)
+      //    .title("")
+     //   d3.select("#ui_bottom").append("div")
+      //    .attr("class","slider")
           // .style("overflow","auto")
-          .datum(years_available)
-          .call(timeline)
-        d3.select("#ui_bottom").append("br")  
+     //     .datum(years_available)
+     //     .call(timeline)
+     //   d3.select("#ui_bottom").append("br")  
         
       }
     
@@ -1453,7 +1455,16 @@
       //   // get rid of play button -->                  
       //   d3.select('#play_button').style("display","none")          
       // }
-    
+    //  window.setTimeout(function(){
+        generateSVG();
+     // }, 0);
     });
-  }  
-  // 
+  }
+    
+   function generateSVG()
+   {
+      var svg_data = jQuery( "#viz" ).html();
+      console.log(svg_data)
+        jQuery.post( "/generate_png/", { 'svg_data': svg_data } ); 
+   }  
+
