@@ -34,10 +34,10 @@ TEMPLATE_DIRS = (
 SECRET_KEY = 'my_pets_name_is_eloise'
 
 #Image cache folder 
-DATA_FILES_PATH ="/home/srinivas/HarvardRepo/observatory_economic_complexity/media/data/test"
+DATA_FILES_PATH ="/home/srinivas/HarvardRepo/observatory_economic_complexity/media/data"
 
 #Set image mode Option are "SVG" and "PNG"
-STATIC_IMAGE_MODE = "SVG"
+STATIC_IMAGE_MODE = "PNG"
 
 # PhantomJS Settings
 PHANTOM_JS_EXECUTABLE = "/home/srinivas/phantomjs/bin/phantomjs"
