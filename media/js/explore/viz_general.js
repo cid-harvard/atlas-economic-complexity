@@ -1260,6 +1260,11 @@
           width = w;
 
           // Try replacing the data from g 
+          if ( typeof rawData.firstChild.childNodes[1] != "undefined" || rawData.firstChild.childNodes[3] != null ) {
+            // We have the nodes, so go ahead
+            rawData.firstChild.childNodes[1].setAttribute( 'class', 'titles-old' );
+          }
+          
           // Check if it the nodes are available first
           if ( typeof rawData.firstChild.childNodes[3] != "undefined" || rawData.firstChild.childNodes[3] != null ) {
             // Check if we have the g.nodes stuff
