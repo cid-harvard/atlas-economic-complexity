@@ -1213,8 +1213,8 @@
         .datum(rawData)
         .call(controls);
     }
-   
   }
+  
   //
   // the sparkplug that drives my vizwiz engine
   //
@@ -1252,23 +1252,24 @@
 
     // Only do the below if we are not running headless
     if ( headless_flag == false ) {
-        d3.html(api_uri,function(raw)
+        d3.html( api_uri, function(raw)
         {
           // This needs to be global 
           rawData = raw;
           height = h;
-          width = w;  
-          
+          width = w;
 
           // Try replacing the data from g 
-          rawData.firstChild.childNodes[3].setAttribute( 'class', 'parent-old' );
+          // Check if it the nodes are available first
+          if ( typeof rawData.firstChild.childNodes[3] != "undefined" || rawData.firstChild.childNodes[3] != null ) {
+            // We have the nodes, so go ahead
+            rawData.firstChild.childNodes[3].setAttribute( 'class', 'parent-old' );
+          }
           
           // Set the data now to the viz container
           jQuery( "#loader" ).html( rawData );
-          /*jQuery.each( jQuery( ".product_class.clone_loader" ), function ( index, el ) {
-            // Append to the loader as well
-            jQuery( "#loader" ).append( jQuery( el ).clone().attr( "style", "position: relative; top: 540px; left: 10px; float: left;" ) );
-          } );*/
+
+          // Do some CSS stuff for the loader container
           d3.select("#loader").style("width", "750px").style("height", "670px").style("margin-top", "-150px").style("text-align", "left");  
 
           // Reset the min-height for now on the #viz node
@@ -1277,15 +1278,15 @@
     }
   }  
 
-  function build_viz_app_original(api_uri,w,h){
+  function build_viz_app_original(api_uri,w,h) {
     d3.json(api_uri + '&amp;data_type=json',function(raw)
     {
-    
+
       // This needs to be global 
       rawData = raw;
       height = h;
       width = w;    
-
+      
       item_type = raw["item_type"];
       flat_data=raw["data"];
       attr=raw["attr"];
@@ -1317,44 +1318,17 @@
       // attr_data = clean_attr_data(attr_data)
       rawData.attr_data = clean_attr_data(rawData.attr_data)
 
-      if (app_name=="stacked")
-      {
+      if (app_name=="stacked") {
         flat_data = construct_nest(flat_data)
-        stack();
-        
-      //  timeline = Slider()
-        //          .callback('set_stack_year')
-         //         .initial_value([parseInt(year_start),parseInt(year_end)])
-                  //[parseInt(years_available[0]),parseInt(years_available.slice(-1)[0])])
-          //        .max_width(670)
-            //      .title("")
-           //     d3.select("#ui_bottom").append("div")
-           //       .attr("class","slider")
-           //       .datum(years_available)
-           //       .call(timeline)
-        // get rid of play button -->                  
-      //  d3.select('#play_button').style("display","none") 
-      } 
-      if (app_name=="tree_map")
-      {
+        stack(); 
+      }
+      
+      if (app_name=="tree_map") {
         flat_data = construct_nest(flat_data);
         tree();
-        
-      //  timeline = Slider()
-        //  .callback('set_year')
-         // .initial_value(parseInt(year))
-         // .max_width(670)
-         // .title("")
-       // d3.select("#ui_bottom").append("div")
-        //  .attr("class","slider")
-          // .style("overflow","auto")
-        //  .datum(years_available)
-        //  .call(timeline)
-       // d3.select("#ui_bottom").append("br")
-        
       }
-      if (app_name=="pie_scatter")
-      {
+      
+      if (app_name=="pie_scatter") {
         if (prod_class == "sitc4"){
           flat_data = flat_data.filter(function(d){
             return d.distance != 0;
@@ -1363,108 +1337,20 @@
         flat_data = construct_scatter_nest(flat_data);
         // where = flat_data.filter(function(d){ return d.year == year; })
         pie_scatter();
-        
-      //  timeline = Slider()
-       //           .callback('set_scatter_year')
-        //          .initial_value(parseInt(year))
-        //          .max_width(670)
-        //          .title("")
-        //        d3.select("#ui_bottom").append("div")
-        //          .attr("class","slider")
-       //           .datum(years_available)
-       //           .call(timeline)
-        // get rid of play button -->                  
-        // d3.select('#play_button').style("display","none") 
       }
-      if(app_name=="product_space")
-      {
+      
+      if(app_name=="product_space") {
         flat_data = construct_scatter_nest(flat_data);
         network();
-        
-      //  timeline = Slider()
-       //   .callback('set_year')
-       //   .initial_value(parseInt(year))
-       //   .max_width(670)
-      //    .title("")
-     //   d3.select("#ui_bottom").append("div")
-      //    .attr("class","slider")
-          // .style("overflow","auto")
-      //    .datum(years_available)
-      //    .call(timeline)
-     //   d3.select("#ui_bottom").append("br")
       }
-      if(app_name=="map")
-      {
+      
+      if(app_name=="map") {
         map();
-        
-     //   timeline = Slider()
-      //    .callback('set_map_year')
-      //    .initial_value(parseInt(year))
-      //    .max_width(670)
-      //    .title("")
-     //   d3.select("#ui_bottom").append("div")
-      //    .attr("class","slider")
-          // .style("overflow","auto")
-     //     .datum(years_available)
-     //     .call(timeline)
-     //   d3.select("#ui_bottom").append("br")  
-        
       }
-    
-      // // Create Year Toggle
-      // if (app_name == "tree_map") {
-      //   timeline = Slider()
-      //     .callback('set_year')
-      //     .initial_value(parseInt(year))
-      //     .max_width(540)
-      //     .title("")
-      //   d3.select("#ui_bottom").append("div")
-      //     .attr("class","slider")
-      //     // .style("overflow","auto")
-      //     .datum(years_available)
-      //     .call(timeline)
-      //   d3.select("#ui_bottom").append("br")
-      // }
-      // 
-      // if (app_name == "stacked")
-      // {
-      //   timeline = Slider()
-      //             .callback('set_stack_year')
-      //             .initial_value([parseInt(year_start),parseInt(year_end)])
-      //             .max_width(540)
-      //             .title("")
-      //           d3.select("#ui_bottom").append("div")
-      //             .attr("class","slider")
-      //             .datum(years_available)
-      //             .call(timeline)
-      //   // get rid of play button -->                  
-      //   d3.select('#play_button').style("display","none")          
-      // }
-      // 
-      // if (app_name == "pie_scatter")
-      // {
-      //   timeline = Slider()
-      //             .callback('set_scatter_year')
-      //             .initial_value(parseInt(year))
-      //             .max_width(540)
-      //             .title("")
-      //           d3.select("#ui_bottom").append("div")
-      //             .attr("class","slider")
-      //             .datum(years_available)
-      //             .call(timeline)
-      //   // get rid of play button -->                  
-      //   d3.select('#play_button').style("display","none")          
-      // }
-    //  window.setTimeout(function(){
-        generateSVG();
-     // }, 0);
+      
+      // Call the generate SVG
+      //if ( !jQuery( "#loader" ).is( ":visible" ) ) {
+      //  generateSVG();
+      //}
     });
   }
-    
-   function generateSVG()
-   {
-      var svg_data = jQuery( "#viz" ).html();
-      console.log(svg_data)
-        jQuery.post( "/generate_png/", { 'svg_data': svg_data } ); 
-   }  
-

@@ -5482,6 +5482,7 @@ vizwhiz.rings = function(vars) {
       hover = null;
       
   // container for the visualization
+  console.log("sdjsdjsjdh")
   var viz_enter = vars.parent_enter.append("g").attr("class", "viz")
     .attr("transform", "translate(" + width / 2 + "," + vars.height / 2 + ")");
     
@@ -5740,9 +5741,8 @@ vizwhiz.rings = function(vars) {
       })
       
     }
-    
+
     var html = vars.click_function ? vars.click_function(vars.highlight,tree_nodes) : ""
-    
     if (typeof html == "string") make_tooltip(html)
     else {
       d3.json(html.url,function(data){

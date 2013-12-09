@@ -34,10 +34,14 @@ TEMPLATE_DIRS = (
 SECRET_KEY = 'my_pets_name_is_eloise'
 
 #Image cache folder 
-DATA_FILES_PATH ="/home/srinivas/HarvardRepo/observatory_economic_complexity/media/data/"
+DATA_FILES_PATH ="/home/srinivas/HarvardRepo/observatory_economic_complexity/media/data/test"
 
 #Set image mode Option are "SVG" and "PNG"
-STATIC_IMAGE_MODE = "PNG"
+STATIC_IMAGE_MODE = "SVG"
+
+# PhantomJS Settings
+PHANTOM_JS_EXECUTABLE = "/home/srinivas/phantomjs/bin/phantomjs"
+PHANTOM_JS_SCRIPT = "/home/srinivas/harvard/observatory_economic_complexity-beta/media/js/explore/generate.svg.js"
 
 # IF YOU ARE RUNNING THE SERVER LOCALLY (AND DO NOT WANT TO INSTALL REDIS): 
 # Set the REDIS flag to false

@@ -182,12 +182,10 @@ vizwhiz.utils.wordwrap = function(params) {
       }
     }
   }
-  
   function finish() {
-    d3.select(parent).selectAll('tspan').attr("dy", d3.select(parent).style('font-size'));
+   d3.select(parent).selectAll('tspan').attr("dy", d3.select(parent).style('font-size'));
     return;
-  }
-  
+  } 
 }
 
 //===================================================================
@@ -227,4 +225,5 @@ vizwhiz.utils.drop_shadow = function(defs) {
 
 }
 
-//===================================================================
+//===================================================================  
+ 

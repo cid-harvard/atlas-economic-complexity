@@ -39,7 +39,7 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body class="app">
+<body class="app" >
   {% if alert %}
   <div class="alert">
     <div>
@@ -121,7 +121,6 @@
 
       */
       function available_viz() {
-      
         var main_countries_products = $(".main-countries-products").find(".active").index();
         var partner_product = $(".tab-trade-partner-product").find(".active").index();
 
@@ -274,7 +273,7 @@
         var host = "http://" + window.location.host + "{{ HTTP_HOST }}";
        
         var url = host + "explore/";
-
+        console.log("come here")
         var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
         current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
         var current_year1 = $("#year1").find(":selected").val();
@@ -1824,8 +1823,6 @@
   // whatever you wanna call it. This is the single most important function.
   // It triggers the data call to the server to fetch the data used in turn
   // to build the app. Look in viz_general.js for more info.
-  
-
 
   // Page init scripts
   $(function () {
@@ -1915,9 +1912,9 @@ $("p").hover(function(){
 //To display visualization in full screen ,while viewing stories
   var contentWidth=$("#content").width();
   //if static image mode is SVG
-  //{% if not displayviz %}
-  //  build_viz_app( api_uri, contentWidth, 520 );
-  //{% endif %}
+  {% if not displayviz %}
+    build_viz_app( api_uri, contentWidth, 520 );
+  {% endif %}
   
   // Call the original and let is handle the stuff - trying again
   build_viz_app_original( api_uri, contentWidth, 520 );
