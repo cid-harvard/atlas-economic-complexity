@@ -936,10 +936,10 @@
  //    }
   }
   
-  network = function()
+  network = function( req )
   { 
     (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
-                          req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json"
+                          req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json";
     
     d3.json(req, function(hs) {
       viz = vizwhiz.viz()
@@ -1262,6 +1262,12 @@
           // Try replacing the data from g 
           // Check if it the nodes are available first
           if ( typeof rawData.firstChild.childNodes[3] != "undefined" || rawData.firstChild.childNodes[3] != null ) {
+            // Check if we have the g.nodes stuff
+            jQuery( rawData.firstChild.childNodes[3] ).find( "g" ).each( function(g_index, g_element) {
+                // Update the classes
+                jQuery( g_element ).attr( 'class', jQuery( g_element ).attr( 'class' ) + "-old" );
+            } );
+            
             // We have the nodes, so go ahead
             rawData.firstChild.childNodes[3].setAttribute( 'class', 'parent-old' );
           }
@@ -1341,7 +1347,7 @@
       
       if(app_name=="product_space") {
         flat_data = construct_scatter_nest(flat_data);
-        network();
+        network( api_uri + '&amp;data_type=json' );
       }
       
       if(app_name=="map") {
