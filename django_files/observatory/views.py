@@ -8,6 +8,7 @@ from django.core.urlresolvers import resolve
 from django.conf import settings
 from django.contrib.sessions.models import Session
 from django.utils.translation import ungettext
+from django.views.decorators.csrf import ensure_csrf_cookie
 # General
 import os
 import collections
@@ -798,7 +799,7 @@ def download(request):
   except:
     pass
   import csv
-  raise Exception(request.POST)
+  #raise Exception(request.POST)
   content = request.POST.get("content")
   
   title = request.POST.get("title")
@@ -982,6 +983,55 @@ def app_redirect(request, app_name, trade_flow, filter, year):
   # raise Exception("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
   return HttpResponsePermanentRedirect(HTTP_HOST+"explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
 
+def generate_png( request ):
+  import rsvg
+  import cairo
+  import cairosvg
+  
+  content = request.POST.get('svg_data')
+  
+  # Check if we have proper content first
+  if ( content is not None ):
+    # Fix the spaces etc and remove unwanted stuff from the content
+    content = content.strip()
+    content = content + "\n"
+    
+    #file_name="test"
+    file_name="tree_map"
+
+    #Now we want to write this to file
+    svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "w+" )
+    svg_file.write( content )
+    svg_file.close()
+    
+    # Read in the content
+    svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "r" )
+    
+    # Open up the file to be written to
+    png_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".png", "w+" )
+    
+    # Do the export
+    cairosvg.svg2png( file_obj = svg_file, write_to = png_file )
+    
+    # Close the svg & png file
+    svg_file.close()
+    png_file.close()
+    
+    # Create the blank image surface
+    #blank_surface = cairo.ImageSurface( cairo.FORMAT_ARGB32, 750, 480 )
+
+    # Get the context
+    #ctx = cairo.Context( blank_surface )
+
+    # Dump SVG data to the image context
+    #handler = rsvg.Handle( data = content.encode("utf-8") )
+    #handler.render_cairo( ctx )
+
+    # Create the final png image
+    #final_png = blank_surface.write_to_png( settings.DATA_FILES_PATH + "/" + file_name + ".png" )
+    
+  return HttpResponse( "Success" )  
+  
 def explore(request, app_name, trade_flow, country1, country2, product, year="2011"):
   iscreatemode=False
   iscreatemode = request.session['create'] if 'create' in request.session else False
@@ -998,7 +1048,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   userId=request.session['userid'] if 'userid' in request.session else 0
   likeBtnEnable=request.session['likeBtnEnable'] if 'likeBtnEnable' in request.session else False 
   likeCount=request.session['likeCount'] if 'likeCount' in request.session else ""
-  
+  #Set app_name to session
+  request.session['app_name']=app_name
   # raise Exception(country1, country2, product, year)
   # Get URL query parameters
   was_redirected = request.GET.get("redirect", False)
@@ -1019,6 +1070,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   request_hash_dictionary = collections.OrderedDict()
   
   # Add prod class to request hash dictionary
+  request_hash_dictionary['app_name'] = app_name
   request_hash_dictionary['lang'] = lang
   request_hash_dictionary['prod_class'] = prod_class
 
@@ -1202,7 +1254,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       prod_or_partner = "product"
 
   # Return page without visualization data
-  
+
   return render_to_response("explore/index.html", {
     "displayviz":displayviz,
     "displayImage":displayImage,
@@ -1298,11 +1350,13 @@ def api_casy(request, trade_flow, country1, year):
   query_params = request.GET.copy()
   query_params["lang"] = lang
   query_params["product_classification"] = prod_class
-  
+  #Get app_name  from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   '''Grab extraneous details'''
   ## Clasification & Django Data Call
   name = "name_%s" % lang
   # Add prod class to request hash dictionary
+  request_hash_dictionary['app_name'] = app_name
   request_hash_dictionary['lang'] = lang
   request_hash_dictionary['prod_class'] = prod_class
   
@@ -1315,11 +1369,23 @@ def api_casy(request, trade_flow, country1, year):
 
   # We are here, so let us store this data somewhere
   request_hash_string = "_".join( request_hash_dictionary.values() ) #base64.b64encode( request_unique_hash )
-  # Check staic image mode 
-  #if( settings.STATIC_IMAGE_MODE == "PNG" ):
+  
+  # Setup the store data
+  store_data = request.build_absolute_uri().replace( "product_classification", "prod_class" ) + "||"
+  store_page_url = request.build_absolute_uri().replace( "/api/", "/explore/" + app_name + "/" )
+  store_page_url = store_page_url.replace( "data_type=json", "headless=true" )
+  store_page_url = store_page_url.replace( "product_classification", "prod_class" )
+  store_data = store_data + store_page_url + "||"
+  store_data = store_data + request_hash_string
+  
+  # Write the store data to file
+  store_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".store", "w+" )
+  store_file.write( store_data )
+  store_file.close()
+  
   if ( os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg" ) is True ):
     # Check the request data type
-    if ( request.GET.get( 'data_type', '' ) == '' ):
+    if ( request.GET.get( 'data_type', None ) is None ):
       # Let us get the data from the file
       response_json_data = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg", "r" )
       
@@ -1339,6 +1405,7 @@ def api_casy(request, trade_flow, country1, year):
 
         #"""Return to browser as JSON for AJAX request"""
         return HttpResponse( returnData )
+        
   # Get attribute information  
   if prod_class == "sitc4":
     world_trade = list(Sitc4_py.objects.all().values('year','product_id','world_trade'))
@@ -1459,18 +1526,19 @@ def api_casy(request, trade_flow, country1, year):
   json_response["prod_class"] =  prod_class
   json_response["other"] = query_params
 
-
-#  if not os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json" ):
-#    response_json_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json", "w+" )
-#    response_json_file.write( json.dumps( json_response ) )
-#    response_json_file.close()
+  if not os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json" ):
+    response_json_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json", "w+" )
+    response_json_file.write( json.dumps( json_response ) )
+    response_json_file.close()
 
   # raise Exception(time.time() - start)
-  """Return to browser as JSON for AJAX request"""
-  return HttpResponse(json.dumps(json_response))
-  # It seems it autoamtically does the following
-  # return resoponse #, 'Content-Encoding', 'gzip', 'Content-Length', str(len(json.dumps(json_response))))
-
+  # Check the request data type
+  if ( request.GET.get( 'data_type', None ) is None ):
+    #"""Return to browser as JSON for AJAX request"""
+    return HttpResponse( "" )
+  elif ( request.GET.get( 'data_type', '' ) == 'json' ):
+    """Return to browser as JSON for AJAX request"""
+    return HttpResponse(json.dumps(json_response))
 
 def api_sapy(request, trade_flow, product, year):
   # Setup the hash dictionary
@@ -1488,13 +1556,16 @@ def api_sapy(request, trade_flow, product, year):
   query_params = request.GET.copy()
   query_params["lang"] = lang
   query_params["product_classification"] = prod_class
+  #Get app_name from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
   # Setup the hash dictionary
-  request_hash_dictionary1 = collections.OrderedDict()
+  request_hash_dictionary = collections.OrderedDict()
   # Add prod class to request hash dictionary
-  request_hash_dictionary1['lang'] = lang
-  request_hash_dictionary1['prod_class'] = prod_class
+  request_hash_dictionary['app_name'] = app_name
+  request_hash_dictionary['lang'] = lang
+  request_hash_dictionary['prod_class'] = prod_class
   # Add the arguments to the request hash dictionary
   request_hash_dictionary['trade_flow'] = trade_flow
   request_hash_dictionary['country1'] =  'show'
@@ -1503,9 +1574,24 @@ def api_sapy(request, trade_flow, product, year):
   request_hash_dictionary['year'] = year
   # We are here, so let us store this data somewhere
   request_hash_string = "_".join(request_hash_dictionary.values()) 
+  
+  # Setup the store data
+  store_data = request.build_absolute_uri().replace( "product_classification", "prod_class" ) + "||"
+  store_page_url = request.build_absolute_uri().replace( "/api/", "/explore/" + app_name + "/" )
+  store_page_url = store_page_url.replace( "data_type=json", "headless=true" )
+  store_page_url = store_page_url.replace( "product_classification", "prod_class" )
+  store_data = store_data + store_page_url + "||"
+  store_data = store_data + request_hash_string
+  
+  # Write the store data to file
+  store_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".store", "w+" )
+  store_file.write( store_data )
+  store_file.close()
+  
+  
   if ( os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg" ) is True ):
     # Check the request data type
-    if ( request.GET.get( 'data_type', '' ) == '' ):
+    if ( request.GET.get( 'data_type', None ) is None ):
       # Let us get the data from the file
       response_json_data = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg", "r" )
       
@@ -1639,10 +1725,17 @@ def api_sapy(request, trade_flow, product, year):
     response_json_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json", "w+" )
     response_json_file.write( json.dumps( json_response ) )
     response_json_file.close()
+    
   # raise Exception(time.time() - start)
-  """Return to browser as JSON for AJAX request"""
-  return HttpResponse(json.dumps(json_response))
-
+  # Check the request data type
+  if ( request.GET.get( 'data_type', None ) is None ):
+    #"""Return to browser as JSON for AJAX request"""
+    return HttpResponse( "" )
+  elif ( request.GET.get( 'data_type', '' ) == 'json' ):
+    """Return to browser as JSON for AJAX request"""
+    return HttpResponse(json.dumps(json_response))
+  
+  
 '''<COUNTRY> / show / product / <YEAR>'''
 def api_csay(request, trade_flow, country1, year):
   """Init variables"""
@@ -1652,6 +1745,8 @@ def api_csay(request, trade_flow, country1, year):
   lang = request.GET.get("lang", lang)
   crawler = request.GET.get("_escaped_fragment_", False)
   country1 = Country.objects.get(name_3char=country1)
+  #Get app_name from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   """Set query params with our changes"""
   query_params = request.GET.copy()
   query_params["lang"] = lang
@@ -1659,21 +1754,37 @@ def api_csay(request, trade_flow, country1, year):
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
   # Setup the hash dictionary
-  request_hash_dictionary1 = collections.OrderedDict()
+  request_hash_dictionary = collections.OrderedDict()
   # Add prod class to request hash dictionary
-  request_hash_dictionary1['lang'] = lang
-  request_hash_dictionary1['prod_class'] = prod_class
+  request_hash_dictionary['app_name'] = app_name
+  request_hash_dictionary['lang'] = lang
+  request_hash_dictionary['prod_class'] = prod_class
   # Add the arguments to the request hash dictionary
   request_hash_dictionary['trade_flow'] = trade_flow
   request_hash_dictionary['country1'] =  country1.name_3char.lower()
   request_hash_dictionary['product_dispaly'] = 'show'
   request_hash_dictionary['country2'] = 'all'
   request_hash_dictionary['year'] = year
+  
   # We are here, so let us store this data somewhere
-  request_hash_string = "_".join(request_hash_dictionary.values()) 
+  request_hash_string = "_".join(request_hash_dictionary.values())
+  
+  # Setup the store data
+  store_data = request.build_absolute_uri().replace( "product_classification", "prod_class" ) + "||"
+  store_page_url = request.build_absolute_uri().replace( "/api/", "/explore/" + app_name + "/" )
+  store_page_url = store_page_url.replace( "data_type=json", "headless=true" )
+  store_page_url = store_page_url.replace( "product_classification", "prod_class" )
+  store_data = store_data + store_page_url + "||"
+  store_data = store_data + request_hash_string
+  
+  # Write the store data to file
+  store_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".store", "w+" )
+  store_file.write( store_data )
+  store_file.close()
+   
   if ( os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg" ) is True ):
     # Check the request data type
-    if ( request.GET.get( 'data_type', '' ) == '' ):
+    if ( request.GET.get( 'data_type', None ) is None ):
       # Let us get the data from the file
       response_json_data = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg", "r" )
       
@@ -1791,9 +1902,16 @@ def api_csay(request, trade_flow, country1, year):
     response_json_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json", "w+" )
     response_json_file.write( json.dumps( json_response ) )
     response_json_file.close()
+    
   # raise Exception(time.time() - start)
-  """Return to browser as JSON for AJAX request"""
-  return HttpResponse(json.dumps(json_response))
+  # Check the request data type
+  if ( request.GET.get( 'data_type', None ) is None ):
+    #"""Return to browser as JSON for AJAX request"""
+    return HttpResponse( "" )
+  elif ( request.GET.get( 'data_type', '' ) == 'json' ):
+    """Return to browser as JSON for AJAX request"""
+    return HttpResponse(json.dumps(json_response))
+  
   
 def api_ccsy(request, trade_flow, country1, country2, year):
   # import time
@@ -1810,6 +1928,8 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
   country_code1=Country.objects.filter(name_3char=country1)
+  #Get app_name from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   '''Set query params with our changes'''
   query_params = request.GET.copy()
   query_params["lang"] = lang
@@ -1819,8 +1939,9 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   # Setup the hash dictionary
   request_hash_dictionary1 = collections.OrderedDict()
   # Add prod class to request hash dictionary
-  request_hash_dictionary1['lang'] = lang
-  request_hash_dictionary1['prod_class'] = prod_class
+  request_hash_dictionary['app_name'] = app_name
+  request_hash_dictionary['lang'] = lang
+  request_hash_dictionary['prod_class'] = prod_class
   
   #Set country_code to Country
   country_code1=Country.objects.get(name=country1)
@@ -1836,9 +1957,23 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   
   # We are here, so let us store this data somewhere
   request_hash_string = "_".join(request_hash_dictionary.values()) 
+  
+  # Setup the store data
+  store_data = request.build_absolute_uri().replace( "product_classification", "prod_class" ) + "||"
+  store_page_url = request.build_absolute_uri().replace( "/api/", "/explore/" + app_name + "/" )
+  store_page_url = store_page_url.replace( "data_type=json", "headless=true" )
+  store_page_url = store_page_url.replace( "product_classification", "prod_class" )
+  store_data = store_data + store_page_url + "||"
+  store_data = store_data + request_hash_string
+  
+  # Write the store data to file
+  store_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".store", "w+" )
+  store_file.write( store_data )
+  store_file.close()
+  
   if ( os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg" ) is True ):
     # Check the request data type
-    if ( request.GET.get( 'data_type', '' ) == '' ):
+    if ( request.GET.get( 'data_type', None ) is None ):
       # Let us get the data from the file
       response_json_data = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg", "r" )
       
@@ -1963,9 +2098,14 @@ def api_ccsy(request, trade_flow, country1, country2, year):
     response_json_file.close()
 
   # raise Exception(time.time() - start)
-  """Return to browser as JSON for AJAX request"""
-  return HttpResponse(json.dumps(json_response))
-
+  # Check the request data type
+  if ( request.GET.get( 'data_type', None ) is None ):
+    #"""Return to browser as JSON for AJAX request"""
+    return HttpResponse( "" )
+  elif ( request.GET.get( 'data_type', '' ) == 'json' ):
+    """Return to browser as JSON for AJAX request"""
+    return HttpResponse(json.dumps(json_response))
+ 
 def api_cspy(request, trade_flow, country1, product, year):
   '''Init variables'''
   prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
@@ -1974,6 +2114,8 @@ def api_cspy(request, trade_flow, country1, product, year):
   lang = request.GET.get("lang", lang)
   crawler = request.GET.get("_escaped_fragment_", False)
   country1 = Country.objects.get(name_3char=country1)
+  #Get app_name from session
+  app_name = request.session['app_name'] if 'app_name' in request.session else ""
   product = clean_product(product, prod_class)
   article = "to" if trade_flow == "export" else "from"
   
@@ -1984,6 +2126,7 @@ def api_cspy(request, trade_flow, country1, product, year):
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
   # Add prod class to request hash dictionary
+  request_hash_dictionary['app_name'] = app_name
   request_hash_dictionary['lang'] = lang
   request_hash_dictionary['prod_class'] = prod_class
   #Set product code to particular product
@@ -1996,11 +2139,23 @@ def api_cspy(request, trade_flow, country1, product, year):
   request_hash_dictionary['year'] = year
   # We are here, so let us store this data somewhere
   request_hash_string = "_".join(request_hash_dictionary.values()) #base64.b64encode( request_unique_hash )
-  # Check staic image mode 
-  #if( settings.STATIC_IMAGE_MODE == "PNG" ):
+  
+  # Setup the store data
+  store_data = request.build_absolute_uri().replace( "product_classification", "prod_class" ) + "||"
+  store_page_url = request.build_absolute_uri().replace( "/api/", "/explore/" + app_name + "/" )
+  store_page_url = store_page_url.replace( "data_type=json", "headless=true" )
+  store_page_url = store_page_url.replace( "product_classification", "prod_class" )
+  store_data = store_data + store_page_url + "||"
+  store_data = store_data + request_hash_string
+  
+  # Write the store data to file
+  store_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".store", "w+" )
+  store_file.write( store_data )
+  store_file.close()
+  
   if ( os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg" ) is True ):
     # Check the request data type
-    if ( request.GET.get( 'data_type', '' ) == '' ):
+    if ( request.GET.get( 'data_type', None ) is None ):
       # Let us get the data from the file
       response_json_data = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg", "r" )
       
@@ -2122,8 +2277,14 @@ def api_cspy(request, trade_flow, country1, product, year):
     response_json_file.close()
 
   # raise Exception(time.time() - start)
-  """Return to browser as JSON for AJAX request"""
-  return HttpResponse(json.dumps(json_response))
+  # Check the request data type
+  if ( request.GET.get( 'data_type', None ) is None ):
+    #"""Return to browser as JSON for AJAX request"""
+    return HttpResponse( "" )
+  elif ( request.GET.get( 'data_type', '' ) == 'json' ):
+    """Return to browser as JSON for AJAX request"""
+    return HttpResponse(json.dumps(json_response))
+  
 # Embed for iframe
 def embed(request, app_name, trade_flow, country1, country2, product, year):
   lang = request.GET.get("lang", "en")

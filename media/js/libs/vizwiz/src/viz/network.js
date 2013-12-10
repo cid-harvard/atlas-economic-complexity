@@ -417,7 +417,7 @@ vizwhiz.network = function(vars) {
     .call(node_stroke);
   
   var link = d3.select("g.links").selectAll("line.link")
-    .data(vars.links, function(d) { return d.source[vars.id_var] + "-" + d.target[vars.id_var]; })
+    .data(vars.links, function(d) {return d.source[vars.id_var] + "-" + d.target[vars.id_var]; })
     
   link.enter().append("line")
     .attr("class","link")

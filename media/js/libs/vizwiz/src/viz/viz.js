@@ -1,5 +1,6 @@
 vizwhiz.viz = function() {
 
+
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Public Variables with Default Settings
   //-------------------------------------------------------------------
@@ -129,6 +130,7 @@ vizwhiz.viz = function() {
     "stacked": "stacked",
     "tree_map": "tree_map"
   }
+
   
   var nested_apps = ["pie_scatter","stacked","tree_map"]
   
@@ -538,7 +540,7 @@ vizwhiz.viz = function() {
   }
 
   nest = function(flat_data,levels) {
-  
+    
     var flattened = [];
     var nested_data = d3.nest();
     
@@ -1557,6 +1559,8 @@ vizwhiz.viz = function() {
   }
 
   //===================================================================
-
   return chart;
+
 };
+
+

@@ -41,7 +41,7 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body class="app">
+<body class="app" >
   {% if alert %}
   <div class="alert">
     <div>
@@ -126,8 +126,6 @@
 
       function available_viz() {
 
-        var disable_viz = true;      
-
         var main_countries_products = $(".main-countries-products").find(".active").index();
         var partner_product = $(".tab-trade-partner-product").find(".active").index();
 
@@ -143,6 +141,7 @@
 
         $("#year2").css("display", "block");
 
+disable_viz = true;
         if(!disable_viz) {
 
           $('label[value=map]').click(function() { return update_viz("map"); } );   
@@ -286,7 +285,7 @@
         var host = "http://" + window.location.host + "{{ HTTP_HOST }}";
        
         var url = host + "explore/";
-
+        console.log("come here")
         var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
 //        current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
         var current_year1 = $("#year1").find(":selected").val();
@@ -431,7 +430,7 @@
 
           // Product space or diversification?
           var current_viz = (typeof viz != "undefined" )  ? viz : $("#div_apps").find(".active").attr("value");
-           // return update_viz("map")
+            //return update_viz("map")
           current_product_trade_flow = "export";
 
 
@@ -1062,8 +1061,7 @@
         <div class="key {{prod_class}}" style="min-height:50px"></div>
         <!-- Container for the timeline -->
          <div id="timeline">
-          <div class="ui_bottom" id="ui_bottom" style="bottom:0px">
-          </div>
+         <!--<div class="ui_bottom" id="ui_bottom" style="bottom:0px;"></div>-->
           {% if app_name == "stacked" %}  
           <div id="stacked_controls" style="width:90%">
 
@@ -1442,14 +1440,13 @@
     </div> 
      {% if isbrowsemode %}
      {% else %}   
-     `<!--download section 
-	<div class="control_container" id="download">
+	<!--<div class="control_container" id="download">
           <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">{% trans "Download" %}</h4>
           <!--<a class="pdf" href="#"><img src="/media/img/app/download.png" /> PDF</a>
           <a class="svg" href="#"><img src="/media/img/app/download.png" /> SVG</a>-->
-         <!-- <a class="png" href="#"><img src="/media/img/app/download.png" /> PNG</a>
+        <!-- <a class="png" href="#"><img src="/media/img/app/download.png" /> PNG</a>
          <!-- <a class="csv" href="#"><img src="/media/img/app/download.png" /> CSV</a>-->
-        <!--</div>
+       <!-- </div>
 	<form class="download" method="POST" action="download/">
       {% csrf_token %}
       <input type="hidden" name="url" value="" />
@@ -1857,8 +1854,6 @@
   // whatever you wanna call it. This is the single most important function.
   // It triggers the data call to the server to fetch the data used in turn
   // to build the app. Look in viz_general.js for more info.
-  
-
 
   // Page init scripts
   $(function () {
@@ -1949,14 +1944,13 @@ $("p").hover(function(){
   var contentWidth=$("#content").width();
 
   //if static image mode is SVG
-   {% if not displayviz %}
+  {% if not displayviz %}
     build_viz_app( api_uri, contentWidth, 520 );
-   {% endif %}
+  {% endif %}
   
   // Call the original and let is handle the stuff - trying again
-  build_viz_app_original( api_uri, contentWidth, 520 );   
+  build_viz_app_original( api_uri, contentWidth, 520 );
 
-/*
 
   // Testing URL hashtags
   setTimeout(function () { 
@@ -1970,7 +1964,7 @@ $("p").hover(function(){
     }
 
   }, 5000);
-*/
+
 
 });
   </script>

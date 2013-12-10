@@ -9,7 +9,7 @@ vizwhiz.stacked = function(vars) {
     .values(function(d) { return d.values; })
     .x(function(d) { return d[vars.year_var]; })
     .y(function(d) { return d[vars.yaxis_var]; });
-  
+
   //===================================================================
       
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -74,7 +74,6 @@ vizwhiz.stacked = function(vars) {
   // container for layers
   vars.chart_enter.append("g").attr("class", "layers")
     .attr("clip-path","url(#path_clipping)")
-  
   // give data with key function to variables to draw
   var paths = d3.select("g.layers").selectAll(".layer")
     .data(layers, function(d){ return d.key; })
