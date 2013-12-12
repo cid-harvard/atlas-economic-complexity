@@ -1488,23 +1488,28 @@
           rawData = raw;
           height = h;
           width = w;
+        
           
           // Check if we can get a proper rawData object
           if ( rawData.firstChild != null ) {
               // Try replacing the data from g 
               if ( typeof rawData.firstChild.childNodes[1] != "undefined" || rawData.firstChild.childNodes[3] != null ) {
                 // We have the nodes, so go ahead
-                rawData.firstChild.childNodes[1].setAttribute( 'class', 'titles-old' );
+                rawData.firstChild.childNodes[1].setAttribute( 'class', 'titles-old' ); 
+
               }
-              
+                 
               // Check if it the nodes are available first
               if ( typeof rawData.firstChild.childNodes[3] != "undefined" || rawData.firstChild.childNodes[3] != null ) {
-                // Check if we have the g.nodes stuff
-                jQuery( rawData.firstChild.childNodes[3] ).find( "g" ).each( function(g_index, g_element) {
-                    // Update the classes
-                    jQuery( g_element ).attr( 'class', jQuery( g_element ).attr( 'class' ) + "-old" );
+                   // attr_data = clean_attr_data(attr_data)
+                  rawData.attr_data = clean_attr_data(rawData.attr_data)
+                     
+                    // Check if we have the g.nodes stuff
+                    jQuery( rawData.firstChild.childNodes[3] ).find( "g" ).each( function(g_index, g_element) {
+                        // Update the classes
+                        jQuery( g_element ).attr( 'class', jQuery( g_element ).attr( 'class' ) + "-old" );
                 } );
-                
+               
                 // We have the nodes, so go ahead
                 rawData.firstChild.childNodes[3].setAttribute( 'class', 'parent-old' );
               }
@@ -1514,12 +1519,13 @@
                   // Set the data now to the viz container
                   jQuery( "#loader" ).html( rawData );
               }
-
+                
               // Do some CSS stuff for the loader container
               d3.select("#loader").style("width", "750px").style("height", "670px").style("margin-top", "-150px").style("text-align", "left");  
 
               // Reset the min-height for now on the #viz node
               d3.select("#viz").style( "min-height", "0px" ).style( "height", "0px" );
+
           }
         });
     }
