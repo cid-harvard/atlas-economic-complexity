@@ -32,8 +32,6 @@ import fpe
 if settings.REDIS:
   from django.core.cache import cache, get_cache
   import redis
-  #import redis_cache
-  #from redis_cache import get_redis_connection
   import msgpack
 
 if not settings.DB_PREFIX:
@@ -45,11 +43,6 @@ if not settings.HTTP_HOST:
   HTTP_HOST = '/'
 else:
   HTTP_HOST = settings.HTTP_HOST
-  
-if not settings.SECRET_KEY:
-  SECRET_KEY = 'my_pets_name_is_eloise'
-else:
-  SECRET_KEY = settings.SECRET_KEY
 
 #object used to Encrypt/Decrypt
 #####################################
@@ -701,7 +694,7 @@ def home(request):
     ip = request.META["HTTP_X_FORWARDED_FOR"]
   except KeyError:
     ip = request.META["REMOTE_ADDR"]
-# fetch the url
+# Removed because causes issues when offline
 #  url = "http://api.hostip.info/get_json.php?ip="+ip
 #  json_response = json.loads(urllib2.urlopen(url).read())
 #  country_code = json_response["country_code"]
@@ -1158,15 +1151,12 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     elif year < years_available[0]:
       year = years_available[0]
   
-  
-  
   api_uri = "api/%s/%s/%s/%s/%s/?%s" % (trade_flow, country1, country2, product, year, options)
   
   redesign_api_uri = "redesign/api/%s/%s/%s/%s/%s/%s" % (prod_class, trade_flow, country1, country2, product, year)
   
   country_code = None
   if country1 != "show" and country1 != "all": country_code = country1
-  
   
   if crawler == "":
     view, args, kwargs = resolve("api/%s/%s/%s/%s/%s/" % (trade_flow, country1, country2, product, year))
@@ -1540,7 +1530,7 @@ def api_casy(request, trade_flow, country1, year):
     response_json_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json", "w+" )
     response_json_file.write( json.dumps( json_response ) )
     response_json_file.close()
-  
+
   # raise Exception(time.time() - start)
   # Check the request data type
   if ( request.GET.get( 'data_type', None ) is None ):

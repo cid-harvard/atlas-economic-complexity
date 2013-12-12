@@ -56,7 +56,7 @@ function Slider() {
         // .style("margin-left","223px")
         // .style("margin-right","223px")
         // .text(">")
-        .on(vizwhiz.evt.click, function(){
+        .on(d3plus.evt.click, function(){
           if (!playing) {
             playing = true;
             d3.select("#play_button i").attr("class","glyphicon glyphicon-pause")
@@ -112,7 +112,7 @@ function Slider() {
               .style("left",t+"%")
               .style("right","0px")
               .text(value)
-              .on(vizwhiz.evt.click,function(e){
+              .on(d3plus.evt.click,function(e){
                 set_slider(index);
               })
           
@@ -126,7 +126,7 @@ function Slider() {
             .style("left",t-1+"%")
             .style("right","0px")
             // .text("·")
-            .on(vizwhiz.evt.click,function(e){
+            .on(d3plus.evt.click,function(e){
               set_slider(index);
             })
             
@@ -165,7 +165,7 @@ function Slider() {
           .style("left",t+"%")
           .style("right","0px")
           .text(value)
-          .on(vizwhiz.evt.click,function(e){
+          .on(d3plus.evt.click,function(e){
             set_slider(index);
           })
           
@@ -209,15 +209,15 @@ function Slider() {
           .text(handle_value)
       }
   
-      d3.select(document).on(vizwhiz.evt.up,function(e){
+      d3.select(document).on(d3plus.evt.up,function(e){
         dragging = false;
       })
   
-      background.on(vizwhiz.evt.down,function(e){
+      background.on(d3plus.evt.down,function(e){
         dragging = true;
       })
   
-      document.addEventListener(vizwhiz.evt.move,function(e){
+      document.addEventListener(d3plus.evt.move,function(e){
         if (dragging) {
           e.preventDefault()
           // CHECK THESE VARIABLES
