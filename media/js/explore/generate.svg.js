@@ -83,12 +83,15 @@ page.open( page_url, function ( status ) {
                 
                 // Setup the contents of the viz container
                 var _viz_container_content = _viz_container.innerHTML;
+
+                // Let us be safer in case there are nodes prior to the SVG node
+                var _viz_svg_split = _viz_container_content.split( '<svg' );
                 
                 // Split with what we want
-                var _viz_content_split = _viz_container_content.split( '</svg>' );
+                var _viz_content_split = _viz_svg_split[1].split( '</svg>' );
                 
                 // Return the svg content only
-                return _viz_content_split[0] + "</svg>";
+                return "<svg" + _viz_content_split[0] + "</svg>";
 
                 // Check if visualization container has zoom node
                 /*if ( $( "#viz" ).children( "svg" ) ) {
@@ -114,8 +117,6 @@ page.open( page_url, function ( status ) {
                     return document.getElementById( "viz" ).innerHTML;
                 }*/
             } );
-            
-            //console.log( result );
 
             // Write the content to file
             try {

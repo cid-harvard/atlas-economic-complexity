@@ -4,9 +4,10 @@ from subprocess import Popen
 import os
 import time
 import httplib
+import re
 # graphics
-#import cairo
-#import rsvg
+import cairo
+import rsvg
 # django
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.translation import get_language_info
@@ -37,17 +38,20 @@ supported_langs = (
 	)
 	
 # Setup the supported trade_flow so that we can loop over them
-trade_flow_list = ["export", "import", "net_export", "net_import" ]
+trade_flow_list = [ "export" ] #, "import", "net_export", "net_import" ]
 
 #Setup the supported trade_flow so that we can loop over them
-#app_name = ["treemap", "product_space", "stacked", "pie_scatter" ]
+app_list = [ "tree_map" ] #, "product_space", "stacked", "pie_scatter" ]
+
 class Command( BaseCommand ):
     help = 'Generate the JSON & SVG data for all permutations of the data set'
 
     def handle(self, *args, **options):
         # Setup the product classifications -> years mapping
-        product_classifications = { "Sitc4": [ 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], #Sitc4_cpy.objects.values_list( "year", flat=True ).distinct().order_by( '-year' ), 
-                                    "Hs4": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011] }#Hs4_cpy.objects.values_list( "year", flat=True ).distinct().order_by( '-year' ) }
+        #product_classifications = { "Sitc4": Sitc4_cpy.objects.values_list( "year", flat=True ).distinct().order_by( '-year' ),
+        #                            "Hs4": Hs4_cpy.objects.values_list( "year", flat=True ).distinct().order_by( '-year' ) }
+        product_classifications = { "Sitc4": [ 2010 ],
+                                    "Hs4": [ 2010 ] }
 
         # Get the different "Product Classifications" and loop over them
         for p_classification, p_classification_years in product_classifications.items():
@@ -63,52 +67,59 @@ class Command( BaseCommand ):
 
                 # Get a list of all the countries and loop over them
                 #countries = Country.objects.values()
-                countries = [ { 'name_3char': "ind" } ]
+                countries = [ { 'name_3char': "usa" }, { 'name_3char': "gha" } ]
+
                 # Loop over the countries
                 for country in countries:
                     # Loop through all the languages available
                     for language in supported_langs:
-                        # Loop through all the trade_flow available
-                        for trade_flow in trade_flow_list:
-                            # Build the API JSON Data URL
-                            api_url = "http://127.0.0.1:8080/api/" + trade_flow + "/" + country['name_3char'].lower() + "/all/show/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&data_type=json&prod_class=" + p_classification.lower()
+                        # Loop through all the apps
+                        for app_name in app_list:
+                            # Loop through all the trade_flow available
+                            for trade_flow in trade_flow_list:
+                                # Build the API JSON Data URL
+                                api_url = "http://" + settings.BACKGROUND_CACHE_URL_HOST + "/api/" + trade_flow + "/" + country['name_3char'].lower() + "/all/show/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&data_type=json&prod_class=" + p_classification.lower()
 
-                            # Setup the page url
-                            page_url = "http://127.0.0.1:8080/explore/stacked/" + trade_flow + "/" + country['name_3char'].lower() + "/all/show/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&prod_class=" + p_classification.lower() + "&headless=true"
-                            
-                            # Debug
-                            self.stdout.write( 'Processing API Request URL --> "%s"' % api_url )
-                            self.stdout.write( "\n" )
-                            
-                            # Setup the file name
-                            file_name ="stacked" + "_" + language[0]['code'] + "_" + p_classification.lower() + "_" + trade_flow + "_" + country['name_3char'].lower() + "_all_show_" + str( p_classification_year )
-                            
-                            # We only want to do the below for data that doesn't already exist
-                            if ( os.path.exists( settings.DATA_FILES_PATH + "/" + file_name + ".svg" ) is False ):
-                                # Call the save_json and let it handle it at this point
-                                return_code = self.save_json( api_url, file_name + ".json" )
-                                
-                                # Check the return code before proceeding
-                                if ( return_code is True ):
-                                    # Call the generate SVG method
-                                    self.save_svg( page_url, file_name + ".svg" )
-                                    
-                                    # Call the generate PNG method
-                                    self.save_png( file_name )
-                                    
-                                    # Let us now remove the json file since we don't want it anymore
-                                    os.remove( settings.DATA_FILES_PATH + "/" + file_name + ".json" )
-                                
-                                # We should wait for a bit before the next one
-                                time.sleep( 10 )
-                            else:
-                                # We have already generated the data for this permutation
-                                self.stdout.write( 'Data already exists. Skipping ...' )
+                                # Setup the page url
+                                page_url = "http://" + settings.BACKGROUND_CACHE_URL_HOST + "/explore/" + app_name + "/" + trade_flow + "/" + country['name_3char'].lower() + "/all/show/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&prod_class=" + p_classification.lower() + "&headless=true"
+
+                                # Debug
+                                self.stdout.write( 'Processing API Request URL --> "%s"' % api_url )
                                 self.stdout.write( "\n" )
-                            
-                            # Let us break after one for now
-                            #import sys
-                            #sys.exit( 0 )
+
+                                # Setup the file name
+                                file_name = app_name + "_" + language[0]['code'] + "_" + p_classification.lower() + "_" + trade_flow + "_" + country['name_3char'].lower() + "_all_show_" + str( p_classification_year )
+
+                                # We only want to do the below for data that doesn't already exist
+                                if ( os.path.exists( settings.DATA_FILES_PATH + "/" + file_name + ".svg" ) is False ):
+                                    # Call the save_json and let it handle it at this point
+                                    return_code = self.save_json( api_url, file_name + ".json" )
+
+                                    # Check the return code before proceeding
+                                    if ( return_code is True ):
+                                        # Call the generate SVG method
+                                        self.save_svg( page_url, file_name + ".svg" )
+
+                                        # Call the generate PNG method
+                                        self.save_png( file_name )
+
+                                        # Let us now remove the json file since we don't want it anymore
+                                        os.remove( settings.DATA_FILES_PATH + "/" + file_name + ".json" )
+                                    else:
+                                        # We have already generated the data for this permutation
+                                        self.stdout.write( 'There was a problem with retrieving the JSON data set. Skipping ...' )
+                                        self.stdout.write( "\n" )
+
+                                    # We should wait for a bit before the next one
+                                    time.sleep( 10 )
+                                else:
+                                    # We have already generated the data for this permutation
+                                    self.stdout.write( 'Data already exists. Skipping ...' )
+                                    self.stdout.write( "\n" )
+
+                                # Let us break after one for now
+                                #import sys
+                                #sys.exit( 0 )
                             
     def save_json( self, api_url, file_name ):
         # Wrap everything in a try block
@@ -119,7 +130,7 @@ class Command( BaseCommand ):
             # get the data from the request
             json_data = json_request.read()
 	        
-	        # Now we want to write this to file
+            # Now we want to write this to file
             json_file = open( settings.DATA_FILES_PATH + "/" + file_name, "w+" )
             json_file.write( json_data )
             json_file.close()
@@ -166,19 +177,38 @@ class Command( BaseCommand ):
         # Wait until the SVG file is actually generated
         while ( os.path.exists( settings.DATA_FILES_PATH + "/" + file_name ) != True ):
             # Sleep for a bit and then continue with the loop
-            time.sleep( 10 )
+            time.sleep( 20 )
+
+        # At this point, we are kind of sure that the SVG file must be created
+        # Open up the SVG file and let us try manipulate here itself
+        svgFile = open( settings.DATA_FILES_PATH + "/" + file_name, "r" )
+
+        # Set the SVG data
+        svgData = svgFile.read()
+
+        # Close the file since we don't need it anymore
+        svgFile.close()
+
+        # Let us run the replace on the svg data to swap all id attributes
+        newSvgData = re.sub( r'id=\"([^"]+)\"', r'id="\1-temp-loader"', svgData )
+
+        # Let us run the replace on the modified svg data to swap all class attributes
+        newSvgData = re.sub( r'class=\"([^"]+)\"', r'class="\1-temp-loader"', newSvgData )
+
+        # Let us now write out the modified markup to file
+        svgFile = open( settings.DATA_FILES_PATH + "/" + file_name, "w+" )
+
+        # Write the markup now
+        svgFile.write( newSvgData )
+
+        # Close the file now
+        svgFile.close()
             
     def save_png( self, file_name ):
-        try:
-            import cairo, rsvg
-        except:
-            pass
-
-        import rsvg
-        import cairo  
         # Get the SVG data
         svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "r" )
         svg_data = svg_file.read()
+
         # Create the blank image surface
         img = cairo.ImageSurface( cairo.FORMAT_ARGB32, 750, 480 )
 
