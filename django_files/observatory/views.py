@@ -1351,7 +1351,7 @@ def api_casy(request, trade_flow, country1, year):
   query_params["lang"] = lang
   query_params["product_classification"] = prod_class
   #Get app_name  from session
-  app_name = request.session['app_name'] if 'app_name' in request.session else ""
+  app_name = request.session['app_name'] if 'app_name' in request.session else "tree_map"
   '''Grab extraneous details'''
   ## Clasification & Django Data Call
   name = "name_%s" % lang
