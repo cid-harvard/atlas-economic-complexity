@@ -77,18 +77,26 @@ class Command( BaseCommand ):
                         for app_name in app_list:
                             # Loop through all the trade_flow available
                             for trade_flow in trade_flow_list:
+                                # Set the product stuff based on the app
+                                if ( app_name in [ "product_space", "pie_scatter" ] ):
+                                    product_url_bit = 'all/show'
+                                    product_file_bit = 'all_show'
+                                else:
+                                    product_url_bit = 'show/all'
+                                    product_file_bit = 'show_all'
+
                                 # Build the API JSON Data URL
-                                api_url = "http://" + settings.BACKGROUND_CACHE_URL_HOST + "/api/" + trade_flow + "/" + country['name_3char'].lower() + "/all/show/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&data_type=json&prod_class=" + p_classification.lower() + "&use_app_name=" + app_name
+                                api_url = "http://" + settings.BACKGROUND_CACHE_URL_HOST + "/api/" + trade_flow + "/" + country['name_3char'].lower() + "/" + product_url_bit + "/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&data_type=json&prod_class=" + p_classification.lower() + "&use_app_name=" + app_name
 
                                 # Setup the page url
-                                page_url = "http://" + settings.BACKGROUND_CACHE_URL_HOST + "/explore/" + app_name + "/" + trade_flow + "/" + country['name_3char'].lower() + "/all/show/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&prod_class=" + p_classification.lower() + "&headless=true"
+                                page_url = "http://" + settings.BACKGROUND_CACHE_URL_HOST + "/explore/" + app_name + "/" + trade_flow + "/" + country['name_3char'].lower() + "/" + product_url_bit + "/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&prod_class=" + p_classification.lower() + "&headless=true"
 
                                 # Debug
                                 self.stdout.write( 'Processing API Request URL --> "%s"' % api_url )
                                 self.stdout.write( "\n" )
 
                                 # Setup the file name
-                                file_name = app_name + "_" + language[0]['code'] + "_" + p_classification.lower() + "_" + trade_flow + "_" + country['name_3char'].lower() + "_all_show_" + str( p_classification_year )
+                                file_name = app_name + "_" + language[0]['code'] + "_" + p_classification.lower() + "_" + trade_flow + "_" + country['name_3char'].lower() + "_" + product_file_bit + "_" + str( p_classification_year )
 
                                 # We only want to do the below for data that doesn't already exist
                                 if ( os.path.exists( settings.DATA_FILES_PATH + "/" + file_name + ".svg" ) is False ):

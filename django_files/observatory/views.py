@@ -1351,7 +1351,7 @@ def api_casy(request, trade_flow, country1, year):
   query_params["lang"] = lang
   query_params["product_classification"] = prod_class
   #Get app_name  from session
-  app_name = request.session['app_name'] if 'app_name' in request.session else "tree_map"
+  app_name = request.session.get( "app_name", "tree_map" ) #request.session['app_name'] if 'app_name' in request.session else "tree_map"
   # See if we have an app name passed as part of the request URL
   forced_app_name = request.GET.get( "use_app_name", None )
   # If we have an app name passed, override and use that
@@ -1369,8 +1369,14 @@ def api_casy(request, trade_flow, country1, year):
   # Add the arguments to the request hash dictionary
   request_hash_dictionary['trade_flow'] = trade_flow
   request_hash_dictionary['country'] = country_code
-  request_hash_dictionary['product_type'] = 'all'
-  request_hash_dictionary['product_display'] = 'show'
+
+  # Set the product stuff based on the app
+  if ( app_name in [ "product_space", "pie_scatter" ] ):
+      request_hash_dictionary['product_type'] = 'all'
+      request_hash_dictionary['product_display'] = 'show'
+  else:
+      request_hash_dictionary['product_type'] = 'show'
+      request_hash_dictionary['product_display'] = 'all'
   request_hash_dictionary['year'] = year
 
   # We are here, so let us store this data somewhere
@@ -1388,6 +1394,9 @@ def api_casy(request, trade_flow, country1, year):
   store_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".store", "w+" )
   store_file.write( store_data )
   store_file.close()
+
+  # Set proper permissions since we want the cron to remove the file as well
+  os.chmod( settings.DATA_FILES_PATH + "/" + request_hash_string + ".store", 0777 )
   
   if ( os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg" ) is True ):
     # Check the request data type
