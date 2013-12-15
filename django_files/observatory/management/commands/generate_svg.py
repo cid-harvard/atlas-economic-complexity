@@ -78,7 +78,7 @@ class Command( BaseCommand ):
                             # Loop through all the trade_flow available
                             for trade_flow in trade_flow_list:
                                 # Build the API JSON Data URL
-                                api_url = "http://" + settings.BACKGROUND_CACHE_URL_HOST + "/api/" + trade_flow + "/" + country['name_3char'].lower() + "/all/show/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&data_type=json&prod_class=" + p_classification.lower()
+                                api_url = "http://" + settings.BACKGROUND_CACHE_URL_HOST + "/api/" + trade_flow + "/" + country['name_3char'].lower() + "/all/show/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&data_type=json&prod_class=" + p_classification.lower() + "&use_app_name=" + app_name
 
                                 # Setup the page url
                                 page_url = "http://" + settings.BACKGROUND_CACHE_URL_HOST + "/explore/" + app_name + "/" + trade_flow + "/" + country['name_3char'].lower() + "/all/show/" + str( p_classification_year ) + "/?lang=" + language[0]['code'].replace( '-', '_' ) + "&prod_class=" + p_classification.lower() + "&headless=true"

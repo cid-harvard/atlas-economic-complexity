@@ -1352,6 +1352,12 @@ def api_casy(request, trade_flow, country1, year):
   query_params["product_classification"] = prod_class
   #Get app_name  from session
   app_name = request.session['app_name'] if 'app_name' in request.session else "tree_map"
+  # See if we have an app name passed as part of the request URL
+  forced_app_name = request.GET.get( "use_app_name", None )
+  # If we have an app name passed, override and use that
+  if ( forced_app_name is not None ):
+      # override the app_name in this case, since generate_svg will pass app names specifically
+      app_name = forced_app_name
   '''Grab extraneous details'''
   ## Clasification & Django Data Call
   name = "name_%s" % lang
