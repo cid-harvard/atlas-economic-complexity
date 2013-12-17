@@ -1,4 +1,4 @@
-  var flat_data,
+var flat_data,
       attr,
       complexity,
       viz,
@@ -1018,7 +1018,7 @@
           $("#stacked_labels").buttonset();
           $("#stacked_order").buttonset();
           $("#stacked_layout").buttonset();
-  				$("#stacked_capita").buttonset();
+                                  $("#stacked_capita").buttonset();
           $("#stacked_controls input[type='radio']").change(function(e){
             if($(e.target).attr("name") == "labels"){
               ($(e.target).attr("id")=="false") ? d3.select("#viz").call(viz.labels(false)) :
@@ -1484,14 +1484,14 @@
     if ( headless_flag == false ) {
         d3.html( api_uri, function(raw)
         {
-          // This needs to be global 
+          // This needs to be global
           rawData = raw;
           height = h;
           width = w;
           
           // Check if we can get a proper rawData object
           if ( rawData.firstChild != null ) {
-              // Try replacing the data from g 
+              // Try replacing the data from g
               if ( typeof rawData.firstChild.childNodes[1] != "undefined" || rawData.firstChild.childNodes[3] != null ) {
                 // We have the nodes, so go ahead
                 rawData.firstChild.childNodes[1].setAttribute( 'class', 'titles-old' );
@@ -1502,7 +1502,7 @@
                 // Check if we have the g.nodes stuff
                 jQuery( rawData.firstChild.childNodes[3] ).find( "g" ).each( function(g_index, g_element) {
                     // Update the classes
-                    jQuery( g_element ).attr( 'class', jQuery( g_element ).attr( 'class' ) + "-old" );
+                jQuery( g_element ).attr( 'class', jQuery( g_element ).attr( 'class' ) + "-old" );
                 } );
                 
                 // We have the nodes, so go ahead
@@ -1516,15 +1516,14 @@
               }
 
               // Do some CSS stuff for the loader container
-              d3.select("#loader").style("width", "750px").style("height", "670px").style("margin-top", "-150px").style("text-align", "left");  
+              d3.select("#loader").style("width", "750px").style("height", "670px").style("margin-top", "-150px").style("text-align", "left");
 
               // Reset the min-height for now on the #viz node
               d3.select("#viz").style( "min-height", "0px" ).style( "height", "0px" );
           }
         });
     }
-  }  
-
+  } 
   function build_viz_app_original(api_uri,w,h) {
 
 
@@ -1679,4 +1678,3 @@ if(app_name=="rings")
 
 }  
   // 
-
