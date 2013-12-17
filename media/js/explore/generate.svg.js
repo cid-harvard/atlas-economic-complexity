@@ -81,18 +81,38 @@ page.open( page_url, function ( status ) {
                 // Setup the visualization container
                 var _viz_container = document.getElementById( "viz" );
                 
+                // Setup the contents of the viz container
+                var _viz_container_content = _viz_container.innerHTML;
+                
+                // Split with what we want
+                var _viz_content_split = _viz_container_content.split( '</svg>' );
+                
+                // Return the svg content only
+                return _viz_content_split[0] + "</svg>";
+
                 // Check if visualization container has zoom node
-               if( $("viz").children("#zoom_controls"))
-               {
-                     // Now that we have removed unnecessary data from the 
+                /*if ( $( "#viz" ).children( "svg" ) ) {
+                    // Return just the SVG data and nothing else that
+                    // might be in the #viz container
+                    return document.getElementById( "viz" ).firstChild.nodeName;
+                } else if ( $( "#viz" ).children( "#zoom_controls" ) ) {
+                    // Now that we have removed unnecessary data from the 
                     // container, return the remaining content
-                    $("#zoom_controls").remove();
+                    $( "#zoom_controls" ).remove();
+                    
+                    // Return the html now
+                    return "Zoom condition"; //document.getElementById( "viz" ).innerHTML;
+                } else if ( $( "#viz" ).children( "#d3plus_loader" ) ) {
+                    // Now that we have removed unnecessary data from the 
+                    // container, return the remaining content
+                    $( "#d3plus_loader" ).remove();
+                    
+                    // Return the html now
+                    return "Loader condition"; //document.getElementById( "viz" ).innerHTML;
+                } else {
+                    // Return the entire HMTL as is
                     return document.getElementById( "viz" ).innerHTML;
-                }
-              else
-              {
-                return document.getElementById( "viz" ).innerHTML;
-              }  
+                }*/
             } );
             
             //console.log( result );
