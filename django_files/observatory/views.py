@@ -1672,23 +1672,27 @@ def api_sapy(request, trade_flow, product, year):
  
   """Check cache"""
   if settings.REDIS:
-    raw = get_redis_connection('default')
+    # raw = get_redis_connection('default')
+    raw = redis.Redis("localhost")
     key = "%s:%s:%s:%s:%s" % ("show", "all", product.id, prod_class, trade_flow)
     # See if this key is already in the cache
-    cache_query = raw.hget(key, 'data')
+    cache_query = raw.get(key)
     if (cache_query == None):
       rows = raw_q(query=q, params=None)
-      total_val = sum([r[4] for r in rows])
+      total_val = sum([r[6] for r in rows])
+       # raise Exception(total_val)
       """Add percentage value to return vals"""
-      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+      # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[6], "rca":r[7], "share": (r[6] / total_val)*100,
+               "id": r[1], "region_id":r[4],"continent":r[5]} for r in rows]
    
       if crawler == "":
-        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]] 
-      
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+     
       json_response["data"] = rows
      
       # SAVE key in cache.
-      raw.hset(key, 'data', msgpack.dumps(rows))  
+      raw.set(key, msgpack.dumps(rows))  
     
     else:
       # If already cached, now simply retrieve
