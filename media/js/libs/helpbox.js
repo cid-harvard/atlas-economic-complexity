@@ -1,0 +1,3 @@
+$(documnet).ready{
+  
+}
