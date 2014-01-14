@@ -484,7 +484,7 @@ disable_viz = true;
 	 {% if isbrowsemode %}
 	 {% else %}
       <!-- The left pane -->
-      <div id="app_pane" style="width:230px; height:550px">
+      <div id="app_pane" style="width:230px;">
         <div class="tab-content" style="height:400px">
 
           <!-- Country selection -->
@@ -799,6 +799,12 @@ disable_viz = true;
   
   <!-- END -->
 
+  </div>
+    <div id="helpBox">
+    <div id="helpBoxInner">
+      <h3>Help Box</h3>
+      <p>Welcome to The Atlas of Economic Complexity. Hover over an element to see its function.</p>
+    </div>
   </div>
 
   <!-- Year tab -->
@@ -1687,6 +1693,7 @@ disable_viz = true;
   <!-- Libraries -->
   <script src="media/js/libs/jquery/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+  <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
 
 
   <script src="media/js/libs/d3/d3.v3.min.js" charset="utf-8"></script>

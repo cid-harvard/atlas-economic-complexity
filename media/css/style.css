@@ -1700,3 +1700,16 @@ display: block;
 .ui-dialog {
             z-index: 25000 !important;
         }
+
+/* ben's changes */
+
+#helpBox{
+
+}
+
+#helpBoxInner{
+  height:200px;
+  border: solid 1px rgb(196, 193, 189);
+  border-radius: 0 0 4px 4px;
+  padding:20px;
+}
