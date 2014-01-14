@@ -1711,5 +1711,9 @@ display: block;
   height:200px;
   border: solid 1px rgb(196, 193, 189);
   border-radius: 0 0 4px 4px;
-  padding:20px;
+  padding:10px;
+}
+
+#helpBoxInner h3{
+  margin: 0;
 }
