@@ -1709,7 +1709,7 @@ display: block;
 
 #helpBoxInner{
   height:200px;
-  border: solid 1px rgb(196, 193, 189);
+  border: solid 1px #dddddd;
   border-radius: 0 0 4px 4px;
   padding:10px;
 }
@@ -1717,3 +1717,21 @@ display: block;
 #helpBoxInner h3{
   margin: 0;
 }
+
+#helpBoxInner p{
+  margin: 0;
+}
+
+#helpBoxInner hr{
+  margin-top: 10px;
+  margin-bottom:10px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+
+
+
+
+
