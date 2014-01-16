@@ -184,6 +184,9 @@ header nav ul li a.current{
   color: black;
   text-decoration: underline;
 }
+.language_select{
+  text-align: left;
+}
 header .language_select{
   display: inline;
   float: right;
@@ -754,6 +757,7 @@ text-decoration: none;
 /*
  * Bottom of page footer
  */
+
 footer p {
   font-size: 80%;
   padding-bottom: 10px;
@@ -762,7 +766,7 @@ footer p {
 }
 
 footer p img{
-	margin: 0 20px;
+	margin:20px;
 }
 
 footer.credits {
@@ -772,7 +776,13 @@ footer.credits {
 footer.logos {
   margin-left:100px;
 }
-
+.app footer{
+  width:750px;
+  text-align: center;
+  margin-left:232px;
+  margin-right: 260px;
+  margin-top: 20px;
+}
 #sticky-anchor {
   margin-top:40px;
 }
@@ -1710,9 +1720,9 @@ display: block;
 }
 
 #helpBoxInner{
-  height:200px;
+  height:160px;
   border: solid 1px #dddddd;
-  border-radius: 0 0 4px 4px;
+
   padding:10px;
 }
 
@@ -1731,7 +1741,52 @@ display: block;
   margin-right: 0;
 }
 
+#help{
+  position: relative;
+  left:0px;
+  top:-7px;
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+  border: solid 2px rgb(176,23,31);
+  border-bottom-width: 3px;
+  border-top: none;
+  background-color: rgb(205,38,38);
+  color:#fff;
+}
 
+#help:hover{
+  border-color:rgba(176,23,31, 1.0) ;
+  background-color:rgba(176,23,31, 1.0) ;  
+}
+
+#videoModal{
+  opacity: 0;
+  display: none;
+  z-index: 100;
+  position: fixed;
+  text-align: center;
+  background-color: rgba(0,0,0,1.0);
+  height:100%;
+  width: 100%;
+}
+
+#videoModalInner{
+
+  margin-top:10%;
+}
+#exit{
+  width:20px;
+  height: 20px;
+  padding: 0;
+  position: absolute;
+  top:17%;
+  left:19.5%;
+  background-color: rgb(205,38,38);
+  color:#fff;
+  border-radius:20px;
+  text-decoration: none;
+  font-weight: bold; 
+}
 
 
 
