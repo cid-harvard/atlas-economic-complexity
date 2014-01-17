@@ -1722,6 +1722,7 @@ display: block;
 #helpBoxInner{
   height:160px;
   border: solid 1px #dddddd;
+  overflow: elipsis;
 
   padding:10px;
 }
@@ -1731,6 +1732,7 @@ display: block;
 }
 
 #helpBoxInner p{
+  line-height: 1.2em;
   margin: 0;
 }
 
@@ -1765,7 +1767,7 @@ display: block;
   z-index: 100;
   position: fixed;
   text-align: center;
-  background-color: rgba(0,0,0,1.0);
+  background-color: rgba(0,0,0,0.6);
   height:100%;
   width: 100%;
 }
@@ -1787,6 +1789,7 @@ display: block;
   text-decoration: none;
   font-weight: bold; 
 }
+
 
 
 
