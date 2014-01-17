@@ -410,9 +410,9 @@ footer.credits, footer.logos {
 <!-- Hidden Modal Window for Video -->
 
   <div id="videoModal">
-    <a id="exit" href="#">X</a>
+    <a href="#" id="exit">Close</a>
     <div id="videoModalInner">
-      <iframe width="853" height="480" src="//www.youtube.com/embed/0JC24CBVsdo" frameborder="0" allowfullscreen></iframe>
+        <iframe width="853" height="480" src="//www.youtube.com/embed/0JC24CBVsdo" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
   {% endblock %}
@@ -553,16 +553,10 @@ footer.credits, footer.logos {
         $("#videoModal").css("display","block");
         $("#videoModal").animate({opacity:1.0},400);        
       });
-      $("#exit").click(function(){
+      $("#exit, #videoModal").click(function(){
         $("#videoModal").animate({opacity:0.0},200,function(){
           $("#videoModal").css("display", "none");
         });
-      });
-      $("#exit").mouseenter(function(){
-        $(this).css("color", "#333",400);
-      });
-      $("#exit").mouseleave(function(){
-        $(this).css("color", "#fff", 400);
       });
     });
 </script>

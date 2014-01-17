@@ -1773,19 +1773,15 @@ display: block;
 }
 
 #videoModalInner{
-
   margin-top:10%;
 }
 #exit{
-  width:20px;
-  height: 20px;
-  padding: 0;
-  position: absolute;
-  top:17%;
-  left:19.5%;
-  background-color: rgb(205,38,38);
-  color:#fff;
-  border-radius:20px;
+  font-size: 30px;
+  letter-spacing: .1em;
+  color: #ddd;
+  padding-right: 50px;
+  padding-top: 20px;
+  float: right;
   text-decoration: none;
   font-weight: bold; 
 }
