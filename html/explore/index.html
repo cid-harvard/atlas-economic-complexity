@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="media/js/libs/toastr/toastr.min.css" />
   <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
   <link rel="stylesheet" href="media/js/libs/vizwiz/src/utils.slider.css" />
+  <link rel="stylesheet" href="media/js/libs/bootstro/bootstro.min.css"/>
 
   <link rel="stylesheet" href="media/css/countries.css" />
 
@@ -484,8 +485,8 @@ disable_viz = true;
 	 {% if isbrowsemode %}
 	 {% else %}
       <!-- The left pane -->
-      <div id="app_pane" style="width:230px; height:550px">
-        <div class="tab-content" style="height:400px">
+      <div id="app_pane" style="width:230px;">
+        <div data-toggle="tooltip" class="tab-content bootstro" data-bootstro-title="Query" data-bootstro-content="this is the query" data-bootstro-placement="right">
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-countries"> <!-- {% if not product_list %}active{% endif %} -->
@@ -613,13 +614,13 @@ disable_viz = true;
 
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip" title="Treemap" >
-              <input type="radio" style="background:url(media/img/home/teaser_tree_map.png) no-repeat;"> <img src="media/img/home/teaser_tree_map.png" style="width:38px;"/>
+              <input type="radio" style="background:url(media/img/home/teaser_tree_map.png) no-repeat;"> <img src="media/img/home/treeMap1.png" style="width:38px;"/>
             </label>
             <label value="map" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Map" >
-               <input type="radio" style="background:url(media/img/home/teaser_map.png) no-repeat;"> <img src="media/img/home/teaser_map.png" style="width:38px;"/>
+               <input type="radio" style="background:url(media/img/home/geo1.png) no-repeat;"> <img src="media/img/home/geo1.png" style="width:38px;"/>
             </label>
             <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Stacked Graph" >
-              <input type="radio" name="viz_apps"> <img src="media/img/home/teaser_stacked.png" style="width:38px;"/>
+              <input type="radio" name="viz_apps"> <img src="media/img/home/stacked1.png" style="width:38px;"/>
             </label>
           </div>
 
@@ -630,12 +631,12 @@ disable_viz = true;
            <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" %}active{% endif %}" id="tab-diversification">
                 <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
                   <label value="product_space" type="radio"  class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:75px; text-align:left; text-align:justify; margin-right:10px" onclick="update_viz('product_space');"><input type="radio" name="viz_apps">
-                    <img src="media/img/home/teaser_product_space.png" style="width:50px;"/> 
+                    <img src="media/img/home/productSpace1.png" style="width:50px;"/> 
                     </label><div style="width:100px; text-align:none; float:right;"><b>The Product Space</b><br> A map of the techno-<br>logical relatedness of products.</div>
                   
               <p style="clear:both"></p><br>
                <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps">
-               <img src="media/img/home/teaser_pie_scatter.png" style="width:50px; float:left;  margin-right:10px; "/></label>
+               <img src="media/img/home/productFeas2.png" style="width:50px; float:left;  margin-right:10px; "/></label>
                <div style="width:100px; text-align:none; float:right;"> <b>Product Feasibility</b> Opportunities for a country to diversify and potential gains.</div>
 
 
@@ -798,15 +799,22 @@ disable_viz = true;
     </div> <!-- End Product Tab -->
   
   <!-- END -->
-
+  </div>
+    <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If your curious about anything on the page, put your mouse over it and the Help Box will display useful information." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
+    <div id="helpBoxInner">
+      <h3>Help Box</h3>
+      <hr>
+      <p>Welcome to The Atlas of Economic Complexity. Hover over an element to see its function.</p>
+    </div>
+    <button id="help">Help</button>
   </div>
 
   <!-- Year tab -->
-  <div class="tab-content">
+  <!-- <div class="tab-content">
     <ul class="nav nav-tabs" id="myTab">
-      <li class="active"><a href="#country-year"><span class="glyphicon glyphicon-calendar"></span> <span style="font-size:16px;">Time Period</span></a></li>
+      <li class="active"><a href="#country-year"><span class="glyphicon glyphicon-calendar"></span> <span style="font-size:16px;">Time Period</span></a></li> -->
      <!-- <li><a href="#country-over-time"><span class="glyphicon glyphicon-calendar"></span> </span> <span  style="font-size:16px">Over Time</span></a></li>-->
-    </ul>
+ <!--    </ul>
 
     <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px;"  onmouseover="$('.over-time').css('visibility', 'visible');"  onmouseout="$('.over-time').css('visibility', 'hidden');">
 
@@ -869,7 +877,7 @@ disable_viz = true;
 
       </div>
     </div>
-</div>
+</div> -->
 
 
 
@@ -1018,7 +1026,7 @@ disable_viz = true;
         </div>
         
         <!-- Container for the visualization -->
-        <div id="viz" style="width: 100%; min-height:520px"></div>
+        <div  id="viz" style="width: 100%; min-height:520px"></div>
         
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
@@ -1054,13 +1062,13 @@ disable_viz = true;
         </div>
         
         <!-- Container for the visualization -->
-        <div id="viz" style="width: 750px; min-height:520px;">
+        <div class="bootstro" data-bootstro-title="Visualizer" data-bootstro-content="The visualizer displays the information selected in the query." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width: 750px; min-height:520px;">
 		</div>
         
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
         <!-- Container for the timeline -->
-         <div id="timeline">
+         <div id="timeline" class="bootstro" data-bootstro-title="Options Panel" data-bootstro-content="The Options Panel changes based on the visualization that you've selected. Here, you can do things such as filtering the results by country or product and even change the level of detail shown in the visualization." data-toggle="tooltip" data-bootstro-placement="left">
          <!--<div class="ui_bottom" id="ui_bottom" style="bottom:0px;"></div>-->
           {% if app_name == "stacked" %}  
           <div id="stacked_controls" style="width:90%">
@@ -1402,7 +1410,7 @@ disable_viz = true;
 
 
       <!-- The right pane -->
-      <div id="tool_pane" style="width:50px">
+      <div id="tool_pane" style="width:50px" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media, email, or even create a 'story' and post it to our site." data-toggle="tooltip" data-bootstro-placement="left">
       {% if isbrowsemode %}
       {% else %}
       <div id= "createStoryPlaceHolder">
@@ -1473,7 +1481,7 @@ disable_viz = true;
         <br>
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:4px; width:40px">Feedback</h4>
     
-        <a href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank"><span class="glyphicon glyphicon-envelope" style="margin:5px; font-size:18px; color:lightgray"></span></a>
+        <a id="feedbackPlaceholder" href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank"><span class="glyphicon glyphicon-envelope" style="margin:5px; font-size:18px; color:lightgray"></span></a>
             <br/>       <br/>
     </div>
   
@@ -1602,33 +1610,36 @@ disable_viz = true;
         -->
 
       </div> <!-- END Right pane -->
-    </div> <!-- END #main -->
+      <footer>
+      <div class="footerInner">
 
-    <footer style="margin-left: 140px;">
-      <p>
-        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth<br> opportunities for more than a hundred countries worldwide.</span>
+        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
         <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
         <br />
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
-      </p>
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+        <p style="clear:both"></p>
+        <a style=" margin-left:150px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
 
-      <p style="margin-left:250px; margin-right:auto; width:500px">
-        <a href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo" style="float:left"/></a>
-        <div class="language_select" style="float:left; margin-top:-10px">
+        <div class="language_select" style="float:right; margin-right:150px;">
           <div class="text">
             Language:
           </div>
           <select>
             {% for lang in supported_langs %}
-            <option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
+            <option style="" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
             {% endfor %}
-          </select>
+          </select> 
         </div>
-      </p>
+
+      </div>
+
+
 
     </footer>
-    
-   
+    </div> <!-- END #main -->
+
+
+
 
     <canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
     
@@ -1687,6 +1698,7 @@ disable_viz = true;
   <!-- Libraries -->
   <script src="media/js/libs/jquery/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+  <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
 
 
   <script src="media/js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
@@ -1694,12 +1706,20 @@ disable_viz = true;
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 
   <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="media/js/libs/bootstro/bootstro.min.js"></script>
   <script src="media/js/libs/chosen/chosen.jquery.js" ></script>
   <script>
     $(function() {
       $('.chosen-select').chosen();
       $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
     });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $("#help").click(function(){
+            bootstro.start(".bootstro");
+          });
+        });
   </script>
 
   <!-- App -->
