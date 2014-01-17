@@ -1767,7 +1767,7 @@ display: block;
   z-index: 100;
   position: fixed;
   text-align: center;
-  background-color: rgba(0,0,0,1.0);
+  background-color: rgba(0,0,0,0.6);
   height:100%;
   width: 100%;
 }
