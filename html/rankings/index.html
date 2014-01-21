@@ -6,51 +6,6 @@
 {% block css %}
 
 <script src="media/js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
-<script src="media/js/libs/dragtable/DragCurve.js"></script>
-
-<script>
-
-var params = {};
-
-
-d3.csv("media/js/libs/dragtable/data/country_rankings.csv", function(error, data) {
-
-  all_data = [];
-
-
-  //  var parseDate = d3.time.format("%Y%m%d").parse;
-  var parseDate = d3.time.format("%Y").parse;
-
-  data.filter(function(d, i) {
-   //if( (d.year==2007 || d.year == 2004 || d.year == 2006 || d.year == 2005) ) {
-    
-
-    if(typeof all_data[d.year] == "undefined") {
-      all_data[d.year] = {};
-      all_data[d.year].date = parseDate(d.year);
-    }
-
-    all_data[d.year][d.abbrv] = d.rank;
-
-    if(d.year == 1971)
-        console.log(d.rank, d.country)
-    //}
-
-  });
-
-
-  res_data = [];
-
-  all_data.forEach(function(d) {
-    res_data.push(d);
-  })
-
-});
-
-// var dc = new DragCurve().
-
-</script>
-
 <style>
 #sidebar h3 {
   border: none !important;

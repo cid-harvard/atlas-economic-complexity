@@ -1594,7 +1594,21 @@ var flat_data,
       
       if (app_name=="tree_map") {
         flat_data = construct_nest(flat_data);
+        
+        timeline = Slider()
+          .callback('set_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          // .style("overflow","auto")
+          .datum(years_available)
+          .call(timeline)
+        d3.select("#ui_bottom").append("br")
+
         tree();
+
       }
       
       if (app_name=="pie_scatter") {

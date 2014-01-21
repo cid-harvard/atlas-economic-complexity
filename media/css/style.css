@@ -184,6 +184,9 @@ header nav ul li a.current{
   color: black;
   text-decoration: underline;
 }
+.language_select{
+  text-align: left;
+}
 header .language_select{
   display: inline;
   float: right;
@@ -564,6 +567,8 @@ text-decoration: none;
   padding: 3px 7px 4px;
 }
 
+
+
 .app #main .pane_title{
   background: url('/media/img/all/containers_trans.png') no-repeat;
   background-position: -43px -104px;
@@ -752,6 +757,7 @@ text-decoration: none;
 /*
  * Bottom of page footer
  */
+
 footer p {
   font-size: 80%;
   padding-bottom: 10px;
@@ -760,7 +766,7 @@ footer p {
 }
 
 footer p img{
-	margin: 0 20px;
+	margin:20px;
 }
 
 footer.credits {
@@ -770,7 +776,13 @@ footer.credits {
 footer.logos {
   margin-left:100px;
 }
-
+.app footer{
+  width:750px;
+  text-align: center;
+  margin-left:232px;
+  margin-right: 260px;
+  margin-top: 20px;
+}
 #sticky-anchor {
   margin-top:40px;
 }
@@ -1700,3 +1712,82 @@ display: block;
 .ui-dialog {
             z-index: 25000 !important;
         }
+
+/* ben's changes */
+
+#helpBox{
+
+}
+
+#helpBoxInner{
+  height:160px;
+  border: solid 1px #dddddd;
+  overflow: elipsis;
+
+  padding:10px;
+}
+
+#helpBoxInner h3{
+  margin: 0;
+}
+
+#helpBoxInner p{
+  line-height: 1.2em;
+  margin: 0;
+}
+
+#helpBoxInner hr{
+  margin-top: 10px;
+  margin-bottom:10px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#help{
+  position: relative;
+  left:0px;
+  top:-7px;
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+  border: solid 2px rgb(176,23,31);
+  border-bottom-width: 3px;
+  border-top: none;
+  background-color: rgb(205,38,38);
+  color:#fff;
+}
+
+#help:hover{
+  border-color:rgba(176,23,31, 1.0) ;
+  background-color:rgba(176,23,31, 1.0) ;  
+}
+
+#videoModal{
+  opacity: 0;
+  display: none;
+  z-index: 100;
+  position: fixed;
+  text-align: center;
+  background-color: rgba(0,0,0,0.6);
+  height:100%;
+  width: 100%;
+}
+
+#videoModalInner{
+  margin-top:10%;
+}
+#exit{
+  font-size: 30px;
+  letter-spacing: .1em;
+  color: #ddd;
+  padding-right: 50px;
+  padding-top: 20px;
+  float: right;
+  text-decoration: none;
+  font-weight: bold; 
+}
+
+
+
+
+
+

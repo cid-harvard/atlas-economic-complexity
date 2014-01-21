@@ -407,12 +407,20 @@ footer.credits, footer.logos {
 
 </style>
 
+<!-- Hidden Modal Window for Video -->
+
+  <div id="videoModal">
+    <a href="#" id="exit">Close</a>
+    <div id="videoModalInner">
+        <iframe width="853" height="480" src="//www.youtube.com/embed/0JC24CBVsdo" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
   {% endblock %}
 
   {% block content %}
   <div id="content">
 
-  <div id="carousel-example-generic" class="carousel slide" style="width:550px; height:300px;float:left; margin-left:20px; margin-top:20px">
+  <div id="carousel-example-generic" class="carousel slide" style="width:535px; height:300px;float:left; margin-left:20px; margin-top:20px; margin-right:15px; border:solid 1px #dddddd;">
   <!-- Indicators -->
   <!--
   <ol class="carousel-indicators">
@@ -423,7 +431,6 @@ footer.credits, footer.logos {
   ->>
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
-
     <div class="item active">
       <a href="explore/product_space/export/usa/all/show/2011/">
         <img src="media/img/home/us_imports_ps.png" alt="..." style="width:550px; height:300px">
@@ -468,7 +475,7 @@ footer.credits, footer.logos {
       Explore Growth Opportunities
     </div>
 
-  <a href="http://www.youtube.com/watch?v=0JC24CBVsdo">
+  <a id="videoLaunch" href="#">
 
     <div class="other_apps_first other_apps" style="float:left;width:370px; height:200px; padding:5px; margin-left:20px;border:1px solid lightgray; background-color:#fafafa;">
      
@@ -539,6 +546,20 @@ footer.credits, footer.logos {
 
 
 {% block js %}
+<script src="media/js/libs/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+      $("#videoLaunch").click(function(){
+        $("#videoModal").css("display","block");
+        $("#videoModal").animate({opacity:1.0},400);        
+      });
+      $("#exit, #videoModal").click(function(){
+        $("#videoModal").animate({opacity:0.0},200,function(){
+          $("#videoModal").css("display", "none");
+        });
+      });
+    });
+</script>
 <script>
   // Use to be: Rotate featured video randomly
   // -> Will be re-used for showing stories randomly
