@@ -142,7 +142,7 @@
 
         $("#year2").css("display", "block");
 
-disable_viz = true;
+        disable_viz = false;
         if(!disable_viz) {
 
           $('label[value=map]').click(function() { return update_viz("map"); } );   
@@ -281,7 +281,8 @@ disable_viz = true;
       }
 
       function update_viz(viz) {
-        
+
+
         // Fix for Firefox
         var host = "http://" + window.location.host + "{{ HTTP_HOST }}";
        
@@ -317,8 +318,11 @@ disable_viz = true;
             current_viz = "stacked";
           } 
 
-          if(current_year2=="" && current_viz == "stacked")
+          if(current_year2=="" && current_viz == "stacked") {
             current_viz = "tree_map";
+            current_year2 = 1962;
+          }
+
 
           // Where does United States export Crude Petroleum to?
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
@@ -812,11 +816,11 @@ disable_viz = true;
 
 
   <!-- Year tab -->
-  <div style="display:none;" class="tab-content">
+   <div class="tab-content" style="display:none">
     <ul class="nav nav-tabs" id="myTab">
       <li class="active"><a href="#country-year"><span class="glyphicon glyphicon-calendar"></span> <span style="font-size:16px;">Time Period</span></a></li>
-     <!-- <li><a href="#country-over-time"><span class="glyphicon glyphicon-calendar"></span> </span> <span  style="font-size:16px">Over Time</span></a></li>-->
-    </ul>
+     <li><a href="#country-over-time"><span class="glyphicon glyphicon-calendar"></span> </span> <span  style="font-size:16px">Over Time</span></a></li>
+ </ul>
 
     <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px;"  onmouseover="$('.over-time').css('visibility', 'visible');"  onmouseout="$('.over-time').css('visibility', 'hidden');">
 
@@ -1924,7 +1928,7 @@ disable_viz = true;
   });
 
   $("select").change(function() {
-   // available_viz();
+    available_viz();
   });
 
 
@@ -1956,11 +1960,11 @@ $("p").hover(function(){
   $('#myTab a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
-  //  available_viz();
+    available_viz();
   })
 
   // Set which visualization is available or not
-  //available_viz();  
+  available_viz();  
 
 //To display visualization in full screen ,while viewing stories
   var contentWidth=$("#content").width();
