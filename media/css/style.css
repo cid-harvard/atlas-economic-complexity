@@ -145,7 +145,6 @@ header .logo {
 }
 header nav {
   float: right;
-  width: 418px;
   text-align: center;
 }
 header nav ul {
@@ -1786,7 +1785,9 @@ display: block;
   font-weight: bold; 
 }
 
-
+#newBook{
+ color:#CD3333;
+}
 
 
 

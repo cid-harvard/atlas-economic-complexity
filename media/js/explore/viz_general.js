@@ -1590,6 +1590,19 @@ var flat_data,
       if (app_name=="stacked") {
         flat_data = construct_nest(flat_data)
         stack(); 
+
+        timeline = Slider()
+                  .callback('set_stack_year')
+                  .initial_value([parseInt(year_start),parseInt(year_end)])
+                  //[parseInt(years_available[0]),parseInt(years_available.slice(-1)[0])])
+                  .max_width(670)
+                  .title("")
+                d3.select("#ui_bottom").append("div")
+                  .attr("class","slider")
+                  .datum(years_available)
+                  .call(timeline)
+        // get rid of play button -->                  
+        d3.select('#play_button').style("display","none") 
       }
       
       if (app_name=="tree_map") {
