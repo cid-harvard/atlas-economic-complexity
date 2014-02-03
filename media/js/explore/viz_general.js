@@ -1197,6 +1197,8 @@ var flat_data,
           
           viz
             .type("rings")
+                    .height(height)
+        .width(width)
             .text_var("name")
             .id_var("id")
             .links(viz_links)
@@ -1219,6 +1221,8 @@ var flat_data,
                   .style('height','520px')
             .datum(ps_data)
             .call(viz)    
+
+            d3.select("#loader").style("display", "none");
 
         })
       })

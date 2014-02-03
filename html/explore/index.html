@@ -280,25 +280,40 @@
         }
       }
 
-      function update_viz(viz) {
+      function update_viz(sel_viz) {
 
-
+        if(app_type=="csay")
+          viz = app;
         // Fix for Firefox
         var host = "http://" + window.location.host + "{{ HTTP_HOST }}";
         var url = host + "explore/";
         var current_flow = $("#trade_flow").find(":selected").val();
         var current_country1 = $("#country1").find(":selected").val();
-        var current_year1 = $("#year1").find(":selected").val();
+
+        // Default year
+        var current_year1 = 1995;
+        
+        if(typeof(viz.year()) == "number") {
+          current_year1 = parseInt(viz.year())
+        } else {
+          current_year1 = parseInt(viz.year()[0])
+        }
+
+         $("#year1").find(":selected").val();
+
+        console.log("VIZ", sel_viz, current_year1);
+
 
         var current_year2 = $("#year2").find(":selected").val();
-        current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? 1995 : current_year2; 
+        current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2; 
 
-          var current_product_trade_flow = $("#product-trade-flow").find(":selected").val();
+        var current_product_trade_flow = $("#product-trade-flow").find(":selected").val();
 
-          var current_product = $("#country_product_select").find(":selected").val();
-          current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product; 
+        var current_product = $("#country_product_select").find(":selected").val();
+        current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product; 
 
-        if(parseInt(current_year1)>parseInt(current_year2)) {
+        // year1 must always be greater than year2
+        if(current_year2 != "" && parseInt(current_year1)>parseInt(current_year2)) {
           var tmp = current_year1;
           current_year1 = current_year2;
           current_year2 = tmp;
@@ -308,34 +323,34 @@
         if($(".main-countries-products").find(".active").index()==0) { 
   
           //Country All Products 
-          if(viz=="tree_map") {
+          if(sel_viz=="tree_map") {
             // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
             
             if(current_product=="all") {
 
               // ALl Products
               // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
-              url += viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";      
+              url += sel_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";      
             } else {
 
               // http://atlas.cid.harvard.edu/explore/map/export/usa/show/0101/2011/
-              url += viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/";    
+              url += sel_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/";    
 
             }
             
-          } else if(viz=="map") {
-
+          } else if(sel_viz=="map") {
+            console.log("MAPPP", current_year1)
             // CAN't BE A MAP for products, switch to Countries
-            if(current_year2 != "")
-                current_year1 = current_year2;
+            //if(current_year2 != "")
+            //    current_year1 = current_year2;
       
-            url += viz+"/"+current_product_trade_flow+"/"+current_country1+"/"+"show/all/"+current_year1+"/";
+            url += sel_viz+"/"+current_product_trade_flow+"/"+current_country1+"/"+"show/all/"+current_year1+"/";
 
             
-          } else if(viz=="stacked") {
+          } else if(sel_viz=="stacked") {
 
             // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/all/1995.2011.2/
-            url += viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"."+current_year2+".2/"
+            url += sel_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"."+current_year2+".2/"
            
           }
           //Treemap
@@ -1826,6 +1841,7 @@
   <script src="media/js/libs/d3plus/src/general.js"></script>
   <script src="media/js/libs/d3plus/src/utils.js"></script>
   <script src="media/js/libs/d3plus/src/tooltip.js"></script>
+
   <script src="media/js/libs/vizwiz/src/utils.slider.js"></script>
   <script src="media/js/libs/d3plus/src/viz/viz.js"></script>
 
@@ -1843,7 +1859,7 @@
     <script src="media/js/libs/vizwiz/src/general.js"></script>
     <script src="media/js/libs/vizwiz/src/utils.js"></script>
     <script src="media/js/libs/vizwiz/src/tooltip.js"></script>
-    <script src="media/js/libs/vizwiz/src/utils.slider.js"></script>
+  <script src="media/js/libs/vizwiz/src/utils.slider.orig.js"></script>
     <script src="media/js/libs/vizwiz/src/viz/viz.js"></script>
 
   <script src="media/js/apps/map.js"></script>
