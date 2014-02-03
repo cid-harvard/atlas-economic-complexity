@@ -167,6 +167,7 @@ header nav ul li {
   display: inline;
   margin: 0;
 }
+
 header nav ul li a{
   color: grey;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
@@ -183,8 +184,12 @@ header nav ul li a.current{
   color: black;
   text-decoration: underline;
 }
-.language_select{
+
+.language_select {
   text-align: left;
+}
+#newBook {
+  color:#CD3333;
 }
 header .language_select{
   display: inline;

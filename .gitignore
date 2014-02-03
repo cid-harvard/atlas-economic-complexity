@@ -1,6 +1,7 @@
 
 *.pyc
 
+
 *.svn-base
 
 *.json
@@ -30,3 +31,5 @@ media/data/tree_map_en_sitc4_export_usa_show_all_2010.store.txt
 media/img/all/.picasa.ini
 
 media/img/home/.picasa.ini
+
+django_files/atlas/settings_local.py
