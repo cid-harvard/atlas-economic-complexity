@@ -154,7 +154,7 @@ function App() {
         "x": 50, "y": 100,
         "width": 640, "height": 10
       })
-      .style("fill", "url(#gradient)");
+      .style("fill", "url("+window.location.pathname+"#gradient)"); // re-base requires a pathname
   }
   
   function mouseover(d){

@@ -1833,7 +1833,7 @@
     {% if app_name == "stacked" %}<script src="media/js/libs/d3plus/src/viz/stacked.js"></script>{% endif %}
     {% if app_name == "pie_scatter" %}<script src="media/js/libs/d3plus/src/viz/pie_scatter.js"></script>{% endif %}
     {% if app_name == "product_space" %}<script src="media/js/libs/d3plus/src/viz/network.js"></script>{% endif %}
-    {% if app_name == "map" %}<script src="media/js/libs/d3plus/src/viz/geo_map.js"></script>{% endif %}
+    {% if app_name == "map" %}<!-- <script src="media/js/libs/d3plus/src/viz/geo_map.js"></script>-->{% endif %}
     {% if app_name == "rings" %}<script src="media/js/libs/d3plus/src/viz/rings.js"></script>{% endif %}
 
   {% endif %}
@@ -1919,7 +1919,7 @@
     prod_or_partner = "{{prod_or_partner}}",
     lang= "{{lang}}",
     embed=false,
-		redesign_api_uri = "{{redesign_api_uri}}",
+		d = "{{redesign_api_uri}}",
     year_start = "{{year_start}}",
     year_end = "{{year_end}}",
     product_code = "{{product_code}}",
@@ -2042,10 +2042,9 @@ $("p").hover(function(){
   // Set which visualization is available or not
   //available_viz();  
 
-
-          $('label[value=map]').click(function() { return update_viz("map"); } );   
-          $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );
-          $('label[value=stacked]').click(function() { return update_viz("stacked"); } );
+  $('label[value=map]').click(function() { return update_viz("map"); } );   
+  $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );
+  $('label[value=stacked]').click(function() { return update_viz("stacked"); } );
 
 //To display visualization in full screen ,while viewing stories
   var contentWidth=$("#content").width();
