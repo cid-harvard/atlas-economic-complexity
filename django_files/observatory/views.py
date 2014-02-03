@@ -1127,7 +1127,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
         "text": "In the Harmonized System (HS) classification, trade for Namibia, Republic of South Africa, Botswana, Lesotho and Swaziland is reported under 'South African Customs Union'."}
   
   trade_flow_list = [("export", _("Export")), ("import", _("Import")), ("net_export", _("Net Export")), ("net_import", _("Net Import"))]
-  if app_name == "product_space":
+  if (app_name == "product_space" or app_name == "rings"):
     trade_flow_list = [trade_flow_list[0]]
   
   year1_list = range(years_available[0], years_available[len(years_available)-1]+1, 1)
@@ -1216,7 +1216,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       # raise Exception(app_name)
       if app_name == "pie_scatter":
         title = "Which products are feasible for %s?" % countries[0].name
-      elif app_name == "product_space":
+      elif (app_name == "product_space" or app_name == "rings"):
         title = "What did %s export in %s?" % (countries[0].name, year)       # INSERTED NEW TITLE HERE
       elif app_name == "stacked":
         title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE

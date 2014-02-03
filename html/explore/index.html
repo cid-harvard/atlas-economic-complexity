@@ -291,7 +291,7 @@
         var current_year1 = $("#year1").find(":selected").val();
 
         var current_year2 = $("#year2").find(":selected").val();
-        current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? 1962 : current_year2; 
+        current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? 1995 : current_year2; 
 
           var current_product_trade_flow = $("#product-trade-flow").find(":selected").val();
 
@@ -396,7 +396,7 @@
 
           if(current_year2=="" && current_viz == "stacked") {
             current_viz = "tree_map";
-            current_year2 = 1962;
+            current_year2 = 1995;
           }
 
 
@@ -1848,7 +1848,6 @@
 
   <script src="media/js/apps/map.js"></script>
 
-
   {% endif %}
 
   <script src="media/js/explore/viz_general.js"></script> 
@@ -1903,7 +1902,7 @@
   
   // variables from server
   var app,
-    app_types = ["tree_map", "stacked", "product_space", "pie_scatter", "map"],
+    app_types = ["tree_map", "stacked", "product_space", "rings", "pie_scatter", "map"],
     app_type ="{{app_type}}",
     warning = "{{warning}}",
     is_alert = "{{alert}}",
@@ -1943,7 +1942,7 @@
       $(el).addClass("current");
     }
   })
-  
+
   // Check to see if the title overflows (in the case of long product names)
   function isOverflowed(element){
       return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;

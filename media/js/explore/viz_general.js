@@ -1145,6 +1145,87 @@ var flat_data,
  //        .text("Sorry! We do not (yet) support Diversification Options for this country.")  
  //    }
   }
+
+
+  rings = function( req ) {
+
+    var viz = d3plus.viz()
+
+    d3.json("media/js/libs/d3plus/examples/data/attr_hs.json", function(attr) {
+      d3.json("media/js/libs/d3plus/examples/data/network_hs.json", function(hs) {
+        
+        viz_nodes = hs.nodes
+        viz_links = hs.edges
+        viz_links.forEach(function(link){
+          link.source = viz_nodes[link.source]
+          link.target = viz_nodes[link.target]
+        })
+        
+        d3.json("media/js/libs/d3plus/examples/data/products_mg.json", function(ps_data) {
+          
+          depths = [2,4,6]
+          
+          for (id in attr) {
+            obj = attr[id]
+            depths.forEach(function(d){
+              if (d <= obj.id.length) {
+                obj["nesting_"+d] = {"name":attr[obj.id.slice(0, d)].name, "id":obj.id.slice(0, d)}
+              }
+            })
+          }
+          
+          ps_data.forEach(function(d){
+            d.active = Math.floor(Math.random()*2);
+          })
+          
+          format_test = function(data) {
+            // console.log(data)
+            return "Test JSON: "+data[10].name
+          }
+            
+          clicker = function(obj) {
+            // console.log(obj);
+            return "Text"
+            // return {"url": "data/attr_hs.json", "callback": format_test}
+          }
+          
+          
+          // var tooltips = {"short": ["id"],"long": {"basics":["id","val_usd"],"calculations":["distance", "complexity"]}}
+          // var tooltips = {"short": ["id"],"long": ["id","val_usd","distance"]}
+          // var tooltips = ["id","val_usd"]
+          var tooltips = {"": ["id","distance"],"other": ["val_usd","distance"]}
+          
+          viz
+            .type("rings")
+            .text_var("name")
+            .id_var("id")
+            .links(viz_links)
+            .nodes(viz_nodes)
+            .attrs(attr)
+            .value_var("val_usd")
+            .highlight("178703") // cars
+            // .highlight("168480") // molding boxes
+            .tooltip_info(tooltips)
+            .nesting(["nesting_0","nesting_1","nesting_2"])
+            .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
+            .click_function(clicker)
+            .descs({"id": "This is the ID! It means what you would expect it to mean. Another really long setence with multiple random words.", "val_usd": "...value. duh."})
+            .footer("<a href='www.google.com'>SECEX</a>")
+            // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
+            // .number_format(function(d){return d+"longtext longtext longtext longtext longtext"})
+
+          d3.select("#viz")
+                  .style('width','640px')
+                  .style('height','520px')
+            .datum(ps_data)
+            .call(viz)    
+
+        })
+      })
+    })
+
+
+  }
   
   network = function( req )
   { 
@@ -1555,7 +1636,7 @@ var flat_data,
         console.log("attr_data", attr_data)
 
 
-      if(app_type=="casy"){
+      if(app_type=="casy") {
 
 
       //if(dev)
@@ -1633,26 +1714,76 @@ var flat_data,
         flat_data = construct_scatter_nest(flat_data);
         // where = flat_data.filter(function(d){ return d.year == year; })
         pie_scatter();
+        
+        timeline = Slider()
+                  .callback('set_scatter_year')
+                  .initial_value(parseInt(year))
+                  .max_width(670)
+                  .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          .datum(years_available)
+          .call(timeline)
+        // get rid of play button -->                  
+        // d3.select('#play_button').style("display","none") 
       }
       
-      if(app_name=="product_space") {
-        flat_data = construct_scatter_nest(flat_data);
-        network( api_uri + '&amp;data_type=json' );
-      }
-      
-      if(app_name=="map") {
-        map();
-      }
 
-      
-
-    
-    /*
-if(app_name=="rings")
+      if(app_name=="product_space")
       {
-       alert("rings")
+        flat_data = construct_scatter_nest(flat_data);
+         network( api_uri + '&amp;data_type=json' );
+        
+        timeline = Slider()
+          .callback('set_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          // .style("overflow","auto")
+          .datum(years_available)
+          .call(timeline)
+        d3.select("#ui_bottom").append("br")
       }
-    */
+
+
+      if(app_name=="rings") {
+
+        flat_data = construct_scatter_nest(flat_data);
+        rings( api_uri + '&amp;data_type=json' );
+
+        timeline = Slider()
+          .callback('set_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          // .style("overflow","auto")
+          .datum(years_available)
+          .call(timeline)
+        d3.select("#ui_bottom").append("br")
+      }
+
+      if(app_name=="map")
+      {
+        map()
+        
+        timeline = Slider()
+          .callback('set_map_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          // .style("overflow","auto")
+          .datum(years_available)
+          .call(timeline)
+        d3.select("#ui_bottom").append("br")  
+        
+      }
+ 
 
       // // Create Year Toggle
       // if (app_name == "tree_map") {
