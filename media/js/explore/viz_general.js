@@ -1576,7 +1576,7 @@ var flat_data,
           
           // Check if we can get a proper rawData object
           if ( rawData.firstChild != null ) {
-              // Try replacing the data from g
+              /*// Try replacing the data from g
               if ( typeof rawData.firstChild.childNodes[1] != "undefined" || rawData.firstChild.childNodes[3] != null ) {
                 // We have the nodes, so go ahead
                 rawData.firstChild.childNodes[1].setAttribute( 'class', 'titles-old' );
@@ -1592,7 +1592,7 @@ var flat_data,
                 
                 // We have the nodes, so go ahead
                 rawData.firstChild.childNodes[3].setAttribute( 'class', 'parent-old' );
-              }
+              }*/
 
               // Check the raw data
               if ( typeof rawData != "string" ) {
@@ -1608,7 +1608,8 @@ var flat_data,
           }
         });
     }
-  } 
+  }
+
   function build_viz_app_original(api_uri,w,h) {
 
 

@@ -5,9 +5,10 @@ import os
 import time
 import httplib
 import glob
+import re
 # graphics
-#import cairo
-#import rsvg
+import cairo
+import rsvg
 # django
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.translation import get_language_info
@@ -65,16 +66,34 @@ class Command( BaseCommand ):
         # Wait until the SVG file is actually generated
         while ( os.path.exists( settings.DATA_FILES_PATH + "/" + file_name ) != True ):
             # Sleep for a bit and then continue with the loop
-            time.sleep( 10 )
+            time.sleep( 20 )
+
+        # At this point, we are kind of sure that the SVG file must be created
+        # Open up the SVG file and let us try manipulate here itself
+        svgFile = open( settings.DATA_FILES_PATH + "/" + file_name, "r" )
+
+        # Set the SVG data
+        svgData = svgFile.read()
+
+        # Close the file since we don't need it anymore
+        svgFile.close()
+
+        # Let us run the replace on the svg data to swap all id attributes
+        newSvgData = re.sub( r'id=\"([^"]+)\"', r'id="\1-temp-loader"', svgData )
+
+        # Let us run the replace on the modified svg data to swap all class attributes
+        newSvgData = re.sub( r'class=\"([^"]+)\"', r'class="\1-temp-loader"', newSvgData )
+
+        # Let us now write out the modified markup to file
+        svgFile = open( settings.DATA_FILES_PATH + "/" + file_name, "w+" )
+
+        # Write the markup now
+        svgFile.write( newSvgData )
+
+        # Close the file now
+        svgFile.close()
             
     def save_png( self, file_name ):
-        try:
-            import cairo, rsvg
-        except:
-            pass
-
-        import rsvg
-        import cairo  
         # Get the SVG data
         svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "r" )
         svg_data = svg_file.read()
