@@ -780,16 +780,13 @@ var flat_data,
   }
   
   tree = function() {
-
-    if(dev) console.log("flat_data", flat_data)
-    if(dev) console.log("attr", attr)
           
 
         var inner_html = function(obj) {
-          if(dev) console.log(obj)
 
           var html = "<div class='d3plus_tooltip_title'>More Visualizations </div><br><br>";
           html += " <table>";
+
 
           for(v=0; v<list_viz.length; v++) {
             
@@ -816,7 +813,7 @@ var flat_data,
 
           html += "</table>";
           
-          html += "<br><br><div class='d3plus_tooltip_title'>Related Stories </div><br>";
+      //    html += "<br><br><div class='d3plus_tooltip_title'>Related Stories </div><br>";
 
           html += "[None]";
 
@@ -1636,10 +1633,6 @@ var flat_data,
       app_type= raw["app_type"];
       prod_class = raw["prod_class"];
       region_attrs = {};
-
-      if(dev)
-        console.log("attr_data", attr_data)
-
 
       if(app_type=="casy") {
 
