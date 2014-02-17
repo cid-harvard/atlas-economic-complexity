@@ -787,37 +787,14 @@ var flat_data,
           var html = "<div class='d3plus_tooltip_title'>More Visualizations </div><br><br>";
           html += " <table>";
 
-
-          for(v=0; v<list_viz.length; v++) {
-            
-            if(list_viz[v] != $("#viz_apps").find(".active").attr("value")) {
-
-              var title = "No Title";
-
-              if(list_viz[v] == "tree_map")
-                title = "Tree Map";
-              else if(list_viz[v] == "map")
-                title = "Geographical Map";
-              else if(list_viz[v] == "stacked")
-                title = "Stacked Graph";
-              else if(list_viz[v] == "product_space")
-                title = "Product Space";
-              else if(list_viz[v] == "pie_scatter")
-                title = "Scattered Pie Chart";
-
-              html += "<tr><td><img src='/media/img/home/teaser_"+list_viz[v]+".png' style='width:60px;'></td><td><a onclick='update_viz(\""+list_viz[v]+"\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>"+title+"</a></td></tr></a>";
-
-            }
+          if(app_name!="tree_map") {
+            html += "<tr><td><img src='"+static_url+"img/home/treeMap1.png' style='width:60px;'></td>";
+            html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
           }
-
+          html += "<tr><td><img src='"+static_url+"img/home/stacked1.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
 
           html += "</table>";
-          
-      //    html += "<br><br><div class='d3plus_tooltip_title'>Related Stories </div><br>";
-
-          html += "[None]";
-
-
           return html;
         }
 /*

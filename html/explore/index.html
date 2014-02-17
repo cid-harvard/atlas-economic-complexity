@@ -286,6 +286,7 @@
         current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
         var current_year1 = $("#year1").find(":selected").val();
 
+
         // COUNTRIES
         if($(".main-countries-products").find(".active").index()==0) { 
 
@@ -314,6 +315,17 @@
 
           if(current_year2=="" && current_viz == "stacked")
             current_viz = "tree_map";
+
+          if(viz=="tree_map" || viz=="map") {
+            current_year2 = "";
+            current_viz = viz;
+          }
+
+          if(viz=="stacked" && current_year2=="") {
+            current_year2 = 1998;
+            current_viz = viz;
+          }
+
 
           // Where does United States export Crude Petroleum to?
           // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
@@ -1911,7 +1923,8 @@
     year_start = "{{year_start}}",
     year_end = "{{year_end}}",
     product_code = "{{product_code}}",
-    prod_class = "{{prod_class}}";
+    prod_class = "{{prod_class}}",
+    static_url = "{{STATIC_URL}}";
   // Use chosen plugin to make dropdowns look fancy
   $(".dropdown_container select").chosen()
   $(".nesting select").chosen()
