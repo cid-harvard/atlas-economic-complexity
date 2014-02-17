@@ -103,11 +103,10 @@ function Key() {
         // d3.select("#viz").call(viz.solo([]));
         // d3.select("#viz").call(viz.highlight(null));
       })
-    a.on("click", function(d){
+    a.on("click", function(d) {
       // If this node is already selected, return to unsorted
       console.log("click", d3.select(this), d)
-      if (d3.select(this).attr("active") == "true")
-      {
+      if (d3.select(this).attr("active") == "true") {
         d3.select("#viz").call(viz.solo([]));
         d3.select(this).attr("active","false");
         d3.selectAll("."+d.continent).attr("active","false");
@@ -116,6 +115,9 @@ function Key() {
                               .style("cursor","");    
         sessionStorage.removeItem("productCommunityName");
         sessionStorage.removeItem("productCommunityID"); 
+
+        queryParameters['cat'] = "";
+        queryParameters['cont'] = "";
       }
       // Otherwise, we need to filter just this community
       // by using VizWiz soloing functionality 
@@ -140,6 +142,7 @@ function Key() {
           //d3.select("#viz").call(viz.solo([d.continent]));
           d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { if(dd.nesting_0.name == d.continent && dd.year==year) return dd}).map(function(ddd) { return ddd.id })));
           sessionStorage.setItem("continent",d.continent);
+          queryParameters['cont'] = d.id;
           // app_name=="stacked" ? stack_solo_filter(d.continent) : d3.select("#viz").call(viz.solo([d.continent]));
         }
         // or we can simply filter by product community name
@@ -157,10 +160,14 @@ function Key() {
           // app_name=="stacked" ? stack_solo_filter(d.name) : d3.select("#viz").call(viz.solo([d.name]));
 	        sessionStorage.setItem("productCommunityName",d.name);
           sessionStorage.setItem("productCommunityID",this.className.replace(" ","."));	
+          queryParameters['cat'] = d.id;
           //console.log("Filter by", d, flat_data.filter(function(d) { if(d.nesting_0.name == d.name && d.year==year) return d}).map(function(d) { return d.id }));
         }              
                        
       }
+
+      history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
+
         
     }) 
     

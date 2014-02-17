@@ -1678,6 +1678,18 @@ var flat_data,
 
         tree();
 
+        if(queryParameters['cont']!="") {
+          var e = document.createEvent('UIEvents');
+          e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+          d3.select(".cat_"+queryParameters['cont']).node().dispatchEvent(e);
+        }
+
+        if(queryParameters['cat']!="") {
+          var e = document.createEvent('UIEvents');
+          e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+          d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
+        }
+
       }
       
       if (app_name=="pie_scatter") {
@@ -1701,6 +1713,12 @@ var flat_data,
           .call(timeline)
         // get rid of play button -->                  
         // d3.select('#play_button').style("display","none") 
+
+        if(queryParameters['cat']!="") {
+          var e = document.createEvent('UIEvents');
+          e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+          d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
+        }
       }
       
 

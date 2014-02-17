@@ -83,7 +83,7 @@ d3plus.stacked = function(vars) {
   
   // container for layers
   vars.chart_enter.append("g").attr("class", "layers")
-    .attr("clip-path","url("+window.location.pathname+"#path_clipping)")
+    .attr("clip-path","url("+window.location.pathname+window.location.search+"#path_clipping)")
     
   // give data with key function to variables to draw
   var paths = d3.select("g.layers").selectAll(".layer")

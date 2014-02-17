@@ -866,14 +866,10 @@
             </div>
           </div>
 
-
-
     </div> <!-- End Product Tab -->
   
   <!-- END -->
   </div>
-
-
 
   <!-- Year tab -->
    <div class="tab-content" style="display:block">
@@ -946,19 +942,15 @@
     </div>
 </div>
 
-      <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If your curious about anything on the page, put your mouse over it and the Help Box will display useful information." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
-        <div id="helpBoxInner">
-            <h3>Help Box</h3>
-            <hr>
-            <p>Welcome to The Atlas of Economic Complexity. Hover over an element to see its function.</p>
-        </div>
-      <button id="help">Help</button>
-      </div>
+  <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If your curious about anything on the page, put your mouse over it and the Help Box will display useful information." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
+    <div id="helpBoxInner">
+        <h3>Help Box</h3>
+        <hr>
+        <p>Welcome to The Atlas of Economic Complexity. Hover over an element to see its function.</p>
+    </div>
+  <button id="help">Help</button>
+  </div>
 
-
-<!--
-<h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type of representation</h4>
--->
 
 
 
@@ -1901,6 +1893,25 @@
 
   <script>
   
+  // Variables from query string
+
+  var queryParameters = {}, queryString = location.search.substring(1),
+      re = /([^&=]+)=([^&]*)/g, m;
+   
+  // Creates a map with the query string parameters
+  while (m = re.exec(queryString)) {
+      queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+  }
+
+  // Add new parameters or update existing ones
+  queryParameters['prod_class'] = "{{prod_class}}";
+  queryParameters['details_treemap'] = queryParameters['details_treemap'] || 1;
+  queryParameters['cat'] = queryParameters['cat'] || "";
+  queryParameters['cont'] = queryParameters['cont'] || "";
+
+  history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
+
+
   // variables from server
   var app,
     app_types = ["tree_map", "stacked", "product_space", "rings", "pie_scatter", "map"],
@@ -2021,14 +2032,6 @@
 
   });
 
-/*
-$("p").hover(function(){
-  $("p").css("background-color","yellow");
-  },function(){
-  $("p").css("background-color","pink");
-});
-*/
-
   $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country-trade-partner select").val()+".png') no-repeat");
   $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
   $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
@@ -2057,20 +2060,6 @@ $("p").hover(function(){
   
   // Call the original and let is handle the stuff - trying again
   build_viz_app_original( api_uri, contentWidth, 520 );
-
-
-  // Testing URL hashtags
-  setTimeout(function () { 
-   function find_hash(str) {
-      return location.hash.substr(location.hash.indexOf(str+'=')).split('&')[0].split('=')[1]
-    }
-
-    if(typeof(find_hash("highlight")) != "undefined") {
-      console.log(find_hash("highlight"));
-      d3.select("#viz").call(chart.highlight(find_hash("highlight")))
-    }
-
-  }, 5000);
 
 
 });
