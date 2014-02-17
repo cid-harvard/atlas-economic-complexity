@@ -1901,7 +1901,22 @@ def api_csay(request, trade_flow, country1, year):
       return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
       
     json_response["data"] = rows
-    
+  
+  # get distince years from db, different for diff product classifications
+  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
+  years_available.sort()
+
+  magic = Cy.objects.filter(country=country1.id,
+                            year__range=(years_available[0],
+                                        years_available[-1])).values('year',
+                                                                     'pc_constant',
+                                                                     'pc_current',
+                                                                     'notpc_constant')
+  magic_numbers = {}
+  for i in magic: 
+    magic_numbers[i['year']] = {"pc_constant":i['pc_constant'], 
+                                  "pc_current":i['pc_current'],
+                                  "notpc_constant":i["notpc_constant"]}  
   
   """Set article variable for question """
   article = "to" if trade_flow == "export" else "from"
@@ -1915,6 +1930,7 @@ def api_csay(request, trade_flow, country1, year):
   json_response["region"]= region
   json_response["continents"]= continents
   json_response["class"] =  prod_class
+  json_response["magic_numbers"] = magic_numbers
   json_response["other"] = query_params
      
   if not os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json" ):
@@ -2099,6 +2115,23 @@ def api_ccsy(request, trade_flow, country1, country2, year):
       
     json_response["data"] = rows
   
+  # get distince years from db, different for diff product classifications
+  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
+  years_available.sort()
+
+  magic = Cy.objects.filter(country=country1.id,
+                            year__range=(years_available[0],
+                                        years_available[-1])).values('year',
+                                                                     'pc_constant',
+                                                                     'pc_current',
+                                                                     'notpc_constant')
+  magic_numbers = {}
+  for i in magic: 
+    magic_numbers[i['year']] = {"pc_constant":i['pc_constant'], 
+                                  "pc_current":i['pc_current'],
+                                  "notpc_constant":i["notpc_constant"]}
+
+  json_response["magic_numbers"] = magic_numbers
   json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang)
   json_response["country1"] = country1.to_json()
   json_response["country2"] = country2.to_json()
@@ -2277,7 +2310,24 @@ def api_cspy(request, trade_flow, country1, product, year):
   
   
   article = "to" if trade_flow == "export" else "from"
-  
+
+  # get distince years from db, different for diff product classifications
+  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
+  years_available.sort()
+
+  magic = Cy.objects.filter(country=country1.id,
+                            year__range=(years_available[0],
+                                        years_available[-1])).values('year',
+                                                                     'pc_constant',
+                                                                     'pc_current',
+                                                                     'notpc_constant')
+  magic_numbers = {}
+  for i in magic: 
+    magic_numbers[i['year']] = {"pc_constant":i['pc_constant'], 
+                                  "pc_current":i['pc_current'],
+                                  "notpc_constant":i["notpc_constant"]}
+
+  json_response["magic_numbers"] = magic_numbers    
   json_response["attr_data"] = Country.objects.get_all(lang)
   json_response["title"] = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
   json_response["country1"] = country1.to_json()
