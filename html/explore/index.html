@@ -696,20 +696,25 @@
 
           <!-- Diversification TAB -->
 
-           <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" %}active{% endif %}" id="tab-diversification">
-                <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
-                  <label value="product_space" type="radio"  class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:75px; text-align:left; text-align:justify; margin-right:10px" onclick="update_viz('product_space');"><input type="radio" name="viz_apps">
+          <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" %}active{% endif %}" id="tab-diversification">
+              
+            <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
+              
+              <label value="product_space" type="radio"  class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:75px; text-align:left; text-align:justify; margin-right:10px" onclick="update_viz('product_space');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productSpace1.png" style="width:50px;"/></label>
 
-                    <img src="{{ STATIC_URL }}img/home/productSpace1.png" style="width:50px;"/> 
-
-                    </label><div style="width:100px; text-align:none; float:right;"><b>The Product Space</b><br> A map of the techno-<br>logical relatedness of products.</div>
+              <div style="width:100px; text-align:none; float:right;"><b>The Product Space</b><br> A map of the techno-<br>logical relatedness of products.</div>
                   
               <p style="clear:both"></p><br>
-               <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps">
 
-               <img src="{{ STATIC_URL }}img/home/productFeas2.png" style="width:50px; float:left;  margin-right:10px; "/></label>
+              <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productFeas2.png" style="width:50px; float:left;  margin-right:10px; "/></label>
 
-               <div style="width:100px; text-align:none; float:right;"> <b>Product Feasibility</b> Opportunities for a country to diversify and potential gains.</div>
+              <div style="width:100px; text-align:none; float:right;"> <b>Product Feasibility</b> Opportunities for a country to diversify and potential gains.</div>
+
+              <p style="clear:both"></p><br>
+
+              <label value="rings" type="radio" class="btn btn-default {% if app_name == "rings" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('rings');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productFeas2.png" style="width:50px; float:left;  margin-right:10px; "/></label>
+
+              <div style="width:100px; text-align:none; float:right;"> <b>Rings</b> Product-centric navigation of the Product Space.</div>
 
 
             </div>
