@@ -1126,10 +1126,16 @@ var flat_data,
     var viz = d3plus.viz()
 
     d3.json("media/js/libs/d3plus/examples/data/attr_hs.json", function(attr) {
-      d3.json("media/js/libs/d3plus/examples/data/network_hs.json", function(hs) {
+
+    (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
+                          req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json";
+
+      // "media/js/libs/d3plus/examples/data/network_hs.json"
+      d3.json(req, function(hs) {
         
         viz_nodes = hs.nodes
         viz_links = hs.edges
+
         viz_links.forEach(function(link){
           link.source = viz_nodes[link.source]
           link.target = viz_nodes[link.target]
@@ -1151,6 +1157,9 @@ var flat_data,
           ps_data.forEach(function(d){
             d.active = Math.floor(Math.random()*2);
           })
+
+
+
           
           format_test = function(data) {
             // console.log(data)
@@ -1167,7 +1176,7 @@ var flat_data,
           // var tooltips = {"short": ["id"],"long": {"basics":["id","val_usd"],"calculations":["distance", "complexity"]}}
           // var tooltips = {"short": ["id"],"long": ["id","val_usd","distance"]}
           // var tooltips = ["id","val_usd"]
-          var tooltips = {"": ["id","distance"],"other": ["val_usd","distance"]}
+          var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
           
           viz
             .type("rings")
@@ -1190,6 +1199,8 @@ var flat_data,
             // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
             // .number_format(function(d){return d+"longtext longtext longtext longtext longtext"})
 
+         //    console.log(ps_data, data)
+
           d3.select("#viz")
                   .style('width','640px')
                   .style('height','520px')
@@ -1197,6 +1208,25 @@ var flat_data,
             .call(viz)    
 
             d3.select("#loader").style("display", "none");
+
+
+            if(!embed) {
+              key = Key()
+                .classification(rawData.class)
+                .showing(item_type)
+
+              d3.select(".key")
+                .datum(attr_data)
+                .call(key);
+
+              controls = Controls()
+                .app_type(app_name)
+                .year(year)
+              
+              d3.select("#tool_pane")
+                .datum(rawData)
+                .call(controls); 
+            }
 
         })
       })
@@ -1614,12 +1644,9 @@ var flat_data,
       if(app_type=="casy") {
 
 
-      //if(dev)
-      //  console.log("attr_data_file", attr_data_file.attr_data)
-
         // No attr=raw["attr"] for this one, so where to get it?
         // json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang);
-      //  attr_data = attr_data_file.attr_data;
+        //  attr_data = attr_data_file.attr_data;
         // magic_numbers = rawData["magic_numbers"]
         world_trade = rawData["world_trade"]
         code_look = rawData["code_look"]
@@ -1725,18 +1752,20 @@ var flat_data,
       if(app_name=="product_space")
       {
         flat_data = construct_scatter_nest(flat_data);
-         network( api_uri + '&amp;data_type=json' );
+        network( api_uri + '&amp;data_type=json' );
         
         timeline = Slider()
           .callback('set_year')
           .initial_value(parseInt(year))
           .max_width(670)
           .title("")
+
         d3.select("#ui_bottom").append("div")
           .attr("class","slider")
           // .style("overflow","auto")
           .datum(years_available)
           .call(timeline)
+
         d3.select("#ui_bottom").append("br")
       }
 
