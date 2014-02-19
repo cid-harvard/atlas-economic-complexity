@@ -140,7 +140,13 @@ function Key() {
           
 
           //d3.select("#viz").call(viz.solo([d.continent]));
-          d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { if(dd.nesting_0.name == d.continent && dd.year==year) return dd}).map(function(ddd) { return ddd.id })));
+          d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { 
+            if(dd.nesting_0.name == d.continent)// && dd.year==year) 
+              return dd;
+          }).map(function(ddd) { 
+              return ddd.id 
+          })));
+
           sessionStorage.setItem("continent",d.continent);
           queryParameters['cont'] = d.id;
           // app_name=="stacked" ? stack_solo_filter(d.continent) : d3.select("#viz").call(viz.solo([d.continent]));
@@ -156,7 +162,13 @@ function Key() {
 
           // OLD
           //d3.select("#viz").call(viz.solo([d.name]));           
-          d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { if(dd.nesting_0.name == d.name && dd.year==year) return dd}).map(function(ddd) { return ddd.id })));
+          d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { 
+            if(dd.nesting_0.name == d.name) // removed  && dd.year==1995
+              return dd;
+          }).map(function(ddd) { 
+            return ddd.id;
+          })));
+
           // app_name=="stacked" ? stack_solo_filter(d.name) : d3.select("#viz").call(viz.solo([d.name]));
 	        sessionStorage.setItem("productCommunityName",d.name);
           sessionStorage.setItem("productCommunityID",this.className.replace(" ","."));	

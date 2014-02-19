@@ -124,7 +124,7 @@
       */
 
 
-      var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter"];
+      var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings"];
       var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
 
       function available_viz() {
@@ -518,7 +518,7 @@
           url += current_viz+"/"+current_product_trade_flow+"/"+current_country1+"/"+"all/show/"+current_year1+"/";
           
           // Make sure we have country for product space and diversity
-          if( (current_viz == "product_space" || current_viz=="pie_scatter") && current_country1 == "") {
+          if( (current_viz == "product_space" || current_viz=="pie_scatter" || current_viz=="rings" ) && current_country1 == "") {
             alert("Please select at least one country");  
             return;
           } 
@@ -583,15 +583,15 @@
             </div>
 
           <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
-            <li {% if app_name != "product_space" and app_name != "pie_scatter" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;">Trade Flow</span></a></li>
-            <li {% if app_name == "product_space" or app_name == "pie_scatter" %}class="active"{% endif %}><a href="#tab-diversification"><span style="font-size:14px; color:gray;">Diversification</span></a></li>
+            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;">Trade Flow</span></a></li>
+            <li {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}class="active"{% endif %}><a href="#tab-diversification"><span style="font-size:14px; color:gray;">Diversification</span></a></li>
           </ul>
 
         <!-- TRADE / DIVERSIFICATION -->
         <div class="tab-content"  style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:210px; height:290px;">
 
           <!-- Country selection -->
-          <div class="tab-pane {% if app_name != "product_space" and app_name != "pie_scatter" %}active{% endif %}" id="tab-trade">
+          <div class="tab-pane {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}active{% endif %}" id="tab-trade">
 
            <!-- Trade Flow selection -->
           <b style="margin:10px 0px; margin-left:10px">Type of <span class="definition">Flow</span>:</b>
@@ -696,7 +696,7 @@
 
           <!-- Diversification TAB -->
 
-          <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" %}active{% endif %}" id="tab-diversification">
+          <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}active{% endif %}" id="tab-diversification">
               
             <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
               
@@ -720,7 +720,7 @@
             </div>
                
                 <br><br>
-          {% if app_name == "product_space" %}
+          {% if app_name == "product_space_new" %}
               <script>
               
               function find_product() {
@@ -1363,18 +1363,7 @@
                 })
 
               d3.select("#viz").call(chart.highlight(""))
-                 // d3.select("#viz").call(chart.highlight("2306"))
 
-            // d3.select("#viz").call(viz.solo(unq));  
-            
-            // data[0].active
-
-            // Set the rca
-            // Browse all the data
-            // Update the network
-
-            // for text filter
-            // .call(chart.highlight(&quot;"+n[vars.id_var]+"&quot;)
           }
 
           </script>
