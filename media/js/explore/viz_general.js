@@ -1123,8 +1123,8 @@ var flat_data,
 
   rings = function( req ) {
 
-    var viz = d3plus.viz()
 
+/*
     d3.json("media/js/libs/d3plus/examples/data/attr_hs.json", function(attr) {
 
     (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
@@ -1158,6 +1158,125 @@ var flat_data,
             d.active = Math.floor(Math.random()*2);
           })
 
+*/
+
+
+
+ (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
+                          req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json";
+    
+    d3.json(req, function(hs) {
+
+      console.log("req", req)
+      viz = d3plus.viz()
+      
+      viz_nodes = hs.nodes
+      viz_links = hs.edges
+      
+      
+      viz_nodes.forEach(function(node){
+       if (prod_class=="hs4"){
+          node.item_id = attr[node.id.slice(2,6)]['item_id']
+          node.id = node.id.slice(2,6);
+        }
+        else
+        {
+          node.item_id = node.id
+          node.id = node.code
+        }
+      })
+      if (prod_class=="hs4"){
+        viz_links.forEach(function(link){
+          link.source = viz_nodes[link.source]
+          link.target = viz_nodes[link.target]
+        })  
+      }
+      else
+      {
+        viz_links.forEach(function(link){
+          link.source =viz_nodes.filter(function(d){ return d.code == link.source })[0]
+          link.target =viz_nodes.filter(function(d){ return d.code == link.target })[0]
+        })     
+      }
+      
+      flat_data.map(function(d){
+        d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+      })
+      
+      data = []
+      the_years = d3plus.utils.uniques(flat_data,"year")
+      the_years.forEach(function(year){
+        var this_year = flat_data.filter(function(p){ return p.year == year})
+        
+        viz_nodes.forEach(function(n){
+          if (prod_class=="hs4")
+          {
+            // var d = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
+           var d = this_year.filter(function(p){ return p.code == n.id })[0]
+           if (typeof d == "undefined")
+           {
+            var d = {}; 
+            // d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
+           }
+            d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
+            
+            // var obj = vizwhiz.utils.merge(d,attr[n.id])
+            // obj.world_trade = d.world_trade
+          }
+          else 
+          {
+            var d = this_year.filter(function(p){ return p.id == n.code })[0]
+            if (typeof d == "undefined")
+              {
+                var d = {}
+              }  
+            // Double check if this product existed then
+            var test = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]//['world_trade']
+            if (typeof test != "undefined")
+              {
+                d.world_trade = test['world_trade']
+              }
+              else // if not then assign value as 0
+              {
+                d.world_trade = 0
+              }
+             
+          }
+        
+          // obj.year = year;
+          d.active = d.rca >=1 ? 1 : 0
+          data.push(d)
+          
+        })
+        
+        this_year = []
+      })
+      
+      
+
+        var inner_html = function(obj) {
+          console.log(obj)
+
+          var html = "<br>";
+          html += " <table>";
+          html += "<tr><td><img src='/media/img/home/teaser_map.png' style='width:60px;'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Countries who export cars</a></td></tr>"
+          
+          html += "<tr><td><img src='/media/img/home/us_exports.png' style='width:60px'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Cars exports over time</a></td></tr>"
+
+          html += "<tr><td><img src='/media/img/home/us_imports_ps.png' style='width:60px'></td><td><a href='/explore/product_space/export/usa/all/show/2011/#highlight=8703' style='font-size:14px; margin-left: 10px'>Cars in the Product Space</a></td></tr>"
+          
+          html += "<tr><td><img src='/media/img/home/teaser_pie.png' style='width:60px'></td><td><a href='/explore/pie_scatter/export/usa/all/show/2011/' style='font-size:14px; margin-left: 10px'>Feasability of Cars</a></td></tr>"
+
+
+          html += "</table>";
+          return html;
+        }
+  
+    
+
+
+
+
 
 
           
@@ -1177,61 +1296,67 @@ var flat_data,
           // var tooltips = {"short": ["id"],"long": ["id","val_usd","distance"]}
           // var tooltips = ["id","val_usd"]
           var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
-          
+
           viz
             .type("rings")
-                    .height(height)
-        .width(width)
+            .height(height)
+            .width(width)
             .text_var("name")
             .id_var("id")
             .links(viz_links)
             .nodes(viz_nodes)
             .attrs(attr)
-            .value_var("val_usd")
-            .highlight("178703") // cars
-            // .highlight("168480") // molding boxes
-            .tooltip_info(tooltips)
+            .name_array(["value"])
+            .value_var("world_trade")
+            .highlight("8542")
+           // .tooltip_info(tooltips)
             .nesting(["nesting_0","nesting_1","nesting_2"])
             .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
             .click_function(clicker)
             .descs({"id": "This is the ID! It means what you would expect it to mean. Another really long setence with multiple random words.", "val_usd": "...value. duh."})
             .footer("<a href='www.google.com'>SECEX</a>")
+             .year(year)
             // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
             // .number_format(function(d){return d+"longtext longtext longtext longtext longtext"})
 
-         //    console.log(ps_data, data)
-
-          d3.select("#viz")
-                  .style('width','640px')
-                  .style('height','520px')
-            .datum(ps_data)
-            .call(viz)    
-
-            d3.select("#loader").style("display", "none");
 
 
-            if(!embed) {
-              key = Key()
-                .classification(rawData.class)
-                .showing(item_type)
+    d3.select("#viz")
+      .style('height','520px')
+      .datum(data)
+      .call(viz);  
+    
+    })
+    
 
-              d3.select(".key")
-                .datum(attr_data)
-                .call(key);
+    d3.select("#loader").style("display", "none");  
 
-              controls = Controls()
-                .app_type(app_name)
-                .year(year)
-              
-              d3.select("#tool_pane")
-                .datum(rawData)
-                .call(controls); 
-            }
 
+    if(!embed){
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+
+      d3.select(".key")
+        .datum(attr_data)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
+        .year(year)
+      
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls); 
+    }      
+
+
+/*
         })
+     
       })
     })
-
+*/
 
   }
   
@@ -1780,16 +1905,19 @@ var flat_data,
           .initial_value(parseInt(year))
           .max_width(670)
           .title("")
+
         d3.select("#ui_bottom").append("div")
           .attr("class","slider")
           // .style("overflow","auto")
           .datum(years_available)
           .call(timeline)
+          
         d3.select("#ui_bottom").append("br")
+
       }
 
-      if(app_name=="map")
-      {
+      if(app_name=="map") {
+
         map()
         
         timeline = Slider()
