@@ -588,7 +588,7 @@
           </ul>
 
         <!-- TRADE / DIVERSIFICATION -->
-        <div class="tab-content"  style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:210px; height:290px;">
+        <div class="tab-content"  style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:210px; height:320px;">
 
           <!-- Country selection -->
           <div class="tab-pane {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}active{% endif %}" id="tab-trade">
@@ -675,7 +675,9 @@
 
 
 
-          <div style="font-weight:bold; margin-top:10px; margin-left:10px">Visualization:</div>
+          <div style="font-weight:bold; margin-top:10px; margin-left:10px">
+          <br>
+          Visualization:</div>
 
 
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
@@ -1423,17 +1425,13 @@
 -->
 
 
-      {% if app_name != "product_space" %}
-        {% if app_name != "map" %}
-          
+      {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}          
         <div class="product_class clone_loader" style="float:left;">
-          
             <span class="definition" style="font-weight:bold; margin-left:20px;">Level of detail:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
               <label class="btn btn-default {% if app_name == "stacked" %} active {% endif %}">
                 <input type="radio" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
               </label>
-
               {% if app_type == "casy" %}
               <label class="btn btn-default">
                 <input type="radio" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
@@ -1449,8 +1447,8 @@
               </label>
             </div>  
           </div>
-        {% endif %}
       {% endif %}
+      
 	</div>
  </div>  
            
