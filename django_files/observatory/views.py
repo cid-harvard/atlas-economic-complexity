@@ -1228,12 +1228,19 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     elif app_type == "csay":
       item_type = "countries"
       article = "to" if trade_flow == "export" else "from"
-      title = "Where did %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, year)
-  
+      if app_name == "stacked":
+        title = "Where did %s %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), article, year_start, year_end)
+      else:
+        title = "Where did %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, year)
+
     # Product
     elif app_type == "sapy":
       item_type = "countries"
-      title = "Who %sed %s in %s?" % (trade_flow.replace("_", " "), product.name_en, year)
+      if app_name == "stacked": 
+        title = "Who %sed %s between %s and %s?" % (trade_flow.replace("_", " "), product.name_en, year_start, year_end)
+      else:
+        title = "Who %sed %s in %s?" % (trade_flow.replace("_", " "), product.name_en, year)
+      
       prod_or_partner = "product"
       
     # Bilateral Country x Country
@@ -1242,7 +1249,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
       if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
       article = "to" if trade_flow == "export" else "from"
-      title = "What did %s %s %s %s in %s?" % (countries[0].name, trade_flow, article, countries[1].name, year)
+      title = "What did %s %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, countries[1].name, year)
 
     # Bilateral Country / Show / Product / Year
     elif app_type == "cspy":
@@ -1250,7 +1257,11 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
       item_type = "countries"    
       article = "to" if trade_flow == "export" else "from"
-      title = "Where did %s %s %s %s in %s?" % (countries[0].name, trade_flow, product.name_en, article, year)
+      if app_name == "stacked":
+        title = "Where did %s %s %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), product.name_en, article, year_start, year_end)
+      else:
+        title = "Where did %s %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), product.name_en, article, year)
+      
       prod_or_partner = "product"
 
   # Return page without visualization data
