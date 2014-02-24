@@ -824,8 +824,7 @@ var flat_data,
       .attrs(attr)
       .text_var("name")
       .value_var("value")
-      .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
-//      .tooltip_info({"short":["value"], "long": ["value", "distance", "year", 'id'], "other": [ "id"]})
+      .tooltip_info({"short":["value"], "long": ["value", "distance", "year", 'id'], "other": [ "toto"]})
       .name_array(["name"])
       //.title("")
       .total_bar({"prefix": "", "suffix": " USD"})
@@ -1201,8 +1200,7 @@ var flat_data,
       }
       
       flat_data.map(function(d){
-        d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade'];
-
+        d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
       })
       
       data = []
@@ -1257,6 +1255,7 @@ var flat_data,
       
 
         var inner_html = function(obj) {
+          console.log(obj)
 
           var html = "<br>";
           html += " <table>";
@@ -1272,6 +1271,13 @@ var flat_data,
           html += "</table>";
           return html;
         }
+  
+    
+
+
+
+
+
 
           
           format_test = function(data) {
@@ -1281,7 +1287,7 @@ var flat_data,
             
           clicker = function(obj) {
             // console.log(obj);
-            return ""
+            return "Text"
             // return {"url": "data/attr_hs.json", "callback": format_test}
           }
           
@@ -1303,13 +1309,12 @@ var flat_data,
             .name_array(["value"])
             .value_var("world_trade")
             .highlight("8542")
-            .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
-          //  .nesting(["nesting_0","nesting_1","nesting_2"])
-            .nesting([])
+           // .tooltip_info(tooltips)
+            .nesting(["nesting_0","nesting_1","nesting_2"])
             .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
             .click_function(clicker)
             .descs({"id": "This is the ID! It means what you would expect it to mean. Another really long setence with multiple random words.", "val_usd": "...value. duh."})
-            //.footer("<a href='www.google.com'>SECEX</a>")
+            .footer("<a href='www.google.com'>SECEX</a>")
              .year(year)
             // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
             // .number_format(function(d){return d+"longtext longtext longtext longtext longtext"})
@@ -1567,8 +1572,7 @@ var flat_data,
       .attrs(attr)
       .value_var("world_trade")
       .name_array(["value"])
-      //.nesting(["nesting_0","nesting_1","nesting_2"])
-      .nesting([])
+      .nesting(["nesting_0","nesting_1","nesting_2"])
       .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
       .click_function(inner_html)
       // .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
