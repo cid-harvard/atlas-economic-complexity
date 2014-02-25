@@ -644,9 +644,11 @@
                   <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
                     {% else %}
                   <option value="{{p.code}}">{{ p.name }}</option>
-                    {% endif %}
+                    {% endif %}   
                     {% endfor %}
-                    {% include "explore/list_products.html" %}
+                    {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
+                    {% include template %}
+                    {% endwith %}
                 </select>
 
               </div>
