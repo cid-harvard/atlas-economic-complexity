@@ -177,8 +177,8 @@ function Key() {
         }              
                        
       }
-
-      history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
+      if(queryActivated)
+        history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
 
         
     }) 

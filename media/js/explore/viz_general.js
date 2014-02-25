@@ -781,41 +781,28 @@ var flat_data,
   
   tree = function() {
           
+    var inner_html = function(obj) {
 
-        var inner_html = function(obj) {
+      var html = "<div class='d3plus_tooltip_title'>More Visualizations </div><br><br>";
+      html += " <table>";
 
-          var html = "<div class='d3plus_tooltip_title'>More Visualizations </div><br><br>";
-          html += " <table>";
+      if(app_name!="tree_map") {
+        html += "<tr><td><img src='"+static_url+"img/home/treeMap1.png' style='width:60px;'></td>";
+        html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
+      }
 
-          if(app_name!="tree_map") {
-            html += "<tr><td><img src='"+static_url+"img/home/treeMap1.png' style='width:60px;'></td>";
-            html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
-          }
-          html += "<tr><td><img src='"+static_url+"img/home/stacked1.png' style='width:60px;'></td>";
-          html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
+      html += "<tr><td><img src='"+static_url+"img/home/geo1.png' style='width:60px;'></td>";
+      html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
 
-          html += "</table>";
-          return html;
-        }
-/*
-        <ol class="slats">
-    <li class="group">
-      <a href="#">
-        <img src="/media/img/about/cesar_hidalgo.png" alt="thumbnail">
-        <h3>Cesar Hidalgo</h3>
-        <p>César is the Asahi Broadcast Corporation Career Development Professor and an Assistant Professor at the MIT Media Lab, as well as a faculty associate at Harvard's University Center for International Development. His work focuses on improving the understanding of systems using and developing concepts of complexity, evolution and network science. <span class="meta">MIT Media Lab</span></p>
-      </a>
-    </li>
-    <li class="group">
-      <a href="#">
-        <img src="/media/img/about/ricardo_hausmann.png" alt="thumbnail">
-        <h3>Ricardo Hausmann</h3>
-        <p>Ricardo Hausmann is Director of the Center for International Development and Professor of the Practice of Economic Development at Harvard University. <span class="meta">Harvard Kennedy School</span></p>
-      </a>
-    </li>
-  </ol>
-*/
+      html += "<tr><td><img src='"+static_url+"img/home/stacked1.png' style='width:60px;'></td>";
+      html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
+
+      html += "</table>";
+      return html;
+    }
+
     viz = d3plus.viz();
+
     viz
       .type("tree_map")
       .height(height)
@@ -933,12 +920,16 @@ var flat_data,
          magic_numbers = rawData["magic_numbers"]
          viz.tooltip_info({"short": ["distance", "year", "pc_current","pc_constant","notpc_constant"]})
          flat_data.map(function(d){
-           d.pc_constant = magic_numbers[d.year]["pc_constant"] * d.value
-           d.pc_current = magic_numbers[d.year]["pc_current"] * d.value
-           d.notpc_constant = magic_numbers[d.year]["notpc_constant"] * d.value
+
+          // Quick fix by rv
+          if(magic_numbers[d.year]) {
+            d.pc_constant = magic_numbers[d.year]["pc_constant"] * d.value
+            d.pc_current = magic_numbers[d.year]["pc_current"] * d.value
+            d.notpc_constant = magic_numbers[d.year]["notpc_constant"] * d.value
+          }
          })
        }
-       viz.tooltip
+       //viz.tooltip
        if(item_type=="country")
        {
          viz.depth("nesting_1")
@@ -1291,7 +1282,10 @@ var flat_data,
             // return {"url": "data/attr_hs.json", "callback": format_test}
           }
           
-          
+          var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
+          var max_value = d3.max(year_data, function(d, i) { return d.value})
+          var max_id = year_data.filter(function(d, i) { if(d.value==max_value) return d;} )[0].code
+          console.log(max_id)
           // var tooltips = {"short": ["id"],"long": {"basics":["id","val_usd"],"calculations":["distance", "complexity"]}}
           // var tooltips = {"short": ["id"],"long": ["id","val_usd","distance"]}
           // var tooltips = ["id","val_usd"]
@@ -1308,9 +1302,10 @@ var flat_data,
             .attrs(attr)
             .name_array(["value"])
             .value_var("world_trade")
-            .highlight("8542")
+            .highlight(max_id+"") 
            // .tooltip_info(tooltips)
-            .nesting(["nesting_0","nesting_1","nesting_2"])
+            //.nesting(["nesting_0","nesting_1","nesting_2"])
+            .nesting([])
             .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
             .click_function(clicker)
             .descs({"id": "This is the ID! It means what you would expect it to mean. Another really long setence with multiple random words.", "val_usd": "...value. duh."})
@@ -1548,7 +1543,9 @@ var flat_data,
         var inner_html = function(obj) {
           console.log(obj)
 
+
           var html = "<br>";
+          /*
           html += " <table>";
           html += "<tr><td><img src='/media/img/home/teaser_map.png' style='width:60px;'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Countries who export cars</a></td></tr>"
           
@@ -1560,7 +1557,9 @@ var flat_data,
 
 
           html += "</table>";
+          */
           return html;
+          
         }
   
     viz
@@ -1572,7 +1571,8 @@ var flat_data,
       .attrs(attr)
       .value_var("world_trade")
       .name_array(["value"])
-      .nesting(["nesting_0","nesting_1","nesting_2"])
+      //.nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting([])
       .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
       .click_function(inner_html)
       // .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
@@ -1656,6 +1656,8 @@ var flat_data,
         .datum(rawData)
         .call(controls);
     }
+
+    d3.select("#mdv").attr("fill", "white")
   }
   
   //

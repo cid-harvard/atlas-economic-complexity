@@ -322,7 +322,18 @@
           }
 
           if(viz=="stacked" && current_year2=="") {
-            current_year2 = 1998;
+          	if(prod_class="hs4") {
+          		if(current_year1 < 2011)
+          			current_year2 = 2011;
+          		else
+          			current_year2 = 1995;
+	          } else {
+          		if(current_year1 < 2010)
+          			current_year2 = 2010;
+          		else
+          			current_year2 = 1962;
+	          }
+
             current_viz = viz;
           }
 
@@ -551,7 +562,7 @@
 	 {% if isbrowsemode %}
 	 {% else %}
       <!-- The left pane -->
-      <div id="app_pane" style="width:230px;">
+      <div id="app_pane" style="width:230px; height:780px;">
         <div data-toggle="tooltip" class="tab-content bootstro" data-bootstro-title="Query" data-bootstro-content="this is the query" data-bootstro-placement="right">
 
           <!-- Country selection -->
@@ -1882,14 +1893,11 @@
 
 
     </style>
-
-
   <script>
   
   // Variables from query string
-
   var queryParameters = {}, queryString = location.search.substring(1),
-      re = /([^&=]+)=([^&]*)/g, m;
+      re = /([^&=]+)=([^&]*)/g, m, queryActivated = false;
    
   // Creates a map with the query string parameters
   while (m = re.exec(queryString)) {
@@ -1902,8 +1910,8 @@
   queryParameters['cat'] = queryParameters['cat'] || "";
   queryParameters['cont'] = queryParameters['cont'] || "";
 
-  history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
-
+  if(queryActivated)
+	  history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
 
   // variables from server
   var app,

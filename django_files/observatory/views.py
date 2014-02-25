@@ -1220,6 +1220,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
         title = "What did %s export in %s?" % (countries[0].name, year)       # INSERTED NEW TITLE HERE
       elif app_name == "stacked":
         title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE
+        prod_or_partner = "product"
       else:
         title = "What did %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), year)                             # NEW TITLE HERE
         prod_or_partner = "product"
@@ -1249,7 +1250,10 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
       if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
       article = "to" if trade_flow == "export" else "from"
-      title = "What did %s %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, countries[1].name, year)
+      if app_name == "stacked": 
+        title = "What did %s %s %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), article, countries[1].name, year_start, year_end)
+      else:
+        title = "What did %s %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, countries[1].name, year)
 
     # Bilateral Country / Show / Product / Year
     elif app_type == "cspy":
@@ -1940,15 +1944,10 @@ def api_csay(request, trade_flow, country1, year):
   json_response["app_type"] = "csay"
   json_response["region"]= region
   json_response["continents"]= continents
-  json_response["class"] =  prod_class
+  json_response["prod_class"] =  prod_class
   json_response["magic_numbers"] = magic_numbers
   json_response["other"] = query_params
      
-  if not os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json" ):
-    response_json_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".json", "w+" )
-    response_json_file.write( json.dumps( json_response ) )
-    response_json_file.close()
-    
   # raise Exception(time.time() - start)
   # Check the request data type
   if ( request.GET.get( 'data_type', None ) is None ):
