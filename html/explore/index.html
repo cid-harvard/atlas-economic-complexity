@@ -1350,7 +1350,49 @@
 
         <div class="product_class clone_loader" style="float:left;">
           
-          <span class="definition" style="font-weight:bold;">Product classification:</span>
+
+
+          {% if app_name == "product_space" %}
+
+         
+          <b>Color by: </b>
+          <div class="btn-group community">
+            <label type="button" class="btn btn-default active" value="category"> Category</label>
+            <label type="button" class="btn btn-default disabled" value="category"> Community</label>
+          </div>
+
+          <b>Size by: </b>
+          <div class="btn-group node_size">
+            <label type="button" class="btn btn-default active" value="none"> None</label> 
+            <label type="button" class="btn btn-default disabled" value="world_trade"> World Trade</label>
+          <!--  <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4"> Community</label> -->
+          </div>
+
+          <script>
+            function updateRCA(v) {
+              d3.select("#rca-threshold").text(v);
+                  data.forEach(function(d){
+                    d.active = d.rca >= v ? 1 : 0
+                    return d;                
+                  })
+
+                d3.select("#viz").call(chart.highlight(""))
+            }
+          </script>
+
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
+          <span class="definition" style="font-weight:bold; margin-left:10px">Filter by RCA Threshold: <span id="rca-threshold" style="font-weight:normal;">1</span></span></br>
+          
+          0 <input type="range" name="points" min="0" max="10" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 10
+          </div>
+
+
+
+         {% endif %}
+
+         <p style="clear:both"></p>
+
+           <span class="definition" style="font-weight:bold;">Product classification:</span>
           
           <!--
           <select>
@@ -1366,43 +1408,6 @@
               <input type="radio" name="product_class" value="hs4"> HS4
             </label>
           </div>
-
-          {% if app_name == "product_space" %}
-
-          <script>
-          function updateRCA(v) {
-            d3.select("#rca-threshold").text(v);
-                data.forEach(function(d){
-                  d.active = d.rca >= v ? 1 : 0
-                  return d;                
-                })
-
-              d3.select("#viz").call(chart.highlight(""))
-
-          }
-
-          </script>
-
-          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
-          <span class="definition" style="font-weight:bold; margin-left:10px">Filter by RCA Threshold: <span id="rca-threshold" style="font-weight:normal;">1</span></span></br>
-          
-          0 <input type="range" name="points" min="0" max="10" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 10
-          </div>
-
-          <b>Color by: </b>
-          <div class="btn-group product_class">
-            <label type="button" class="btn btn-default active" value="sitc4"> Category</label>
-          <!--  <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4"> Community</label> -->
-          </div>
-
-          <b>Size by: </b>
-          <div class="btn-group product_class">
-            <label type="button" class="btn btn-default active" value="sitc4"> World Trade</label>
-          <!--  <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4"> Community</label> -->
-          </div>
-
-         {% endif %}
-
 
          {% if app_name == "map" %}
 
