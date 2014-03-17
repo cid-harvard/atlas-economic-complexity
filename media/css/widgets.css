@@ -1,3 +1,7 @@
 #shareThisPlaceholder{
 	text-align: center;
 }
+
+#shareThisPlaceholder i{
+	padding-bottom: 20px;
+}
