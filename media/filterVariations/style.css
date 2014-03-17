@@ -1,0 +1,147 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+*{
+	font-family: "Lato", sans-serif;
+	color: #333;
+}
+body{
+	margin:0;
+}
+section{
+	min-width: 1024px;
+}
+button{
+	cursor: pointer;
+	background:transparent;
+	padding: 5px;
+	padding-right:10px; 
+	padding-left:10px;
+	border-radius: 5px;
+	border: solid 3px #333;
+	margin-bottom: 30px;
+	transition:background-color 0.5s;
+	-webkit-transition:background-color 0.5s;
+	-o-transition:background-color 0.5s;
+	-moz-transition:background-color 0.5s;			
+}
+button:hover{
+	background-color: #ddd;
+	transition:all 0.5s;
+	-webkit-transition:all 0.5s;
+	-moz-transition:all 0.5s;
+	-o-transition:all 0.5s;			
+
+}
+
+button h3{
+	letter-spacing: .03em;
+	margin:0;
+	color:#333;
+}
+
+.styledSelect select{
+	border-radius: 0px;
+	-webkit-appearance:none;
+	padding-right: 40px;
+	background:transparent;
+	padding:5px;
+	padding-right: 20px;
+	border: solid 2px #333;
+	font-size: 15px;
+}
+.main{
+	padding-left:10px;
+	padding-right: 10px;
+	width: 1080px;
+	margin: 0 auto;
+}
+.centered{
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.centered h1{
+	font-size: 3em;
+}
+.centered h3{
+	font-weight: bold;
+	font-size: 2.1em;
+	line-height: 1.85em;
+}
+#header{
+	height: 50px;
+	padding-top: 10px;
+	margin-bottom: 30px;
+}
+#header h1{
+	float: left;
+	display: inline;
+}
+#navList{
+	margin-left: 0;
+	margin-top: 10px;
+	margin-bottom: 0;
+	vertical-align: baseline;
+	display: inline;
+	list-style: none;
+}
+#navList li{
+	margin-left: 1em;
+	display: inline;
+}
+#navList li a{
+	font-weight: bold;
+	font-size: .9em;
+	text-decoration: none;
+	color: #333;
+}
+
+.fullWidthPic{
+	width: 100%;
+	height:410px;
+	background-color: #333;
+	-moz-box-shadow: 	inset 0  8px 8px -8px #696868, inset 0 -8px 8px -8px #696868;
+    -webkit-box-shadow: inset 0  8px 8px -8px #696868, inset 0 -8px 8px -8px #696868;
+    -o-box-shadow:		inset 0  8px 8px -8px #696868, inset 0 -8px 8px -8px #696868;    
+    box-shadow: 		inset 0  8px 8px -8px #696868, inset 0 -8px 8px -8px #696868;
+}
+#pic1{
+	background:url(img/dev1.JPG) no-repeat 45% 0%;
+	background-size: 130%;
+}
+#pic2{
+	background:url(img/dev2.jpg) no-repeat 45% 0%;
+	background-size: 130%;
+}
+.secHead{
+	margin-top: 60px;
+}
+.iframe-wrapper{
+	top:30px;
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    margin-bottom: 60px;
+    height: 0;
+    overflow: hidden;
+}
+.iframe-wrapper iframe{
+	position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.row{
+width: 100%;
+  margin-left: 340px;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 1200px;
+}
+#query{
+	width: 340px;
+	height: 100%;
+	float: left;
+	background-color: #333;
+}
+
