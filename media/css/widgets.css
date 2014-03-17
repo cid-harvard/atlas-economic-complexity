@@ -1,7 +1,20 @@
 #shareThisPlaceholder{
 	text-align: center;
+
+}
+.app #main #tool_pane > *{
+	padding: 0 12px 0 12px;
+}
+i{
+	color:#666;
+	padding-bottom: 20px;
+	display: block;
+	margin: 0 auto;
 }
 
-#shareThisPlaceholder i{
-	padding-bottom: 20px;
+i:hover{
+	color:#A41034;
+}
+.bootstro-backdrop{
+	z-index: 1000;
 }
