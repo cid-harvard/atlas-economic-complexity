@@ -112,10 +112,11 @@
 	list-style: none;
 	padding:5px;
 	height:260px;
+	margin-top:130px;
 
 }
 #filterList li{
-	margin-top: 11px;
+	margin-top: 61px;
 }
 #filterList li:first-child{
 	margin-top: 0px;

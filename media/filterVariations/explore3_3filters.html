@@ -1,0 +1,202 @@
+<html>
+<head>
+	<title>The Atlas of Economic Complexity</title>
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="chosen_v1.1.0/chosen.css">
+	<link rel="stylesheet" type="text/css" href="foundation/css/foundation.css">
+
+	<link rel="stylesheet" type="text/css" href="css/style3_2.css">
+</head>
+<body>
+<div id="header">
+	<div id="headerInner">
+		<div id="logo"></div>
+		<nav id="nav">
+			<ul id="navInner">
+				<li class="navItem"><a href=""></a></li>
+				<li class="navItem"><a href=""></a></li>
+				<li class="navItem"><a href=""></a></li>
+				<li class="navItem"><a href=""></a></li>												
+			</ul>
+		</nav>
+	</div>
+</div>
+<div id="wrapper">
+
+	<div id="indirect">
+
+		<div id="query">
+
+
+			<div id="">
+
+				<select id="countrySelect" class="chosen-select small-12">
+																										
+				</select>
+
+				<div class="button-bar small-12 text-centered columns">
+				  <ul class="button-group">
+				    <li><a href="#" class="tiny button qb activeBtn">Export</a></li>
+				    <li><a href="#" class="tiny button qb">Import</a></li>
+				  </ul>
+				</div>	
+				<dl class="tabs" data-tab>
+				  <dd class="activeBtn"><a href="#panel2-1">Product</a></dd>
+				  <dd><a href="#panel2-2">Partner</a></dd>
+				</dl>
+
+				<div class="tabs-content">
+				  <div class="content active" id="panel2-1">
+					<select>
+						<option selected disabled>Select Product</option>
+						<option></option>	
+						<option></option>	
+						<option></option>																					
+					</select>	
+					  </div>
+					  <div class="content" id="panel2-2">
+					<select>
+						<option selected disabled>Select Partner</option>
+						<option></option>	
+						<option></option>	
+						<option></option>																					
+					</select>	
+				  </div>
+				</div>		
+
+				<select class="small-6 left">
+					<option selected disabled>2010</option>
+					<option></option>	
+					<option></option>	
+					<option></option>																					
+				</select>
+
+				<select class="small-6 right">
+					<option selected disabled>End</option>
+					<option></option>	
+					<option></option>	
+					<option></option>																					
+				</select>	
+
+				<select>
+					<option disabled selected>Treemap</option>
+					<option>Geographical Map</option>
+					<option>Stacked Graph</option>
+					<option>Product Space</option>
+					<option>Product Feasibility</option>
+					<option>Rings</option>
+				</select>	
+
+			</div>
+
+		</div>
+
+<!-- 		<div id="story">
+			<a class="button small-12 columns text-center" href="">Create a Story</a>
+			<div id="chapters">
+				<a class="chapNav"><p><</p></a>
+				<div id="chapWindow"></div>
+				<a href="" class="chapNav"><p>></p></a>
+			</div>
+			<ul class="small-block-grid-4">
+			  <li class="visBtn"><a href=""><img src="img/treemap.png"></a></li>
+			  <li class="visBtn"><a href=""><img src="img/map.png"></a></li>
+			  <li class="visBtn"><a href=""><img src="img/stacked.png"></a></li>
+			  <li class="visBtn"><a href=""><img src="img/map.png"></a></li>			  
+			</ul>			
+		</div>	 -->	
+	</div>
+	<div id="app">
+		<div class="title"><h2>What did the US Export in 2010?</h2></div>
+		<div id="vis">
+		</div>
+		<div id="direct">
+				<ul id="filters">
+					<li><a href=""><img src="foundation/img/community_0.png"></a></li>
+					<li><a href=""><img src="foundation/img/community_1.png"></a></li>
+					<li><a href=""><img src="foundation/img/community_2.png"></a></li>													
+				</ul>			
+			<div class="medium-12 columns">
+				<div class="range-slider" data-slider data-options="step: 5;">
+				  <span class="range-slider-handle"></span>
+				  <span class="range-slider-active-segment"></span>
+				  <input type="hidden">
+				</div>													
+			</div>
+	
+			<div class="button-bar small-3 columns">
+			  <ul class="button-group">
+			    <li><a href="#" class="tiny button qb activeBtn">SITC</a></li>
+			    <li><a href="#" class="tiny button qb">HS4</a></li>
+			  </ul>
+			</div>	
+			<div class="button-bar end">
+			  <ul class="button-group">
+			    <li><a href="#" class="tiny button qb">Low</a></li>
+			    <li><a href="#" class="tiny button qb">Medium</a></li>
+			    <li><a href="#" class="tiny button qb activeBtn">High</a></li>
+			  </ul>
+			</div>					
+		</div>
+	</div>
+</div>
+
+
+<script src="jquery.js"></script>
+<script type="text/javascript" src="d3/d3.v3.min.js"></script>
+<script type="text/javascript" src="vis.js"></script>
+<script type="text/javascript" src="foundation/js/foundation.min.js"></script>
+<script type="text/javascript" src="foundation/js/foundation/foundation.dropdown.js"></script>
+<script type="text/javascript" src="foundation/js/foundation/foundation.slider.js"></script>
+<script type="text/javascript" src="chosen_v1.1.0/chosen.jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).foundation({
+  // specify the class used for active drop downs
+  active_class: 'open'
+});
+
+$(document).ready(function(){
+	$(".chosen-select").chosen()
+
+	$("#first").html("Where");
+	$("#ft").html("Import");
+
+	$("#x").click(function(){
+		$("#ft").html("Import")
+	});
+	$("#x1").click(function(){
+		$("#ft").html("Export")
+	});	
+	$("#y").click(function(){
+		$("#first").html("Where");
+	});
+	$("#y1").click(function(){
+		$("#first").html("What");
+	});	
+	$("#filterBtn").click(function(){
+		$("#filters").fadeToggle();
+	});
+	$(".qb").click(function(){
+		$(this).parent().siblings().children().removeClass("activeBtn");
+		$(this).addClass("activeBtn");
+	});
+});
+
+</script>	
+
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Lato:300,400,700:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+</body>
+</html>
