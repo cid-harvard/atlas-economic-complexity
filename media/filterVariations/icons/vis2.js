@@ -15,7 +15,17 @@ d3.select("#countrySelect").selectAll("option").data(country_list).enter().appen
     {"value": 23,"name": "Manufactured Goods Classified Chiefly by Material", "icon": "foundation/img/community_7.png", "color":"#ff0000"},
     {"value": 6, "name": "Machinery and Transport Equipment", "icon": "foundation/img/community_car.png", "color":"#9edae5"},
     {"value":33, "name": "Misc. Manufactured Articles", "icon": "foundation/img/community_1.png", "color":"#5493c9"},
-    {"value":0.6,"name":"Commodities and Transactions Unclassified Elsewhere in SITC", "icon": "foundation/img/community_qm.png", "color":"#9c9a87"}                                  
+    {"value":0.6,"name":"Commodities and Transactions Unclassified Elsewhere in SITC", "icon": "foundation/img/community_qm.png", "color":"#9c9a87"},
+    {"value":0.5 ,"name":"Computers", "icon":"foundation/img/community_2.png", "color":"#ddd"},
+    {"value":2 ,"name":"Airplanes", "icon":"foundation/img/community_3.png", "color":"##4169E1"},
+    {"value":0.5 ,"name":"Energy Resources", "icon":"foundation/img/community_4.png", "color":"#87CEFA"},
+    {"value":9 ,"name":"Marine Utilities", "icon":"foundation/img/community_5.png", "color":"#000080"},
+    {"value":3 ,"name":"Metalworking Materials", "icon":"foundation/img/community_6.png", "color":"#6495ED"},
+    {"value":10 ,"name":"Fine China and Kitchenware", "icon":"foundation/img/community_8.png", "color":"#FF6A6A"},
+    {"value":1 ,"name":"Outdoor Plants and Seeds", "icon":"foundation/img/community_9.png", "color":"#FF6103"},
+    {"value":15 ,"name":"Canned Food Products", "icon":"foundation/img/community_11.png", "color":"#CD8500"},
+    {"value":12 ,"name":"Water Purification Utilities", "icon":"foundation/img/community_12.png", "color":"#CD69C9"},
+    {"value":7 ,"name":"Structual Products", "icon":"foundation/img/community_13.png", "color":"#FF82AB"}                                    
   ]
 
  
