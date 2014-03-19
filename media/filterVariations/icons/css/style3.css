@@ -40,7 +40,6 @@
 	position: relative;
 	height: 400px;
 	width: 100%;
-
 }
 #chapters{
 	float: left;
@@ -76,6 +75,8 @@
 	z-index: 2;
 	width: 717px;
 	margin: 0 auto;
+	height:120px;
+	overflow: hidden;
 }
 #filters{
 list-style: none;
@@ -98,14 +99,12 @@ padding-bottom: 0px;
 .activeBtn{
 	background-color: #00526e;
 }
+
 @media only screen and (max-width: 1280px){
 	#wrapper{
 		width:1024px; 
 	}
 	#indirect{
 		width: 25%;
-	}
-	#vis{
-		width
 	}
 }

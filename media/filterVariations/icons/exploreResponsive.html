@@ -142,20 +142,54 @@
 				  <input type="hidden">
 				</div>													
 			</div>
-	
-			<div class="button-bar small-3 columns">
-			  <ul class="button-group">
-			    <li><a href="#" class="tiny button qb activeBtn">SITC</a></li>
-			    <li><a href="#" class="tiny button qb">HS4</a></li>
-			  </ul>
-			</div>	
-			<div class="button-bar end">
-			  <ul class="button-group">
-			    <li><a href="#" class="tiny button qb">Low</a></li>
-			    <li><a href="#" class="tiny button qb">Medium</a></li>
-			    <li><a href="#" class="tiny button qb activeBtn">High</a></li>
-			  </ul>
-			</div>					
+			<div class="medium-12 columns">
+				<div class="button-bar small-3 columns">
+					<label>Product Class</label>
+				  <ul class="button-group">
+				    <li><a href="#" class="tiny button qb activeBtn">SITC</a></li>
+				    <li><a href="#" class="tiny button qb">HS4</a></li>
+				  </ul>
+				</div>	
+				<div class="button-bar small-5 columns">
+					<label>Level of Detail</label>
+					<ul class="button-group">
+						<li><a href="#" class="tiny button qb">Low</a></li>
+						<li><a href="#" class="tiny button qb">Medium</a></li>
+						<li><a href="#" class="tiny button qb activeBtn">High</a></li>
+					</ul>
+				</div>
+				<div class="button-bar small-3 columns end">
+					<label>Level of Detail</label>
+					<ul class="button-group">
+						<li><a href="#" class="tiny button qb">Net</a></li>
+						<li><a href="#" class="tiny button qb activeBtn">Gross</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="medium-12 columns">
+				<div class="button-bar small-3 columns">
+					<label>Product Class</label>
+				  <ul class="button-group">
+				    <li><a href="#" class="tiny button qb activeBtn">SITC</a></li>
+				    <li><a href="#" class="tiny button qb">HS4</a></li>
+				  </ul>
+				</div>	
+				<div class="button-bar small-5 columns">
+					<label>Level of Detail</label>
+					<ul class="button-group">
+						<li><a href="#" class="tiny button qb">Low</a></li>
+						<li><a href="#" class="tiny button qb">Medium</a></li>
+						<li><a href="#" class="tiny button qb activeBtn">High</a></li>
+					</ul>
+				</div>
+				<div class="button-bar small-3 columns end">
+					<label>Level of Detail</label>
+					<ul class="button-group">
+						<li><a href="#" class="tiny button qb">Net</a></li>
+						<li><a href="#" class="tiny button qb activeBtn">Gross</a></li>
+					</ul>
+				</div>
+			</div>													
 		</div>
 	</div>
 </div>
@@ -201,6 +235,12 @@ $(document).ready(function(){
 		$(this).parent().siblings().children().removeClass("activeBtn");
 		$(this).addClass("activeBtn");
 	});
+	$("#direct").mouseenter(function(){
+		$(this).animate({"height":300},500);
+	});
+	$("#direct").mouseleave(function(){
+		$(this).delay(1000).animate({"height": 120},500);
+	});	
 });
 
 </script>	
