@@ -1,0 +1,44 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<!-- load D3plus CSS -->
+<link href="/css/d3plus.css" media="screen" rel="stylesheet" type="text/css" />
+
+<!-- load D3js -->
+<script src="/js/d3.js"></script>
+
+<!-- load topojson for Geo Maps -->
+<script src="/js/topojson.js"></script>
+
+<!-- load modernizr for better mouse events -->
+<script src="/js/modernizr.js"></script>
+
+<!-- load D3plus after D3js -->
+<script src="/js/d3plus.js"></script>
+
+<!-- create container element for visualization -->
+<div id="viz"></div>
+
+<script>
+
+  // sample data array
+  var sample_data = [
+    {"value": 100, "name": "alpha"},
+    {"value": 70, "name": "beta"},
+    {"value": 40, "name": "gamma"},
+    {"value": 15, "name": "delta"},
+    {"value": 5, "name": "epsilon"},
+    {"value": 1, "name": "zeta"}
+  ]
+
+  // instantiate d3plus
+  var visualization = d3plus.viz()
+    .container("#viz")  // container DIV to hold the visualization
+    .data(sample_data)  // data to use with the visualization
+    .type("tree_map")   // visualization type
+    .id("name")         // key for which our data is unique on
+    .text("name")       // key to use for display text
+    .size("value")      // sizing of blocks
+    .draw()             // finally, draw the visualization!
+
+</script>

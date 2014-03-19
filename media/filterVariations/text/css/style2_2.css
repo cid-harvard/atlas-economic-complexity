@@ -1,0 +1,147 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+
+.inline{
+	display: inline;
+}
+#header{
+	position: absolute;
+	width: 100%;
+	height: 45px;
+}
+#wrapper{
+
+	padding-top: 45px;
+	width: 1280px;
+	height: 100%;
+	margin:0 auto;
+}
+#indirect{
+	padding-top: 61px;
+	padding-right:20px; 
+	position: relative;
+	width:20%;
+	float: left;
+}
+#query{ 
+	border-bottom: solid 1px #ddd;
+}
+#story{
+	padding-top: 20px;
+}
+#app{
+
+	width:75%;
+	height: 100%;
+	float:left;
+}
+.navItem{
+	display: inline;
+}
+#story{
+	position: relative;
+	height: 400px;
+	width: 100%;
+
+}
+#chapters{
+	float: left;
+	width: 100%;
+	padding-bottom: 20px;
+}
+#chapWindow{
+	border-top: solid 1px #333;
+	border-bottom: solid 1px #333;	
+	height: 90px;
+	position: relative;
+	float:left;
+	width: 80%;
+}
+.chapNav{
+	float: left;
+	position: relative;
+	height: 90px;
+	width: 10%;
+	background-color: #333;
+}
+
+.title h2{
+	margin-top: 0;
+}
+#vis{
+	width:100%;
+	height:520px;
+	background-color: #000;
+}
+#direct{
+	position: relative;
+	z-index: 2;
+	width: 717px;
+	margin: 0 auto;
+
+}
+#filters{
+	z-index: 10;
+	position: relative;
+	display: none;
+	width: 100%;
+	height: 15%;
+	top:85%;
+	background-color: #333;
+
+}
+#filters ul{
+	padding-top: 11px;
+	padding-left: 20px;
+	padding-right: 20px;
+
+}
+#filters #fewFilters{
+	margin: 0 auto;
+	padding:0;
+	list-style: none;
+	width: 50%;
+}
+#filters #fewFilters li{
+	display: inline;
+	margin-left: 80px;
+	margin-top: 20px;
+}
+#filters #fewFilters li a img{
+	width: 50px;
+	height: auto;
+	position: relative;
+	top: 15px;
+}
+
+.activeBtn{
+	background-color: #00526e;
+}
+@media only screen and (max-width: 1280px){
+	#wrapper{
+		width:1024px; 
+	}
+	#indirect{
+		width: 25%;
+	}
+	#filters{
+		top:90%;
+		height: 10%;
+	}
+#filters #fewFilters{
+	margin: 0 auto;
+	padding:0;
+	list-style: none;
+	width: 50%;
+}
+#filters #fewFilters li{
+	display: inline;
+	margin-left: 70px;
+}
+#filters #fewFilters li a img{
+	width: 35px;
+	height: auto;
+	position: relative;
+	top: 10px;
+}	
+}

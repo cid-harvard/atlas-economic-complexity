@@ -1,0 +1,87 @@
+<html>
+<head>
+	<title>The Atlas of Economic Complexity</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<!-- 	<nav id="fixedNav">
+		<div class="fixedNavInner">
+			<ul>
+				<li><a href="http://atlas.cid.harvard.edu/explore/tree_map/export/usa/all/show/2011/">Explore</a></li>
+				<li><a href="">Stories</a></li>
+				<li><a href="">Rankings</a></li>
+				<li><a href="">Book</a></li>
+				<li><a href="">About</a></li>
+			</ul>
+		</div>
+	</nav> -->	
+	</div>
+	<div id="wrapper">
+		<section class="main">
+			<div id="header">
+				<h1>The Atlas of Economic Complexity</h1>
+				<ul id="navList">
+					<li><a href="explore.html">Explore</a></li>
+					<li><a href="">Stories</a></li>
+					<li><a href="">Rankings</a></li>
+					<li><a href="">Book</a></li>
+					<li><a href="">About</a></li>
+				</ul>
+			</div>
+		</section>
+
+		<section class="fullWidthPic" id="pic1" data-0="background-position: 45% 0%;" data-600="background-position:40% 5%;"></section>
+
+		<section class="main">
+			<div class="centered">
+				<h3>
+					The Atlas is an interactive tool capable of generating more than 20 million visualizations and mapping the paths of diversification and prosperity for 128 countries.
+				</h3>
+				<a href="explore.html"><button><h3>Explore the Atlas</h3></button></a>
+			</div>
+		</section>
+
+		<section id="pic2" class="fullWidthPic" data-0="background-position: 45% 40%; background-size:130%;" data-1060="background-position:45% 20%;background-size:135%;"></section>
+		<section class="main">
+			<h1 class="secHead">What is Economic Complexity?</h1>
+			<div class="centered iframe-wrapper">
+				<iframe width="853" height="480" src="//www.youtube.com/embed/0JC24CBVsdo" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</section>
+	</div>
+<script src="src/jquery.js"></script>
+<script type="text/javascript" src="src/skrollr.js"></script>
+<script type="text/javascript">
+	var s = skrollr.init();
+</script>
+<script type="text/javascript">
+	// $(document).ready(function(){
+	// 	$(window).scroll(function(){
+	// 		scrollTop = window.scrollY;			
+	// 		if(scrollTop > $("#pic1").offset().top+60){
+	// 			$("#fixedNav").slideDown();
+	// 			$("#navList").fadeOut();
+	// 		} 
+	// 		else{
+	// 			$("#fixedNav").slideUp(function(){
+	// 				$("#navList").fadeIn();					
+	// 			});
+
+	// 		}
+	// 	});
+	// });
+  WebFontConfig = {
+    google: { families: [ 'Lato:300,400,700:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); 
+</script>
+</body>
+</html>
