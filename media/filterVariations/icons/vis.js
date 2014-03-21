@@ -4,32 +4,32 @@ d3.select("#countrySelect").selectAll("option").data(country_list).enter().appen
 
 
  
-  // sample data array
-  var SITC = [
-    {"value": 3, "name": "Food/Live Animals for Food", "icon": "foundation/img/community_0.png", "color":"#ffe999"},
-    {"value": 0.46, "name": "Drinks and Tobacco", "icon": "foundation/img/community_10.png", "color":"#6e451e"},
-    {"value": 17, "name": "Crude Materials, Inedible, exc. Fuels", "icon": "foundation/img/community_18.png", "color":"#d66011"},
-    {"value": 16, "name": "Mineral Fuels, Lubricants, and Related Materials", "icon": "foundation/img/community_19.png", "color":"#330000"},
-    {"value": 0.02, "name": "Animal and Vegetable Oils, Fats, and Waxes", "icon": "foundation/img/community_24.png", "color":"#ffc41c"},
-    {"value": 0.55, "name": "Chemicals and Related Products", "icon": "foundation/img/community_14.png", "color":"#71144b"},
-    {"value": 23,"name": "Manufactured Goods Classified Chiefly by Material", "icon": "foundation/img/community_7.png", "color":"#ff0000"},
-    {"value": 6, "name": "Machinery and Transport Equipment", "icon": "foundation/img/community_car.png", "color":"#9edae5"},
-    {"value":33, "name": "Misc. Manufactured Articles", "icon": "foundation/img/community_1.png", "color":"#5493c9"},
-    {"value":0.6,"name":"Commodities and Transactions Unclassified Elsewhere in SITC", "icon": "foundation/img/community_qm.png", "color":"#9c9a87"}                                  
-  ]
+// Data Array for SITC Product Class
+var SITC = [
+	{"value": 3, "name": "Food/Live Animals for Food", "icon": "foundation/img/community_0.png", "color":"#ffe999"},
+	{"value": 0.46, "name": "Drinks and Tobacco", "icon": "foundation/img/community_10.png", "color":"#6e451e"},
+	{"value": 17, "name": "Crude Materials, Inedible, exc. Fuels", "icon": "foundation/img/community_18.png", "color":"#d66011"},
+	{"value": 16, "name": "Mineral Fuels, Lubricants, and Related Materials", "icon": "foundation/img/community_19.png", "color":"#330000"},
+	{"value": 0.02, "name": "Animal and Vegetable Oils, Fats, and Waxes", "icon": "foundation/img/community_24.png", "color":"#ffc41c"},
+	{"value": 0.55, "name": "Chemicals and Related Products", "icon": "foundation/img/community_14.png", "color":"#71144b"},
+	{"value": 23,"name": "Manufactured Goods Classified Chiefly by Material", "icon": "foundation/img/community_7.png", "color":"#ff0000"},
+	{"value": 6, "name": "Machinery and Transport Equipment", "icon": "foundation/img/community_car.png", "color":"#9edae5"},
+	{"value":33, "name": "Misc. Manufactured Articles", "icon": "foundation/img/community_1.png", "color":"#5493c9"},
+	{"value":0.6,"name":"Commodities and Transactions Unclassified Elsewhere in SITC", "icon": "foundation/img/community_qm.png", "color":"#9c9a87"}                                  
+]
 
  
-  // instantiate d3plus
+
   var visualization = d3plus.viz()
-    .container("#vis")  // container DIV to hold the visualization
-    .data(SITC)  // data to use with the visualization
-    .type("tree_map")   // visualization type
-    .id("name")         // key for which our data is unique on
-    .text("name")       // key to use for display text
-    .size("value")      // sizing of blocks
+    .container("#vis") 
+    .data(SITC) 
+    .type("tree_map")   
+    .id("name")         
+    .text("name")       
+    .size("value")      
     .icon("icon")
     .color("color")
-    .draw()             // finally, draw the visualization!
+    .draw();             
 
 $(document).ready(function(){
 	var resized = false;
@@ -38,32 +38,33 @@ $(document).ready(function(){
 			d3.select("#d3plus").remove();
 			$("#vis").css("width", "100%");
 			var visualization = d3plus.viz()
-		    .container("#vis")  // container DIV to hold the visualization
-		    .data(SITC)  // data to use with the visualization
-		    .type("tree_map")   // visualization type
-		    .id("name")         // key for which our data is unique on
+		    .container("#vis")  
+		    .data(SITC)  
+		    .type("tree_map")   
+		    .id("name")         
 		    .text("name") 
-		    .html("value")      // key to use for display text
-		    .size("value")      // sizing of blocks
+		    .html("value")      
+		    .size("value")      
 		    .icon("icon")
 		    .color("color")
-		    .draw()                // finally, draw the visualization!
+		    .draw()                
 		    resized = true;
 
-		} else if(window.innerWidth >= 1279 && resized == true){
+		} 
+		else if(window.innerWidth >= 1279 && resized == true){
 			d3.select("#d3plus").remove();
 			$("#vis").css("width", "100%");
 			var visualization = d3plus.viz()
-		    .container("#vis")  // container DIV to hold the visualization
-		    .data(SITC)  // data to use with the visualization
-		    .type("tree_map")   // visualization type
-		    .id("name")         // key for which our data is unique on
-		    .text("name")       // key to use for display text
+		    .container("#vis")  
+		    .data(SITC)  
+		    .type("tree_map")   
+		    .id("name")         
+		    .text("name")       
 		    .html("value")
-		    .size("value")      // sizing of blocks
+		    .size("value")      
 		    .icon("icon")
 		    .color("color")
-		    .draw()                // finally, draw the visualization!
+		    .draw()                
 		    resized = false;
 		}
 	});

@@ -699,13 +699,13 @@
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip" title="Treemap" >
 
-              <input type="radio" style="background:url({{ STATIC_URL }}img/home/teaser_tree_map.png) no-repeat;"> <img src="{{ STATIC_URL }}img/home/treeMap1.png" style="width:38px;"/>
+              <input type="radio" style="background:url({{ STATIC_URL }}img/home/treeMap-thumb.png) no-repeat;"> <img src="{{ STATIC_URL }}img/home/treeMap-thumb.png" style="width:38px;"/>
             </label>
             <label value="map" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Map" >
-               <input type="radio" style="background:url({{ STATIC_URL }}img/home/geo1.png) no-repeat;"> <img src="{{ STATIC_URL }}img/home/geo1.png" style="width:38px;"/>
+               <input type="radio" style="background:url({{ STATIC_URL }}img/home/geo-thumb.png) no-repeat;"> <img src="{{ STATIC_URL }}img/home/geo-thumb.png" style="width:38px;"/>
             </label>
             <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Stacked Graph" >
-              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/stacked1.png" style="width:38px;"/>
+              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/stacked-thumb.png" style="width:38px;"/>
 
             </label>
           </div>
@@ -718,19 +718,19 @@
               
             <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
               
-              <label value="product_space" type="radio"  class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:75px; text-align:left; text-align:justify; margin-right:10px" onclick="update_viz('product_space');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productSpace1.png" style="width:50px;"/></label>
+              <label value="product_space" type="radio"  class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:75px; text-align:left; text-align:justify; margin-right:10px" onclick="update_viz('product_space');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="width:50px;"/></label>
 
               <div style="width:100px; text-align:none; float:right;"><b>The Product Space</b><br> A map of the techno-<br>logical relatedness of products.</div>
                   
               <p style="clear:both"></p><br>
 
-              <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productFeas2.png" style="width:50px; float:left;  margin-right:10px; "/></label>
+              <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
 
               <div style="width:100px; text-align:none; float:right;"> <b>Product Feasibility</b> Opportunities for a country to diversify and potential gains.</div>
 
               <p style="clear:both"></p><br>
 
-              <label value="rings" type="radio" class="btn btn-default {% if app_name == "rings" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('rings');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productFeas2.png" style="width:50px; float:left;  margin-right:10px; "/></label>
+              <label value="rings" type="radio" class="btn btn-default {% if app_name == "rings" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('rings');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
 
               <div style="width:100px; text-align:none; float:right;"> <b>Rings</b><br> Product-centric navigation of the Product Space.</div>
 
