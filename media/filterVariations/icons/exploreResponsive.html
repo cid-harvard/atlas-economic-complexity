@@ -11,7 +11,7 @@
 <div id="header">
 	<div id="headerInner">
 		<div class="left" id="logo"><img style="display:inline;" src="img/logo.png"><h2 style="display:inline;">The Atlas</h2></div>
-		<nav class="right" id="nav">
+		<nav class="right hide-for-medium-down" id="nav">
 			<ul id="navInner">
 				<li class="navItem"><a href="">Explore</a></li>
 				<li class="navItem"><a href="">Stories</a></li>
@@ -27,19 +27,30 @@
 
 		<div id="query">
 
+			<div class="hide-for-medium-down">
+				<select id="countrySelect" class="chosen-select small-12"></select>
+			</div>	
 
-			<div id="desktopQuery">
-
-				<select id="countrySelect" class="chosen-select small-12">
-																										
-				</select>
-
+			<div class="show-for-medium-down">
+				<select id="countrySelect" class="small-6 columns"></select>
+			</div>
+			<div class="hide-for-medium-down">
 				<div class="button-bar small-12 text-centered columns">
 				  <ul class="button-group">
-				    <li><a href="#" class="tiny button qb activeBtn">Export</a></li>
-				    <li><a href="#" class="tiny button qb">Import</a></li>
+				    <li><a href="#" class="small button qb activeBtn">Export</a></li>
+				    <li><a href="#" class="small button qb">Import</a></li>
 				  </ul>
-				</div>	
+				</div>
+			</div>			
+			<div class="show-for-medium-down">
+				<div class="button-bar small-6 text-centered columns">
+				  <ul class="button-group">
+				    <li><a href="#" class="small button qb activeBtn">Export</a></li>
+				    <li><a href="#" class="small button qb">Import</a></li>
+				  </ul>
+				</div>
+			</div>
+			<div class="hide-for-medium-down">
 				<dl class="tabs" data-tab>
 				  <dd class="activeBtn"><a href="#panel2-1">Product</a></dd>
 				  <dd><a href="#panel2-2">Partner</a></dd>
@@ -62,33 +73,31 @@
 						<option></option>																					
 					</select>	
 				  </div>
-				</div>		
+				</div>	
+			</div>	
 
-				<select class="small-6 left">
-					<option selected disabled>2010</option>
-					<option></option>	
-					<option></option>	
-					<option></option>																					
-				</select>
+			<select class="small-6 left">
+				<option selected disabled>2010</option>
+				<option></option>	
+				<option></option>	
+				<option></option>																					
+			</select>
 
-				<select class="small-6 right">
-					<option selected disabled>End</option>
-					<option></option>	
-					<option></option>	
-					<option></option>																					
-				</select>	
+			<select class="small-6 right">
+				<option selected disabled>End</option>
+				<option></option>	
+				<option></option>	
+				<option></option>																					
+			</select>	
 
-				<select>
-					<option selected>Treemap</option>
-					<option>Geographical Map</option>
-					<option>Stacked Graph</option>
-					<option>Product Space</option>
-					<option>Product Feasibility</option>
-					<option>Rings</option>
-				</select>	
-
-			</div>			
-
+			<select>
+				<option selected>Treemap</option>
+				<option>Geographical Map</option>
+				<option>Stacked Graph</option>
+				<option>Product Space</option>
+				<option>Product Feasibility</option>
+				<option>Rings</option>
+			</select>	
 		</div>
 
 <!-- 		<div id="story">
@@ -189,8 +198,9 @@
 						<li><a href="#" class="tiny button qb activeBtn">Gross</a></li>
 					</ul>
 				</div>
-			</div>													
+			</div>
 		</div>
+		<a id="expand">see more</a>		
 	</div>
 </div>
 
@@ -212,6 +222,7 @@ $(document).foundation({
 
 $(document).ready(function(){
 	$(".chosen-select").chosen()
+	var expanded = false;
 
 	$("#first").html("Where");
 	$("#ft").html("Import");
@@ -235,12 +246,17 @@ $(document).ready(function(){
 		$(this).parent().siblings().children().removeClass("activeBtn");
 		$(this).addClass("activeBtn");
 	});
-	$("#direct").mouseenter(function(){
-		$(this).animate({"height":300},500);
+	$("#expand").click(function(){
+		if(expanded == false){
+			$("#direct").animate({"height":200},500);
+			expanded = true;
+		} else{
+			$("#direct").animate({"height":150}, 500);
+		}
 	});
-	$("#direct").mouseleave(function(){
-		$(this).delay(1000).animate({"height": 120},500);
-	});	
+	// $("#direct").mouseleave(function(){
+	// 	$(this).delay(1000).animate({"height": 135},500);
+	// });	
 });
 
 </script>	

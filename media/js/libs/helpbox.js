@@ -16,15 +16,15 @@ $(document).ready(function(){
 
   $("#country1").mouseenter(function(){
     $("#helpBoxInner h3").html("Country Selector");
-    $("#helpBoxInner p").html("This menu allows you to select the country who's data you wish to see.");
+    $("#helpBoxInner p").html("Select the country you want to expore.");
   });
   $("#country1").mouseleave(function(){
     exit();
   });
 
   $("#viz").mouseenter(function(){
-    $("#helpBoxInner h3").html("Visualizer");
-    $("#helpBoxInner p").html("Here you can find a visual representation of the data that you've selected in the left-hand query.");
+    $("#helpBoxInner h3").html("Visualization");
+    $("#helpBoxInner p").html("The visualization displays the query you have selected.");
   });
   $("#viz").mouseleave(function(e){
     exit();
@@ -32,7 +32,7 @@ $(document).ready(function(){
 
   $("#trade_flow").mouseenter(function(){
     $("#helpBoxInner h3").html("Flow Type Selector");
-    $("#helpBoxInner p").html("This menu allows you to select the desired trade flow type (ie import or export).");
+    $("#helpBoxInner p").html("Choose whether you would like to explore import or export data.");
   });
   $("#trade_flow").mouseleave(function(e){
     exit();
@@ -40,7 +40,7 @@ $(document).ready(function(){
 
   $("#country-product").mouseenter(function(){
     $("#helpBoxInner h3").html("Product Type Selector");
-    $("#helpBoxInner p").html("This menu allows you to select the product which is being imported or exported.");
+    $("#helpBoxInner p").html("Select which product you would like to explore.");
   });
   $("#country-product").mouseleave(function(e){
     exit();
@@ -48,7 +48,7 @@ $(document).ready(function(){
 
   $("#country-trade-partner").mouseenter(function(){
     $("#helpBoxInner h3").html("Trade Partner Selector");
-    $("#helpBoxInner p").html("This menu allows you to select the country which the primary country is either importing from or exporting to.");
+    $("#helpBoxInner p").html("Choose if you would like to explore the trade relationship with a specific partner.");
   });
   $("#country-trade-partner").mouseleave(function(e){
     exit();
@@ -56,7 +56,7 @@ $(document).ready(function(){
 
   $("#shareThisPlaceholder").mouseenter(function(){
     $("#helpBoxInner h3").html("Sharing Buttons");
-    $("#helpBoxInner p").html("These buttons allow you to share the current visualization through social media or email.");
+    $("#helpBoxInner p").html("Found something interesting? Share it with others on Facebook, Twitter, Google+ or via email.");
   });
   $("#shareThisPlaceholder").mouseleave(function(e){
     exit();
@@ -64,7 +64,7 @@ $(document).ready(function(){
 
   $("#createStoryPlaceHolder").mouseenter(function(){
     $("#helpBoxInner h3").html("Story Creation Button");
-    $("#helpBoxInner p").html("This button allows you to create a Story using the current visualization.");
+    $("#helpBoxInner p").html("Begin a story and add this visualization to the story you want to tell.");
   });
   $("#createStoryPlaceHolder").mouseleave(function(e){
     exit();
@@ -72,7 +72,7 @@ $(document).ready(function(){
 
   $("#feedbackPlaceholder").mouseenter(function(){
     $("#helpBoxInner h3").html("Feedback Button");
-    $("#helpBoxInner p").html("Here, you can let us know if there is anything we can do to improve the Atlas (bug fixes, etc.).");
+    $("#helpBoxInner p").html("Let us know how we can improve the Atlas (bug fixes, content layout, etc.).");
   });
   $("#feedbackPlaceholder").mouseleave(function(e){
     exit();

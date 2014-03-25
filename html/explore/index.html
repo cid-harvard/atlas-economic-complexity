@@ -566,7 +566,7 @@
 	 {% else %}
       <!-- The left pane -->
       <div id="app_pane" style="width:230px; height:780px;">
-        <div data-toggle="tooltip" class="tab-content bootstro" data-bootstro-title="Query" data-bootstro-content="this is the query" data-bootstro-placement="right">
+        <div data-toggle="tooltip" class="tab-content bootstro" data-bootstro-title="Query" data-bootstro-content="The first thing you need to do is decide what question you are trying to answer. Perhaps, what products did the United States export in 2000? Or how has its import basket changed in the last ten years?  Once you have decided your query, you can enter the information you need to answer this in the left-hand bar." data-bootstro-placement="right">
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-countries"> <!-- {% if not product_list %}active{% endif %} -->
@@ -965,7 +965,7 @@
     </div>
 </div>
 
-  <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If your curious about anything on the page, put your mouse over it and the Help Box will display useful information." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
+  <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If you're curious about anything on the page, simply move your mouse over it and the Help Box will display useful information. If you need more information, use the “About” tab at the top of the page." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
     <div id="helpBoxInner">
         <h3>Help Box</h3>
         <hr>
@@ -1152,13 +1152,13 @@
         </div>
         
         <!-- Container for the visualization -->
-        <div class="bootstro" data-bootstro-title="Visualizer" data-bootstro-content="The visualizer displays the information selected in the query." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width: 750px; min-height:520px;">
+        <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width: 750px; min-height:520px;">
 		</div>
         
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
         <!-- Container for the timeline -->
-         <div id="timeline" class="bootstro" data-bootstro-title="Options Panel" data-bootstro-content="The Options Panel changes based on the visualization that you've selected. Here, you can do things such as filtering the results by country or product and even change the level of detail shown in the visualization." data-toggle="tooltip" data-bootstro-placement="left">
+         <div id="timeline" class="bootstro" data-bootstro-title="Options Panel" data-bootstro-content="The Options Panel changes based on the visualization that you've selected. Here, you can do things such as filter the results by country and product or even change the level of detail shown in the visualization." data-toggle="tooltip" data-bootstro-placement="left">
          <!--<div class="ui_bottom" id="ui_bottom" style="bottom:0px;"></div>-->
           {% if app_name == "stacked" %}  
           <div id="stacked_controls" style="width:90%">

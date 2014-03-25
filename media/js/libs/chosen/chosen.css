@@ -435,4 +435,7 @@
     background-repeat: no-repeat !important;
   }
 }
+#country-year ul.chosen-results{
+  height: 190px;
+}
 /* @end */

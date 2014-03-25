@@ -15,7 +15,7 @@ body{
 	margin: 0 auto;
 }
 #wrapper{
-	padding-top: 10px;
+	padding-top: 30px;
 	width: 1280px;
 	height: 100%;
 	margin:0 auto;
@@ -98,11 +98,12 @@ padding-top: 20px;
 	background-color: #000;
 }
 #direct{
+	border-bottom: solid 2px #ddd;
 	position: relative;
 	z-index: 2;
 	width: 717px;
 	margin: 0 auto;
-	height:120px;
+	height:135px;
 	overflow: hidden;
 }
 #filters{
@@ -138,13 +139,28 @@ padding-bottom: 0px;
 }
 @media only screen and (max-width:1024px){
 	#wrapper{
+		width:768px;
+		padding-top: 0;
+	}
+	#vis{
 		width: 768px;
 	}
 	#header{
-		width: 768px;s
+		height: 40px;
+		width: 100%;
+	}
+	#logo h2{
+		font-size: 20px;
+	}
+	#logo img{
+		height:30px;
 	}
 	#indirect{
 		width: 100%;
+		padding-top: 30px;
 		float: none;
+	}
+	#app{
+		float:none;
 	}
 }

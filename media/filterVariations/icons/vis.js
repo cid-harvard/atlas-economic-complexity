@@ -33,6 +33,7 @@ var SITC = [
 
 $(document).ready(function(){
 	var resized = false;
+	var tablet = false;
 	$(window).resize(function(){
 		if(window.innerWidth <= 1281 && resized == false){
 			d3.select("#d3plus").remove();
@@ -49,6 +50,7 @@ $(document).ready(function(){
 		    .color("color")
 		    .draw()                
 		    resized = true;
+			d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
 
 		} 
 		else if(window.innerWidth >= 1279 && resized == true){
@@ -66,6 +68,42 @@ $(document).ready(function(){
 		    .color("color")
 		    .draw()                
 		    resized = false;
+		    d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
+		}
+		if(window.innerWidth <= 1025 && tablet == false){
+			d3.select("#d3plus").remove();
+			$("#vis").css("width", 768);
+			var visualization = d3plus.viz()
+		    .container("#vis")  
+		    .data(SITC)  
+		    .type("tree_map")   
+		    .id("name")         
+		    .text("name") 
+		    .html("value")      
+		    .size("value")      
+		    .icon("icon")
+		    .color("color")
+		    .draw()                
+		    tablet = true;
+			d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
+		} 
+		else if(window.innerWidth > 1024 && tablet == true){
+			d3.select("#d3plus").remove();
+			$("#vis").css("width", "100%");
+			var visualization = d3plus.viz()
+		    .container("#vis")  
+		    .data(SITC)  
+		    .type("tree_map")   
+		    .id("name")         
+		    .text("name")       
+		    .html("value")
+		    .size("value")      
+		    .icon("icon")
+		    .color("color")
+		    .draw()                
+		    tablet = false;
+		    d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
+
 		}
 	});
 });
