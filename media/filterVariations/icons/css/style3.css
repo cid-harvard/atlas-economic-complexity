@@ -8,7 +8,7 @@ body{
 #header{
  	background-color: #000;
 	width: 100%;
-	height: 70px;
+	height: 60px;
 }
 #headerInner{
 	width:1280px;
@@ -46,7 +46,9 @@ body{
 	color:#fff;
 }
 #logo img{
-	height: 50px;
+	position: relative;
+	top:-5px;
+	height: 40px;
 	width: auto;
 }
 #navInner{
@@ -126,6 +128,20 @@ padding-bottom: 0px;
 .activeBtn{
 	background-color: #00526e;
 }
+#moreOptions{
+	margin-bottom: 40px;
+}
+#expand{
+	top: 10px;
+	margin-bottom: 10px;
+	position: relative;
+}
+#directInner{
+	height:290px;
+}
+footer p{
+	font-size: 12px;
+}
 @media only screen and (max-width: 1280px){
 	#wrapper{
 		width:1024px; 
@@ -139,28 +155,24 @@ padding-bottom: 0px;
 }
 @media only screen and (max-width:1024px){
 	#wrapper{
-		width:768px;
+		width:800px;
 		padding-top: 0;
 	}
-	#vis{
-		width: 768px;
-	}
 	#header{
-		height: 40px;
+		height: 60px;
 		width: 100%;
 	}
-	#logo h2{
-		font-size: 20px;
+	#logo{
+		margin-left: 10px;
 	}
-	#logo img{
-		height:30px;
-	}
+
 	#indirect{
 		width: 100%;
 		padding-top: 30px;
 		float: none;
 	}
 	#app{
+		width: 100%;
 		float:none;
 	}
 }

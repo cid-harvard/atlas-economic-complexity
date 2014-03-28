@@ -1,0 +1,144 @@
+/**
+ * default development theme for jQRangeSlider
+ * Using fam fam icon set from Mark James, http://www.famfamfam.com/lab/icons/silk/ (Creative Commons Attribution 2.5 License)
+ */
+
+.ui-rangeSlider{
+	height:30px;
+	margin-bottom: 20px;
+	margin-top:20px;
+}
+
+.ui-rangeSlider .ui-rangeSlider-innerBar{
+	height:16px;
+	margin:3px 6px;
+	border-radius: 4px;
+	color: white;
+	text-align: center;
+	overflow: visible;
+	display: block;
+	background-color: #888888;
+	background-image: -moz-linear-gradient(top, #999999, #888888);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#999999), to(#888888));
+	background-image: -webkit-linear-gradient(top, #999999, #888888);
+	background-image: -o-linear-gradient(top, #999999, #888888);
+	background-image: linear-gradient(to bottom, #999999, #888888);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-box-shadow: inset 0px 2px 4px rgba(0,0,0,.15), 0px 1px 2px rgba(0,0,0,.05);
+	-moz-box-shadow: inset 0px 2px 4px rgba(0,0,0,.15), 0px 1px 2px rgba(0,0,0,.05);
+	box-shadow: inset 0px 2px 4px rgba(0,0,0,.15), 0px 1px 2px rgba(0,0,0,.05);
+	position: absolute;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+}
+
+.ui-rangeSlider .ui-rangeSlider-handle{
+	text-align: center;
+	width:53px;
+	height:22px;
+color: #333333;
+border: 1px solid #bbbbbb;
+border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+background-color: #e6e6e6;
+background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+background-repeat: repeat-x;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-moz-background-clip: padding;
+	cursor:col-resize;
+}
+
+.ui-rangeSlider .ui-rangeSlider-bar{
+	margin: 1px 0;
+	background:#CCC;
+	background:rgba(56,56,56, 0.5);
+	height:20px;
+	border-radius: 6px;
+	cursor:move;
+	cursor:grab;
+	cursor: -moz-grab;
+}
+
+.ui-rangeSlider .ui-rangeSlider-bar.ui-draggable-dragging{
+	cursor:	-moz-grabbing;
+	cursor:grabbing;
+}
+
+.ui-rangeSlider-arrow{
+	height:16px;
+	margin:2px 0;
+	width:16px;
+	background-repeat:no-repeat;
+}
+
+.ui-rangeSlider-arrow.ui-rangeSlider-leftArrow{
+	background-image: url('icons-classic/resultset_previous.png');
+	background-position:center left;
+	display:none;
+}
+
+.ui-rangeSlider-arrow.ui-rangeSlider-rightArrow{
+	background-image: url('icons-classic/resultset_next.png');
+	background-position:center right;
+	display: none;
+}
+
+.ui-rangeSlider-arrow-inner{
+	display: none;
+}
+
+.ui-rangeSlider-container{
+	height:22px;
+}
+
+.ui-rangeSlider-withArrows .ui-rangeSlider-container{
+	margin:0 11px;
+}
+
+.ui-rangeSlider-noArrow .ui-rangeSlider-container{
+	margin:0;
+}
+
+.ui-rangeSlider-label{
+	background-position:bottom center;
+	background-repeat:no-repeat;
+  white-space: nowrap;
+  cursor:col-resize;
+  display: none;
+}
+
+.ui-rangeSlider-label-inner{
+	display:none;
+}
+#slider > div.ui-rangeSlider-label.ui-rangeSlider-leftLabel > div.ui-rangeSlider-label-value ,#slider > div.ui-rangeSlider-label.ui-rangeSlider-rightLabel > div.ui-rangeSlider-label-value{
+	display: none;
+}
+/*
+ * Edit slider
+ */
+
+input.ui-editRangeSlider-inputValue{
+	width:3em;
+	vertical-align: middle;
+	text-align:center;
+}
+
+#slider > div.ui-rangeSlider-label.ui-rangeSlider-leftLabel{
+	display: none;
+}

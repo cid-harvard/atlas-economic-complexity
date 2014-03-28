@@ -2,8 +2,6 @@ var country_list = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguil
 
 d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
 
-
- 
 // Data Array for SITC Product Class
 var SITC = [
 	{"value": 3, "name": "Food/Live Animals for Food", "icon": "foundation/img/community_0.png", "color":"#ffe999"},
@@ -17,7 +15,6 @@ var SITC = [
 	{"value":33, "name": "Misc. Manufactured Articles", "icon": "foundation/img/community_1.png", "color":"#5493c9"},
 	{"value":0.6,"name":"Commodities and Transactions Unclassified Elsewhere in SITC", "icon": "foundation/img/community_qm.png", "color":"#9c9a87"}                                  
 ]
-
  
 
   var visualization = d3plus.viz()
@@ -29,9 +26,12 @@ var SITC = [
     .size("value")      
     .icon("icon")
     .color("color")
-    .draw();             
+    .draw();	
+
+// Resize Functions
 
 $(document).ready(function(){
+	$(".ui-rangeSlider .ui-rangeSlider-handle").html("year");
 	var resized = false;
 	var tablet = false;
 	$(window).resize(function(){
@@ -51,7 +51,6 @@ $(document).ready(function(){
 		    .draw()                
 		    resized = true;
 			d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
-
 		} 
 		else if(window.innerWidth >= 1279 && resized == true){
 			d3.select("#d3plus").remove();
@@ -103,10 +102,38 @@ $(document).ready(function(){
 		    .draw()                
 		    tablet = false;
 		    d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
-
 		}
 	});
 });
+
+var years = [];
+
+for(i=1995; i<=2010; i++){
+	years.push(i);
+}
+
+var left = [];
+
+for(i=0; i < years.length; i++){
+	left.push(i);
+}
+
+var svg = d3.select(".ui-rangeSlider-innerBar").append("svg");
+
+var blockWidth = 653/left.length;
+
+var ticks = svg.selectAll("text")
+	.data(left).enter()
+	.append("text")
+	.html("year")
+	.attr("width", blockWidth)
+	.attr("height", 16)
+	.attr("fill", "#fff")
+	.style("font-size", 12)
+	.attr("x", function(d){return (blockWidth*d)+10;})
+	.attr("y", 12);
+
+
 
 
 
