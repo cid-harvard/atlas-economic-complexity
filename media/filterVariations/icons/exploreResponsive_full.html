@@ -7,10 +7,10 @@
 	<link rel="stylesheet" type="text/css" href="rangeSlider/css/classic.css">
 	<link rel="stylesheet" type="text/css" href="foundation/css/foundation.css">
 	<link rel="stylesheet" type="text/css" href="d3/d3plus/css/d3plus.css">
-	<link rel="stylesheet" type="text/css" href="css/style3.css">
+	<link rel="stylesheet" type="text/css" href="css/style3_full.css">
 </head>
 <body>
-<div id="header">
+<div id="header" class="one-edge-shadow">
 	<div id="headerInner">
 		<div class="left" id="logo"><img style="display:inline;" src="img/AtlasLogo.png"></div>
 		<nav class="right hide-for-medium-down" id="nav">
@@ -24,7 +24,9 @@
 	</div>
 </div>
 <div id="wrapper">
-
+<!-- 			<div class="title"><h2>What did the US Export in 2010?</h2></div> -->
+		<div id="vis">
+		</div>
 	<div id="indirect">
 
 		<div id="query">
@@ -118,34 +120,7 @@
 		</div>	 -->	
 	</div>
 	<div id="app">
-		<div class="title"><h2>What did the US Export in 2010?</h2></div>
-		<div id="vis">
-		</div>
 		<div id="direct">
-<!-- 			<div class="filterCont">
-			<ul class="" id="filters">
-			<li data-title="Cattle"><a href=""><img src="foundation/img/community_0.png"></a></li>
-			<li data-title="Beverages"><a href=""><img src="foundation/img/community_10.png"></a></li>
-			<li data-title="Shovels"><a href=""><img src="foundation/img/community_18.png"></a></li>
-			<li data-title="Petrolium Products"><a href=""><img src="foundation/img/community_19.png"></a></li>
-			<li data-title="Wheat Products"><a href=""><img src="foundation/img/community_24.png"></a></li>
-			<li data-title="Chemicals"><a href=""><img src="foundation/img/community_14.png"></a></li>
-			<li data-title="Building Materials"><a href=""><img src="foundation/img/community_7.png"></a></li>
-			<li data-title="Cars"><a href=""><img src="foundation/img/community_car.png"></a></li>
-			<li data-title="Other Products"><a href=""><img src="foundation/img/community_qm.png"></a></li>
-			<li data-title="Cattle"><a href=""><img src="foundation/img/community_1.png"></a></li>
-			<li data-title="Beverages"><a href=""><img src="foundation/img/community_2.png"></a></li>
-			<li data-title="Shovels"><a href=""><img src="foundation/img/community_3.png"></a></li>
-			<li data-title="Petrolium Products"><a href=""><img src="foundation/img/community_4.png"></a></li>
-			<li data-title="Wheat Products"><a href=""><img src="foundation/img/community_5.png"></a></li>
-			<li data-title="Chemicals"><a href=""><img src="foundation/img/community_6.png"></a></li>
-			<li data-title="Building Materials"><a href=""><img src="foundation/img/community_8.png"></a></li>
-			<li data-title="Cars"><a href=""><img src="foundation/img/community_9.png"></a></li>
-			<li data-title="Other Products"><a href=""><img src="foundation/img/community_11.png"></a></li>	
-			<li data-title="Cars"><a href=""><img src="foundation/img/community_12.png"></a></li>
-			<li data-title="Other Products"><a href=""><img src="foundation/img/community_13.png"></a></li>																										
-				</ul>
-			</div>	 -->			
 			<div id="directInner">
 				<div class="medium-12 columns">
 					<div id="slider"></div>
@@ -163,7 +138,7 @@
 					    <li><a href="#" class="tiny button qb">HS4</a></li>
 					  </ul>
 					</div>	
-					<div class="button-bar small-5 columns">
+					<div class="button-bar small-4 columns">
 						<label>Level of Detail</label>
 						<ul class="button-group">
 							<li><a href="#" class="tiny button qb">Low</a></li>
@@ -237,9 +212,6 @@
 		</div>
 	</div>
 </div>
-
-
-
 <script src="jquery.js"></script>
 <script type="text/javascript" src="jQueryUI/js/jquery-ui-1.10.4.custom.min.js"></script>
 <script type="text/javascript" src="rangeSlider/JQRangeSlider-min.js"></script>
@@ -263,24 +235,6 @@ $(document).ready(function(){
 	$(".chosen-select").chosen()
 	var expanded = false;
 
-	$("#first").html("Where");
-	$("#ft").html("Import");
-
-	$("#x").click(function(){
-		$("#ft").html("Import")
-	});
-	$("#x1").click(function(){
-		$("#ft").html("Export")
-	});	
-	$("#y").click(function(){
-		$("#first").html("Where");
-	});
-	$("#y1").click(function(){
-		$("#first").html("What");
-	});	
-	$("#filterBtn").click(function(){
-		$("#filters").fadeToggle();
-	});
 	$(".qb").click(function(){
 		$(this).parent().siblings().children().removeClass("activeBtn");
 		$(this).addClass("activeBtn");

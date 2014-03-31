@@ -144,6 +144,7 @@ header .logo {
   width: 30%;
 }
 header nav {
+  height: 30px;
   float: right;
   text-align: center;
 }
@@ -151,11 +152,11 @@ header nav ul {
   background: white;
   border: solid 1px #ccc;
   float: right;
+  height: 48px;
   display: inline;
-  height: 46px;
   margin: -2px 0px 0px 0px;
   padding: 11px 0px 10px 0px;
-  
+
   -moz-border-bottom-right-radius: 10px;
   -moz-border-bottom-left-radius: 10px;
   -webkit-border-bottom-right-radius: 10px;
@@ -283,72 +284,69 @@ header h1 a img {
   width: 40px;
 }
   
-  
-  
-  
-  #main .app_title_img {
-    float: left;
-    margin: 0 0 0 186px;
-    min-height: 45px;
-    width: 50px;
-  }
-    .app #main .app_title_img img {
-      border: 0;
-      padding: 0 10px 0 0;
-      vertical-align: bottom;
-      width: 48px;
-    }
-    .app #main .app_title_img.community_icon {
-      margin-top: 8px;
-      width: 40px;
-    }
-    .app #main .app_title_img.community_icon img {
-      width: 26px;
-    }
-  .app #main .app_title_title {
-    float: left;
-    margin: 7px 0 0 7px;
-    width: 415px;
-  }
-  .app #main .app_title_year {
-    float: right;
-    margin: 3px 195px 0 0;
-    text-align: right;
-    width: 160px;
-  }
-    .app #main .app_title_title h2,
-    .app #main .app_title_year h2 {
-      font-size: 30px;
-      display: inline;
-      line-height: 1.4em;
-      margin: 0;
-      font-weight: normal;
-    }
-    .app #main .app_title_title.product_name {
-      margin: 8px 0 0 0;
-    }
-    .app #main .app_title_title.product_name h2{
-      font-size: 24px;
-    }
-  .app #main .app_title_desc {
-    margin: 0 0 5px 186px;
-    text-align: left;
-  }
-  .app #main .app_title_desc h3 {
-    display: inline;
-    font-size: 18px;
-    font-weight: normal;
-    margin: 0;
-  }
-  .app #main .app_title_desc img {
-    width: 22px;
-    vertical-align: top;
-  }
-	
-	#dataviz svg {
-		width:100%;
-		height: 100%;
-	}
+#main .app_title_img {
+  float: left;
+  margin: 0 0 0 186px;
+  min-height: 45px;
+  width: 50px;
+}
+.app #main .app_title_img img {
+  border: 0;
+  padding: 0 10px 0 0;
+  vertical-align: bottom;
+  width: 48px;
+}
+.app #main .app_title_img.community_icon {
+  margin-top: 8px;
+  width: 40px;
+}
+.app #main .app_title_img.community_icon img {
+  width: 26px;
+}
+.app #main .app_title_title {
+float: left;
+margin: 7px 0 0 7px;
+width: 415px;
+}
+.app #main .app_title_year {
+float: right;
+margin: 3px 195px 0 0;
+text-align: right;
+width: 160px;
+}
+.app #main .app_title_title h2,
+.app #main .app_title_year h2 {
+  font-size: 30px;
+  display: inline;
+  line-height: 1.4em;
+  margin: 0;
+  font-weight: normal;
+}
+.app #main .app_title_title.product_name {
+  margin: 8px 0 0 0;
+}
+.app #main .app_title_title.product_name h2{
+  font-size: 24px;
+}
+.app #main .app_title_desc {
+  margin: 0 0 5px 186px;
+  text-align: left;
+}
+.app #main .app_title_desc h3 {
+  display: inline;
+  font-size: 18px;
+  font-weight: normal;
+  margin: 0;
+}
+.app #main .app_title_desc img {
+  width: 22px;
+  vertical-align: top;
+}
+
+#dataviz svg {
+  width:100%;
+  height: 100%;
+}
 
 /*
  * Left hand side the app selection pane

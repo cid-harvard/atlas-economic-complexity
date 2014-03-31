@@ -20,7 +20,7 @@ var SITC = [
   var visualization = d3plus.viz()
     .container("#vis") 
     .data(SITC) 
-    .type("tree_map")   
+    .type("tree_map")  
     .id("name")         
     .text("name")       
     .size("value")      
@@ -28,8 +28,7 @@ var SITC = [
     .color("color")
     .draw();	
 
-// Resize Functions
-
+// Resize Functions 
 $(document).ready(function(){
 	$(".ui-rangeSlider .ui-rangeSlider-handle").html("year");
 	var resized = false;
