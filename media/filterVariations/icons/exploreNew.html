@@ -1,0 +1,70 @@
+<html>
+<head>
+	<title>The Atlas of Economic Complexity</title>
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="chosen_v1.1.0/chosen.css">
+	<link rel="stylesheet" type="text/css" href="rangeSlider/css/classic.css">
+	<link rel="stylesheet" type="text/css" href="foundation/css/foundation.css">
+	<link rel="stylesheet" type="text/css" href="d3/d3plus/css/d3plus.css">
+	<link rel="stylesheet" type="text/css" href="css/styleNew.css">
+</head>
+<body>
+	<div id="header">
+		<div id="headerInner">
+			<div class="left" id="logo">
+				<img src="img/AtlasLogo.png" />
+			</div>
+			<nav>
+				<ul class="right">
+					<li class="inline"><a href="">Explore</a></li>
+					<li class="inline"><a href="">Rankings</a></li>
+					<li class="inline"><a href="">Book</a></li>
+					<li class="inline"><a href="">About</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<div id="wrapper">
+	<h3 id="question">What did the US Export in 2011?</h3>
+	<div id="vis"></div>		
+		<div id="query">
+			<select>
+				<option>United States</option>
+				<option></option>
+				<option></option>
+				<option></option>
+				<option></option>
+			</select>
+		</div>
+	</div>
+
+<script src="jquery.js"></script>
+<script type="text/javascript" src="jQueryUI/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="d3/d3.v3.min.js"></script>
+<script type="text/javascript" src="d3/d3plus/js/d3plus.min.js"></script>
+<script type="text/javascript" src="visNew.js"></script>
+<script type="text/javascript" src="foundation/js/foundation.min.js"></script>
+<script type="text/javascript" src="foundation/js/foundation/foundation.dropdown.js"></script>
+<script type="text/javascript" src="foundation/js/foundation/foundation.slider.js"></script>
+<script type="text/javascript">
+	$(document).foundation();
+</script>	
+
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Lato:300,400,700:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+</body>
+</html>

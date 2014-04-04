@@ -27,7 +27,8 @@ var SITC = [
     .icon("icon")
     .color("color")
     .draw();	
-
+   d3.select("#bg").attr("fill","none");
+   d3.select("svg g#container").attr("fill","#fff");
 // Resize Functions 
 $(document).ready(function(){
 	$(".ui-rangeSlider .ui-rangeSlider-handle").html("year");
@@ -47,7 +48,8 @@ $(document).ready(function(){
 		    .size("value")      
 		    .icon("icon")
 		    .color("color")
-		    .draw()                
+		    .draw()     
+		       d3.select("#bg").attr("fill","none")           
 		    resized = true;
 			d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
 		} 
@@ -64,7 +66,8 @@ $(document).ready(function(){
 		    .size("value")      
 		    .icon("icon")
 		    .color("color")
-		    .draw()                
+		    .draw()         
+		       d3.select("#bg").attr("fill","none")       
 		    resized = false;
 		    d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
 		}
@@ -81,7 +84,8 @@ $(document).ready(function(){
 		    .size("value")      
 		    .icon("icon")
 		    .color("color")
-		    .draw()                
+		    .draw()    
+		       d3.select("#bg").attr("fill","none")            
 		    tablet = true;
 			d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
 		} 
@@ -98,7 +102,8 @@ $(document).ready(function(){
 		    .size("value")      
 		    .icon("icon")
 		    .color("color")
-		    .draw()                
+		    .draw()     
+		       d3.select("#bg").attr("fill","none")           
 		    tablet = false;
 		    d3.select("#countrySelect").selectAll("option").data(country_list).enter().append("option").attr("class", "country").html(function(d){return d});
 		}

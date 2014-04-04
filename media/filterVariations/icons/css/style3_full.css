@@ -2,20 +2,20 @@
 body{
 	background-color: #fff;
 }
-.one-edge-shadow {
+/*.one-edge-shadow {
 	-webkit-box-shadow: 0 8px 6px -6px black;
 	   -moz-box-shadow: 0 8px 6px -6px black;
 	        box-shadow: 0 8px 6px -6px black;
-}
+}*/
 .inline{
 	display: inline;
 }
 #header{
- 	background-color: #000;
+ 	background-color: transparent;
 	width: 100%;
 	height: 40px;
 	border-bottom: none;
-	position: relative;
+
 	z-index: 50;
 }
 #headerInner{
@@ -23,6 +23,7 @@ body{
 	margin: 0 auto;
 }
 #wrapper{
+
 	width: 100%;
 	height: 100%;
 	margin:0 auto;
@@ -57,7 +58,7 @@ body{
 	color:#555;
 }
 #shareInner ul li a:hover{
-	color: red;
+	color: #A41034;
 }
 #logo img{
 	position: relative;
@@ -65,7 +66,8 @@ body{
 	width: auto;
 }
 #navInner{
-	padding-top: 5px;
+	position: relative;
+	top: 10px;
 }
 #navInner li{
 	display: inline;
@@ -75,8 +77,11 @@ body{
 	margin-right: 0;
 }
 #navInner a{
-	color: #fff;
+	color: #555;
 	font-size: 1em;
+}
+#navInner a:hover{
+	color:#A41034;
 }
 #story{
 	position: relative;
@@ -108,15 +113,16 @@ body{
 
 }
 #app{
+
 	width:60%;
 	height: 400px;
 	float:left;
 }
 #vis{
 	position: relative;
-	top:-16px;
+
 	width:100%;
-	height:520px;
+	height:560px;
 	background-color: #000;
 }
 #direct{
@@ -129,9 +135,9 @@ body{
 	overflow: hidden;
 }
 #filters{
-list-style: none;
-padding-top: 20px;
-padding-bottom: 0px;
+	list-style: none;
+	padding-top: 20px;
+	padding-bottom: 0px;
 }
 #filters li{
 	margin-left: 10px;
@@ -146,7 +152,8 @@ padding-bottom: 0px;
 	height: auto;
 }
 .activeBtn{
-	background-color: #00526e;
+	background-color: #555;
+	color:#fff;
 }
 #moreOptions{
 	margin-bottom: 40px;
@@ -159,7 +166,9 @@ padding-bottom: 0px;
 #directInner{
 	height:290px;
 }
-
+.bottom{
+	float:left;
+}
 footer p{
 	font-size: 12px;
 }

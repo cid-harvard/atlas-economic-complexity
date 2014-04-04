@@ -1470,8 +1470,6 @@ meta.foundation-mq-topbar {
       display: block; }
 
 button, .button {
-  border-style: solid;
-  border-width: 0px;
   cursor: pointer;
   font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
@@ -1487,9 +1485,9 @@ button, .button {
   padding-left: 2rem;
   font-size: 1rem;
   /*     @else                            { font-size: $padding - rem-calc(2); } */
-  background-color: #008cba;
-  border-color: #007095;
-  color: white;
+  background-color: #ddd;
+  border: solid 1px #000;
+  color: #000;
   -webkit-transition: background-color 300ms ease-out;
   -moz-transition: background-color 300ms ease-out;
   transition: background-color 300ms ease-out;
@@ -1500,7 +1498,7 @@ button, .button {
   font-size: 1rem;
   /*     @else                            { font-size: $padding - rem-calc(2); } */ }
   button:hover, button:focus, .button:hover, .button:focus {
-    background-color: #007095; }
+    background-color: #555; }
   button:hover, button:focus, .button:hover, .button:focus {
     color: white; }
   button.secondary, .button.secondary {
@@ -1638,10 +1636,10 @@ button, .button {
     margin: 0;
     float: left; }
     .button-group li > button, .button-group li .button {
-      border-left: 1px solid;
-      border-color: rgba(255, 255, 255, 0.5); }
+      border-left: 1px solid #000;
+      border-color: rgba(0, 0, 0, 1); }
     .button-group li:first-child button, .button-group li:first-child .button {
-      border-left: 0; }
+      border-left: solid 1px #000; }
     .button-group li:first-child {
       margin-left: 0; }
   .button-group.radius > * > button, .button-group.radius > * .button {
@@ -2415,9 +2413,9 @@ div.switch {
     float: left; }
     .tabs dd > a {
       display: block;
-      background: #efefef;
+      background: transparent;
       color: #222222;
-      padding: 1rem 2rem;
+      padding: 0.5rem 1rem;
       font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
       font-size: 1rem; }
       .tabs dd > a:hover {
@@ -2446,7 +2444,7 @@ div.switch {
 
 .tabs-content {
   *zoom: 1;
-  margin-bottom: 1.5rem;
+
   width: 100%; }
   .tabs-content:before, .tabs-content:after {
     content: " ";
@@ -3645,7 +3643,7 @@ dialog[open] {
     font-size: 0.875rem;
     color: #999999; }
     .sub-nav dt a,
-    .sub-nav dd a,
+    .sub-nav,
     .sub-nav li a {
       text-decoration: none;
       color: #999999;

@@ -156,6 +156,15 @@ padding-bottom: 0px;
 #directInner{
 	height:290px;
 }
+.listItem{
+	display: inline;
+	padding-left: 10px;
+}
+.listIcon{
+	display: inline;
+	height: 20px; 
+	width: auto;
+}
 footer p{
 	font-size: 12px;
 }
