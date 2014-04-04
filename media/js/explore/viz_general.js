@@ -337,7 +337,14 @@ var flat_data,
 //     }
     $(".app_title#icons h2").text(year_title)
     
-    
+    // Update the year drowdown
+    $("#year1_select > options").attr("selected", false);
+    $("#year1_select > [value='"+arg[0]+"']").attr("selected", true);    
+    $("#year2_select > options").attr("selected", false);
+    $("#year2_select > [value='"+arg[1]+"']").attr("selected", true);
+    $('select').trigger("chosen:updated");
+
+
   }
   
   set_scatter_year = function(arg)
@@ -358,13 +365,17 @@ var flat_data,
 
    console.log("mouse drag start", start_year, arg);
 
-    console.log("dragging slider", "viz_general.js", arg)
     var treemap_title = d3.select('#text_title').text();
     treemap_title = treemap_title.replace(viz.year(), arg);
     d3.select('#text_title').text(treemap_title);
     
     // TODO: Check if IE compliant
     window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
+
+    // Update the year drowdown
+    $("#year1_select > options").attr("selected", false);
+    $("#year1_select > [value='"+arg+"']").attr("selected", true);
+    $('select').trigger("chosen:updated");
 
     // TODO
     // In which particular case are we?
@@ -517,14 +528,17 @@ var flat_data,
     map_title = map_title.replace(app.year(), arg);
     d3.select('#text_title').text(map_title);
 
-    console.log("titile", map_title, app.year(), arg)
-    
     // TODO: Check if IE compliant
     window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(app.year(), arg));
 
     d3.select("#viz").call(app.year(parseInt(arg)));
     // Set the controls to this year as well
     d3.select("#tool_pane").call(controls.year(arg)); 
+
+    // Update the year drowdown
+    $("#year1_select > options").attr("selected", false);
+    $("#year1_select > [value='"+arg+"']").attr("selected", true);
+    $('select').trigger("chosen:updated");
 
   }
   
@@ -1411,7 +1425,12 @@ var flat_data,
             var d = {}; 
             // d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
            }
-            d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
+
+            d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0];
+
+            // Added for 2012 data
+            if(typeof(d.world_trade) != "undefined")
+              d.world_trade = d.world_trade['world_trade'];
             
             // var obj = vizwhiz.utils.merge(d,attr[n.id])
             // obj.world_trade = d.world_trade
