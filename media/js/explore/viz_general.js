@@ -1973,6 +1973,8 @@ var flat_data,
           .call(timeline)
         d3.select("#ui_bottom").append("br")  
         
+        // Fix wrong shape file with MDV
+        d3.select("#MDV").style("display", "none")
       }
  
 
