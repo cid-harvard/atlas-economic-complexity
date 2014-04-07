@@ -792,28 +792,39 @@ var flat_data,
        return words     
     }
   }
-  
-  tree = function() {
-          
     var inner_html = function(obj) {
 
       var html = "<div class='d3plus_tooltip_title'>More Visualizations </div><br><br>";
       html += " <table>";
 
       if(app_name!="tree_map") {
-        html += "<tr><td><img src='"+static_url+"img/home/treeMap1.png' style='width:60px;'></td>";
+        html += "<tr><td><img src='"+static_url+"img/home/treeMap-thumb.png' style='width:60px;'></td>";
         html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
       }
-
-      html += "<tr><td><img src='"+static_url+"img/home/geo1.png' style='width:60px;'></td>";
-      html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
-
-      html += "<tr><td><img src='"+static_url+"img/home/stacked1.png' style='width:60px;'></td>";
-      html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
-
+      if(app_name!="stacked"){
+        html += "<tr><td><img src='"+static_url+"img/home/stacked-thumb.png' style='width:60px;'></td>";
+        html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
+      }
+      if(app_name!="map"){
+        html += "<tr><td><img src='"+static_url+"img/home/geo-thumb.png' style='width:60px;'></td>";
+        html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Map</a></td></tr></a>";
+      }
+      if(app_name!="pie_scatter"){
+        html += "<tr><td><img src='"+static_url+"img/home/productFeas-thumb.png' style='width:60px;'></td>";
+        html += "<td><a onclick='update_viz(\"pie_scatter\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Feasability</a></td></tr></a>";
+      }
+      if(app_name!="product_space"){
+        html += "<tr><td><img src='"+static_url+"img/home/productSpace-thumb.png' style='width:60px;'></td>";
+        html += "<td><a onclick='update_viz(\"product_space\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Space</a></td></tr></a>";
+      }            
+   
       html += "</table>";
       return html;
     }
+
+  tree = function() {
+          
+    
 
     viz = d3plus.viz();
 
@@ -899,6 +910,7 @@ var flat_data,
   
   stack = function()
   {
+
     var years = year.split('.')  
 
     viz = d3plus.viz()
@@ -918,7 +930,7 @@ var flat_data,
       .font('PT Sans Narrow')
       .number_format(num_format)
       .stack_type("monotone")
-    
+      .click_function(inner_html)
       // .year([year_start,year_end])
       //.year([years_available[0],years_available.slice(-1)[0]])
 
@@ -1062,6 +1074,7 @@ var flat_data,
         .spotlight(false)
         .dev(false)
         .font('PT Sans Narrow')
+        .click_function(inner_html)
     //    .static_axis(false)
         .year(year)
       
@@ -1259,23 +1272,23 @@ var flat_data,
       
       
 
-        var inner_html = function(obj) {
-          console.log(obj)
+        // var inner_html = function(obj) {
+        //   console.log(obj)
 
-          var html = "<br>";
-          html += " <table>";
-          html += "<tr><td><img src='/media/img/home/teaser_map.png' style='width:60px;'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Countries who export cars</a></td></tr>"
+        //   var html = "<br>";
+        //   html += " <table>";
+        //   html += "<tr><td><img src='/media/img/home/teaser_map.png' style='width:60px;'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Countries who export cars</a></td></tr>"
           
-          html += "<tr><td><img src='/media/img/home/us_exports.png' style='width:60px'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Cars exports over time</a></td></tr>"
+        //   html += "<tr><td><img src='/media/img/home/us_exports.png' style='width:60px'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Cars exports over time</a></td></tr>"
 
-          html += "<tr><td><img src='/media/img/home/us_imports_ps.png' style='width:60px'></td><td><a href='/explore/product_space/export/usa/all/show/2011/#highlight=8703' style='font-size:14px; margin-left: 10px'>Cars in the Product Space</a></td></tr>"
+        //   html += "<tr><td><img src='/media/img/home/us_imports_ps.png' style='width:60px'></td><td><a href='/explore/product_space/export/usa/all/show/2011/#highlight=8703' style='font-size:14px; margin-left: 10px'>Cars in the Product Space</a></td></tr>"
           
-          html += "<tr><td><img src='/media/img/home/teaser_pie.png' style='width:60px'></td><td><a href='/explore/pie_scatter/export/usa/all/show/2011/' style='font-size:14px; margin-left: 10px'>Feasability of Cars</a></td></tr>"
+        //   html += "<tr><td><img src='/media/img/home/teaser_pie.png' style='width:60px'></td><td><a href='/explore/pie_scatter/export/usa/all/show/2011/' style='font-size:14px; margin-left: 10px'>Feasability of Cars</a></td></tr>"
 
 
-          html += "</table>";
-          return html;
-        }
+        //   html += "</table>";
+        //   return html;
+        // }
   
     
 
@@ -1324,7 +1337,7 @@ var flat_data,
             .click_function(clicker)
             .descs({"id": "This is the ID! It means what you would expect it to mean. Another really long setence with multiple random words.", "val_usd": "...value. duh."})
             .footer("<a href='www.google.com'>SECEX</a>")
-             .year(year)
+            .year(year)
             // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
             // .number_format(function(d){return d+"longtext longtext longtext longtext longtext"})
 
@@ -1559,27 +1572,27 @@ var flat_data,
       //   })
       // })      
 
-        var inner_html = function(obj) {
-          console.log(obj)
+        // var inner_html = function(obj) {
+        //   console.log(obj)
 
 
-          var html = "<br>";
-          /*
-          html += " <table>";
-          html += "<tr><td><img src='/media/img/home/teaser_map.png' style='width:60px;'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Countries who export cars</a></td></tr>"
+        //   var html = "<br>";
           
-          html += "<tr><td><img src='/media/img/home/us_exports.png' style='width:60px'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Cars exports over time</a></td></tr>"
-
-          html += "<tr><td><img src='/media/img/home/us_imports_ps.png' style='width:60px'></td><td><a href='/explore/product_space/export/usa/all/show/2011/#highlight=8703' style='font-size:14px; margin-left: 10px'>Cars in the Product Space</a></td></tr>"
+        //   html += " <table>";
+        //   html += "<tr><td><img src='/media/img/home/teaser_map.png' style='width:60px;'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Countries who export cars</a></td></tr>"
           
-          html += "<tr><td><img src='/media/img/home/teaser_pie.png' style='width:60px'></td><td><a href='/explore/pie_scatter/export/usa/all/show/2011/' style='font-size:14px; margin-left: 10px'>Feasability of Cars</a></td></tr>"
+        //   html += "<tr><td><img src='/media/img/home/us_exports.png' style='width:60px'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Cars exports over time</a></td></tr>"
 
-
-          html += "</table>";
-          */
-          return html;
+        //   html += "<tr><td><img src='/media/img/home/us_imports_ps.png' style='width:60px'></td><td><a href='/explore/product_space/export/usa/all/show/2011/#highlight=8703' style='font-size:14px; margin-left: 10px'>Cars in the Product Space</a></td></tr>"
           
-        }
+        //   html += "<tr><td><img src='/media/img/home/teaser_pie.png' style='width:60px'></td><td><a href='/explore/pie_scatter/export/usa/all/show/2011/' style='font-size:14px; margin-left: 10px'>Feasability of Cars</a></td></tr>"
+
+
+        //   html += "</table>";
+          
+        //   return html;
+          
+        // }
   
     viz
       .type("network")
@@ -1593,12 +1606,12 @@ var flat_data,
       //.nesting(["nesting_0","nesting_1","nesting_2"])
       .nesting([])
       .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
-      .click_function(inner_html)
       // .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .text_format(txt_format)
       .number_format(num_format)
       .font("PT Sans Narrow")
       .year(year)
+      .click_function(inner_html)      
 
     d3.select("#loader").style("display", "none");  
     
@@ -1609,7 +1622,6 @@ var flat_data,
       .style('height','520px')
       .datum(data)
       .call(viz);  
-    
     })
     
     if(!embed){
@@ -1676,7 +1688,7 @@ var flat_data,
         .call(controls);
     }
 
-    d3.select("#mdv").attr("fill", "white")
+    d3.select("#mdv").attr("fill", "white");
   }
   
   //
