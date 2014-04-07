@@ -39,6 +39,11 @@ if not settings.DB_PREFIX:
 else:
   DB_PREFIX = settings.DB_PREFIX
 
+if not settings.VERSION:
+  VERSION = '1.0.0'
+else:
+  VERSION = settings.VERSION
+
 if not settings.HTTP_HOST:
   HTTP_HOST = '/'
 else:
@@ -1313,6 +1318,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "redesign_api_uri": redesign_api_uri,
     "country_code": country_code,
     "prod_or_partner": prod_or_partner,
+    "version": VERSION,
     "item_type": item_type}, context_instance=RequestContext(request))
 
 

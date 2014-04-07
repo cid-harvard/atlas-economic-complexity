@@ -23,7 +23,7 @@
   
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/toastr/toastr.min.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/chosen/chosen.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css" />
@@ -31,10 +31,10 @@
 
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">  
 
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/countries.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/countries.css?{{ VERSION }}" />
 
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/widgets.css">
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/widgets.css?{{ VERSION }}">
   <!-- VizWiz -->
 
   <link href="{{ STATIC_URL }}js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
@@ -1691,7 +1691,7 @@
       <div class="footerInner">
 
         <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: {{ VERSION }}.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
         <p style="clear:both"></p>
@@ -1805,12 +1805,12 @@
   </script>
 
   <!-- App -->
-  <script src="{{ STATIC_URL }}js/explore/general.js"></script>
-  <script src="{{ STATIC_URL }}js/story/createStory.js"></script> 
-  <script src="{{ STATIC_URL }}js/explore/key.js"></script>
-  <script src="{{ STATIC_URL }}js/explore/timeline.js"></script>
-  <script src="{{ STATIC_URL }}js/explore/controls.js"></script>
-  <script src="{{ STATIC_URL }}js/apps/related.js"></script>
+  <script src="{{ STATIC_URL }}js/explore/general.js?{{ VERSION }}"></script>
+  <script src="{{ STATIC_URL }}js/story/createStory.js?{{ VERSION }}"></script> 
+  <script src="{{ STATIC_URL }}js/explore/key.js?{{ VERSION }}"></script>
+  <script src="{{ STATIC_URL }}js/explore/timeline.js?{{ VERSION }}"></script>
+  <script src="{{ STATIC_URL }}js/explore/controls.js?{{ VERSION }}"></script>
+  <script src="{{ STATIC_URL }}js/apps/related.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/libs/toastr/toastr.min.js"></script>
 
 

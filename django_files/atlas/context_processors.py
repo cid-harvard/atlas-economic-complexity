@@ -30,4 +30,4 @@ from django.conf import settings
 
 def settings_view(request):
     # return the value you want as a dictionnary. you may add multiple values in there.
-    return {'HTTP_HOST': settings.HTTP_HOST, 'DEV': settings.DEV}
+    return {'HTTP_HOST': settings.HTTP_HOST, 'DEV': settings.DEV, 'VERSION': settings.VERSION}
