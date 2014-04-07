@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/toastr/toastr.min.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/chosen/chosen.css" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
 
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">  
@@ -1137,19 +1137,18 @@
     {% else %}
       <div id="content" style="width: 750px; min-height:600px;">
         <!-- ajax loading gif -->
-       <div id="loader">
+        <div id="loader">
         <!--if static image mode is PNG-->
-       {% if displayviz %}
-        <img src="{{ displayImage }}" alt="loading" style="width: 750px; height:520px; margin-top:-150px;"/><br />
-       {% else %}
-	    <img src="{{ displayImage }}" alt="loading"/><br />
-       {% endif %}
+        {% if displayviz %}
+          <img src="{{ displayImage }}" alt="loading" style="width: 750px; height:520px; margin-top:-150px; opacity:.7"/><br />
+          <span style="width: 750px; height:520px; margin-top:-550px; opacity:.7">Loading...</span>
+        {% else %}
+	         <img src="{{ displayImage }}" alt="loading"/><br />
+        {% endif %}
         </div>
         
         <!-- the canvas for the visualization -->
-        <div id="text_data">
-
-        </div>
+        <div id="text_data"></div>
         
         <!-- Container for the visualization -->
         <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width: 750px; min-height:520px;">
@@ -1555,7 +1554,17 @@
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:4px; width:40px">Feedback</h4>
     
         <a id="feedbackPlaceholder" href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank"><i class="fa fa-comment fa-lg"></i></a>
-            <br/>       <br/>
+        <br/><br/>
+
+        {% if displayviz %}
+
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:4px; width:40px">Download</h4>
+    
+        <a id="feedbackPlaceholder" href="{{ displayImage }}" target="_blank"><i class="fa fa-comment fa-lg"></i></a>
+        <br/><br/>
+
+        {% endif %}
+
     </div>
   
     {% endif %}
