@@ -1357,7 +1357,6 @@
 
           {% if app_name == "product_space" %}
 
-         
           <b>Color by: </b>
           <div class="btn-group community">
             <label type="button" class="btn btn-default active" value="category"> Category</label>
@@ -1365,9 +1364,13 @@
           </div>
 
           <b>Size by: </b>
-          <div class="btn-group node_size">
-            <label type="button" class="btn btn-default active" value="none"> None</label> 
-            <label type="button" class="btn btn-default disabled" value="world_trade"> World Trade</label>
+          <div class="btn-group node_size" data-toggle="buttons" >
+            <label type="button" class="btn btn-default active" value="none">
+              <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
+            </label> 
+            <label type="button" class="btn btn-default" value="world_trade">
+              <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
+            </label>
           <!--  <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4"> Community</label> -->
           </div>
 
@@ -1379,7 +1382,7 @@
                     return d;                
                   })
 
-                d3.select("#viz").call(chart.highlight(""))
+              d3.select("#viz").call(chart.highlight(""))
             }
           </script>
 
@@ -1388,8 +1391,6 @@
           
           0 <input type="range" name="points" min="0" max="10" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 10
           </div>
-
-
 
          {% endif %}
 
@@ -1509,11 +1510,6 @@
        </div>
       {% endif %}   
        
-          <!--
-          <a href="#"><span class="glyphicon glyphicon-camera"></span></a>
-          <a href="#"></a>
-    -->
-
     <div id="shareThisPlaceholder">
 
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share</h4>

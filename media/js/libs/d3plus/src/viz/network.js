@@ -333,9 +333,12 @@ d3plus.network = function(vars) {
       }
     })
   })
-  
-  var max_size = d3.min(distances,function(d){return d*0.75})
-  var min_size = 4;
+  // UPDATE
+  var max_size = 4, min_size = 4;
+  if(typeof(change_size_node) != "undefined" && change_size_node) {
+    max_size = d3.min(distances,function(d){return d*1.75})
+    min_size = 1;
+  }
   // return
   // x scale
   scale.x.range([offset_left+(max_size*1.5), vars.width-(max_size*1.5)-offset_left])

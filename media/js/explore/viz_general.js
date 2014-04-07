@@ -34,6 +34,14 @@ var flat_data,
   {
     return a.year - b.year;
   }
+
+  function change_node_size(v) {
+    if(typeof(change_size_node) == "undefined")
+       change_size_node = false;
+
+    change_size_node = !change_size_node;
+    d3.select("#viz").call(viz.solo([]));
+  }
   
   function nest_drop_report(nest_level) 
   {
