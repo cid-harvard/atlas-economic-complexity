@@ -31,3 +31,7 @@ media/img/all/.picasa.ini
 media/img/home/.picasa.ini
 
 django_files/atlas/settings_local.py
+
+media/js/explore/viz_general.js
+
+media/js/explore/viz_general.js
