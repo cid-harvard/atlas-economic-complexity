@@ -1806,3 +1806,13 @@ display: block;
  color:black;
 }
 
+        div.btn_label {
+          font-size: 12px;
+          font-weight: bold;
+          display: inline-block;
+          float: left;
+          height: 20px;
+          line-height: 20px;
+          padding: 4px 5px;
+          color: #333333;
+        }
