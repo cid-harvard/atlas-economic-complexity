@@ -1,10 +1,16 @@
-#shareThisPlaceholder{
+#tool_pane{
 	text-align: center;
+	width: 55px;
+	padding:0 10px;
+}
+#tool_pane h4{
+	padding: 0px;
+}
+#tool_pane  a{
 
+	display: block;
 }
-.app #main #tool_pane > *{
-	padding: 0 12px 0 12px;
-}
+
 i{
 	color:#666;
 	padding-bottom: 20px;
@@ -14,6 +20,24 @@ i{
 
 i:hover{
 	color:#A41034;
+}
+#downloadPlaceholder{
+
+}
+#downloadPlaceholder i{
+	padding-bottom: 0px;
+}
+span.dlOption{
+	padding-bottom: 20px;
+}
+.dlOption p{
+	margin: 0;
+	margin-bottom: 10px;
+	color: #666;
+}
+.dlOption a p:hover{
+	text-decoration: none;
+	cursor: default;
 }
 .bootstro-backdrop{
 	z-index: 1000;

@@ -442,10 +442,10 @@ text-decoration: none;
   font-size:90%;
   float: left;
   z-index: 0;
-  width:165px;
+
 }
 .app #main #tool_pane > *{
-  padding: 0 10px;
+
 }
 .app #main #tool_pane h3 {
   font-weight: normal;

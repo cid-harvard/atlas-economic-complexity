@@ -28,6 +28,8 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/chosen/chosen.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
+    <link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>
+
 
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">  
 
@@ -551,7 +553,7 @@
      
 
       <ul class="nav nav-tabs" id="myTab">
-        <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
+        <li class="active" title="..." toolTip="0"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
        <!-- <li><a href="#tab-products"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray"></span> <span  style="font-size:18px;">Products</span></a></li>-->
       </ul>
 
@@ -570,7 +572,7 @@
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-countries"> <!-- {% if not product_list %}active{% endif %} -->
-            <span style="margin:10px 0px; font-weight:bold;">Select a Country:</span>
+            <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">Select a Country:</span>
             <div id="country1" width="120px" style="margin-left: 0px;" onmouseover="$('.show-partner').css('visibility', 'visible');"  onmouseout="$('.show-partner').css('visibility', 'hidden');">
 
               <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
@@ -718,7 +720,7 @@
               
             <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
               
-              <label value="product_space" type="radio"  class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:75px; text-align:left; text-align:justify; margin-right:10px" onclick="update_viz('product_space');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="width:50px;"/></label>
+              <label value="product_space" type="radio"  title=" " toolTip="0" class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:75px; text-align:left; text-align:justify; margin-right:10px" onclick="update_viz('product_space');"><input  type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="width:50px;"/></label>
 
               <div style="width:100px; text-align:none; float:right;"><b>The Product Space</b><br> A map of the techno-<br>logical relatedness of products.</div>
                   
@@ -1491,7 +1493,7 @@
 
 
       <!-- The right pane -->
-      <div id="tool_pane" style="width:50px" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media, email, or even create a 'story' and post it to our site." data-toggle="tooltip" data-bootstro-placement="left">
+      <div id="tool_pane" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media, email, or even create a 'story' and post it to our site." data-toggle="tooltip" data-bootstro-placement="left">
       {% if isbrowsemode %}
       {% else %}
       <div id= "createStoryPlaceHolder">
@@ -1511,7 +1513,7 @@
        
     <div id="shareThisPlaceholder">
 
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center;">Share</h4>
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">Share</h4>
 
         <a href="#" id="fbShare" class="addthis_button_facebook" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"> <i class="fa fa-facebook fa-lg"></i></a>
         <a class="addthis_button_twitter"><i class="fa fa-twitter fa-lg"></i></a>
@@ -1551,18 +1553,20 @@
         </div>-->
 
     
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:4px; width:40px">Feedback</h4>
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">Feedback</h4>
     
-        <a id="feedbackPlaceholder" href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank"><i class="fa fa-comment fa-lg"></i></a>
-        <br/><br/>
+        <a id="feedbackPlaceholder" href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform" target="_blank">
+          <i class="fa fa-comment fa-lg"></i>
+        </a>
 
+        
         {% if displayviz %}
-
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:4px; width:40px">Download</h4>
-    
-        <a id="feedbackPlaceholder" href="{{ displayImage }}" target="_blank"><i class="fa fa-comment fa-lg"></i></a>
-        <br/><br/>
-
+        <div id="downloadPlaceholder">
+          <span class="dlOption"><a href="{{ displayImage }}"><i class="fa fa-download"></i></a><p>PNG</p></span>
+<!--      <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>SVG</p></span>
+          <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>PDF</p></span>
+          <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>TEXT</p></span> -->
+        </div>
         {% endif %}
 
     </div>
@@ -2087,8 +2091,14 @@
     ga('create', 'UA-41291966-1', 'harvard.edu');
     ga('send', 'pageview');
   </script>
-
    {% include "story/body_story.html" %}
+   <script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
+<script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
+<script type='text/javascript'>
+$(function() {
+ $('*[title]').tipsy({gravity: 'n'});
+});
+</script>
   </body>
   {% include "story/story_forms.html" %}
 </html>
