@@ -184,7 +184,7 @@ class Cy(models.Model):
 	eci = models.FloatField(null=True)
 	eci_rank = models.PositiveSmallIntegerField(max_length=4)
 	oppvalue = models.FloatField(null=True)
-	leader = models.CharField(max_length=100, null=True)
+	leader = "" #models.CharField(max_length=100, null=True)
 	magic = models.FloatField(null=True)
 	pc_constant = models.FloatField(null=True)
 	pc_current = models.FloatField(null=True)

@@ -4,8 +4,13 @@
 <html lang="en">
 <head>
 
-  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  {% if displayviz %}
+    <meta property="og:image" content="{{ displayImage }}"/>
+  {% endif %}
   <base href="{{HTTP_HOST}}">
   <title>The Atlas Of Economic Complexity</title>
   <meta name="description" content="Networks in Macro Economics with World Trade Data">
@@ -16,7 +21,7 @@
   <meta name="fragment" content="!">
   
   <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}img/favicon.ico">
-    <!-- Load non-standard fonts -->
+  <!-- Load non-standard fonts -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
@@ -121,451 +126,26 @@
         -->
       <script>
 		
-    
-      /* Sets the available visualizations
-        -Triggered at every change in the left panel
-        -Disable visualizations that cannot be used, given a set of parameters
-
-      */
-
-
       var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings"];
       var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
 
-      function available_viz() {
-      
-        var main_countries_products = $(".main-countries-products").find(".active").index();
-        var partner_product = $(".tab-trade-partner-product").find(".active").index();
-
-        var current_country2 = $("#country-trade-partner").find(":selected").val();
-        current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2; 
-
-        var current_year2 = $("#year2").find(":selected").val();
-        current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2; 
-
-
-        var current_product = $("#country_product_select").find(":selected").val();
-        current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product; 
-
-        $("#year2").css("display", "block");
-
-        if(main_countries_products==0) {
-
-          // What did the United States export in 2011?
-          if(partner_product==0) {
-
-
-            if(current_year2=="") {
-              // Activate Treemap
-              $("label[value=tree_map]").css("opacity", 1);
-              $("label[value=tree_map]").attr("data-original-title", "Treemap")
-             // $("label[value=tree_map]").tooltip('fixTitle')
-              $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );    
-
-              if(current_product=="all") {
-
-                // Disable map 
-                $("label[value=map]").css("opacity", .1);
-                $("label[value=map]").attr("data-original-title", "Select a trade partner")
-               // $("label[value=map]").tooltip('fixTitle')
-                $('label[value=map]').click(function() { return false; } );    
-
-              } else {
-
-                // Activate map
-                $("label[value=map]").css("opacity", 1);
-                $("label[value=map]").attr("data-original-title", "Map")
-               // $("label[value=map]").tooltip('fixTitle')
-                $('label[value=map]').click(function() { return update_viz("map"); } );
-
-              }
-
-
-              // Disable stacked
-              $("label[value=stacked]").css("opacity", .1);
-              $("label[value=stacked]").attr("data-original-title", "Select a time period")
-              //$("label[value=stacked]").tooltip('fixTitle')
-              $('label[value=stacked]').click(function() { return false; } );     
-              
-
-            } else {
-
-              // Disable Treemap
-              $("label[value=tree_map]").css("opacity", .1);
-              $("label[value=tree_map]").attr("data-original-title", "Un-select end year")
-             // $("label[value=tree_map]").tooltip('fixTitle')
-              $('label[value=tree_map]').click(function() { return false; } );    
-
-              // Disable map
-              $("label[value=map]").css("opacity", .1);
-              $("label[value=map]").attr("data-original-title", "Un-select end year")
-             // $("label[value=map]").tooltip('fixTitle')
-              $('label[value=map]').click(function() { return false; } );    
-
-              // Disable stacked
-              $("label[value=stacked]").css("opacity", 1);
-              $("label[value=stacked]").attr("data-original-title", "Stacked Graph")
-             // $("label[value=stacked]").tooltip('fixTitle')
-              $('label[value=stacked]').click(function() { return update_viz("stacked"); } );   
-
-            }
-
-
-          } else {
-
-            if(current_year2=="") {
-
-              // Activate Treemap
-              $("label[value=tree_map]").css("opacity", 1);
-              $("label[value=tree_map]").attr("data-original-title", "Treemap")
-             // $("label[value=tree_map]").tooltip('fixTitle')
-              $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );    
-
-
-              // What did the United States export to Albania in 1995?
-              if(current_country2 != "all") {
-
-                //$("#year2").css("display", "none");
-                // Disable map
-                $("label[value=map]").css("opacity", .1);
-                $("label[value=map]").attr("data-original-title", "Un-select trade partner")
-             //   $("label[value=map]").tooltip('fixTitle')
-                $('label[value=map]').click(function() { return false; } );    
-
-              } else {
-
-                // Activate map
-                $("label[value=map]").css("opacity", 1);
-                $("label[value=map]").attr("data-original-title", "Map")
-              //  $("label[value=map]").tooltip('fixTitle')
-                $('label[value=map]').click(function() { return update_viz("map"); } );
-              }
-                  
-
-              // Disable stacked
-              $("label[value=stacked]").css("opacity", .1);
-              $("label[value=stacked]").attr("data-original-title", "Select a time period")
-             // $("label[value=stacked]").tooltip('fixTitle')
-              $('label[value=stacked]').click(function() { return false; } );    
-
-
-            } else {
- 
-              // Disable Treemap
-              $("label[value=tree_map]").css("opacity", .1);
-              $("label[value=tree_map]").attr("data-original-title", "Un-select end year")
-            //  $("label[value=tree_map]").tooltip('fixTitle')
-              $('label[value=tree_map]').click(function() { return false; } );    
-
-              // Disable map
-              $("label[value=map]").css("opacity", .1);
-              $("label[value=map]").attr("data-original-title", "Un-select end year")
-            //  $("label[value=map]").tooltip('fixTitle')
-              $('label[value=map]').click(function() { return false; } );    
-
-              // Disable stacked
-              $("label[value=stacked]").css("opacity", 1);
-              $("label[value=stacked]").attr("data-original-title", "Stacked Graph")
-            //  $("label[value=stacked]").tooltip('fixTitle')
-              $('label[value=stacked]').click(function() { return update_viz("stacked"); } );   
-
-            }
-
-          }
-        // Product and Diversification space  
-        } else {
-
-          $("#year2").css("display", "none");
-
-        }
-      }
-
-      function update_viz(viz) {
-        
-        // Fix for Firefox
-        var host = "http://" + window.location.host + "/";
-       
-        var url = host + "explore/";
-
-        var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
-        current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
-        var current_year1 = $("#year1").find(":selected").val();
-
-
-        // COUNTRIES
-        if($(".main-countries-products").find(".active").index()==0) { 
-
-          var current_flow = $("#trade_flow").find(":selected").val();
-          var current_country1 = $("#country1").find(":selected").val();
-          current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1; 
-
-          var current_country2 = $("#country-trade-partner").find(":selected").val();
-          current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2; 
-
-          var current_product = $("#country_product_select").find(":selected").val();
-          current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product; 
-
-          var current_year2 = $("#year2").find(":selected").val();
-          current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2; 
-
-
-          // From trade partner to map
-          if(typeof(viz)=="undefined" && current_country2!="all")
-            current_viz = "tree_map";
-
-          if(current_year2!="") { 
-            // Automatically switch
-            current_viz = "stacked";
-          } 
-
-          if(current_year2=="" && current_viz == "stacked")
-            current_viz = "tree_map";
-
-          if(viz=="tree_map" || viz=="map") {
-            current_year2 = "";
-            current_viz = viz;
-          }
-
-          if(viz=="stacked" && current_year2=="") {
-          	if(prod_class="hs4") {
-          		if(current_year1 < 2011)
-          			current_year2 = 2011;
-          		else
-          			current_year2 = 1995;
-	          } else {
-          		if(current_year1 < 2010)
-          			current_year2 = 2010;
-          		else
-          			current_year2 = 1962;
-	          }
-
-            current_viz = viz;
-          }
-
-
-          // Where does United States export Crude Petroleum to?
-          // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
-          if($(".tab-trade-partner-product").find(".active").index()==0) {
-
-            // if a country is not selected..
-            if(current_country1=="all") {
-
-              if(current_year2=="") { 
-                url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";         
-
-              } else {
-                if(parseInt(current_year1)>parseInt(current_year2)) {
-                  var tmp = current_year1;
-                  current_year1 = current_year2;
-                  current_year2 = tmp;
-                }
-              
-                url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"."+current_year2+".2/";
-              } 
-
-
-
-            } else if(current_product=="all") {
-
-              // What did United States export in 2011?
-              // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
-              if(current_year2=="") {
-
-                if(current_viz == "tree_map")
-                  url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";         
-                else if(current_viz == "map") // Can't be a map of products
-                  url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";     
-                else 
-                  console.log("Should not be here")
-                // http://atlas.cid.harvard.edu/explore/map/export/usa/show/all/2011/
-
-              } else {
-              
-                if(parseInt(current_year1)>parseInt(current_year2)) {
-                  var tmp = current_year1;
-                  current_year1 = current_year2;
-                  current_year2 = tmp;
-                }
-            
-                // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/all/1995.2011.2/
-                url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"."+current_year2+".2/"
-               
-              }
-
-
-            } else {
-              
-
-              if(current_year2=="") {
-
-                url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/"
-                
-              } else {
-
-                if(parseInt(current_year1)>parseInt(current_year2)) {
-                  var tmp = current_year1;
-                  current_year1 = current_year2;
-                  current_year2 = tmp;
-                }
-
-                // Where does United States export Crude Petroleum to?
-                // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/2709/1995.2011.2/
-                url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"."+current_year2+".2/"
-                
-              }
-
-
-            }
-
-            // http://atlas.cid.harvard.edu/beta/explore/tree_map/import/usa/chn/show/2011/
-
-          // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
-          } else if($(".tab-trade-partner-product").find(".active").index()==1) {
-
-
-            if(current_country2=="all") {
-
-
-              if(current_year2=="") { 
-
-               url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";     
-
-              } else {
-
-                if(parseInt(current_year1)>parseInt(current_year2)) {
-                  var tmp = current_year1;
-                  current_year1 = current_year2;
-                  current_year2 = tmp;
-
-                }
-              
-                // http://127.0.0.1:8000/explore/stacked/export/alb/show/all/1995.2011.2/
-                // wrong
-                //url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"
-
-                url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"."+current_year2+".2/"
-              } 
-
-
-              // Where does United States export to?
-              // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/all/2011/
-             /////// url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";         
-            
-            // What did United States export in 2011?
-            // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
-            } else {
-
-
-              if(current_year2=="") { 
-
-                // What did Albania export to Italy in 1995?
-                // http://127.0.0.1:8000/explore/tree_map/export/alb/ita/show/1995/
-  
-                if(current_viz == "tree_map")
-                  url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";       
-                else if(current_viz == "map") // Can't be a map of products
-                  url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";      
-                else 
-                  console.log("Should not be here")
-
-
-              } else {
-
-                if(parseInt(current_year1)>parseInt(current_year2)) {
-                  var tmp = current_year1;
-                  current_year1 = current_year2;
-                  current_year2 = tmp;
-
-                }
-              
-              // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/chn/show/1995.2011.2/
-
-              url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"
-              }
-            }
-
-            
-
-          } else {
-
-            console.log("error");
-          }
-
-          if(current_country1=="all" && current_product=="all") {
-            alert("Please, select at least one country or one product");
-
-          } else  if(current_country1=="all" && current_country2=="all" && $(".tab-trade-partner-product").find(".active").index()==1) {
-
-            alert("Please, select at least one country");
-
-          }
-
-           else if (current_country2!="all" && current_year2 != "") {
-            window.location.assign(url);  
- //            alert("Please, select either a country or a time inteval, not both");
-          } else {
-
-            window.location.assign(url);            
-          }
-
-
-        // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/show/all/0101/2011/
-        } else if($(".main-countries-products").find(".active").index()==1) {
-
-          // Product space or diversification?
-          var current_viz = (typeof viz != "undefined" )  ? viz : $("#div_apps").find(".active").attr("value");
-
-          current_product_trade_flow = "export";
-
-
-          current_country1 = $("#country1").find(":selected").val();
-          console.log("diver", current_viz, current_country1)
-
-          var current_product = $("#product").find(":selected").val();
-          var current_product_trade_flow = $("#product-trade-flow").find(":selected").val();
-
-          var current_product_country = $("#products_country1_select").find(":selected").val();
-          current_product_country = (typeof current_product_country == "undefined" || current_product_country == "") ? "all" : current_product_country; 
-
-          console.log("products", current_product, current_product_trade_flow, current_product_country)
-
-
-          // Product space http://127.0.0.1:8000/explore/product_space/export/usa/all/show/2011/
-          url += current_viz+"/"+current_product_trade_flow+"/"+current_country1+"/"+"all/show/"+current_year1+"/";
-          
-          // Make sure we have country for product space and diversity
-          if( (current_viz == "product_space" || current_viz=="pie_scatter" || current_viz=="rings" ) && current_country1 == "") {
-            alert("Please select at least one country");  
-            return;
-          } 
-
-          window.location.assign(url);
-
-
-        } else {
-          console.log("ERROR IN SELECTING COUNTRIES/PRODUCTS TAB");
-
-        }
-
-      }
-
       </script>
      
-
-      <ul class="nav nav-tabs" id="myTab">
-        <li class="active" title="..." toolTip="0"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
-       <!-- <li><a href="#tab-products"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray"></span> <span  style="font-size:18px;">Products</span></a></li>-->
-      </ul>
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
+        </ul>
 
       </div>
-	  
+
+      <!-- The title -->
       <div class="app_title" id="title">
         <h2 style="margin-left:10px; width:700px;" id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2>
       </div>
       
       <br style="clear:both">
-	 {% if isbrowsemode %}
-	 {% else %}
+  	 {% if isbrowsemode %}
+  	 {% else %}
+
       <!-- The left pane -->
       <div id="app_pane" style="width:230px; height:780px;">
         <div data-toggle="tooltip" class="tab-content bootstro" data-bootstro-title="Query" data-bootstro-content="The first thing you need to do is decide what question you are trying to answer. Perhaps, what products did the United States export in 2000? Or how has its import basket changed in the last ten years?  Once you have decided your query, you can enter the information you need to answer this in the left-hand bar." data-bootstro-placement="right">
@@ -599,7 +179,7 @@
             </div>
 
           <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
-            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;">Trade Flow</span></a></li>
+            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;">{% trans "Trade Flow" %}</span></a></li>
             <li {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}class="active"{% endif %}><a href="#tab-diversification"><span style="font-size:14px; color:gray;">Diversification</span></a></li>
           </ul>
 
@@ -670,13 +250,12 @@
                     {% if country1_list %}
 
                     {% for c in country1_list %}
-                    {% if c.id == country2.id %}
-                    <option value="{{c.name_3char|lower}}" selected>{{ c.name }}</option>
-                    {% else %}
-                    <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                    {% endif %}
+                      {% if c.id == country2.id %}
+                      <option value="{{c.name_3char|lower}}" selected>{{ c.name }}</option>
+                      {% else %}
+                      <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+                      {% endif %}
                     {% endfor %}
-
 
                   {% else %}
 
@@ -687,16 +266,12 @@
                   </select>
               </div>
             </div>
-
           </div>
   
-
-
-
+          <!-- App selection -->
           <div style="font-weight:bold; margin-top:10px; margin-left:10px">
           <br>
           Visualization:</div>
-
 
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip" title="Treemap" >
@@ -715,7 +290,6 @@
           </div>
 
           <!-- Diversification TAB -->
-
           <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}active{% endif %}" id="tab-diversification">
               
             <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
@@ -729,17 +303,19 @@
               <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
 
               <div style="width:100px; text-align:none; float:right;"> <b>Product Feasibility</b> Opportunities for a country to diversify and potential gains.</div>
-<!--
+
+              {% if app_name == "rings" %}
               <p style="clear:both"></p><br>
 
               <label value="rings" type="radio" class="btn btn-default {% if app_name == "rings" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('rings');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
 
               <div style="width:100px; text-align:none; float:right;"> <b>Rings</b><br> Product-centric navigation of the Product Space.</div>
--->
+              {% endif %}
 
             </div>
                
-                <br><br>
+            <br><br>
+
           {% if app_name == "product_space_new" %}
               <script>
               
@@ -748,7 +324,6 @@
                 d3.select("#viz").call(chart.highlight($("#find-product").find(":selected").val()))
                // alert($("#find-product").find(":selected").val());
               }
-
 
 
                // d3.select("#viz").call(chart.highlight("2306"))
@@ -778,6 +353,7 @@
           </div>
         </div>
       </div>
+
     <!-- Product Tab -->
     <div class="tab-pane " id="tab-products">
       <b style="margin:10px 0px">Select a Product:</b>
@@ -813,7 +389,7 @@
       </div>
 
       <!-- Product Trade Flow -->
-      <div style="margin-left: 15p; margin-top:20px; font-weight:bold;">Select a <span class="definition">Trade Flow:</div>
+      <div style="margin-left: 15p; margin-top:20px; font-weight:bold;">Select a <span class="definition">{% trans "Trade Flow" %}:</div>
 
       <div class="dropdown_container" id="product-trade-flow" width="120px" style="margin-left: 10px;" onmouseover="$('.show-trade-flow').css('visibility', 'visible');"  onmouseout="$('.show-trade-flow').css('visibility', 'hidden');">
             
@@ -830,7 +406,6 @@
         </select>
 
       </div>
-
 
       <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px">
         <li class="active"><a href="#show-country-partner"><span style="font-size:16px;" class="definition">Country</span></a></li>
@@ -885,8 +460,6 @@
                   {% endif %}
 
                 </select>
-
-
               </div>
             </div>
           </div>
@@ -900,9 +473,7 @@
    <div class="tab-content" style="display:block">
     <ul class="nav nav-tabs" id="myTab">
       <li class="active"><a href="#country-year"><span class="glyphicon glyphicon-calendar"></span> <span style="font-size:16px;">Time Period</span></a></li>
-      <!--
-     <li><a href="#country-over-time"><span class="glyphicon glyphicon-calendar"></span> </span> <span  style="font-size:16px">Over Time</span></a></li>-->
- </ul>
+    </ul>
 
     <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px;"  onmouseover="$('.over-time').css('visibility', 'visible');"  onmouseout="$('.over-time').css('visibility', 'hidden');">
 
@@ -949,7 +520,6 @@
           </select>
         </div>
 
-
         <div class="product_class" style="float:left; margin-left:10px;">
            <select data-url_pos="5" id="year1_select" style="width:80px">
             {% for y in year1_list %}
@@ -962,29 +532,18 @@
           </select>
         </div>
 
-
       </div>
     </div>
 </div>
 
   <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If you're curious about anything on the page, simply move your mouse over it and the Help Box will display useful information. If you need more information, use the “About” tab at the top of the page." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
     <div id="helpBoxInner">
-        <h3>Help Box</h3>
+        <h3>{% trans "Help Box" %}</h3>
         <hr>
         <p>Welcome to The Atlas of Economic Complexity. Hover over an element to see its function.</p>
     </div>
-  <button id="help">Help</button>
+    <button id="help">{% trans "Help" %}</button>
   </div>
-
-
-
-
-<!--
-<button type="button" id="show-partner" class="glyphicon glyphicon-refresh" style="float:left; margin: 0px 10px"></button>
-
-       <button id="build" style="float:left; margin-bottom:20px">{% trans "Build Visualization" %} &raquo;</button>
-    -->
-
 
 <!--
       <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-state-focus" role="tab" aria-expanded="false" aria-selected="false" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"></span><a href="#">Parameters</a></h3>
@@ -1161,16 +720,13 @@
         <!-- Container for the timeline -->
          <div id="timeline" class="bootstro" data-bootstro-title="Options Panel" data-bootstro-content="The Options Panel changes based on the visualization that you've selected. Here, you can do things such as filter the results by country and product or even change the level of detail shown in the visualization." data-toggle="tooltip" data-bootstro-placement="left">
          <!--<div class="ui_bottom" id="ui_bottom" style="bottom:0px;"></div>-->
+          
           {% if app_name == "stacked" %}  
+
           <div id="stacked_controls" style="width:90%">
 
-
-
-
-        <div  style="float:left;">
+            <div  style="float:left;">
           
-
-
 
             <!-- <div>
               <p>Year Interval: </p>
@@ -1202,14 +758,6 @@
             </div>
 -->
 
-            <!--
-            <div id="stacked_layout">
-              <p>Layout:</p>
-              <input type="radio" id="value" name="layout" checked="checked" /><label for="value">Value</label>
-              <input type="radio" id="share" name="layout" /><label for="share">Share</label>
-            </div>
-            -->
-
             <span class="definition" style="font-weight:bold; margin-left:20px;">Layout:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
               <label class="btn btn-default active">
@@ -1223,7 +771,6 @@
             </div>  
 
 
-
             <span class="definition" style="font-weight:bold; margin-left:20px;">Ordering:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
               <label class="btn btn-default active">
@@ -1233,14 +780,6 @@
                 <input type="radio" id="totals" name="order" > Totals
               </label>
             </div>  
-
-            <!--
-            <div id="stacked_order">
-              <p>Ordering:</p>
-              <input type="radio" id="community" name="order" checked="checked" /><label for="community">Community</label>
-              <input type="radio" id="totals" name="order" /><label for="totals">Totals</label>
-            </div>
-            -->
 
             {% if app_type != "sapy" %} 
 
@@ -1261,101 +800,53 @@
               </label>
             </div>  
 
-<!--
-            <div id="stacked_capita" style="margin-left:40px">
-              <p>Adjust:</p>
-              <span style="">
-                <input type="radio" id="current" name="capita" checked="checked" /><label style="margin-top:4px" for="current">Current</label>
-                <input type="radio" id="notpc_constant" name="capita" /><label for="notpc_constant">Constant</label>
-              </span>
-              <span style="">
-                <input type="radio" id="pc_current" name="capita" /><label style="" for="pc_current">Per Capita Current</label>
-                <input type="radio" id="pc_constant" name="capita" /><label for="pc_constant">Per Capita Constant</label>
-              </span>
-            </div>
--->
-
-
             {% endif %}
+          
             </div>
           </div>  
+
           {% endif %}
+
           {% if app_name == "pie_scatter" %}
 
+            <div class="product_class" style="float:left;">
+              <span class="definition" style="font-weight:bold;">Y-Axis: </span>
+              <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-left:10px;">
+                <label class="btn btn-default active" id="complexity" name="yvar" >
+                  <input type="radio" id="complexity" name="yvar"> Complexity
+                </label>
+                <label class="btn btn-default" id="opp_gain" >
+                  <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
+                </label>
+              </div>
+            </div>
 
-            <!--
-            <div id="pie_controls" style="margin-left:18px; float:left;">
+            <div class="product_class" style="float:left; margin-left:20px;">
+              <span class="definition" style="font-weight:bold;">Spotlight: </span>
+              <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-left:10px;">
+                <label class="btn btn-default active" id="complexity" name="yvar" >
+                  <input type="radio" id="spot_off" name="pie_spot"> Off
+                </label>
+                <label class="btn btn-default" id="opp_gain" >
+                  <input type="radio" id="spot_on" name="pie_spot"> On
+                </label>
+              </div>
+            </div>
+            <p style="clear:both">
 
-
-             <div id="pie_yvar">
-               
-               <input type="radio" id="complexity" name="yvar" checked="checked" /><label for="complexity">Complexity</label>
-               <input type="radio" id="opp_gain" name="yvar" /><label for="opp_gain">Opportunity Gain</label>
-             </div>
-
-             <div id="pie_spot">
-               <p>Spotlight:</p>
-               <input type="radio" id="spot_off" name="pie_spot" checked="checked" /><label for="spot_off">Off</label>
-               <input type="radio" id="spot_on" name="pie_spot" /><label for="spot_on">On</label>
-             </div>
-           </div>   
--->
-
-        <div class="product_class" style="float:left;">
-          <span class="definition" style="font-weight:bold;">Y-Axis: </span>
-          <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-left:10px;">
-            <label class="btn btn-default active" id="complexity" name="yvar" >
-              <input type="radio" id="complexity" name="yvar"> Complexity
-            </label>
-            <label class="btn btn-default" id="opp_gain" >
-              <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
-            </label>
-          </div>
-        </div>
-
-        <div class="product_class" style="float:left; margin-left:20px;">
-          <span class="definition" style="font-weight:bold;">Spotlight: </span>
-          <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-left:10px;">
-            <label class="btn btn-default active" id="complexity" name="yvar" >
-              <input type="radio" id="spot_off" name="pie_spot"> Off
-            </label>
-            <label class="btn btn-default" id="opp_gain" >
-              <input type="radio" id="spot_on" name="pie_spot"> On
-            </label>
-          </div>
-        </div>
-        <p style="clear:both">
           {% endif %}
 
+        <!-- Those used to be in the right side bar -->
 
-<!-- Those used to be in the right side bar -->
-
-        <style>
-        div.btn_label {
-          font-size: 12px;
-          font-weight: bold;
-          display: inline-block;
-          float: left;
-          height: 20px;
-          line-height: 20px;
-          padding: 4px 5px;
-          color: #333333;
-        }
-        </style>
-
+ 
         <div id="ui_bottom" style="bottom: 0px;"><div id="key" style="padding: 5px 0px 2px 5px;">
 
-
         </div>
 
-
         </div>
-
 
         <div class="product_class clone_loader" style="float:left;">
           
-
-
           {% if app_name == "product_space" %}
 
           <b>Color by: </b>
@@ -1372,7 +863,7 @@
             <label type="button" class="btn btn-default" value="world_trade">
               <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
             </label>
-          <!--  <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4"> Community</label> -->
+
           </div>
 
           <script>
@@ -1417,7 +908,7 @@
          {% if app_name == "map" %}
 
          <!-- TO BE IMPLEMENTED
-          <b>Scale: </b>
+          <b>Color scale: </b>
           <div class="btn-group product_class">
             <label type="button" class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}" value="sitc4">Linear</label>
             <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4">Log</label>
@@ -1427,46 +918,21 @@
          {% endif %}
 
         </div>
-<!--
-      {% if app_name != "product_space" %}
-        {% if app_name != "map" %}
-        <div class="nesting" style="float:left;">
-          <span class="definition" style="font-weight:bold;">Details:</span>
-          <select id="nesting_level" name="nesting" onchange="nest_drop_report(this.value)"> 
-            <option value="nesting_0" >Low</option>
-            {% if app_type == "casy" %}
-            <option value="nesting_1">Mid</option>
-            {% endif %}
-            {% if app_type == "ccsy" %}
-            <option value="nesting_1">Mid</option>
-            {% endif %}
-            <option value="nesting_2">Hi</option>
-          </select>
-        </div>  
-        {% endif %}
-      {% endif %}
--->
-
 
       {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}          
-        <div class="product_class clone_loader" style="float:left;">
+        <div class="clone_loader" style="float:left;">
             <span class="definition" style="font-weight:bold; margin-left:20px;">Level of detail:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
-              <label class="btn btn-default {% if app_name == "stacked" %} active {% endif %}">
-                <input type="radio" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
+              <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
+                <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
               </label>
-              {% if app_type == "casy" %}
-              <label class="btn btn-default">
-                <input type="radio" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
-              </label>
-              {% endif %}
-              {% if app_type == "ccsy" %}
-              <label class="btn btn-default">
-                <input type="radio" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
+              {% if app_type == "casy" or app_type == "ccsy" %}
+              <label class="btn btn-default btn-detail">
+                <input type="radio" name="level_detail" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
               </label>
               {% endif %}
-              <label class="btn btn-default {% if app_name != "stacked" %} active {% endif %}">
-                <input type="radio" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
+              <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
+                <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
               </label>
             </div>  
           </div>
@@ -1476,21 +942,6 @@
  </div>  
            
        {% endif %}
-
-       <style>
-
-       #tool_pane  .glyphicon {
-          font-size:18px;
-           color:gray;
-           margin:5px;
-           cursor:pointer;
-        }
-
-       #tool_pane > .glyphicon:hover {
-         color:black;
-        }
-       </style>
-
 
       <!-- The right pane -->
       <div id="tool_pane" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media, email, or even create a 'story' and post it to our site." data-toggle="tooltip" data-bootstro-placement="left">
@@ -1574,20 +1025,7 @@
     {% endif %}
         <!--
         <!-- Trade Flow 
-        {% if app_name != "pie_scatter" %}
-        <div class="dropdown_container" id="trade_flow">
-          <h3 class="definition">{% trans "Trade Flow" %}</h3>
-          <select data-url_pos="5">
-            {% for tf in trade_flow_list %}
-            {% if tf.0 == trade_flow %}
-            <option value="{{tf.0}}" selected="selected">{{ tf.1 }}</option>
-            {% else %}
-            <option value="{{tf.0}}">{{ tf.1 }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-        {% endif %}
+
         <!-- Country List 
         {% if country1_list  %}
         <div class="dropdown_container" id="country1">
@@ -1700,7 +1138,7 @@
       <div class="footerInner">
 
         <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: {{ VERSION }}.
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
         <p style="clear:both"></p>
@@ -1721,11 +1159,8 @@
       </div>
 
 
-
     </footer>
     </div> <!-- END #main -->
-
-
 
 
     <canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
@@ -1791,7 +1226,6 @@
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
-
 
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
@@ -1908,28 +1342,9 @@
         background-color: lightblue;
       }
 
-
     </style>
   <script>
   
-  // Variables from query string
-  var queryParameters = {}, queryString = location.search.substring(1),
-      re = /([^&=]+)=([^&]*)/g, m, queryActivated = false;
-   
-  // Creates a map with the query string parameters
-  while (m = re.exec(queryString)) {
-      queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-  }
-
-  // Add new parameters or update existing ones
-  queryParameters['prod_class'] = "{{prod_class}}";
-  queryParameters['details_treemap'] = queryParameters['details_treemap'] || 1;
-  queryParameters['cat'] = queryParameters['cat'] || "";
-  queryParameters['cont'] = queryParameters['cont'] || "";
-
-  if(queryActivated)
-	  history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
-
   // variables from server
   var app,
     app_types = ["tree_map", "stacked", "product_space", "rings", "pie_scatter", "map"],
@@ -1966,6 +1381,31 @@
     window.location = "/set_language/"+language+"/";
   });
   
+
+  // Variables from query string
+  var queryParameters = {}, queryString = location.search.substring(1),
+      re = /([^&=]+)=([^&]*)/g, m, queryActivated = false;
+   
+  // Creates a map with the query string parameters
+  while (m = re.exec(queryString)) {
+      queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+  }
+
+  // Add new parameters or update existing ones
+  queryParameters['prod_class'] = "{{prod_class}}";
+  queryParameters['details_treemap'] = queryParameters['details_treemap'] || 2;
+  queryParameters['cat'] = queryParameters['cat'] || "";
+  queryParameters['cont'] = queryParameters['cont'] || "";
+
+  if(queryActivated)
+    history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
+
+  // Dynamically update the interface based on queryParameters values
+  if(app_type=="tree_map") {
+    d3.selectAll("input[name='level_detail']").property("checked", false)
+    d3.selectAll("input[value='nesting_"+queryParameters['details_treemap']+"']").property("checked", true)
+  }
+
   // set active link in top nav for current page
   var current_page = "explore";
   $("nav ul a").each(function(i, el){
@@ -2012,15 +1452,11 @@
       //$("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
       //$("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
-   // $(".tooltipbs").tooltip({delay: { show: 1500, hide: 100 }});
-
-
     $("#country1 select").change(function() {
     $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
     $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
     $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
     $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
-   
     $("#country1_select_chosen .chosen-single span").css("color", "black");
 
   });
@@ -2032,11 +1468,6 @@
     $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
    
   });
-
-  $("select").change(function() {
-    //available_viz();
-  });
-
 
   // For some reason, $("#country1_select_chosen select").trigger("chosen:updated"); does not work
   $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country1 select").val()+".png') no-repeat");
@@ -2058,17 +1489,13 @@
   $('#myTab a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
-   // available_viz();
   })
-
-  // Set which visualization is available or not
-  //available_viz();  
 
   $('label[value=map]').click(function() { return update_viz("map"); } );   
   $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );
   $('label[value=stacked]').click(function() { return update_viz("stacked"); } );
 
-//To display visualization in full screen ,while viewing stories
+  //To display visualization in full screen, while viewing stories
   var contentWidth=$("#content").width();
 
   //if static image mode is SVG
