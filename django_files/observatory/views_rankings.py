@@ -10,11 +10,11 @@ from django.utils.translation import gettext as _
 # App specific
 from observatory.models import *
 
-def index(request, category="country", year=2008):
+def index(request, category="country", year=2012):
   year = int(year)
   
-  min_year = 1964
-  max_year = 2008 if category == "country" else 2009
+  min_year = 1995
+  max_year = 2012 if category == "country" else 2012
   if year < min_year:
     return redirect('/rankings/%s/%d/' % (category, max_year))
   elif year > max_year:
@@ -35,8 +35,8 @@ def index(request, category="country", year=2008):
 def download(request, category="country", year=None):
   import csv
   
-  min_year = 1964
-  max_year = 2009 if category == "country" else 2009
+  min_year = 1995
+  max_year = 2012 if category == "country" else 2012
   
   if category == "country":
     header_row = ["rank", "abbrv", "country", "eci_value", "delta", "year"]
@@ -79,7 +79,7 @@ def get_rankings(category, year):
   if category == "country":
     year_rankings = Cy.objects.filter(year__in=[year, year-1],eci_rank__isnull=False).values_list("eci_rank", "country__name_3char", "country__name_en", "eci", "year")
   elif category == "product":
-    year_rankings = Sitc4_py.objects.filter(year__in=[year, year-1]).values_list("pci_rank", "product__code", "product__name_en", "pci", "year")
+    year_rankings = Hs4_py.objects.filter(year__in=[year, year-1]).values_list("pci_rank", "product__code", "product__name_en", "pci", "year")
   
   for r in year_rankings:
     rankings[r[1]][r[4]] = r
