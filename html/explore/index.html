@@ -6,6 +6,9 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  {% if displayviz %}
+    <meta property="og:image" content="{{ displayImage }}"/>
+  {% endif %}
   <base href="{{HTTP_HOST}}">
   <title>The Atlas Of Economic Complexity</title>
   <meta name="description" content="Networks in Macro Economics with World Trade Data">
