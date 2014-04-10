@@ -326,8 +326,8 @@
 
           if(viz=="stacked" && current_year2=="") {
           	if(prod_class="hs4") {
-          		if(current_year1 < 2011)
-          			current_year2 = 2011;
+          		if(current_year1 < 2012)
+          			current_year2 = 2012;
           		else
           			current_year2 = 1995;
 	          } else {
@@ -336,7 +336,6 @@
           		else
           			current_year2 = 1962;
 	          }
-
             current_viz = viz;
           }
 
@@ -550,20 +549,20 @@
       </script>
      
 
-      <ul class="nav nav-tabs" id="myTab">
-        <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
-       <!-- <li><a href="#tab-products"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray"></span> <span  style="font-size:18px;">Products</span></a></li>-->
-      </ul>
-
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
+        </ul>
       </div>
-	  
+
+      <!-- The title -->
       <div class="app_title" id="title">
         <h2 style="margin-left:10px; width:700px;" id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2>
       </div>
       
       <br style="clear:both">
-	 {% if isbrowsemode %}
-	 {% else %}
+  	 {% if isbrowsemode %}
+  	 {% else %}
+
       <!-- The left pane -->
       <div id="app_pane" style="width:230px; height:780px;">
         <div data-toggle="tooltip" class="tab-content bootstro" data-bootstro-title="Query" data-bootstro-content="The first thing you need to do is decide what question you are trying to answer. Perhaps, what products did the United States export in 2000? Or how has its import basket changed in the last ten years?  Once you have decided your query, you can enter the information you need to answer this in the left-hand bar." data-bootstro-placement="right">
@@ -597,7 +596,7 @@
             </div>
 
           <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
-            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;">Trade Flow</span></a></li>
+            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;">{% trans "Trade Flow" %}</span></a></li>
             <li {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}class="active"{% endif %}><a href="#tab-diversification"><span style="font-size:14px; color:gray;">Diversification</span></a></li>
           </ul>
 
@@ -668,13 +667,12 @@
                     {% if country1_list %}
 
                     {% for c in country1_list %}
-                    {% if c.id == country2.id %}
-                    <option value="{{c.name_3char|lower}}" selected>{{ c.name }}</option>
-                    {% else %}
-                    <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                    {% endif %}
+                      {% if c.id == country2.id %}
+                      <option value="{{c.name_3char|lower}}" selected>{{ c.name }}</option>
+                      {% else %}
+                      <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+                      {% endif %}
                     {% endfor %}
-
 
                   {% else %}
 
@@ -685,12 +683,9 @@
                   </select>
               </div>
             </div>
-
           </div>
   
-
-
-
+          <!-- App selection -->
           <div style="font-weight:bold; margin-top:10px; margin-left:10px">
           <br>
           Visualization:</div>
@@ -713,7 +708,6 @@
           </div>
 
           <!-- Diversification TAB -->
-
           <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}active{% endif %}" id="tab-diversification">
               
             <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
@@ -727,17 +721,19 @@
               <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
 
               <div style="width:100px; text-align:none; float:right;"> <b>Product Feasibility</b> Opportunities for a country to diversify and potential gains.</div>
-<!--
+
+              {% if app_name == "rings" %}
               <p style="clear:both"></p><br>
 
               <label value="rings" type="radio" class="btn btn-default {% if app_name == "rings" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('rings');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
 
               <div style="width:100px; text-align:none; float:right;"> <b>Rings</b><br> Product-centric navigation of the Product Space.</div>
--->
+              {% endif %}
 
             </div>
                
-                <br><br>
+            <br><br>
+
           {% if app_name == "product_space_new" %}
               <script>
               
@@ -746,7 +742,6 @@
                 d3.select("#viz").call(chart.highlight($("#find-product").find(":selected").val()))
                // alert($("#find-product").find(":selected").val());
               }
-
 
 
                // d3.select("#viz").call(chart.highlight("2306"))
@@ -776,6 +771,7 @@
           </div>
         </div>
       </div>
+
     <!-- Product Tab -->
     <div class="tab-pane " id="tab-products">
       <b style="margin:10px 0px">Select a Product:</b>
@@ -811,7 +807,7 @@
       </div>
 
       <!-- Product Trade Flow -->
-      <div style="margin-left: 15p; margin-top:20px; font-weight:bold;">Select a <span class="definition">Trade Flow:</div>
+      <div style="margin-left: 15p; margin-top:20px; font-weight:bold;">Select a <span class="definition">{% trans "Trade Flow" %}:</div>
 
       <div class="dropdown_container" id="product-trade-flow" width="120px" style="margin-left: 10px;" onmouseover="$('.show-trade-flow').css('visibility', 'visible');"  onmouseout="$('.show-trade-flow').css('visibility', 'hidden');">
             
@@ -883,8 +879,6 @@
                   {% endif %}
 
                 </select>
-
-
               </div>
             </div>
           </div>
@@ -898,9 +892,7 @@
    <div class="tab-content" style="display:block">
     <ul class="nav nav-tabs" id="myTab">
       <li class="active"><a href="#country-year"><span class="glyphicon glyphicon-calendar"></span> <span style="font-size:16px;">Time Period</span></a></li>
-      <!--
-     <li><a href="#country-over-time"><span class="glyphicon glyphicon-calendar"></span> </span> <span  style="font-size:16px">Over Time</span></a></li>-->
- </ul>
+    </ul>
 
     <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px;"  onmouseover="$('.over-time').css('visibility', 'visible');"  onmouseout="$('.over-time').css('visibility', 'hidden');">
 
@@ -1259,21 +1251,6 @@
               </label>
             </div>  
 
-<!--
-            <div id="stacked_capita" style="margin-left:40px">
-              <p>Adjust:</p>
-              <span style="">
-                <input type="radio" id="current" name="capita" checked="checked" /><label style="margin-top:4px" for="current">Current</label>
-                <input type="radio" id="notpc_constant" name="capita" /><label for="notpc_constant">Constant</label>
-              </span>
-              <span style="">
-                <input type="radio" id="pc_current" name="capita" /><label style="" for="pc_current">Per Capita Current</label>
-                <input type="radio" id="pc_constant" name="capita" /><label for="pc_constant">Per Capita Constant</label>
-              </span>
-            </div>
--->
-
-
             {% endif %}
             </div>
           </div>  
@@ -1352,8 +1329,6 @@
 
         <div class="product_class clone_loader" style="float:left;">
           
-
-
           {% if app_name == "product_space" %}
 
           <b>Color by: </b>
@@ -1415,7 +1390,7 @@
          {% if app_name == "map" %}
 
          <!-- TO BE IMPLEMENTED
-          <b>Scale: </b>
+          <b>Color scale: </b>
           <div class="btn-group product_class">
             <label type="button" class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}" value="sitc4">Linear</label>
             <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4">Log</label>
@@ -1474,20 +1449,6 @@
  </div>  
            
        {% endif %}
-
-       <style>
-
-       #tool_pane  .glyphicon {
-          font-size:18px;
-           color:gray;
-           margin:5px;
-           cursor:pointer;
-        }
-
-       #tool_pane > .glyphicon:hover {
-         color:black;
-        }
-       </style>
 
 
       <!-- The right pane -->
@@ -1570,20 +1531,7 @@
     {% endif %}
         <!--
         <!-- Trade Flow 
-        {% if app_name != "pie_scatter" %}
-        <div class="dropdown_container" id="trade_flow">
-          <h3 class="definition">{% trans "Trade Flow" %}</h3>
-          <select data-url_pos="5">
-            {% for tf in trade_flow_list %}
-            {% if tf.0 == trade_flow %}
-            <option value="{{tf.0}}" selected="selected">{{ tf.1 }}</option>
-            {% else %}
-            <option value="{{tf.0}}">{{ tf.1 }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-        {% endif %}
+
         <!-- Country List 
         {% if country1_list  %}
         <div class="dropdown_container" id="country1">
@@ -1696,7 +1644,7 @@
       <div class="footerInner">
 
         <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: {{ VERSION }}.
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
         <p style="clear:both"></p>
@@ -1717,11 +1665,8 @@
       </div>
 
 
-
     </footer>
     </div> <!-- END #main -->
-
-
 
 
     <canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
@@ -1787,7 +1732,6 @@
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
-
 
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
@@ -1903,7 +1847,6 @@
         margin-top:-4px;
         background-color: lightblue;
       }
-
 
     </style>
   <script>
@@ -2029,11 +1972,6 @@
    
   });
 
-  $("select").change(function() {
-    //available_viz();
-  });
-
-
   // For some reason, $("#country1_select_chosen select").trigger("chosen:updated"); does not work
   $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country1 select").val()+".png') no-repeat");
   $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
@@ -2054,17 +1992,13 @@
   $('#myTab a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
-   // available_viz();
   })
-
-  // Set which visualization is available or not
-  //available_viz();  
 
   $('label[value=map]').click(function() { return update_viz("map"); } );   
   $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );
   $('label[value=stacked]').click(function() { return update_viz("stacked"); } );
 
-//To display visualization in full screen ,while viewing stories
+  //To display visualization in full screen, while viewing stories
   var contentWidth=$("#content").width();
 
   //if static image mode is SVG

@@ -1795,6 +1795,14 @@ display: block;
   display:none;
 }
 
+#tool_pane  .glyphicon {
+  font-size:18px;
+   color:gray;
+   margin:5px;
+   cursor:pointer;
+}
 
-
+#tool_pane > .glyphicon:hover {
+ color:black;
+}
 
