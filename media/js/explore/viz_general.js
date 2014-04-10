@@ -853,7 +853,7 @@ var flat_data,
       .font("Helvetica Neue")
       .click_function(inner_html)
       .font_weight("lighter")
-      .depth("nesting_2")
+      .depth("nesting_"+queryParameters["details_treemap"]) // 2 by default
       .text_format(txt_format)
       .number_format(num_format)
       .font('PT Sans Narrow')
