@@ -863,8 +863,6 @@ var flat_data,
     
     //d3.select("#loader").style("display", "none");
 
-
-
     if(item_type=="country"){
       
       viz.depth("nesting_2") // Updated to low level
@@ -1149,45 +1147,6 @@ var flat_data,
 
   rings = function( req ) {
 
-
-/*
-    d3.json("media/js/libs/d3plus/examples/data/attr_hs.json", function(attr) {
-
-    (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
-                          req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json";
-
-      // "media/js/libs/d3plus/examples/data/network_hs.json"
-      d3.json(req, function(hs) {
-        
-        viz_nodes = hs.nodes
-        viz_links = hs.edges
-
-        viz_links.forEach(function(link){
-          link.source = viz_nodes[link.source]
-          link.target = viz_nodes[link.target]
-        })
-        
-        d3.json("media/js/libs/d3plus/examples/data/products_mg.json", function(ps_data) {
-          
-          depths = [2,4,6]
-          
-          for (id in attr) {
-            obj = attr[id]
-            depths.forEach(function(d){
-              if (d <= obj.id.length) {
-                obj["nesting_"+d] = {"name":attr[obj.id.slice(0, d)].name, "id":obj.id.slice(0, d)}
-              }
-            })
-          }
-          
-          ps_data.forEach(function(d){
-            d.active = Math.floor(Math.random()*2);
-          })
-
-*/
-
-
-
  (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
                           req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json";
     
@@ -1244,7 +1203,12 @@ var flat_data,
             var d = {}; 
             // d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
            }
-            d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
+
+            d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0];
+
+            // Added for 2012 data
+            if(typeof(d.world_trade) != "undefined")
+              d.world_trade = d.world_trade['world_trade'];
             
             // var obj = vizwhiz.utils.merge(d,attr[n.id])
             // obj.world_trade = d.world_trade
@@ -1278,49 +1242,16 @@ var flat_data,
         this_year = []
       })
       
-      
-
-        // var inner_html = function(obj) {
-        //   console.log(obj)
-
-        //   var html = "<br>";
-        //   html += " <table>";
-        //   html += "<tr><td><img src='/media/img/home/teaser_map.png' style='width:60px;'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Countries who export cars</a></td></tr>"
-          
-        //   html += "<tr><td><img src='/media/img/home/us_exports.png' style='width:60px'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Cars exports over time</a></td></tr>"
-
-        //   html += "<tr><td><img src='/media/img/home/us_imports_ps.png' style='width:60px'></td><td><a href='/explore/product_space/export/usa/all/show/2011/#highlight=8703' style='font-size:14px; margin-left: 10px'>Cars in the Product Space</a></td></tr>"
-          
-        //   html += "<tr><td><img src='/media/img/home/teaser_pie.png' style='width:60px'></td><td><a href='/explore/pie_scatter/export/usa/all/show/2011/' style='font-size:14px; margin-left: 10px'>Feasability of Cars</a></td></tr>"
-
-
-        //   html += "</table>";
-        //   return html;
-        // }
-  
-    
-
-
-
-
-
-
           
           format_test = function(data) {
             // console.log(data)
             return "Test JSON: "+data[10].name
           }
-            
-          clicker = function(obj) {
-            // console.log(obj);
-            return "Text"
-            // return {"url": "data/attr_hs.json", "callback": format_test}
-          }
           
           var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
           var max_value = d3.max(year_data, function(d, i) { return d.value})
           var max_id = year_data.filter(function(d, i) { if(d.value==max_value) return d;} )[0].code
-          console.log(max_id)
+
           // var tooltips = {"short": ["id"],"long": {"basics":["id","val_usd"],"calculations":["distance", "complexity"]}}
           // var tooltips = {"short": ["id"],"long": ["id","val_usd","distance"]}
           // var tooltips = ["id","val_usd"]
@@ -1338,13 +1269,13 @@ var flat_data,
             .name_array(["value"])
             .value_var("world_trade")
             .highlight(max_id+"") 
-           // .tooltip_info(tooltips)
+            .tooltip_info(tooltips)
             //.nesting(["nesting_0","nesting_1","nesting_2"])
             .nesting([])
             .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
-            .click_function(clicker)
-            .descs({"id": "This is the ID! It means what you would expect it to mean. Another really long setence with multiple random words.", "val_usd": "...value. duh."})
-            .footer("<a href='www.google.com'>SECEX</a>")
+            .click_function(inner_html)
+            .descs({"id": "This is ID", "val_usd": "This is value USD."})
+            .footer("")
             .year(year)
             // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
             // .number_format(function(d){return d+"longtext longtext longtext longtext longtext"})
@@ -1580,27 +1511,6 @@ var flat_data,
       //   })
       // })      
 
-        // var inner_html = function(obj) {
-        //   console.log(obj)
-
-
-        //   var html = "<br>";
-          
-        //   html += " <table>";
-        //   html += "<tr><td><img src='/media/img/home/teaser_map.png' style='width:60px;'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Countries who export cars</a></td></tr>"
-          
-        //   html += "<tr><td><img src='/media/img/home/us_exports.png' style='width:60px'></td><td><a href='/explore/map/export/show/all/8703/2011/' style='font-size:14px; margin-left: 10px'>Cars exports over time</a></td></tr>"
-
-        //   html += "<tr><td><img src='/media/img/home/us_imports_ps.png' style='width:60px'></td><td><a href='/explore/product_space/export/usa/all/show/2011/#highlight=8703' style='font-size:14px; margin-left: 10px'>Cars in the Product Space</a></td></tr>"
-          
-        //   html += "<tr><td><img src='/media/img/home/teaser_pie.png' style='width:60px'></td><td><a href='/explore/pie_scatter/export/usa/all/show/2011/' style='font-size:14px; margin-left: 10px'>Feasability of Cars</a></td></tr>"
-
-
-        //   html += "</table>";
-          
-        //   return html;
-          
-        // }
   
     viz
       .type("network")
