@@ -189,7 +189,14 @@ function update_viz(viz) {
   // COUNTRIES
   if($(".main-countries-products").find(".active").index()==0) { 
 
+    // Import or Export
     var current_flow = $("#trade_flow").find(":selected").val();
+
+    // Check if gross or net
+    var gross_net = $('input[name="level_detail"]:checked').val();
+
+    current_flow = gross_net + "_" + current_flow;
+
     var current_country1 = $("#country1").find(":selected").val();
     current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1; 
 
@@ -305,8 +312,6 @@ function update_viz(viz) {
           
         }
       }
-
-      // http://atlas.cid.harvard.edu/beta/explore/tree_map/import/usa/chn/show/2011/
 
     // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
     } else if($(".tab-trade-partner-product").find(".active").index()==1) {
