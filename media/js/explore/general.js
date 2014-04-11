@@ -225,15 +225,17 @@ function update_viz(viz) {
 
     if(viz=="stacked" && current_year2=="") {
       if(prod_class="hs4") {
-        if(current_year1 < 2012)
+        if(current_year1 > 2012)
           current_year2 = 2012;
         else
           current_year2 = 1995;
-      } else {
-        if(current_year1 < 2010)
+      } else { // "sitc"
+        if(current_year1 > 2010) {
           current_year2 = 2010;
-        else
-          current_year2 = 1962;
+
+        }
+        if(current_year2>2009)
+          current_year2 = 2009;
       }
       current_viz = viz;
     }
