@@ -192,11 +192,8 @@ function update_viz(viz) {
   if(current_viz=="product_space" || current_viz=="pie_scatter" || current_viz=="rings")
     current_flow = "export";
 
-  alert(current_flow)
-
   // COUNTRIES
   if($(".main-countries-products").find(".active").index()==0) { 
-
 
     var current_country1 = $("#country1").find(":selected").val();
     current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1; 
@@ -293,10 +290,8 @@ function update_viz(viz) {
          
         }
 
-
       } else {
         
-
         if(current_year2=="") {
 
           url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/"
@@ -319,9 +314,7 @@ function update_viz(viz) {
     // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
     } else if($(".tab-trade-partner-product").find(".active").index()==1) {
 
-
       if(current_country2=="all") {
-
 
         if(current_year2=="") { 
 
@@ -337,19 +330,11 @@ function update_viz(viz) {
           }
         
           // http://127.0.0.1:8000/explore/stacked/export/alb/show/all/1995.2011.2/
-          // wrong
           //url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"
 
           url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"."+current_year2+".2/"
         } 
 
-
-        // Where does United States export to?
-        // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/all/2011/
-       /////// url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";         
-      
-      // What did United States export in 2011?
-      // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
       } else {
 
 
@@ -357,7 +342,6 @@ function update_viz(viz) {
 
           // What did Albania export to Italy in 1995?
           // http://127.0.0.1:8000/explore/tree_map/export/alb/ita/show/1995/
-
           if(current_viz == "tree_map")
             url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";       
           else if(current_viz == "map") // Can't be a map of products
@@ -375,13 +359,10 @@ function update_viz(viz) {
 
           }
         
-        // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/chn/show/1995.2011.2/
-
-        url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"
+          // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/chn/show/1995.2011.2/
+          url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"
         }
       }
-
-      
 
     } else {
 
@@ -405,13 +386,11 @@ function update_viz(viz) {
       window.location.assign(url);            
     }
 
-
   // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/show/all/0101/2011/
   } else if($(".main-countries-products").find(".active").index()==1) {
 
     // Product space or diversification?
     var current_viz = (typeof viz != "undefined" )  ? viz : $("#div_apps").find(".active").attr("value");
-
 
     current_country1 = $("#country1").find(":selected").val();
     console.log("diver", current_viz, current_country1)
@@ -431,7 +410,6 @@ function update_viz(viz) {
     } 
 
     window.location.assign(url);
-
 
   } else {
     console.log("ERROR IN SELECTING COUNTRIES/PRODUCTS TAB");

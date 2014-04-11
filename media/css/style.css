@@ -1795,6 +1795,8 @@ display: block;
   display:none;
 }
 
+/* from the index.html page */
+
 #tool_pane  .glyphicon {
   font-size:18px;
    color:gray;
@@ -1806,13 +1808,27 @@ display: block;
  color:black;
 }
 
-        div.btn_label {
-          font-size: 12px;
-          font-weight: bold;
-          display: inline-block;
-          float: left;
-          height: 20px;
-          line-height: 20px;
-          padding: 4px 5px;
-          color: #333333;
-        }
+div.btn_label {
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  float: left;
+  height: 20px;
+  line-height: 20px;
+  padding: 4px 5px;
+  color: #333333;
+}
+
+#country1 .chosen-results li.active-result, #country-trade-partner .chosen-results li.active-result {
+  background-size:25px;
+  padding-left: 25px;
+  margin-top:-4px;
+}
+
+#country1 .chosen-results li:hover, #country-trade-partner .chosen-results li:hover {
+  background-size:25px;
+  padding-left: 25px;
+  margin-top:-4px;
+  background-color: lightblue;
+}
+
