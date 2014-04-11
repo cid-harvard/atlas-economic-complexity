@@ -185,17 +185,13 @@ function update_viz(viz) {
   current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
   var current_year1 = $("#year1").find(":selected").val();
 
+  // Import or Export
+  var current_flow = $(".flow-direction").find(".active").index() == 0 ? "export": "import";
+  current_flow = $(".flow-net-gross").find(".active").index() == 0 ? current_flow: "net_"+current_flow;
 
   // COUNTRIES
   if($(".main-countries-products").find(".active").index()==0) { 
 
-    // Import or Export
-    var current_flow = $("#trade_flow").find(":selected").val();
-
-    // Check if gross or net
-    var gross_net = $('input[name="level_detail"]:checked').val();
-
-    current_flow = gross_net + "_" + current_flow;
 
     var current_country1 = $("#country1").find(":selected").val();
     current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1; 

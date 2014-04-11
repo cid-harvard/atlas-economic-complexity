@@ -189,13 +189,14 @@
           <!-- Country selection -->
           <div class="tab-pane {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}active{% endif %}" id="tab-trade">
 
-           <!-- Trade Flow selection -->
-          <b style="margin:10px 0px; margin-left:10px">Type of <span class="definition">Flow</span>:</b>
+           <!-- Trade Flow selection
+          <b style="margin:10px 0px; margin-left:10px">Type of <span class="definition">Flow</span>:</b> 
+          -->
 
           <div class="dropdown_container" id="trade_flow" style="margin-left: 8px;" onmouseover="$('.show-trade-flow').css('visibility', 'visible');"  onmouseout="$('.show-trade-flow').css('visibility', 'hidden');">
             
 
-            <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
+            <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; margin-top:10px; height:20px; font-size:8px; visibility:hidden;"></button>
 
 <!--             <select data-url_pos="5">
               {% for tf in trade_flow_list %}
@@ -206,12 +207,12 @@
               {% endif %}
               {% endfor %}
             </select> -->
-            <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
-              <label class="btn btn-default active">
-                <input type="radio" name="product_class" value="sitc4"><i style="padding:0;"class="fa fa-sign-out"></i>Export
+            <div class="btn-group flow-direction" data-toggle="buttons" style="margin-top:5px; margin-left:5px">
+              <label class="btn btn-default {% if trade_flow == "export" or trade_flow == "net_export" %} active{% endif %}">
+                <input type="radio" name="flow_direction" value="export" checked="checked"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;Export&nbsp;
               </label>
-              <label class="btn btn-default ">
-                <input type="radio" name="product_class" value="hs4"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>Import
+              <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}">
+                <input type="radio" name="flow_direction" id="flow_direction" value="import"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;Import&nbsp;
               </label>
             </div>
           </div>
@@ -947,18 +948,18 @@
           </div>
       {% endif %}
         <div class="clone_loader" style="float:left;">
-        <span class="definition" style="font-weight:bold; margin-left:20px;">Trade Calc.</span>
-        <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
-              <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
-                <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Gross
+        <span class="definition" style="font-weight:bold; margin-left:20px;">Trade Flow:</span>
+        <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+              <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
+                <input type="radio" name="level_detail" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
               </label>
-              <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
-                <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Net
+              <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
+                <input type="radio" name="level_detail" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Net
               </label>
             </div>
           </div> 
-	</div>
- </div>  
+	      </div>
+      </div>  
            
        {% endif %}
 
