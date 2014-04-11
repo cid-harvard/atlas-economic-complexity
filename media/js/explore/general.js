@@ -187,7 +187,12 @@ function update_viz(viz) {
 
   // Import or Export
   var current_flow = $(".flow-direction").find(".active").index() == 0 ? "export": "import";
-  current_flow = $(".flow-net-gross").find(".active").index() == 0 ? current_flow: "net_"+current_flow;
+  current_flow = $(".flow-net-gross").find(".active").index() == 0 || $(".flow-net-gross").find(".active").index() == -1 ? current_flow: "net_"+current_flow;
+
+  if(current_viz=="product_space" || current_viz=="pie_scatter" || current_viz=="rings")
+    current_flow = "export";
+
+  alert(current_flow)
 
   // COUNTRIES
   if($(".main-countries-products").find(".active").index()==0) { 
@@ -407,20 +412,17 @@ function update_viz(viz) {
     // Product space or diversification?
     var current_viz = (typeof viz != "undefined" )  ? viz : $("#div_apps").find(".active").attr("value");
 
-    current_product_trade_flow = "export";
-
 
     current_country1 = $("#country1").find(":selected").val();
     console.log("diver", current_viz, current_country1)
 
     var current_product = $("#product").find(":selected").val();
-    var current_product_trade_flow = $("#product-trade-flow").find(":selected").val();
 
     var current_product_country = $("#products_country1_select").find(":selected").val();
     current_product_country = (typeof current_product_country == "undefined" || current_product_country == "") ? "all" : current_product_country; 
 
     // Product space http://127.0.0.1:8000/explore/product_space/export/usa/all/show/2011/
-    url += current_viz+"/"+current_product_trade_flow+"/"+current_country1+"/"+"all/show/"+current_year1+"/";
+    url += current_viz+"/"+current_flow+"/"+current_country1+"/"+"all/show/"+current_year1+"/";
     
     // Make sure we have country for product space and diversity
     if( (current_viz == "product_space" || current_viz=="pie_scatter" || current_viz=="rings" ) && current_country1 == "") {

@@ -111,7 +111,7 @@ CACHES = {
     }, 
 }
 
-VERSION = '1.0.1'
+VERSION = '1.0.2'
 
 try:
   from settings_local import *
