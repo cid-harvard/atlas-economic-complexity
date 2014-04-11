@@ -707,7 +707,7 @@ def home(request):
 #    c = Country.objects.get(name_2char=country_code)
 #  except Country.DoesNotExist:
     c = Country.objects.get(name_2char="us")
-  
+   # c = Country.objects.order_by('?')[0] # not all countries from this list can be used..
   return render_to_response("home.html", 
     {"default_country": c},
     context_instance=RequestContext(request))
