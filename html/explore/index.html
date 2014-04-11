@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/chosen/chosen.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
-    <link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>
+  <link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>
 
 
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">  
@@ -179,7 +179,7 @@
             </div>
 
           <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
-            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;">{% trans "Trade Flow" %}</span></a></li>
+            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;" title='{% trans "Trade Flow" %}'>{% trans "Trade Flow" %}</span></a></li>
             <li {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}class="active"{% endif %}><a href="#tab-diversification"><span style="font-size:14px; color:gray;">Diversification</span></a></li>
           </ul>
 
@@ -191,12 +191,13 @@
 
            <!-- Trade Flow selection -->
           <b style="margin:10px 0px; margin-left:10px">Type of <span class="definition">Flow</span>:</b>
+
           <div class="dropdown_container" id="trade_flow" style="margin-left: 8px;" onmouseover="$('.show-trade-flow').css('visibility', 'visible');"  onmouseout="$('.show-trade-flow').css('visibility', 'hidden');">
             
 
             <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-            <select data-url_pos="5">
+<!--             <select data-url_pos="5">
               {% for tf in trade_flow_list %}
               {% if tf.0 == trade_flow %}
               <option value="{{tf.0}}" selected="selected">{{ tf.1 }}</option>
@@ -204,7 +205,15 @@
               <option value="{{tf.0}}">{{ tf.1 }}</option>
               {% endif %}
               {% endfor %}
-            </select>
+            </select> -->
+            <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
+              <label class="btn btn-default active">
+                <input type="radio" name="product_class" value="sitc4"><i style="padding:0;"class="fa fa-sign-out"></i>Export
+              </label>
+              <label class="btn btn-default ">
+                <input type="radio" name="product_class" value="hs4"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>Import
+              </label>
+            </div>
           </div>
        
           <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:10px; width:190px;">
@@ -886,7 +895,7 @@
 
          {% endif %}
 
-         <p style="clear:both"></p>
+
 
            <span class="definition" style="font-weight:bold;">Product classification:</span>
           
@@ -896,7 +905,7 @@
             <option value="hs4" {% if prod_class == "hs4" %} selected="selected" {% endif %}>HS4</option>
           </select>
           -->
-          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px; height:34px;">
             <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
               <input type="radio" name="product_class" value="sitc4"> SITC4
             </label>
@@ -937,7 +946,17 @@
             </div>  
           </div>
       {% endif %}
-      
+        <div class="clone_loader" style="float:left;">
+        <span class="definition" style="font-weight:bold; margin-left:20px;">Trade Calc.</span>
+        <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+              <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
+                <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Gross
+              </label>
+              <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
+                <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Net
+              </label>
+            </div>
+          </div> 
 	</div>
  </div>  
            
@@ -1519,13 +1538,15 @@
     ga('send', 'pageview');
   </script>
    {% include "story/body_story.html" %}
-   <script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
+
+
+<!-- Activates tooltips ///////////////////////////////////////////////////////////////////
+
+<script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
-<script type='text/javascript'>
-$(function() {
- $('*[title]').tipsy({gravity: 'n'});
-});
-</script>
-  </body>
+<script type='text/javascript'>$(function(){$('*[title]').tipsy({gravity: 'n'});});</script>
+
+ -->
+</body>
   {% include "story/story_forms.html" %}
 </html>
