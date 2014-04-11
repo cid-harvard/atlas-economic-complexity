@@ -193,26 +193,14 @@
           <b style="margin:10px 0px; margin-left:10px">Type of <span class="definition">Flow</span>:</b> 
           -->
 
-          <div class="dropdown_container" id="trade_flow" style="margin-left: 8px;" onmouseover="$('.show-trade-flow').css('visibility', 'visible');"  onmouseout="$('.show-trade-flow').css('visibility', 'hidden');">
-            
+          <div class="dropdown_container" id="trade_flow" style="margin-left: 8px;">
 
-            <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; margin-top:10px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-<!--             <select data-url_pos="5">
-              {% for tf in trade_flow_list %}
-              {% if tf.0 == trade_flow %}
-              <option value="{{tf.0}}" selected="selected">{{ tf.1 }}</option>
-              {% else %}
-              <option value="{{tf.0}}">{{ tf.1 }}</option>
-              {% endif %}
-              {% endfor %}
-            </select> -->
             <div class="btn-group flow-direction" data-toggle="buttons" style="margin-top:5px; margin-left:5px">
               <label class="btn btn-default {% if trade_flow == "export" or trade_flow == "net_export" %} active{% endif %}">
-                <input type="radio" name="flow_direction" value="export" checked="checked"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;Export&nbsp;
+                <input type="radio" name="flow_direction" value="export" onchange="$('.flow-direction').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;Export&nbsp;
               </label>
               <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}">
-                <input type="radio" name="flow_direction" id="flow_direction" value="import"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;Import&nbsp;
+                <input type="radio" name="flow_direction" id="flow_direction" value="import" onchange="$('.flow-direction').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;Import&nbsp;
               </label>
             </div>
           </div>
@@ -947,17 +935,21 @@
             </div>  
           </div>
       {% endif %}
+
+      {% if app_name != "product_space" and app_name != "rings"%}     
         <div class="clone_loader" style="float:left;">
-        <span class="definition" style="font-weight:bold; margin-left:20px;">Trade Flow:</span>
-        <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
-              <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
-                <input type="radio" name="level_detail" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
-              </label>
-              <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
-                <input type="radio" name="level_detail" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Net
-              </label>
-            </div>
-          </div> 
+          <span class="definition" style="font-weight:bold; margin-left:20px;">Trade Flow:</span>
+          <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+            <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
+              <input type="radio" name="trade_flow" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
+            </label>
+            <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
+              <input type="radio" name="trade_flow" value="net" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Net
+            </label>
+          </div>
+        </div>
+      {% endif %}
+
 	      </div>
       </div>  
            
@@ -1473,21 +1465,19 @@
       //$("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
     $("#country1 select").change(function() {
-    $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
-    $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
-    $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
-    $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
-    $("#country1_select_chosen .chosen-single span").css("color", "black");
+      $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
+      $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
+      $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
+      $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
+      $("#country1_select_chosen .chosen-single span").css("color", "black");
+    });
 
-  });
-
-  $("#country-trade-partner select").change(function() {
-    $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
-    $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
-    $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
-    $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
-   
-  });
+    $("#country-trade-partner select").change(function() {
+      $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
+      $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
+      $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
+      $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
+    });
 
   // For some reason, $("#country1_select_chosen select").trigger("chosen:updated"); does not work
   $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country1 select").val()+".png') no-repeat");
