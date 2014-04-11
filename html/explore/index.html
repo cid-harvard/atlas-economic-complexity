@@ -759,11 +759,11 @@
             <span class="definition" style="font-weight:bold; margin-left:20px;">Layout:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
               <label class="btn btn-default active">
-                <input type="radio" id="value" name="layout" checked="checked"> Value
+                <input type="radio" id="value" name="layout" checked="checked">Value
               </label>
 
               <label class="btn btn-default">
-                <input type="radio" id="share" name="layout" > Share
+                <input type="radio" id="share" name="layout">Share
               </label>
 
             </div>  
@@ -772,10 +772,10 @@
             <span class="definition" style="font-weight:bold; margin-left:20px;">Ordering:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
               <label class="btn btn-default active">
-                <input type="radio" id="community" name="order" checked="checked"> Community
+                <input type="radio" id="community" name="order" checked="checked">Community
               </label>
               <label class="btn btn-default">
-                <input type="radio" id="totals" name="order" > Totals
+                <input type="radio" id="totals" name="order">Totals
               </label>
             </div>  
 
@@ -951,8 +951,25 @@
       {% endif %}
 
 	      </div>
+        <br>
+        <div id="moreOptions">
+          <div id="moContainer">
+            <div class="clone_loader">
+              <span class="definition" style="font-weight:bold; margin-left:20px;">Display Mode:</span>
+              <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+                <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
+                  <input type="radio" name="level_detail" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Dynamic
+                </label>
+                <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
+                  <input type="radio" name="level_detail" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();">Static
+                </label>
+              </div> 
+            </div>            
+          </div>
+        </div>
+        <p id="showMore">Show More Options</p>
       </div>  
-           
+
        {% endif %}
 
       <!-- The right pane -->
@@ -1336,7 +1353,21 @@
     });
 
   </script> 
-
+        <script type="text/javascript">
+        clicked = false;
+        $("#showMore").click(function(){
+          if(clicked == false){
+            $(this).addClass("moreActive");
+            $(this).html("Show Less Options");
+            clicked = true;
+          }else{
+            $(this).removeClass("moreActive");
+            $(this).html("Show More Options");
+            clicked = false;
+          }
+          $("#moreOptions").slideToggle();
+        });
+      </script>
   {% include "story/init_story.html" %}
 
 
