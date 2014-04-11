@@ -42,3 +42,21 @@ span.dlOption{
 .bootstro-backdrop{
 	z-index: 1000;
 }
+#moreOptions{
+	display: none;
+	margin-bottom: 20px;
+}
+#moContainer{
+	width: 100%;
+}
+#showMore{
+	cursor: pointer;
+	width: 120px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	font-weight: bold;	
+}
+#showMore:hover, .moreActive{
+	color:#A41034;
+	text-decoration: underline;
+}
