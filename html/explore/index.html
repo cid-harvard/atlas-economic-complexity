@@ -956,7 +956,7 @@
           <div id="moContainer">
             <div class="clone_loader">
               <span class="definition" style="font-weight:bold; margin-left:20px;">Display Mode:</span>
-              <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+              <div class="btn-group flow-net-gross disabled" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
                 <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
                   <input type="radio" name="level_detail" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Dynamic
                 </label>
@@ -967,7 +967,7 @@
             </div>            
           </div>
         </div>
-     <!--   <p id="showMore">Show More Options</p> -->
+        <p id="showMore">Show More Options</p>
       </div>  
 
        {% endif %}
@@ -1187,10 +1187,8 @@
 
       </div>
 
-
     </footer>
     </div> <!-- END #main -->
-
 
     <canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
     
@@ -1258,22 +1256,6 @@
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
   <script src="{{ STATIC_URL }}js/libs/chosen/chosen.jquery.js" ></script>
 
-  <script>
-    $(function() {
-      $('.chosen-select').chosen();
-      $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-    });
-  </script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-        $("#help").click(function(){
-            bootstro.start(".bootstro",{
-              finishButtonText: "Done"
-            });
-          });
-        });
-  </script>
-
   <!-- App -->
   <script src="{{ STATIC_URL }}js/explore/general.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/story/createStory.js?{{ VERSION }}"></script> 
@@ -1282,7 +1264,6 @@
   <script src="{{ STATIC_URL }}js/explore/controls.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/apps/related.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/libs/toastr/toastr.min.js"></script>
-
 
 <!--
     <script src="{{ STATIC_URL }}js/libs/vizwiz/lib/modernizr.custom.js"></script>
@@ -1325,7 +1306,7 @@
 
   <script src="{{ STATIC_URL }}js/explore/viz_general.js"></script> 
 
-  <!-- Glossary -->
+  <!-- Glossary 
   <div id="glossary" style="display:none;">
     {% include "about/glossary_text.html" %}
   </div>
@@ -1346,7 +1327,7 @@
           });
         }  
     });
-
+-->
   </script> 
         <script type="text/javascript">
         clicked = false;
@@ -1392,6 +1373,7 @@
     product_code = "{{product_code}}",
     prod_class = "{{prod_class}}",
     static_url = "{{STATIC_URL}}";
+
   // Use chosen plugin to make dropdowns look fancy
   $(".dropdown_container select").chosen()
   $(".nesting select").chosen()
@@ -1445,14 +1427,18 @@
   var title = d3.select("#title")
   isOverflowed(title.node()) ? $("#title").children().css("font-size","26px") : console.log("fits") 
 
-  // Allllllright, here goes. The meat and potatoes. The big kahuna...
-  // whatever you wanna call it. This is the single most important function.
-  // It triggers the data call to the server to fetch the data used in turn
-  // to build the app. Look in viz_general.js for more info.
-
   // Page init scripts
   $(function () {
 
+    $('.chosen-select').chosen();
+    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+    $("#help").click(function(){
+        bootstro.start(".bootstro",{
+          finishButtonText: "Done"
+        });
+      });
+ 
     // Be sure we came back to the top of the page
     $(this).scrollTop(0);
     
@@ -1539,8 +1525,8 @@
     ga('create', 'UA-41291966-1', 'harvard.edu');
     ga('send', 'pageview');
   </script>
-   {% include "story/body_story.html" %}
 
+   {% include "story/body_story.html" %}
 
 <!-- Activates tooltips ///////////////////////////////////////////////////////////////////
 
