@@ -6,13 +6,12 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   {% if displayviz %}
-    <meta property="og:image" content="{{ displayImage }}"/>
+  <meta property="og:image" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
   {% endif %}
   <base href="{{HTTP_HOST}}">
-  <title>The Atlas Of Economic Complexity</title>
+  <title>The Atlas Of Economic Complexity{% if title %} | {{title}}{% else %}{% endif %}</title>
   <meta name="description" content="Networks in Macro Economics with World Trade Data">
   <!-- The Atlas Of Economic Complexity | ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})
   <!-- Necessary for google to crawl the site, since it is purely ajax based.
@@ -34,7 +33,6 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
   <link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>
-
 
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">  
 
@@ -967,7 +965,7 @@
             </div>            
           </div>
         </div>
-        <p id="showMore">Show More Options</p>
+        <!-- <p id="showMore">Show More Options</p> -->
       </div>  
 
        {% endif %}
@@ -1306,7 +1304,7 @@
 
   <script src="{{ STATIC_URL }}js/explore/viz_general.js"></script> 
 
-  <!-- Glossary 
+  <!-- Glossary -->
   <div id="glossary" style="display:none;">
     {% include "about/glossary_text.html" %}
   </div>
@@ -1327,7 +1325,7 @@
           });
         }  
     });
--->
+
   </script> 
         <script type="text/javascript">
         clicked = false;
@@ -1372,6 +1370,8 @@
     year_end = "{{year_end}}",
     product_code = "{{product_code}}",
     prod_class = "{{prod_class}}",
+    previous_page = "{{previous_page}}",
+    previous_image = "{{ STATIC_URL }}media/img/empty_static.png",
     static_url = "{{STATIC_URL}}";
 
   // Use chosen plugin to make dropdowns look fancy

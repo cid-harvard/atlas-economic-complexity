@@ -1319,6 +1319,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "country_code": country_code,
     "prod_or_partner": prod_or_partner,
     "version": VERSION,
+    "previous_page": request.META['HTTP_REFERER'],
     "item_type": item_type}, context_instance=RequestContext(request))
 
 
