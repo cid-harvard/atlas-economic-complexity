@@ -6,10 +6,22 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  
   {% if displayviz %}
   <meta property="og:image" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
-  {% endif %}
+  {% else %}
+  <meta property="og:image" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
+  {% endif %}  
+  <meta name="twitter:card" content="photo">
+  <meta name="twitter:site" content="@romsson">
+  <meta name="twitter:creator" content="@romsson">
+  <meta name="twitter:title" content="The Atlas Of Economic Complexity{% if title %} | {{title}}{% else %}{% endif %}">
+  {% if displayviz %}
+  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
+  {% else %}
+  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
+  {% endif %} 
+  <meta name="twitter:domain" content="http://www.atlas.cid.harvard.edu/">
   <base href="{{HTTP_HOST}}">
   <title>The Atlas Of Economic Complexity{% if title %} | {{title}}{% else %}{% endif %}</title>
   <meta name="description" content="Networks in Macro Economics with World Trade Data">
