@@ -171,19 +171,15 @@
 
                 <option value=""></option>
                   {% if country1_list %}
-
                     {% for c in country1_list %}
-                    {% if c.id == country1.id %}
-                    <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-                    {% else %}
-                    <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                    {% endif %}
+                      {% if c.id == country1.id %}
+                      <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+                      {% else %}
+                      <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+                      {% endif %}
                     {% endfor %}
-
                   {% else %}
-
                     {% include "explore/list_countries.html" %}
-
                   {% endif %}
               </select>
             </div>
@@ -198,10 +194,6 @@
 
           <!-- Country selection -->
           <div class="tab-pane {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}active{% endif %}" id="tab-trade">
-
-           <!-- Trade Flow selection
-          <b style="margin:10px 0px; margin-left:10px">Type of <span class="definition">Flow</span>:</b> 
-          -->
 
           <div id="trade_flow" style="margin-left: 8px;">
 
@@ -333,7 +325,6 @@
                // alert($("#find-product").find(":selected").val());
               }
 
-
                // d3.select("#viz").call(chart.highlight("2306"))
                </script>
 
@@ -450,23 +441,15 @@
 
                 <select data-placeholder="All Countries" class="chosen-select-deselect" tabindex="-1" style="display: none;" id="products_country1_select">
                     <option value=""></option>
-                    
-                    {% if country1_list %}
-
-                    {% for c in country1_list %}
-                    {% if c.id == country1.id %}
-                    <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+                    {% if country1_list %}{% for c in country1_list %}
+                      {% if c.id == country1.id %}<option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
                     {% else %}
                     <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
                     {% endif %}
-                    {% endfor %}
-
+                    {% endfor %}  
                   {% else %}
-
                     {% include "explore/list_countries.html" %}
-
                   {% endif %}
-
                 </select>
               </div>
             </div>
@@ -846,7 +829,6 @@
 
         <!-- Those used to be in the right side bar -->
 
- 
         <div id="ui_bottom" style="bottom: 0px;"><div id="key" style="padding: 5px 0px 2px 5px;">
 
         </div>
@@ -1062,116 +1044,7 @@
     </div>
   
     {% endif %}
-        <!--
-        <!-- Trade Flow 
-
-        <!-- Country List 
-        {% if country1_list  %}
-        <div class="dropdown_container" id="country1">
-          {% if country2_list %}
-          <h3>{% trans "Origin Country" %}</h3>
-          {% else %}
-          <h3>{% trans "Country" %}</h3>
-          {% endif %}
-          <select data-url_pos="5">
-            {% for c in country1_list %}
-            {% if c.id == country1.id %}
-            <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-            {% else %}
-            <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-        {% endif %}
-
-        <!-- Country List 
-        {% if country2_list %}
-        <div class="dropdown_container" id="country2">
-          <h3>{% trans "Destination Country" %}</h3>
-          <select data-url_pos="5" id="country2_select">
-            {% for c in country2_list %}
-            {% if c.id == country2.id %}
-            <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-            {% else %}
-            <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-        {% endif %}
-        
-        <!-- Product List 
-        {% if product_list %}
-        <div class="dropdown_container" id="product">
-          <h3>{% trans "Product" %}</h3>
-          <select data-url_pos="5">
-            {% for p in product_list %}
-            {% if p.id == product.id %}
-            <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-            {% else %}
-            <option value="{{p.code}}">{{ p.name }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-        {% endif %}
-        
-        <!-- Year List 
-        {% if year2_list %}
-        <div class="dropdown_container" id="year_start">
-          <h3>{% trans "Start Year" %}</h3>
-        {% else %}
-        <div class="dropdown_container" id="year">
-          <h3>{% trans "Year" %}</h3>
-          {% endif %}
-          <select data-url_pos="5" id="year1_select">
-            {% for y in year1_list %}
-            {% if y == year or y == year_start %}
-            <option value="{{y}}" selected="selected">{{ y }}</option>
-            {% else %}
-            <option value="{{y}}">{{ y }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-        
-        <!-- Year2 List 
-        {% if year2_list %}
-        <div class="dropdown_container" id="year_end">
-          <h3>{% trans "End Year" %}</h3>
-          <select data-url_pos="5">
-            {% for y in year2_list %}
-            {% if y == year_end %}
-            <option value="{{y}}" selected="selected">{{ y }}</option>
-            {% else %}
-            <option value="{{y}}">{{ y }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-        {% endif %}
-        
-        <!-- Year interval List 
-        {% if year_interval_list %}
-        <div class="dropdown_container" id="year_interval" style="display:none">
-          <h3>{% trans "Year Interval" %}</h3>
-          <select data-url_pos="5">
-            {% for i in year_interval_list %}
-            {% if i == year_interval %}
-            <option value="{{i}}" selected="selected">{{ i }}</option>
-            {% else %}
-            <option value="{{i}}">{{ i }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-        {% endif %}
-
-        <button id="build">{% trans "Build Visualization" %} &raquo;</button>
-
-        -->
-
+       
       </div> <!-- END Right pane -->
       <footer>
       <div class="footerInner">
@@ -1201,56 +1074,7 @@
     </div> <!-- END #main -->
 
     <canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
-    
-    <!--  Related -->
-    <!-- <div id="related">
-      <a id="prev" href="#">&laquo;</a>
-      <a id="next" href="#">&raquo;</a>
-      <a id="toggle" href="#">Related</a>
-      <div>
-        <p>
-          Show related countries based on 
-          <select>
-            <option value="833">GNI per capita</option>
-            <option value="804">GDP</option>
-            <option value="1151">Population</option>
-            <option value="0">Productive Structure</option>
-            <option value="704">Exports of goods and services</option>
-          </select>
-        </p>
-        <div class="related_item">
-          <h4><img src="/{{ STATIC_URL }}img/icons/flag_wld.png">&nbsp;</h4>
-          <iframe src="" width="180" height="140" frameborder="0"></iframe>
-          <p class="value">&nbsp;</p>
-          <p class="rank">&nbsp;</p>
-        </div>
-        <div class="related_item">
-          <h4><img src="/{{ STATIC_URL }}img/icons/flag_wld.png">&nbsp;</h4>
-          <iframe src="" width="180" height="140" frameborder="0"></iframe>
-          <p class="value">&nbsp;</p>
-          <p class="rank">&nbsp;</p>
-        </div>
-        <div class="related_item">
-          <h4><img src="/{{ STATIC_URL }}img/icons/flag_wld.png">&nbsp;</h4>
-          <iframe src="" width="180" height="140" frameborder="0"></iframe>
-          <p class="value">&nbsp;</p>
-          <p class="rank">&nbsp;</p>
-        </div>
-        <div class="related_item">
-          <h4><img src="/{{ STATIC_URL }}img/icons/flag_wld.png">&nbsp;</h4>
-          <iframe src="" width="180" height="140" frameborder="0"></iframe>
-          <p class="value">&nbsp;</p>
-          <p class="rank">&nbsp;</p>
-        </div>
-        <div class="related_item">
-          <h4><img src="/{{ STATIC_URL }}img/icons/flag_wld.png">&nbsp;</h4>
-          <iframe src="" width="180" height="140" frameborder="0"></iframe>
-          <p class="value">&nbsp;</p>
-          <p class="rank">&nbsp;</p>
-        </div>
-      </div>
-    </div> -->
-    
+     
   </div> <!-- END #container -->
 
   <!-- The JavaScript -->
