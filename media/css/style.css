@@ -684,6 +684,7 @@ text-decoration: none;
 .app #main #content #timeline .slider{
   margin: 0 10px 10px 10px;
   width: 590px;
+  height: 30px;
 }
 .app #main #content #timeline .slider .ui-slider-handle{
   font-size: 10px;
