@@ -7,7 +7,6 @@ var flat_data,
       where = []
       // year = "{{year}}";
   
-  // Some convenience methods baby~~
   Array.prototype.contains = function(obj) {
       var i = this.length;
       while (i--) {
@@ -29,6 +28,7 @@ var flat_data,
      }
      return a;
   }
+
   // Sort array by year helper
   function compareYears(a, b) 
   {
@@ -844,7 +844,7 @@ var flat_data,
       .attrs(attr)
       .text_var("name")
       .value_var("value")
-      .tooltip_info({"short":["value"], "long": ["value", "distance", "year", 'id'], "other": [ "toto"]})
+      .tooltip_info({"short": ["value", "distance", "year"], "long": ["value", "distance", "year"]})
       .name_array(["name"])
       //.title("")
       .total_bar({"prefix": "", "suffix": " USD"})
@@ -861,7 +861,7 @@ var flat_data,
      // .data_source("Data provided by: ",prod_class)
 
     
-    //d3.select("#loader").style("display", "none");
+      //d3.select("#loader").style("display", "none");
 
     if(item_type=="country"){
       
@@ -1053,101 +1053,83 @@ var flat_data,
         }
   }
 
-  pie_scatter = function()
-  {
-    // exists = rawData["scatter"]
-    // if(exists)
-    // {
-      viz = d3plus.viz()
+  pie_scatter = function() {
+
+    viz = d3plus.viz()
+  
+    viz
+      .type("pie_scatter")
+      .height(height)
+      .width(width)
+      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .text_var("name")
+      .id_var("id")
+      .attrs(attr)
+      .xaxis_var("distance")
+      .yaxis_var("complexity")
+      .value_var("world_trade")
+      .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
+      .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .depth("nesting_2")
+      .text_format(txt_format)
+      .number_format(num_format)
+      .spotlight(false)
+      .dev(false)
+      .font('PT Sans Narrow')
+      .click_function(inner_html)
+  //    .static_axis(false)
+      .year(year)
     
-      viz
-        .type("pie_scatter")
-        .height(height)
-        .width(width)
-        .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
-        .text_var("name")
-        .id_var("id")
-        .attrs(attr)
-        .xaxis_var("distance")
-        .yaxis_var("complexity")
-        .value_var("world_trade")
-        .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
-        .nesting(["nesting_0","nesting_1","nesting_2"])
-        .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
-        .depth("nesting_2")
-        .text_format(txt_format)
-        .number_format(num_format)
-        .spotlight(false)
-        .dev(false)
-        .font('PT Sans Narrow')
-        .click_function(inner_html)
-    //    .static_axis(false)
+    d3.select("#loader").style("display", "none");
+  
+    flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
+  
+    flat_data.map(function(d){
+      d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+      d.id = String(d.id)
+    })
+  
+    d3.select("#viz")
+      .style('height','520px')
+      .datum(flat_data)
+      .call(viz) 
+
+    if(!embed){
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+
+      d3.select(".key")
+        .datum(attr_data)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
         .year(year)
+
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls);
       
-      d3.select("#loader").style("display", "none");
-    
-      flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
-    
-      flat_data.map(function(d){
-        d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
-        d.id = String(d.id)
-      })
-    
-    
-      d3.select("#viz")
-        .style('height','520px')
-        .datum(flat_data)
-        .call(viz) 
-
-      if(!embed){
-        key = Key()
-          .classification(rawData.class)
-          .showing(item_type)
-
-        d3.select(".key")
-          .datum(attr_data)
-          .call(key);
-
-        controls = Controls()
-          .app_type(app_name)
-          .year(year)
-
-        d3.select("#tool_pane")
-          .datum(rawData)
-          .call(controls);
-        
-        $("#pie_yvar").buttonset();
-        $("#pie_spot").buttonset();
-        $("#pie_controls input[type='radio']").change(function(e){
-          if($(e.target).attr("name") == "yvar"){
-            ($(e.target).attr("id")=="complexity") ? d3.select("#viz").call(viz.yaxis_var("complexity")) :
-                                                d3.select("#viz").call(viz.yaxis_var("opp_gain"))
-          }
-          if($(e.target).attr("name") == "pie_spot"){
-            ($(e.target).attr("id")=="spot_off") ? d3.select("#viz").call(viz.spotlight(false)) :
-                                                d3.select("#viz").call(viz.spotlight(true))
-          }
-        })         
-      }
-      //}
-    // else 
- //    {
- //      d3.select("#loader").style("display", "none");
- //      d3.select("#viz")
- //        .style("height","440px")
- //        .append("div").attr("id","missing")
- //      
- //      d3.select("#missing")
- //        .style("padding-top","200px")
- //        .style("padding-left","165px")
- //        .text("Sorry! We do not (yet) support Diversification Options for this country.")  
- //    }
+      $("#pie_yvar").buttonset();
+      $("#pie_spot").buttonset();
+      $("#pie_controls input[type='radio']").change(function(e){
+        if($(e.target).attr("name") == "yvar"){
+          ($(e.target).attr("id")=="complexity") ? d3.select("#viz").call(viz.yaxis_var("complexity")) :
+                                              d3.select("#viz").call(viz.yaxis_var("opp_gain"))
+        }
+        if($(e.target).attr("name") == "pie_spot"){
+          ($(e.target).attr("id")=="spot_off") ? d3.select("#viz").call(viz.spotlight(false)) :
+                                              d3.select("#viz").call(viz.spotlight(true))
+        }
+      })         
+    }
   }
-
 
   rings = function( req ) {
 
- (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
+    (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
                           req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json";
     
     d3.json(req, function(hs) {
@@ -1241,46 +1223,44 @@ var flat_data,
         
         this_year = []
       })
+  
       
-          
-          format_test = function(data) {
-            // console.log(data)
-            return "Test JSON: "+data[10].name
-          }
-          
-          var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
-          var max_value = d3.max(year_data, function(d, i) { return d.value})
-          var max_id = year_data.filter(function(d, i) { if(d.value==max_value) return d;} )[0].code
+      format_test = function(data) {
+        // console.log(data)
+        return "Test JSON: "+data[10].name
+      }
+      
+      var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
+      var max_value = d3.max(year_data, function(d, i) { return d.value})
+      var max_id = year_data.filter(function(d, i) { if(d.value==max_value) return d;} )[0].code
 
-          // var tooltips = {"short": ["id"],"long": {"basics":["id","val_usd"],"calculations":["distance", "complexity"]}}
-          // var tooltips = {"short": ["id"],"long": ["id","val_usd","distance"]}
-          // var tooltips = ["id","val_usd"]
-          var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
+      // var tooltips = {"short": ["id"],"long": {"basics":["id","val_usd"],"calculations":["distance", "complexity"]}}
+      // var tooltips = {"short": ["id"],"long": ["id","val_usd","distance"]}
+      // var tooltips = ["id","val_usd"]
+      var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
 
-          viz
-            .type("rings")
-            .height(height)
-            .width(width)
-            .text_var("name")
-            .id_var("id")
-            .links(viz_links)
-            .nodes(viz_nodes)
-            .attrs(attr)
-            .name_array(["value"])
-            .value_var("world_trade")
-            .highlight(max_id+"") 
-            .tooltip_info(tooltips)
-            //.nesting(["nesting_0","nesting_1","nesting_2"])
-            .nesting([])
-            .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
-            .click_function(inner_html)
-            .descs({"id": "This is ID", "val_usd": "This is value USD."})
-            .footer("")
-            .year(year)
-            // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
-            // .number_format(function(d){return d+"longtext longtext longtext longtext longtext"})
-
-
+      viz
+        .type("rings")
+        .height(height)
+        .width(width)
+        .text_var("name")
+        .id_var("id")
+        .links(viz_links)
+        .nodes(viz_nodes)
+        .attrs(attr)
+        .name_array(["value"])
+        .value_var("world_trade")
+        .highlight(max_id+"") 
+        .tooltip_info(tooltips)
+        //.nesting(["nesting_0","nesting_1","nesting_2"])
+        .nesting([])
+        .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
+        .click_function(inner_html)
+        .descs({"id": "This is ID", "val_usd": "This is value USD."})
+        .footer("")
+        .year(year)
+        // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
+        // .number_format(function(d){return d+"longtext longtext longtext longtext longtext"})
 
     d3.select("#viz")
       .style('height','520px')
@@ -1309,20 +1289,12 @@ var flat_data,
       d3.select("#tool_pane")
         .datum(rawData)
         .call(controls); 
-    }      
-
-
-/*
-        })
-     
-      })
-    })
-*/
+    }     
 
   }
   
-  network = function( req )
-  { 
+  network = function(req) {
+
     (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
                           req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json";
     
@@ -1331,7 +1303,6 @@ var flat_data,
       
       viz_nodes = hs.nodes
       viz_links = hs.edges
-      
       
       viz_nodes.forEach(function(node){
        if (prod_class=="hs4"){
@@ -1608,11 +1579,6 @@ var flat_data,
 
     d3.select("#mdv").attr("fill", "white");
   }
-  
-  //
-  // the sparkplug that drives my vizwiz engine
-  //
-  
 
     function checkParameterExists(parameter)
     {
@@ -1825,8 +1791,8 @@ var flat_data,
       }
       
 
-      if(app_name=="product_space")
-      {
+      if(app_name=="product_space") {
+
         flat_data = construct_scatter_nest(flat_data);
         network( api_uri + '&amp;data_type=json' );
         
