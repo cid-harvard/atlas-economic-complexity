@@ -788,7 +788,10 @@ footer.logos {
 #sticky-anchor {
   margin-top:40px;
 }
-
+#sticky{
+  position: relative;
+  width: 265px;
+}
 /*
  * Fix for FF
  */
@@ -979,7 +982,6 @@ dl.file_list p {
 #main #sidebar nav[role="navigation"] ul li ul li a{
   font-size: 13px;
 }
-
 
 #mouseover {
   position: absolute;
