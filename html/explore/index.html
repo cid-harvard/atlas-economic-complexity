@@ -223,19 +223,20 @@
 
                 <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
                   <option value=""></option>
-                    {{ product_list }}
+                  {% if product_list %}
                     {% for p in product_list %}
-                    {% if p.id == product.id %}
-                  <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-                    {% else %}
-                  <option value="{{p.code}}">{{ p.name }}</option>
-                    {% endif %}   
+                      {% if p.id == product.id %}
+                    <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+                      {% else %}
+                    <option value="{{p.code}}">{{ p.name }}</option>
+                      {% endif %}   
                     {% endfor %}
+                  {% else %}  
                     {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
                     {% include template %}
                     {% endwith %}
+                  {% endif %}                          
                 </select>
-
               </div>
             </div>
 
@@ -335,15 +336,19 @@
                  <span style="font-size:14px; margin:4px;">Find a product:</span><br>
                   <select data-placeholder="All Products" id="find_product_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
                     <option value=""></option>
-                      {{ product_list }}
-                      {% for p in product_list %}
-                      {% if p.id == product.id %}
-                    <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-                      {% else %}
-                    <option value="{{p.code}}">{{ p.name }}</option>
-                      {% endif %}
-                      {% endfor %}
-                      {% include "explore/list_products.html" %}
+                      {% if product_list %}
+                        {% for p in product_list %}
+                          {% if p.id == product.id %}
+                        <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+                          {% else %}
+                        <option value="{{p.code}}">{{ p.name }}</option>
+                          {% endif %}   
+                        {% endfor %}
+                      {% else %}  
+                        {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
+                        {% include template %}
+                        {% endwith %}
+                      {% endif %}  
                   </select>
                </div>
               </div>
@@ -359,31 +364,21 @@
 
         <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-        <!-- If no list from server, then load local one -->
-
-        {% if product_list %}
         <select>
          <option value=""></option>
-         {{ product_list }}
-          {% for p in product_list %}
-          {% if p.id == product.id %}
-          <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-          {% else %}
-          <option value="{{p.code}}">{{ p.name }}</option>
-          {% endif %}
-          {% endfor %}
-
-          {% include "explore/list_products.html" %}
-        </select>
-
-        {% else %}
-
-        <select data-url_pos="0">
-          {% include "explore/list_products.html" %}
-        </select>
-
-        {% endif %}
-
+          {% if product_list %}
+            {% for p in product_list %}
+              {% if p.id == product.id %}
+            <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+              {% else %}
+            <option value="{{p.code}}">{{ p.name }}</option>
+              {% endif %}   
+            {% endfor %}
+          {% else %}  
+            {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
+            {% include template %}
+            {% endwith %}
+          {% endif %}  
       </div>
 
       <!-- Product Trade Flow -->
