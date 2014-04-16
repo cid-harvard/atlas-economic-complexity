@@ -291,25 +291,51 @@
           </div>
 
           <!-- Diversification TAB -->
-          <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}active{% endif %}" id="tab-diversification">
+          <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}active{% endif %}" id="tab-diversification" style="text-align:left; padding:0 25px">
               
-            <div class="btn-group" id="div_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
-              <label value="product_space" type="radio"  title=" " toolTip="0" class="btn btn-default {% if app_name == "product_space" %}active{% endif %}" style="width:75px; text-align:left; text-align:justify; margin-right:10px" onclick="update_viz('product_space');"><input  type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="width:50px;"/></label>
-
-              <div style="width:100px; text-align:none; float:right;"><b>The Product Space</b><br> A map of the techno-<br>logical relatedness of products.</div>
+            <div  id="div_apps" data-toggle="buttons" style="margin-top:10px;">
                   
+
+            <button value="product_space" type="radio"  title="A map of technological relatedness" toolTip="0" class="divBtn btn btn-default {% if app_name == "product_space" %}active{% endif %}" onclick="update_viz('product_space');">
+
+                <!-- <input type="radio" name="viz_apps"> -->
+
+                <img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="height:35px; width:35px;">
+          
+
+                <p style="display:inline;">Product Space</p>
+              </button>
+
               <p style="clear:both"></p><br>
 
-              <label value="pie_scatter" type="radio" class="btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('pie_scatter');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
 
-              <div style="width:100px; text-align:none; float:right;"> <b>Product Feasibility</b> Opportunities for a country to diversify and potential gains.</div>
+              <button title="Opportunities for a country to diversify and potential gains" value="pie_scatter" type="radio" class="divBtn btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}"onclick="update_viz('pie_scatter');">
+
+                <!-- <input type="radio" name="viz_apps"> -->
+
+                <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="height:35px; width:35px">
+          
+
+                <p style="display:inline;">Product Feasability</p>
+              </button>
 
               {% if app_name == "rings" %}
               <p style="clear:both"></p><br>
 
-              <label value="rings" type="radio" class="btn btn-default {% if app_name == "rings" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('rings');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
+<!--               <label value="rings" type="radio" class="btn btn-default {% if app_name == "rings" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('rings');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
 
-              <div style="width:100px; text-align:none; float:right;"> <b>Rings</b><br> Product-centric navigation of the Product Space.</div>
+              <div style="width:100px; text-align:none; float:right;"> <b>Rings</b><br> Product-centric navigation of the Product Space.</div> -->
+
+              <button title="Product-centric navigation of the Product Space" value="pie_scatter" type="radio" class="divBtn btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}"onclick="update_viz('rings');">
+
+                <!-- <input type="radio" name="viz_apps"> -->
+
+                <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="height:35px; width:35px">
+          
+
+                <p style="display:inline;">Rings</p>
+              </button>
+
               {% endif %}
 
             </div>
@@ -328,13 +354,10 @@
                // d3.select("#viz").call(chart.highlight("2306"))
                </script>
 
-              <div id="find-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-find-product').css('visibility', 'visible');"  onmouseout="$('.show-find-product').css('visibility', 'hidden');">
-          
-                <button type="button" onclick="find_product();" class="glyphicon glyphicon-refresh show-find-product tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; margin-top:20px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
+              <div id="find-product" style="width:100%" onmouseover="$('.show-find-product').css('visibility', 'visible');"  onmouseout="$('.show-find-product').css('visibility', 'hidden');">
 
-                <div style="margin:5px" >
                  <span style="font-size:14px; margin:4px;">Find a product:</span><br>
-                  <select data-placeholder="All Products" id="find_product_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
+                  <select data-placeholder="All Products" id="find_product_select" class="chosen-select-deselect" tabindex="-1" style="display:none;">
                     <option value=""></option>
                       {% if product_list %}
                         {% for p in product_list %}
@@ -350,7 +373,7 @@
                         {% endwith %}
                       {% endif %}  
                   </select>
-               </div>
+                <button type="button" onclick="find_product();" class="glyphicon glyphicon-refresh show-find-product tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="position:relative; right:-153px; top:-22.5px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>                  
               </div>
                 {% endif %}
           </div>
@@ -1403,10 +1426,15 @@
 <!-- Activates tooltips ///////////////////////////////////////////////////////////////////
 
 <script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
-<script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
-<script type='text/javascript'>$(function(){$('*[title]').tipsy({gravity: 'n'});});</script>
 
  -->
+<script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
+<script type='text/javascript'>
+  $(function(){$('button[title]').tipsy({gravity: 'w'});});
+  $(function(){$('label[title]').tipsy({gravity: 'n'});});  
+</script>
+
+
 </body>
   {% include "story/story_forms.html" %}
 </html>
