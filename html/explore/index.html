@@ -1266,7 +1266,13 @@
   }
   
   var title = d3.select("#title")
-  isOverflowed(title.node()) ? $("#title").children().css("font-size","26px") : console.log("fits") 
+  var shrink_size = 30;
+
+  while(isOverflowed(title.node())) {
+    $("#title").children().css("font-size", shrink_size+"px")
+    shrink_size -= 1; 
+  }
+
 
   // Page init scripts
   $(function () {
