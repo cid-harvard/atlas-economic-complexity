@@ -116,8 +116,8 @@ function Key() {
         sessionStorage.removeItem("productCommunityName");
         sessionStorage.removeItem("productCommunityID"); 
 
-        queryParameters['cat'] = "";
-        queryParameters['cont'] = "";
+        queryParameters['cat_id'] = "";
+        queryParameters['cont_id'] = "";
       }
       // Otherwise, we need to filter just this community
       // by using VizWiz soloing functionality 
@@ -172,7 +172,7 @@ function Key() {
           // app_name=="stacked" ? stack_solo_filter(d.name) : d3.select("#viz").call(viz.solo([d.name]));
 	        sessionStorage.setItem("productCommunityName",d.name);
           sessionStorage.setItem("productCommunityID",this.className.replace(" ","."));	
-          queryParameters['cat'] = d.id;
+          queryParameters['cat_id'] = d.id;
           //console.log("Filter by", d, flat_data.filter(function(d) { if(d.nesting_0.name == d.name && d.year==year) return d}).map(function(d) { return d.id }));
         }              
                        

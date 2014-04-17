@@ -1747,16 +1747,16 @@ var flat_data,
 
         tree();
 
-        if(queryParameters['cont']!="") {
+        if(queryParameters['cont_id']!="") {
           var e = document.createEvent('UIEvents');
           e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-          d3.select(".cat_"+queryParameters['cont']).node().dispatchEvent(e);
+          d3.select(".cat_"+queryParameters['cont_id']).node().dispatchEvent(e);
         }
 
-        if(queryParameters['cat']!="") {
+        if(queryParameters['cat_id']!="") {
           var e = document.createEvent('UIEvents');
           e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-          d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
+          d3.select(".cat_"+queryParameters['cat_id']).node().dispatchEvent(e);
         }
 
       }
