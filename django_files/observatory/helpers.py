@@ -151,3 +151,9 @@ def get_question(app_type, **kwargs):
       title = "Where does %s %s %s %s?" % (origin.name, trade_flow, product.name_en, article)
 
   return title
+
+def get_random_country():
+    """Grab a random country from the Countries table in the db."""
+    num_countries = Country.objects.count()
+    country_index = random.randint(1, num_countries)
+    return Country.objects.get(country_index)
