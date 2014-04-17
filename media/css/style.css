@@ -1849,5 +1849,12 @@ p .gTerm{
   text-decoration-style:dashed;   
 }
 
+.ui_bottom_row{
+  width:100%;
+  height:34px;
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
 
 
