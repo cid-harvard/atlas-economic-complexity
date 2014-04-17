@@ -1,4 +1,5 @@
 from observatory.models import *
+import random
 
 # make sure app name is in the list of possible apps
 def get_app_name(app_name):
