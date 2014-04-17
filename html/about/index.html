@@ -217,7 +217,7 @@ ol.v_slats li a h3 {
       <img src="/media/img/about/leichter_ben.jpg" alt="thumbnail">
       <h4>Ben Leichter</h4>
     </a>
-      <p>Ben works as a web design intern for the Growth Lab at CID. He is currently an undergraduate student at Northeastern University working toward a dual degree in Interactive Media and Music Composition. His interests lay in exploring both ways in which users interact with digital systems and links between physical and digital spaces.</p>
+      <p>Ben works as a web design intern for the Growth Lab at CID. He is currently an undergraduate student at Northeastern University working toward a dual degree in Interactive Media and Music Composition. His interests lay in exploring how users interact with digital systems and creating digital spaces.</p>
   </li>  
 </ol>
 
@@ -312,17 +312,22 @@ ol.v_slats li a h3 {
 {% endblock %}
 
 {% block js %}
+<script type="text/javascript">
+  $("body").attr("id","about");
+</script>
 <script>$("head").append("<link rel='stylesheet' type='text/css' href='media/js/libs/bootstrap/css/bootstrap.css'>")</script>
 <script>$("head").append("<link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>")</script>
 
 
 
-<!-- Activates Tooptips
+Activates Tooptips
 
 <script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
-<script type='text/javascript'>$(function() {$('*[title]').tipsy({gravity: 'n'});});</script>
- -->
+<script type='text/javascript'>
+$(function() {$('*[title]').tipsy({gravity: 's', delayIn:500});});
+</script>
+
 
  
 {% endblock %}

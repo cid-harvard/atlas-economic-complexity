@@ -64,6 +64,13 @@ body{
 
 {% block js %}
 <script>
-  $("head").append("<link rel='stylesheet' type='text/css' href='media/js/libs/bootstrap/css/bootstrap.css'>")
+  $("head").append("<link rel='stylesheet' type='text/css' href='media/js/libs/bootstrap/css/bootstrap.css'> ");
+  $("head").append("<link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>");
 </script>
+<script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
+<script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
+<script type='text/javascript'>
+$(function() {$('*[title]').tipsy({gravity: 's', delayIn:500});});
+</script>
+
 {% endblock %}

@@ -1762,7 +1762,9 @@ display: block;
 }
 
 #help:hover{
-  border-color:rgba(176,23,31, 1.0) ;
+  border-width: 1px;
+  border-top: solid 1px #ddd;
+  border-bottom: solid 2px rgb(176,23,31);
   background-color:rgba(176,23,31, 1.0) ;  
 }
 
@@ -1838,6 +1840,13 @@ div.btn_label {
 .divBtn{
   width: 100%;
   text-align: left;
+}
+p .gTerm{
+  color:#999;
+}
+.gTerm:hover{
+  text-decoration-line:underline;
+  text-decoration-style:dashed;   
 }
 
 

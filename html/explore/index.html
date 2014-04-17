@@ -292,7 +292,7 @@
 
           <!-- Diversification TAB -->
           <div class="tab-pane {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}active{% endif %}" id="tab-diversification" style="text-align:left; padding:0 25px">
-              
+            <p>Visualization:</p>
             <div  id="div_apps" data-toggle="buttons" style="margin-top:10px;">
                   
 
@@ -317,6 +317,7 @@
           
 
                 <p style="display:inline;">Product Feasability</p>
+
               </button>
 
               {% if app_name == "rings" %}
@@ -727,8 +728,10 @@
         <div class="key {{prod_class}}" style="min-height:50px"></div>
         <!-- Container for the timeline -->
          <div id="timeline" class="bootstro" data-bootstro-title="Options Panel" data-bootstro-content="The Options Panel changes based on the visualization that you've selected. Here, you can do things such as filter the results by country and product or even change the level of detail shown in the visualization." data-toggle="tooltip" data-bootstro-placement="left">
-         <!--<div class="ui_bottom" id="ui_bottom" style="bottom:0px;"></div>-->
-          
+
+            <div id="ui_bottom" style="bottom: 0px;">
+              <div id="key" style="padding: 5px 0px 2px 5px;"></div>
+            </div>
           {% if app_name == "stacked" %}  
 
           <div id="stacked_controls" style="width:90%">
@@ -775,7 +778,6 @@
               <label class="btn btn-default">
                 <input type="radio" id="share" name="layout">Share
               </label>
-
             </div>  
 
 
@@ -845,12 +847,6 @@
           {% endif %}
 
         <!-- Those used to be in the right side bar -->
-
-        <div id="ui_bottom" style="bottom: 0px;"><div id="key" style="padding: 5px 0px 2px 5px;">
-
-        </div>
-
-        </div>
 
         <div class="product_class clone_loader" style="float:left;">
           
@@ -1423,15 +1419,15 @@
 
    {% include "story/body_story.html" %}
 
-<!-- Activates tooltips ///////////////////////////////////////////////////////////////////
+<!-- Activates tooltips /////////////////////////////////////////////////////////////////// -->
 
 <script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
 
- -->
+
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
 <script type='text/javascript'>
-  $(function(){$('button[title]').tipsy({gravity: 'w'});});
-  $(function(){$('label[title]').tipsy({gravity: 'n'});});  
+  $(function(){$('button[title]').tipsy({gravity: 'w', delayIn: 500});});
+  $(function(){$('label[title]').tipsy({gravity: 'n', delayIn: 500});});  
 </script>
 
 
