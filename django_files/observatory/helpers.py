@@ -157,4 +157,4 @@ def get_random_country():
     """Grab a random country from the Countries table in the db."""
     num_countries = Country.objects.count()
     country_index = random.randint(1, num_countries)
-    return Country.objects.get(country_index)
+    return Country.objects.get(id=country_index)
