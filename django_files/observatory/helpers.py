@@ -154,7 +154,7 @@ def get_question(app_type, **kwargs):
   return title
 
 def get_random_country():
-    """Grab a random country from the Countries table in the db."""
-    num_countries = Country.objects.count()
-    country_index = random.randint(1, num_countries)
-    return Country.objects.get(id=country_index)
+    """Grab a random country from the Countries table in the db. This uses the
+    'ORDER BY RAND()' method which is fine for this purpose but slow in mysql
+    for larger tables so beware."""
+    return Country.objects.filter(name_3char__isnull=False).order_by('?')[1]
