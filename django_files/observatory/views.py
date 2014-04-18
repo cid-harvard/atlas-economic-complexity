@@ -23,7 +23,6 @@ from django.utils.translation import gettext as _
 # App specific
 from observatory.models import *
 from observatory.models import storychapter
-from observatory.helpers import get_random_country
 from django.db.models import Max
 from django.forms import ModelForm
 import msgpack
@@ -1333,7 +1332,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 def explore_random(request):
     """Pick a random country and explore that, for the /explore link on the top
     of the main template."""
-    random_country = get_random_country().name_3char.lower()
+    random_country = Country.objects.get_random().name_3char.lower()
     return HttpResponseRedirect(reverse('observatory.views.explore',
                                         args=('tree_map',
                                               'export',
