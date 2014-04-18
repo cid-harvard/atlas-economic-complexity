@@ -35,3 +35,8 @@ django_files/atlas/settings_local.py
 media/js/explore/viz_general.js
 
 media/js/explore/viz_general.js
+
+#virtualenv
+env/
+#editor config data for rope
+.ropeproject/
