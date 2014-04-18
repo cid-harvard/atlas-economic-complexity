@@ -157,7 +157,7 @@
   	 {% else %}
 
       <!-- The left pane -->
-      <div id="app_pane" style="width:230px; height:780px;">
+      <div id="app_pane" style="width:230px; height:810px;">
         <div data-toggle="tooltip" class="tab-content bootstro" data-bootstro-title="Query" data-bootstro-content="The first thing you need to do is decide what question you are trying to answer. Perhaps, what products did the United States export in 2000? Or how has its import basket changed in the last ten years?  Once you have decided your query, you can enter the information you need to answer this in the left-hand bar." data-bootstro-placement="right">
 
           <!-- Country selection -->
@@ -544,15 +544,31 @@
       </div>
     </div>
 </div>
-
-  <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If you're curious about anything on the page, simply move your mouse over it and the Help Box will display useful information. If you need more information, use the “About” tab at the top of the page." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
-    <div id="helpBoxInner">
-        <h3>{% trans "Help Box" %}</h3>
-        <hr>
-        <p>Welcome to The Atlas of Economic Complexity. Hover over an element to see its function.</p>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#helpPane" data-toggle="tab">Help</a></li>
+  <li><a href="#history" data-toggle="tab">History</a></li>
+</ul>
+<div class="tab-content" style="padding-top:0px; border:solid 1px #ddd;border-top:none;">
+  <div class="tab-pane active" id="helpPane">
+    <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If you're curious about anything on the page, simply move your mouse over it and the Help Box will display useful information. If you need more information, use the “About” tab at the top of the page." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
+      <div id="helpBoxInner">
+          <h3>{% trans "Help Box" %}</h3>
+          <hr>
+          <p>Welcome to The Atlas of Economic Complexity. Hover over an element to see its function.</p>
+      </div>
+      <button id="help">{% trans "Help" %}</button>
     </div>
-    <button id="help">{% trans "Help" %}</button>
   </div>
+  <div class="tab-pane" id="history">
+    <div id="historyBox">
+      <div id="historyBoxInner">
+        <a href="#"><i id="hnLeft" class="fa fa-chevron-left historyNav"></i></a>
+        <div id="historySlide"></div>
+        <a href="#"><i id="hnRight" class="fa fa-chevron-right historyNav"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--
       <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-state-focus" role="tab" aria-expanded="false" aria-selected="false" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"></span><a href="#">Parameters</a></h3>
@@ -719,7 +735,7 @@
         
         <!-- the canvas for the visualization -->
         <div id="text_data"></div>
-        
+        <div id="historyOverlay"></div>
         <!-- Container for the visualization -->
         <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width: 750px; min-height:520px;">
 		</div>
@@ -1432,7 +1448,32 @@
   $(function(){$('label[title]').tipsy({gravity: 'n', delayIn: 500});});  
 </script>
 
+  <script type="text/javascript">
 
+    {% if displayviz %}
+      previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}";
+    {% else %}
+      previous_image = "{{ STATIC_URL }}/img/empty_static.png";
+    {% endif %}
+
+    if(previous_page == "http://127.0.0.1:8000/" || previous_page == "None"){
+      console.log("home");
+      previous_image = "{{ STATIC_URL }}/img/empty_static.png";
+    } else{
+      previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}"; 
+      console.log("not home");
+    }
+
+    $("#historySlide, #historyOverlay").css("background-image", "url("+previous_image+")");
+
+    $("#historySlide").mouseenter(function(){
+      $("#historyOverlay").show();
+    });
+
+    $("#historySlide").mouseleave(function(){
+      $("#historyOverlay").hide();
+    });
+  </script>
 </body>
   {% include "story/story_forms.html" %}
 </html>

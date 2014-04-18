@@ -1721,15 +1721,13 @@ display: block;
 /* ben's changes */
 
 #helpBox{
-
+  padding: 10px;
+  padding-top: 0px;
 }
-
 #helpBoxInner{
-  height:160px;
-  border: solid 1px #dddddd;
+  height:125px;
   overflow: elipsis;
-
-  padding:10px;
+  padding-top: 10px;
 }
 
 #helpBoxInner h3{
@@ -1750,9 +1748,9 @@ display: block;
 
 #help{
   position: relative;
-  left:0px;
-  top:-7px;
-  width: 100%;
+  left:-11px;
+  top:11px;
+  width: 209px;
   border-radius: 0 0 4px 4px;
   border: solid 2px rgb(176,23,31);
   border-bottom-width: 3px;
@@ -1762,10 +1760,48 @@ display: block;
 }
 
 #help:hover{
-  border-width: 1px;
-  border-top: solid 1px #ddd;
-  border-bottom: solid 2px rgb(176,23,31);
+  border-color:rgba(176,23,31, 1.0) ;
   background-color:rgba(176,23,31, 1.0) ;  
+}
+#historyBoxInner{
+  padding:10px 0;
+  height: 157px;
+}
+.historyNav{
+  height: 100%;
+  width: 20px;
+  float: left;
+  display: inline;
+  text-align: center;
+}
+i.historyNav{
+  position: relative;
+  padding-top:29%;
+}
+#hnLeft{
+  border-left: none;
+}
+#hnRight{
+  border-right: none;
+}
+#historySlide{
+  display: inline;
+  width: 167px;
+  float: left;
+  height: 100%;
+  background-size: 100%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+
+}
+#historyOverlay{
+  position: absolute;
+  background-color: #fff;
+  z-index: 11;
+  width:748px;
+  min-height: 520px;
+  display:none;
+  background-repeat: no-repeat;
 }
 
 #videoModal{
