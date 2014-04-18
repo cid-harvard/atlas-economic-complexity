@@ -684,6 +684,7 @@ text-decoration: none;
 .app #main #content #timeline .slider{
   margin: 0 10px 10px 10px;
   width: 590px;
+  height: 30px;
 }
 .app #main #content #timeline .slider .ui-slider-handle{
   font-size: 10px;
@@ -788,7 +789,10 @@ footer.logos {
 #sticky-anchor {
   margin-top:40px;
 }
-
+#sticky{
+  position: relative;
+  width: 265px;
+}
 /*
  * Fix for FF
  */
@@ -979,7 +983,6 @@ dl.file_list p {
 #main #sidebar nav[role="navigation"] ul li ul li a{
   font-size: 13px;
 }
-
 
 #mouseover {
   position: absolute;
@@ -1759,7 +1762,9 @@ display: block;
 }
 
 #help:hover{
-  border-color:rgba(176,23,31, 1.0) ;
+  border-width: 1px;
+  border-top: solid 1px #ddd;
+  border-bottom: solid 2px rgb(176,23,31);
   background-color:rgba(176,23,31, 1.0) ;  
 }
 
@@ -1831,4 +1836,25 @@ div.btn_label {
   margin-top:-4px;
   background-color: lightblue;
 }
+
+.divBtn{
+  width: 100%;
+  text-align: left;
+}
+p .gTerm{
+  color:#999;
+}
+.gTerm:hover{
+  text-decoration-line:underline;
+  text-decoration-style:dashed;   
+}
+
+.ui_bottom_row{
+  width:100%;
+  height:34px;
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+
 

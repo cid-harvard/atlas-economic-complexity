@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{fullpage}
+\usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
+\usepackage{wrapfig} % Allows in-line images such as the example fish picture
+\linespread{1.25} % Line spacing
+\newtheorem{proposition}{Proposition}
+\begin{document}
+
+\title{\textbf{Complexity Glossary}}
+%\author{\textbf{Muhammed A. Yildirim} \and \textbf{Ricardo Hausmann}}
+\date{\today}
+\maketitle
+
+\noindent \textbf{CAPABILITY DISTANCE} is a measure of a country’s ability to make a specific product determined by what it can currently produce. For every pair of goods in the world there is a notion of distance between them: if 2 goods require highly similar inputs and endowments, then they are ‘closer’ together, but if they require totally different capabilities, they are ``further'' apart. 
+
+We calculate capability distance by the proportion of knowledge necessary for a product that the country does not have. The knowledge that the country does have is measured by the proximity between products it is currently making and the product of interest, $p$. The knowledge it does not have is measured by the proximity between products it is not making and the product of interest $p$. Capability distance is therefore calculated as the sum of the \textbf{PROXIMITIES} between good $p$ and all the products that country $c$ is not currently exporting, normalized by the sum of proximities between all products and product $p$. Formally, 
+
+\begin{equation}\label{Distance}
+d_{cp} = \frac{\sum\nolimits_{p'}\left(1 - M_{cp'}\right)\Phi_{p,p'}}{\sum\nolimits_{p'}\Phi_{p,p'}}
+\end{equation}
+
+\noindent where $\Phi_{p,p'}$ is the \textbf{PROXIMITY}, formally defined in Equation \ref{Proximity} and $M_{cp}$ is defined in Equation \ref{M_cp}.
+
+\vskip 2cm
+\noindent \textbf{COMPLEXITY OUTLOOK GAIN} measures how much a country could benefit from manufacturing a specific new product. We calculate complexity outlook gain as the change in \textbf{COMPLEXITY OUTLOOK} that would come as a consequence of country $c$ making product $p$. Formally, 
+
+\begin{equation}\label{COG}
+\text{COG}_{cp} = \left[\sum\nolimits_{p'} \frac{\Phi_{p,p'}}{\sum\nolimits_{p^{''}}\Phi_{p^{''}, p'} } \left(1-M_{cp'}\right)\text{PCI}_{p'}\right]
+\end{equation}
+
+\noindent where $\Phi_{p,p'}$ is the \textbf{PROXIMITY}, formally defined in Equation \ref{Proximity}), $M_{cp}$ is defined in Equation \ref{M_cp} and PCI is the \textbf{PRODUCT COMPLEXITY INDEX}.
+
+\vskip 2cm
+\noindent \textbf{COMPLEXITY OUTLOOK INDEX (COI)} is a measure of how many different products are near a country’s current set of productive capabilities. Countries with a high complexity outlook have an abundance of \textbf{NEARBY} products due to the make-up of their current export basket. These countries will therefore find it easier to develop new industries and acquire the necessary missing capabilities to do so. Countries with a low complexity outlook have few \textbf{NEARBY} products and will find it difficult to acquire new capabilities and increase their \textbf{ECONOMIC COMPLEXITY}. 
+
+To calculate COI we first need to calculate \textbf{CAPABILITY DISTANCE} (see above). We then sum the ‘closeness,’ i.e. 1 minus the distance to the products that the country is not currently making, weighted by the level of complexity of these products. Formally, 
+
+\begin{equation}\label{COI}
+\text{COI}_{c} = \sum\nolimits_{p} \left(1-d_{cp}\right) \left(1-M_{cp}\right)\text{PCI}_p
+\end{equation}
+
+\noindent where $d_{cp}$ is the \textbf{DISTANCE} (Equation \ref{Distance}) and \textbf{PCI} is the \textbf{PRODUCT COMPLEXITY INDEX} of product $p$. The term, $1-M_{cp}$ ensures we only count the products that a country is not currently producing and is defined in Equation \ref{M_cp}.
+
+
+\vskip 2cm
+\noindent \textbf{DIVERSITY} is a measure of how many different types of products a country is able to make. The production of a good a specific set of know-how; therefore, a country’s total diversity is another way of expressing the amount of collective know-how within that country. 
+
+We determine diversity in the following manner: imagine a matrix $M_{cp}$ (Equation \ref{M_cp}) in which rows represent different countries and columns represent different products. An element of the matrix is equal to 1 if country $c$ produces product $p$, and 0 otherwise. We can measure diversity (and ubiquity) simply by summing over the rows (or columns) of that matrix. Formally, 
+
+\begin{equation}\label{Diversity}
+\text{Diversity} = k_{c,0} = \sum\limits_{c} M_{cp}
+\end{equation}
+
+\noindent where $M_{cp}$ is defined in Equation \ref{M_cp}.
+
+\vskip 2cm
+\noindent \textbf{ECONOMIC COMPLEXITY} is a measure of the knowledge in a society that gets translated into the products it makes. The most complex products are sophisticated chemicals and machinery, whereas the world’s least complex products are raw materials or simple agricultural products. The economic complexity of a country is dependent on the complexity of the products it exports. A country is considered ‘complex’ if it exports not only highly complex products (determined by the \textbf{PRODUCT COMPLEXITY INDEX}), but also a large number of different products. 
+
+To calculate the economic complexity of a country, we measure the average ubiquity of the products it exports, then the average diversity of the countries that make those products and so forth. For a formal illustration of this concept, see \textbf{ECONOMIC COMPLEXITY INDEX (ECI)}. 
+
+
+\vskip 2cm
+\noindent \textbf{ECONOMIC COMPLEXITY INDEX (ECI)} ranks how diversified and complex a country’s export basket is. \textbf{ECI} is a scale that uses the theory of and calculations for economic complexity to rank countries according to their level of complexity. We have shown that when a country produces complex goods in addition to a high number of products, it is typically more economically developed or can be expected to experience fast economic growth in the near future. Consequently, \textbf{ECI} can be used as a measure of economic development. 
+
+To determine \textbf{ECI}, we take a country’s \textbf{DIVERSITY} (how many different products it can produce), refined by the \textbf{UBIQUITY} of those products (the number of countries able to make those products). To generate a more accurate measure of economic complexity, we need to correct the information that diversity and ubiquity carry by using each to correct the other. We do this by looking at the diversity of the countries that make those products and the ubiquity of the products those countries make. We use equations for \textbf{DIVERSITY} and \textbf{UBIQUITY} (\ref{Diversity} \& \ref{Ubiquity}) to express the recursion: 
+
+\begin{align*}
+k_{c,n} & = \frac{1}{k_{c,0}}\sum\limits_{p} M_{cp}\frac{1}{k_{p,0}}\sum\limits_{c'} M_{c'p}k _{c',n-2} \nonumber\\\
+ & = \sum\limits_{c'} k _{c',n-2}\sum\limits_{p}\frac{M_{c'p}M_{cp}}{k_{c,0}k_{p,0}}\nonumber \\\
+  & = \sum\limits_{c'} k _{c',n-2}\widetilde{M}^{C}_{c,c'}\nonumber
+\end{align*}
+
+\noindent where we define
+
+$$\widetilde{M}^{C}_{c,c'} \equiv \sum\limits_{p}\frac{M_{cp}M_{c'p}}{k_{c,0}k_{p,0}}.$$
+
+\noindent Hence, in a vector notation, if $\vec{\mathbf{k}}_n$ to be the vector whose $c$th element is $k_{c,n}$, then:
+
+$$ \vec{\mathbf{k}}_n = \widetilde{\mathbf{M}}^{C} \times \vec{\mathbf{k}}_{n-2} $$
+
+\noindent where $\widetilde{\mathbf{M}}^{C}$ is the matrix whose $(c,c')$th element is $\widetilde{M}^{C}_{c,c'}$.
+\vskip 0.5cm
+\noindent If we take $n$ to infinity, this equation leads to the distribution which remains fixed up to a scalar factor:
+
+$$ \widetilde{\mathbf{M}}^{C} \times \vec{\mathbf{k}} = \lambda \vec{\mathbf{k}} $$
+
+\noindent Therefore, $\vec{\mathbf{k}}$ is an eigenvector of $\widetilde{\mathbf{M}}^{C}$. We define \textbf{ECONOMIC COMPLEXITY INDEX (ECI)} as the second largest eigenvector of the $\widetilde{\mathbf{M}}^{C}$ matrix.
+
+\vskip 2cm
+\noindent \textbf{EXPECTED GROWTH} is a prediction of how much a country will grow dependent upon its current level of Economic Complexity, its location within \textbf{THE PRODUCT SPACE}, as well as current GDP. Using this data, we can project economic growth over the next 5-10 years for any given country.
+
+To calculate expected growth we consider four factors as explanatory variables: the level of income; the Economic Complexity Index; the Complexity Outlook Index; and the expected growth in the value of natural resource exports per capita. 
+
+\vskip 2cm
+\noindent \textbf{NEARBY} (adjacent possible) is a qualitative term to describe when two or more products require similar know-how to manufacture. If the unique productive knowledge (or capabilities) it requires to make a specific good do not already exist in a country, it will prove highly difficult for the country to manufacture it. Instead, countries adapt existing capabilities to produce goods that require similar capabilities to ones already manufactured; these products are said to be nearby or in the adjacent possible. When a country has an abundance of nearby products, it has an easier path to capability acquisition, product diversification and development. 
+
+Formally, two products are considered nearby if \textbf{CAPABILITY DISTANCE} is low.
+
+\vskip 2cm
+\noindent \textbf{PERSONBYTE} describes the amount of knowledge held by one person. Most products we use today require more knowledge than can be mastered by a single individual. These products require that individuals with different capabilities interact with each other. For example, how can we make a product that requires 100 personbytes? It cannot be made by a micro-entrepreneur working alone. Instead, this product has to be made by an organization with at least 100 individuals (each with a different personbyte), or by a network of organizations that can aggregate these 100 personbytes of knowledge. 
+
+\vskip 2cm
+\noindent \textbf{PRODUCTIVE KNOWLEDGE} (also known as productive capabilities or know-how) refers to the knowledge that goes into making products. Countries accumulate productive knowledge by developing the capability to make a larger variety of products of increasing complexity. 
+
+
+\vskip 2cm
+\noindent \textbf{PRODUCT COMPLEXITY INDEX (PCI)} ranks products by the amount of capabilities or know-how necessary to manufacture them. Products such as chemicals and machinery are said to be highly complex, because they require a sophisticated level of productive knowledge and typically emerge from large organizations where a number of highly skilled individuals interact. Whereas products, such as raw materials or simple agricultural products, require only a basic level of know-how and can be produced by an individual or family-run business. 
+
+The Product Complexity Index ranks products according to their product complexity. Product Complexity is determined by calculating the average diversity of countries that make a specific product, and the average ubiquity of the other products that these countries make. Formally, we can define:
+
+$$\widetilde{M}^{P}_{p,p'} \equiv \sum\limits_{c}\frac{M_{cp}M_{cp'}}{k_{c,0}k_{p,0}}.$$
+
+\noindent Similar to the  \textbf{ECONOMIC COMPLEXITY INDEX}, we can define \textbf{PRODUCT COMPLEXITY INDEX (PCI)} as the second largest eigenvector of the $\widetilde{\mathbf{M}}^{P}$ matrix (For a detailed derivation, please refer to the derivation of \textbf{ECI}).
+
+
+\vskip 2cm
+\noindent \textbf{THE PRODUCT SPACE} is a visualization that depicts a network of products. The arrangement of products in the Product Space is determined by how similar/dissimilar their knowledge requirements are; the Product Space shows when products are NEARBY. Using data on a given country’s exports, we are able to generate a product space for each country; a country-product space depicts what a country is currently able to make, which products are NEARBY and the country could feasibly begin to manufacture, and can consequently help determine paths of industrial expansion. 
+
+
+\vskip 2cm
+\noindent \textbf{PROXIMITY} formalizes the intuitive idea that the ability of a country to produce a product depends on its ability to produce other products. Proximity measures the minimum probability that a country exports product 1 given that it exports product 2, or vice versa. 
+
+Our measure of proximity is based on the conditional probability that a country that exports product $p$ will also export product $p'$. Since conditional probabilities are not symmetric, we take the minimum probability of product $p$, given product $p'$, and vice versa. For example, suppose that 17 countries export wine, 24 export grapes and 11 export both, all with RCA $>$ 1. Then, the proximity between the wine and the grapes is 11/24 = 0.46. Note, we use 24 instead of 17 to reduce the likelihood the relationship is false.  Formally,
+
+\begin{equation}\label{Proximity}
+\Phi_{p,p'} = \frac{\sum\nolimits_{c}M_{cp}M_{cp'}}{\max\left( \sum\nolimits_{c}M_{cp}, \sum\nolimits_{c}M_{cp'} \right)} = \frac{\sum\nolimits_{c}M_{cp}M_{cp'}}{\max\left( k_{p,0}, k_{p',0} \right)}
+\end{equation}
+
+\noindent where $M_{cp}$ is defined in Equation \ref{M_cp} and $k_{p,0}$ is the \textbf{UBIQUITY} of the product $p$ (Equation \ref{Ubiquity}).
+
+\vskip 2cm
+\noindent \textbf{REVEALED COMPARATIVE ADVANTAGE} is an index used to calculate the relative advantage of disadvantage a country has in the export of a certain good. We use Balassa's definition of Revealed Comparative Advantage or RCA, which says that a country has RCA in a product if it exports more than its ``fair share,'' or a share that is equal to or greater than the share of total world trade that the product represents. 
+
+For example, in 2010, soybeans represented 0.35\% of world trade with exports of \$42 billion. Of this total, Brazil exported nearly \$11 billion, and since Brazil’s total exports for that year were \$140 billion, soybeans accounted for 7.8\% of Brazil’s exports. Because 7.8/0.35 = 22, Brazil exports 22 times its “fair share” of soybean exports, and so we can say that Brazil has a high revealed comparative advantage in soybeans. 
+
+Formally, if $X_{cp}$ represents the exports of product $p$ by country $c$, we can express the RCA that country $c$ has in product $p$ as
+
+$$\text{RCA}_{cp} = \frac{X_{cp}/\sum\nolimits_c X_{cp}}{\sum\nolimits_p X_{cp}/ \sum\nolimits_{c}\sum\nolimits_{p} X_{cp}}$$
+%$$RCA_{cp} = \frac{\frac{X_{cp}}{\sum\nolimits_c X_{cp}}}{\frac{\sum\nolimits_p X_{cp}} {\sum\nolimits_{c}\sum\nolimits_{p} X_{cp}}}$$
+
+We can use this measure to construct a matrix that connects each country to the products that it makes. Entries in the matrix are 1 if country $c$ exports product $p$ with RCA greater than 1, 0 otherwise. Formally, we define this as the $M_{cp}$  matrix, where
+
+\begin{equation}\label{M_cp}
+M_{cp}  = \left\{ 
+  \begin{array}{l l}
+    1 & \quad \text{RCA}_{cp} \ge 1\\
+    0 & \quad  \text{otherwise}
+  \end{array} \right.
+\end{equation}
+$M_{cp}$ is the matrix summarizing which country makes what, and is used to construct the product space and our measures of economic complexity for countries and products. 
+
+
+\vskip 2cm
+\noindent \textbf{UBIQUITY} measures the number of countries that are able to make a product. 
+
+Considering the matrix $M_{cp}$ —as described for \textbf{DIVERSITY}—in which rows represent different countries and columns represent different products, we can measure ubiquity simply by summing over the rows or columns of that matrix. Formally, 
+
+\begin{equation}\label{Ubiquity}
+\text{Ubiquity} = k_{p,0} = \sum\limits_{c} M_{cp}
+\end{equation}
+
+\end{document}

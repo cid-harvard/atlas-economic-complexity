@@ -1191,15 +1191,16 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   if product != "show" and product != "all":
     p_code = product
     product = clean_product(p_code, prod_class)
-    if product:
-      if product.__class__ == Sitc4:
-        product_list = Sitc4.objects.get_all(lang)
-        request.session['product_classification'] = "sitc4"
-      else:
-        product_list = Hs4.objects.get_all(lang)
-        request.session['product_classification'] = "hs4"
-    else:
-      alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='about/data/hs4/'>list of HS4 products</a>."%(p_code)}
+    # TODO: check if product exists
+    #if product:
+    #  if product.__class__ == Sitc4:
+    #    product_list = Sitc4.objects.get_all(lang)
+    #    request.session['product_classification'] = "sitc4"
+    #  else:
+    #    product_list = Hs4.objects.get_all(lang)
+    #    request.session['product_classification'] = "hs4"
+    #else:
+    #  alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='about/data/hs4/'>list of HS4 products</a>."%(p_code)}
 
   if countries[0]:
     # get distinct years from db, different for diff product classifications
@@ -1275,6 +1276,12 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       prod_or_partner = "product"
 
   # Return page without visualization data
+
+  # Making sure we return the product list every time
+  if prod_class == "sitc4":
+    product_list = Sitc4.objects.get_all(lang)
+  else:
+    product_list = Hs4.objects.get_all(lang)
 
   return render_to_response("explore/index.html", {
     "displayviz":displayviz,

@@ -2,10 +2,12 @@
 
 {% block page_title %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
 {% block heading_title %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
-
 {% block css %}
 
 <style>
+body{
+  background-color: #fafafa;
+}
 #sidebar h3 {
   border: none !important;
   font-size: 18px;
@@ -333,4 +335,9 @@ $(document).bind('click', function(e) {
         $(".dropdown dd ul").hide();
 });
 </script>
+<script>
+$("head").append("<link rel='stylesheet' type='text/css' href='media/js/libs/bootstrap/css/bootstrap.css'>");
+$("body").css("background-color", "#fafafa");
+</script>
+
 {% endblock %}
