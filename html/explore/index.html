@@ -327,7 +327,7 @@
 
               <div style="width:100px; text-align:none; float:right;"> <b>Rings</b><br> Product-centric navigation of the Product Space.</div> -->
 
-              <button title="Product-centric navigation of the Product Space" value="pie_scatter" type="radio" class="divBtn btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}"onclick="update_viz('rings');">
+              <button title="Product-centric navigation of the Product Space" value="rings" type="radio" class="divBtn btn btn-default {% if app_name == "rings" %}active{% endif %}"onclick="update_viz('rings');">
 
                 <!-- <input type="radio" name="viz_apps"> -->
 
@@ -343,40 +343,6 @@
                
             <br><br>
 
-          {% if app_name == "product_space" %}
-              <script>
-              
-              function find_product() {
-                d3.select("#viz").call(chart.highlight([]))
-                d3.select("#viz").call(chart.highlight($("#find-product").find(":selected").val()))
-               // alert($("#find-product").find(":selected").val());
-              }
-
-               // d3.select("#viz").call(chart.highlight("2306"))
-               </script>
-
-              <div id="find-product" style="width:100%" onmouseover="$('.show-find-product').css('visibility', 'visible');"  onmouseout="$('.show-find-product').css('visibility', 'hidden');">
-
-                 <span style="font-size:14px; margin:4px;">Find a product:</span><br>
-                  <select data-placeholder="All Products" id="find_product_select" class="chosen-select-deselect" tabindex="-1" style="display:none;">
-                    <option value=""></option>
-                      {% if product_list %}
-                        {% for p in product_list %}
-                          {% if p.id == product.id %}
-                        <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-                          {% else %}
-                        <option value="{{p.code}}">{{ p.name }}</option>
-                          {% endif %}   
-                        {% endfor %}
-                      {% else %}  
-                        {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
-                        {% include template %}
-                        {% endwith %}
-                      {% endif %}  
-                  </select>
-                <button type="button" onclick="find_product();" class="glyphicon glyphicon-refresh show-find-product tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="position:relative; right:-153px; top:-22.5px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>                  
-              </div>
-                {% endif %}
           </div>
         </div>
       </div>
@@ -667,15 +633,6 @@
               <li><a class="disabled" href="#">Stepping Stone</a></li>
             </ul>
           </div>
-          <div>
-            <h3><a href="#">Maps</a></h3>
-            <ul>
-              <li><a class="sapy" href="/explore/map/export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Exports</a></li>
-              <li><a class="sapy" href="/explore/map/import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Imports</a></li>
-              <li><a class="sapy" href="/explore/map/net_export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Net exports</a></li>
-              <li><a class="sapy" href="/explore/map/net_import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Net imports</a></li>
-            </ul>
-          </div>
         </div>-->
       </div> <!-- END app selection pane -->
       {% endif %}
@@ -749,7 +706,8 @@
               <div id="key" style="padding: 5px 0px 2px 5px;"></div>
             </div>
           {% if app_name == "stacked" %}  
-          <style type="text/css">#content{height:810px;}</style>
+          
+          <style type="text/css">#content{height:822px;}</style>
           <div id="stacked_controls" style="width:90%">
 
             <div  style="float:left; ">
@@ -927,6 +885,100 @@
 
 
 
+          <span class="definition" style="font-weight:bold;">Product classification:</span>
+
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px; height:34px;">
+            <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="sitc4"> SITC4
+            </label>
+             <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="hs4"> HS4
+            </label>
+          </div>
+
+          {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" or app_name == "rings" %}
+              <script>
+              
+              {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
+              function highlight() {
+                d3.select("#viz").call(chart.highlight([]))
+                d3.select("#viz").call(chart.highlight($("#highlight").find(":selected").val()))
+              }
+              {% endif %}
+
+              {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
+              function highlight() {
+
+                {% if app_type = "casy" %}
+
+                if($("#highlight").find(":selected").val().trim().length>0)
+                  d3.select("#viz").call(viz.solo([$("#highlight").find(":selected").val()]));
+                else
+                  d3.select("#viz").call(viz.solo([]));
+
+                {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" or app_type = "sapy" %}
+
+                d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { 
+                  if(dd.abbrv.toLowerCase() == $("#highlight").find(":selected").val())// && dd.year==year) 
+                    return dd;
+                }).map(function(ddd) { 
+                    return ddd.id 
+                })));
+
+                {% elif app_type = "" %}
+
+                {% endif %} 
+
+              }
+
+              function reset_highlight() {
+
+                $("#highlight").find(":selected").prop("selected", false);
+                $("#highlight_select").trigger("chosen:updated");
+
+              }
+              {% endif %}
+               </script>
+
+              <span class="definition" style="font-weight:bold;">Highlight:</span>
+
+              <span id="highlight">
+           
+              {% if app_type = "casy" or app_type = "ccsy" %}
+                  <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
+                    <option value=""></option>
+                      {% if product_list %}
+                        {% for p in product_list %}
+                          {% if p.id == product.id %}
+                        <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+                          {% else %}
+                        <option value="{{p.code}}">{{ p.name }}</option>
+                          {% endif %}   
+                        {% endfor %}
+                      {% else %}  
+                        {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
+                        {% include template %}
+                        {% endwith %}
+                      {% endif %}  
+                  </select>
+
+               {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
+
+                <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
+
+                <option value=""></option>
+                  {% if country1_list %}
+                    {% for c in country1_list %}
+                      <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+                    {% endfor %}
+                  {% else %}
+                    {% include "explore/list_countries.html" %}
+                  {% endif %}
+              </select>
+
+              {% endif %}            
+              </span>
+              {% endif %}
 
          {% if app_name == "map" %}
 
@@ -1094,7 +1146,7 @@
       <footer>
       <div class="footerInner">
 
-        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country’s total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
+        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
         <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
@@ -1374,9 +1426,7 @@
   $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
 
   $("#country1_select_chosen .chosen-results").hover(function() {
-
     $("#country1_select_chosen .chosen-results").css("color", "black");
-
   });
 
   $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country-trade-partner select").val()+".png') no-repeat");

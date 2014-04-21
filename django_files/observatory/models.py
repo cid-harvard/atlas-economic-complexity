@@ -25,13 +25,13 @@ class observastory(models.Model):
         number_of_chapters=models.IntegerField(max_length=11,default=0)
 	class Meta:
 		db_table = "observatory_story"
-                
+
 
 	def __unicode__(self):
         	return u"%s" % self.story_id
 
 class storyform(ModelForm):
-  
+
         class Meta:
 		model = observastory
         	fields = ('story_name','story_desc')
@@ -108,16 +108,16 @@ class Country_region(models.Model):
 		return self.name
 
 class Country_manager(models.Manager):
-	
+
 	def filter_lang(self, lang):
 		return self.extra(select={"name": "name_"+lang})
-	
+
 	def get_all(self, lang):
-		
+
 		if type(lang) == bool:
 			lang = "en"
 		lang = lang.replace("-", "_")
-		
+
 		countries = self.filter_lang(lang)
 		countries = countries.filter(region__isnull=False, name_3char__isnull=False, name_2char__isnull=False).order_by("name_"+lang)
 		return list(countries.values(
@@ -131,6 +131,12 @@ class Country_manager(models.Manager):
 			"region__name",
 			"region__text_color",
     ))
+
+	def get_random(self):
+		"""Grab a random country that has a 3char name. This uses the 'ORDER BY
+		RAND()' method which is fine for this purpose but slow in mysql for
+		larger tables so beware."""
+		return Country.objects.filter(name_3char__isnull=False).order_by('?')[1]
 
 class Country(models.Model):
 
@@ -163,15 +169,15 @@ class Country(models.Model):
 	name_pt = models.TextField(null=True)
 	name_tr = models.TextField(null=True)
 	name_zh_cn = models.TextField(null=True)
-	
+
 	def __unicode__(self):
 		return self.name
-	
+
 	def to_json(self):
 		return {
 			"name": self.name_en,
 			"name_3char": self.name_3char}
-	
+
 	objects = Country_manager()
 
 class Cy(models.Model):
@@ -222,16 +228,16 @@ class Sitc4_community(models.Model):
 
 # SITC4 products
 class Sitc4_manager(models.Manager):
-	
+
 	def filter_lang(self, lang):
 		if type(lang) is bool:
 			lang = "en"
 		else:
 			lang = lang.replace("-", "_")
 		return self.extra(select={"name": "name_"+lang})
-	
+
 	def get_all(self, lang):
-		
+
 		products = self.filter_lang(lang)
 		products = products.filter(community__isnull=False)#, ps_size__isnull=False)
 		return list(products.values(
@@ -246,7 +252,7 @@ class Sitc4_manager(models.Manager):
 			"ps_y",
 			"ps_size"
 		))
-		
+
 class Sitc4(models.Model):
 
 	class Meta:
@@ -283,12 +289,12 @@ class Sitc4(models.Model):
 
 	def __unicode__(self):
 		return self.code + self.name_en
-	
+
 	def to_json(self):
 		return {
 			"name": self.name_en,
 			"community_id": self.community.id}
-	
+
 	objects = Sitc4_manager()
 
 class Sitc4_py(models.Model):
@@ -321,7 +327,7 @@ class Hs4_py(models.Model):
 		return "%s rank: %d" % (self.product.name, self.pci_rank)
 
 
-# Colors for HS4 clusters 
+# Colors for HS4 clusters
 # http://www.foreign-trade.com/reference/hscode.htm
 class Hs4_community(models.Model):
 
@@ -393,19 +399,19 @@ class Hs4(models.Model):
 
 	def __unicode__(self):
 		return self.code + self.name
-	
+
 	def to_json(self):
 		return {
 			"name": self.name_en,
 			"community_id": self.community_id}
-	
+
 	objects = Hs4_manager()
 
 ###############################################################################
 # country - product - year tables
 ###############################################################################
 class Sitc4_cpy_manager(models.Manager):
-	
+
 	def set_value(self, trade_flow):
 		if trade_flow == "net_export":
 			return self.extra({'value': 'export_value-import_value'}, where=['export_value-import_value > 0'])
@@ -414,14 +420,14 @@ class Sitc4_cpy_manager(models.Manager):
 		return self.extra(select={"value": "%s_value" % (trade_flow,)})
 
 	def casy(self, country, trade_flow, year=None, lang="en"):
-		
+
 		q_set = self.set_value(trade_flow)
-		
+
 		data = q_set.filter(
 			country = country,
 			product__community__isnull = False,
 			product__ps_x__isnull = False)
-			
+
 		if year:
 			if "." in year:
 				years = [int(x) for x in year.split(".")]
@@ -436,23 +442,23 @@ class Sitc4_cpy_manager(models.Manager):
 					the_sum[y] = data.extra(select={"sum": "sum(import_value-export_value)"}, where=['year=%s'%(y,)]).values()[0]["sum"]
 				else:
 					the_sum[y] = data.filter(year=y).aggregate(Sum("%s_value" % (trade_flow))).values()[0]
-			
+
 			the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "product__code", "product__name_%s"%(lang,), "value", "export_rca")
 			columns = ["#", "Year", "SITC4", "Product Name", "Value (USD)", "RCA", "%"]
 			return {"sum":the_sum, "data":the_data, "columns":columns}
 		else:
 			return list(data.extra(select={'item_id': "product_id"}).values("item_id", "year", "value", "export_rca"))
-	
+
 	def sapy(self, product, trade_flow, year=None, lang="en"):
-		
+
 		q_set = self.set_value(trade_flow)
-		
+
 		data = q_set.filter(
 			product = product,
 			country__region__isnull=False,
 			country__name_3char__isnull=False,
 			country__name_2char__isnull=False)
-		
+
 		if year:
 			# put years into array (in case user requests stacked with multiple years of data)
 			if "." in year:
@@ -482,19 +488,19 @@ class Sitc4_cpy(models.Model):
 	export_value = models.FloatField(null=True)
 	import_value = models.FloatField(null=True)
 	export_rca = models.FloatField(null=True)
-	distance = models.FloatField(null=True) 
+	distance = models.FloatField(null=True)
 	opp_gain = models.FloatField(null=True)
-	
+
 	def __unicode__(self):
 		return "CPY: %s.%s.%d" % (self.country.name, self.product.code, self.year)
 
 	# def prod(self, lang):
 		# return "%s" % (getattr(self.product, "name_%s" % (lang,)))
-	
+
 	objects = Sitc4_cpy_manager()
 
 class Hs4_cpy_manager(models.Manager):
-	
+
 	def set_value(self, trade_flow):
 		if trade_flow == "net_export":
 			return self.extra({'value': 'export_value-import_value'}, where=['export_value-import_value > 0'])
@@ -503,14 +509,14 @@ class Hs4_cpy_manager(models.Manager):
 		return self.extra(select={"value": "%s_value" % (trade_flow,)})
 
 	def casy(self, country, trade_flow, year=None, lang="en"):
-		
+
 		q_set = self.set_value(trade_flow)
-		
+
 		data = q_set.filter(
 			country = country,
 			product__community__isnull = False,
 			product__ps_x__isnull = False)
-			
+
 		if year:
 			if "." in year:
 				years = [int(x) for x in year.split(".")]
@@ -525,17 +531,17 @@ class Hs4_cpy_manager(models.Manager):
 			return {"sum":the_sum, "data":the_data, "columns":columns}
 		else:
 			return list(data.extra(select={'item_id': "product_id"}).values("item_id", "year", "value", "export_rca"))
-	
+
 	def sapy(self, product, trade_flow, year=None, lang="en"):
-		
+
 		q_set = self.set_value(trade_flow)
-		
+
 		data = q_set.filter(
 			product = product,
 			country__region__isnull=False,
 			country__name_3char__isnull=False,
 			country__name_2char__isnull=False)
-		
+
 		if year:
 			# put years into array (in case user requests stacked with multiple years of data)
 			if "." in year:
@@ -565,12 +571,12 @@ class Hs4_cpy(models.Model):
 	export_value = models.FloatField(null=True)
 	import_value = models.FloatField(null=True)
 	export_rca = models.FloatField(null=True)
-	distance = models.FloatField(null=True) 
+	distance = models.FloatField(null=True)
 	opp_gain = models.FloatField(null=True)
-	
+
 	def __unicode__(self):
 		return "CPY: %s.%s.%d" % (self.country.name, self.product.code, self.year)
-	
+
 	objects = Hs4_cpy_manager()
 
 ###############################################################################
@@ -586,27 +592,27 @@ class Sitc4_ccpy_manager(models.Manager):
     # return self.extra(select={"value": "sum(%s_value)" % (trade_flow,)})
     return self.extra(select={"value": "%s_value" % (trade_flow,)})
     # qs.extra(select = {'total_amount': 'SUM(one_column + another_column)'}, )
-  
+
   def csay(self, country1, trade_flow, year=None, lang="en"):
     # raw = self.raw("select * from observatory_sitc4_ccpy where year = 2009")
     # r = [x for x in raw]
     # raise Exception()
     # raise Exception(r)
     # q_set = self.set_value(trade_flow)
-    
+
     # raise Exception(self.extra(select={"value": "sum(%s_value)" % (trade_flow,)}, where=['year=2009']).values())
-    
+
     # raise Exception(q_set.filter(year=2009).aggregate(Sum("value")).values()[0])
     # raise Exception(country1)
-    
+
     data = self.filter(
       origin = country1,
       destination__region__isnull=False,
       destination__name_3char__isnull=False,
       destination__name_2char__isnull=False)
-    
+
     # data = self.set_value(trade_flow)
-    
+
     if year:
       if "." in year:
         years = [int(x) for x in year.split(".")]
@@ -627,20 +633,20 @@ class Sitc4_ccpy_manager(models.Manager):
     else:
       # if trade_flow == "import": return list(data.extra(select={'item_id': "origin_id"}).values("item_id", "year").annotate(value=Sum('value')))
       return list(data.extra(select={'item_id': "destination_id"}).values("item_id", "year").annotate(value=Sum('%s_value'%(trade_flow,))))
-  
+
   def ccsy(self, country1, country2, trade_flow, year=None, lang="en"):
-    
+
     # if trade_flow == "import":
     # 	country1, country2 = country2, country1
-    
+
     # q_set = self.set_value(trade_flow)
-    
+
     data = self.filter(
       destination = country2,
       origin = country1,
       product__community__isnull = False,
       product__ps_x__isnull = False)
-  
+
     if year:
       if "." in year:
         years = [int(x) for x in year.split(".")]
@@ -652,11 +658,11 @@ class Sitc4_ccpy_manager(models.Manager):
       for y in years:
         # the_sum[y] = data.filter(year=y).aggregate(Sum("value")).values()[0]
         the_sum[y] = data.filter(year=y).aggregate(Sum("%s_value" % (trade_flow))).values()[0]
-      
+
       the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "product__code", "product__name_%s"%(lang,), "%s_value"%(trade_flow,))
-        
-        
-        
+
+
+
       # get the data sorted by year and value
       # the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "product__code", "product__name_%s"%(lang,), "value")
       columns = ["#", "Year", "SITC4", "Product Name", "Value (USD)", "RCA", "%"]
@@ -665,16 +671,16 @@ class Sitc4_ccpy_manager(models.Manager):
       return list(data.extra(select={'item_id': "product_id"}).values("item_id", "year", "value"))
 
   def cspy(self, country1, product, trade_flow, year=None, lang="en"):
-    
+
     # q_set = self.set_value(trade_flow)
-    
+
     data = self.filter(
       product = product,
       origin = country1,
       destination__region__isnull=False,
       destination__name_3char__isnull=False,
       destination__name_2char__isnull=False).exclude(destination=231)
-  
+
     if year:
       if "." in year:
         years = [int(x) for x in year.split(".")]
@@ -695,14 +701,14 @@ class Sitc4_ccpy_manager(models.Manager):
     else:
       # if trade_flow == "import": return list(data.extra(select={'item_id': "origin_id"}).values("item_id", "year", "value"))
       return list(data.extra(select={'item_id': "destination_id"}).values("item_id", "year", "value"))
-    
-    
+
+
 		# if trade_flow == "export":
 		# 	data = Sitc4_ccpy.objects.filter(product=p, origin=c, destination__region__isnull=False, destination__name_3char__isnull=False, destination__name_2char__isnull=False).exclude(destination=231).values("destination_id", "year", "value");
 		# elif trade_flow == "import":
 		# 	data = Sitc4_ccpy.objects.filter(product=p, destination=c, origin__region__isnull=False, origin__name_3char__isnull=False, origin__name_2char__isnull=False).exclude(origin=231).values("origin_id", "year", "value");
 		# 	meta["filter_id"] = "origin_id"
-	
+
 class Sitc4_ccpy(models.Model):
 
   class Meta:
@@ -717,18 +723,18 @@ class Sitc4_ccpy(models.Model):
 
   def __unicode__(self):
     return "%s -> %s" % (self.origin.name, self.destination.name)
-  
+
   objects = Sitc4_ccpy_manager()
 
 class Hs4_ccpy_manager(models.Manager):
-  
+
   def set_value(self, trade_flow):
     if trade_flow == "net_export":
       return self.extra({'value': 'export_value-import_value'}, where=['export_value-import_value > 0'])
     elif trade_flow == "net_import":
       return self.extra({'value': 'import_value-export_value'}, where=['import_value-export_value > 0'])
     return self.extra(select={"value": "%s_value" % (trade_flow,)})
-  
+
   def csay(self, country1, trade_flow, year=None, lang="en"):
 
     data = self.filter(
@@ -736,7 +742,7 @@ class Hs4_ccpy_manager(models.Manager):
       destination__region__isnull=False,
       destination__name_3char__isnull=False,
       destination__name_2char__isnull=False)
-    
+
     if year:
       if "." in year:
         years = [int(x) for x in year.split(".")]
@@ -752,23 +758,23 @@ class Hs4_ccpy_manager(models.Manager):
       the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year",  "%s__name_3char"%(to_show),"%s__name_%s"%(to_show,lang)).annotate(value=Sum('value'))
       columns = ["#", "Year", "Alpha-3", "Country", "Value (USD)", "%"]
       return {"sum":the_sum, "data":the_data, "columns":columns}
-      
+
     else:
       # if trade_flow == "import": return list(data.extra(select={'item_id': "origin_id"}).values("item_id", "year").annotate(value=Sum('%s_value'%(trade_flow))))
       return list(data.extra(select={'item_id': "destination_id"}).values("item_id", "year").annotate(value=Sum('%s_value'%(trade_flow))))
-  
+
   def ccsy(self, country1, country2, trade_flow, year=None, lang="en"):
-    
+
     # q_set = self.set_value(trade_flow)
-    
+
     # if trade_flow == "import":
     # 	country1, country2 = country2, country1
-    
+
     data = self.filter(
       destination = country2,
       origin = country1,
       product__community__isnull = False)
-    
+
     if year:
       if "." in year:
         years = [int(x) for x in year.split(".")]
@@ -789,7 +795,7 @@ class Hs4_ccpy_manager(models.Manager):
 
   def cspy(self, country1, product, trade_flow, year=None, lang="en"):
     q_set = self.set_value(trade_flow)
-    
+
 		# if trade_flow == "import":
 		# 	data = q_set.filter(
 		# 		product = product,
@@ -840,7 +846,7 @@ class Hs4_ccpy(models.Model):
 
 	def __unicode__(self):
 		return "%s -> %s" % (self.origin.name, self.destination.name)
-	
+
 	objects = Hs4_ccpy_manager()
 
 class Wdi(models.Model):
@@ -860,7 +866,7 @@ class Wdi_cwy(models.Model):
   wdi = models.ForeignKey(Wdi)
   year = models.PositiveSmallIntegerField(max_length=4)
   value = models.FloatField(null=True)
-  
+
   def __unicode__(self):
     return "[%s] %s: %s" % (self.year, self.country.name_3char, self.wdi.name)
 
