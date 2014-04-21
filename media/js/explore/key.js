@@ -106,6 +106,10 @@ function Key() {
     a.on("click", function(d) {
       // If this node is already selected, return to unsorted
       console.log("click", d3.select(this), d)
+
+      // Make sure no product/country is hihglighted
+      reset_highlight()
+
       if (d3.select(this).attr("active") == "true") {
         d3.select("#viz").call(viz.solo([]));
         d3.select(this).attr("active","false");

@@ -327,7 +327,7 @@
 
               <div style="width:100px; text-align:none; float:right;"> <b>Rings</b><br> Product-centric navigation of the Product Space.</div> -->
 
-              <button title="Product-centric navigation of the Product Space" value="pie_scatter" type="radio" class="divBtn btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}"onclick="update_viz('rings');">
+              <button title="Product-centric navigation of the Product Space" value="rings" type="radio" class="divBtn btn btn-default {% if app_name == "rings" %}active{% endif %}"onclick="update_viz('rings');">
 
                 <!-- <input type="radio" name="viz_apps"> -->
 
@@ -633,15 +633,6 @@
               <li><a class="disabled" href="#">Stepping Stone</a></li>
             </ul>
           </div>
-          <div>
-            <h3><a href="#">Maps</a></h3>
-            <ul>
-              <li><a class="sapy" href="/explore/map/export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Exports</a></li>
-              <li><a class="sapy" href="/explore/map/import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Imports</a></li>
-              <li><a class="sapy" href="/explore/map/net_export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Net exports</a></li>
-              <li><a class="sapy" href="/explore/map/net_import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Net imports</a></li>
-            </ul>
-          </div>
         </div>-->
       </div> <!-- END app selection pane -->
       {% endif %}
@@ -874,14 +865,8 @@
 
 
 
-           <span class="definition" style="font-weight:bold;">Product classification:</span>
-          
-          <!--
-          <select>
-            <option value="sitc4" {% if prod_class == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
-            <option value="hs4" {% if prod_class == "hs4" %} selected="selected" {% endif %}>HS4</option>
-          </select>
-          -->
+          <span class="definition" style="font-weight:bold;">Product classification:</span>
+
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px; height:34px;">
             <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
               <input type="radio" name="product_class" value="sitc4"> SITC4
@@ -891,40 +876,45 @@
             </label>
           </div>
 
-          {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" %}
+          {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" or app_name == "rings" %}
               <script>
               
-              {% if app_name == "product_space" or app_type = "cspy" %}
-              function find_product() {
+              {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
+              function highlight() {
                 d3.select("#viz").call(chart.highlight([]))
-                d3.select("#viz").call(chart.highlight($("#find-product").find(":selected").val()))
+                d3.select("#viz").call(chart.highlight($("#highlight").find(":selected").val()))
               }
               {% endif %}
 
               {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
-              function find_product() {
+              function highlight() {
 
                 {% if app_type = "casy" %}
 
-                if($("#find-product").find(":selected").val().trim().length>0)
-                  d3.select("#viz").call(viz.solo([$("#find-product").find(":selected").val()]));
+                if($("#highlight").find(":selected").val().trim().length>0)
+                  d3.select("#viz").call(viz.solo([$("#highlight").find(":selected").val()]));
                 else
                   d3.select("#viz").call(viz.solo([]));
 
-                {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" %}
+                {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" or app_type = "sapy" %}
 
                 d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { 
-                  if(dd.abbrv.toLowerCase() == $("#find-product").find(":selected").val())// && dd.year==year) 
+                  if(dd.abbrv.toLowerCase() == $("#highlight").find(":selected").val())// && dd.year==year) 
                     return dd;
                 }).map(function(ddd) { 
-                  console.log(ddd.id);
                     return ddd.id 
                 })));
 
                 {% elif app_type = "" %}
 
-
                 {% endif %} 
+
+              }
+
+              function reset_highlight() {
+
+                $("#highlight").find(":selected").prop("selected", false);
+                $("#highlight_select").trigger("chosen:updated");
 
               }
               {% endif %}
@@ -932,11 +922,10 @@
 
               <span class="definition" style="font-weight:bold;">Highlight:</span>
 
-
-              <span onmouseover="$('.show-find-product').css('visibility', 'visible');"  onmouseout="$('.show-find-product').css('visibility', 'hidden');" >
+              <span id="highlight">
            
               {% if app_type = "casy" or app_type = "ccsy" %}
-                  <select data-placeholder="All Products" id="find_product_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="find_product();" >
+                  <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
                     <option value=""></option>
                       {% if product_list %}
                         {% for p in product_list %}
@@ -953,9 +942,9 @@
                       {% endif %}  
                   </select>
 
-               {% elif app_type = "csay" or app_type = "cspy" %}
+               {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
 
-                <select data-placeholder="All Countries" id="find_product_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="find_product();">
+                <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
 
                 <option value=""></option>
                   {% if country1_list %}
@@ -1413,9 +1402,7 @@
   $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
 
   $("#country1_select_chosen .chosen-results").hover(function() {
-
     $("#country1_select_chosen .chosen-results").css("color", "black");
-
   });
 
   $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country-trade-partner select").val()+".png') no-repeat");
