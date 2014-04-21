@@ -1892,5 +1892,51 @@ p .gTerm{
   text-align: justify;
 }
 
+#legend{
+  height:125px;
+  overflow: elipsis;
+  padding-top: 10px;
+}
 
+#legend ul{
+  list-style: none;
+  padding: 0px;
+}
+#legend li{
+  margin-top: 10px;
+}
+#legend li:first-child {
+  margin-top: 0px;
+}
+#legend ul li span{
+  display: inline;
+}
+#legendComm{
+  float: left;
+  width:15px;
+  height:15px;
+  background-color: #000;
+  border-radius: 15px;
+  margin-right: 3px;
+}
+#legendComm1{
+  float: left;
+  width:15px;
+  height:15px;
+  border: solid 2px #000;
+  border-radius: 15px;
+  margin-right: 3px;
+}
+
+#legendConn{
+  margin-top: 7px;
+  float: left;
+  width: 15px;
+  height: 2px;
+  background-color: #000;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+}
 

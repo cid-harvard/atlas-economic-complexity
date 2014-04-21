@@ -511,11 +511,14 @@
     </div>
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs">
-  <li class="active"><a href="#helpPane" data-toggle="tab">Help</a></li>
+  <li {% if app_name != "product_space" and app_name != "pie_scatter" %}class="active"{% endif %}><a href="#helpPane" data-toggle="tab">Help</a></li>
   <li><a href="#history" data-toggle="tab">History</a></li>
+  {% if app_name == "product_space" or app_name == "pie_scatter" %}
+    <li class="active"><a href="#legend" data-toggle="tab">Legend</a></li>
+  {% endif %}
 </ul>
 <div class="tab-content" style="padding-top:0px;">
-  <div class="tab-pane active" id="helpPane">
+  <div class="tab-pane {% if app_name != "product_space" and app_name != "pie_scatter" %}active{% endif %}" id="helpPane">
     <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If you're curious about anything on the page, simply move your mouse over it and the Help Box will display useful information. If you need more information, use the “About” tab at the top of the page." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
       <div id="helpBoxInner">
           <h3>{% trans "Help Box" %}</h3>
@@ -534,6 +537,34 @@
       </div>
     </div>
   </div>
+  {% if app_name == "product_space" or app_name == "pie_scatter" %}
+    <div class="tab-pane active" id="legend">
+      <div id="legend">
+        <h3>Legend</h3>
+        <ul>
+        {% if app_name == "product_space" %}
+          <li>
+            <span><div id="legendComm"></div></span>
+            <span><p>  = Product Community</p></span>
+          </li>
+          <li>
+            <span><div id="legendConn"></div></span>
+            <span><p>  = Link between Product Communities</p></span>
+          </li>
+        {% else %}
+          <li>
+            <span><div id="legendComm"></div></span>
+            <span><p>  = Product Community with RCA > 1</p></span>
+          </li>
+          <li>
+            <span><div id="legendComm1"></div></span>
+            <span><p>  = Product Community with RCA < 1</p></span>
+          </li>              
+        {% endif %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
 </div>
 
 <!--
@@ -1178,6 +1209,7 @@
   <script src="{{ STATIC_URL }}js/libs/jquery/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
   <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
+
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
