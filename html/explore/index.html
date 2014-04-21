@@ -633,15 +633,6 @@
               <li><a class="disabled" href="#">Stepping Stone</a></li>
             </ul>
           </div>
-          <div>
-            <h3><a href="#">Maps</a></h3>
-            <ul>
-              <li><a class="sapy" href="/explore/map/export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Exports</a></li>
-              <li><a class="sapy" href="/explore/map/import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Imports</a></li>
-              <li><a class="sapy" href="/explore/map/net_export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Net exports</a></li>
-              <li><a class="sapy" href="/explore/map/net_import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2011/">Net imports</a></li>
-            </ul>
-          </div>
         </div>-->
       </div> <!-- END app selection pane -->
       {% endif %}
@@ -905,13 +896,12 @@
                 else
                   d3.select("#viz").call(viz.solo([]));
 
-                {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" %}
+                {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" or app_type = "sapy" %}
 
                 d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { 
                   if(dd.abbrv.toLowerCase() == $("#highlight").find(":selected").val())// && dd.year==year) 
                     return dd;
                 }).map(function(ddd) { 
-                  console.log(ddd.id);
                     return ddd.id 
                 })));
 
@@ -952,7 +942,7 @@
                       {% endif %}  
                   </select>
 
-               {% elif app_type = "csay" or app_type = "cspy" %}
+               {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
 
                 <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
 
