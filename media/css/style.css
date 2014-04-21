@@ -1895,7 +1895,7 @@ p .gTerm{
 #legend{
   height:125px;
   overflow: elipsis;
-  padding-top: 10px;
+  padding:0px 10px;
 }
 
 #legend ul{
@@ -1923,7 +1923,7 @@ p .gTerm{
   float: left;
   width:15px;
   height:15px;
-  border: solid 2px #000;
+  border: solid 1px #000;
   border-radius: 15px;
   margin-right: 3px;
 }
@@ -1938,5 +1938,14 @@ p .gTerm{
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
+}
+#pie{
+  float: left;
+  width:15px;
+  height:15px;
+  border: solid 1px #000;
+  border-radius: 15px;
+  margin-right: 3px;
+  background-image: url(../img/pie.png);
 }
 

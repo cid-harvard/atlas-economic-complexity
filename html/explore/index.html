@@ -514,7 +514,7 @@
   <li {% if app_name != "product_space" and app_name != "pie_scatter" %}class="active"{% endif %}><a href="#helpPane" data-toggle="tab">Help</a></li>
   <li><a href="#history" data-toggle="tab">History</a></li>
   {% if app_name == "product_space" or app_name == "pie_scatter" %}
-    <li class="active"><a href="#legend" data-toggle="tab">Legend</a></li>
+    <li class="active"><a href="#legendPane" data-toggle="tab">Legend</a></li>
   {% endif %}
 </ul>
 <div class="tab-content" style="padding-top:0px;">
@@ -532,13 +532,13 @@
     <div id="historyBox">
       <div id="historyBoxInner">
         <a href="#"><i id="hnLeft" class="fa fa-chevron-left historyNav"></i></a>
-        <div id="historySlide"></div>
+        <a id="historySlide"></a>
         <a href="#"><i id="hnRight" class="fa fa-chevron-right historyNav"></i></a>
       </div>
     </div>
   </div>
   {% if app_name == "product_space" or app_name == "pie_scatter" %}
-    <div class="tab-pane active" id="legend">
+    <div class="tab-pane active" id="legendPane">
       <div id="legend">
         <h3>Legend</h3>
         <ul>
@@ -554,12 +554,16 @@
         {% else %}
           <li>
             <span><div id="legendComm"></div></span>
-            <span><p>  = Product Community with RCA > 1</p></span>
+            <span><p>  = Product Community (RCA > 1)</p></span>
           </li>
           <li>
             <span><div id="legendComm1"></div></span>
-            <span><p>  = Product Community with RCA < 1</p></span>
-          </li>              
+            <span><p>  = Product Community (RCA < 1)</p></span>
+          </li>
+<!--           <li>
+            <span><div id="pie"><div></span>
+            <span><p>  = Share of Products being produced</p></span>
+          </li>  -->                        
         {% endif %}
         </ul>
       </div>
@@ -1541,12 +1545,13 @@
       previous_image = "{{ STATIC_URL }}/img/empty_static.png";
     {% endif %}
 
-    if(previous_page == "http://127.0.0.1:8000/" || previous_page == "None"){
+    if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "None"){
       console.log("home");
       previous_image = "{{ STATIC_URL }}/img/empty_static.png";
     } else{
       previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}"; 
       console.log("not home");
+      $("#historySlide").attr("href", previous_page);
     }
 
     $("#historySlide, #historyOverlay").css("background-image", "url("+previous_image+")");
