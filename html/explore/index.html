@@ -544,11 +544,11 @@
       </div>
     </div>
 </div>
-<ul class="nav nav-tabs">
+<ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs">
   <li class="active"><a href="#helpPane" data-toggle="tab">Help</a></li>
   <li><a href="#history" data-toggle="tab">History</a></li>
 </ul>
-<div class="tab-content" style="padding-top:0px; border:solid 1px #ddd;border-top:none;">
+<div class="tab-content" style="padding-top:0px;">
   <div class="tab-pane active" id="helpPane">
     <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If you're curious about anything on the page, simply move your mouse over it and the Help Box will display useful information. If you need more information, use the “About” tab at the top of the page." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
       <div id="helpBoxInner">
@@ -681,7 +681,7 @@
       {% endif %}
       <!-- the Visualization -->
     {% if isbrowsemode %}
-         <div id="content" style="width: 95%; min-height:600px;">
+    <div id="content" style="width: 95%; min-height:765px;">
 			<div style="margin-left: 20px; width: 75%; float:left">
 				<h2>{{ browseStoryName }}</h2>
 				<p>{{ browseStoryDesc }}</p>
@@ -745,11 +745,11 @@
         <!-- Container for the timeline -->
          <div id="timeline" class="bootstro" data-bootstro-title="Options Panel" data-bootstro-content="The Options Panel changes based on the visualization that you've selected. Here, you can do things such as filter the results by country and product or even change the level of detail shown in the visualization." data-toggle="tooltip" data-bootstro-placement="left">
 
-            <div id="ui_bottom" style="bottom: 0px;">
+            <div id="ui_bottom" style="bottom: 0px; height:50px;">
               <div id="key" style="padding: 5px 0px 2px 5px;"></div>
             </div>
           {% if app_name == "stacked" %}  
-          <style type="text/css">#content{height:772px;}</style>
+          <style type="text/css">#content{height:810px;}</style>
           <div id="stacked_controls" style="width:90%">
 
             <div  style="float:left; ">
@@ -761,8 +761,8 @@
             </div> -->
            
           <div class="ui_bottom_row">
-            <span class="definition" style="font-weight:bold; margin-left:20px;">Labels:</span>
-            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+            <span class="definition" style="font-weight:bold;">Labels:</span>
+            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default active">
                 <input type="radio" id="true" name="labels" checked="checked"> On
               </label>
@@ -785,8 +785,8 @@
             </div>
 -->
 
-            <span class="definition" style="font-weight:bold; margin-left:20px;">Layout:</span>
-            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+            <span class="definition" style="font-weight:bold;">Layout:</span>
+            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default active">
                 <input type="radio" id="value" name="layout" checked="checked">Value
               </label>
@@ -797,8 +797,8 @@
             </div>  
 
 
-            <span class="definition" style="font-weight:bold; margin-left:20px;">Ordering:</span>
-            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+            <span class="definition" style="font-weight:bold;">Ordering:</span>
+            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default active">
                 <input type="radio" id="community" name="order" checked="checked">Community
               </label>
@@ -867,10 +867,28 @@
 
         <div class="product_class clone_loader" style="float:left;">
           
+          <span class="definition" style="font-weight:bold;">Product Classification:</span>
+          
+          <!--
+          <select>
+            <option value="sitc4" {% if prod_class == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
+            <option value="hs4" {% if prod_class == "hs4" %} selected="selected" {% endif %}>HS4</option>
+          </select>
+          -->
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
+            <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="sitc4"> SITC4
+            </label>
+             <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+              <input type="radio" name="product_class" value="hs4"> HS4
+            </label>
+          </div>
           {% if app_name == "product_space" %}
 
-          <b>Color by: </b>
-          <div class="btn-group community">
+          <script type="text/javascript"></script>
+
+          <b>Color by:</b>
+          <div class="btn-group community" style="margin-right:20px;">
             <label type="button" class="btn btn-default active" value="category"> Category</label>
             <label type="button" class="btn btn-default disabled" value="category"> Community</label>
           </div>
@@ -898,8 +916,8 @@
             }
           </script>
 
-          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px">
-          <span class="definition" style="font-weight:bold; margin-left:10px">Filter by RCA Threshold: <span id="rca-threshold" style="font-weight:normal;">1</span></span></br>
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:20px;">
+          <span class="definition" style="font-weight:bold;">Filter by RCA Threshold: <span id="rca-threshold" style="font-weight:normal;">1</span></span></br>
           
           0 <input type="range" name="points" min="0" max="10" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 10
           </div>
@@ -908,22 +926,7 @@
 
 
 
-           <span class="definition" style="font-weight:bold;">Product classification:</span>
-          
-          <!--
-          <select>
-            <option value="sitc4" {% if prod_class == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
-            <option value="hs4" {% if prod_class == "hs4" %} selected="selected" {% endif %}>HS4</option>
-          </select>
-          -->
-          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-left:10px; height:34px;">
-            <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
-              <input type="radio" name="product_class" value="sitc4"> SITC4
-            </label>
-             <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-              <input type="radio" name="product_class" value="hs4"> HS4
-            </label>
-          </div>
+
 
          {% if app_name == "map" %}
 
@@ -941,8 +944,8 @@
 
       {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}          
         <div class="clone_loader" style="float:left;">
-            <span class="definition" style="font-weight:bold; margin-left:20px;">Level of detail:</span>
-            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+            <span class="definition" style="font-weight:bold;">Level of detail:</span>
+            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
                 <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
               </label>
@@ -960,8 +963,8 @@
 
       {% if app_name != "product_space" and app_name != "rings"%}     
         <div class="clone_loader" style="float:left;">
-          <span class="definition" style="font-weight:bold; margin-left:20px;">Trade Flow:</span>
-          <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
+          <span class="definition" style="font-weight:bold;">Trade Flow:</span>
+          <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
             <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
               <input type="radio" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
             </label>
@@ -1011,7 +1014,8 @@
       {% else %}
       <div id= "createStoryPlaceHolder">
         <h4 id="sidebar-create-story" class="tooltipbs" data-toggle="tooltip" data-placement="top" title="Create stories" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Create-a-Story</h4>
-		<span class="glyphicon glyphicon-plus-sign tooltipbs" style="color:rgb(60, 59, 55);"data-placement="right" data-toggle="tooltip" {% if not iscreatemode %} title="Create a new story" onclick="showCreateStoryDialog()" {% endif %}  {% if iscreatemode %}  style="color:rgb(60, 59, 55)" title="Story is under construction!" {% endif %}></span>
+        
+    		<span class="glyphicon glyphicon-plus-sign tooltipbs" style="color:rgb(60, 59, 55);"data-placement="right" data-toggle="tooltip" {% if not iscreatemode %} title="Create a new story" onclick="showCreateStoryDialog()" {% endif %}  {% if iscreatemode %}  style="color:rgb(60, 59, 55)" title="Story is under construction!" {% endif %}></span>
         <!--<span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');"></span>-->
 
        {% if iscreatemode %}
@@ -1117,6 +1121,9 @@
     <canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
      
   </div> <!-- END #container -->
+
+
+
 
   <!-- The JavaScript -->
   <!-- Libraries -->
