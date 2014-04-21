@@ -4,6 +4,10 @@
 .picasa.ini
 .ropeproject/
 
+#sample data
+media/data/*.json
+media/data/*.store
+
 #machine-specific settings
 django_files/atlas/settings_local.py
 #virtualenv
