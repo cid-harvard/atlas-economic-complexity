@@ -134,6 +134,7 @@
         <img class="img right community" src="/{{ STATIC_URL }}img/icons/community_{{ product.community.id }}.png" alt="{{product.name_en}}">
         {% endif %}
         -->
+        
       <script>
 		
       var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings"];
@@ -170,24 +171,24 @@
                 <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
 
                 <option value=""></option>
-                  {% if country1_list %}
-                    {% for c in country1_list %}
-                      {% if c.id == country1.id %}
+                {% if country1_list %}
+                  {% for c in country1_list %}
+                    {% if c.id == country1.id %}
                       <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-                      {% else %}
+                    {% else %}
                       <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                      {% endif %}
-                    {% endfor %}
-                  {% else %}
-                    {% include "explore/list_countries.html" %}
-                  {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {% include "explore/list_countries.html" %}
+                {% endif %}
               </select>
             </div>
 
-          <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
-            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;" title='{% trans "Trade Flow" %}'>{% trans "Trade Flow" %}</span></a></li>
-            <li {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}class="active"{% endif %}><a href="#tab-diversification"><span style="font-size:14px; color:gray;">Diversification</span></a></li>
-          </ul>
+            <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
+              <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;" title='{% trans "Trade Flow" %}'>{% trans "Trade Flow" %}</span></a></li>
+              <li {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}class="active"{% endif %}><a href="#tab-diversification"><span style="font-size:14px; color:gray;">Diversification</span></a></li>
+            </ul>
 
         <!-- TRADE / DIVERSIFICATION -->
         <div class="tab-content"  style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:210px; height:320px;">

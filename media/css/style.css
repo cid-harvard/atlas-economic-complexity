@@ -1954,7 +1954,10 @@ p .gTerm{
 #highlight{
 
 }
-#highlight .chosen-drop, #highlight .chosen-drop .chosen-results{
+#highlight .chosen-drop{
   max-height: 110px;
+}
+#highlight .chosen-drop .chosen-results{
+  max-height: 75px;
 }
 
