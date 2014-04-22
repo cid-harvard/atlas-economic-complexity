@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 // Defines Placeholder Varialbes for Help Box
 
-  var h3_holder ="Help Box";
+  var h3_holder =" ";
   var p_holder = "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function.";
 
 // Replaces displayed text with placeholder text

@@ -521,7 +521,7 @@
   <div class="tab-pane {% if app_name != "product_space" and app_name != "pie_scatter" %}active{% endif %}" id="helpPane">
     <div class="bootstro" data-bootstro-title="Help Box" data-bootstro-content="If you're curious about anything on the page, simply move your mouse over it and the Help Box will display useful information. If you need more information, use the “About” tab at the top of the page." data-toggle="tooltip" data-bootstro-placement="right" id="helpBox">
       <div id="helpBoxInner">
-          <h3>{% trans "Help Box" %}</h3>
+          <h3> </h3>
           <hr>
           <p>Welcome to The Atlas of Economic Complexity. Hover over an element to see its function.</p>
       </div>
@@ -540,7 +540,6 @@
   {% if app_name == "product_space" or app_name == "pie_scatter" %}
     <div class="tab-pane active" id="legendPane">
       <div id="legend">
-        <h3>Legend</h3>
         <ul>
         {% if app_name == "product_space" %}
           <li>

@@ -99,6 +99,7 @@ font.definition:hover{
   width: 960px;
   margin: 0 auto;
   width: 1060px;
+
 }
 
 /*
@@ -587,7 +588,7 @@ text-decoration: none;
   border: 1px solid #cccccc;
   border-radius: 0 0 10px 10px !important;
   float: left;
-  overflow: hidden;
+  overflow: visible;
   padding: 0 !important;
   width: 850px;
   z-index: 10;
@@ -668,8 +669,9 @@ text-decoration: none;
  * Timeline
  */
 .app #main #content #timeline {
+  min-height: 137px;
   padding: 0px 10px 10px 10px;
-  overflow: hidden;
+  overflow: visible;
 }
 .app #main #content #timeline button{
   float: left;
@@ -1947,5 +1949,8 @@ p .gTerm{
   border-radius: 15px;
   margin-right: 3px;
   background-image: url(../img/pie.png);
+}
+#highlight .chosen-drop, #highlight .chosen-drop .chosen-results{
+  max-height: 110px;
 }
 
