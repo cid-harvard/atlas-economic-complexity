@@ -682,35 +682,30 @@
 				onclick="location.href='endbrowsestory/',clearLocalStorage()">Exit</button>
 			</div>
 			<div style="clear:both"></div>
-        <!-- ajax loading gif -->
-        <div id="loader">
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" /><br />Loading...
-        </div>
-        
-        <!-- the canvas for the visualization -->
-        <div id="text_data">
-
-        </div>
-        
-        <!-- Container for the visualization -->
-        <div  id="viz" style="width: 100%; min-height:520px"></div>
-        
-        <!-- Container for the key/legend -->
-        <div class="key {{prod_class}}" style="min-height:50px"></div>
+      <!-- ajax loading gif -->
+      <div id="loader">
+        <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" /><br />Loading...
+      </div>
+      <!-- the canvas for the visualization -->
+      <div id="text_data"></div>
+      <!-- Container for the visualization -->
+      <div  id="viz" style="width: 100%; min-height:520px"></div>
+      <!-- Container for the key/legend -->
+      <div class="key {{prod_class}}" style="min-height:50px"></div>
 			<div style="margin-left: 20px; width: 80%;">
 				<h3 style="margin-bottom: 0px;">{{ browseChapterName }}</h3>
 				<p>{{ browseChapterDesc }}</p>
 			</div>
-		<div class="BrowseNextPrev">
-				<div style="clear: both;"></div>
-				<button id="BrowsePrev" class="BrowsePrev" onclick="checkChapterCount(-1)">Prev</button>	
-				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button> 
-				{% if userId %}
-				<a><img src="{{ STATIC_URL }}img/app/like.png" id="likeImage" alt="like" /></a>
-                   <h3 id="likeCount">{{likeCount}} Likes</h3>
-				{% endif %}	
-		</div> 
-</div>      
+      <div class="BrowseNextPrev">
+      		<div style="clear: both;"></div>
+      		<button id="BrowsePrev" class="BrowsePrev" onclick="checkChapterCount(-1)">Prev</button>	
+      		<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button> 
+      		{% if userId %}
+      		<a><img src="{{ STATIC_URL }}img/app/like.png" id="likeImage" alt="like" /></a>
+                     <h3 id="likeCount">{{likeCount}} Likes</h3>
+      		{% endif %}	
+      </div> 
+    </div>        
     {% else %}
       <div id="content" style="width: 750px; min-height:600px;">
         <!-- ajax loading gif -->
@@ -739,12 +734,12 @@
             <div id="ui_bottom" style="bottom: 0px; height:50px;">
               <div id="key" style="padding: 5px 0px 2px 5px;"></div>
             </div>
-          {% if app_name == "stacked" %}  
+        {% if app_name == "stacked" %}  
           
-          <style type="text/css">#content{height:822px;}</style>
-          <div id="stacked_controls" style="width:90%">
+        <style type="text/css">#content{height:822px;}</style>
+        <div id="stacked_controls" style="width:90%">
 
-            <div  style="float:left; ">
+          <div  style="float:left; ">
           
 
             <!-- <div>
@@ -799,8 +794,8 @@
               </label>
             </div>  
           </div>
-            {% if app_type != "sapy" %} 
 
+          {% if app_type != "sapy" %} 
           <div class="ui_bottom_row">
             <span class="definition" style="font-weight:bold;">Adjust:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
@@ -817,12 +812,12 @@
                 <input type="radio" id="pc_constant" name="capita" > Per Capita Constant
               </label>
             </div>
-            </div>  
+          </div>  
 
             {% endif %}
           
-            </div>
-          </div>  
+          </div>
+        </div>  
 
           {% endif %}
 
@@ -908,10 +903,15 @@
             }
           </script>
 
-          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:20px;">
-          <span class="definition" style="font-weight:bold;">Filter by RCA Threshold: <span id="rca-threshold" style="font-weight:normal;">1</span></span></br>
-          
-          0 <input type="range" name="points" min="0" max="10" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 10
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:20px; float:left;">
+          <span class="definition" style="font-weight:bold;">
+            Filter by RCA Threshold: 
+            <span id="rca-threshold" style="font-weight:normal;">1</span>
+          </span>
+          </br>
+          0 
+          <input type="range" name="points" min="0" max="10" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 
+          10
           </div>
 
          {% endif %}
@@ -968,103 +968,99 @@
           </div>
         </div>
       {% endif %}
-                {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" or app_name == "rings" %}
-              <script>
-              
-              {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
-              function highlight(value) {
+      {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" or app_name == "rings" %}
+      <script>
+        
+        {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
+        function highlight(value) {
 
-                var v = value ? value : $("#highlight").find(":selected").val().trim();
-                d3.select("#viz").call(chart.highlight([]));
-                d3.select("#viz").call(chart.highlight(v));
-                queryParameters['highlight'] = v;
+          var v = value ? value : $("#highlight").find(":selected").val().trim();
+          d3.select("#viz").call(chart.highlight([]));
+          d3.select("#viz").call(chart.highlight(v));
+          queryParameters['highlight'] = v;
 //                updateURLQueryParameters();
-              }
+        }
+        {% endif %}
+
+        {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
+        function highlight(value) {
+
+          var v = value ? value : $("#highlight").find(":selected").val().trim();
+
+          {% if app_type = "casy" %}
+
+          if(v.length>0)
+            d3.select("#viz").call(viz.solo([v]));
+          else
+            d3.select("#viz").call(viz.solo([]));
+
+          {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" or app_type = "sapy" %}
+
+          d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { 
+            if(dd.abbrv.toLowerCase() == v)// && dd.year==year) 
+              return dd;
+          }).map(function(ddd) { 
+              return ddd.id 
+          })));
+
+          {% elif app_type = "" %}
+
+          {% endif %} 
+
+          queryParameters['highlight'] = v;
+     //     updateURLQueryParameters();
+        }
+
+        function reset_highlight() {
+
+          $("#highlight").find(":selected").prop("selected", false);
+          $("#highlight_select").trigger("chosen:updated");
+          queryParameters["highlight"] = "";
+          updateURLQueryParameters();
+
+        }
+        {% endif %}
+      </script>
+        <div class="clone_loader" style="float:left; margin-top:10px;">
+          <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
+
+          <span id="highlight">
+       
+          {% if app_type = "casy" or app_type = "ccsy" %}
+              <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
+                <option value=""></option>
+                  {% if product_list %}
+                    {% for p in product_list %}
+                      {% if p.id == product.id %}
+                    <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+                      {% else %}
+                    <option value="{{p.code}}">{{ p.name }}</option>
+                      {% endif %}   
+                    {% endfor %}
+                  {% else %}  
+                    {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
+                    {% include template %}
+                    {% endwith %}
+                  {% endif %}  
+              </select>
+
+           {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
+
+            <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
+
+            <option value=""></option>
+              {% if country1_list %}
+                {% for c in country1_list %}
+                  <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+                {% endfor %}
+              {% else %}
+                {% include "explore/list_countries.html" %}
               {% endif %}
-
-              {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
-              function highlight(value) {
-
-                var v = value ? value : $("#highlight").find(":selected").val().trim();
-
-                {% if app_type = "casy" %}
-
-                if(v.length>0)
-                  d3.select("#viz").call(viz.solo([v]));
-                else
-                  d3.select("#viz").call(viz.solo([]));
-
-                {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" or app_type = "sapy" %}
-
-                d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { 
-                  if(dd.abbrv.toLowerCase() == v)// && dd.year==year) 
-                    return dd;
-                }).map(function(ddd) { 
-                    return ddd.id 
-                })));
-
-                {% elif app_type = "" %}
-
-                {% endif %} 
-
-                queryParameters['highlight'] = v;
-           //     updateURLQueryParameters();
-              }
-
-              function reset_highlight() {
-
-                $("#highlight").find(":selected").prop("selected", false);
-                $("#highlight_select").trigger("chosen:updated");
-                queryParameters["highlight"] = "";
-                updateURLQueryParameters();
-
-              }
-              {% endif %}
-               </script>
-              <div class="clone_loader" style="float:left; margin-top:10px; position:relative; z-index:100;">
-                <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
-
-                <span id="highlight">
-             
-                {% if app_type = "casy" or app_type = "ccsy" %}
-                    <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
-                      <option value=""></option>
-                        {% if product_list %}
-                          {% for p in product_list %}
-                            {% if p.id == product.id %}
-                          <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-                            {% else %}
-                          <option value="{{p.code}}">{{ p.name }}</option>
-                            {% endif %}   
-                          {% endfor %}
-                        {% else %}  
-                          {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
-                          {% include template %}
-                          {% endwith %}
-                        {% endif %}  
-                    </select>
-
-                 {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
-
-                  <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
-
-                  <option value=""></option>
-                    {% if country1_list %}
-                      {% for c in country1_list %}
-                        <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                      {% endfor %}
-                    {% else %}
-                      {% include "explore/list_countries.html" %}
-                    {% endif %}
-                </select>
-
-                {% endif %}     
-
-                </span>
-
-              </div>
-
-              {% endif %}
+          </select>
+          {% endif %}     
+          </span>
+        </div>
+      {% endif %}
 
 
 	      </div>
@@ -1120,17 +1116,20 @@
        </div>
       {% endif %}   
        
-    <div id="shareThisPlaceholder">
-
+      <div id="shareThisPlaceholder">
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">Share</h4>
 
-        <a href="#" id="fbShare" class="addthis_button_facebook" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"> <i class="fa fa-facebook fa-lg"></i></a>
+        <a href="#" id="fbShare" class="addthis_button_facebook" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"><i class="fa fa-facebook fa-lg"></i></a>
+
         <a class="addthis_button_twitter"><i class="fa fa-twitter fa-lg"></i></a>
+
         <a class="addthis_button_google_plusone_share" ><i class="fa fa-google-plus fa-lg"></i></a>
+
         <a class="addthis_button_email"><i class="fa fa-envelope fa-lg"></i></a>
-    </div> 
-     {% if isbrowsemode %}
-     {% else %}   
+
+      </div> 
+      {% if isbrowsemode %}
+      {% else %}   
 	<!--<div class="control_container" id="download">
           <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">{% trans "Download" %}</h4>
           <!--<a class="pdf" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PDF</a>
@@ -1164,55 +1163,53 @@
     
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">Feedback</h4>
     
-        <a id="feedbackPlaceholder" href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform?entry.1903449278&entry.1131927011&entry.49173428&entry.1847748354={{ VERSION }}" target="_blank">
-          <i class="fa fa-comment fa-lg"></i>
-        </a>
+        <a id="feedbackPlaceholder" href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform?entry.1903449278&entry.1131927011&entry.49173428&entry.1847748354={{ VERSION }}" target="_blank"><i class="fa fa-comment fa-lg"></i></a>
 
-        
         {% if displayviz %}
-        <div id="downloadPlaceholder">
-          <span class="dlOption"><a href="{{ displayImage }}"><i class="fa fa-download"></i></a><p>PNG</p></span>
-<!--      <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>SVG</p></span>
-          <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>PDF</p></span>
-          <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>TEXT</p></span> -->
-        </div>
+          <div id="downloadPlaceholder">
+            <span class="dlOption"><a href="{{ displayImage }}"><i class="fa fa-download"></i></a><p>PNG</p></span>
+  
+            <!-- More Download Options (waiting on mindtek)
+
+            <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>SVG</p></span>
+            <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>PDF</p></span>
+            <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>TEXT</p></span> -->
+
+          </div>
         {% endif %}
 
     </div>
   
     {% endif %}
-       
-      </div> <!-- END Right pane -->
-      <footer>
-      <div class="footerInner">
 
-        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
-        <br />
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
-        <p style="clear:both"></p>
-        <a style=" margin-left:150px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
+  </div> <!-- END Right pane -->
+  <footer>
+    <div class="footerInner">
+      <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
+      <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
+      <br />
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+      <p style="clear:both"></p>
+      <a style=" margin-left:150px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
 
-        <div class="language_select" style="float:right; margin-right:150px;">
+      <div class="language_select" style="float:right; margin-right:150px;">
 
-          <div class="text">
-            Language:
-          </div>
-          <select>
-            {% for lang in supported_langs %}
-            <option style="" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
-            {% endfor %}
-          </select> 
+        <div class="text">
+          Language:
         </div>
-
+        <select>
+          {% for lang in supported_langs %}
+          <option style="" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
+          {% endfor %}
+        </select> 
       </div>
+    </div>
+  </footer>
+</div> <!-- END #main -->
 
-    </footer>
-    </div> <!-- END #main -->
-
-    <canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
+<canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
      
-  </div> <!-- END #container -->
+</div> <!-- END #container -->
 
 
 
