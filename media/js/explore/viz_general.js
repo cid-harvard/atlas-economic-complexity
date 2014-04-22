@@ -909,6 +909,7 @@ var flat_data,
     } 
     
     d3.select("#loader").style("display", "none");
+    highlight(queryParameters['highlight']);
     //d3.select("#viz").style("height", "0px");
     //d3.select("#viz svg").style("display", "none");
     //d3.select("#loader").style("display", "none");
@@ -941,7 +942,8 @@ var flat_data,
       //.year([years_available[0],years_available.slice(-1)[0]])
 
     d3.select("#loader").style("display", "none");
-  
+    //highlight(queryParameters['highlight']);
+
        flat_data.map(function(d){
          d.id = String(d.id)
        })
@@ -1082,7 +1084,7 @@ var flat_data,
       .year(year)
     
     d3.select("#loader").style("display", "none");
-  
+
     flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
   
     flat_data.map(function(d){
@@ -1094,6 +1096,9 @@ var flat_data,
       .style('height','520px')
       .datum(flat_data)
       .call(viz) 
+
+    // highlight(queryParameters['highlight']);
+
 
     if(!embed){
       key = Key()
@@ -1271,6 +1276,7 @@ var flat_data,
     
 
     d3.select("#loader").style("display", "none");  
+    highlight(queryParameters['highlight']);
 
 
     if(!embed){
@@ -1503,6 +1509,8 @@ var flat_data,
       .click_function(inner_html)      
 
     d3.select("#loader").style("display", "none");  
+
+
     
     // Since there is no title bar, we're gona bump the viz down 
     d3.select("#viz").style("margin-top","15px")
@@ -1511,6 +1519,8 @@ var flat_data,
       .style('height','520px')
       .datum(data)
       .call(viz);  
+
+      highlight(queryParameters['highlight']);
     })
     
     if(!embed){
@@ -1529,7 +1539,9 @@ var flat_data,
       d3.select("#tool_pane")
         .datum(rawData)
         .call(controls); 
-    }      
+    }     
+
+
     
   }  
   

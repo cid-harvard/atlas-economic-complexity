@@ -177,6 +177,11 @@ function get_root(d){
 
 function update_viz(viz) {
   
+  // Make sure we don't keep some parameterd
+  queryParameters['highlight'] = "";
+  var queryString = "";
+  if(queryActivated) 
+    queryString = "?"+$.param(queryParameters);
   // Fix for Firefox
   var host = "http://" + window.location.host + "/";
   var url = host + "explore/";
@@ -379,11 +384,11 @@ function update_viz(viz) {
     }
 
      else if (current_country2!="all" && current_year2 != "") {
-      window.location.assign(url);  
+      window.location.assign(url+queryString);  
 //            alert("Please, select either a country or a time inteval, not both");
     } else {
 
-      window.location.assign(url);            
+      window.location.assign(url+queryString);            
     }
 
   // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/show/all/0101/2011/
@@ -409,7 +414,7 @@ function update_viz(viz) {
       return;
     } 
 
-    window.location.assign(url);
+    window.location.assign(url+queryString);
 
   } else {
     console.log("ERROR IN SELECTING COUNTRIES/PRODUCTS TAB");

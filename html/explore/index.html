@@ -972,26 +972,32 @@
               <script>
               
               {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
-              function highlight() {
-                d3.select("#viz").call(chart.highlight([]))
-                d3.select("#viz").call(chart.highlight($("#highlight").find(":selected").val()))
+              function highlight(value) {
+
+                var v = value ? value : $("#highlight").find(":selected").val().trim();
+                d3.select("#viz").call(chart.highlight([]));
+                d3.select("#viz").call(chart.highlight(v));
+                queryParameters['highlight'] = v;
+//                updateURLQueryParameters();
               }
               {% endif %}
 
               {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
-              function highlight() {
+              function highlight(value) {
+
+                var v = value ? value : $("#highlight").find(":selected").val().trim();
 
                 {% if app_type = "casy" %}
 
-                if($("#highlight").find(":selected").val().trim().length>0)
-                  d3.select("#viz").call(viz.solo([$("#highlight").find(":selected").val()]));
+                if(v.length>0)
+                  d3.select("#viz").call(viz.solo([v]));
                 else
                   d3.select("#viz").call(viz.solo([]));
 
                 {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" or app_type = "sapy" %}
 
                 d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) { 
-                  if(dd.abbrv.toLowerCase() == $("#highlight").find(":selected").val())// && dd.year==year) 
+                  if(dd.abbrv.toLowerCase() == v)// && dd.year==year) 
                     return dd;
                 }).map(function(ddd) { 
                     return ddd.id 
@@ -1001,12 +1007,16 @@
 
                 {% endif %} 
 
+                queryParameters['highlight'] = v;
+           //     updateURLQueryParameters();
               }
 
               function reset_highlight() {
 
                 $("#highlight").find(":selected").prop("selected", false);
                 $("#highlight_select").trigger("chosen:updated");
+                queryParameters["highlight"] = "";
+                updateURLQueryParameters();
 
               }
               {% endif %}
@@ -1368,10 +1378,17 @@
   queryParameters['details_treemap'] = queryParameters['details_treemap'] || 2;
   queryParameters['cat_id'] = queryParameters['cat_id'] || "";
   queryParameters['cont_id'] = queryParameters['cont_id'] || "";
-  queryParameters['trade_flow'] = queryParameters['trade_flow'] || "net";
+  //queryParameters['trade_flow'] = queryParameters['trade_flow'] || "net";
+  queryParameters['highlight'] = queryParameters['highlight'] || "";
 
-  if(queryActivated)
+  function updateURLQueryParameters() {
     history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
+  }
+
+
+  if(queryActivated) 
+    updateURLQueryParameters();
+
 
   // Dynamically update the interface based on queryParameters values
   if(app_type=="tree_map") {
