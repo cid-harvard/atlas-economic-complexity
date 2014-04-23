@@ -369,10 +369,12 @@ var flat_data,
     //var SHOW_DIFF = true;
 
 
-    if(selected_year.length > 0) {
+    if(single_year) {
 
-      selected_year = "";
-      //d3.select("#loader").style("display", "block");
+      single_year = false;
+      d3.select("#loader").style("display", "block");
+      d3.select("#loader").append("text").text("Loading more years...")
+      d3.select("#viz").transition().style("opacity", 0)
       // Make the AJAX call to retrieve other years
 
       d3.json(api_uri + '&amp;data_type=json', function(raw) {
@@ -389,14 +391,24 @@ var flat_data,
 
         flat_data = construct_nest(flat_data);
 
+        if(app_name=="tree_map") {
+
         d3.select("#viz")
            .style('height','520px')
-        //   .datum(flat_data)
+           .datum(flat_data)
            .call(viz);
 
-        d3.select("#loader").style("display", "none");
 
-           console.log("new data loaded")
+        } else if(app_name=="product_space") {
+          network( api_uri + '&amp;data_type=json' );
+    
+
+        }
+        
+
+        d3.select("#loader").style("display", "none");
+        d3.select("#viz").transition().style("opacity", 1)
+        set_year(arg);
       });
 
 
@@ -1705,13 +1717,14 @@ var flat_data,
 
     //d3.json(product_file, function(attr_data_file) {
 
-    selected_year = "";
+    var single_year_param = "";
 
-    if(app_name=="tree_map" && app_type=="casy") {
-      selected_year = "&amp;selected_year="+year;
+    if(app_type=="casy" && (app_name=="tree_map" || app_name=="product_space")) {
+      single_year = true;
+      single_year_param = "&amp;single_year=true";
     }
 
-    d3.json(api_uri + '&amp;data_type=json' + selected_year, function(raw) {
+    d3.json(api_uri + '&amp;data_type=json' + single_year_param, function(raw) {
 
       // This needs to be global 
       rawData = raw;
