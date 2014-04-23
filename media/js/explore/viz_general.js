@@ -366,7 +366,42 @@ var flat_data,
   set_year = function(arg)
   {
 
-    var SHOW_DIFF = true;
+    //var SHOW_DIFF = true;
+
+
+    if(selected_year.length > 0) {
+
+      selected_year = "";
+      //d3.select("#loader").style("display", "block");
+      // Make the AJAX call to retrieve other years
+
+      d3.json(api_uri + '&amp;data_type=json', function(raw) {
+
+        rawData = raw;
+        
+        item_type = raw["item_type"];
+        flat_data=raw["data"];
+        attr=raw["attr"];
+        attr_data = raw["attr_data"];
+        app_type= raw["app_type"];
+        prod_class = raw["prod_class"];
+        region_attrs = {};
+
+        flat_data = construct_nest(flat_data);
+
+        d3.select("#viz")
+           .style('height','520px')
+        //   .datum(flat_data)
+           .call(viz);
+
+        d3.select("#loader").style("display", "none");
+
+           console.log("new data loaded")
+      });
+
+
+      return;
+    }
 
     if(typeof(start_year) == "undefined")
       start_year = viz.year();
@@ -1670,9 +1705,13 @@ var flat_data,
 
     //d3.json(product_file, function(attr_data_file) {
 
+    selected_year = "";
 
-    d3.json(api_uri + '&amp;data_type=json',function(raw) {
+    if(app_name=="tree_map" && app_type=="casy") {
+      selected_year = "&amp;selected_year="+year;
+    }
 
+    d3.json(api_uri + '&amp;data_type=json' + selected_year, function(raw) {
 
       // This needs to be global 
       rawData = raw;
@@ -1908,24 +1947,3 @@ var flat_data,
 
 
 } 
-
-function update_viz_app_original(api_uri, w, h) {
-
-  // Fetch the new data
-
-
-  // Compute the new flat_data file
-
-
-  // Update the current treemap
-  if (app_name=="tree_map") {
-
-
-    d3.select("#viz")
-       .style('height','520px')
-       .datum(flat_data)
-       .call(viz);
-
-  }
-
-}
