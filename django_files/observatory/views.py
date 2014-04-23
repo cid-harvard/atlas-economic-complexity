@@ -1373,8 +1373,6 @@ def attr_products(request, prod_class):
 
 '''<COUNTRY> / all / show / <YEAR>'''
 def api_casy(request, trade_flow, country1, year):
-  # import time
-  # start = time.time()
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
 
@@ -1525,30 +1523,25 @@ def api_casy(request, trade_flow, country1, year):
 
   """Check cache"""
   if settings.REDIS:
-    #raw = get_redis_connection('default')
     raw = redis.Redis("localhost")
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)
     # See if this key is already in the cache
-    #cache_query = raw.hget(key, 'data')
     cache_query = raw.get(key)
     if (cache_query == None):
 
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      """Add percentage value to return vals"""
-      # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
       rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[7], "rca":r[8],
              "distance":r[9],"opp_gain":r[10], "pci": r[11], "share": (r[7] / total_val)*100,
              "community_id": r[4], "color": r[5], "community_name":r[6], "code":r[2], "id": r[2]} for r in rows]
 
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+
       # SAVE key in cache.
-
-      json_response["data"] = rows
-
       raw.set(key, msgpack.dumps(rows))#, 'data', json.dumps(rows))
+      json_response["data"] = rows
 
     else:
       # If already cached, now simply retrieve
@@ -1559,9 +1552,7 @@ def api_casy(request, trade_flow, country1, year):
   else:
     rows = raw_q(query=q, params=None)
     total_val = sum([r[7] for r in rows])
-    # raise Exception(q,r,(r[7]/total_val)*100)
     """Add percentage value to return vals"""
-    # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
     rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[7], "rca":r[8],
              "distance":r[9],"opp_gain":r[10], "pci": r[11], "share": (r[7] / total_val)*100,
              "community_id": r[4], "color": r[5], "community_name":r[6], "code":r[2], "id": r[2]} for r in rows]
@@ -1588,13 +1579,10 @@ def api_casy(request, trade_flow, country1, year):
     response_json_file.write( json.dumps( json_response ) )
     response_json_file.close()
 
-  # raise Exception(time.time() - start)
   # Check the request data type
   if ( request.GET.get( 'data_type', None ) is None ):
-    #"""Return to browser as JSON for AJAX request"""
     return HttpResponse( "" )
   elif ( request.GET.get( 'data_type', '' ) == 'json' ):
-    """Return to browser as JSON for AJAX request"""
     return HttpResponse(json.dumps(json_response))
 
 def api_sapy(request, trade_flow, product, year):
