@@ -363,13 +363,12 @@ var flat_data,
     d3.select("#viz").call(viz.year(arg))
   }
   
-  set_year = function(arg)
-  {
+  set_year = function(arg) {
 
     //var SHOW_DIFF = true;
 
 
-    if(single_year) {
+    if((typeof(single_year) != "undefined") && single_year) {
 
       single_year = false;
       d3.select("#loader").style("display", "block");
@@ -986,7 +985,9 @@ var flat_data,
       //.year([years_available[0],years_available.slice(-1)[0]])
 
     d3.select("#loader").style("display", "none");
-    highlight(queryParameters['highlight']);
+
+    if(queryActivated)
+      highlight(queryParameters['highlight']);
 
        flat_data.map(function(d){
          d.id = String(d.id)
@@ -1710,7 +1711,7 @@ var flat_data,
   function build_viz_app_original(api_uri, w, h) {
 
 
-  d3.json(api_uri,function(raw) {
+  //d3.json(api_uri,function(raw) {
 
     (prod_class=="hs4") ? product_file = "media/js/data/sitc4_attr_en.json" : 
                           product_file = "media/js/data/hs4_attr_en.json"
@@ -1956,7 +1957,7 @@ var flat_data,
       // }
     
       }) // attr  
-    }) // api_uri
+   // }) // api_uri
 
 
 } 
