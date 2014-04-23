@@ -1503,11 +1503,7 @@
   //To display visualization in full screen, while viewing stories
   var contentWidth=$("#content").width();
 
-  //if static image mode is SVG
-  {% if not displayviz %}
-    build_viz_app( api_uri, contentWidth, 520 );
-  {% endif %}
-  
+
   // Call the original and let is handle the stuff - trying again
   build_viz_app_original( api_uri, contentWidth, 520 );
 
