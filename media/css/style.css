@@ -153,7 +153,7 @@ header nav ul {
   background: white;
   border: solid 1px #ccc;
   float: right;
-  height: 48px;
+
   display: inline;
   margin: -2px 0px 0px 0px;
   padding: 11px 0px 10px 0px;
@@ -670,6 +670,7 @@ text-decoration: none;
  */
 .app #main #content #timeline {
   min-height: 137px;
+  height: auto;
   padding: 0px 10px 10px 10px;
   overflow: visible;
 }
@@ -1950,7 +1951,13 @@ p .gTerm{
   margin-right: 3px;
   background-image: url(../img/pie.png);
 }
-#highlight .chosen-drop, #highlight .chosen-drop .chosen-results{
+#highlight{
+
+}
+#highlight .chosen-drop{
   max-height: 110px;
+}
+#highlight .chosen-drop .chosen-results{
+  max-height: 75px;
 }
 
