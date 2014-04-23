@@ -1482,6 +1482,7 @@ def api_casy(request, trade_flow, country1, year):
   years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
   years_available.sort()
 
+  # Inflation adjustment
   magic = Cy.objects.filter(country=country1.id,
                             year__range=(years_available[0],
                                         years_available[-1])).values('year',
@@ -1496,7 +1497,11 @@ def api_casy(request, trade_flow, country1, year):
 
 
   '''Define parameters for query'''
-  year_where = "AND year = %s" % (year,) if crawler == "" else " "
+  single_year = 'single_year' in request.GET
+  if crawler == True or single_year == True:
+    year_where = "AND cpy.year = %s" % (year,)
+  else:
+    year_where = " "
   rca_col = "null"
   if trade_flow == "net_export":
     val_col = "export_value - import_value as val"
