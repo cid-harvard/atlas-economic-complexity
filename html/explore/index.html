@@ -978,13 +978,14 @@
                 d3.select("#viz").call(chart.highlight([]));
                 d3.select("#viz").call(chart.highlight(v));
                 queryParameters['highlight'] = v;
-//                updateURLQueryParameters();
+                if(queryActivated)
+                  updateURLQueryParameters();
               }
               {% endif %}
 
               {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
               function highlight(value) {
-
+                
                 var v = value ? value : $("#highlight").find(":selected").val().trim();
 
                 {% if app_type = "casy" %}
@@ -1008,7 +1009,9 @@
                 {% endif %} 
 
                 queryParameters['highlight'] = v;
-           //     updateURLQueryParameters();
+  
+                if(queryActivated)
+                  updateURLQueryParameters();
               }
 
               function reset_highlight() {
@@ -1016,7 +1019,8 @@
                 $("#highlight").find(":selected").prop("selected", false);
                 $("#highlight_select").trigger("chosen:updated");
                 queryParameters["highlight"] = "";
-                updateURLQueryParameters();
+                if(queryActivated)
+                  updateURLQueryParameters();
 
               }
               {% endif %}
@@ -1366,7 +1370,7 @@
 
   // Variables from query string
   var queryParameters = {}, queryString = location.search.substring(1),
-      re = /([^&=]+)=([^&]*)/g, m, queryActivated = false;
+      re = /([^&=]+)=([^&]*)/g, m, queryActivated = true;
    
   // Creates a map with the query string parameters
   while (m = re.exec(queryString)) {
@@ -1386,8 +1390,13 @@
   }
 
 
-  if(queryActivated) 
+  if(queryActivated) {
     updateURLQueryParameters();
+
+    // Put once the visualization is loaded
+    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
+    $("#highlight_select").trigger("chosen:updated")
+  }
 
 
   // Dynamically update the interface based on queryParameters values

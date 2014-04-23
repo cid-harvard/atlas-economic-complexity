@@ -832,8 +832,6 @@ var flat_data,
 
   tree = function() {
           
-    
-
     viz = d3plus.viz();
 
     viz
@@ -915,8 +913,7 @@ var flat_data,
     //d3.select("#loader").style("display", "none");
   }
   
-  stack = function()
-  {
+  stack = function() {
 
     var years = year.split('.')  
 
@@ -942,7 +939,7 @@ var flat_data,
       //.year([years_available[0],years_available.slice(-1)[0]])
 
     d3.select("#loader").style("display", "none");
-    //highlight(queryParameters['highlight']);
+    highlight(queryParameters['highlight']);
 
        flat_data.map(function(d){
          d.id = String(d.id)
@@ -1228,12 +1225,7 @@ var flat_data,
         
         this_year = []
       })
-  
-      
-      format_test = function(data) {
-        // console.log(data)
-        return "Test JSON: "+data[10].name
-      }
+
       
       var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
       var max_value = d3.max(year_data, function(d, i) { return d.value})
@@ -1668,7 +1660,7 @@ var flat_data,
     }
   }
 
-  function build_viz_app_original(api_uri,w,h) {
+  function build_viz_app_original(api_uri, w, h) {
 
 
   d3.json(api_uri,function(raw) {
@@ -1913,7 +1905,27 @@ var flat_data,
     
       }) // attr  
     }) // api_uri
- // });
 
-}  
-  // 
+
+} 
+
+function update_viz_app_original(api_uri, w, h) {
+
+  // Fetch the new data
+
+
+  // Compute the new flat_data file
+
+
+  // Update the current treemap
+  if (app_name=="tree_map") {
+
+
+    d3.select("#viz")
+       .style('height','520px')
+       .datum(flat_data)
+       .call(viz);
+
+  }
+
+}
