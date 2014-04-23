@@ -1385,6 +1385,7 @@ def api_casy(request, trade_flow, country1, year):
   lang = request.GET.get("lang", lang)
   crawler = request.GET.get("_escaped_fragment_", False)
   country1 = Country.objects.get(name_3char=country1)
+  single_year = 'single_year' in request.GET
 
   '''Set query params with our changes'''
   query_params = request.GET.copy()
@@ -1497,7 +1498,6 @@ def api_casy(request, trade_flow, country1, year):
 
 
   '''Define parameters for query'''
-  single_year = 'single_year' in request.GET
   if crawler == True or single_year == True:
     year_where = "AND cpy.year = %s" % (year,)
   else:
@@ -1530,6 +1530,8 @@ def api_casy(request, trade_flow, country1, year):
   if settings.REDIS:
     raw = redis.Redis("localhost")
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)
+    if single_year:
+        key += ":%d" % int(year)
     # See if this key is already in the cache
     cache_query = raw.get(key)
     if (cache_query == None):
