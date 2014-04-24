@@ -1102,9 +1102,32 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     displayviz=False
     displayImage = settings.STATIC_URL + "img/all/loader.gif"
 
-  # get distince years from db, different for diff product classifications
-  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
-  years_available.sort()
+  # Verify countries from DB
+  countries = [None, None]
+  country_lists = [None, None]
+  for i, country in enumerate([country1, country2]):
+    if country != "show" and country != "all":
+      try:
+        countries[i] = Country.objects.get(name_3char=country)
+        country_lists[i] = Country.objects.get_all(lang)
+      except Country.DoesNotExist:
+        alert = {"title": "Country could not be found",
+          "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='about/data/country/'>list of countries</a>."%(country)}
+
+  # The years of data available tends to vary based on the dataset used (Hs4
+  # vs Sitc4) and the specific country.
+  years_available_model = Sitc4_cpy if prod_class == "sitc4" else Hs4_cpy
+  years_available = years_available_model.objects\
+                         .values_list("year", flat=True)\
+                         .order_by("year")\
+                         .distinct()
+  # Sometimes the query is not about a specific country (e.g. "all countries"
+  # queries) in which case filtering by country is not necessary
+  if countries[0]:
+      years_available = years_available.filter(country=countries[0].id)
+  # Force lazy queryset to hit the DB to reduce number of DB queries later
+  years_available = list(years_available)
+
   country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
   warning, alert, title = None, None, None
   data_as_text = {}
@@ -1175,18 +1198,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   app_type = get_app_type(country1, country2, product, year)
 
-  # first check for errors
-  # check whether country can be found in database
-  countries = [None, None]
-  country_lists = [None, None]
-  for i, country in enumerate([country1, country2]):
-    if country != "show" and country != "all":
-      try:
-        countries[i] = Country.objects.get(name_3char=country)
-        country_lists[i] = Country.objects.get_all(lang)
-      except Country.DoesNotExist:
-        alert = {"title": "Country could not be found",
-          "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='about/data/country/'>list of countries</a>."%(country)}
   if product != "show" and product != "all":
     p_code = product
     product = clean_product(p_code, prod_class)
@@ -1201,14 +1212,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     #else:
     #  alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='about/data/hs4/'>list of HS4 products</a>."%(p_code)}
 
-  if countries[0]:
-    # get distinct years from db, different for diff product classifications
-    # also we need to filter by country1, as not all SITC4 data goes back to '62
-    years_available = list(Sitc4_cpy.objects.filter(country=countries[0].id).values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.filter(country=countries[0].id).values_list("year", flat=True).distinct())
-  else:
-    years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
-
-  years_available.sort()
 
   list_countries_the = ["Cayman Islands", "Central African Republic", "Channel Islands", "Congo, Dem. Rep.", "Czech Republic", "Dominican Republic", "Faeroe Islands", "Falkland Islands", "Fm Yemen Dm", "Lao PDR", "Marshall Islands", "Philippines", "Seychelles", "Slovak Republic", "Syrian Arab Republic", "Turks and Caicos Islands", "United Arab Emirates", "United Kingdom", "Virgin Islands, U.S.", "United States"]
 
