@@ -512,7 +512,11 @@
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs">
   <li {% if app_name != "product_space" and app_name != "pie_scatter" %}class="active"{% endif %}><a href="#helpPane" data-toggle="tab">Help</a></li>
+
+  {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None" %}
   <li><a href="#history" data-toggle="tab">History</a></li>
+  {% endif %}
+
   {% if app_name == "product_space" or app_name == "pie_scatter" %}
     <li class="active"><a href="#legendPane" data-toggle="tab">Legend</a></li>
   {% endif %}
@@ -1520,7 +1524,7 @@
 
     if(previous_page == "http://127.0.0.1:8000/" || previous_page == "None"){
       console.log("home");
-      previous_image = "{{ STATIC_URL }}/img/empty_static.png";
+      previous_image = "{{ STATIC_URL }}img/default.png";
     } else{
       previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}"; 
       console.log("not home");
@@ -1563,12 +1567,12 @@
     {% if displayviz %}
       previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}";
     {% else %}
-      previous_image = "{{ STATIC_URL }}/img/empty_static.png";
+      previous_image = "{{ STATIC_URL }}img/default.png";
     {% endif %}
 
-    if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "None"){
+    if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "None" || previous_page == "http://127.0.0.1:8000/"){
       console.log("home");
-      previous_image = "{{ STATIC_URL }}/img/empty_static.png";
+      previous_image = "{{ STATIC_URL }}img/default.png";
     } else{
       previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}"; 
       console.log("not home");
