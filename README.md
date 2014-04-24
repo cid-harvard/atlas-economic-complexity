@@ -1,6 +1,10 @@
 # The Atlas of Economic Complexity
 
 
+<a href="http://atlas.cid.harvard.edu/"><img src="https://raw.githubusercontent.com/cid-harvard/atlas-economic-complexity/master/media/img/logo.png" align="left" hspace="10" vspace="6" width="150"></a>
+
+
+
 The **Atlas** is a tool that allows users to quickly compose a visual narrative about countries and the products they exchange. It provides access to bilateral trade data for roughly 200 countries, 50 years and 1000 different products of the SITC4 revision 2 classification and HS4 classification.
 
 
