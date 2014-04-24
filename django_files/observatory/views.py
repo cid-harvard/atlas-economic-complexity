@@ -674,6 +674,72 @@ def browseStoryPrev(request):
   chapterUrl=chapterDetails.chapter_url
   return redirect(chapterUrl)
 
+#Static Images
+
+def url_to_staticimages(request,referrerUrl): 
+  # set language (if session data available use that as default)
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  # set product classification (if session data available use that as default)
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("product_classification", prod_class)
+  #Get session parameters
+  language=lang
+  # Setup the hash dictionary
+  full_url=referrerUrl.split('explore/')
+  localhost=full_url[0]
+  url_content = full_url[1]
+  url =  url_content.split('/')
+  app_name=url[0]
+  trade_flow=url[1]
+  country1=url[2]
+  country2=url[3]
+  product=url[4]
+  year=url[5]
+  static_image_name = app_name + "_" + language + "_" + prod_class + "_" + trade_flow + "_" + country1 + "_" + country2 + "_" + product + "_" + year
+  response = static_image_name
+  return response
+
+def staticimages_to_url(request, convertedFileName):
+  # set language (if session data available use that as default)
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  # set product classification (if session data available use that as default)
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("product_classification", prod_class)
+  #Get session parameters
+  language=lang
+  # Setup the hash dictionary
+  data=convertedFileName.split('_')
+  app_name1=data[0]
+  app_name2=data[1]
+  
+  if app_name1 == "stacked":
+     app_name= data[0]
+     trade_flow=data[3]
+     country1=data[4]
+     country2=data[5]
+     product=data[6]
+     year=data[7]
+     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     full_url = request.META['HTTP_HOST'] + '/explore/' + url
+     response = full_url
+     return response
+  
+  if app_name1 == "tree" or "pie" or "product":
+     app_name1= data[0]
+     app_name2=data[1]
+     trade_flow=data[4]
+     country1=data[5]
+     country2=data[6]
+     product=data[7]
+     year=data[8]
+     app_name=app_name1 + "_" + app_name2
+     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     full_url = request.META['HTTP_HOST'] + '/explore/' + url
+     response = full_url
+     return response
+
 def endbrowse(request):
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
@@ -813,8 +879,8 @@ def download(request):
 
   if format == "svg" or format == "pdf" or format == "png":
     svg = rsvg.Handle(data=content.encode("utf-8"))
-    x = width = svg.props.width
-    y = height = svg.props.height
+    x = settings.EXPORT_IMAGE_WIDTH
+    y = settings.EXPORT_IMAGE_HEIGHT
 
   if format == "svg":
     response = HttpResponse(content.encode("utf-8"), mimetype="application/octet-stream")
@@ -830,6 +896,21 @@ def download(request):
     response = HttpResponse(mimetype='image/png')
     surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, x, y)
     cr = cairo.Context(surf)
+  
+    #transparent square
+
+    cr.set_operator(cairo.OPERATOR_SOURCE) 
+    cr.rectangle (100, 80, 150, 110);
+    cr.set_source_rgba(1,1,1,0.9) 
+    cr.fill() 
+    #transparent square(fully opaque)
+    #cr.set_operator(cairo.OPERATOR_SOURCE) 
+    #cr.set_source_rgba(1,1,1,0) 
+    #cr.paint() 
+    #some transparency
+    #cr.set_operator(cairo.OPERATOR_SOURCE) 
+    #cr.set_source_rgba(1,1,1,0.9) 
+    #cr.paint() 
     svg.render_cairo(cr)
     surf.write_to_png(response)
 
@@ -1038,6 +1119,11 @@ def generate_png( request ):
   return HttpResponse( "Success" )
 
 def explore(request, app_name, trade_flow, country1, country2, product, year="2011"):
+  referrerUrl = "http://127.0.0.1:8088/explore/tree_map/export/tto/all/show/2012/"
+  convertedFileName = url_to_staticimages(request, referrerUrl)
+  print convertedFileName
+  convertedUrl = staticimages_to_url(request, convertedFileName)
+  print convertedUrl
   iscreatemode=False
   iscreatemode = request.session['create'] if 'create' in request.session else False
   isbrowsemode=False
@@ -1089,12 +1175,12 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   # We are here, so let us store this data somewhere
   request_hash_string = "_".join( request_hash_dictionary.values() )
   # Check staic image mode
-  if( settings.STATIC_IMAGE_MODE == "PNG" ):
+  if( settings.STATIC_IMAGE_MODE == "SVG" ):
     # Check if we have a valid PNG image to display for this
-    if os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".png"):
+    if os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg"):
         # display the  static images
         displayviz = True
-        displayImage = settings.STATIC_URL + "data/" + request_hash_string + ".png"
+        displayImage = settings.STATIC_URL + "data/" + request_hash_string + ".svg"
     else:
         displayviz=False
         displayImage = settings.STATIC_URL + "img/all/loader.gif"
