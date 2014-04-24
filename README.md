@@ -10,7 +10,7 @@ The **Atlas** is a tool that allows users to quickly compose a visual narrative 
 
 * Informations on [data sources](http://atlas.cid.harvard.edu/about/data/sitc4/) and [data processing](https://github.com/cid-harvard/atlas-data).
 
-* How to [download and install](INSTALL.md) your ow Atlas.
+* How to [download and install](INSTALL.md) your own Atlas.
 
 **The Atlas** will run in all modern browsers so long as they have Javascript turned on and have full support for SVG graphics. This includes the latest versions of Firefox, Chrome (Chromium), Safari (WebKit), Opera and IE.
 
