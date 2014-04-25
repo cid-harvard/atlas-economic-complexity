@@ -1198,8 +1198,16 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   app_type = get_app_type(country1, country2, product, year)
 
-  list_countries_the = ["Cayman Islands", "Central African Republic", "Channel Islands", "Congo, Dem. Rep.", "Czech Republic", "Dominican Republic", "Faeroe Islands", "Falkland Islands", "Fm Yemen Dm", "Lao PDR", "Marshall Islands", "Philippines", "Seychelles", "Slovak Republic", "Syrian Arab Republic", "Turks and Caicos Islands", "United Arab Emirates", "United Kingdom", "Virgin Islands, U.S.", "United States"]
-
+  # Some countries need "the" before their names
+  list_countries_the = ["Cayman Islands", "Central African Republic",
+                        "Channel Islands", "Congo, Dem. Rep.",
+                        "Czech Republic", "Dominican Republic",
+                        "Faeroe Islands", "Falkland Islands", "Fm Yemen Dm",
+                        "Lao PDR", "Marshall Islands", "Philippines",
+                        "Seychelles", "Slovak Republic",
+                        "Syrian Arab Republic", "Turks and Caicos Islands",
+                        "United Arab Emirates", "United Kingdom",
+                        "Virgin Islands, U.S.", "United States"]
   if countries[0] and countries[0].name in list_countries_the:
     countries[0].name = "the "+countries[0].name
 
