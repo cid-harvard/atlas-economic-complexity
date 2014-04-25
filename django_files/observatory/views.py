@@ -23,6 +23,7 @@ from django.utils.translation import gettext as _
 # App specific
 from observatory.models import *
 from observatory.models import storychapter
+from observatory import helpers
 from django.db.models import Max
 from django.forms import ModelForm
 import msgpack
@@ -1211,68 +1212,38 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   if countries[0] and countries[0].name in list_countries_the:
     countries[0].name = "the "+countries[0].name
 
-  prod_or_partner = "partner" # quick fix should be merged with item_type
-
+  #p_code, product = None, None
   if product not in ("show", "all"):
     p_code = product
     product = clean_product(p_code, prod_class)
 
   if not alert:
-    if app_type == "casy":
-      # raise Exception(app_name)
-      if app_name == "pie_scatter":
-        title = "Which products are feasible for %s?" % countries[0].name
-      elif (app_name == "product_space" or app_name == "rings"):
-        title = "What did %s export in %s?" % (countries[0].name, year)       # INSERTED NEW TITLE HERE
-      elif app_name == "stacked":
-        title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE
-        prod_or_partner = "product"
-      else:
-        title = "What did %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), year)                             # NEW TITLE HERE
-        prod_or_partner = "product"
 
-    # Country but showing other country trade partners
-    elif app_type == "csay":
-      item_type = "countries"
-      article = "to" if trade_flow == "export" else "from"
-      if app_name == "stacked":
-        title = "Where did %s %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), article, year_start, year_end)
-      else:
-        title = "Where did %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, year)
+    # Generate page title depending on visualization being used
+    trade_flow = trade_flow.replace('_', ' ')
+    years = [] #TODO: implement
+    product_name = product.name_en if not isinstance(product, basestring) else product
+    country_names = [x.name for x in countries if x is not None], #TODO: test
+    title = helpers.get_title(app_name, app_type,
+                              country_names=country_names,
+                              trade_flow=trade_flow,
+                              years=years,
+                              product_name=product_name
+                              )
 
-    # Product
-    elif app_type == "sapy":
-      item_type = "countries"
-      if app_name == "stacked":
-        title = "Who %sed %s between %s and %s?" % (trade_flow.replace("_", " "), product.name_en, year_start, year_end)
-      else:
-        title = "Who %sed %s in %s?" % (trade_flow.replace("_", " "), product.name_en, year)
-
-      prod_or_partner = "product"
-
-    # Bilateral Country x Country
-    elif app_type == "ccsy":
-      # trade_flow_list = ["export", "import"]
+    if app_type in ("ccsy", "cspy"):
       if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
       if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
-      article = "to" if trade_flow == "export" else "from"
-      if app_name == "stacked":
-        title = "What did %s %s %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), article, countries[1].name, year_start, year_end)
-      else:
-        title = "What did %s %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, countries[1].name, year)
+      #trade_flow_list.pop(_("net_export"), None)
 
-    # Bilateral Country / Show / Product / Year
-    elif app_type == "cspy":
-      if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
-      if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
-      item_type = "countries"
-      article = "to" if trade_flow == "export" else "from"
-      if app_name == "stacked":
-        title = "Where did %s %s %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), product.name_en, article, year_start, year_end)
-      else:
-        title = "Where did %s %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), product.name_en, article, year)
-
+    # Should we show the product or partner tab pane?
+    prod_or_partner = "partner" # quick fix should be merged with item_type
+    if app_type in ["cspy", "sapy"]:
       prod_or_partner = "product"
+    elif app_type == "casy":
+      if app_name in ("stacked", "map", "tree_map"):
+        prod_or_partner = "product"
+
 
   # Return page without visualization data
 
