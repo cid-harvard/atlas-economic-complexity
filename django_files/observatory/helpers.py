@@ -153,10 +153,19 @@ def get_question(app_type, **kwargs):
 
   return title
 
+def get_time_clause(years):
+    """Generate a string like 'between 2005 and 2007' or 'in 2011' from a list
+    of years."""
+    if len(years) == 0:
+        return ""
+    elif len(years) == 1:
+        return "in %d" % years[0]
+    else:
+        return "between %d and %d"
+
 def get_title(app_name, api_name, country_names=None, trade_flow=None,
               years=None, product_name=None):
-    """
-    Fetch the natural-languageized title of a page based on the data being
+    """Fetch the natural-languageized title of a page based on the data being
     displayed.
 
     :param app_name: E.g. pie_scatter, stacked, product_space, rings ...
@@ -174,56 +183,34 @@ def get_title(app_name, api_name, country_names=None, trade_flow=None,
     if api_name == "casy":
         if app_name == "pie_scatter":
             return "Which products are feasible for %s?" % country_names[0]
-        elif (app_name == "product_space" or app_name == "rings"):
-            return "What did %s export in %s?" % (country_names[0], years[0])
-        elif app_name == "stacked":
-            return "What did %s %s between %s and %s?" % (country_names[0],
-                                                          trade_flow, years[0],
-                                                          years[1])
         else:
-            return "What did %s %s in %s?" % (country_names[0], trade_flow, year)
+            return "What did %s %s %s?" % (country_names[0],
+                                           trade_flow,
+                                           get_time_clause(years))
 
     # e.g. Where did Albania export to in 2009?
     elif app_type == "csay":
         article = "to" if trade_flow == "export" else "from"
-        if app_name == "stacked":
-            return "Where did %s %s %s between %s and %s?" % (country_names[0],
-                                                              trade_flow,
-                                                              article,
-                                                              years[0],
-                                                              years[1])
-        else:
-            return "Where did %s %s %s in %s?" % (country_names[0], trade_flow,
-                                                  article, years[0])
+        return "Where did %s %s %s %s?" % (country_names[0],
+                                           trade_flow,
+                                           article,
+                                           get_time_clause(years))
 
     # e.g. Who exported Petroleum in 1990?
     elif app_type == "sapy":
-        if app_name == "stacked":
-            return "Who %sed %s between %s and %s?" % (trade_flow, product_name,
-                                                       years[0], years[1])
-        else:
-            return "Who %sed %s in %s?" % (trade_flow, product_name, years[0])
+        return "Who %sed %s %s?" % (trade_flow, product_name,
+                                    get_time_clause(years))
 
     # e.g. What did Germany import from Turkey in 2011?
     elif app_type == "ccsy":
         article = "to" if trade_flow == "export" else "from"
-        if app_name == "stacked":
-            return "What did %s %s %s %s between %s and %s?" % \
-                (country_names[0], trade_flow, article, country_names[1],
-                 years[0], years[1])
-        else:
-            return "What did %s %s %s %s in %s?" % (country_names[0],
-                                                    trade_flow, article,
-                                                    country_names[1], year)
+        return "What did %s %s %s %s %s?" % (country_names[0], trade_flow,
+                                             article, country_names[1],
+                                             get_time_clause(years))
 
     # e.g. Where did France export wine to in 2012?
     elif app_type == "cspy":
         article = "to" if trade_flow == "export" else "from"
-        if app_name == "stacked":
-            return "Where did %s %s %s %s between %s and %s?" % \
-                (country_names[0], trade_flow, product_name, article, years[0],
-                 years[1])
-        else:
-            return "Where did %s %s %s %s in %s?" % (country_names[0],
-                                                     trade_flow, product_name,
-                                                     article, year)
+        return "Where did %s %s %s %s %s?" % (country_names[0], trade_flow,
+                                              product_name, article,
+                                              get_time_clause(years))
