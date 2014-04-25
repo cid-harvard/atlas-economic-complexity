@@ -189,7 +189,7 @@ def get_title(app_name, api_name, country_names=None, trade_flow=None,
                                            get_time_clause(years))
 
     # e.g. Where did Albania export to in 2009?
-    elif app_type == "csay":
+    elif api_name == "csay":
         article = "to" if trade_flow == "export" else "from"
         return "Where did %s %s %s %s?" % (country_names[0],
                                            trade_flow,
@@ -197,19 +197,19 @@ def get_title(app_name, api_name, country_names=None, trade_flow=None,
                                            get_time_clause(years))
 
     # e.g. Who exported Petroleum in 1990?
-    elif app_type == "sapy":
+    elif api_name == "sapy":
         return "Who %sed %s %s?" % (trade_flow, product_name,
                                     get_time_clause(years))
 
     # e.g. What did Germany import from Turkey in 2011?
-    elif app_type == "ccsy":
+    elif api_name == "ccsy":
         article = "to" if trade_flow == "export" else "from"
         return "What did %s %s %s %s %s?" % (country_names[0], trade_flow,
                                              article, country_names[1],
                                              get_time_clause(years))
 
     # e.g. Where did France export wine to in 2012?
-    elif app_type == "cspy":
+    elif api_name == "cspy":
         article = "to" if trade_flow == "export" else "from"
         return "Where did %s %s %s %s %s?" % (country_names[0], trade_flow,
                                               product_name, article,
