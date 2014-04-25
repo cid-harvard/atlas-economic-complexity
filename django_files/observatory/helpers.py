@@ -153,8 +153,8 @@ def get_question(app_type, **kwargs):
 
   return title
 
-
-def get_title(app_name, api_name, country_names=None, trade_flow=None, years=None, product_name=None):
+def get_title(app_name, api_name, country_names=None, trade_flow=None,
+              years=None, product_name=None):
     """
     Fetch the natural-languageized title of a page based on the data being
     displayed.
