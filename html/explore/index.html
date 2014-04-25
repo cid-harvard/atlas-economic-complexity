@@ -972,23 +972,24 @@
           </div>
         </div>
       {% endif %}
-                {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" or app_name == "rings" %}
+
               <script>
               
-              {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
-              function highlight(value) {
+                   function highlight(value) {
 
+              {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
+         
                 var v = value ? value : $("#highlight").find(":selected").val().trim();
                 d3.select("#viz").call(chart.highlight([]));
                 d3.select("#viz").call(chart.highlight(v));
                 queryParameters['highlight'] = v;
                 if(queryActivated)
                   updateURLQueryParameters();
-              }
+            
               {% endif %}
 
               {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
-              function highlight(value) {
+
                 
                 var v = value ? value : $("#highlight").find(":selected").val().trim();
 
@@ -1016,6 +1017,7 @@
   
                 if(queryActivated)
                   updateURLQueryParameters();
+                    {% endif %}
               }
 
               function reset_highlight() {
@@ -1027,8 +1029,9 @@
                   updateURLQueryParameters();
 
               }
-              {% endif %}
+          
                </script>
+                               {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" or app_name == "rings" %}
               <div class="clone_loader" style="float:left; margin-top:10px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
 
