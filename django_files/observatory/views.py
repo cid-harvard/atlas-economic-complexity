@@ -1198,27 +1198,16 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   app_type = get_app_type(country1, country2, product, year)
 
-  if product != "show" and product != "all":
-    p_code = product
-    product = clean_product(p_code, prod_class)
-    # TODO: check if product exists
-    #if product:
-    #  if product.__class__ == Sitc4:
-    #    product_list = Sitc4.objects.get_all(lang)
-    #    request.session['product_classification'] = "sitc4"
-    #  else:
-    #    product_list = Hs4.objects.get_all(lang)
-    #    request.session['product_classification'] = "hs4"
-    #else:
-    #  alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='about/data/hs4/'>list of HS4 products</a>."%(p_code)}
-
-
   list_countries_the = ["Cayman Islands", "Central African Republic", "Channel Islands", "Congo, Dem. Rep.", "Czech Republic", "Dominican Republic", "Faeroe Islands", "Falkland Islands", "Fm Yemen Dm", "Lao PDR", "Marshall Islands", "Philippines", "Seychelles", "Slovak Republic", "Syrian Arab Republic", "Turks and Caicos Islands", "United Arab Emirates", "United Kingdom", "Virgin Islands, U.S.", "United States"]
 
   if countries[0] and countries[0].name in list_countries_the:
     countries[0].name = "the "+countries[0].name
 
   prod_or_partner = "partner" # quick fix should be merged with item_type
+
+  if product not in ("show", "all"):
+    p_code = product
+    product = clean_product(p_code, prod_class)
 
   if not alert:
     if app_type == "casy":
