@@ -319,6 +319,13 @@ function update_viz(viz) {
     // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
     } else if($(".tab-trade-partner-product").find(".active").index()==1) {
 
+      if(current_country1 == current_country2) {
+
+        alert("A country cannot trade with itself. Please select another country.")
+        return;
+      }
+
+
       if(current_country2=="all") {
 
         if(current_year2=="") { 
