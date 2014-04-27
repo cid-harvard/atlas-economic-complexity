@@ -943,7 +943,7 @@
       {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}          
         <div class="clone_loader" style="float:left; margin-top:10px">
             <span class="definition" style="font-weight:bold;">Level of detail:</span>
-            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+            <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
                 <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
               </label>
@@ -982,6 +982,7 @@
                 var v = value ? value : $("#highlight").find(":selected").val().trim();
                 d3.select("#viz").call(chart.highlight([]));
                 d3.select("#viz").call(chart.highlight(v));
+
                 queryParameters['highlight'] = v;
                 if(queryActivated)
                   updateURLQueryParameters();
@@ -990,7 +991,6 @@
 
               {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
 
-                
                 var v = value ? value : $("#highlight").find(":selected").val().trim();
 
                 {% if app_type = "casy" %}
@@ -1086,20 +1086,20 @@
               <span class="definition" style="font-weight:bold; margin-left:20px;">Display Mode:</span>
               <div class="btn-group flow-net-gross disabled" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
                 <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
-                  <input type="radio" name="level_detail" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Dynamic
+                  <input type="radio" name="display_mode" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Dynamic
                 </label>
                 <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
-                  <input type="radio" name="level_detail" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();">Static
+                  <input type="radio" name="display_mode" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();">Static
                 </label>
               </div> 
 
               <span class="definition" style="font-weight:bold; margin-left:20px;">Non-Significant Products:</span>
               <div class="btn-group flow-net-gross disabled" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
                 <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
-                  <input type="radio" name="level_detail" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Show
+                  <input type="radio" name="non_products" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Show
                 </label>
                 <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
-                  <input type="radio" name="level_detail" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();">Hide
+                  <input type="radio" name="non_products" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();">Hide
                 </label>
               </div> 
             </div>   
@@ -1403,6 +1403,15 @@
     // Put once the visualization is loaded
     $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
     $("#highlight_select").trigger("chosen:updated")
+    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
+    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
+
+//    $("input[name='level_detail']").prop("selected", false);
+
+    
+    //$(".btn-detail").prop("selected", false);
+    //$("input[name='level_detail'][value='nesting_0']").prop("selected", true);
+     
   }
 
 
@@ -1433,7 +1442,6 @@
     shrink_size -= 1; 
   }
 
-
   // Page init scripts
   $(function () {
 
@@ -1459,14 +1467,8 @@
 
     $('#country_trade_partner_select_chosen').css('width', '140px');
     $('#country_product_select_chosen').css('width', '140px');
-      // new one
 
-   // $('.chosen-select').chosen();
     $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-
-      // TODO: reduce into one single selector
-      //$("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
-      //$("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
     $("#country1 select").change(function() {
       $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
@@ -1510,10 +1512,8 @@
   //To display visualization in full screen, while viewing stories
   var contentWidth=$("#content").width();
 
-
   // Call the original and let is handle the stuff - trying again
-  build_viz_app_original( api_uri, contentWidth, 520 );
-
+  build_viz_app_original(api_uri, contentWidth, 520);
 
 });
   </script>
@@ -1557,8 +1557,6 @@
 <!-- Activates tooltips /////////////////////////////////////////////////////////////////// -->
 
 <script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
-
-
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
 <script type='text/javascript'>
   $(function(){$('button[title]').tipsy({gravity: 'w', delayIn: 500});});

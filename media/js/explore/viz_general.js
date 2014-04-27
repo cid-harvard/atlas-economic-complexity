@@ -879,7 +879,7 @@ var flat_data,
   tree = function() {
           
     viz = d3plus.viz();
-
+    
     viz
       .type("tree_map")
       .height(height)
@@ -954,6 +954,7 @@ var flat_data,
     
     d3.select("#loader").style("display", "none");
     highlight(queryParameters['highlight']);
+
     //d3.select("#viz").style("height", "0px");
     //d3.select("#viz svg").style("display", "none");
     //d3.select("#loader").style("display", "none");
