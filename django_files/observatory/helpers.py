@@ -161,7 +161,7 @@ def get_time_clause(years):
     elif len(years) == 1:
         return "in %d" % years[0]
     else:
-        return "between %d and %d"
+        return "between %d and %d" % (years[0], years[1])
 
 def get_title(app_name, api_name, country_names=None, trade_flow=None,
               years=None, product_name=None):
