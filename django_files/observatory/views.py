@@ -1163,9 +1163,9 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   if app_name == "stacked" and year == "2009":
     year = "1969.2011.10"
+
   if "." in year:
     y = [int(x) for x in year.split(".")]
-    # year = range(y[0], y[1]+1, y[2])
     year_start = y[0]
     year_end = y[1]
     year2_list = year1_list
@@ -1173,6 +1173,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   else:
     year_start, year_end = None, None
     year = int(year)
+    # Check that year is within bounds
     if year > years_available[len(years_available)-1]:
       year = years_available[len(years_available)-1]
     elif year < years_available[0]:
