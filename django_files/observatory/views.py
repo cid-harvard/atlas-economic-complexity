@@ -1275,7 +1275,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "years_available": years_available,
     "data_as_text": data_as_text,
     "app_name": app_name,
-    "title": title,#get_question(app_type, trade_flow=trade_flow,origin=countries[0],destination=countries[1],product=product),
+    "title": title,
     "trade_flow": trade_flow,
     "country1": countries[0] or country1,
     "country2": countries[1] or country2,
