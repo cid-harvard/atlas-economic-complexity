@@ -1168,12 +1168,10 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     # year = range(y[0], y[1]+1, y[2])
     year_start = y[0]
     year_end = y[1]
-    year_interval = y[2]
     year2_list = year1_list
     year_interval_list = range(1, 11)
-    # year_interval = year[1] - year[0]
   else:
-    year_start, year_end, year_interval = None, None, None
+    year_start, year_end = None, None
     year = int(year)
     if year > years_available[len(years_available)-1]:
       year = years_available[len(years_available)-1]
@@ -1283,7 +1281,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "year": year,
     "year_start": year_start,
     "year_end": year_end,
-    "year_interval": year_interval,
     "year1_list": year1_list,
     "year2_list": year2_list,
     "year_interval_list": year_interval_list,
