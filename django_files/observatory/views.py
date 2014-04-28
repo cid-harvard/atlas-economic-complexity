@@ -1220,7 +1220,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
     # Generate page title depending on visualization being used
     trade_flow = trade_flow.replace('_', ' ')
-    years = [] #TODO: implement
+    years = [year_start, year_end] if year_start is not None else [year]
     product_name = product.name_en if not isinstance(product, basestring) else product
     country_names = [getattr(x, "name", None), for x in countries]
     title = helpers.get_title(app_name, app_type,
