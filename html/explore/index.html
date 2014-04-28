@@ -111,29 +111,6 @@
        {% endif %}
       <div class="app_title" id="icons" style="width:230px; height:60px; margin-left:10px;">
         
-        <!-- Left icon 
-        {% if product_list and not country1_list %}
-        <img class="img left community" src="/{{ STATIC_URL }}img/icons/community_{{ product.community.id }}.png" alt="product.name_en">
-        {% endif %}
-        {% if country1_list %}
-        <img class="img left" src="/{{ STATIC_URL }}img/icons/flag_{{ country1.name_3char|lower }}.png" alt="{{country1.name}}">
-        {% endif %}
-        
-        <!-- year(s)
-        {% if year_start %}
-        <h2 class="left">{{year_start}}<br />{{year_end}}</h2>
-        {% else %}
-        <h2 class="left small">{{year}}</h2>
-        {% endif %}
-        
-        <!-- Right icon
-        {% if country2_list %}
-        <img class="img right" src="/{{ STATIC_URL }}img/icons/flag_{{ country2.name_3char|lower }}.png" alt="{{country2.name}}">
-        {% endif %}
-        {% if country1_list and product_list %}
-        <img class="img right community" src="/{{ STATIC_URL }}img/icons/community_{{ product.community.id }}.png" alt="{{product.name_en}}">
-        {% endif %}
-        -->
       <script>
 		
       var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings"];
@@ -161,7 +138,7 @@
         <div data-toggle="tooltip" class="tab-content bootstro" data-bootstro-title="Query" data-bootstro-content="The first thing you need to do is decide what question you are trying to answer. Perhaps, what products did the United States export in 2000? Or how has its import basket changed in the last ten years?  Once you have decided your query, you can enter the information you need to answer this in the left-hand bar." data-bootstro-placement="right">
 
           <!-- Country selection -->
-          <div class="tab-pane active" id="tab-countries"> <!-- {% if not product_list %}active{% endif %} -->
+          <div class="tab-pane active" id="tab-countries">
             <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">Select a Country:</span>
             <div id="country1" width="120px" style="margin-left: 0px;" onmouseover="$('.show-partner').css('visibility', 'visible');"  onmouseout="$('.show-partner').css('visibility', 'hidden');">
 
@@ -298,7 +275,6 @@
 
             <button value="product_space" type="radio"  title="A map of technological relatedness" toolTip="0" class="divBtn btn btn-default {% if app_name == "product_space" %}active{% endif %}" onclick="update_viz('product_space');">
 
-                <!-- <input type="radio" name="viz_apps"> -->
 
                 <img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="height:35px; width:35px;">
           
@@ -311,7 +287,6 @@
 
               <button title="Opportunities for a country to diversify and potential gains" value="pie_scatter" type="radio" class="divBtn btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}"onclick="update_viz('pie_scatter');">
 
-                <!-- <input type="radio" name="viz_apps"> -->
 
                 <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="height:35px; width:35px">
           
@@ -323,13 +298,8 @@
               {% if app_name == "rings" %}
               <p style="clear:both"></p><br>
 
-<!--               <label value="rings" type="radio" class="btn btn-default {% if app_name == "rings" %}active{% endif %}" style="width:195px; text-align:left; margin-left:-5px; margin-top:10px; width: 75px" onclick="update_viz('rings');"><input type="radio" name="viz_apps"><img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:50px; float:left;  margin-right:10px; "/></label>
-
-              <div style="width:100px; text-align:none; float:right;"> <b>Rings</b><br> Product-centric navigation of the Product Space.</div> -->
-
               <button title="Product-centric navigation of the Product Space" value="rings" type="radio" class="divBtn btn btn-default {% if app_name == "rings" %}active{% endif %}"onclick="update_viz('rings');">
 
-                <!-- <input type="radio" name="viz_apps"> -->
 
                 <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="height:35px; width:35px">
           
@@ -396,26 +366,6 @@
 
           <!-- Tab Trade Partner/Product -->
           <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px">
-          <!--
-            <div class="tab-pane {% if not product_list %} active{% endif %}" id="show-country-partner">
-
-              <div id="country-trade-partner" width="120px" style="margin-left: 10px;" onmouseover="$('.show-trade-partner').css('visibility', 'visible');" onmouseout="$('.show-trade-partner').css('visibility', 'hidden');">
-
-                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-trade-partner" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-                  <select data-placeholder="All Countries" id="select-country-trade-partner" class="chosen-select-deselect" tabindex="-1" style="display: none;">
-                    <option value=""></option>
-                    {% for c in country1_list %}
-                    {% if c.id == country2.id %}
-                    <option value="{{c.name_3char|lower}}" selected>{{ c.name }}</option>
-                    {% else %}
-                    <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                    {% endif %}
-                    {% endfor %}
-                  </select>
-              </div>
-            </div>
-  -->
 
             <div class="tab-pane active" id="show-country-product">
 
@@ -563,117 +513,17 @@
             <span><div id="legendComm1"></div></span>
             <span><p>  = Product Community (RCA < 1)</p></span>
           </li>
-<!--           <li>
-            <span><div id="pie"><div></span>
-            <span><p>  = Share of Products being produced</p></span>
-          </li>  -->                        
+
+          <!-- ADD PIE CHART HERE!!!! -->                        
+
         {% endif %}
         </ul>
       </div>
     </div>
     {% endif %}
-</div>
-
-<!--
-      <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-state-focus" role="tab" aria-expanded="false" aria-selected="false" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"></span><a href="#">Parameters</a></h3>
-
-    <div class="">
-        <div class="control_container" id="download">
-          <h3>{% trans "Download" %}</h3>
-          <a class="pdf" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PDF</a>
-          <a class="svg" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> SVG</a>
-          <a class="png" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PNG</a>
-          <a class="csv" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> CSV</a>
-        </div>
-        <div class="control_container" id="view_as_text">
-          <a class="text" href="#"><img src="/{{ STATIC_URL }}img/app/text.png" /> <span>{% trans "View as text" %}</span></a>
-        </div>
-        <div class="control_container">
-          <h3>{% trans "Embed" %}</h3>
-          <input type="text" class="embed_code" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/embed/tree_map/import/usa/show/all/2011/" frameborder="0" &gt;&lt;/iframe&gt;'></input>
-        </div>
-        
-        </div>
-
--->
-
-        <!--
-          <div>
-            <h3><a href="#">Tree Maps</a></h3>
-            <div>
-              <h4>{% trans "Country" %}</h4>
-              <ul>
-                <li><a class="casy" href="/explore/tree_map/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2011/" >{% trans "Exports" %}</a></li>
-                <li><a class="casy" href="/explore/tree_map/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2011/">{% trans "Imports" %}</a></li>
-                <li><a class="casy" href="/explore/tree_map/net_export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2011/">{% trans "Net Exports" %}</a></li>
-                <li><a class="casy" href="/explore/tree_map/net_import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2011/">{% trans "Net Imports" %}</a></li>
-              </ul>
-              <h4>{% trans "Country (show trade partners)" %}</h4>
-              <ul>
-                <li><a class="csay" href="/explore/tree_map/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/all/2011/">{% trans "Exports" %}</a></li>
-                <li><a class="csay" href="/explore/tree_map/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/all/2011/">{% trans "Imports" %}</a></li>
-              </ul>
-              <h4>{% trans "Products" %}</h4>
-              <ul>
-                <li><a class="sapy" href="/explore/tree_map/export/show/all/{% if item_type == "countries" %}{{product_code}}{%else%}{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}{% endif %}/2011/">{% trans "Exports To Destination" %}</a></li>
-                <li><a class="sapy" href="/explore/tree_map/import/show/all/{% if item_type == "countries" %}{{product_code}}{%else%}{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}{% endif %}/2011/">{% trans "Imports From Origin" %}</a></li>
-              </ul>
-              <h4>{% trans "Bilateral" %}</h4>
-              <ul>
-                <li><a class="ccsy" href="/explore/tree_map/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/{% if country_code == "chn"%}usa{%else %}chn{%endif%}/show/2011/">{% trans "Exports To Destination" %}</a></li>
-                <li><a class="ccsy" href="/explore/tree_map/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/{% if country_code == "chn"%}usa{%else %}chn{%endif%}/show/2011/">{% trans "Imports From Origin" %}</a></li>
-                <li><a class="cspy" href="/explore/tree_map/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/{% if item_type == "countries" %}{{product_code}}{%else%}{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}{% endif %}/2011/">{% trans "Exports by Product" %}</a></li>
-                <li><a class="cspy" href="/explore/tree_map/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/{% if item_type == "countries" %}{{product_code}}{%else%}{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}{% endif %}/2011/">{% trans "Imports by Product" %}</a></li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <h3><a href="#">Stacked Area Charts</a></h3>
-            <div>
-              <h4>{% trans "Country" %}</h4>
-              <ul>
-                <li><a class="casy" href="/explore/stacked/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Exports" %}</a></li>
-                <li><a class="casy" href="/explore/stacked/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Imports" %}</a></li>
-                <li><a class="casy" href="/explore/stacked/net_export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Net Exports" %}</a></li>
-                <li><a class="casy" href="/explore/stacked/net_import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Net Imports" %}</a></li>
-              </ul>
-              <h4>{% trans "Country (show trade partners)" %}</h4>
-              <ul>
-                <li><a class="csay" href="/explore/stacked/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Exports" %}</a></li>
-                <li><a class="csay" href="/explore/stacked/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Imports" %}</a></li>
-              </ul>
-              <h4>{% trans "Products" %}</h4>
-              <ul>
-                <li><a class="sapy" href="/explore/stacked/export/show/all/{% if item_type == "countries" %}{{product_code}}{%else%}{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}{% endif %}/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
-                <li><a class="sapy" href="/explore/stacked/import/show/all/{% if item_type == "countries" %}{{product_code}}{%else%}{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}{% endif %}/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
-              </ul>
-              <h4>{% trans "Bilateral" %}</h4>
-              <ul>
-                <li><a class="ccsy" href="/explore/stacked/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/{% if country_code == "chn"%}usa{%else %}chn{%endif%}/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
-                <li><a class="ccsy" href="/explore/stacked/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/{% if country_code == "chn"%}usa{%else %}chn{%endif%}/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
-                <li><a class="cspy" href="/explore/stacked/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/{% if item_type == "countries" %}{{product_code}}{%else%}{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}{% endif %}/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Exports by Product" %}</a></li>
-                <li><a class="cspy" href="/explore/stacked/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/{% if item_type == "countries" %}{{product_code}}{%else%}{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}{% endif %}/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2011.2{% endif %}/">{% trans "Imports by Product" %}</a></li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <h3><a href="#">Product Space</a></h3>
-            <ul>
-              <li><a class="casy" href="/explore/product_space/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2011/">Product Space of {% trans "Exports" %}</a></li>
-              <li><a class="disabled" href="#">Density Product Space</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3><a href="#">Diversification Options</a></h3>
-            <ul>
-              <li><a class="casy" href="/explore/pie_scatter/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2011/">Pie Scatter Chart</a></li>
-              <li><a class="disabled" href="#">Density Bars</a></li>
-              <li><a class="disabled" href="#">Stepping Stone</a></li>
-            </ul>
-          </div>
-        </div>-->
-      </div> <!-- END app selection pane -->
-      {% endif %}
+  </div>
+</div> <!-- END app selection pane -->
+{% endif %}
       <!-- the Visualization -->
     {% if isbrowsemode %}
     <div id="content" style="width: 95%; min-height:765px;">
@@ -749,12 +599,6 @@
           <div id="stacked_controls" style="width:90%">
 
             <div  style="float:left; ">
-          
-
-            <!-- <div>
-              <p>Year Interval: </p>
-              <div class="slider" id="interval"></div>
-            </div> -->
            
           <div class="ui_bottom_row">
             <span class="definition" style="font-weight:bold;">Labels:</span>
@@ -766,20 +610,6 @@
                 <input type="radio" id="false" name="labels" > Off
               </label>
             </div>  
-
-<!--
-            <div id="stacked_labels" class="ui-buttonset">
-              <p>Labels:</p>
-              <input type="radio" id="true" name="labels" checked="checked" class="ui-helper-hidden-accessible">
-
-              <label for="true" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" role="button" aria-disabled="false"><span class="ui-button-text">On</span>
-
-              </label>
-              <input type="radio" id="false" name="labels" class="ui-helper-hidden-accessible"><label for="false" aria-pressed="false" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" role="button" aria-disabled="false"><span class="ui-button-text">Off</span>
-
-              </label>
-            </div>
--->
 
             <span class="definition" style="font-weight:bold;">Layout:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
@@ -865,12 +695,7 @@
           
           <span class="definition" style="font-weight:bold;">Product Classification:</span>
           
-          <!--
-          <select>
-            <option value="sitc4" {% if prod_class == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
-            <option value="hs4" {% if prod_class == "hs4" %} selected="selected" {% endif %}>HS4</option>
-          </select>
-          -->
+
           <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
             <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
               <input type="radio" name="product_class" value="sitc4"> SITC4
@@ -943,7 +768,7 @@
       {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}          
         <div class="clone_loader" style="float:left; margin-top:10px">
             <span class="definition" style="font-weight:bold;">Level of detail:</span>
-            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+            <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
                 <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
               </label>
@@ -982,6 +807,7 @@
                 var v = value ? value : $("#highlight").find(":selected").val().trim();
                 d3.select("#viz").call(chart.highlight([]));
                 d3.select("#viz").call(chart.highlight(v));
+
                 queryParameters['highlight'] = v;
                 if(queryActivated)
                   updateURLQueryParameters();
@@ -990,7 +816,6 @@
 
               {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
 
-                
                 var v = value ? value : $("#highlight").find(":selected").val().trim();
 
                 {% if app_type = "casy" %}
@@ -1031,7 +856,7 @@
               }
           
                </script>
-                               {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" or app_name == "rings" %}
+              {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" or app_name == "rings" %}
               <div class="clone_loader" style="float:left; margin-top:10px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
 
@@ -1076,8 +901,6 @@
               </div>
 
               {% endif %}
-
-
 	      </div>
         <br>
         <div id="moreOptions">
@@ -1086,20 +909,20 @@
               <span class="definition" style="font-weight:bold; margin-left:20px;">Display Mode:</span>
               <div class="btn-group flow-net-gross disabled" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
                 <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
-                  <input type="radio" name="level_detail" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Dynamic
+                  <input type="radio" name="display_mode" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Dynamic
                 </label>
                 <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
-                  <input type="radio" name="level_detail" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();">Static
+                  <input type="radio" name="display_mode" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();">Static
                 </label>
               </div> 
 
               <span class="definition" style="font-weight:bold; margin-left:20px;">Non-Significant Products:</span>
               <div class="btn-group flow-net-gross disabled" data-toggle="buttons" style="margin-top:0px; margin-left:20px">
                 <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
-                  <input type="radio" name="level_detail" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Show
+                  <input type="radio" name="non_products" value="nesting_0" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();">Show
                 </label>
                 <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
-                  <input type="radio" name="level_detail" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();">Hide
+                  <input type="radio" name="non_products" value="nesting_2" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();">Hide
                 </label>
               </div> 
             </div>   
@@ -1121,34 +944,49 @@
     		<span class="glyphicon glyphicon-plus-sign tooltipbs" style="color:rgb(60, 59, 55);"data-placement="right" data-toggle="tooltip" {% if not iscreatemode %} title="Create a new story" onclick="showCreateStoryDialog()" {% endif %}  {% if iscreatemode %}  style="color:rgb(60, 59, 55)" title="Story is under construction!" {% endif %}></span>
         <!--<span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');"></span>-->
 
-       {% if iscreatemode %}
-         <span class="glyphicon glyphicon-plus tooltipbs" data-placement="right" data-toggle="tooltip" onclick="openCreateChapterDialog()" title="Add a new chapter"></span>
-         <span class="glyphicon glyphicon-stop tooltipbs" data-placement="right" data-toggle="tooltip" onclick="endStory()" title="End the story" style="margin-left: 4px"></span>
-       {% endif %}   
+        {% if iscreatemode %}
+          <span class="glyphicon glyphicon-plus tooltipbs" data-placement="right" data-toggle="tooltip" onclick="openCreateChapterDialog()" title="Add a new chapter"></span>
+          <span class="glyphicon glyphicon-stop tooltipbs" data-placement="right" data-toggle="tooltip" onclick="endStory()" title="End the story" style="margin-left: 4px"></span>
+        {% endif %}   
 
-       <br/>
-       <br/>
-       </div>
+        <br/>
+        <br/>
+      </div>
       {% endif %}   
        
     <div id="shareThisPlaceholder">
-
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">Share</h4>
 
-        <a href="#" id="fbShare" class="addthis_button_facebook" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook"> <i class="fa fa-facebook fa-lg"></i></a>
-        <a class="addthis_button_twitter"><i class="fa fa-twitter fa-lg"></i></a>
-        <a class="addthis_button_google_plusone_share" ><i class="fa fa-google-plus fa-lg"></i></a>
-        <a class="addthis_button_email"><i class="fa fa-envelope fa-lg"></i></a>
+        <a href="#" id="fbShare" class="addthis_button_facebook" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook">
+          <i class="fa fa-facebook fa-lg"></i>
+        </a>
+
+        <a class="addthis_button_twitter">
+          <i class="fa fa-twitter fa-lg"></i>
+        </a>
+
+        <a class="addthis_button_google_plusone_share" >
+          <i class="fa fa-google-plus fa-lg"></i>
+        </a>
+
+        <a class="addthis_button_email">
+          <i class="fa fa-envelope fa-lg"></i>
+        </a>
+
     </div> 
      {% if isbrowsemode %}
      {% else %}   
-	<!--<div class="control_container" id="download">
+
+
+	<!--   DOWNLOAD OPTIONS 
+
+        <div class="control_container" id="download">
           <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">{% trans "Download" %}</h4>
-          <!--<a class="pdf" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PDF</a>
-          <a class="svg" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> SVG</a>-->
-        <!-- <a class="png" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PNG</a>
-         <!-- <a class="csv" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> CSV</a>-->
-       <!-- </div>
+          <a class="pdf" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PDF</a>
+          <a class="svg" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> SVG</a>
+        <a class="png" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PNG</a>
+          <a class="csv" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> CSV</a>
+       </div>
 	<form class="download" method="POST" action="download/">
       {% csrf_token %}
       <input type="hidden" name="url" value="" />
@@ -1170,7 +1008,9 @@
       
          <a class="text" href="#" style="font-size:14px; color:lightgray; margin:3px; text-align:center;"> <span>{% trans "Data" %}</span></a>
 
-        </div>-->
+        </div>
+
+      -->
 
     
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">Feedback</h4>
@@ -1403,6 +1243,15 @@
     // Put once the visualization is loaded
     $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
     $("#highlight_select").trigger("chosen:updated")
+    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
+    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
+
+//    $("input[name='level_detail']").prop("selected", false);
+
+    
+    //$(".btn-detail").prop("selected", false);
+    //$("input[name='level_detail'][value='nesting_0']").prop("selected", true);
+     
   }
 
 
@@ -1433,7 +1282,6 @@
     shrink_size -= 1; 
   }
 
-
   // Page init scripts
   $(function () {
 
@@ -1459,14 +1307,8 @@
 
     $('#country_trade_partner_select_chosen').css('width', '140px');
     $('#country_product_select_chosen').css('width', '140px');
-      // new one
 
-   // $('.chosen-select').chosen();
     $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-
-      // TODO: reduce into one single selector
-      //$("#treemap_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
-      //$("#map_viz").popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
 
     $("#country1 select").change(function() {
       $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
@@ -1510,10 +1352,8 @@
   //To display visualization in full screen, while viewing stories
   var contentWidth=$("#content").width();
 
-
   // Call the original and let is handle the stuff - trying again
-  build_viz_app_original( api_uri, contentWidth, 520 );
-
+  build_viz_app_original(api_uri, contentWidth, 520);
 
 });
   </script>
@@ -1557,8 +1397,6 @@
 <!-- Activates tooltips /////////////////////////////////////////////////////////////////// -->
 
 <script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
-
-
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
 <script type='text/javascript'>
   $(function(){$('button[title]').tipsy({gravity: 'w', delayIn: 500});});
