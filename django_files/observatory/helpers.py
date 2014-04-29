@@ -214,3 +214,8 @@ def get_title(app_name, api_name, country_names=None, trade_flow=None,
         return "Where did %s %s %s %s %s?" % (country_names[0], trade_flow,
                                               product_name, article,
                                               get_time_clause(years))
+
+    else:
+        raise ValueError("Unknown API name when trying to generate title: %s",
+                         api_name)
+
