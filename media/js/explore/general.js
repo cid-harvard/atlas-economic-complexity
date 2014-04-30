@@ -184,8 +184,7 @@ function update_viz(viz) {
     queryString = "?"+$.param(queryParameters);
 
   // Fix for Firefox
-  var host = "http://" + window.location.host + "/";
-  var url = host + "explore/";
+  var url = $('base')[0].href + "explore/";
 
   var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
   current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
