@@ -132,15 +132,18 @@ class Country_manager(models.Manager):
 			"region__text_color",
     ))
 
+	def get_valid(self):
+	    return self.filter(
+			name_3char__isnull=False,
+			name_2char__isnull=False,
+			region__isnull=False
+		)
+
 	def get_random(self):
-		"""Grab a random country that has a 3char name. This uses the 'ORDER BY
-		RAND()' method which is fine for this purpose but slow in mysql for
-		larger tables so beware."""
-		return Country.objects.filter(
-            name_3char__isnull=False,
-            name_2char__isnull=False,
-            region__isnull=False
-        ).order_by('?')[1]
+		"""Grab a random country. This uses the 'ORDER BY RAND()' method which
+		is fine for this purpose but slow in mysql for larger tables so
+		beware."""
+		return self.get_valid().order_by('?')[1]
 
 class Country(models.Model):
 
