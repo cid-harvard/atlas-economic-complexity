@@ -163,13 +163,13 @@ def get_time_clause(years):
     else:
         return "between %d and %d" % (years[0], years[1])
 
-def get_title(app_name, api_name, country_names=None, trade_flow=None,
+def get_title(api_name, app_name, country_names=None, trade_flow=None,
               years=None, product_name=None):
     """Fetch the natural-languageized title of a page based on the data being
     displayed.
 
-    :param app_name: E.g. pie_scatter, stacked, product_space, rings ...
     :param api_name: One of: casy, cspy, csay, ccsy, sapy
+    :param app_name: E.g. pie_scatter, stacked, product_space, rings ...
     :param list country_names: List of country name strings. If multiple, first
     is "from" country and second is the "to" country.
     :param str trade_flow: import, export, net_import, net_export
