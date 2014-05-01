@@ -105,13 +105,13 @@ def get_product(product, classification):
 
 def get_time_clause(years):
     """Generate a string like 'between 2005 and 2007' or 'in 2011' from a list
-    of years."""
-    if len(years) == 0:
+    of years. Beginning space is included to allow for empty time clause."""
+    if years is None or len(years) == 0:
         return ""
     elif len(years) == 1:
-        return "in %d" % years[0]
+        return " in %d" % years[0]
     else:
-        return "between %d and %d" % (years[0], years[1])
+        return " between %d and %d" % (years[0], years[1])
 
 
 def get_title(api_name, app_name, country_names=None, trade_flow=None,
@@ -135,37 +135,37 @@ def get_title(api_name, app_name, country_names=None, trade_flow=None,
         if app_name == "pie_scatter":
             return "Which products are feasible for %s?" % country_names[0]
         else:
-            return "What did %s %s %s?" % (country_names[0],
-                                           trade_flow,
-                                           get_time_clause(years))
+            return "What did %s %s%s?" % (country_names[0],
+                                          trade_flow,
+                                          get_time_clause(years))
 
     # e.g. Where did Albania export to in 2009?
     elif api_name == "csay":
         article = "to" if trade_flow == "export" else "from"
-        return "Where did %s %s %s %s?" % (country_names[0],
-                                           trade_flow,
-                                           article,
-                                           get_time_clause(years))
+        return "Where did %s %s %s%s?" % (country_names[0],
+                                          trade_flow,
+                                          article,
+                                          get_time_clause(years))
 
     # e.g. Who exported Petroleum in 1990?
     elif api_name == "sapy":
-        return "Who %sed %s %s?" % (trade_flow, product_name,
-                                    get_time_clause(years))
+        return "Who %sed %s%s?" % (trade_flow, product_name,
+                                   get_time_clause(years))
 
     # e.g. What did Germany import from Turkey in 2011?
     elif api_name == "ccsy":
         article = "to" if trade_flow == "export" else "from"
-        return "What did %s %s %s %s %s?" % (country_names[0], trade_flow,
-                                             article, country_names[1],
-                                             get_time_clause(years))
+        return "What did %s %s %s %s%s?" % (country_names[0], trade_flow,
+                                            article, country_names[1],
+                                            get_time_clause(years))
 
     # e.g. Where did France export wine to in 2012?
     elif api_name == "cspy":
         article = "to" if trade_flow == "export" else "from"
-        return "Where did %s %s %s %s %s?" % (country_names[0], trade_flow,
-                                              product_name, article,
-                                              get_time_clause(years))
+        return "Where did %s %s %s %s%s?" % (country_names[0], trade_flow,
+                                             product_name, article,
+                                             get_time_clause(years))
 
     else:
-        raise ValueError("Unknown API name when trying to generate title: %s",
+        raise ValueError("Unknown API name when trying to generate title: %s" %
                          api_name)
