@@ -1,4 +1,6 @@
 from django.core.management.base import BaseCommand
+from elasticsearch import Elasticsearch
+from elasticsearch.helpers import streaming_bulk
 
 from observatory.models import Country, Hs4
 from observatory.helpers import get_title
@@ -54,6 +56,30 @@ class Command(BaseCommand):
                                         csay_questions, sapy_questions,
                                         ccsy_questions, cspy_questions)
 
+        all_questions = enumerate(all_questions)
+
+        es = Elasticsearch()
+        for ok, result in streaming_bulk(
+            es,
+            all_questions,
+            index='questions',
+            expand_action_callback=self.convert_to_elasticsearch_command
+        ):
+            print ok, result
+
+    @staticmethod
+    def convert_to_elasticsearch_command(data):
+        """Convert the question list into an elasticsearch `index` command
+        consumable by the elasticsearch bulk api."""
+        doc_id = data[0]
+        doc_body = data[1]
+
+        action = {'index':
+                  {'_id': doc_id,
+                   '_index': 'questions',
+                   '_type': 'question',
+                   }}
+        return action, {'body': doc_body}
 
     @staticmethod
     def generate_titles(*possible_parameters):
