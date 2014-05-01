@@ -65,7 +65,8 @@ class Command(BaseCommand):
             index='questions',
             expand_action_callback=self.convert_to_elasticsearch_command
         ):
-            print ok, result
+            if not ok:
+                print 'Failed: %s' % result
 
     @staticmethod
     def convert_to_elasticsearch_command(data):
