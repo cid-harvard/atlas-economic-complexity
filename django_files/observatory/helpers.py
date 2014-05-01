@@ -2,99 +2,107 @@ from observatory.models import *
 import random
 
 # make sure app name is in the list of possible apps
+
+
 def get_app_name(app_name):
-  possible_apps = ["tree_map", "stacked", "product_space", "map"]
+    possible_apps = ["tree_map", "stacked", "product_space", "map"]
 
-  # if the app_name requested is not in the list of possibilities
-  if app_name not in possible_apps:
-    app_name = None
+    # if the app_name requested is not in the list of possibilities
+    if app_name not in possible_apps:
+        app_name = None
 
-  return app_name
+    return app_name
 
 
 # make sure this is accepted trade_flow
 def get_trade_flow(trade_flow):
-  possible_yoga_flows = ["export", "import", "net_export", "net_import"]
+    possible_yoga_flows = ["export", "import", "net_export", "net_import"]
 
-  if trade_flow not in possible_yoga_flows:
-    trade_flow = None
+    if trade_flow not in possible_yoga_flows:
+        trade_flow = None
 
-  return trade_flow
+    return trade_flow
 
 
 def get_years(classification):
-  # get distince years from db, different for diff product classifications
+    # get distince years from db, different for diff product classifications
 
-  if classification == "sitc4":
-    years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct())
-  elif classification == "hs4":
-    years_available = list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
+    if classification == "sitc4":
+        years_available = list(
+            Sitc4_cpy.objects.values_list(
+                "year",
+                flat=True).distinct())
+    elif classification == "hs4":
+        years_available = list(
+            Hs4_cpy.objects.values_list(
+                "year",
+                flat=True).distinct())
 
-  return years_available
+    return years_available
 
 
 # Returns app type in CCPY format
 def get_app_type(country1, country2, product, year):
 
-  # country / all / show / year
-  if country2 == "all" and product == "show":
-    return "casy"
+    # country / all / show / year
+    if country2 == "all" and product == "show":
+        return "casy"
 
-  # country / show / all / year
-  elif country2 == "show" and product == "all":
-    return "csay"
+    # country / show / all / year
+    elif country2 == "show" and product == "all":
+        return "csay"
 
-  # show / all / product / year
-  elif country1 == "show" and country2 == "all":
-    return "sapy"
+    # show / all / product / year
+    elif country1 == "show" and country2 == "all":
+        return "sapy"
 
-  # country / country / show / year
-  elif product == "show":
-    return "ccsy"
+    # country / country / show / year
+    elif product == "show":
+        return "ccsy"
 
-  #  country / show / product / year
-  else:
-    return "cspy"
+    #  country / show / product / year
+    else:
+        return "cspy"
 
 
 # Returns the Country object or None
 def get_country(country):
-  # first try looking up based on 3 character code
-  try:
-    c = Country.objects.get(name_3char=country)
-  except Country.DoesNotExist:
-    # next try 2 character code
+    # first try looking up based on 3 character code
     try:
-      c = Country.objects.get(name_2char=country)
+        c = Country.objects.get(name_3char=country)
     except Country.DoesNotExist:
-      c = None
-  return c
+        # next try 2 character code
+        try:
+            c = Country.objects.get(name_2char=country)
+        except Country.DoesNotExist:
+            c = None
+    return c
 
 
 # Returns the Product object or None
 def get_product(product, classification):
-  # first try looking up based on 3 character code
-  if classification == "hs4":
-    try:
-      p = Hs4.objects.get(code=product)
-    except Hs4.DoesNotExist:
-      # next try SITC4
-      try:
-        conv_code = Sitc4.objects.get(code=product).conversion_code
-        p = Hs4.objects.get(code=conv_code)
-      except Sitc4.DoesNotExist:
-        p = None
-  else:
-    try:
-      p = Sitc4.objects.get(code=product)
-    except Sitc4.DoesNotExist:
-      # next try SITC4
-      try:
-        conv_code = Hs4.objects.get(code=product).conversion_code
-        p = Sitc4.objects.get(code=conv_code)
-      except Hs4.DoesNotExist:
-        p = None
-  return p
+    # first try looking up based on 3 character code
+    if classification == "hs4":
+        try:
+            p = Hs4.objects.get(code=product)
+        except Hs4.DoesNotExist:
+            # next try SITC4
+            try:
+                conv_code = Sitc4.objects.get(code=product).conversion_code
+                p = Hs4.objects.get(code=conv_code)
+            except Sitc4.DoesNotExist:
+                p = None
+    else:
+        try:
+            p = Sitc4.objects.get(code=product)
+        except Sitc4.DoesNotExist:
+            # next try SITC4
+            try:
+                conv_code = Hs4.objects.get(code=product).conversion_code
+                p = Sitc4.objects.get(code=conv_code)
+            except Hs4.DoesNotExist:
+                p = None
+    return p
 
 
 def get_time_clause(years):
