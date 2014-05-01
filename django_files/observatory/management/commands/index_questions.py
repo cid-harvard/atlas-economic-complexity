@@ -26,10 +26,8 @@ class Command(BaseCommand):
 
         # What did Burundi export in 2013?
         casy_questions2 = self.generate_titles(['casy'],
-                                               ['stacked', 'treemap',
-                                                'product_space', 'rings'],
-                                               country_names, trade_flows,
-                                               [None])
+                                               [None], country_names,
+                                               trade_flows, [None])
 
         # Where did Albania export to in 2009?
         csay_questions = self.generate_titles(['csay'], [None], country_names,
