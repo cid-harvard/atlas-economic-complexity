@@ -43,7 +43,7 @@ class Command(BaseCommand):
             .values_list('name_en', flat=True)
         country_pairs = itertools.ifilter(
             # Germany importing from Germany etc makes no sense
-            lambda country1, country2: country1 != country2,
+            lambda country_pair: country_pair[0] != country_pair[1],
             itertools.product(
                 country_names_flat,
                 country_names_flat),
