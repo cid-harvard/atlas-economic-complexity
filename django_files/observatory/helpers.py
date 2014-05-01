@@ -1,9 +1,7 @@
-from observatory.models import *
-import random
+from observatory.models import Hs4_cpy, Sitc4_cpy, Country, Hs4, Sitc4
+
 
 # make sure app name is in the list of possible apps
-
-
 def get_app_name(app_name):
     possible_apps = ["tree_map", "stacked", "product_space", "map"]
 
