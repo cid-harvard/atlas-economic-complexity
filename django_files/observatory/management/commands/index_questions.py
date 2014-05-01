@@ -41,12 +41,15 @@ class Command(BaseCommand):
         # What did Germany import from Turkey in 2011?
         country_names_flat = Country.objects.get_valid()\
             .values_list('name_en', flat=True)
-        ccsy_questions = self.generate_titles(['ccsy'], [None],
-                                              itertools.product(
-                                                  country_names_flat,
-                                                  country_names_flat),
+        country_pairs = itertools.ifilter(
+            # Germany importing from Germany etc makes no sense
+            lambda country1, country2: country1 != country2,
+            itertools.product(
+                country_names_flat,
+                country_names_flat),
+        )
+        ccsy_questions = self.generate_titles(['ccsy'], [None], country_pairs,
                                               trade_flows, [None])
-        # TODO: remove dupes where antarctica is exporting to antarctica
 
         # Where did France export wine to in 2012?
         cspy_questions = self.generate_titles(['cspy'], [None], country_names,
