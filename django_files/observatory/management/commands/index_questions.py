@@ -20,37 +20,40 @@ class Command(BaseCommand):
         # TODO: should this be name_en?
         product_names = Hs4.objects.values_list('name', flat=True)
 
-        # e.g. What did Burundi export in 2013? Which products are feasible for
-        # Latvia?
+        # Which products are feasible for Latvia?
         casy_questions = self.generate_titles(['casy'], ['pie_scatter'],
                                               country_names)
+
+        # What did Burundi export in 2013?
         casy_questions2 = self.generate_titles(['casy'],
                                                ['stacked', 'treemap',
                                                 'product_space', 'rings'],
                                                country_names, trade_flows,
-                                               [[]])
+                                               [None])
 
-        # e.g. Where did Albania export to in 2009?
+        # Where did Albania export to in 2009?
         csay_questions = self.generate_titles(['csay'], [None], country_names,
-                                              trade_flows, [[]])
+                                              trade_flows, [None])
 
-        # e.g. Who exported Petroleum in 1990?
+        # Who exported Petroleum in 1990?
         sapy_questions = self.generate_titles(['sapy'], [None], [None],
-                                              trade_flows, [[]], product_names)
+                                              trade_flows, [None],
+                                              product_names)
 
-        # e.g. What did Germany import from Turkey in 2011?
+        # What did Germany import from Turkey in 2011?
         country_names_flat = Country.objects.get_valid()\
             .values_list('name_en', flat=True)
         ccsy_questions = self.generate_titles(['ccsy'], [None],
                                               itertools.product(
                                                   country_names_flat,
                                                   country_names_flat),
-                                              trade_flows, [[]])
+                                              trade_flows, [None])
         # TODO: remove dupes where antarctica is exporting to antarctica
 
-        # e.g. Where did France export wine to in 2012?
+        # Where did France export wine to in 2012?
         cspy_questions = self.generate_titles(['cspy'], [None], country_names,
-                                              trade_flows, [[]], product_names)
+                                              trade_flows, [None],
+                                              product_names)
 
         all_questions = itertools.chain(casy_questions, casy_questions2,
                                         csay_questions, sapy_questions,
