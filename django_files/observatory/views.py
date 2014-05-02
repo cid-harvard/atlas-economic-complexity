@@ -18,6 +18,7 @@ from django.db.models import Q
 import json
 from django.core import serializers
 from django.core.urlresolvers import reverse
+from elasticsearch import Elasticsearch
 # Project specific
 from django.utils.translation import gettext as _
 # App specific
@@ -2495,3 +2496,32 @@ def get_app_type(country1, country2, product, year):
   #  country / show / product / year
   else:
     return "cspy"
+
+def api_search(request):
+
+    query = request.GET["term"]
+    if query == None:
+        return HttpResponse(json.dumps("{}"))
+
+    es = Elasticsearch()
+    result = es.search(
+        index="questions",
+        body={"query": {
+            "filtered": {
+                "query": {
+                    "fuzzy_like_this": {
+                        "like_text": query,
+                        "fields": [
+                            "title"
+                        ],
+                        "max_query_terms": 15,
+                        "prefix_length": 1
+                    }
+                }
+            }
+        },
+            "size": 10
+        })
+    result_list = [x['_source']['title'] for x in result['hits']['hits']]
+    return HttpResponse(json.dumps(result_list))
+
