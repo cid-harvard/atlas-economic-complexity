@@ -84,18 +84,30 @@ class Command(BaseCommand):
                    '_index': 'questions',
                    '_type': 'question',
                    }}
-        return action, {'body': doc_body}
+        return action, doc_body
 
     @staticmethod
     def generate_titles(*possible_parameters):
         """Given a list of possible parameters for the get_title() function,
-        generate all permutations of outputs. Parameters must be in order for
+        generate all permutations of titles. Parameters must be in order for
         get_title().
 
         :param possible_parameters: List of lists of possible parameters.
         Should look like: [[param1_possibility1, param1_possibility2],
         [param2_possibility1, param2_possibility2]] etc.
+        :return: An iterator yielding titles and arguments e.g:
+            [{'title': 'foo', 'country_name': 'Germany'}, {'title': 'bar',
+            'country_name': 'Sweden'}]
         """
+
+        arg_names = ['api_name', 'app_name', 'country_names', 'trade_flow',
+                     'years', 'product_name']
+
+        def generate_title(args):
+            kwargs = dict(zip(arg_names, args))
+            kwargs["title"] = get_title(**kwargs)
+            return kwargs
+
         return itertools.imap(
-            lambda args: get_title(*args),
+            generate_title,
             itertools.product(*possible_parameters))
