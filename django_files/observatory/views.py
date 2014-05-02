@@ -1197,7 +1197,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     data_as_text["columns"] = view_response[2]
 
 
-  app_type = get_app_type(country1, country2, product, year)
+  app_type = helpers.get_app_type(country1, country2, product, year)
 
   # Some countries need "the" before their names
   list_countries_the = set(("Cayman Islands", "Central African Republic",
@@ -2475,27 +2475,6 @@ def get_country_lookup():
   for c in Country.objects.all():
     lookup[c.id] = [c.name_en, c.name_3char]
   return lookup
-
-def get_app_type(country1, country2, product, year):
-  # country / all / show / year
-  if country2 == "all" and product == "show":
-    return "casy"
-
-  # country / show / all / year
-  elif country2 == "show" and product == "all":
-    return "csay"
-
-  # show / all / product / year
-  elif country1 == "show" and country2 == "all":
-    return "sapy"
-
-  # country / country / show / year
-  elif product == "show":
-    return "ccsy"
-
-  #  country / show / product / year
-  else:
-    return "cspy"
 
 def api_search(request):
 
