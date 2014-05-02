@@ -2514,8 +2514,9 @@ def api_search(request):
                         "fields": [
                             "title"
                         ],
+                        "fuzziness": 0.5,
                         "max_query_terms": 15,
-                        "prefix_length": 1
+                        "prefix_length": 4
                     }
                 }
             }
