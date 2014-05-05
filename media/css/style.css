@@ -139,6 +139,7 @@ font.definition:hover{
  */
 header {
   margin: 0 0 0 0;
+  height: 66px;
 }
 header .logo {
   float: left;
@@ -235,7 +236,7 @@ header h1 a img {
   border: 0px solid black;
   margin: 0;
   margin-bottom: 10px;
-  overflow: hidden; /* to clear floats */
+  overflow: visible; /* to clear floats */
   width: 100%; /* to clear floats */
 }
 
@@ -592,6 +593,7 @@ text-decoration: none;
   padding: 0 !important;
   width: 850px;
   z-index: 10;
+  margin-bottom: 30px;
 }
 
 .app #main #content #viz {
@@ -670,7 +672,6 @@ text-decoration: none;
  */
 .app #main #content #timeline {
   min-height: 137px;
-  height: auto;
   padding: 0px 10px 10px 10px;
   overflow: visible;
 }
@@ -788,6 +789,8 @@ footer.logos {
   margin-left:232px;
   margin-right: 260px;
   margin-top: 20px;
+  position: relative;
+  bottom: 0px;
 }
 #sticky-anchor {
   margin-top:40px;
