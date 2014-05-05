@@ -443,7 +443,7 @@ text-decoration: none;
   border-radius: 0 10px 10px 0;
   font-size:90%;
   float: left;
-  z-index: 0;
+  z-index: 10000;
 
 }
 .app #main #tool_pane > *{
