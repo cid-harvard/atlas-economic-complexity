@@ -1199,19 +1199,48 @@ var flat_data,
       {"value": 40, "weight": -.2, "type": "gamma"},
       {"value": 15, "weight": .1, "type": "delta"}
     ]
+
+    flat_data = construct_nest(flat_data);
    
     // instantiate d3plus
     var visualization = d3plus.viz()
       .container("#viz")  // container DIV to hold the visualization
-      .data(sample_data)  // data to use with the visualization
+      .data(flat_data)  // data to use with the visualization
       .type("chart")      // visualization type
-      .id("type")         // key for which our data is unique on
+      .id("id")         // key for which our data is unique on
       .x("value")         // key for x-axis
-      .y("weight")        // key for y-axis
+      .y("distance")        // key for y-axis
+      .legend(false)
       .draw()             // finally, draw the visualization!
-
+      .height(height)
+      .width(width)
 
     d3.select("#loader").style("display", "none");  
+
+    if (!embed){
+      
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+      
+      at = d3.values(attr_data)
+      if(item_type!="country")
+      {
+        at = at.filter(function(d){return d.ps_size != undefined})
+      }
+      
+      d3.select(".key")
+        .datum(at)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
+        .year(year)
+      
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls); 
+    } 
 
   }
 
@@ -1952,6 +1981,16 @@ var flat_data,
 
 
         scatterplot();
+
+        timeline = Slider()
+          .callback('set_scatter_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          .datum(years_available)
+          .call(timeline)
 
       }
 
