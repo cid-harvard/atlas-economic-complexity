@@ -170,6 +170,7 @@ def get_title(api_name, app_name, country_names=None, trade_flow=None,
         raise ValueError("Unknown API name when trying to generate title: %s" %
                          api_name)
 
+
 def params_to_url(api_name=None, app_name=None, country_names=None,
                   trade_flow=None, years=None, product_name=None):
     """Generate explore/ urls from specific parameters. Same parameter syntax
@@ -183,8 +184,8 @@ def params_to_url(api_name=None, app_name=None, country_names=None,
     if country_names is not None:
         for name in country_names:
             country_codes.append(
-                Country.objects\
-                .filter(name=name)\
+                Country.objects
+                .filter(name=name)
                 .values_list('name_3char', flat=True)[0].lower())
 
     if api_name == 'casy':
@@ -198,7 +199,7 @@ def params_to_url(api_name=None, app_name=None, country_names=None,
         # Where did Germany import Swine from in 2012?
         # Looks like explore/tree_map/import/deu/show/0103/2012/
         country_codes.append('show')
-        product_code = '0409' # TODO
+        product_code = '0409'  # TODO
 
     elif api_name == 'csay':
         # Where does germany import from?
