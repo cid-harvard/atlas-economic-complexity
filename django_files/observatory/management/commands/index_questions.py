@@ -17,8 +17,7 @@ class Command(BaseCommand):
         country_names = Country.objects.get_valid()\
             .values_list('name_en')
         trade_flows = ["import", "export"]
-        # TODO: should this be name_en?
-        product_names = Hs4.objects.values_list('name', flat=True)
+        product_names = Hs4.objects.values_list('name_en', flat=True)
 
         # Which products are feasible for Latvia?
         casy_questions = self.generate_titles(['casy'], ['pie_scatter'],
