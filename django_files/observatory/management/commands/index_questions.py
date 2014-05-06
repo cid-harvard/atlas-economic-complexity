@@ -3,7 +3,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch.helpers import streaming_bulk
 
 from observatory.models import Country, Hs4
-from observatory.helpers import get_title
+from observatory.helpers import get_title, params_to_url
 
 import itertools
 
@@ -105,7 +105,10 @@ class Command(BaseCommand):
 
         def generate_title(args):
             kwargs = dict(zip(arg_names, args))
-            kwargs["title"] = get_title(**kwargs)
+            title = get_title(**kwargs)
+            url = params_to_url(**kwargs)
+            kwargs["title"] = title
+            kwargs["url"] = url
             return kwargs
 
         return itertools.imap(

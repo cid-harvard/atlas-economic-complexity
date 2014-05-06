@@ -169,3 +169,60 @@ def get_title(api_name, app_name, country_names=None, trade_flow=None,
     else:
         raise ValueError("Unknown API name when trying to generate title: %s" %
                          api_name)
+
+def params_to_url(api_name=None, app_name=None, country_names=None,
+                  trade_flow=None, years=None, product_name=None):
+    """Generate explore/ urls from specific parameters. Same parameter syntax
+    as get_title."""
+
+    if app_name is None:
+        # Treemap is a safe default that works with almost all of our data
+        app_name = 'tree_map'
+
+    country_codes = []
+    if country_names is not None:
+        for name in country_names:
+            country_codes.append(
+                Country.objects\
+                .filter(name=name)\
+                .values_list('name_3char', flat=True)[0].lower())
+
+    if api_name == 'casy':
+        # What did Germany import in 2012?
+        # Which products are feasible for Latvia?
+        # Looks like explore/tree_map/import/deu/all/show/2012/
+        country_codes.append('all')
+        product_code = "show"
+
+    elif api_name == 'cspy':
+        # Where did Germany import Swine from in 2012?
+        # Looks like explore/tree_map/import/deu/show/0103/2012/
+        country_codes.append('show')
+        product_code = '0409' # TODO
+
+    elif api_name == 'csay':
+        # Where does germany import from?
+        # Looks like explore/tree_map/import/deu/show/all/2012/
+        country_codes.append('show')
+        product_code = 'all'
+
+    elif api_name == 'ccsy':
+        # What did Germany import from Congo in 2012?
+        # Looks like explore/tree_map/import/deu/cog/show/2012/
+        product_code = 'show'
+
+    elif api_name == 'sapy':
+        # Who exports potatoes?
+        # Looks like explore/tree_map/export/show/all/0101/2012/
+        country_codes = ("show", "all")
+        product_code = 'all'
+
+    else:
+        raise ValueError("Unknown API name : %s" % api_name)
+
+    url = "explore/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country_codes[0],
+                                       country_codes[1], product_code)
+    if years is not None:
+        url += "%s/" % years
+
+    return url
