@@ -1178,6 +1178,43 @@ var flat_data,
     }
   }
 
+
+  scatterplot = function() {
+
+    // 1-Which product classification?
+
+    // 2-Load external metadata
+
+    // 3-Init Javasript visualization
+
+    // 4-Process data (flatten, ..)
+
+    // 5-Keys, controls, ..
+
+    // 6-Init the visualization
+
+   var sample_data = [
+      {"value": 100, "weight": .45, "type": "alpha"},
+      {"value": 70, "weight": .60, "type": "beta"},
+      {"value": 40, "weight": -.2, "type": "gamma"},
+      {"value": 15, "weight": .1, "type": "delta"}
+    ]
+   
+    // instantiate d3plus
+    var visualization = d3plus.viz()
+      .container("#viz")  // container DIV to hold the visualization
+      .data(sample_data)  // data to use with the visualization
+      .type("chart")      // visualization type
+      .id("type")         // key for which our data is unique on
+      .x("value")         // key for x-axis
+      .y("weight")        // key for y-axis
+      .draw()             // finally, draw the visualization!
+
+
+    d3.select("#loader").style("display", "none");  
+
+  }
+
   rings = function( req ) {
 
     (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
@@ -1911,6 +1948,13 @@ var flat_data,
         d3.select("#MDV").style("display", "none")
       }
  
+      if(app_name=="scatterplot") {
+
+
+        scatterplot();
+
+      }
+
 
       // // Create Year Toggle
       // if (app_name == "tree_map") {
