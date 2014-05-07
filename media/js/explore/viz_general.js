@@ -1215,9 +1215,9 @@ var flat_data,
       .height(height)
       .width(width)
 
-    d3.select("#loader").style("display", "none");  
 
-    if (!embed){
+
+    if (!embed) {
       
       key = Key()
         .classification(rawData.class)
@@ -1241,6 +1241,20 @@ var flat_data,
         .datum(rawData)
         .call(controls); 
     } 
+
+
+
+   timeline = Slider()
+          .callback('set_scatter_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          .datum(years_available)
+          .call(timeline)
+
+    d3.select("#loader").style("display", "none");  
 
   }
 
@@ -1269,13 +1283,13 @@ var flat_data,
       .data(d3.range(year_data.length))
       .enter()
       .append("tr")
-      .classed("odd", function(_,i) { return (i % 2) == 0; });
+      .classed("odd", function(d, i) { return (i % 2) == 0; });
 
     var cells = rows.selectAll("td")
-      .data(d3.range(headers.length))
+      .data(function(d) { console.log("dddd", d); return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value]; })
       .enter()
       .append("td")
-      .text(function(d) { return d; })
+      .text(function(d, i) { return d; })
 
   }
 
@@ -2018,15 +2032,7 @@ var flat_data,
 
         scatterplot();
 
-        timeline = Slider()
-          .callback('set_scatter_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
-          .datum(years_available)
-          .call(timeline)
+     
 
       }
 
