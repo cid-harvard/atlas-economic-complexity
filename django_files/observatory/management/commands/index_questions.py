@@ -21,22 +21,23 @@ class Command(BaseCommand):
         products = list(Hs4.objects.only('name_en', 'code'))
 
         # Which products are feasible for Latvia?
-        casy_questions = self.generate_titles(['casy'], ['pie_scatter'],
-                                              countries)
+        casy_questions = self.generate_index_entries(['casy'], ['pie_scatter'],
+                                                     countries)
 
         # What did Burundi export in 2013?
-        casy_questions2 = self.generate_titles(['casy'],
-                                               [None], countries,
-                                               trade_flows, [None])
+        casy_questions2 = self.generate_index_entries(['casy'], [None],
+                                                      countries, trade_flows,
+                                                      [None])
 
         # Where did Albania export to in 2009?
-        csay_questions = self.generate_titles(['csay'], [None], countries,
-                                              trade_flows, [None])
+        csay_questions = self.generate_index_entries(['csay'], [None],
+                                                     countries, trade_flows,
+                                                     [None])
 
         # Who exported Petroleum in 1990?
-        sapy_questions = self.generate_titles(['sapy'], [None], [None],
-                                              trade_flows, [None],
-                                              products)
+        sapy_questions = self.generate_index_entries(['sapy'], [None], [None],
+                                                     trade_flows, [None],
+                                                     products)
 
         # What did Germany import from Turkey in 2011?
         country_pairs = itertools.ifilter(
@@ -46,13 +47,14 @@ class Command(BaseCommand):
                 countries_flat,
                 countries_flat),
         )
-        ccsy_questions = self.generate_titles(['ccsy'], [None], country_pairs,
-                                              trade_flows, [None])
+        ccsy_questions = self.generate_index_entries(['ccsy'], [None],
+                                                     country_pairs,
+                                                     trade_flows, [None])
 
         # Where did France export wine to in 2012?
-        cspy_questions = self.generate_titles(['cspy'], [None], countries,
-                                              trade_flows, [None],
-                                              products)
+        cspy_questions = self.generate_index_entries(['cspy'], [None],
+                                                     countries, trade_flows,
+                                                     [None], products)
 
         all_questions = itertools.chain(casy_questions, casy_questions2,
                                         csay_questions, sapy_questions,
@@ -85,8 +87,9 @@ class Command(BaseCommand):
         return action, doc_body
 
     @staticmethod
-    def generate_index_entries(api_name=None, app_name=None, countries=None,
-                               trade_flow=None, years=None, product=None):
+    def generate_index_entries(api_name=[None], app_name=[None],
+                               countries=[None], trade_flow=[None],
+                               years=[None], product=[None]):
         """Given a list of possible parameters for the get_title() and
         params_to_url() functions, generate index entries for all permutations
         of titles. Parameters must be in order for get_title(). Each parameter
@@ -103,24 +106,32 @@ class Command(BaseCommand):
             index = {}
 
             # Generate title
+            country_names = None
+            if args[2] is not None:
+                country_names = [c.name_en for c in args[2]]
+
             title = get_title(
                 api_name=args[0],
                 app_name=args[1],
-                country_names=[c.name_en for c in args[2]],
+                country_names=country_names,
                 trade_flow=args[3],
                 years=args[4],
-                product_names=[p.name_en for p in args[5]],
+                product_name=args[5].name_en if args[5] is not None else None
             )
             index["title"] = title
 
             # Generate url
+            country_codes = None
+            if args[2] is not None:
+                country_codes = [c.name_3char for c in args[2]]
+
             url = params_to_url(
                 api_name=args[0],
                 app_name=args[1],
-                country_codes=[c.name_3char for c in args[2]],
+                country_codes=country_codes,
                 trade_flow=args[3],
                 years=args[4],
-                product_codes=[p.code for p in args[5]],
+                product_code=args[5].code if args[5] is not None else None
             )
             index["url"] = url
 
