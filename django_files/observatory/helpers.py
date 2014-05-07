@@ -171,22 +171,15 @@ def get_title(api_name, app_name, country_names=None, trade_flow=None,
                          api_name)
 
 
-def params_to_url(api_name=None, app_name=None, country_names=None,
-                  trade_flow=None, years=None, product_name=None):
+def params_to_url(api_name=None, app_name=None, country_codes=None,
+                  trade_flow=None, years=None, product_code=None):
     """Generate explore/ urls from specific parameters. Same parameter syntax
-    as get_title."""
+    as get_title, but product code instead of product name and 3 letter country
+    codees instead of country names."""
 
     if app_name is None:
         # Treemap is a safe default that works with almost all of our data
         app_name = 'tree_map'
-
-    country_codes = []
-    if country_names is not None:
-        for name in country_names:
-            country_codes.append(
-                Country.objects
-                .filter(name=name)
-                .values_list('name_3char', flat=True)[0].lower())
 
     if api_name == 'casy':
         # What did Germany import in 2012?
@@ -199,7 +192,6 @@ def params_to_url(api_name=None, app_name=None, country_names=None,
         # Where did Germany import Swine from in 2012?
         # Looks like explore/tree_map/import/deu/show/0103/2012/
         country_codes.append('show')
-        product_code = '0409'  # TODO
 
     elif api_name == 'csay':
         # Where does germany import from?
@@ -216,7 +208,6 @@ def params_to_url(api_name=None, app_name=None, country_names=None,
         # Who exports potatoes?
         # Looks like explore/tree_map/export/show/all/0101/2012/
         country_codes = ("show", "all")
-        product_code = 'all'
 
     else:
         raise ValueError("Unknown API name : %s" % api_name)
