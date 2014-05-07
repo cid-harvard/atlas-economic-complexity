@@ -73,10 +73,6 @@ urlpatterns = patterns('',
   (r'^api/apps/$', 'observatory.views.api_apps'),
   (r'^api/data/$', 'observatory.views.api_data'),
 
-  #Static Images
-  (r'^url_to_staticimages/(?P<referrerUrl>[a-z0-9A-Z=_/.:]+)/$','observatory.views.url_to_staticimages'),
-  (r'^staticimages_to_url/(?P<convertedFileName>[a-z0-9A-Z=_.]+)/$','observatory.views.staticimages_to_url'),
-
   # Story #####
   (r'^generate_png/$','observatory.views.generate_png'),
   (r'^mystories/$','observatory.views.minestory'),

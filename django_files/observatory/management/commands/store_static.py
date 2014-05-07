@@ -63,12 +63,14 @@ class Command( BaseCommand ):
         # Get the output data from the phantomjs execution
         try:
             execution_results = phantom_execute.communicate()
+	    return True
   	except:
  	      self.stdout.write( "RunTime Error" )
               self.stdout.write( "\n" )
-        
+ 	      logger.error( "RunTime Error") 
+        return False
         # Print the stdout data
-        #print execution_results[0]
+        print execution_results[0]
         
         # Wait until the SVG file is actually generated
         while ( os.path.exists( settings.DATA_FILES_PATH + "/" + file_name ) != True ):
@@ -99,14 +101,13 @@ class Command( BaseCommand ):
 
         # Close the file now
         svgFile.close()
-        logger.info("SVG Created")      
 
     def save_png( self, file_name ):
         # Get the SVG data
         svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "r" )
         svg_data = svg_file.read()
         # Create the blank image surface
-        img = cairo.ImageSurface( cairo.FORMAT_ARGB32, 750, 480 )
+        img = cairo.ImageSurface( cairo.FORMAT_ARGB32, settings.EXPORT_IMAGE_WIDTH, settings.EXPORT_IMAGE_HEIGHT )
 
         # Get the context
         ctx = cairo.Context( img )
@@ -117,4 +118,5 @@ class Command( BaseCommand ):
 
         # Create the final png image
         final_png = img.write_to_png( settings.DATA_FILES_PATH + "/" + file_name + ".png" )
-	logger.info("PNG Created")
+
+	logger.info("SVG and PNG Created")
