@@ -113,7 +113,7 @@
         
       <script>
 		
-      var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings"];
+      var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot", "rankings"];
       var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
 
       </script>
@@ -162,12 +162,12 @@
             </div>
 
           <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
-            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;" title='{% trans "Trade Flow" %}'>{% trans "Trade Flow" %}</span></a></li>
+            <li {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings"  %}class="active"{% endif %}><a href="#tab-trade"> <span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;" title='{% trans "Trade Flow" %}'>{% trans "Trade Flow" %}</span></a></li>
             <li {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %}class="active"{% endif %}><a href="#tab-diversification"><span style="font-size:14px; color:gray;">Diversification</span></a></li>
           </ul>
 
         <!-- TRADE / DIVERSIFICATION -->
-        <div class="tab-content"  style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:210px; height:320px;">
+        <div class="tab-content"  style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:210px; height:335px;">
 
           <!-- Country selection -->
           <div class="tab-pane {% if app_name != "product_space" and app_name != "pie_scatter" and app_name != "rings" %}active{% endif %}" id="tab-trade">
@@ -247,11 +247,11 @@
           </div>
   
           <!-- App selection -->
-          <div style="font-weight:bold; margin-top:10px; margin-left:10px">
+          <div style="font-weight:bold; margin-top:0px; margin-left:10px">
           <br>
           Visualization:</div>
 
-          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px">
+          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:10px;">
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip" title="Treemap" >
 
               <input type="radio" style="background:url({{ STATIC_URL }}img/home/treeMap-thumb.png) no-repeat;"> <img src="{{ STATIC_URL }}img/home/treeMap-thumb.png" style="width:38px;"/>
@@ -263,6 +263,16 @@
               <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/stacked-thumb.png" style="width:38px;"/>
 
             </label>
+
+            {% if app_name == 'scatterplot' or app_name == 'rankings' %}
+              <label value="scatterplot" class="btn btn-default {% if app_name == 'scatterplot' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Scatter Plot" >
+              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:38px;"/>
+              </label>
+
+              <label value="rankings" class="btn btn-default {% if app_name == 'rankings' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Scatter Plot" >
+              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:38px;"/>
+              </label>
+            {% endif %}
           </div>
 
           </div>
@@ -567,24 +577,26 @@
 </div>      
     {% else %}
       <div id="content" style="width: 750px; min-height:600px;">
+        <div class="contentViz">
         <!-- ajax loading gif -->
-        <div id="loader">
-        <!--if static image mode is PNG-->
-        {% if displayviz %}
-          <img src="{{ displayImage }}" alt="loading" style="width: 750px; height:520px; margin-top:-150px; opacity:.7"/><br />
-          <span style="width: 750px; height:520px; margin-top:-550px; opacity:.7">Loading...</span>
-        {% else %}
-	         <img src="{{ displayImage }}" alt="loading"/><br />
-        {% endif %}
-        </div>
-        
-        <!-- the canvas for the visualization -->
-        <div id="text_data"></div>
-        <div id="historyOverlay"></div>
-        <!-- Container for the visualization -->
-        <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width: 750px; min-height:520px;">
-		</div>
-        
+          <div id="loader">
+          <!--if static image mode is PNG-->
+          {% if displayviz %}
+            <img src="{{ displayImage }}" alt="loading" style="width: 750px; height:520px; margin-top:-150px; opacity:.7"/><br />
+            <span style="width: 750px; height:520px; margin-top:-550px; opacity:.7">Loading...</span>
+          {% else %}
+  	         <img src="{{ displayImage }}" alt="loading"/><br />
+          {% endif %}
+          </div>
+          
+          <!-- the canvas for the visualization -->
+          <div id="text_data"></div>
+          <div id="historyOverlay"></div>
+          <!-- Container for the visualization -->
+          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width:750px;min-height:520px;">
+          </div>  
+		  </div>
+        <div class="contentInner">
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
         <!-- Container for the timeline -->
@@ -595,7 +607,7 @@
             </div>
           {% if app_name == "stacked" %}  
           
-          <style type="text/css">#content{height:822px;}</style>
+          <style type="text/css">.contentInner{height:300px;} #timeline{min-height: 227px}</style>
           <div id="stacked_controls" style="width:90%">
 
             <div  style="float:left; ">
@@ -661,6 +673,57 @@
           {% endif %}
 
           {% if app_name == "pie_scatter" %}
+            <div class="product_class" style="float:left;">
+              <span class="definition" style="font-weight:bold;">Y-Axis: </span>
+              <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
+                <label class="btn btn-default active" id="complexity" name="yvar" >
+                  <input type="radio" id="complexity" name="yvar"> Complexity
+                </label>
+                <label class="btn btn-default" id="opp_gain" >
+                  <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
+                </label>
+              </div>
+            </div>
+            <div class="product_class" style="float:left;">
+              <span class="definition" style="font-weight:bold;">Spotlight: </span>
+              <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:20px;">
+
+                <label class="btn btn-default active" id="complexity" name="yvar" >
+                  <input type="radio" id="spot_off" name="pie_spot"> Off
+                </label>
+                <label class="btn btn-default" id="opp_gain" >
+                  <input type="radio" id="spot_on" name="pie_spot"> On
+                </label>
+
+<!--                 <label class="btn btn-default">
+                  <input type="radio">None
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio">Available
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio">Missing
+                </label>    -->             
+              </div>
+            </div>
+            <p style="clear:both">
+
+          {% endif %}
+
+
+          {% if app_name == "scatterplot" %}
+
+            <div class="product_class" style="float:left;">
+              <span class="definition" style="font-weight:bold;">X-Axis: </span>
+              <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
+                <label class="btn btn-default active" id="complexity" name="yvar" >
+                  <input type="radio" id="complexity" name="yvar"> Complexity
+                </label>
+                <label class="btn btn-default" id="opp_gain" >
+                  <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
+                </label>
+              </div>
+            </div>
 
             <div class="product_class" style="float:left;">
               <span class="definition" style="font-weight:bold;">Y-Axis: </span>
@@ -673,19 +736,6 @@
                 </label>
               </div>
             </div>
-
-            <div class="product_class" style="float:left;">
-              <span class="definition" style="font-weight:bold;">Spotlight: </span>
-              <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:20px;">
-                <label class="btn btn-default active" id="complexity" name="yvar" >
-                  <input type="radio" id="spot_off" name="pie_spot"> Off
-                </label>
-                <label class="btn btn-default" id="opp_gain" >
-                  <input type="radio" id="spot_on" name="pie_spot"> On
-                </label>
-              </div>
-            </div>
-            <p style="clear:both">
 
           {% endif %}
 
@@ -705,7 +755,9 @@
             </label>
           </div>
           {% if app_name == "product_space" %}
+          <style type="text/css">
 
+          </style>
           <script type="text/javascript"></script>
 
           <b>Color by:</b>
@@ -928,7 +980,34 @@
             </div>   
 
           </div>
+
         </div>
+      </div>
+      <footer>
+      <div class="footerInner">
+
+        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
+        <br />
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+        <p style="clear:both"></p>
+        <a style=" margin-left:150px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
+
+        <div class="language_select" style="float:right; margin-right:150px;">
+
+          <div class="text">
+            Language:
+          </div>
+          <select>
+            {% for lang in supported_langs %}
+            <option style="" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
+            {% endfor %}
+          </select> 
+        </div>
+
+      </div>
+
+    </footer>        
          <!--<p id="showMore"><i class='fa fa-caret-down'> More Options</i></p>-->
       </div>  
 
@@ -978,7 +1057,7 @@
      {% else %}   
 
 
-	<!--   DOWNLOAD OPTIONS 
+	<!--   DOWNLOAD OPTIONS // TO BE IMPLEMENTED SOON
 
         <div class="control_container" id="download">
           <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">{% trans "Download" %}</h4>
@@ -1034,34 +1113,10 @@
     {% endif %}
        
       </div> <!-- END Right pane -->
-      <footer>
-      <div class="footerInner">
 
-        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
-        <br />
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
-        <p style="clear:both"></p>
-        <a style=" margin-left:150px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
-
-        <div class="language_select" style="float:right; margin-right:150px;">
-
-          <div class="text">
-            Language:
-          </div>
-          <select>
-            {% for lang in supported_langs %}
-            <option style="" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
-            {% endfor %}
-          </select> 
-        </div>
-
-      </div>
-
-    </footer>
     </div> <!-- END #main -->
 
-    <canvas style="display: none;" id="canvas" width="750px" height="520px"></canvas>
+    <canvas style="display: none; overflow:hidden;" id="canvas" width="750px" height="520px"></canvas>
      
   </div> <!-- END #container -->
 
@@ -1106,15 +1161,24 @@
 
   {% if app_name != "map" %}
 
-  <script src="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.js"></script>
-  <script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/viz.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.js"></script>
 
-    {% if app_name == "tree_map" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/tree_map.js"></script>{% endif %}
-    {% if app_name == "stacked" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/stacked.js"></script>{% endif %}
-    {% if app_name == "pie_scatter" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/pie_scatter.js"></script>{% endif %}
-    {% if app_name == "product_space" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/network.js"></script>{% endif %}
-    {% if app_name == "map" %}<!-- <script src="media/js/libs/d3plus/src/viz/geo_map.js"></script>-->{% endif %}
-    {% if app_name == "rings" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/rings.js"></script>{% endif %}
+    {% if app_name != "scatterplot" %}
+
+    <script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/viz.js"></script>
+
+      {% if app_name == "tree_map" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/tree_map.js"></script>{% endif %}
+      {% if app_name == "stacked" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/stacked.js"></script>{% endif %}
+      {% if app_name == "pie_scatter" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/pie_scatter.js"></script>{% endif %}
+      {% if app_name == "product_space" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/network.js"></script>{% endif %}
+      {% if app_name == "map" %}<!-- <script src="media/js/libs/d3plus/src/viz/geo_map.js"></script>-->{% endif %}
+      {% if app_name == "rings" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/rings.js"></script>{% endif %}
+
+    {% elif app_name == "scatterplot" %}
+
+      <script src="{{ STATIC_URL }}js/libs/d3plus/d3plus.v1.2.4.js"></script>
+
+    {% endif %}
 
   {% endif %}
 
@@ -1129,6 +1193,8 @@
     <script src="{{ STATIC_URL }}js/apps/map.js"></script>
 
   {% endif %}
+
+
 
   <script src="{{ STATIC_URL }}js/explore/viz_general.js"></script> 
 
@@ -1348,6 +1414,8 @@
   $('label[value=map]').click(function() { return update_viz("map"); } );   
   $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );
   $('label[value=stacked]').click(function() { return update_viz("stacked"); } );
+  $('label[value=scatterplot]').click(function() { return update_viz("scatterplot"); } );
+  $('label[value=rankings]').click(function() { return update_viz("rankings"); } );
 
   //To display visualization in full screen, while viewing stories
   var contentWidth=$("#content").width();
@@ -1411,12 +1479,10 @@
       previous_image = "{{ STATIC_URL }}img/default.png";
     {% endif %}
 
-    if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "None" || previous_page == "http://127.0.0.1:8000/"){
-      console.log("home");
+    if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "http://atlas.cid.harvard.edu/beta" || previous_page == "None" || previous_page == "http://127.0.0.1:8000/"){
       previous_image = "{{ STATIC_URL }}img/default.png";
     } else{
       previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}"; 
-      console.log("not home");
       $("#historySlide").attr("href", previous_page);
     }
 

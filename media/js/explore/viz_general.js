@@ -1178,6 +1178,108 @@ var flat_data,
     }
   }
 
+
+  scatterplot = function() {
+
+    // 1-Which product classification?
+
+    // 2-Load external metadata
+
+    // 3-Init Javasript visualization
+
+    // 4-Process data (flatten, ..)
+
+    // 5-Keys, controls, ..
+
+    // 6-Init the visualization
+
+   var sample_data = [
+      {"value": 100, "weight": .45, "type": "alpha"},
+      {"value": 70, "weight": .60, "type": "beta"},
+      {"value": 40, "weight": -.2, "type": "gamma"},
+      {"value": 15, "weight": .1, "type": "delta"}
+    ]
+
+    flat_data = construct_nest(flat_data);
+   
+    // instantiate d3plus
+    var visualization = d3plus.viz()
+      .container("#viz")  // container DIV to hold the visualization
+      .data(flat_data)  // data to use with the visualization
+      .type("chart")      // visualization type
+      .id("id")         // key for which our data is unique on
+      .x("value")         // key for x-axis
+      .y("distance")        // key for y-axis
+      .legend(false)
+      .draw()             // finally, draw the visualization!
+      .height(height)
+      .width(width)
+
+    d3.select("#loader").style("display", "none");  
+
+    if (!embed){
+      
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+      
+      at = d3.values(attr_data)
+      if(item_type!="country")
+      {
+        at = at.filter(function(d){return d.ps_size != undefined})
+      }
+      
+      d3.select(".key")
+        .datum(at)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
+        .year(year)
+      
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls); 
+    } 
+
+  }
+
+  rankings = function() {
+
+    var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"})//.html("Rankings")
+
+    d3.select("#loader").style("display", "none");  
+
+    var headers = ["Rank", "Abbrv", "Element", "Complexity", "Share", "Value"];
+
+    var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
+
+    // Create
+   var table = canvas.append("table"),
+        thead = table.append("thead");
+        tbody = table.append("tbody");
+
+    thead.append("tr").selectAll("th")
+      .data(headers)
+      .enter()
+      .append("th")
+      .text(function(d) { return d; });
+
+    var rows = tbody.selectAll("tr")
+      .data(d3.range(year_data.length))
+      .enter()
+      .append("tr")
+      .classed("odd", function(_,i) { return (i % 2) == 0; });
+
+    var cells = rows.selectAll("td")
+      .data(d3.range(headers.length))
+      .enter()
+      .append("td")
+      .text(function(d) { return d; })
+
+  }
+
+
   rings = function( req ) {
 
     (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
@@ -1317,7 +1419,8 @@ var flat_data,
     
 
     d3.select("#loader").style("display", "none");  
-    highlight(queryParameters['highlight']);
+    // Causes a bug
+    //highlight(queryParameters['highlight']);
 
 
     if(!embed){
@@ -1711,7 +1814,6 @@ var flat_data,
 
   function build_viz_app_original(api_uri, w, h) {
 
-
   //d3.json(api_uri,function(raw) {
 
     (prod_class=="hs4") ? product_file = "media/js/data/sitc4_attr_en.json" : 
@@ -1841,7 +1943,7 @@ var flat_data,
         // get rid of play button -->                  
         // d3.select('#play_button').style("display","none") 
 
-        if(queryParameters['cat']!="") {
+        if(queryParameters['cat']!="" && queryActivated) {
           var e = document.createEvent('UIEvents');
           e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
           d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
@@ -1911,6 +2013,30 @@ var flat_data,
         d3.select("#MDV").style("display", "none")
       }
  
+      if(app_name=="scatterplot") {
+
+
+        scatterplot();
+
+        timeline = Slider()
+          .callback('set_scatter_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          .datum(years_available)
+          .call(timeline)
+
+      }
+
+
+      if(app_name=="rankings") {
+
+        rankings();
+
+
+      }
 
       // // Create Year Toggle
       // if (app_name == "tree_map") {
