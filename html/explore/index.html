@@ -113,7 +113,7 @@
         
       <script>
 		
-      var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot"];
+      var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot", "rankings"];
       var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
 
       </script>
@@ -264,8 +264,12 @@
 
             </label>
 
-            {% if app_name == 'scatterplot' %}
+            {% if app_name == 'scatterplot' or app_name == 'rankings' %}
               <label value="scatterplot" class="btn btn-default {% if app_name == 'scatterplot' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Scatter Plot" >
+              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:38px;"/>
+              </label>
+
+              <label value="rankings" class="btn btn-default {% if app_name == 'rankings' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Scatter Plot" >
               <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:38px;"/>
               </label>
             {% endif %}

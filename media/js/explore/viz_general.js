@@ -1244,6 +1244,17 @@ var flat_data,
 
   }
 
+  rankings = function() {
+
+    d3.select("#viz").append("div").style("font-size", "135px").html("Rankings")
+
+
+    d3.select("#loader").style("display", "none");  
+
+
+  }
+
+
   rings = function( req ) {
 
     (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
@@ -1995,6 +2006,13 @@ var flat_data,
 
       }
 
+
+      if(app_name=="rankings") {
+
+        rankings();
+
+
+      }
 
       // // Create Year Toggle
       // if (app_name == "tree_map") {
