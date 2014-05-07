@@ -1246,11 +1246,33 @@ var flat_data,
 
   rankings = function() {
 
-    d3.select("#viz").append("div").style("font-size", "135px").html("Rankings")
-
+    var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"}).html("Rankings")
 
     d3.select("#loader").style("display", "none");  
 
+
+    // Create
+   var table = canvas.append("table"),
+        thead = table.append("thead");
+        tbody = table.append("tbody");
+
+    thead.append("tr").selectAll("th")
+      .data(["rank", "element", "share", "value"])
+      .enter()
+      .append("th")
+      .text(function(d) { return d; });
+
+    var rows = tbody.selectAll("tr")
+      .data(d3.range(30))
+      .enter()
+      .append("tr")
+//      .classed("odd", function(_,i) { return (i % 2) == 0; });
+
+    var cells = rows.selectAll("td")
+      .data(d3.range(4))
+      .enter()
+      .append("td")
+      .text(function(d) { return d; })
 
   }
 
