@@ -2128,3 +2128,6 @@ button {
 table tr.odd {
   background-color: #EEE;
 }
+body{
+  background-color: white;
+}

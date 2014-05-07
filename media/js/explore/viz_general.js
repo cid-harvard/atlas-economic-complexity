@@ -1286,10 +1286,46 @@ var flat_data,
       .classed("odd", function(d, i) { return (i % 2) == 0; });
 
     var cells = rows.selectAll("td")
-      .data(function(d) { console.log("dddd", d); return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value]; })
+      .data(function(d) { return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value]; })
       .enter()
       .append("td")
       .text(function(d, i) { return d; })
+
+
+   timeline = Slider()
+          .callback('set_rankings_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          .datum(years_available)
+          .call(timeline)
+
+    if (!embed) {
+      
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+      
+      at = d3.values(attr_data)
+      if(item_type!="country")
+      {
+        at = at.filter(function(d){return d.ps_size != undefined})
+      }
+      
+      d3.select(".key")
+        .datum(at)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
+        .year(year)
+      
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls); 
+    } 
 
   }
 
@@ -1436,8 +1472,7 @@ var flat_data,
     // Causes a bug
     //highlight(queryParameters['highlight']);
 
-
-    if(!embed){
+    if(!embed) {
       key = Key()
         .classification(rawData.class)
         .showing(item_type)
@@ -1703,8 +1738,7 @@ var flat_data,
     
   }  
   
-  map = function()
-  {
+  map = function() {
     // clean up attribute data
     // initialize the app (build it for the first time)
     app = App()
