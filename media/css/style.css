@@ -2058,7 +2058,9 @@ table tbody tr td span {
   margin: 0 0 0 4px;
 }
 
-
+#tfViz label{
+  margin-top: 10px;
+}
 .dropdown {
   display: inline;
   float: left;

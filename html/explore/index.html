@@ -251,7 +251,8 @@
           <br>
           Visualization:</div>
 
-          <div  id="viz_apps" data-toggle="buttons" style="margin-top:10px; margin-left:5px;">
+          <div id="tfViz" data-toggle="buttons" style="margin-left:5px;">
+
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip" title="Treemap" >
 
               <input type="radio" style="background:url({{ STATIC_URL }}img/home/treeMap-thumb.png) no-repeat;"> <img src="{{ STATIC_URL }}img/home/treeMap-thumb.png" style="width:38px;"/>
@@ -703,7 +704,8 @@
                 </label>
                 <label class="btn btn-default">
                   <input type="radio">Missing
-                </label>    -->             
+                </label>    -->     
+
               </div>
             </div>
             <p style="clear:both">
