@@ -585,20 +585,29 @@ text-decoration: none;
  * Center of the page, app canvas
  */  
 .app #main #content {
-  background-color: #fff;
-  border: 1px solid #cccccc;
-  border-radius: 0 0 10px 10px !important;
+
   float: left;
-  overflow: visible;
+  overflow:hidden;
   padding: 0 !important;
   width: 850px;
   z-index: 10;
   margin-bottom: 30px;
 }
-
+.app #main #content .contentInner{
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border-radius: 0 0 10px 10px !important;
+  overflow: visible;
+  height: 300px;
+}
+.app #main #content .contentViz{
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border-bottom: none;
+  overflow: hidden;  
+}
 .app #main #content #viz {
   height: 380px;
-  border-bottom: 1px solid #cccccc;
   position: relative;
 }
 
@@ -764,12 +773,18 @@ text-decoration: none;
 /*
  * Bottom of page footer
  */
-
+.app footer{
+  padding: 0px 20px;
+  width:750px;
+  text-align: center;
+  margin-top: 20px;
+  position: relative;
+  bottom: 0px;
+}
 footer p {
   font-size: 80%;
   padding-bottom: 10px;
   text-align: center;
-
 }
 
 footer p img{
@@ -782,15 +797,6 @@ footer.credits {
 
 footer.logos {
   margin-left:100px;
-}
-.app footer{
-  width:750px;
-  text-align: center;
-  margin-left:232px;
-  margin-right: 260px;
-  margin-top: 20px;
-  position: relative;
-  bottom: 0px;
 }
 #sticky-anchor {
   margin-top:40px;
@@ -925,16 +931,6 @@ footer.logos {
   margin: 0;
 }
 
-#main #content {
-  background-color: #fff;
-  border: 1px solid #cccccc;
-  border-radius: 0 10px 10px 0;
-  float: left;
-  overflow: hidden;
-  padding: 10px;
-  width: 700px;
-  z-index: 10;
-}
 dl.file_list dd {
   overflow: hidden;
 }
