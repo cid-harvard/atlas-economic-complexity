@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery UI Autocomplete - Remote with caching</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<style>
+.ui-autocomplete-loading {
+    background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+</style>
+<script>
+$(function() {
+var cache = {};
+$("#searchbar").autocomplete({
+minLength: 3,
+delay: 240,
+source: function(request, response) {
+    var term = request.term;
+    if (term in cache) {
+        response(cache[term]);
+        return;
+    }
+    $.getJSON( "/api/search/",
+        request,
+        function(data, status, xhr) {
+            cache[term] = data;
+            response(data);
+    });
+    },
+focus: function(event, ui){
+    event.preventDefault();
+    $(this).val(ui.item.label);
+},
+select: function(event, ui){
+    event.preventDefault();
+    $(this).val(ui.item.label);
+    window.location.href=ui.item.value;
+},
+});
+        });
+</script>
+</head>
+<body>
+<div class="ui-widget">
+    <label for="searchbar">Search: </label>
+    <input id="searchbar">
+</div>
+</body>
+</html>

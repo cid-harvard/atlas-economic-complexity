@@ -2505,3 +2505,5 @@ def api_search(request):
     result_list = [x['_source']['title'] for x in result['hits']['hits']]
     return HttpResponse(json.dumps(result_list))
 
+def search(request):
+    return render_to_response("test_search.html")
