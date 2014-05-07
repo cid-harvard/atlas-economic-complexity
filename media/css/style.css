@@ -2128,3 +2128,7 @@ button {
 .dropdown span.value { display:none; }
 .dropdown dd ul li a { padding:5px; display:block;}
 .dropdown dd ul li a:hover { background-color:#eee;}
+
+table tr.odd {
+  background-color: #EEE;
+}

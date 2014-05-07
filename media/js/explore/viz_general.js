@@ -1246,10 +1246,13 @@ var flat_data,
 
   rankings = function() {
 
-    var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"}).html("Rankings")
+    var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"})//.html("Rankings")
 
     d3.select("#loader").style("display", "none");  
 
+    var headers = ["Rank", "Abbrv", "Element", "Complexity", "Share", "Value"];
+
+    var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
 
     // Create
    var table = canvas.append("table"),
@@ -1257,19 +1260,19 @@ var flat_data,
         tbody = table.append("tbody");
 
     thead.append("tr").selectAll("th")
-      .data(["rank", "element", "share", "value"])
+      .data(headers)
       .enter()
       .append("th")
       .text(function(d) { return d; });
 
     var rows = tbody.selectAll("tr")
-      .data(d3.range(30))
+      .data(d3.range(year_data.length))
       .enter()
       .append("tr")
-//      .classed("odd", function(_,i) { return (i % 2) == 0; });
+      .classed("odd", function(_,i) { return (i % 2) == 0; });
 
     var cells = rows.selectAll("td")
-      .data(d3.range(4))
+      .data(d3.range(headers.length))
       .enter()
       .append("td")
       .text(function(d) { return d; })
@@ -1810,7 +1813,6 @@ var flat_data,
   }
 
   function build_viz_app_original(api_uri, w, h) {
-
 
   //d3.json(api_uri,function(raw) {
 
