@@ -2502,7 +2502,9 @@ def api_search(request):
         },
             "size": 10
         })
-    result_list = [x['_source']['title'] for x in result['hits']['hits']]
+    result_list = [{'label': x['_source']['title'],
+                    'value': x['_source']['url']}
+                   for x in result['hits']['hits']]
     return HttpResponse(json.dumps(result_list))
 
 def search(request):
