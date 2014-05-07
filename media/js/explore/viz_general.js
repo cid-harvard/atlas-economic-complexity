@@ -1383,7 +1383,8 @@ var flat_data,
     
 
     d3.select("#loader").style("display", "none");  
-    highlight(queryParameters['highlight']);
+    // Causes a bug
+    //highlight(queryParameters['highlight']);
 
 
     if(!embed){
@@ -1907,7 +1908,7 @@ var flat_data,
         // get rid of play button -->                  
         // d3.select('#play_button').style("display","none") 
 
-        if(queryParameters['cat']!="") {
+        if(queryParameters['cat']!="" && queryActivated) {
           var e = document.createEvent('UIEvents');
           e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
           d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
