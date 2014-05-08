@@ -1,5 +1,7 @@
 from observatory.models import Hs4_cpy, Sitc4_cpy, Country, Hs4, Sitc4
 
+import re
+
 
 # make sure app name is in the list of possible apps
 def get_app_name(app_name):
@@ -218,3 +220,22 @@ def params_to_url(api_name=None, app_name=None, country_codes=None,
         url += "%s/" % years
 
     return url
+
+year_expressions = [
+    re.compile(r'between (\d{4}) and (\d{4})', re.IGNORECASE),
+    re.compile(r'from (\d{4}) to (\d{4})', re.IGNORECASE),
+    re.compile(r'(\d{4}).*(\d{4})'),
+    re.compile(r'(?:in|at|during) (\d{4})', re.IGNORECASE),
+    re.compile(r'(\d{4})')
+]
+
+
+def extract_years(input_str):
+    """Extract things that look like years out of a given plaintext."""
+    results = (exp.search(input_str) for exp in year_expressions)
+    results = [result for result in results if result is not None]
+
+    if len(results) == 0:
+        return None, None
+    else:
+        return results[0].span(), results[0].groups()

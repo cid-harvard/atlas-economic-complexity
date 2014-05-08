@@ -2482,10 +2482,25 @@ def api_search(request):
     if query == None:
         return HttpResponse("[]")
 
+    span, years = helpers.extract_years(query)
+    if span is not None:
+        # Strip out year expression from query since elasticsearch doesn't
+        # contain year data
+        query = query[:span[0]] + query[span[1]:]
+
+    if years is None:
+        year_string = ""
+        year_url_param = ""
+    elif len(years) == 1:
+        year_string = " (%s)" % years[0]
+        year_url_param = "%s/" % years[0]
+    else:
+        year_string = " (%s to %s)" % (years[0], years[1])
+        year_url_param = "%s.%s/" % (years[0], years[1])
+
     es = Elasticsearch()
     result = es.search(
         index="questions",
-        explain=True,
         body={
             "query": {
                 "filtered": {
@@ -2507,8 +2522,8 @@ def api_search(request):
             # },
             "size": 8
         })
-    result_list = [{'label': x['_source']['title'],
-                    'value': x['_source']['url']}
+    result_list = [{'label': x['_source']['title'] + year_string,
+                    'value': x['_source']['url'] + year_url_param}
                    for x in result['hits']['hits']]
     return HttpResponse(json.dumps(result_list))
 
