@@ -2485,27 +2485,33 @@ def api_search(request):
     es = Elasticsearch()
     result = es.search(
         index="questions",
-        body={"query": {
-            "filtered": {
-                "query": {
-                    "fuzzy_like_this": {
-                        "like_text": query,
-                        "fields": [
-                            "title"
-                        ],
-                        "fuzziness": 0.5,
-                        "max_query_terms": 15,
-                        "prefix_length": 4
+        explain=True,
+        body={
+            "query": {
+                "filtered": {
+                    "query": {
+                        "fuzzy_like_this": {
+                            "like_text": query,
+                            "fields": ["title"],
+                            "fuzziness": 3,
+                            "max_query_terms": 15,
+                            "prefix_length": 4
+                        }
                     }
                 }
-            }
-        },
-            "size": 10
+            },
+            # "highlight": {
+            #     "pre_tags": ["<div class=highlighted>"],
+            #     "fields": {"title": {}},
+            #     "post_tags": ["</div>"]
+            # },
+            "size": 8
         })
     result_list = [{'label': x['_source']['title'],
                     'value': x['_source']['url']}
                    for x in result['hits']['hits']]
     return HttpResponse(json.dumps(result_list))
+
 
 def search(request):
     return render_to_response("test_search.html")
