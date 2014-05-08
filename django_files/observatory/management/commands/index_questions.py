@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
         # Which products are feasible for Latvia?
         casy_questions = self.generate_index_entries(['casy'], ['pie_scatter'],
-                                                     countries)
+                                                     countries, ['export'])
 
         # What did Burundi export in 2013?
         casy_questions2 = self.generate_index_entries(['casy'], [None],
