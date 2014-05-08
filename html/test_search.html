@@ -14,6 +14,15 @@
 </style>
 <script>
 $(function() {
+$.ui.autocomplete.prototype._renderItem = function( ul, item){
+  var term = this.term.split(' ').join('|');
+  var re = new RegExp("(" + term + ")", "gi") ;
+  var t = item.label.replace(re,"<b>$1</b>");
+  return $( "<li></li>" )
+     .data( "item.autocomplete", item )
+     .append( "<a>" + t + "</a>" )
+     .appendTo( ul );
+};
 var cache = {};
 $("#searchbar").autocomplete({
 minLength: 3,
@@ -38,7 +47,7 @@ focus: function(event, ui){
 select: function(event, ui){
     event.preventDefault();
     $(this).val(ui.item.label);
-    window.location.href=ui.item.value;
+    window.location.href="/" + ui.item.value;
 },
 });
         });
