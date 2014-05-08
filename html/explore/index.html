@@ -577,7 +577,7 @@
 		</div> 
 </div>      
     {% else %}
-      <div id="content" style="width: 750px; min-height:600px;">
+      <div id="content"  class="container" style="width: 750px; min-height:600px;">
         <div class="contentViz">
         <!-- ajax loading gif -->
           <div id="loader">
@@ -603,39 +603,89 @@
         <!-- Container for the timeline -->
          <div id="timeline" class="bootstro" data-bootstro-title="Options Panel" data-bootstro-content="The Options Panel changes based on the visualization that you've selected. Here, you can do things such as filter the results by country and product or even change the level of detail shown in the visualization." data-toggle="tooltip" data-bootstro-placement="left">
 
-            <div id="ui_bottom" style="bottom: 0px; height:50px;">
-              <div id="key" style="padding: 5px 0px 2px 5px;"></div>
+          <div id="ui_bottom" style="bottom: 0px; height:50px;">
+            <div id="key" style="padding: 5px 0px 2px 5px;"></div>
+          </div>
+          <div class="row">
+            {% if app_name != "product_space" %}
+            <div class="vizControl col-md-4">
+              <span class="definition" style="font-weight:bold;">Product Class:</span>
+              <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
+                <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
+                  <input type="radio" name="product_class" value="sitc4"> SITC4
+                </label>
+                 <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+                  <input type="radio" name="product_class" value="hs4"> HS4
+                </label>
+              </div>
             </div>
+            {% endif %}
+            {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}          
+              <div class="vizControl col-md-4" >
+                  <span class="definition" style="font-weight:bold;">Detail Level:</span>
+                  <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                    <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
+                      <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
+                    </label>
+                    {% if app_type == "casy" or app_type == "ccsy" %}
+                    <label class="btn btn-default btn-detail">
+                      <input type="radio" name="level_detail" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
+                    </label>
+                    {% endif %}
+                    <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
+                      <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
+                    </label>
+                  </div>  
+                </div>
+            {% endif %}
+
+            {% if app_name != "product_space" and app_name != "rings"%}     
+              <div class="vizControl col-md-4" >
+                <span class="definition" style="font-weight:bold;">Trade Flow:</span>
+                <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                  <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
+                    <input type="radio" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
+                  </label>
+                  <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
+                    <input type="radio" value="net" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Net
+                  </label>
+                </div>
+              </div>
+            {% endif %}   
+          </div>         
           {% if app_name == "stacked" %}  
           
           <style type="text/css">.contentInner{height:300px;} #timeline{min-height: 227px}</style>
-          <div id="stacked_controls" style="width:90%">
+          <div>
 
-            <div  style="float:left; ">
-           
-          <div class="ui_bottom_row">
-            <span class="definition" style="font-weight:bold;">Labels:</span>
-            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-              <label class="btn btn-default active">
-                <input type="radio" id="true" name="labels" checked="checked"> On
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="false" name="labels" > Off
-              </label>
-            </div>  
-
+          <div  style="float:left; width:100%; ">
+          
+          <div class="row">
+            <div class="vizControl col-md-4">
+              <span class="definition" style="font-weight:bold;">Labels:</span>
+              <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                <label class="btn btn-default active">
+                  <input type="radio" id="true" name="labels" checked="checked">On
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" id="false" name="labels" >Off
+                </label>
+              </div> 
+            </div> 
+            <div class="vizControl col-md-4">
             <span class="definition" style="font-weight:bold;">Layout:</span>
-            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-              <label class="btn btn-default active">
-                <input type="radio" id="value" name="layout" checked="checked">Value
-              </label>
+              <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                <label class="btn btn-default active">
+                  <input type="radio" id="value" name="layout" checked="checked">Value
+                </label>
 
-              <label class="btn btn-default">
-                <input type="radio" id="share" name="layout">Share
-              </label>
-            </div>  
+                <label class="btn btn-default">
+                  <input type="radio" id="share" name="layout">Share
+                </label>
+              </div> 
+            </div> 
 
-
+            <div class="vizControl col-md-4">
             <span class="definition" style="font-weight:bold;">Ordering:</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default active">
@@ -644,27 +694,73 @@
               <label class="btn btn-default">
                 <input type="radio" id="totals" name="order">Totals
               </label>
-            </div>  
-          </div>
-            {% if app_type != "sapy" %} 
-
-          <div class="ui_bottom_row">
-            <span class="definition" style="font-weight:bold;">Adjust:</span>
-            <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-              <label class="btn btn-default active">
-                <input type="radio" id="current" name="capita" checked="checked"> Current
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="notpc_constant" name="capita" > Constant
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="pc_current" name="capita" > Per Capita Current
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="pc_constant" name="capita" > Per Capita Constant
-              </label>
             </div>
             </div>  
+          </div>
+          {% if app_type != "sapy" %} 
+          <div class="ui_bottom_row">
+            <div class="row">
+              <div class="vizControl col-md-8">
+                <span class="definition" style="font-weight:bold;">Adjust:</span>
+                <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                  <label class="btn btn-default active">
+                    <input type="radio" id="current" name="capita" checked="checked"> Current
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" id="notpc_constant" name="capita"> Constant
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" id="pc_current" name="capita"> Per Capita Current
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
+                  </label>
+                </div>
+              </div>
+              <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
+                <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
+
+                <span id="highlight">
+             
+                {% if app_type = "casy" or app_type = "ccsy" %}
+                    <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
+                      <option value=""></option>
+                        {% if product_list %}
+                          {% for p in product_list %}
+                            {% if p.id == product.id %}
+                          <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+                            {% else %}
+                          <option value="{{p.code}}">{{ p.name }}</option>
+                            {% endif %}   
+                          {% endfor %}
+                        {% else %}  
+                          {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
+                          {% include template %}
+                          {% endwith %}
+                        {% endif %}  
+                    </select>
+
+                 {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
+
+                  <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
+
+                  <option value=""></option>
+                    {% if country1_list %}
+                      {% for c in country1_list %}
+                        <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+                      {% endfor %}
+                    {% else %}
+                      {% include "explore/list_countries.html" %}
+                    {% endif %}
+                </select>
+
+                {% endif %}     
+
+                </span>
+
+              </div>              
+            </div> 
+          </div> 
 
             {% endif %}
           
@@ -743,40 +839,36 @@
 
         <!-- Those used to be in the right side bar -->
 
-        <div class="product_class clone_loader" style="float:left; margin-top:10px;">
-          
-          <span class="definition" style="font-weight:bold;">Product Classification:</span>
-          
-
-          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
-            <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
-              <input type="radio" name="product_class" value="sitc4"> SITC4
-            </label>
-             <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-              <input type="radio" name="product_class" value="hs4"> HS4
-            </label>
-          </div>
           {% if app_name == "product_space" %}
-          <style type="text/css">
 
-          </style>
-          <script type="text/javascript"></script>
-
-          <b>Color by:</b>
-          <div class="btn-group community" style="margin-right:20px;">
-            <label type="button" class="btn btn-default active" value="category"> Category</label>
-            <label type="button" class="btn btn-default disabled" value="category"> Community</label>
+          <div class="vizControl col-md-4">
+            <span class="definition" style="font-weight:bold;">Product Class:</span>
+            <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
+              <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="sitc4"> SITC4
+              </label>
+               <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
+                <input type="radio" name="product_class" value="hs4"> HS4
+              </label>
+            </div>
+          </div>      
+          <div class="vizControl col-md-4">          
+            <span class="definition">Color by:</span>
+            <div class="btn-group community" style="margin-right:20px;">
+              <label type="button" class="btn btn-default active" value="category"> Category</label>
+              <label type="button" class="btn btn-default disabled" value="category"> Community</label>
+            </div>
           </div>
-
-          <b>Size by: </b>
-          <div class="btn-group node_size" data-toggle="buttons" >
-            <label type="button" class="btn btn-default active" value="none">
-              <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
-            </label> 
-            <label type="button" class="btn btn-default" value="world_trade">
-              <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
-            </label>
-
+          <div class="vizControl col-md-4">
+            <span class="definition">Size by: </span>
+            <div class="btn-group node_size" data-toggle="buttons" >
+              <label type="button" class="btn btn-default active" value="none">
+                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
+              </label> 
+              <label type="button" class="btn btn-default" value="world_trade">
+                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
+              </label>
+            </div>
           </div>
 
           <script>
@@ -791,8 +883,12 @@
             }
           </script>
 
-          <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:20px;">
-          <span class="definition" style="font-weight:bold;">Filter by RCA Threshold: <span id="rca-threshold" style="font-weight:normal;">1</span></span></br>
+          <div class="btn-group col-md-4" id="viz_apps" data-toggle="buttons" style="margin-top:20px;">
+          <span class="definition" style="font-weight:bold;">
+            Filter by RCA Threshold:<span id="rca-threshold" style="font-weight:normal;">1</span>
+          </span>
+
+          </br>
           
           0 <input type="range" name="points" min="0" max="10" step=".1" value="1" id="set-rca-threshold" onchange="updateRCA(this.value);"> 10
           </div>
@@ -817,40 +913,6 @@
 
          {% endif %}
 
-        </div>
-
-      {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}          
-        <div class="clone_loader" style="float:left; margin-top:10px">
-            <span class="definition" style="font-weight:bold;">Level of detail:</span>
-            <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-              <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
-                <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
-              </label>
-              {% if app_type == "casy" or app_type == "ccsy" %}
-              <label class="btn btn-default btn-detail">
-                <input type="radio" name="level_detail" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
-              </label>
-              {% endif %}
-              <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
-                <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
-              </label>
-            </div>  
-          </div>
-      {% endif %}
-
-      {% if app_name != "product_space" and app_name != "rings"%}     
-        <div class="clone_loader" style="float:left; margin-top: 10px;">
-          <span class="definition" style="font-weight:bold;">Trade Flow:</span>
-          <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-            <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
-              <input type="radio" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
-            </label>
-            <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
-              <input type="radio" value="net" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Net
-            </label>
-          </div>
-        </div>
-      {% endif %}
 
               <script>
               
@@ -910,8 +972,8 @@
               }
           
                </script>
-              {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked" or app_name == "rings" %}
-              <div class="clone_loader" style="float:left; margin-top:10px; position:relative; z-index:100;">
+              {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "rings" %}
+              <div class="col-span-4" style="float:left; margin-top:20px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
 
                 <span id="highlight">

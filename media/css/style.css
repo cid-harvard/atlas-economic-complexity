@@ -687,10 +687,16 @@ text-decoration: none;
 /*
  * Timeline
  */
+ .vizControl .definition{
+  font-size: 13px;
+ }
 .app #main #content #timeline {
   min-height: 137px;
   padding: 0px 10px 10px 10px;
   overflow: visible;
+}
+.app #main #content #timeline .row{
+  margin-bottom:20px;
 }
 .app #main #content #timeline button{
   float: left;
