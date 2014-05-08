@@ -2478,9 +2478,9 @@ def get_country_lookup():
 
 def api_search(request):
 
-    query = request.GET["term"]
+    query = request.GET.get("term", None)
     if query == None:
-        return HttpResponse(json.dumps("{}"))
+        return HttpResponse("[]")
 
     es = Elasticsearch()
     result = es.search(
