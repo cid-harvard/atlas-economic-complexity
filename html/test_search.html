@@ -17,7 +17,7 @@ $(function() {
 var cache = {};
 $("#searchbar").autocomplete({
 minLength: 3,
-delay: 240,
+delay: 260,
 source: function(request, response) {
     var term = request.term;
     if (term in cache) {
