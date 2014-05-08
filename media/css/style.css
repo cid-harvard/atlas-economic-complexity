@@ -583,9 +583,17 @@ text-decoration: none;
 
 /*
  * Center of the page, app canvas
- */  
+ */ 
+#aboutContent{
+  float: none;
+  margin-left: 268px;
+  background-color: #ffffff;
+  border: solid 1px #cccccc;
+  padding:20px;
+  position: relative;
+  top:43px;
+} 
 .app #main #content {
-
   float: left;
   overflow:hidden;
   padding: 0 !important;
@@ -945,7 +953,10 @@ dl.file_list p {
   width: 250px;
   vertical-align: top;
 }
+.atlas_book_content{
+  overflow: auto;
 
+}
 #main #content .atlas_book_content img{
   margin: 20px 60px;
 }
