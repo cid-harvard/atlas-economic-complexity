@@ -135,7 +135,19 @@ class Command(BaseCommand):
             )
             index["url"] = url
 
-            # TODO: Add in params into elasticsearch in case we need them later
+            # Add in params into elasticsearch in case we need them later
+            kwargs = dict(
+                api_name=args[0],
+                app_name=args[1],
+                country_names=country_names,
+                country_codes=country_codes,
+                trade_flow=args[3],
+                years=args[4],
+                product_name=args[5].name_en if args[5] is not None else None,
+                product_code=args[5].code if args[5] is not None else None
+            )
+            kwargs = {k: v for k, v in kwargs.iteritems() if v is not None}
+            index.update(kwargs)
 
             return index
 
