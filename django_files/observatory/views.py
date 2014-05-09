@@ -2522,9 +2522,15 @@ def api_search(request):
             # },
             "size": 8
         })
-    result_list = [{'label': x['_source']['title'] + year_string,
-                    'value': x['_source']['url'] + year_url_param}
-                   for x in result['hits']['hits']]
+    result_list = []
+    for x in result['hits']['hits']:
+        label = x['_source']['title'] + year_string
+        url = x['_source']['url'] + year_url_param
+        # TODO: This is a hack, the correct way is to generate the url here
+        # instead of pregenerating it. See issue # 134
+        if years and len(years) > 1:
+            url = url.replace("tree_map", "stacked")
+        result_list.append(dict(label=label, value=url))
     return HttpResponse(json.dumps(result_list))
 
 
