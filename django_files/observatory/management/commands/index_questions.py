@@ -123,7 +123,7 @@ class Command(BaseCommand):
             # Generate url
             country_codes = None
             if args[2] is not None:
-                country_codes = [c.name_3char for c in args[2]]
+                country_codes = [c.name_3char.lower() for c in args[2]]
 
             url = params_to_url(
                 api_name=args[0],
