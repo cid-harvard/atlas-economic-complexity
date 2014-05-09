@@ -18,7 +18,7 @@ class Command(BaseCommand):
         countries_flat = list(Country.objects.get_valid().only('name_en',
                                                                'name_3char'))
         countries = [[c] for c in countries_flat]
-        products = list(Hs4.objects.only('name_en', 'code'))
+        products = list(Hs4.objects.get_low_level().only('name_en', 'code'))
 
         # Which products are feasible for Latvia?
         casy_questions = self.generate_index_entries(['casy'], ['pie_scatter'],

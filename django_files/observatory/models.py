@@ -374,6 +374,13 @@ class Hs4_manager(models.Manager):
 			"ps_y",
 			"ps_size"
 		))
+
+	def get_low_level(self):
+		"""Only get low level, detailed products, and don't get the high level
+		aggregate categories like: Foodstuffs or Beverages, Spirits &
+		Vinegar."""
+		return self.filter(id__lte=1241)
+
 # HS4 Products
 class Hs4(models.Model):
 
