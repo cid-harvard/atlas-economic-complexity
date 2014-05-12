@@ -50,7 +50,7 @@ else:
   HTTP_HOST = settings.HTTP_HOST
 
 #object used to Encrypt/Decrypt
-#####################################
+###############################
 fpe_obj = fpe.FPEInteger(key=b'mypetsnameeloise', radix=10, width=10)
 
 #####################################
@@ -1155,9 +1155,32 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     displayviz=False
     displayImage = settings.STATIC_URL + "img/all/loader.gif"
 
-  # get distince years from db, different for diff product classifications
-  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
-  years_available.sort()
+  # Verify countries from DB
+  countries = [None, None]
+  country_lists = [None, None]
+  for i, country in enumerate([country1, country2]):
+    if country != "show" and country != "all":
+      try:
+        countries[i] = Country.objects.get(name_3char=country)
+        country_lists[i] = Country.objects.get_all(lang)
+      except Country.DoesNotExist:
+        alert = {"title": "Country could not be found",
+          "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='about/data/country/'>list of countries</a>."%(country)}
+
+  # The years of data available tends to vary based on the dataset used (Hs4
+  # vs Sitc4) and the specific country.
+  years_available_model = Sitc4_cpy if prod_class == "sitc4" else Hs4_cpy
+  years_available = years_available_model.objects\
+                         .values_list("year", flat=True)\
+                         .order_by("year")\
+                         .distinct()
+  # Sometimes the query is not about a specific country (e.g. "all countries"
+  # queries) in which case filtering by country is not necessary
+  if countries[0]:
+      years_available = years_available.filter(country=countries[0].id)
+  # Force lazy queryset to hit the DB to reduce number of DB queries later
+  years_available = list(years_available)
+
   country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
   warning, alert, title = None, None, None
   data_as_text = {}
@@ -1228,18 +1251,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   app_type = get_app_type(country1, country2, product, year)
 
-  # first check for errors
-  # check whether country can be found in database
-  countries = [None, None]
-  country_lists = [None, None]
-  for i, country in enumerate([country1, country2]):
-    if country != "show" and country != "all":
-      try:
-        countries[i] = Country.objects.get(name_3char=country)
-        country_lists[i] = Country.objects.get_all(lang)
-      except Country.DoesNotExist:
-        alert = {"title": "Country could not be found",
-          "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='about/data/country/'>list of countries</a>."%(country)}
   if product != "show" and product != "all":
     p_code = product
     product = clean_product(p_code, prod_class)
@@ -1254,14 +1265,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     #else:
     #  alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='about/data/hs4/'>list of HS4 products</a>."%(p_code)}
 
-  if countries[0]:
-    # get distinct years from db, different for diff product classifications
-    # also we need to filter by country1, as not all SITC4 data goes back to '62
-    years_available = list(Sitc4_cpy.objects.filter(country=countries[0].id).values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.filter(country=countries[0].id).values_list("year", flat=True).distinct())
-  else:
-    years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
-
-  years_available.sort()
 
   list_countries_the = ["Cayman Islands", "Central African Republic", "Channel Islands", "Congo, Dem. Rep.", "Czech Republic", "Dominican Republic", "Faeroe Islands", "Falkland Islands", "Fm Yemen Dm", "Lao PDR", "Marshall Islands", "Philippines", "Seychelles", "Slovak Republic", "Syrian Arab Republic", "Turks and Caicos Islands", "United Arab Emirates", "United Kingdom", "Virgin Islands, U.S.", "United States"]
 
@@ -1426,8 +1429,6 @@ def attr_products(request, prod_class):
 
 '''<COUNTRY> / all / show / <YEAR>'''
 def api_casy(request, trade_flow, country1, year):
-  # import time
-  # start = time.time()
   # Setup the hash dictionary
   request_hash_dictionary = collections.OrderedDict()
 
@@ -1440,6 +1441,7 @@ def api_casy(request, trade_flow, country1, year):
   lang = request.GET.get("lang", lang)
   crawler = request.GET.get("_escaped_fragment_", False)
   country1 = Country.objects.get(name_3char=country1)
+  single_year = 'single_year' in request.GET
 
   '''Set query params with our changes'''
   query_params = request.GET.copy()
@@ -1536,6 +1538,7 @@ def api_casy(request, trade_flow, country1, year):
   years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
   years_available.sort()
 
+  # Inflation adjustment
   magic = Cy.objects.filter(country=country1.id,
                             year__range=(years_available[0],
                                         years_available[-1])).values('year',
@@ -1550,7 +1553,10 @@ def api_casy(request, trade_flow, country1, year):
 
 
   '''Define parameters for query'''
-  year_where = "AND year = %s" % (year,) if crawler == "" else " "
+  if crawler == True or single_year == True:
+    year_where = "AND cpy.year = %s" % (year,)
+  else:
+    year_where = " "
   rca_col = "null"
   if trade_flow == "net_export":
     val_col = "export_value - import_value as val"
@@ -1577,30 +1583,27 @@ def api_casy(request, trade_flow, country1, year):
 
   """Check cache"""
   if settings.REDIS:
-    #raw = get_redis_connection('default')
     raw = redis.Redis("localhost")
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)
+    if single_year:
+        key += ":%d" % int(year)
     # See if this key is already in the cache
-    #cache_query = raw.hget(key, 'data')
     cache_query = raw.get(key)
     if (cache_query == None):
 
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
-      """Add percentage value to return vals"""
-      # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
       rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[7], "rca":r[8],
              "distance":r[9],"opp_gain":r[10], "pci": r[11], "share": (r[7] / total_val)*100,
              "community_id": r[4], "color": r[5], "community_name":r[6], "code":r[2], "id": r[2]} for r in rows]
 
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+
       # SAVE key in cache.
-
-      json_response["data"] = rows
-
       raw.set(key, msgpack.dumps(rows))#, 'data', json.dumps(rows))
+      json_response["data"] = rows
 
     else:
       # If already cached, now simply retrieve
@@ -1611,9 +1614,7 @@ def api_casy(request, trade_flow, country1, year):
   else:
     rows = raw_q(query=q, params=None)
     total_val = sum([r[7] for r in rows])
-    # raise Exception(q,r,(r[7]/total_val)*100)
     """Add percentage value to return vals"""
-    # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
     rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[7], "rca":r[8],
              "distance":r[9],"opp_gain":r[10], "pci": r[11], "share": (r[7] / total_val)*100,
              "community_id": r[4], "color": r[5], "community_name":r[6], "code":r[2], "id": r[2]} for r in rows]
@@ -1640,13 +1641,10 @@ def api_casy(request, trade_flow, country1, year):
     response_json_file.write( json.dumps( json_response ) )
     response_json_file.close()
 
-  # raise Exception(time.time() - start)
   # Check the request data type
   if ( request.GET.get( 'data_type', None ) is None ):
-    #"""Return to browser as JSON for AJAX request"""
     return HttpResponse( "" )
   elif ( request.GET.get( 'data_type', '' ) == 'json' ):
-    """Return to browser as JSON for AJAX request"""
     return HttpResponse(json.dumps(json_response))
 
 def api_sapy(request, trade_flow, product, year):

@@ -177,14 +177,14 @@ function get_root(d){
 
 function update_viz(viz) {
   
-  // Make sure we don't keep some parameterd
+  // Make sure we don't keep some parameter
   queryParameters['highlight'] = "";
   var queryString = "";
   if(queryActivated) 
     queryString = "?"+$.param(queryParameters);
+
   // Fix for Firefox
-  var host = "http://" + window.location.host + "/";
-  var url = host + "explore/";
+  var url = $('base')[0].href + "explore/";
 
   var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
   current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
@@ -225,7 +225,7 @@ function update_viz(viz) {
     if(current_year2=="" && current_viz == "stacked")
       current_viz = "tree_map";
 
-    if(viz=="tree_map" || viz=="map") {
+    if(viz=="tree_map" || viz=="map" || viz=="scatterplot" || viz=="rankings") {
       current_year2 = "";
       current_viz = viz;
     }
@@ -255,6 +255,7 @@ function update_viz(viz) {
       if(current_country1=="all") {
 
         if(current_year2=="") { 
+          
           url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";         
 
         } else {
@@ -274,7 +275,7 @@ function update_viz(viz) {
         // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
         if(current_year2=="") {
 
-          if(current_viz == "tree_map")
+          if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings")
             url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";         
           else if(current_viz == "map") // Can't be a map of products
             url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";     
@@ -319,6 +320,13 @@ function update_viz(viz) {
     // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
     } else if($(".tab-trade-partner-product").find(".active").index()==1) {
 
+      if(current_country1 == current_country2) {
+
+        alert("A country cannot trade with itself. Please select another country.")
+        return;
+      }
+
+
       if(current_country2=="all") {
 
         if(current_year2=="") { 
@@ -335,25 +343,22 @@ function update_viz(viz) {
           }
         
           // http://127.0.0.1:8000/explore/stacked/export/alb/show/all/1995.2011.2/
-          //url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"
 
           url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"."+current_year2+".2/"
         } 
 
       } else {
 
-
         if(current_year2=="") { 
 
           // What did Albania export to Italy in 1995?
           // http://127.0.0.1:8000/explore/tree_map/export/alb/ita/show/1995/
-          if(current_viz == "tree_map")
+          if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings")
             url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";       
           else if(current_viz == "map") // Can't be a map of products
             url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";      
           else 
             console.log("Should not be here")
-
 
         } else {
 
@@ -384,8 +389,9 @@ function update_viz(viz) {
     }
 
      else if (current_country2!="all" && current_year2 != "") {
+
       window.location.assign(url+queryString);  
-//            alert("Please, select either a country or a time inteval, not both");
+
     } else {
 
       window.location.assign(url+queryString);            
@@ -417,8 +423,8 @@ function update_viz(viz) {
     window.location.assign(url+queryString);
 
   } else {
+
     console.log("ERROR IN SELECTING COUNTRIES/PRODUCTS TAB");
 
   }
-
 }

@@ -362,11 +362,63 @@ var flat_data,
     set_depth(nest_level)
     d3.select("#viz").call(viz.year(arg))
   }
-  
-  set_year = function(arg)
-  {
 
-    var SHOW_DIFF = true;
+  set_rankings_year = function(arg) {
+
+    
+
+  }
+  
+  set_year = function(arg) {
+
+    //var SHOW_DIFF = true;
+
+
+    if((typeof(single_year) != "undefined") && single_year) {
+
+      single_year = false;
+      d3.select("#loader").style("display", "block");
+      d3.select("#loader").append("text").text("Loading more years...")
+      d3.select("#viz").transition().style("opacity", 0)
+      // Make the AJAX call to retrieve other years
+
+      d3.json(api_uri + '&amp;data_type=json', function(raw) {
+
+        rawData = raw;
+        
+        item_type = raw["item_type"];
+        flat_data=raw["data"];
+        attr=raw["attr"];
+        attr_data = raw["attr_data"];
+        app_type= raw["app_type"];
+        prod_class = raw["prod_class"];
+        region_attrs = {};
+
+        flat_data = construct_nest(flat_data);
+
+        if(app_name=="tree_map") {
+
+        d3.select("#viz")
+           .style('height','520px')
+           .datum(flat_data)
+           .call(viz);
+
+
+        } else if(app_name=="product_space") {
+          network( api_uri + '&amp;data_type=json' );
+    
+
+        }
+        
+
+        d3.select("#loader").style("display", "none");
+        d3.select("#viz").transition().style("opacity", 1)
+        set_year(arg);
+      });
+
+
+      return;
+    }
 
     if(typeof(start_year) == "undefined")
       start_year = viz.year();
@@ -832,10 +884,8 @@ var flat_data,
 
   tree = function() {
           
-    
-
     viz = d3plus.viz();
-
+    
     viz
       .type("tree_map")
       .height(height)
@@ -910,13 +960,13 @@ var flat_data,
     
     d3.select("#loader").style("display", "none");
     highlight(queryParameters['highlight']);
+
     //d3.select("#viz").style("height", "0px");
     //d3.select("#viz svg").style("display", "none");
     //d3.select("#loader").style("display", "none");
   }
   
-  stack = function()
-  {
+  stack = function() {
 
     var years = year.split('.')  
 
@@ -942,7 +992,9 @@ var flat_data,
       //.year([years_available[0],years_available.slice(-1)[0]])
 
     d3.select("#loader").style("display", "none");
-    //highlight(queryParameters['highlight']);
+
+    if(queryActivated)
+      highlight(queryParameters['highlight']);
 
        flat_data.map(function(d){
          d.id = String(d.id)
@@ -1132,6 +1184,169 @@ var flat_data,
     }
   }
 
+
+  scatterplot = function() {
+
+    // 1-Which product classification?
+
+    // 2-Load external metadata
+
+    // 3-Init Javasript visualization
+
+    // 4-Process data (flatten, ..)
+
+    // 5-Keys, controls, ..
+
+    // 6-Init the visualization
+
+   var sample_data = [
+      {"value": 100, "weight": .45, "type": "alpha"},
+      {"value": 70, "weight": .60, "type": "beta"},
+      {"value": 40, "weight": -.2, "type": "gamma"},
+      {"value": 15, "weight": .1, "type": "delta"}
+    ]
+
+    flat_data = construct_nest(flat_data);
+   
+    // instantiate d3plus
+    var visualization = d3plus.viz()
+      .container("#viz")  // container DIV to hold the visualization
+      .data(flat_data)  // data to use with the visualization
+      .type("chart")      // visualization type
+      .id("id")         // key for which our data is unique on
+      .x("value")         // key for x-axis
+      .y("distance")        // key for y-axis
+      .legend(false)
+      .draw()             // finally, draw the visualization!
+      .height(height)
+      .width(width)
+
+
+
+    if (!embed) {
+      
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+      
+      at = d3.values(attr_data)
+      if(item_type!="country")
+      {
+        at = at.filter(function(d){return d.ps_size != undefined})
+      }
+      
+      d3.select(".key")
+        .datum(at)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
+        .year(year)
+      
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls); 
+    } 
+
+
+
+   timeline = Slider()
+          .callback('set_scatter_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          .datum(years_available)
+          .call(timeline)
+
+    d3.select("#loader").style("display", "none");  
+
+  }
+
+  rankings = function() {
+
+    var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"})//.html("Rankings")
+
+    d3.select("#loader").style("display", "none");  
+
+
+    var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
+
+    // Create
+   var table = canvas.append("table"),
+        thead = table.append("thead");
+        tbody = table.append("tbody");
+
+    thead.append("tr").selectAll("th")
+      .data(function() {
+        if(item_type=="country")
+          return ["Rank", "Abbrv", "Country", "Complexity", "Share", "Value"]
+        else
+          return ["Rank", "HS4", "Product", "Complexity", "Share", "Value"]      ;
+
+      })
+      .enter()
+      .append("th")
+      .text(function(d) { return d; });
+
+    var rows = tbody.selectAll("tr")
+      .data(d3.range(year_data.length))
+      .enter()
+      .append("tr")
+      .classed("odd", function(d, i) { return (i % 2) == 0; });
+
+    var cells = rows.selectAll("td")
+      .data(function(d) { 
+        if(item_type=="country")
+          return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+        else
+          return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+      })
+      .enter()
+      .append("td")
+      .text(function(d, i) { return d; })
+
+
+    timeline = Slider()
+          .callback('set_rankings_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+
+    d3.select("#ui_bottom").append("div")
+      .attr("class","slider")
+      .datum(years_available)
+      .call(timeline)
+
+    if (!embed) {
+      
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+      
+      at = d3.values(attr_data)
+      if(item_type!="country")
+      {
+        at = at.filter(function(d){return d.ps_size != undefined})
+      }
+      
+      d3.select(".key")
+        .datum(at)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
+        .year(year)
+      
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls); 
+    } 
+
+  }
+
+
   rings = function( req ) {
 
     (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
@@ -1228,12 +1443,7 @@ var flat_data,
         
         this_year = []
       })
-  
-      
-      format_test = function(data) {
-        // console.log(data)
-        return "Test JSON: "+data[10].name
-      }
+
       
       var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
       var max_value = d3.max(year_data, function(d, i) { return d.value})
@@ -1276,10 +1486,10 @@ var flat_data,
     
 
     d3.select("#loader").style("display", "none");  
-    highlight(queryParameters['highlight']);
+    // Causes a bug
+    //highlight(queryParameters['highlight']);
 
-
-    if(!embed){
+    if(!embed) {
       key = Key()
         .classification(rawData.class)
         .showing(item_type)
@@ -1545,8 +1755,7 @@ var flat_data,
     
   }  
   
-  map = function()
-  {
+  map = function() {
     // clean up attribute data
     // initialize the app (build it for the first time)
     app = App()
@@ -1668,19 +1877,23 @@ var flat_data,
     }
   }
 
-  function build_viz_app_original(api_uri,w,h) {
+  function build_viz_app_original(api_uri, w, h) {
 
-
-  d3.json(api_uri,function(raw) {
+  //d3.json(api_uri,function(raw) {
 
     (prod_class=="hs4") ? product_file = "media/js/data/sitc4_attr_en.json" : 
                           product_file = "media/js/data/hs4_attr_en.json"
 
     //d3.json(product_file, function(attr_data_file) {
 
+    var single_year_param = "";
 
-    d3.json(api_uri + '&amp;data_type=json',function(raw) {
+    if(app_type=="casy" && (app_name=="tree_map" || app_name=="product_space")) {
+      single_year = true;
+      single_year_param = "&amp;single_year=true";
+    }
 
+    d3.json(api_uri + '&amp;data_type=json' + single_year_param, function(raw) {
 
       // This needs to be global 
       rawData = raw;
@@ -1795,7 +2008,7 @@ var flat_data,
         // get rid of play button -->                  
         // d3.select('#play_button').style("display","none") 
 
-        if(queryParameters['cat']!="") {
+        if(queryParameters['cat']!="" && queryActivated) {
           var e = document.createEvent('UIEvents');
           e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
           d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
@@ -1865,6 +2078,22 @@ var flat_data,
         d3.select("#MDV").style("display", "none")
       }
  
+      if(app_name=="scatterplot") {
+
+
+        scatterplot();
+
+     
+
+      }
+
+
+      if(app_name=="rankings") {
+
+        rankings();
+
+
+      }
 
       // // Create Year Toggle
       // if (app_name == "tree_map") {
@@ -1912,8 +2141,7 @@ var flat_data,
       // }
     
       }) // attr  
-    }) // api_uri
- // });
+   // }) // api_uri
 
-}  
-  // 
+
+} 

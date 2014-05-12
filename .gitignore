@@ -12,3 +12,5 @@ media/data/*.store
 django_files/atlas/settings_local.py
 #virtualenv
 env/
+
+*.store
