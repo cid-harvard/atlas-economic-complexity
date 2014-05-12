@@ -15,7 +15,7 @@
   <meta name="twitter:card" content="photo">
   <meta name="twitter:site" content="@romsson">
   <meta name="twitter:creator" content="@romsson">
-  <meta name="twitter:title" content="The Atlas Of Economic Complexity{% if title %} | {{title}}{% else %}{% endif %}">
+  <meta name="twitter:title" content="{% if title %}{{title}} @Atlas_facts {% else %} The Atlas Of Economic Complexity {% endif %}">
   {% if displayviz %}
   <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
   {% else %}
@@ -1189,8 +1189,8 @@
 
   <!-- The JavaScript -->
   <!-- Libraries -->
-  <script src="{{ STATIC_URL }}js/libs/jquery/jquery-1.10.2.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
   <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
 
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
