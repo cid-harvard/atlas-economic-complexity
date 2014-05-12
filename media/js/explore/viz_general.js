@@ -362,6 +362,12 @@ var flat_data,
     set_depth(nest_level)
     d3.select("#viz").call(viz.year(arg))
   }
+
+  set_rankings_year = function(arg) {
+
+    
+
+  }
   
   set_year = function(arg) {
 
@@ -1264,7 +1270,6 @@ var flat_data,
 
     d3.select("#loader").style("display", "none");  
 
-    var headers = ["Rank", "Abbrv", "Element", "Complexity", "Share", "Value"];
 
     var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
 
@@ -1274,7 +1279,13 @@ var flat_data,
         tbody = table.append("tbody");
 
     thead.append("tr").selectAll("th")
-      .data(headers)
+      .data(function() {
+        if(item_type=="country")
+          return ["Rank", "Abbrv", "Country", "Complexity", "Share", "Value"]
+        else
+          return ["Rank", "HS4", "Product", "Complexity", "Share", "Value"]      ;
+
+      })
       .enter()
       .append("th")
       .text(function(d) { return d; });
@@ -1286,21 +1297,27 @@ var flat_data,
       .classed("odd", function(d, i) { return (i % 2) == 0; });
 
     var cells = rows.selectAll("td")
-      .data(function(d) { return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value]; })
+      .data(function(d) { 
+        if(item_type=="country")
+          return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+        else
+          return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+      })
       .enter()
       .append("td")
       .text(function(d, i) { return d; })
 
 
-   timeline = Slider()
+    timeline = Slider()
           .callback('set_rankings_year')
           .initial_value(parseInt(year))
           .max_width(670)
           .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
-          .datum(years_available)
-          .call(timeline)
+
+    d3.select("#ui_bottom").append("div")
+      .attr("class","slider")
+      .datum(years_available)
+      .call(timeline)
 
     if (!embed) {
       
