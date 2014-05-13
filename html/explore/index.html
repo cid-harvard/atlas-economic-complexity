@@ -15,7 +15,7 @@
   <meta name="twitter:card" content="photo">
   <meta name="twitter:site" content="@romsson">
   <meta name="twitter:creator" content="@romsson">
-  <meta name="twitter:title" content="The Atlas Of Economic Complexity{% if title %} | {{title}}{% else %}{% endif %}">
+  <meta name="twitter:title" content="{% if title %}{{title}} @Atlas_facts {% else %} The Atlas Of Economic Complexity {% endif %}">
   {% if displayviz %}
   <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
   {% else %}
@@ -267,11 +267,11 @@
 
             {% if app_name == 'scatterplot' or app_name == 'rankings' %}
               <label value="scatterplot" class="btn btn-default {% if app_name == 'scatterplot' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Scatter Plot" >
-              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:38px;"/>
+              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/scatterplot-thumb.png" style="width:38px;"/>
               </label>
 
               <label value="rankings" class="btn btn-default {% if app_name == 'rankings' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Rankings" >
-              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:38px;"/>
+              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/rankings-thumb.png" style="width:38px;"/>
               </label>
             {% endif %}
           </div>
@@ -417,8 +417,8 @@
 
         <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh over-time tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top"style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-        <div class="dropdown_container " id="year1" style="float:left; margin-left:10px;">
-           <select data-url_pos="5" id="year1_select" style="width:80px"  data-placeholder="All Countries">
+        <div id="year1" style="float:left; margin-left:10px;">
+           <select data-url_pos="5" id="year1_select" class="chosen-select-deselect" data-placeholder="All Countries" style="width:80px;">
             {% for y in year1_list %}
             {% if y == year or y == year_start %}
             <option value="{{y}}" selected="selected">{{ y }}</option>
@@ -442,7 +442,8 @@
           </select>
         </div>
       </div>
-      <div class="tab-pane" id="country-over-time">
+
+<!--       <div class="tab-pane" id="country-over-time">
 
         <div class="product_class" style="float:left; margin-left:10px;">
            <select data-url_pos="5" id="year1_select" style="width:80px">
@@ -468,7 +469,7 @@
           </select>
         </div>
 
-      </div>
+      </div> -->
     </div>
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs">
@@ -1189,8 +1190,8 @@
 
   <!-- The JavaScript -->
   <!-- Libraries -->
-  <script src="{{ STATIC_URL }}js/libs/jquery/jquery-1.10.2.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
   <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
 
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
