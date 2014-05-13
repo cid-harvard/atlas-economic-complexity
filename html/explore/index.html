@@ -660,7 +660,7 @@
           <style type="text/css">.contentInner{height:300px;} #timeline{min-height: 227px}</style>
           <div>
 
-          <div  style="float:left; width:100%; ">
+          <div id="stacked_controls" style="float:left; width:100%; ">
           
           <div class="row">
             <div class="vizControl col-md-4">
@@ -700,24 +700,24 @@
             </div>  
           </div>
           {% if app_type != "sapy" %} 
-          <div class="ui_bottom_row">
-            <div class="row">
+          <div class="ui_bottom_row row">
+  
               <div class="vizControl col-md-8">
                 <span class="definition" style="font-weight:bold;">Adjust:</span>
-                <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-                  <label class="btn btn-default active">
-                    <input type="radio" id="current" name="capita" checked="checked"> Current
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" id="notpc_constant" name="capita"> Constant
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" id="pc_current" name="capita"> Per Capita Current
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
-                  </label>
-                </div>
+<div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+              <label class="btn btn-default active">
+                <input type="radio" id="current" name="capita" checked="checked"> Current
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="notpc_constant" name="capita"> Constant
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="pc_current" name="capita"> Per Capita Current
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
+              </label>
+            </div>
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
@@ -761,7 +761,7 @@
                 </span>
 
               </div>              
-            </div> 
+
           </div> 
 
             {% endif %}
@@ -817,10 +817,10 @@
               <span class="definition" style="font-weight:bold;">X-Axis: </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
                 <label class="btn btn-default active" id="complexity" name="yvar" >
-                  <input type="radio" id="complexity" name="yvar"> Complexity
+                  <input type="radio" id="complexity" name="yvar"> Distance
                 </label>
                 <label class="btn btn-default" id="opp_gain" >
-                  <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
+                  <input type="radio" id="opp_gain" name="yvar"> PCI
                 </label>
               </div>
             </div>
@@ -836,6 +836,44 @@
                 </label>
               </div>
             </div>
+
+            <div class="product_class" style="float:left;">
+            <span class="definition">Size by: </span>
+            <div class="btn-group node_size" data-toggle="buttons" >
+              <label type="button" class="btn btn-default active" value="none">
+                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
+              </label> 
+              <label type="button" class="btn btn-default" value="world_trade">
+                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
+              </label>
+            </div>
+          </div>
+
+       <p style="clear:both">
+
+          <div class="product_class" style="float:left;">
+            <span class="definition">Color by: </span>
+            <div class="btn-group node_size" data-toggle="buttons" >
+              <label type="button" class="btn btn-default active" value="none">
+                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
+              </label> 
+              <label type="button" class="btn btn-default" value="world_trade">
+                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> Category
+              </label>
+            </div>
+          </div>
+
+            <div class="product_class" style="float:left;">
+            <span class="definition">Scale: </span>
+            <div class="btn-group node_size" data-toggle="buttons" >
+              <label type="button" class="btn btn-default active" value="none">
+                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> Linear
+              </label> 
+              <label type="button" class="btn btn-default" value="world_trade">
+                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> Log
+              </label>
+            </div>
+          </div>
 
           {% endif %}
 
@@ -872,6 +910,7 @@
               </label>
             </div>
           </div>
+
 
           <script>
             function updateRCA(v) {
@@ -1256,6 +1295,11 @@
 
   {% endif %}
 
+  {% if app_name == "rankings" %}
+
+    <script src="media/js/libs/sorttable/sorttable.js"></script>
+  
+  {% endif %}
 
 
   <script src="{{ STATIC_URL }}js/explore/viz_general.js"></script> 
