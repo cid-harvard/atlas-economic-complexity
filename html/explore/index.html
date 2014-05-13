@@ -659,7 +659,7 @@
           <style type="text/css">.contentInner{height:300px;} #timeline{min-height: 227px}</style>
           <div>
 
-          <div  style="float:left; width:100%; ">
+          <div id="stacked_controls" style="float:left; width:100%; ">
           
           <div class="row">
             <div class="vizControl col-md-4">
@@ -699,24 +699,24 @@
             </div>  
           </div>
           {% if app_type != "sapy" %} 
-          <div class="ui_bottom_row">
-            <div class="row ">
+          <div class="ui_bottom_row row">
+  
               <div class="vizControl col-md-8">
                 <span class="definition" style="font-weight:bold;">Adjust:</span>
-                <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-                  <label class="btn btn-default active">
-                    <input type="radio" id="current" name="capita" checked="checked"> Current
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" id="notpc_constant" name="capita"> Constant
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" id="pc_current" name="capita"> Per Capita Current
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
-                  </label>
-                </div>
+<div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+              <label class="btn btn-default active">
+                <input type="radio" id="current" name="capita" checked="checked"> Current
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="notpc_constant" name="capita"> Constant
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="pc_current" name="capita"> Per Capita Current
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
+              </label>
+            </div>
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
@@ -760,7 +760,7 @@
                 </span>
 
               </div>              
-            </div> 
+
           </div> 
 
             {% endif %}
