@@ -1073,7 +1073,7 @@ var flat_data,
           $("#stacked_labels").buttonset();
           $("#stacked_order").buttonset();
           $("#stacked_layout").buttonset();
-                                  $("#stacked_capita").buttonset();
+          $("#stacked_capita").buttonset();
           $("#stacked_controls input[type='radio']").change(function(e){
             if($(e.target).attr("name") == "labels"){
               ($(e.target).attr("id")=="false") ? d3.select("#viz").call(viz.labels(false)) :
