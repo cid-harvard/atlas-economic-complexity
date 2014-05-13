@@ -15,7 +15,8 @@ from django.utils.translation import get_language_info
 from django.conf import settings
 # App specific
 from observatory.models import *
-
+import logging
+logger = logging.getLogger(__name__)
 # Create the store static command
 class Command( BaseCommand ):
     help = 'Generate the JSON & SVG data for provided url'
@@ -46,6 +47,8 @@ class Command( BaseCommand ):
             os.remove( static_json_data )
         
     def save_svg( self, page_url, file_name ):
+
+	logger.info("Creating Visulization - " + file_name) 
         # Let us setup the phantomjs script arguments
         phantom_arguments = [ settings.PHANTOM_JS_EXECUTABLE, settings.PHANTOM_JS_SCRIPT, settings.DATA_FILES_PATH + "/" + file_name, page_url ]
         
@@ -58,10 +61,16 @@ class Command( BaseCommand ):
         phantom_execute = Popen( phantom_arguments )
         
         # Get the output data from the phantomjs execution
-        execution_results = phantom_execute.communicate()
-        
+        try:
+            execution_results = phantom_execute.communicate()
+	    return True
+  	except:
+ 	      self.stdout.write( "RunTime Error" )
+              self.stdout.write( "\n" )
+ 	      logger.error( "RunTime Error") 
+        return False
         # Print the stdout data
-        #print execution_results[0]
+        print execution_results[0]
         
         # Wait until the SVG file is actually generated
         while ( os.path.exists( settings.DATA_FILES_PATH + "/" + file_name ) != True ):
@@ -92,13 +101,13 @@ class Command( BaseCommand ):
 
         # Close the file now
         svgFile.close()
-            
+
     def save_png( self, file_name ):
         # Get the SVG data
         svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "r" )
         svg_data = svg_file.read()
         # Create the blank image surface
-        img = cairo.ImageSurface( cairo.FORMAT_ARGB32, 750, 480 )
+        img = cairo.ImageSurface( cairo.FORMAT_ARGB32, settings.EXPORT_IMAGE_WIDTH, settings.EXPORT_IMAGE_HEIGHT )
 
         # Get the context
         ctx = cairo.Context( img )
@@ -109,3 +118,5 @@ class Command( BaseCommand ):
 
         # Create the final png image
         final_png = img.write_to_png( settings.DATA_FILES_PATH + "/" + file_name + ".png" )
+
+	logger.info("SVG and PNG Created")
