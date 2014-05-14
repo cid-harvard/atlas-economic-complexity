@@ -139,6 +139,7 @@ font.definition:hover{
  */
 header {
   margin: 0 0 0 0;
+  height: 66px;
 }
 header .logo {
   float: left;
@@ -235,7 +236,7 @@ header h1 a img {
   border: 0px solid black;
   margin: 0;
   margin-bottom: 10px;
-  overflow: hidden; /* to clear floats */
+  overflow: visible; /* to clear floats */
   width: 100%; /* to clear floats */
 }
 
@@ -442,7 +443,7 @@ text-decoration: none;
   border-radius: 0 10px 10px 0;
   font-size:90%;
   float: left;
-  z-index: 0;
+  z-index: 10000;
 
 }
 .app #main #tool_pane > *{
@@ -582,21 +583,39 @@ text-decoration: none;
 
 /*
  * Center of the page, app canvas
- */  
+ */ 
+#aboutContent{
+  float: none;
+  margin-left: 268px;
+  background-color: #ffffff;
+  border: solid 1px #cccccc;
+  padding:20px;
+  position: relative;
+  top:43px;
+} 
 .app #main #content {
-  background-color: #fff;
-  border: 1px solid #cccccc;
-  border-radius: 0 0 10px 10px !important;
   float: left;
-  overflow: visible;
+  overflow:hidden;
   padding: 0 !important;
   width: 850px;
   z-index: 10;
+  margin-bottom: 30px;
 }
-
+.app #main #content .contentInner{
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border-radius: 0 0 10px 10px !important;
+  overflow: visible;
+  height: 300px;
+}
+.app #main #content .contentViz{
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border-bottom: none;
+  overflow: hidden;  
+}
 .app #main #content #viz {
   height: 380px;
-  border-bottom: 1px solid #cccccc;
   position: relative;
 }
 
@@ -668,11 +687,16 @@ text-decoration: none;
 /*
  * Timeline
  */
+ .vizControl .definition{
+  font-size: 13px;
+ }
 .app #main #content #timeline {
   min-height: 137px;
-  height: auto;
   padding: 0px 10px 10px 10px;
   overflow: visible;
+}
+.app #main #content #timeline .row{
+  margin-bottom:20px;
 }
 .app #main #content #timeline button{
   float: left;
@@ -763,12 +787,18 @@ text-decoration: none;
 /*
  * Bottom of page footer
  */
-
+.app footer{
+  padding: 0px 20px;
+  width:750px;
+  text-align: center;
+  margin-top: 20px;
+  position: relative;
+  bottom: 0px;
+}
 footer p {
   font-size: 80%;
   padding-bottom: 10px;
   text-align: center;
-
 }
 
 footer p img{
@@ -781,13 +811,6 @@ footer.credits {
 
 footer.logos {
   margin-left:100px;
-}
-.app footer{
-  width:750px;
-  text-align: center;
-  margin-left:232px;
-  margin-right: 260px;
-  margin-top: 20px;
 }
 #sticky-anchor {
   margin-top:40px;
@@ -922,16 +945,6 @@ footer.logos {
   margin: 0;
 }
 
-#main #content {
-  background-color: #fff;
-  border: 1px solid #cccccc;
-  border-radius: 0 10px 10px 0;
-  float: left;
-  overflow: hidden;
-  padding: 10px;
-  width: 700px;
-  z-index: 10;
-}
 dl.file_list dd {
   overflow: hidden;
 }
@@ -946,7 +959,10 @@ dl.file_list p {
   width: 250px;
   vertical-align: top;
 }
+.atlas_book_content{
+  overflow: auto;
 
+}
 #main #content .atlas_book_content img{
   margin: 20px 60px;
 }
@@ -1961,3 +1977,170 @@ p .gTerm{
   max-height: 75px;
 }
 
+table {
+  margin: 70px 0 30px 0;
+  width: 100%;
+}
+table thead th{
+  border-bottom: 1px solid #999;
+  cursor: pointer;
+  text-align: left;
+/*  padding: 0 12px 0 0;*/
+}
+table thead th a{
+  font-weight: normal;
+  color: #666;
+}
+table thead th.sorttable_sorted,
+table thead th.sorttable_sorted_reverse{
+/*  padding: 0;*/
+}
+table thead th.sorttable_sorted a,
+table thead th.sorttable_sorted_reverse a{
+  color: black;
+  font-weight: bold;
+}
+table tbody tr th:nth-child(1),
+table tbody tr td:nth-child(1) {
+  width: 60px;
+}
+table tbody tr th:nth-child(2),
+table tbody tr td:nth-child(2) {
+  width: 60px;
+}
+table tbody tr th:nth-child(3),
+table tbody tr td:nth-child(3) {
+  width: 420px;
+}
+table tbody tr th:nth-child(4),
+table tbody tr td:nth-child(4) {
+  width: 80px;
+}
+table tbody tr th:nth-child(5),
+table tbody tr td:nth-child(5) {
+  width: 10px;
+}
+table tbody tr th:nth-child(6),
+table tbody tr td:nth-child(6) {
+  width: 50px;
+}
+table tbody tr td:nth-child(1) {
+  text-align: center;
+  padding: 4px;
+}
+table tbody tr td {
+  border-bottom: 1px solid #ddd;
+}
+table tbody tr td span {
+  display: block;
+  padding: 2px;
+  width: 20px;
+}
+.arrow_up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid green;
+}
+.arrow_down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid red;
+}
+.sort_arrow_down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+  display: inline;
+/*  font-size: 4px;*/
+  position: relative;
+  top: 12px;
+  margin: 0 0 0 4px;
+}
+.sort_arrow_up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  display: inline;
+/*  font-size: 4px;*/
+  position: relative;
+  bottom: 12px;
+  margin: 0 0 0 4px;
+}
+
+#tfViz label{
+  margin-top: 10px;
+}
+.dropdown {
+  display: inline;
+  float: left;
+/*  margin: 6px 0;*/
+  font-size: 34px;
+  margin: 0 200px;
+  text-align: center;
+  z-index: 99;
+}
+.dropdown dt{
+  display: inline;
+}
+.q {
+  float: left;
+}
+.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
+.dropdown dd { position:relative; }
+.dropdown a, .dropdown a:visited { 
+  text-decoration:none;
+  outline:none;
+  text-align: left;
+}
+.dropdown a:hover {
+/*      color:#5d4617;*/
+}
+.dropdown dt a:hover {
+/*      color:#5d4617;*/
+  border: 1px solid #666;
+}
+.dropdown dt a {
+  /*font-family: 'Cardo', serif, 'Times';*/
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 36px;
+  
+  background: url("media/img/all/arrow.png") no-repeat scroll right center;
+  padding-right: 20px;
+  border: 1px solid #bbb;
+  width: 150px;
+}
+.dropdown dt a span {
+  cursor: pointer; 
+/*    display: inline-block;*/
+  padding: 5px;
+}
+.dropdown dd ul { 
+  background: white none repeat scroll 0 0;
+  border: 1px solid #efefef;
+  display: none;
+  left: 0px;
+  padding: 5px 0px;
+  position: absolute;
+  top: 2px;
+  width: auto;
+  min-width: 90px;
+  list-style: none;
+  height: 200px;
+  overflow-y: scroll;
+}
+.dropdown span.value { display:none; }
+.dropdown dd ul li a { padding:5px; display:block;}
+.dropdown dd ul li a:hover { background-color:#eee;}
+
+table tr.odd {
+  background-color: #EEE;
+}

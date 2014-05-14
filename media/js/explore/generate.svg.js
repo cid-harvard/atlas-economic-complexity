@@ -42,7 +42,7 @@ function waitFor(testFx, onReady, timeOutMillis) {
                     clearInterval(interval); //< Stop this interval
                 }
             }
-        }, 250); //< repeat check every 250ms
+        }, 750); //< repeat check every 750ms
 };
 
 // Parse command line arguments
