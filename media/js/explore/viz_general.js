@@ -363,6 +363,10 @@ var flat_data,
     d3.select("#viz").call(viz.year(arg))
   }
 
+  create_rankings = function(year) {
+
+  }
+
   set_rankings_year = function(arg) {
 
     
@@ -1069,7 +1073,7 @@ var flat_data,
           $("#stacked_labels").buttonset();
           $("#stacked_order").buttonset();
           $("#stacked_layout").buttonset();
-                                  $("#stacked_capita").buttonset();
+          $("#stacked_capita").buttonset();
           $("#stacked_controls input[type='radio']").change(function(e){
             if($(e.target).attr("name") == "labels"){
               ($(e.target).attr("id")=="false") ? d3.select("#viz").call(viz.labels(false)) :
@@ -1199,17 +1203,42 @@ var flat_data,
 
     // 6-Init the visualization
 
-   var sample_data = [
-      {"value": 100, "weight": .45, "type": "alpha"},
-      {"value": 70, "weight": .60, "type": "beta"},
-      {"value": 40, "weight": -.2, "type": "gamma"},
-      {"value": 15, "weight": .1, "type": "delta"}
-    ]
 
     flat_data = construct_nest(flat_data);
+
+    if(item_type=="country") {
+
+
+      flat_data = flat_data.filter(function(d){ return d.year == year})
+     
+      var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
+
+      // instantiate d3plus
+      viz = d3plus.viz()
+        .container("#viz")  // container DIV to hold the visualization
+        .data(flat_data)  // data to use with the visualization
+        .type("chart")      // visualization type
+        .id("id")         // key for which our data is unique on
+        .x("value")         // key for x-axis
+        .y("share")        // key for y-axis
+        .legend(false)
+        .text("name")
+        .size("value")
+        .draw()             // finally, draw the visualization!
+        .height(height)
+        .width(width)
+
+
+    } else {
+
+
+
+    flat_data = flat_data.filter(function(d){ return d.share > .075 && d.year == year})
    
+var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
+
     // instantiate d3plus
-    var visualization = d3plus.viz()
+    viz = d3plus.viz()
       .container("#viz")  // container DIV to hold the visualization
       .data(flat_data)  // data to use with the visualization
       .type("chart")      // visualization type
@@ -1217,9 +1246,18 @@ var flat_data,
       .x("value")         // key for x-axis
       .y("distance")        // key for y-axis
       .legend(false)
+      .text("name")
+      .size("rca")
+      .descs({"short": ["id"],"long": ["distance"]})
+      .style({"labels": {"align": "start"}})
+      .tooltip({"short": ["id"],"long": ["distance"]})
       .draw()             // finally, draw the visualization!
       .height(height)
       .width(width)
+
+
+    }
+
 
 
 
@@ -1264,6 +1302,8 @@ var flat_data,
 
   }
 
+
+
   rankings = function() {
 
     var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"})//.html("Rankings")
@@ -1274,8 +1314,8 @@ var flat_data,
     var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
 
     // Create
-   var table = canvas.append("table"),
-        thead = table.append("thead");
+   var table = canvas.append("table").attr("class", "sortable"),
+        thead = table.append("thead"),
         tbody = table.append("tbody");
 
     thead.append("tr").selectAll("th")
@@ -1288,6 +1328,12 @@ var flat_data,
       })
       .enter()
       .append("th")
+      .attr("class", function(d) {
+        if(d=="Rank")
+          return "sorttable_sorted"
+        else 
+          return "sort"
+      })
       .text(function(d) { return d; });
 
     var rows = tbody.selectAll("tr")
@@ -1299,9 +1345,9 @@ var flat_data,
     var cells = rows.selectAll("td")
       .data(function(d) { 
         if(item_type=="country")
-          return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+          return [d+1, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
         else
-          return [d, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+          return [d+1, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
       })
       .enter()
       .append("td")

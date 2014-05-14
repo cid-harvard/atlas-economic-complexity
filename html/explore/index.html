@@ -1,3 +1,4 @@
+
 {% load i18n %}
 {% load humanize %}
 <!DOCTYPE html>
@@ -659,7 +660,7 @@
           <style type="text/css">.contentInner{height:300px;} #timeline{min-height: 227px}</style>
           <div>
 
-          <div  style="float:left; width:100%; ">
+          <div id="stacked_controls" style="float:left; width:100%; ">
           
           <div class="row">
             <div class="vizControl col-md-4">
@@ -699,24 +700,24 @@
             </div>  
           </div>
           {% if app_type != "sapy" %} 
-          <div class="ui_bottom_row">
-            <div class="row">
+          <div class="ui_bottom_row row">
+  
               <div class="vizControl col-md-8">
                 <span class="definition" style="font-weight:bold;">Adjust:</span>
-                <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-                  <label class="btn btn-default active">
-                    <input type="radio" id="current" name="capita" checked="checked"> Current
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" id="notpc_constant" name="capita"> Constant
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" id="pc_current" name="capita"> Per Capita Current
-                  </label>
-                  <label class="btn btn-default">
-                    <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
-                  </label>
-                </div>
+<div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+              <label class="btn btn-default active">
+                <input type="radio" id="current" name="capita" checked="checked"> Current
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="notpc_constant" name="capita"> Constant
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="pc_current" name="capita"> Per Capita Current
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
+              </label>
+            </div>
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
@@ -760,7 +761,7 @@
                 </span>
 
               </div>              
-            </div> 
+
           </div> 
 
             {% endif %}
@@ -816,10 +817,10 @@
               <span class="definition" style="font-weight:bold;">X-Axis: </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
                 <label class="btn btn-default active" id="complexity" name="yvar" >
-                  <input type="radio" id="complexity" name="yvar"> Complexity
+                  <input type="radio" id="complexity" name="yvar"> Distance
                 </label>
                 <label class="btn btn-default" id="opp_gain" >
-                  <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
+                  <input type="radio" id="opp_gain" name="yvar"> PCI
                 </label>
               </div>
             </div>
@@ -835,6 +836,44 @@
                 </label>
               </div>
             </div>
+
+            <div class="product_class" style="float:left;">
+            <span class="definition">Size by: </span>
+            <div class="btn-group node_size" data-toggle="buttons" >
+              <label type="button" class="btn btn-default active" value="none">
+                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
+              </label> 
+              <label type="button" class="btn btn-default" value="world_trade">
+                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
+              </label>
+            </div>
+          </div>
+
+       <p style="clear:both">
+
+          <div class="product_class" style="float:left;">
+            <span class="definition">Color by: </span>
+            <div class="btn-group node_size" data-toggle="buttons" >
+              <label type="button" class="btn btn-default active" value="none">
+                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
+              </label> 
+              <label type="button" class="btn btn-default" value="world_trade">
+                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> Category
+              </label>
+            </div>
+          </div>
+
+            <div class="product_class" style="float:left;">
+            <span class="definition">Scale: </span>
+            <div class="btn-group node_size" data-toggle="buttons" >
+              <label type="button" class="btn btn-default active" value="none">
+                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> Linear
+              </label> 
+              <label type="button" class="btn btn-default" value="world_trade">
+                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> Log
+              </label>
+            </div>
+          </div>
 
           {% endif %}
 
@@ -871,6 +910,7 @@
               </label>
             </div>
           </div>
+
 
           <script>
             function updateRCA(v) {
@@ -1117,19 +1157,15 @@
           <i class="fa fa-envelope fa-lg"></i>
         </a>
 
-    </div> 
-     {% if isbrowsemode %}
-     {% else %}   
-
-
-	<!--   DOWNLOAD OPTIONS // TO BE IMPLEMENTED SOON
-
-        <div class="control_container" id="download">
+      </div> 
+      {% if isbrowsemode %}
+      {% else %}   
+	<div class="control_container" id="download">
           <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">{% trans "Download" %}</h4>
-          <a class="pdf" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PDF</a>
-          <a class="svg" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> SVG</a>
-        <a class="png" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PNG</a>
-          <a class="csv" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> CSV</a>
+        <a class="pdf" href="#"><img src="{{ STATIC_URL }}img/app/download.png" /> PDF</a>
+          <a class="svg" href="#"><img src="{{ STATIC_URL }}img/app/download.png" /> SVG</a>
+         <a class="png" href="#"><img src="{{ STATIC_URL }}img/app/download.png" /> PNG</a>
+         <!-- <a class="csv" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> CSV</a>-->
        </div>
 	<form class="download" method="POST" action="download/">
       {% csrf_token %}
@@ -1137,7 +1173,7 @@
       <input type="hidden" name="title" value="" />
       <input type="hidden" name="format" value="svg" />
       <input type="hidden" name="content" value="" />
-    </form>-->
+    </form>
   <!--  <div id = "downloadPlaceholder" >
     
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>    
@@ -1259,6 +1295,11 @@
 
   {% endif %}
 
+  {% if app_name == "rankings" %}
+
+    <script src="media/js/libs/sorttable/sorttable.js"></script>
+  
+  {% endif %}
 
 
   <script src="{{ STATIC_URL }}js/explore/viz_general.js"></script> 

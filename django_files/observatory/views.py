@@ -28,6 +28,7 @@ from django.forms import ModelForm
 import msgpack
 import re
 import fpe
+import time
 # Import for cache
 if settings.REDIS:
   from django.core.cache import cache, get_cache
@@ -674,6 +675,62 @@ def browseStoryPrev(request):
   chapterUrl=chapterDetails.chapter_url
   return redirect(chapterUrl)
 
+#Static Images
+
+def url_to_filename(request,Url):
+  # set language (if session data available use that as default)
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  # set product classification (if session data available use that as default)
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("product_classification", prod_class)
+  #Get session parameters
+  language=lang
+  # Split the array to get the parts we want
+  full_url=Url.split('explore/')
+  localhost=full_url[0]
+  url_content = full_url[1]
+  # Split the array to get the parts we want
+  url =  url_content.split('/')
+  static_image_name = '_'.join(url)
+  response = static_image_name
+  return response
+
+def filename_to_url(request, FileName):
+  # set language (if session data available use that as default)
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  # set product classification (if session data available use that as default)
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("product_classification", prod_class)
+  #Get session parameters
+  language=lang
+  # Split the array to get the parts we want
+  data=FileName.split('_')
+  app_name1=data[0]
+  app_name2=data[1]
+  if app_name1 == "stacked" or "map":
+     app_name= data[0]
+     del data[0]
+     del data[1]
+     url='/'.join(data)
+     # Build the url
+     url = app_name + "/" + url
+     full_url = request.META['HTTP_HOST'] + '/explore/' + url
+     response = full_url
+     return response
+
+  if app_name1 == "tree" or "pie" or "product":
+     app_name = data[0] + "_" + data[1]
+     del data[0]
+     del data[1]
+     url = '/'.join(data)
+     # Build the url
+     url = app_name + "/" + url
+     full_url = request.META['HTTP_HOST'] + '/explore/' + url
+     response = full_url
+     return response
+
 def endbrowse(request):
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
@@ -799,10 +856,7 @@ def set_product_classification(request, prod_class):
   return response
 
 def download(request):
-  try:
-    import cairo, rsvg, xml.dom.minidom
-  except:
-    pass
+  import cairo, rsvg, xml.dom.minidom
   import csv
   #raise Exception(request.POST)
   content = request.POST.get("content")
@@ -813,8 +867,8 @@ def download(request):
 
   if format == "svg" or format == "pdf" or format == "png":
     svg = rsvg.Handle(data=content.encode("utf-8"))
-    x = width = svg.props.width
-    y = height = svg.props.height
+    x = settings.EXPORT_IMAGE_WIDTH
+    y = settings.EXPORT_IMAGE_HEIGHT
 
   if format == "svg":
     response = HttpResponse(content.encode("utf-8"), mimetype="application/octet-stream")
@@ -1088,13 +1142,14 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   # We are here, so let us store this data somewhere
   request_hash_string = "_".join( request_hash_dictionary.values() )
+
   # Check staic image mode
-  if( settings.STATIC_IMAGE_MODE == "PNG" ):
+  if( settings.STATIC_IMAGE_MODE == "SVG" ):
     # Check if we have a valid PNG image to display for this
-    if os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".png"):
+    if os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg"):
         # display the  static images
         displayviz = True
-        displayImage = settings.STATIC_URL + "data/" + request_hash_string + ".png"
+        displayImage = settings.STATIC_URL + "data/" + request_hash_string + ".svg"
     else:
         displayviz=False
         displayImage = settings.STATIC_URL + "img/all/loader.gif"
@@ -1285,6 +1340,18 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   else:
     product_list = Hs4.objects.get_all(lang)
 
+  # Record views in redis for "newest viewed pages" visualization
+  if settings.REDIS:
+    views_image_path = settings.STATIC_URL + "data/" + request_hash_string + ".svg"
+    view_data = {
+      "timestamp": time.time(),
+      "image": views_image_path,
+      "title": title
+    }
+    raw = redis.Redis("localhost", db=1)
+    raw.rpush("views", json.dumps(view_data))
+
+
   return render_to_response("explore/index.html", {
     "displayviz":displayviz,
     "displayImage":displayImage,
@@ -1425,7 +1492,6 @@ def api_casy(request, trade_flow, country1, year):
 
   # We are here, so let us store this data somewhere
   request_hash_string = "_".join( request_hash_dictionary.values() ) #base64.b64encode( request_unique_hash )
-
   # Setup the store data
   store_data = request.build_absolute_uri().replace( "product_classification", "prod_class" ) + "||"
   store_page_url = request.build_absolute_uri().replace( "/api/", "/explore/" + app_name + "/" )
@@ -2403,7 +2469,10 @@ def embed(request, app_name, trade_flow, country1, country2, product, year):
   return render_to_response("explore/embed.html", {"app":app_name, "trade_flow": trade_flow, "country1":country1, "country2":country2, "product":product, "year":year, "other":json.dumps(query_string),"years_available":json.dumps(years_available), "lang":lang})
 
 
-
+def api_views(request):
+  r = redis.Redis(db=1)
+  recent_views = r.lrange("views", -5, -1)
+  return HttpResponse("[%s]" % ",".join(recent_views))
 
 
 
