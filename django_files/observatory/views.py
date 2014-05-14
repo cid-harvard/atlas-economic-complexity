@@ -28,6 +28,7 @@ from django.forms import ModelForm
 import msgpack
 import re
 import fpe
+import time
 # Import for cache
 if settings.REDIS:
   from django.core.cache import cache, get_cache
@@ -676,7 +677,7 @@ def browseStoryPrev(request):
 
 #Static Images
 
-def url_to_filename(request,Url): 
+def url_to_filename(request,Url):
   # set language (if session data available use that as default)
   lang = request.session['django_language'] if 'django_language' in request.session else "en"
   lang = request.GET.get("lang", lang)
@@ -712,20 +713,20 @@ def filename_to_url(request, FileName):
      app_name= data[0]
      del data[0]
      del data[1]
-     url='/'.join(data)   
+     url='/'.join(data)
      # Build the url
-     url = app_name + "/" + url 
+     url = app_name + "/" + url
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response
-  
+
   if app_name1 == "tree" or "pie" or "product":
-     app_name = data[0] + "_" + data[1]     
+     app_name = data[0] + "_" + data[1]
      del data[0]
      del data[1]
      url = '/'.join(data)
      # Build the url
-     url = app_name + "/" + url 
+     url = app_name + "/" + url
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response
@@ -871,7 +872,7 @@ def download(request):
 
   if format == "svg":
     response = HttpResponse(content.encode("utf-8"), mimetype="application/octet-stream")
-    
+
   elif format == "pdf":
     response = HttpResponse(mimetype='application/pdf')
     surf = cairo.PDFSurface(response, x, y)
@@ -1141,6 +1142,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   # We are here, so let us store this data somewhere
   request_hash_string = "_".join( request_hash_dictionary.values() )
+
   # Check staic image mode
   if( settings.STATIC_IMAGE_MODE == "SVG" ):
     # Check if we have a valid PNG image to display for this
@@ -1338,6 +1340,18 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   else:
     product_list = Hs4.objects.get_all(lang)
 
+  # Record views in redis for "newest viewed pages" visualization
+  if settings.REDIS:
+    views_image_path = settings.STATIC_URL + "data/" + request_hash_string + ".svg"
+    view_data = {
+      "timestamp": time.time(),
+      "image": views_image_path,
+      "title": title
+    }
+    raw = redis.Redis("localhost", db=1)
+    raw.rpush("views", json.dumps(view_data))
+
+
   return render_to_response("explore/index.html", {
     "displayviz":displayviz,
     "displayImage":displayImage,
@@ -1485,7 +1499,7 @@ def api_casy(request, trade_flow, country1, year):
   store_page_url = store_page_url.replace( "product_classification", "prod_class" )
   store_data = store_data + store_page_url + "||"
   store_data = store_data + request_hash_string
-    
+
   # Write the store data to file
   store_file = open( settings.DATA_FILES_PATH + "/" + request_hash_string + ".store", "w+" )
   store_file.write( store_data )
@@ -2455,7 +2469,10 @@ def embed(request, app_name, trade_flow, country1, country2, product, year):
   return render_to_response("explore/embed.html", {"app":app_name, "trade_flow": trade_flow, "country1":country1, "country2":country2, "product":product, "year":year, "other":json.dumps(query_string),"years_available":json.dumps(years_available), "lang":lang})
 
 
-
+def api_views(request):
+  r = redis.Redis(db=1)
+  recent_views = r.lrange("views", -5, -1)
+  return HttpResponse("[%s]" % ",".join(recent_views))
 
 
 
