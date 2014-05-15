@@ -81,10 +81,14 @@ def get_rankings(category, year):
 
     if category == "country":
         year_rankings = Cy.objects.filter(
-            year__in=[
-                year,
-                year-1],
-            eci_rank__isnull=False).values_list(
+            year__in=[year, year-1],
+            country__name_3char__isnull=False,
+            country__name_2char__isnull=False,
+            country__region__isnull=False,
+            eci_rank__isnull=False
+        ).exclude(
+            eci_rank=0
+        ).values_list(
             "eci_rank",
             "country__name_3char",
             "country__name_en",
@@ -92,25 +96,32 @@ def get_rankings(category, year):
             "year")
     elif category == "product":
         year_rankings = Hs4_py.objects.filter(
-            year__in=[
-                year,
-                year -
-                1]).values_list(
+            year__in=[year, year-1]
+        ).values_list(
             "pci_rank",
             "product__code",
             "product__name_en",
             "pci",
             "year")
 
+    # Generate a new dict that looks like:
+    # u'KGZ': {2009: (145L, u'KGZ', u'Kyrgyzstan', -0.4462921, 2009),
+    # 2010: (177L, u'KGZ', u'Kyrgyzstan', -0.9471428, 2010)}
     for r in year_rankings:
         rankings[r[1]][r[4]] = r
+
+    # Generate a list that looks like:
+    # [[219L, u'AGO', u'Angola', -1.937705, -61L],
+    # [169L, u'DZA', u'Algeria', -0.8050764, -20L]]
     for r in rankings.values():
+
         if year-1 in r and year in r:
-            rankings_list.append(
-                [r[year][0], r[year][1], r[year][2], r[year][3],
-                 r[year - 1][0] - r[year][0]])
-        elif year-1 not in r:
-            rankings_list.append(
-                [r[year][0], r[year][1], r[year][2], r[year][3], 0])
+            delta = r[year - 1][0] - r[year][0]
+        else:
+            delta = 0
+
+        rankings_list.append([r[year][0], r[year][1], r[year][2], r[year][3],
+                              delta])
+
     rankings_list.sort(key=lambda x: x[0])
     return rankings_list
