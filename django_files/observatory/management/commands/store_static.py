@@ -103,9 +103,14 @@ class Command( BaseCommand ):
         svgFile.close()
 
     def save_png( self, file_name ):
-        # Get the SVG data
-        svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "r" )
-        svg_data = svg_file.read()
+        # Get the SVG data. Defensive code to prevent code freeze in case of corrupt svg data
+        try:
+            svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "r" )
+            svg_data = svg_file.read()
+        except:
+            logger.error("Error reading the SVG ")
+   	    return False 
+
         # Create the blank image surface
         img = cairo.ImageSurface( cairo.FORMAT_ARGB32, settings.EXPORT_IMAGE_WIDTH, settings.EXPORT_IMAGE_HEIGHT )
 
