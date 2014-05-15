@@ -1342,7 +1342,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   # Record views in redis for "newest viewed pages" visualization
   if settings.REDIS:
-    views_image_path = settings.STATIC_URL + "data/" + request_hash_string + ".svg"
+    views_image_path = settings.STATIC_URL + "data/" + request_hash_string + ".png"
     view_data = {
       "timestamp": time.time(),
       "image": views_image_path,
