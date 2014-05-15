@@ -1346,7 +1346,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     view_data = {
       "timestamp": time.time(),
       "image": views_image_path,
-      "title": title
+      "title": title,
+      "url": request.build_absolute_uri()
     }
     raw = redis.Redis("localhost", db=1)
     raw.rpush("views", json.dumps(view_data))
@@ -2471,7 +2472,7 @@ def embed(request, app_name, trade_flow, country1, country2, product, year):
 
 def api_views(request):
   r = redis.Redis(db=1)
-  recent_views = r.lrange("views", -5, -1)
+  recent_views = r.lrange("views", -15, -1)
   return HttpResponse("[%s]" % ",".join(recent_views))
 
 
