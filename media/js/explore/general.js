@@ -184,8 +184,7 @@ function update_viz(viz) {
     queryString = "?"+$.param(queryParameters);
 
   // Fix for Firefox
-  var host = "http://" + window.location.host + "/";
-  var url = host + "explore/";
+  var url = $('base')[0].href + "explore/";
 
   var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
   current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
@@ -226,7 +225,7 @@ function update_viz(viz) {
     if(current_year2=="" && current_viz == "stacked")
       current_viz = "tree_map";
 
-    if(viz=="tree_map" || viz=="map") {
+    if(viz=="tree_map" || viz=="map" || viz=="scatterplot" || viz=="rankings") {
       current_year2 = "";
       current_viz = viz;
     }
@@ -276,7 +275,7 @@ function update_viz(viz) {
         // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
         if(current_year2=="") {
 
-          if(current_viz == "tree_map")
+          if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings")
             url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";         
           else if(current_viz == "map") // Can't be a map of products
             url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";     
@@ -354,7 +353,7 @@ function update_viz(viz) {
 
           // What did Albania export to Italy in 1995?
           // http://127.0.0.1:8000/explore/tree_map/export/alb/ita/show/1995/
-          if(current_viz == "tree_map")
+          if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings")
             url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";       
           else if(current_viz == "map") // Can't be a map of products
             url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";      

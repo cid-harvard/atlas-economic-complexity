@@ -14,6 +14,9 @@ from django.utils.translation import get_language_info
 from django.conf import settings
 # App specific
 from observatory.models import *
+import logging
+logger = logging.getLogger(__name__)
+import optparse
 
 # Setup the path constants 
 
@@ -47,14 +50,16 @@ class Command( BaseCommand ):
     help = 'Generate the JSON & SVG data for all permutations of the data set'
 
     def handle(self, *args, **options):
-        # Setup the product classifications -> years mapping
-        #product_classifications = { "Sitc4": Sitc4_cpy.objects.values_list( "year", flat=True ).distinct().order_by( '-year' ),
-        #                            "Hs4": Hs4_cpy.objects.values_list( "year", flat=True ).distinct().order_by( '-year' ) }
-        product_classifications = { "Sitc4": [ 2010 ],
+        
+        if args == ():
+          # Setup the product classifications -> years mapping
+          #product_classifications = { "Sitc4": Sitc4_cpy.objects.values_list( "year", flat=True ).distinct().order_by( '-year' ),
+          #                            "Hs4": Hs4_cpy.objects.values_list( "year", flat=True ).distinct().order_by( '-year' ) }
+          product_classifications = { "Sitc4": [ 2010 ],
                                     "Hs4": [ 2010 ] }
 
-        # Get the different "Product Classifications" and loop over them
-        for p_classification, p_classification_years in product_classifications.items():
+          # Get the different "Product Classifications" and loop over them
+          for p_classification, p_classification_years in product_classifications.items():
             # Debug
             self.stdout.write( "Handling Product Classification: %s" % ( p_classification ) )
             self.stdout.write( "\n" )
@@ -97,7 +102,7 @@ class Command( BaseCommand ):
 
                                 # Setup the file name
                                 file_name = app_name + "_" + language[0]['code'] + "_" + p_classification.lower() + "_" + trade_flow + "_" + country['name_3char'].lower() + "_" + product_file_bit + "_" + str( p_classification_year )
-
+				extra_store_file = "_" + language[0]['code'] + "_" + p_classification.lower() + "_" + trade_flow + "_" + country['name_3char'].lower() + "_" + product_file_bit + "_" + str( p_classification_year )
                                 # We only want to do the below for data that doesn't already exist
                                 if ( os.path.exists( settings.DATA_FILES_PATH + "/" + file_name + ".svg" ) is False ):
                                     # Call the save_json and let it handle it at this point
@@ -113,22 +118,93 @@ class Command( BaseCommand ):
 
                                         # Let us now remove the json file since we don't want it anymore
                                         os.remove( settings.DATA_FILES_PATH + "/" + file_name + ".json" )
+                                        # Let us now remove the extra store file since we don't want it anymore
+					if extra_store_file:
+ 					   os.remove( settings.DATA_FILES_PATH + "/" + extra_store_file + ".store" )
                                     else:
                                         # We have already generated the data for this permutation
                                         self.stdout.write( 'There was a problem with retrieving the JSON data set. Skipping ...' )
                                         self.stdout.write( "\n" )
-
+ 					logger.error("There was a problem with retrieving the JSON data set. Skipping ...") 
                                     # We should wait for a bit before the next one
                                     time.sleep( 10 )
                                 else:
                                     # We have already generated the data for this permutation
                                     self.stdout.write( 'Data already exists. Skipping ...' )
                                     self.stdout.write( "\n" )
+ 			            logger.info("Data already exists. Skipping ......") 
+	#The script that generates the URLs should support a list of URL as input
+        else:
+ 	    # Read the data from the file
+            file = open(args[0], "r")
+	    url_file = file.read()
+            #Close file
+            file.close()  
+	    #Converting file-data to array
+            for url_list in url_file.split('\n'):
+       	     # Build the API JSON Data URL
+	     api_url = url_list
+	     #Setup the page url
+	     page_url = url_list
+	     # Debug
+	     self.stdout.write( 'Processing API Request URL --> "%s"' % api_url )
+	     self.stdout.write( "\n" )
+             try:
+		  # Split the array to get the parts we want
+		  full_url = url_list.split('explore/')
+		  #Check Url valid or what
+		  if full_url != ['']:
+		   # Split the array to get the parts we want
+		   url_and_session_parameters= full_url[1].split('/?')
+                   if len(url_and_session_parameters) == 2:
+		     # Split the array to get the parts we want
+		     session_parameter = url_and_session_parameters[1].split('&')
+		     # Split the array to get the parts we want
+		     lang = session_parameter[0].split('=')
+		     product_classification = session_parameter[1].split('=')
+		     language = lang[1]
+		     p_classification = product_classification[1]
+                   else:
+		     language = "en"
+ 		     p_classification = "hs4"
+		   # Split the array to get the parts we want
+		   url_parameter= url_and_session_parameters[0].split('/')
+		   app_name =url_parameter[0]
+		   del url_parameter[0]
+		   url_map = '_'.join(url_parameter)     
+		   # Setup the file name
+		   file_name = app_name + "_" + language + "_" + p_classification + "_" +  url_map
+		   # We only want to do the below for data that doesn't already exist
+		   if ( os.path.exists( settings.DATA_FILES_PATH + "/" + file_name + ".svg" ) is False ):
+		     # Call the save_json and let it handle it at this point
+		     return_code = self.save_json( api_url, file_name + ".json" )
+	 	      # Check the return code before proceeding		    
+		     if ( return_code is True ):
+			# Call the generate SVG method
+			self.save_svg( page_url, file_name + ".svg" )
 
-                                # Let us break after one for now
-                                #import sys
-                                #sys.exit( 0 )
-                            
+			# Call the generate PNG method
+			self.save_png( file_name)
+
+		        # Let us now remove the json file since we don't want it anymore
+			os.remove( settings.DATA_FILES_PATH + "/" + file_name + ".json" )
+		     else:
+		     # We have already generated the data for this permutation
+			self.stdout.write( 'There was a problem with retrieving the JSON data set. Skipping ...' )
+			self.stdout.write( "\n" )
+ 			logger.error('There was a problem with retrieving the JSON data set. Skipping ...') 
+			# We should wait for a bit before the next one
+			time.sleep( 10 )
+		   else:
+		   # We have already generated the data for this permutation
+		     self.stdout.write( 'Data already exists. Skipping ...' )
+		     self.stdout.write( "\n" )
+ 		     logger.info("Data already exists. Skipping ......") 
+             except:
+		 self.stdout.write( 'Invalid url format' )
+		 self.stdout.write( "\n" )
+ 		 logger.error("Invalid url format") 
+   
     def save_json( self, api_url, file_name ):
         # Wrap everything in a try block
         try:
@@ -149,22 +225,27 @@ class Command( BaseCommand ):
             # We seem to have run in to problems, degrade gracefully
             self.stdout.write( "There was an URLLIB Error processing the HTTP request ..." )
             self.stdout.write( "\n" )
+	    logger.error("There was an URLLIB Error processing the HTTP request ...")
             print exc
         except httplib.HTTPException, exc:
             # We seem to have run in to problems, degrade gracefully
             self.stdout.write( "There was an HTTP Error processing the HTTP request ..." )
             self.stdout.write( "\n" )
+	    logger.error("There was an HTTP Error processing the HTTP request ...")
             print exc
         except IOError, exc:
             # We seem to have run in to problems, degrade gracefully
             self.stdout.write( "There was an IO Error processing the HTTP request ..." )
             self.stdout.write( "\n" )
+            logger.error('There was an IO Error processing the HTTP request ...')
             print exc
             
         # Return false at this point, since we should not come here
         return False
         
     def save_svg( self, page_url, file_name ):
+
+	logger.info("Creating Visulization - " + file_name) 
         # Let us setup the phantomjs script arguments
         phantom_arguments = [ settings.PHANTOM_JS_EXECUTABLE, settings.PHANTOM_JS_SCRIPT, settings.DATA_FILES_PATH + "/" + file_name, page_url ]
         
@@ -177,8 +258,13 @@ class Command( BaseCommand ):
         phantom_execute = Popen( phantom_arguments )
         
         # Get the output data from the phantomjs execution
-        execution_results = phantom_execute.communicate()
-        
+        try:
+           execution_results = phantom_execute.communicate()
+  	   return True
+        except:
+      		self.stdout.write( "RunTime Error" )
+        	self.stdout.write( "\n" )
+        return False
         # Print the stdout data
         print execution_results[0]
         
@@ -211,14 +297,13 @@ class Command( BaseCommand ):
 
         # Close the file now
         svgFile.close()
-            
     def save_png( self, file_name ):
         # Get the SVG data
         svg_file = open( settings.DATA_FILES_PATH + "/" + file_name + ".svg", "r" )
         svg_data = svg_file.read()
 
         # Create the blank image surface
-        img = cairo.ImageSurface( cairo.FORMAT_ARGB32, 750, 480 )
+        img = cairo.ImageSurface( cairo.FORMAT_ARGB32, settings.EXPORT_IMAGE_WIDTH, settings.EXPORT_IMAGE_HEIGHT )
 
         # Get the context
         ctx = cairo.Context( img )
@@ -229,3 +314,5 @@ class Command( BaseCommand ):
 
         # Create the final png image
         final_png = img.write_to_png( settings.DATA_FILES_PATH + "/" + file_name + ".png" )
+
+	logger.info("SVG and PNG Created")

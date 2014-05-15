@@ -2,10 +2,98 @@
 
 {% block page_title %}About{% endblock %}
 {% block heading_title %}About{% endblock %}
-
 {% block css %}{% endblock %}
 
 {% block content %}
+<style>
+  body{
+    background-color: rgb(250, 250, 250);
+  }
+  ol.slats {
+    list-style: none;
+  }
+  ol.slats li {
+    margin: 0 0 10px 0;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #eee;
+    }
+  ol.slats li:last-child {
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
+    }
+  ol.slats li a {
+    text-decoration: none;
+  }
+  ol.slats li a h3 {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.1;
+    margin: 0 0 8px 0;
+    }
+  ol.slats li a img {
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 4px;
+    border: 1px solid #eee;
+    }
+  ol.slats li a:hover img {
+    background: #eee;
+    }
+  ol.slats li a p {
+    margin: 0 0 0 110px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555;
+    min-height: 75px;
+    }
+  ol.slats li a p span.meta {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    }
+  @media screen and (max-width: 700px) {
+    ol.slats li a img {
+      display: block;
+      float: none;
+      margin: 0 0 5px 0;
+      }   
+    ol.slats li a p {
+      margin: 0;
+      }
+    }
+  ol.v_slats {
+    list-style: none;
+  }
+  ol.v_slats li {
+    display: inline-block;
+    height: 150px;
+    margin: 0 15px 15px 0;
+    padding: 10px;
+    border: 1px solid #eee;
+    vertical-align: top;
+    width: 100px;
+    }
+  ol.v_slats li a {
+    text-decoration: none;
+  }
+  ol.v_slats li a h3 {
+    font-size: 16px;
+    line-height: 1.1;
+    margin: 0 0 8px 0;
+    }
+  .group img {
+    width:100px;
+    max-height:150px;
+    overflow: hidden;
+  }
+  .group {
+    height: 150px;
+  }
+  #sticky{
+    width: 265px;
+  }
+</style>
 <!-- the left pane -->
 
 <div id="sticky-anchor"></div>
@@ -32,101 +120,7 @@
   </div>
 </div>
 
-<style>
-body{
-  background-color: rgb(250, 250, 250);
-}
-ol.slats {
-  list-style: none;
-}
-ol.slats li {
-  margin: 0 0 10px 0;
-  padding: 0 0 10px 0;
-  border-bottom: 1px solid #eee;
-  }
-ol.slats li:last-child {
-  margin: 0;
-  padding: 0;
-  border-bottom: none;
-  }
-ol.slats li a {
-  text-decoration: none;
-}
-ol.slats li a h3 {
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 1.1;
-  margin: 0 0 8px 0;
-  }
-ol.slats li a img {
-  float: left;
-  margin: 0 10px 0 0;
-  padding: 4px;
-  border: 1px solid #eee;
-  }
-ol.slats li a:hover img {
-  background: #eee;
-  }
-ol.slats li a p {
-  margin: 0 0 0 110px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #555;
-  min-height: 75px;
-  }
-ol.slats li a p span.meta {
-  display: block;
-  font-size: 12px;
-  color: #999;
-  }
-@media screen and (max-width: 700px) {
-  ol.slats li a img {
-    display: block;
-    float: none;
-    margin: 0 0 5px 0;
-    }   
-  ol.slats li a p {
-    margin: 0;
-    }
-  }
-
-ol.v_slats {
-  list-style: none;
-}
-ol.v_slats li {
-  display: inline-block;
-  height: 150px;
-  margin: 0 15px 15px 0;
-  padding: 10px;
-  border: 1px solid #eee;
-  vertical-align: top;
-  width: 100px;
-  }
-ol.v_slats li a {
-  text-decoration: none;
-}
-ol.v_slats li a h3 {
-  font-size: 16px;
-  line-height: 1.1;
-  margin: 0 0 8px 0;
-  }
-
- .group img {
-  width:100px;
-  max-height:150px;
-  overflow: hidden;
-}
-
-.group {
-  height: 150px;
-}
-#sticky{
-  width: 265px;
-}
-</style>
-
-
-<div id="content" style="float:none; margin-left:291px;">
+<div id="aboutContent">
 
   <h3>What is it?</h3>
   
@@ -320,7 +314,7 @@ ol.v_slats li a h3 {
 
 
 
-Activates Tooptips
+<!-- Activates Tooptips -->
 
 <script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
