@@ -583,9 +583,17 @@ text-decoration: none;
 
 /*
  * Center of the page, app canvas
- */  
+ */ 
+#aboutContent{
+  float: none;
+  margin-left: 268px;
+  background-color: #ffffff;
+  border: solid 1px #cccccc;
+  padding:20px;
+  position: relative;
+  top:43px;
+} 
 .app #main #content {
-
   float: left;
   overflow:hidden;
   padding: 0 !important;
@@ -679,10 +687,16 @@ text-decoration: none;
 /*
  * Timeline
  */
+ .vizControl .definition{
+  font-size: 13px;
+ }
 .app #main #content #timeline {
   min-height: 137px;
   padding: 0px 10px 10px 10px;
   overflow: visible;
+}
+.app #main #content #timeline .row{
+  margin-bottom:20px;
 }
 .app #main #content #timeline button{
   float: left;
@@ -945,7 +959,10 @@ dl.file_list p {
   width: 250px;
   vertical-align: top;
 }
+.atlas_book_content{
+  overflow: auto;
 
+}
 #main #content .atlas_book_content img{
   margin: 20px 60px;
 }
@@ -2057,11 +2074,10 @@ table tbody tr td span {
   bottom: 12px;
   margin: 0 0 0 4px;
 }
-button {
-  font-size: 18px;
-  width: 100%;
-}
 
+#tfViz label{
+  margin-top: 10px;
+}
 .dropdown {
   display: inline;
   float: left;
