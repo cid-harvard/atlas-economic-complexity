@@ -1148,10 +1148,10 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   # Check staic image mode
   if( settings.STATIC_IMAGE_MODE == "SVG" ):
     # Check if we have a valid PNG image to display for this
-    if os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg"):
+    if os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".png"):
         # display the  static images
         displayviz = True
-        displayImage = settings.STATIC_URL + "data/" + request_hash_string + ".svg"
+        displayImage = settings.STATIC_URL + "data/" + request_hash_string + ".png"
     else:
         displayviz=False
         displayImage = settings.STATIC_URL + "img/all/loader.gif"
