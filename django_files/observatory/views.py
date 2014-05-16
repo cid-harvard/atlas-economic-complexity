@@ -18,11 +18,13 @@ from django.db.models import Q
 import json
 from django.core import serializers
 from django.core.urlresolvers import reverse
+from elasticsearch import Elasticsearch
 # Project specific
 from django.utils.translation import gettext as _
 # App specific
 from observatory.models import *
 from observatory.models import storychapter
+from observatory import helpers
 from django.db.models import Max
 from django.forms import ModelForm
 import msgpack
@@ -1217,18 +1219,17 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   if app_name == "stacked" and year == "2009":
     year = "1969.2011.10"
+
   if "." in year:
     y = [int(x) for x in year.split(".")]
-    # year = range(y[0], y[1]+1, y[2])
     year_start = y[0]
     year_end = y[1]
-    year_interval = y[2]
     year2_list = year1_list
     year_interval_list = range(1, 11)
-    # year_interval = year[1] - year[0]
   else:
-    year_start, year_end, year_interval = None, None, None
+    year_start, year_end = None, None
     year = int(year)
+    # Check that year is within bounds
     if year > years_available[len(years_available)-1]:
       year = years_available[len(years_available)-1]
     elif year < years_available[0]:
@@ -1251,86 +1252,53 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     data_as_text["columns"] = view_response[2]
 
 
-  app_type = get_app_type(country1, country2, product, year)
+  app_type = helpers.get_app_type(country1, country2, product, year)
 
-  if product != "show" and product != "all":
-    p_code = product
-    product = clean_product(p_code, prod_class)
-    # TODO: check if product exists
-    #if product:
-    #  if product.__class__ == Sitc4:
-    #    product_list = Sitc4.objects.get_all(lang)
-    #    request.session['product_classification'] = "sitc4"
-    #  else:
-    #    product_list = Hs4.objects.get_all(lang)
-    #    request.session['product_classification'] = "hs4"
-    #else:
-    #  alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='about/data/hs4/'>list of HS4 products</a>."%(p_code)}
-
-
-  list_countries_the = ["Cayman Islands", "Central African Republic", "Channel Islands", "Congo, Dem. Rep.", "Czech Republic", "Dominican Republic", "Faeroe Islands", "Falkland Islands", "Fm Yemen Dm", "Lao PDR", "Marshall Islands", "Philippines", "Seychelles", "Slovak Republic", "Syrian Arab Republic", "Turks and Caicos Islands", "United Arab Emirates", "United Kingdom", "Virgin Islands, U.S.", "United States"]
-
+  # Some countries need "the" before their names
+  list_countries_the = set(("Cayman Islands", "Central African Republic",
+                            "Channel Islands", "Congo, Dem. Rep.",
+                            "Czech Republic", "Dominican Republic",
+                            "Faeroe Islands", "Falkland Islands", "Fm Yemen Dm",
+                            "Lao PDR", "Marshall Islands", "Philippines",
+                            "Seychelles", "Slovak Republic",
+                            "Syrian Arab Republic", "Turks and Caicos Islands",
+                            "United Arab Emirates", "United Kingdom",
+                            "Virgin Islands, U.S.", "United States"))
   if countries[0] and countries[0].name in list_countries_the:
     countries[0].name = "the "+countries[0].name
 
-  prod_or_partner = "partner" # quick fix should be merged with item_type
+  #p_code, product = None, None
+  if product not in ("show", "all"):
+    p_code = product
+    product = clean_product(p_code, prod_class)
 
   if not alert:
-    if app_type == "casy":
-      # raise Exception(app_name)
-      if app_name == "pie_scatter":
-        title = "Which products are feasible for %s?" % countries[0].name
-      elif (app_name == "product_space" or app_name == "rings"):
-        title = "What did %s export in %s?" % (countries[0].name, year)       # INSERTED NEW TITLE HERE
-      elif app_name == "stacked":
-        title = "What did %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), year_start, year_end) # NEW TITLE HERE
-        prod_or_partner = "product"
-      else:
-        title = "What did %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), year)                             # NEW TITLE HERE
-        prod_or_partner = "product"
 
-    # Country but showing other country trade partners
-    elif app_type == "csay":
-      item_type = "countries"
-      article = "to" if trade_flow == "export" else "from"
-      if app_name == "stacked":
-        title = "Where did %s %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), article, year_start, year_end)
-      else:
-        title = "Where did %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, year)
+    # Generate page title depending on visualization being used
+    trade_flow = trade_flow.replace('_', ' ')
+    years = [year_start, year_end] if year_start is not None else [year]
+    product_name = product.name_en if not isinstance(product, basestring) else product
+    country_names = [getattr(x, "name", None) for x in countries]
+    title = helpers.get_title(app_type, app_name,
+                              country_names=country_names,
+                              trade_flow=trade_flow,
+                              years=years,
+                              product_name=product_name
+                              )
 
-    # Product
-    elif app_type == "sapy":
-      item_type = "countries"
-      if app_name == "stacked":
-        title = "Who %sed %s between %s and %s?" % (trade_flow.replace("_", " "), product.name_en, year_start, year_end)
-      else:
-        title = "Who %sed %s in %s?" % (trade_flow.replace("_", " "), product.name_en, year)
-
-      prod_or_partner = "product"
-
-    # Bilateral Country x Country
-    elif app_type == "ccsy":
-      # trade_flow_list = ["export", "import"]
+    if app_type in ("ccsy", "cspy"):
       if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
       if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
-      article = "to" if trade_flow == "export" else "from"
-      if app_name == "stacked":
-        title = "What did %s %s %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), article, countries[1].name, year_start, year_end)
-      else:
-        title = "What did %s %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), article, countries[1].name, year)
+      #trade_flow_list.pop(_("net_export"), None)
 
-    # Bilateral Country / Show / Product / Year
-    elif app_type == "cspy":
-      if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
-      if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
-      item_type = "countries"
-      article = "to" if trade_flow == "export" else "from"
-      if app_name == "stacked":
-        title = "Where did %s %s %s %s between %s and %s?" % (countries[0].name, trade_flow.replace("_", " "), product.name_en, article, year_start, year_end)
-      else:
-        title = "Where did %s %s %s %s in %s?" % (countries[0].name, trade_flow.replace("_", " "), product.name_en, article, year)
-
+    # Should we show the product or partner tab pane?
+    prod_or_partner = "partner" # quick fix should be merged with item_type
+    if app_type in ["cspy", "sapy"]:
       prod_or_partner = "product"
+    elif app_type == "casy":
+      if app_name in ("stacked", "map", "tree_map"):
+        prod_or_partner = "product"
+
 
   # Return page without visualization data
 
@@ -1372,25 +1340,24 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "warning": warning,
     "alert": alert,
     "prod_class": prod_class,
-    "years_available": years_available,
     "data_as_text": data_as_text,
     "app_name": app_name,
-    "title": title,#get_question(app_type, trade_flow=trade_flow,origin=countries[0],destination=countries[1],product=product),
+    "title": title,
     "trade_flow": trade_flow,
     "country1": countries[0] or country1,
     "country2": countries[1] or country2,
     "product": product,
+    "years_available": years_available,
     "year": year,
     "year_start": year_start,
     "year_end": year_end,
-    "year_interval": year_interval,
+    "year1_list": year1_list,
+    "year2_list": year2_list,
+    "year_interval_list": year_interval_list,
     "trade_flow_list": trade_flow_list,
     "country1_list": country_lists[0],
     "country2_list": country_lists[1],
     "product_list": product_list,
-    "year1_list": year1_list,
-    "year2_list": year2_list,
-    "year_interval_list": year_interval_list,
     "api_uri": api_uri,
     "app_type": app_type,
     "redesign_api_uri": redesign_api_uri,
@@ -2579,23 +2546,63 @@ def get_country_lookup():
     lookup[c.id] = [c.name_en, c.name_3char]
   return lookup
 
-def get_app_type(country1, country2, product, year):
-  # country / all / show / year
-  if country2 == "all" and product == "show":
-    return "casy"
+def api_search(request):
 
-  # country / show / all / year
-  elif country2 == "show" and product == "all":
-    return "csay"
+    query = request.GET.get("term", None)
+    if query == None:
+        return HttpResponse("[]")
 
-  # show / all / product / year
-  elif country1 == "show" and country2 == "all":
-    return "sapy"
+    span, years = helpers.extract_years(query)
+    if span is not None:
+        # Strip out year expression from query since elasticsearch doesn't
+        # contain year data
+        query = query[:span[0]] + query[span[1]:]
 
-  # country / country / show / year
-  elif product == "show":
-    return "ccsy"
+    if years is None:
+        year_string = ""
+        year_url_param = ""
+    elif len(years) == 1:
+        year_string = " (%s)" % years[0]
+        year_url_param = "%s/" % years[0]
+    else:
+        year_string = " (%s to %s)" % (years[0], years[1])
+        year_url_param = "%s.%s/" % (years[0], years[1])
 
-  #  country / show / product / year
-  else:
-    return "cspy"
+    es = Elasticsearch()
+    result = es.search(
+        index="questions",
+        body={
+            "query": {
+                "filtered": {
+                    "query": {
+                        "fuzzy_like_this": {
+                            "like_text": query,
+                            "fields": ["title"],
+                            "fuzziness": 3,
+                            "max_query_terms": 15,
+                            "prefix_length": 4
+                        }
+                    }
+                }
+            },
+            # "highlight": {
+            #     "pre_tags": ["<div class=highlighted>"],
+            #     "fields": {"title": {}},
+            #     "post_tags": ["</div>"]
+            # },
+            "size": 8
+        })
+    result_list = []
+    for x in result['hits']['hits']:
+        label = x['_source']['title'] + year_string
+        url = x['_source']['url'] + year_url_param
+        # TODO: This is a hack, the correct way is to generate the url here
+        # instead of pregenerating it. See issue # 134
+        if years and len(years) > 1:
+            url = url.replace("tree_map", "stacked")
+        result_list.append(dict(label=label, value=url))
+    return HttpResponse(json.dumps(result_list))
+
+
+def search(request):
+    return render_to_response("test_search.html")
