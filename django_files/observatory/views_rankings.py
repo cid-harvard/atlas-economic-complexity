@@ -135,7 +135,7 @@ def get_rankings(category, year, all_fields=False):
     rankings_list.sort(key=lambda x: x[0])
     return rankings_list
 
-def api_rankings(request, year=2012):
+def api_country_rankings(request, year=2012):
     data = get_rankings("country", year, all_fields=True)
     return HttpResponse(json.dumps({'data':data}),
                         content_type='application/json')
