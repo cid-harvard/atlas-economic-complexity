@@ -1,4 +1,3 @@
-
 {% load i18n %}
 {% load humanize %}
 <!DOCTYPE html>
@@ -6,7 +5,7 @@
 <head>
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  
   {% if displayviz %}
   <meta property="og:image" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
@@ -495,6 +494,7 @@
       <button id="help">{% trans "Help" %}</button>
     </div>
   </div>
+  {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None" %}  
   <div class="tab-pane" id="history">
     <div id="historyBox">
       <div id="historyBoxInner">
@@ -504,6 +504,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
   {% if app_name == "product_space" or app_name == "pie_scatter" %}
     <div class="tab-pane active" id="legendPane">
       <div id="legend">
@@ -1157,15 +1158,19 @@
           <i class="fa fa-envelope fa-lg"></i>
         </a>
 
-      </div> 
-      {% if isbrowsemode %}
-      {% else %}   
-	<div class="control_container" id="download">
+    </div> 
+     {% if isbrowsemode %}
+     {% else %}   
+
+
+	<!--   DOWNLOAD OPTIONS // TO BE IMPLEMENTED SOON
+
+        <div class="control_container" id="download">
           <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">{% trans "Download" %}</h4>
-        <a class="pdf" href="#"><img src="{{ STATIC_URL }}img/app/download.png" /> PDF</a>
-          <a class="svg" href="#"><img src="{{ STATIC_URL }}img/app/download.png" /> SVG</a>
-         <a class="png" href="#"><img src="{{ STATIC_URL }}img/app/download.png" /> PNG</a>
-         <!-- <a class="csv" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> CSV</a>-->
+          <a class="pdf" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PDF</a>
+          <a class="svg" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> SVG</a>
+        <a class="png" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PNG</a>
+          <a class="csv" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> CSV</a>
        </div>
 	<form class="download" method="POST" action="download/">
       {% csrf_token %}
@@ -1173,7 +1178,7 @@
       <input type="hidden" name="title" value="" />
       <input type="hidden" name="format" value="svg" />
       <input type="hidden" name="content" value="" />
-    </form>
+    </form>-->
   <!--  <div id = "downloadPlaceholder" >
     
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>    
@@ -1371,7 +1376,7 @@
     product_code = "{{product_code}}",
     prod_class = "{{prod_class}}",
     previous_page = "{{previous_page}}",
-    previous_image = "{{ STATIC_URL }}media/img/empty_static.png",
+    previous_image = "{{ STATIC_URL }}/img/empty_static.png",
     static_url = "{{STATIC_URL}}";
 
   // Use chosen plugin to make dropdowns look fancy
@@ -1554,9 +1559,11 @@
   <script type="text/javascript">
 
     if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "http://atlas.cid.harvard.edu/beta" || previous_page == "None" || previous_page == "http://127.0.0.1:8000/"){
-      previous_image = "{{ STATIC_URL }}img/default.png";
+      $("#historyTab").css("display", "none");
+      $("#history").css("display", "none");      
+      console.log("no previous page!");
     } else if(previous_image == "{{ STATIC_URL }}img/empty_static.png"){
-        $("#historyTab").css("display", "none");
+        console.log("this page doesn't exist!");
     } else{
         previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}"; 
         $("#historySlide").attr("href", previous_page);      
@@ -1571,6 +1578,9 @@
     $("#historySlide").mouseleave(function(){
       $("#historyOverlay").hide();
     });
+    if( /iPhone/i.test(navigator.userAgent) ) {
+      $("head").append("<meta")
+}
   </script>
 </body>
   {% include "story/story_forms.html" %}

@@ -125,6 +125,9 @@ urlpatterns = patterns('',
 
   (r'^api/near/(?P<country>\w{3})/(?P<year>[0-9\.]+)/(?P<num_prods>\d+)/$', 'observatory.views_exhibit.api_near'),
 
+  (r'^api/search/$', 'observatory.views.api_search'),
+  (r'^search/$', 'observatory.views.search'),
+
   # Overview (Countries) ######################################################
   (r'^country/(?P<country>\w{2,3})/$', 'observatory.views_overview.country2'),
   (r'^hs4/(?P<product>\d{4})/$', 'observatory.views_overview.product'),
