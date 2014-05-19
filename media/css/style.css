@@ -587,12 +587,18 @@ text-decoration: none;
 #aboutContent{
   float: none;
   margin-left: 268px;
-  background-color: #ffffff;
-  border: solid 1px #cccccc;
-  padding:20px;
   position: relative;
   top:43px;
 } 
+#contInner{
+  padding:20px;  
+  background-color: #ffffff;
+  border: solid 1px #cccccc;
+}
+#contFooter{
+  padding: 20px;
+  text-align: center;
+}
 .app #main #content {
   float: left;
   overflow:hidden;
@@ -960,7 +966,6 @@ dl.file_list p {
   vertical-align: top;
 }
 .atlas_book_content{
-  
 
 }
 #main #content .atlas_book_content img{
