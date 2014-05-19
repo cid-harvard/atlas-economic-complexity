@@ -6,6 +6,9 @@ from django.template import RequestContext
 
 from observatory.models import Cy, Hs4_py
 
+from collections import defaultdict
+import csv
+import json
 
 def index(request, category="country", year=2012):
     year = int(year)
@@ -31,7 +34,6 @@ def index(request, category="country", year=2012):
 
 
 def download(request, category="country", year=None):
-    import csv
 
     min_year = 1995
     max_year = 2012 if category == "country" else 2012
@@ -72,14 +74,20 @@ def download(request, category="country", year=None):
     return response
 
 
-def get_rankings(category, year):
-    from collections import defaultdict
+def get_rankings(category, year, all_fields=False):
     year = int(year)
 
     rankings = defaultdict(dict)
     rankings_list = []
 
     if category == "country":
+
+        fields = ["eci_rank", "country__name_3char", "country__name_en", "eci",
+                  "year"]
+
+        if all_fields:
+            fields += ["gdp", "population"]
+
         year_rankings = Cy.objects.filter(
             year__in=[year, year-1],
             country__name_3char__isnull=False,
@@ -88,13 +96,10 @@ def get_rankings(category, year):
             eci_rank__isnull=False
         ).exclude(
             eci_rank=0
-        ).values_list(
-            "eci_rank",
-            "country__name_3char",
-            "country__name_en",
-            "eci",
-            "year")
+        ).values_list(*fields)
+
     elif category == "product":
+
         year_rankings = Hs4_py.objects.filter(
             year__in=[year, year-1]
         ).values_list(
@@ -115,13 +120,22 @@ def get_rankings(category, year):
     # [169L, u'DZA', u'Algeria', -0.8050764, -20L]]
     for r in rankings.values():
 
+        # If previous year and current year data exists, we can calculate delta
         if year-1 in r and year in r:
             delta = r[year - 1][0] - r[year][0]
         else:
             delta = 0
 
-        rankings_list.append([r[year][0], r[year][1], r[year][2], r[year][3],
-                              delta])
+        # Build fields for row
+        row = r[year][0:4] + (delta,)
+        if all_fields:
+            row += r[year][5:]
+        rankings_list.append(row)
 
     rankings_list.sort(key=lambda x: x[0])
     return rankings_list
+
+def api_rankings(request, year=2012):
+    data = get_rankings("country", year, all_fields=True)
+    return HttpResponse(json.dumps({'data':data}),
+                        content_type='application/json')
