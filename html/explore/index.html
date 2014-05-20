@@ -5,7 +5,7 @@
 <head>
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  
   {% if displayviz %}
   <meta property="og:image" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
@@ -101,6 +101,7 @@
       </nav> 
       <br class="clear">
     </header>
+    
     <div id="main" role="main">
       {% if userId %}
        <div id="userSession">
@@ -1578,11 +1579,8 @@
       $("#historyOverlay").hide();
     });
     if( /iPhone/i.test(navigator.userAgent) ) {
-      $("head").append('<meta name="viewport" content="width=648, initial-scale=0.3" />')
-    }
-    if( /iPad/i.test(navigator.userAgent) ) {
-      $("head").append('<meta name="viewport" content="width=648, initial-scale=0.7" />')
-    }    
+      $("head").append("<meta")
+}
   </script>
 </body>
   {% include "story/story_forms.html" %}

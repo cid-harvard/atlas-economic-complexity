@@ -54,7 +54,6 @@ body{
 </div>
 
 <div id="content" style="float:none; margin-left:291px;">  
-  <div id="contInner">
   <div class="change_year">
     <a class="prev" href="rankings/{{category}}/{{year|add:'-1'}}/">&laquo; Previous Year</a>
     <dl class="dropdown">
@@ -111,29 +110,6 @@ body{
     <input type="hidden" name="format" value="csv" />
     <input type="hidden" name="content" value="" />
   </form>
-</div>
-  <div id="contFooter">
-    <footer>
-      <div class="footerInner">
-        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
-        <br />
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
-        <p style="clear:both"></p>
-        <a style=" margin-left:150px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
-        <div class="language_select" style="float:right; margin-right:150px;">
-          <div class="text">
-            Language:
-          </div>
-          <select>
-            {% for lang in supported_langs %}
-            <option style="" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
-            {% endfor %}
-          </select> 
-        </div>
-      </div>
-    </footer>
-  </div> 
 </div>
 
 {% endblock %}

@@ -202,8 +202,6 @@ class Cy(models.Model):
 	pc_constant = models.FloatField(null=True)
 	pc_current = models.FloatField(null=True)
 	notpc_constant = models.FloatField(null=True)
-	gdp = models.FloatField(null=True)
-	population = models.IntegerField(null=True)
 
 	def __unicode__(self):
 		return "%s rank: %d" % (self.country.name, self.eci_rank)
