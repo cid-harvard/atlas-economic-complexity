@@ -355,12 +355,18 @@ var flat_data,
 
   }
   
-  set_scatter_year = function(arg)
-  {
+  set_scatter_year = function(arg) {
     var nest_level = ($("#nesting_level").val());
     year=arg
     set_depth(nest_level)
     d3.select("#viz").call(viz.year(arg))
+  }
+
+  set_scatterplot_year = function(arg) {
+
+    year_data = flat_data.filter(function(d){ return d.year == arg})
+    // d3.select("#viz").call(viz.time("year", 2012))
+ 
   }
 
   create_rankings = function(year) {
@@ -368,7 +374,6 @@ var flat_data,
   }
 
   set_rankings_year = function(arg) {
-
     
 
   }
@@ -606,8 +611,7 @@ var flat_data,
 
   }
   
-  construct_nest = function(flat)
-  {
+  construct_nest = function(flat) {
     // Ask for visualizations that need to be sorted by export/import/net values
     if (app_type == "casy" || app_type == "sapy" || app_type == "ccsy")
     {
@@ -1075,7 +1079,8 @@ var flat_data,
           $("#stacked_layout").buttonset();
           $("#stacked_capita").buttonset();
           $("#stacked_controls input[type='radio']").change(function(e){
-            if($(e.target).attr("name") == "labels"){
+
+            if($(e.target).attr("name") == "labels") {
               ($(e.target).attr("id")=="false") ? d3.select("#viz").call(viz.labels(false)) :
                                                   d3.select("#viz").call(viz.labels(true))
             }
@@ -1191,25 +1196,11 @@ var flat_data,
 
   scatterplot = function() {
 
-    // 1-Which product classification?
-
-    // 2-Load external metadata
-
-    // 3-Init Javasript visualization
-
-    // 4-Process data (flatten, ..)
-
-    // 5-Keys, controls, ..
-
-    // 6-Init the visualization
-
-
     flat_data = construct_nest(flat_data);
 
     if(item_type=="country") {
 
-
-      flat_data = flat_data.filter(function(d){ return d.year == year})
+      //year_data = flat_data.filter(function(d){ return d.year == year})
      
       var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
 
@@ -1222,20 +1213,20 @@ var flat_data,
         .x("value")         // key for x-axis
         .y("share")        // key for y-axis
         .legend(false)
+        .descs(["id","distance","complexity","year"])
+        .html(function() {  return "Here is the tooltip"; })
         .text("name")
         .size("value")
         .draw()             // finally, draw the visualization!
         .height(height)
         .width(width)
-
+        .time({"year":year})
 
     } else {
 
-
-
     flat_data = flat_data.filter(function(d){ return d.share > .075 && d.year == year})
    
-var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
+    var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
 
     // instantiate d3plus
     viz = d3plus.viz()
@@ -1286,22 +1277,20 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
         .call(controls); 
     } 
 
-
-
-   timeline = Slider()
-          .callback('set_scatter_year')
+    timeline = Slider()
+          .callback('set_scatterplot_year')
           .initial_value(parseInt(year))
           .max_width(670)
           .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
-          .datum(years_available)
-          .call(timeline)
+
+    d3.select("#ui_bottom").append("div")
+      .attr("class","slider")
+      .datum(years_available)
+      .call(timeline)
 
     d3.select("#loader").style("display", "none");  
 
   }
-
 
 
   rankings = function() {
