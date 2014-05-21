@@ -474,7 +474,7 @@
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs">
   <li id="helpTab" {% if app_name != "product_space" and app_name != "pie_scatter" %}class="active"{% endif %}><a href="#helpPane" data-toggle="tab">Help</a></li>
 
-  {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None" %}
+  {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None"%}
   <li id="historyTab"><a href="#history" data-toggle="tab">History</a></li>
   {% endif %}
 
@@ -1551,8 +1551,10 @@
 <script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
 <script type='text/javascript'>
-  $(function(){$('button[title]').tipsy({gravity: 'w', delayIn: 500});});
-  $(function(){$('label[title]').tipsy({gravity: 'n', delayIn: 500});});  
+  $(function(){
+    $('button[title]').tipsy({gravity: 'w', delayIn: 500});
+    $('label[title]').tipsy({gravity: 'n', delayIn: 500});    
+  }); 
 </script>
 
   <script type="text/javascript">
@@ -1561,7 +1563,7 @@
       $("#historyTab").css("display", "none");
       $("#history").css("display", "none");      
       console.log("no previous page!");
-    } else if(previous_image == "{{ STATIC_URL }}img/empty_static.png"){
+    } else if(previous_image == "http://atlas.cid.harvard.edu/media/img/all/loader.gif"){
         console.log("this page doesn't exist!");
     } else{
         previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}"; 

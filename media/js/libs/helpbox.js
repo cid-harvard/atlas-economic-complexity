@@ -1,9 +1,18 @@
 $(document).ready(function(){
 
 // Defines Placeholder Varialbes for Help Box
+if(app_name == "product_space"){
+  var h3_holder ="Product Space";
+  var p_holder = "";
 
+} else if(app_name == "pie_scatter"){
+
+  console.log("pie");
+} else{
+  console.log("ELSE");
   var h3_holder =" ";
   var p_holder = "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function.";
+}
 
 // Replaces displayed text with placeholder text
 
@@ -76,5 +85,8 @@ $(document).ready(function(){
   });
   $("#feedbackPlaceholder").mouseleave(function(e){
     exit();
-  });   
+  });
+  if(previous_image == "http://atlas.cid.harvard.edu/media/img/all/loader.gif"){
+    $("#history, #historyTab").hide();
+  }   
 });

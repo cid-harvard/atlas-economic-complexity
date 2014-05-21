@@ -965,11 +965,11 @@ dl.file_list p {
   width: 250px;
   vertical-align: top;
 }
-.atlas_book_content{
-
+#about .atlas_book_content{
+  overflow:auto;
 }
 #main #content .atlas_book_content img{
-  margin: 20px 60px;
+  margin: 0 auto;
 }
 #main #content .license{
   font-size: 10px;
@@ -2149,3 +2149,4 @@ table tbody tr td span {
 table tr.odd {
   background-color: #EEE;
 }
+
