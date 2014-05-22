@@ -1247,6 +1247,129 @@ var flat_data,
 
     flat_data = construct_nest(flat_data);
 
+    viz = d3plus.viz()
+
+    if(item_type=="product") {
+  
+    viz
+      .type("pie_scatter")
+      .height(height)
+      .width(width)
+      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .text_var("name")
+      .id_var("id")
+      .attrs(attr)
+      .xaxis_var("distance")
+      .yaxis_var("share")
+      .value_var("world_trade")
+      .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
+      .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .depth("nesting_2")
+      .text_format(txt_format)
+      .number_format(num_format)
+      .spotlight(false)
+      .dev(false)
+      .font('PT Sans Narrow')
+      .click_function(inner_html)
+  //    .static_axis(false)
+      .year(year)
+    
+    d3.select("#loader").style("display", "none");
+
+    flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
+  
+    flat_data.map(function(d){
+      d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+      d.id = String(d.id)
+    })
+  
+
+ } else {
+
+    viz
+      .type("pie_scatter")
+      .height(height)
+      .width(width)
+      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .text_var("name")
+      .id_var("id")
+      .attrs(attr)
+      .xaxis_var("value")
+      .yaxis_var("share")
+      .value_var("share")
+      .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
+      .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .depth("nesting_2")
+      .text_format(txt_format)
+      .number_format(num_format)
+      .spotlight(false)
+      .dev(false)
+      .font('PT Sans Narrow')
+      .click_function(inner_html)
+  //    .static_axis(false)
+      .year(year)
+    
+
+
+
+ }
+
+    d3.select("#viz")
+      .style('height','520px')
+      .datum(flat_data)
+      .call(viz) 
+
+    // highlight(queryParameters['highlight']);
+
+    timeline = Slider()
+          .callback('set_scatterplot_year')
+          .initial_value(parseInt(year))
+          .max_width(670)
+          .title("")
+
+    d3.select("#ui_bottom").append("div")
+      .attr("class","slider")
+      .datum(years_available)
+      .call(timeline)
+
+    d3.select("#loader").style("display", "none");  
+
+    if(!embed){
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+
+      d3.select(".key")
+        .datum(attr_data)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
+        .year(year)
+
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls);
+      
+      $("#pie_yvar").buttonset();
+      $("#pie_spot").buttonset();
+      $("#pie_controls input[type='radio']").change(function(e){
+        if($(e.target).attr("name") == "yvar"){
+          ($(e.target).attr("id")=="complexity") ? d3.select("#viz").call(viz.yaxis_var("complexity")) :
+                                              d3.select("#viz").call(viz.yaxis_var("opp_gain"))
+        }
+        if($(e.target).attr("name") == "pie_spot"){
+          ($(e.target).attr("id")=="spot_off") ? d3.select("#viz").call(viz.spotlight(false)) :
+                                              d3.select("#viz").call(viz.spotlight(true))
+        }
+      })         
+    }
+
+/*
+    flat_data = construct_nest(flat_data);
+
     if(item_type=="country") {
 
       //year_data = flat_data.filter(function(d){ return d.year == year})
@@ -1336,6 +1459,9 @@ var flat_data,
       .call(timeline)
 
     d3.select("#loader").style("display", "none");  
+
+
+    */
 
   }
 
