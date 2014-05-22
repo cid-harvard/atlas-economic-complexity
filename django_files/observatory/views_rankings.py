@@ -100,14 +100,16 @@ def get_rankings(category, year, all_fields=False):
 
     elif category == "product":
 
+        fields = ["pci_rank", "product__code", "product__name_en", "pci",
+                  "year"]
+
+        if all_fields:
+            fields += ["world_trade"]
+
         year_rankings = Hs4_py.objects.filter(
             year__in=[year, year-1]
-        ).values_list(
-            "pci_rank",
-            "product__code",
-            "product__name_en",
-            "pci",
-            "year")
+        ).values_list(*fields)
+
 
     # Generate a new dict that looks like:
     # u'KGZ': {2009: (145L, u'KGZ', u'Kyrgyzstan', -0.4462921, 2009),
