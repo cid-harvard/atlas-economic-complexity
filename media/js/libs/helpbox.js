@@ -3,13 +3,12 @@ $(document).ready(function(){
 // Defines Placeholder Varialbes for Help Box
 if(app_name == "product_space"){
   var h3_holder ="Product Space";
-  var p_holder = "";
+  var p_holder = "Explore how related products are based on the know-how required to produce them.";
 
 } else if(app_name == "pie_scatter"){
-
-  console.log("pie");
+  var h3_holder = "Product Feasibility";
+  var p_holder = "Determine how plausible it is for a country to produce a specific product based on what they're already producing.";
 } else{
-  console.log("ELSE");
   var h3_holder =" ";
   var p_holder = "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function.";
 }
@@ -20,7 +19,7 @@ if(app_name == "product_space"){
     $("#helpBoxInner h3").html(h3_holder);
     $("#helpBoxInner p").html(p_holder);
   }
-
+  exit();
 // Inserts text on mouseenter and replaces it on mouseleave
 
   $("#country1").mouseenter(function(){
