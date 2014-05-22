@@ -122,6 +122,11 @@ def get_rankings(category, year, all_fields=False):
     # [169L, u'DZA', u'Algeria', -0.8050764, -20L]]
     for r in rankings.values():
 
+        # TODO: this works around 4 missing data points:
+        # https://github.com/cid-harvard/atlas-data/issues/4
+        if year not in r:
+            continue
+
         # If previous year and current year data exists, we can calculate delta
         if year-1 in r and year in r:
             delta = r[year - 1][0] - r[year][0]
