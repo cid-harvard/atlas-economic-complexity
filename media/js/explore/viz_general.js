@@ -1478,9 +1478,9 @@ var flat_data,
     thead.append("tr").selectAll("th")
       .data(function() {
         if(item_type=="country")
-          return ["Rank", "Abbrv", "Country", "Complexity", "Share", "Value"]
+          return ["Rank", "", "Abbrv", "Country", "Complexity", "Share", "Value"]
         else
-          return ["Rank", "HS4", "Product", "Complexity", "Share", "Value"]      ;
+          return ["Rank", "", "HS4", "Product", "Complexity", "Share", "Value"]      ;
 
       })
       .enter()
@@ -1502,13 +1502,13 @@ var flat_data,
     var cells = rows.selectAll("td")
       .data(function(d) { 
         if(item_type=="country")
-          return [d+1, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+          return [d+1, '<img src="/media/img/icons/flag_'+year_data[d].abbrv+'.png" alt="Flag of {{country.name}}"  style="width: 20px;" /> ', year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
         else
-          return [d+1, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+          return [d+1, '<img src="/media/img/icons/community_'+year_data[d].community_id+'.png" alt="{{p.1}}" style="width: 20px;" />', year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
       })
       .enter()
       .append("td")
-      .text(function(d, i) { return d; })
+      .html(function(d, i) { return d; })
 
 
     timeline = Slider()
