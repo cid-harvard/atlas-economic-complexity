@@ -1251,6 +1251,13 @@ var flat_data,
 
     if(item_type=="product") {
   
+      if (prod_class == "sitc4"){
+        flat_data = flat_data.filter(function(d){
+          return d.distance != 0;
+        });
+      }
+      flat_data = construct_scatter_nest(flat_data);
+  
     viz
       .type("pie_scatter")
       .height(height)
@@ -1322,17 +1329,6 @@ var flat_data,
       .call(viz) 
 
     // highlight(queryParameters['highlight']);
-
-    timeline = Slider()
-          .callback('set_scatterplot_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-
-    d3.select("#ui_bottom").append("div")
-      .attr("class","slider")
-      .datum(years_available)
-      .call(timeline)
 
     d3.select("#loader").style("display", "none");  
 
@@ -2288,10 +2284,23 @@ var flat_data,
       if(app_name=="scatterplot") {
 
 
+        // where = flat_data.filter(function(d){ return d.year == year; })
+        
         scatterplot();
 
-     
+        timeline = Slider()
+                  .callback('set_scatter_year')
+                  .initial_value(parseInt(year))
+                  .max_width(670)
+                  .title("")
 
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          .datum(years_available)
+          .call(timeline)
+
+
+    
       }
 
 
