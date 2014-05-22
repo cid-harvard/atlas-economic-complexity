@@ -75,6 +75,8 @@ urlpatterns = patterns('',
   (r'^api/views/$', 'observatory.views.api_views'),
   (r'^api/rankings/country/$', 'observatory.views_rankings.api_country_rankings'),
   (r'^api/rankings/country/(?P<year>\d{4})/$', 'observatory.views_rankings.api_country_rankings'),
+  (r'^api/rankings/product/$', 'observatory.views_rankings.api_product_rankings'),
+  (r'^api/rankings/product/(?P<year>\d{4})/$', 'observatory.views_rankings.api_product_rankings'),
 
   # Story #####
   (r'^generate_png/$','observatory.views.generate_png'),

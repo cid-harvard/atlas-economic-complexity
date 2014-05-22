@@ -141,3 +141,8 @@ def api_country_rankings(request, year=2012):
     data = get_rankings("country", year, all_fields=True)
     return HttpResponse(json.dumps({'data':data}),
                         content_type='application/json')
+
+def api_product_rankings(request, year=2012):
+    data = get_rankings("product", year, all_fields=True)
+    return HttpResponse(json.dumps({'data':data}),
+                        content_type='application/json')
