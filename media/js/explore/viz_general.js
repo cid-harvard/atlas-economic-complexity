@@ -862,32 +862,81 @@ var flat_data,
   }
     var inner_html = function(obj) {
 
-      var html = "<div class='d3plus_tooltip_title'>More Visualizations </div><br><br>";
-      html += " <table>";
 
-      if(app_name!="tree_map") {
-        html += "<tr><td><img src='"+static_url+"img/home/treeMap-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
-      }
-      if(app_name!="stacked"){
-        html += "<tr><td><img src='"+static_url+"img/home/stacked-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
-      }
-      if(app_name!="map"){
-        html += "<tr><td><img src='"+static_url+"img/home/geo-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Map</a></td></tr></a>";
-      }
-      if(app_name!="pie_scatter"){
-        html += "<tr><td><img src='"+static_url+"img/home/productFeas-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"pie_scatter\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Feasability</a></td></tr></a>";
-      }
-      if(app_name!="product_space"){
-        html += "<tr><td><img src='"+static_url+"img/home/productSpace-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"product_space\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Space</a></td></tr></a>";
-      }            
-   
-      html += "</table>";
+      if(queryParameters.show_related) { 
+
+
+      var html = "<div class='d3plus_tooltip_title'>Related Visualizations </div><br>";
+      html += "<div id='related_links'></div>";
+
+      var name = "";
+
+      // Retrieve the name from id
+      flat_data.filter(function(d) {
+        if(d.id == obj)
+          name = d.name;
+      })
+
+      setTimeout(function() {
+            d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
+
+              if (error) { // Default data
+
+                return console.warn(error);
+
+              } else {
+                json = data;
+              }
+
+              related_html = "";
+
+              json.filter(function(d, i) { 
+                d3.select("#related_links")
+                  .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+d.value+"'>"+d.label+"</a>");
+
+              })
+
+      //        console.log("appended", related_html)
+        //      d3.select("#related").related_html("tata")//related_html);
+
+            })
+
+      }, 500)
+
       return html;
+
+      } else {
+
+
+        var html = "<div class='d3plus_tooltip_title'>Related Visualizations</div><br><br>";
+        html += " <table>";
+
+        if(app_name!="tree_map") {
+          html += "<tr><td><img src='"+static_url+"img/home/treeMap-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
+        }
+        if(app_name!="stacked"){
+          html += "<tr><td><img src='"+static_url+"img/home/stacked-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
+        }
+        if(app_name!="map"){
+          html += "<tr><td><img src='"+static_url+"img/home/geo-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Map</a></td></tr></a>";
+        }
+        if(app_name!="pie_scatter"){
+          html += "<tr><td><img src='"+static_url+"img/home/productFeas-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"pie_scatter\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Feasability</a></td></tr></a>";
+        }
+        if(app_name!="product_space"){
+          html += "<tr><td><img src='"+static_url+"img/home/productSpace-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"product_space\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Space</a></td></tr></a>";
+        }            
+     
+        html += "</table>";
+        return html;
+
+      }
+
     }
 
   tree = function() {
@@ -1250,8 +1299,6 @@ var flat_data,
     }
 
 
-
-
     if (!embed) {
       
       key = Key()
@@ -1298,7 +1345,6 @@ var flat_data,
     var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"})//.html("Rankings")
 
     d3.select("#loader").style("display", "none");  
-
 
     var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
 
