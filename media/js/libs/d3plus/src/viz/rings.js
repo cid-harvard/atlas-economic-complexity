@@ -139,6 +139,23 @@ d3plus.rings = function(vars) {
     })
     .on(d3plus.evt.click,function(d){
       if (d.depth != 0) vars.parent.call(chart.highlight(d[vars.id_var]));
+
+      // UPDATE
+      var list_categories = [];
+
+      vars.connections[vars.highlight].forEach(function(n){
+      
+        list_categories.push(n.community_id)
+
+        // TODO: find the community for the given node and append it to the array.
+//        console.log("cat", n)
+      });
+
+      list_categories = list_categories.getUnique();
+
+      key.disable(list_categories)
+      console.log("list", list_categories)
+
     })
       
   node.transition().duration(d3plus.timing)

@@ -1685,6 +1685,14 @@ var flat_data,
       .datum(data)
       .call(viz);  
     
+      d3.selectAll(".node, .d3plus_network_connection").on("mouseup", function() {
+        
+        // Update the keys based on product category availability
+        console.log("click")
+
+
+      })
+
     })
     
 
