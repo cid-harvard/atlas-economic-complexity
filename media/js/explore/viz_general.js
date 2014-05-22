@@ -1257,7 +1257,7 @@ var flat_data,
         });
       }
       flat_data = construct_scatter_nest(flat_data);
-  
+
     viz
       .type("pie_scatter")
       .height(height)
@@ -1301,9 +1301,9 @@ var flat_data,
       .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
       .text_var("name")
       .id_var("id")
-      .attrs(attr)
-      .xaxis_var("value")
-      .yaxis_var("share")
+      .attrs(region_attrs)
+      .xaxis_var("share")
+      .yaxis_var("value")
       .value_var("share")
       .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
