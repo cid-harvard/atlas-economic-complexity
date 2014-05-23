@@ -73,6 +73,8 @@ urlpatterns = patterns('',
   (r'^api/apps/$', 'observatory.views.api_apps'),
   (r'^api/data/$', 'observatory.views.api_data'),
   (r'^api/views/$', 'observatory.views.api_views'),
+  (r'^api/dropdowns/products/$', 'observatory.views_dropdown.api_dropdown_products'),
+  (r'^api/dropdowns/countries/$', 'observatory.views_dropdown.api_dropdown_countries'),
 
   # Story #####
   (r'^generate_png/$','observatory.views.generate_png'),
