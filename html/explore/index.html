@@ -143,7 +143,7 @@
 
               <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
+                <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="width:130px">
 
                 <option value=""></option>
                   {% if country1_list %}
@@ -197,7 +197,7 @@
           
                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
+                <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="width:130px" placeholder="All Products" >
                   <option value=""></option>
                   {% if product_list %}
                     {% for p in product_list %}
@@ -222,7 +222,7 @@
 
                  <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-trade-partner tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                  <select data-placeholder="All Countries" id="country_trade_partner_select" class="chosen-select-deselect" tabindex="-1" style="display: none;">
+                  <select data-placeholder="All Countries" id="country_trade_partner_select" class="chosen-select-deselect" tabindex="-1" style="width:130px;">
                     <option value=""></option>
                     {% if country1_list %}
 
