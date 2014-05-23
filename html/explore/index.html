@@ -196,7 +196,8 @@
                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
                 <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="width:130px">
-                <option value=""></option>                     
+                <option value=""></option>
+                                     
                 </select>
               </div>
             </div>
@@ -1451,8 +1452,8 @@
   // Page init scripts
   $(function () {
 
-    $('.chosen-select').chosen();
-    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+
 
     $("#help").click(function(){
         bootstro.start(".bootstro",{

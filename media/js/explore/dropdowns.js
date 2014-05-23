@@ -6,4 +6,7 @@ $.ajax({
 	for(var i = 0; i < data.length; i++){
 		$("#country_product_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
 	}
+	// initializes chosen
+	$('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+	$('.chosen-select').chosen();
 });
