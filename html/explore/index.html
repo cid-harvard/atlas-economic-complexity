@@ -1287,24 +1287,22 @@
 
     <script src="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.js"></script>
 
-    {% if app_name != "scatterplot" %}
 
     <script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/viz.js"></script>
 
       {% if app_name == "tree_map" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/tree_map.js"></script>{% endif %}
       {% if app_name == "stacked" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/stacked.js"></script>{% endif %}
-      {% if app_name == "pie_scatter" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/pie_scatter.js"></script>{% endif %}
+      {% if app_name == "pie_scatter" or app_name == "scatterplot" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/pie_scatter.js"></script>{% endif %}
       {% if app_name == "product_space" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/network.js"></script>{% endif %}
       {% if app_name == "map" %}<!-- <script src="media/js/libs/d3plus/src/viz/geo_map.js"></script>-->{% endif %}
       {% if app_name == "rings" %}<script src="{{ STATIC_URL }}js/libs/d3plus/src/viz/rings.js"></script>{% endif %}
 
-    {% elif app_name == "scatterplot" %}
+    {% elif app_name == "scatterplot_new" %}
 
       <script src="{{ STATIC_URL }}js/libs/d3plus/d3plus.v1.2.4.js"></script>
 
     {% endif %}
 
-  {% endif %}
 
   {% if app_name == "map" %}
 
@@ -1424,6 +1422,7 @@
   queryParameters['details_treemap'] = queryParameters['details_treemap'] || 2;
   queryParameters['cat_id'] = queryParameters['cat_id'] || "";
   queryParameters['cont_id'] = queryParameters['cont_id'] || "";
+  queryParameters['show_related'] = Boolean(queryParameters['show_related']) || false;  
   //queryParameters['trade_flow'] = queryParameters['trade_flow'] || "net";
   queryParameters['highlight'] = queryParameters['highlight'] || "";
 

@@ -862,32 +862,81 @@ var flat_data,
   }
     var inner_html = function(obj) {
 
-      var html = "<div class='d3plus_tooltip_title'>More Visualizations </div><br><br>";
-      html += " <table>";
 
-      if(app_name!="tree_map") {
-        html += "<tr><td><img src='"+static_url+"img/home/treeMap-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
-      }
-      if(app_name!="stacked"){
-        html += "<tr><td><img src='"+static_url+"img/home/stacked-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
-      }
-      if(app_name!="map"){
-        html += "<tr><td><img src='"+static_url+"img/home/geo-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Map</a></td></tr></a>";
-      }
-      if(app_name!="pie_scatter"){
-        html += "<tr><td><img src='"+static_url+"img/home/productFeas-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"pie_scatter\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Feasability</a></td></tr></a>";
-      }
-      if(app_name!="product_space"){
-        html += "<tr><td><img src='"+static_url+"img/home/productSpace-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"product_space\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Space</a></td></tr></a>";
-      }            
-   
-      html += "</table>";
+      if(queryParameters.show_related) { 
+
+
+      var html = "<div class='d3plus_tooltip_title'>Related Visualizations </div><br>";
+      html += "<div id='related_links'></div>";
+
+      var name = "";
+
+      // Retrieve the name from id
+      flat_data.filter(function(d) {
+        if(d.id == obj)
+          name = d.name;
+      })
+
+      setTimeout(function() {
+            d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
+
+              if (error) { // Default data
+
+                return console.warn(error);
+
+              } else {
+                json = data;
+              }
+
+              related_html = "";
+
+              json.filter(function(d, i) { 
+                d3.select("#related_links")
+                  .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+d.value+"'>"+d.label+"</a>");
+
+              })
+
+      //        console.log("appended", related_html)
+        //      d3.select("#related").related_html("tata")//related_html);
+
+            })
+
+      }, 500)
+
       return html;
+
+      } else {
+
+
+        var html = "<div class='d3plus_tooltip_title'>Related Visualizations</div><br><br>";
+        html += " <table>";
+
+        if(app_name!="tree_map") {
+          html += "<tr><td><img src='"+static_url+"img/home/treeMap-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
+        }
+        if(app_name!="stacked"){
+          html += "<tr><td><img src='"+static_url+"img/home/stacked-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
+        }
+        if(app_name!="map"){
+          html += "<tr><td><img src='"+static_url+"img/home/geo-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Map</a></td></tr></a>";
+        }
+        if(app_name!="pie_scatter"){
+          html += "<tr><td><img src='"+static_url+"img/home/productFeas-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"pie_scatter\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Feasability</a></td></tr></a>";
+        }
+        if(app_name!="product_space"){
+          html += "<tr><td><img src='"+static_url+"img/home/productSpace-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"product_space\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Space</a></td></tr></a>";
+        }            
+     
+        html += "</table>";
+        return html;
+
+      }
+
     }
 
   tree = function() {
@@ -1198,6 +1247,125 @@ var flat_data,
 
     flat_data = construct_nest(flat_data);
 
+    viz = d3plus.viz()
+
+    if(item_type=="product") {
+  
+      if (prod_class == "sitc4"){
+        flat_data = flat_data.filter(function(d){
+          return d.distance != 0;
+        });
+      }
+      flat_data = construct_scatter_nest(flat_data);
+
+    viz
+      .type("pie_scatter")
+      .height(height)
+      .width(width)
+      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .text_var("name")
+      .id_var("id")
+      .attrs(attr)
+      .xaxis_var("distance")
+      .yaxis_var("share")
+      .value_var("world_trade")
+      .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
+      .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .depth("nesting_2")
+      .text_format(txt_format)
+      .number_format(num_format)
+      .spotlight(false)
+      .dev(false)
+      .font('PT Sans Narrow')
+      .click_function(inner_html)
+  //    .static_axis(false)
+      .year(year)
+    
+    d3.select("#loader").style("display", "none");
+
+    flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
+  
+    flat_data.map(function(d){
+      d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+      d.id = String(d.id)
+    })
+  
+
+ } else {
+
+    viz
+      .type("pie_scatter")
+      .height(height)
+      .width(width)
+      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .text_var("name")
+      .id_var("id")
+      .attrs(region_attrs)
+      .xaxis_var("share")
+      .yaxis_var("value")
+      .value_var("share")
+      .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
+      .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .depth("nesting_2")
+      .text_format(txt_format)
+      .number_format(num_format)
+      .spotlight(false)
+      .dev(false)
+      .font('PT Sans Narrow')
+      .click_function(inner_html)
+  //    .static_axis(false)
+      .year(year)
+    
+
+
+
+ }
+
+    d3.select("#viz")
+      .style('height','520px')
+      .datum(flat_data)
+      .call(viz) 
+
+    // highlight(queryParameters['highlight']);
+
+    d3.select("#loader").style("display", "none");  
+
+    if(!embed){
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+
+      d3.select(".key")
+        .datum(attr_data)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
+        .year(year)
+
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls);
+      
+      $("#pie_yvar").buttonset();
+      $("#pie_spot").buttonset();
+      $("#pie_controls input[type='radio']").change(function(e){
+        if($(e.target).attr("name") == "yvar"){
+          ($(e.target).attr("id")=="complexity") ? d3.select("#viz").call(viz.yaxis_var("complexity")) :
+                                              d3.select("#viz").call(viz.yaxis_var("opp_gain"))
+        }
+        if($(e.target).attr("name") == "pie_spot"){
+          ($(e.target).attr("id")=="spot_off") ? d3.select("#viz").call(viz.spotlight(false)) :
+                                              d3.select("#viz").call(viz.spotlight(true))
+        }
+      })         
+    }
+
+/*
+    flat_data = construct_nest(flat_data);
+
     if(item_type=="country") {
 
       //year_data = flat_data.filter(function(d){ return d.year == year})
@@ -1250,8 +1418,6 @@ var flat_data,
     }
 
 
-
-
     if (!embed) {
       
       key = Key()
@@ -1290,6 +1456,9 @@ var flat_data,
 
     d3.select("#loader").style("display", "none");  
 
+
+    */
+
   }
 
 
@@ -1298,7 +1467,6 @@ var flat_data,
     var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"})//.html("Rankings")
 
     d3.select("#loader").style("display", "none");  
-
 
     var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
 
@@ -1310,9 +1478,9 @@ var flat_data,
     thead.append("tr").selectAll("th")
       .data(function() {
         if(item_type=="country")
-          return ["Rank", "Abbrv", "Country", "Complexity", "Share", "Value"]
+          return ["Rank", "", "Abbrv", "Country", "Complexity", "Share", "Value"]
         else
-          return ["Rank", "HS4", "Product", "Complexity", "Share", "Value"]      ;
+          return ["Rank", "", "HS4", "Product", "Complexity", "Share", "Value"]      ;
 
       })
       .enter()
@@ -1334,13 +1502,13 @@ var flat_data,
     var cells = rows.selectAll("td")
       .data(function(d) { 
         if(item_type=="country")
-          return [d+1, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+          return [d+1, '<img src="/media/img/icons/flag_'+year_data[d].abbrv+'.png" alt="Flag of {{country.name}}"  style="width: 20px;" /> ', year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
         else
-          return [d+1, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+          return [d+1, '<img src="/media/img/icons/community_'+year_data[d].community_id+'.png" alt="{{p.1}}" style="width: 20px;" />', year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
       })
       .enter()
       .append("td")
-      .text(function(d, i) { return d; })
+      .html(function(d, i) { return d; })
 
 
     timeline = Slider()
@@ -1517,6 +1685,14 @@ var flat_data,
       .datum(data)
       .call(viz);  
     
+      d3.selectAll(".node, .d3plus_network_connection").on("mouseup", function() {
+        
+        // Update the keys based on product category availability
+        console.log("click")
+
+
+      })
+
     })
     
 
@@ -2116,10 +2292,23 @@ var flat_data,
       if(app_name=="scatterplot") {
 
 
+        // where = flat_data.filter(function(d){ return d.year == year; })
+        
         scatterplot();
 
-     
+        timeline = Slider()
+                  .callback('set_scatter_year')
+                  .initial_value(parseInt(year))
+                  .max_width(670)
+                  .title("")
 
+        d3.select("#ui_bottom").append("div")
+          .attr("class","slider")
+          .datum(years_available)
+          .call(timeline)
+
+
+    
       }
 
 
