@@ -31,6 +31,11 @@ import msgpack
 import re
 import fpe
 import time
+
+from urlparse import urlparse
+from django.core.urlresolvers import resolve
+from django.http import HttpResponseRedirect, Http404
+
 # Import for cache
 if settings.REDIS:
   from django.core.cache import cache, get_cache
@@ -688,17 +693,23 @@ def url_to_filename(request,Url):
   prod_class = request.GET.get("product_classification", prod_class)
   #Get session parameters
   language=lang
-  # Split the array to get the parts we want
-  full_url=Url.split('explore/')
-  localhost=full_url[0]
-  url_content = full_url[1]
-  # Split the array to get the parts we want
-  url =  url_content.split('/')
-  static_image_name = '_'.join(url)
-  response = static_image_name
-  return response
+  try:
+      view, args, kwargs = resolve(urlparse(Url)[2])
+      app_name = kwargs["app_name"]
+      trade_flow = kwargs["trade_flow"]
+      country1 = kwargs["country1"]
+      product = kwargs["product"]
+      country2 = kwargs["country2"]
+      year = kwargs["year"]
+      url = reverse(view, kwargs=kwargs)
+      product_file_bit = country2 + "_" + product
+      file_name = app_name + "_" + language + "_" + prod_class + "_" + trade_flow + "_" + country1 + "_" + product_file_bit + "_" + str(year)
+      response = file_name
+      return response
+  except Http404:
+      print "Invalid Url"
 
-def filename_to_url(request, FileName):
+def filename_to_url(request, fileName,):
   # set language (if session data available use that as default)
   lang = request.session['django_language'] if 'django_language' in request.session else "en"
   lang = request.GET.get("lang", lang)
@@ -708,27 +719,49 @@ def filename_to_url(request, FileName):
   #Get session parameters
   language=lang
   # Split the array to get the parts we want
-  data=FileName.split('_')
+  data=fileName.split('_')
   app_name1=data[0]
   app_name2=data[1]
-  if app_name1 == "stacked" or "map":
+  if app_name1 == "stacked":
      app_name= data[0]
-     del data[0]
-     del data[1]
-     url='/'.join(data)
+     lanuage = data[1]
+     prod_class = data[2]
+     trade_flow = data[3]
+     country1 = data[4]
+     country2 = data[5]
+     product = data[6]
+     year= data[7]  
      # Build the url
-     url = app_name + "/" + url
+     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response
-
-  if app_name1 == "tree" or "pie" or "product":
-     app_name = data[0] + "_" + data[1]
-     del data[0]
-     del data[1]
-     url = '/'.join(data)
+  if app_name1 == "map":
+     app_name= data[0]
+     lanuage = data[1]
+     prod_class = data[2]
+     trade_flow = data[3]
+     country1 = data[4]
+     country2 = data[5]
+     product = data[6]
+     year= data[7]  
      # Build the url
-     url = app_name + "/" + url
+     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     full_url = request.META['HTTP_HOST'] + '/explore/' + url
+     response = full_url
+     return response
+  if app_name1 == "tree" or "pie" or "product":
+     app_name = data[0] + "_" + data[1]  
+     language = data[2] 
+     prod_class = data[3]
+     trade_flow = data[4]
+     country1 = data[5]
+     country2 = data[6]
+     product = data[7]
+     year= data[8]  
+     # Build the url
+     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     print url
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response

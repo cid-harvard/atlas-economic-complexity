@@ -16,7 +16,9 @@ from django.conf import settings
 from observatory.models import *
 import logging
 logger = logging.getLogger(__name__)
-
+from urlparse import urlparse
+from django.core.urlresolvers import resolve
+from django.http import HttpResponseRedirect, Http404
 # Setup the path constants
 
 # Setup the supported languages so that we can loop over them
@@ -48,7 +50,6 @@ app_list = ["tree_map"]  # , "product_space", "stacked", "pie_scatter" ]
 
 class Command(BaseCommand):
     help = 'Generate the JSON & SVG data for all permutations of the data set'
-
     def handle(self, *args, **options):
         if args:
             path = args[0]
@@ -174,41 +175,30 @@ class Command(BaseCommand):
         file.close()
         # Converting file-data to array
         for url_list in url_file.split('\n'):
-            # Build the API JSON Data URL
-            api_url = url_list
-            # Setup the page url
-            page_url = url_list
-            # Debug
-            self.stdout.write('Processing API Request URL --> "%s"' % api_url)
-            self.stdout.write("\n")
-            try:
-                # Split the array to get the parts we want
-                full_url = url_list.split('explore/')
-                # Check Url valid or what
-                if full_url != ['']:
-                    # Split the array to get the parts we want
-                    url_and_session_parameters = full_url[1].split('/?')
-                    if len(url_and_session_parameters) == 2:
-                        # Split the array to get the parts we want
-                        session_parameter = url_and_session_parameters[
-                            1].split('&')
-                        # Split the array to get the parts we want
-                        lang = session_parameter[0].split('=')
-                        product_classification = session_parameter[
-                            1].split('=')
-                        language = lang[1]
-                        p_classification = product_classification[1]
-                    else:
-                        language = "en"
-                        p_classification = "hs4"
-                    # Split the array to get the parts we want
-                    url_parameter = url_and_session_parameters[0].split('/')
-                    app_name = url_parameter[0]
-                    del url_parameter[0]
-                    url_map = '_'.join(url_parameter)
+            if url_list:
+                try:
+                    # Build the API JSON Data URL
+                    api_url = url_list
+                    # Setup the page url
+                    page_url = url_list
+                    # Debug
+                    self.stdout.write(
+                        'Processing API Request URL --> "%s"' %
+                        api_url)
+                    self.stdout.write("\n")
+                    view, args, kwargs = resolve(urlparse(url_list)[2])
+                    app_name = kwargs['app_name']
+                    trade_flow = kwargs['trade_flow']
+                    country1 = kwargs['country1']
+                    product = kwargs['product']
+                    country2 = kwargs['country2']
+                    year = kwargs['year']
+                    language = "en"
+                    p_classification = "hs4"
+                    product_file_bit = country2 + "_" + product
                     # Setup the file name
-                    file_name = app_name + "_" + language + \
-                        "_" + p_classification + "_" + url_map
+                    file_name = app_name + "_" + language + "_" + p_classification + "_" + \
+                        trade_flow + "_" + country1 + "_" + product_file_bit + "_" + str(year)
                     # We only want to do the below for data that doesn't
                     # already exist
                     if (os.path.exists(settings.DATA_FILES_PATH + "/" + file_name + ".svg") is False):
@@ -243,8 +233,8 @@ class Command(BaseCommand):
                         # We have already generated the data for this
                         # permutation
                         logger.info("Data already exists. Skipping ......")
-            except:
-                logger.error("Invalid url format")
+                except:
+                    logger.error("Invalid url format")
 
     def save_json(self, api_url, file_name):
         # Wrap everything in a try block
