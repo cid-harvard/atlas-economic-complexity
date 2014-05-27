@@ -59,63 +59,39 @@ class Command(BaseCommand):
             "/" +
             file_name,
             page_url]
-
-        # Debug
-        #self.stdout.write( "Calling PhantomJS -->" )
-        #self.stdout.write( "\n" )
-        # print phantom_arguments
-
-        # Let us setup the request
-        phantom_execute = Popen(phantom_arguments)
-
-        # Get the output data from the phantomjs execution
-        try:
-            execution_results = phantom_execute.communicate()
-            return True
-        except:
-            logger.error("RunTime Error")
-        return False
-        # Print the stdout data
-        print execution_results[0]
-
-        # Wait until the SVG file is actually generated
-        while (os.path.exists(settings.DATA_FILES_PATH + "/" + file_name) != True):
-            # Sleep for a bit and then continue with the loop
-            time.sleep(20)
-
-        # At this point, we are kind of sure that the SVG file must be created
-        # Open up the SVG file and let us try manipulate here itself
-        svgFile = open(settings.DATA_FILES_PATH + "/" + file_name, "r")
-
-        # Set the SVG data
-        svgData = svgFile.read()
-
-        # Close the file since we don't need it anymore
-        svgFile.close()
-
-        # Let us run the replace on the svg data to swap all id attributes
-        newSvgData = re.sub(r'id=\"([^"]+)\"', r'id="\1-temp-loader"', svgData)
-
-        # Let us run the replace on the modified svg data to swap all class
-        # attributes
-        newSvgData = re.sub(
-            r'class=\"([^"]+)\"',
-            r'class="\1-temp-loader"',
-            newSvgData)
-
-        # Let us now write out the modified markup to file
-        svgFile = open(settings.DATA_FILES_PATH + "/" + file_name, "w+")
-
-        # Write the markup now
-        svgFile.write(newSvgData)
-
-        # Close the file now
-        svgFile.close()
+	
+	Phantom_timeout = 20
+	try:
+	    logger.info("PhantomJS Initiated")
+	    phantom_execute = Popen(phantom_arguments)
+	    waited_so_far = 0
+	    while phantom_execute.poll() is None:
+		if waited_so_far < Phantom_timeout :
+		    time.sleep(1)
+		    waited_so_far += 1
+		else:
+		    phantom_execute.terminate()
+	    if phantom_execute.returncode !=0:
+		logger.info("SVG Generated..Reading it")
+		svgFile = open(settings.DATA_FILES_PATH + "/" + file_name, "r")
+		svgData = svgFile.read()
+		svgFile.close()
+		newSvgData = re.sub(r'id=\"([^"]+)\"', r'id="\1-temp-loader"', svgData)
+		newSvgData = re.sub(
+		    r'class=\"([^"]+)\"',
+		    r'class="\1-temp-loader"',
+		    newSvgData)
+		svgFile.write(newSvgData)
+		svgFile.close()
+	    logger.info("Phantom Terminated")
+		
+	except Exception as ex:
+	    logger.error("Runtime Error : %s", ex)
 
     def save_png(self, file_name):
-        # Get the SVG data. Defensive code to prevent code freeze in case of
-        # corrupt svg data
+        # Get the SVG data
         try:
+	    logger.info("Creating PNG")
             svg_file = open(
                 settings.DATA_FILES_PATH +
                 "/" +
@@ -126,7 +102,6 @@ class Command(BaseCommand):
         except:
             logger.error("Error reading the SVG ")
             return False
-
         # Create the blank image surface
         img = cairo.ImageSurface(
             cairo.FORMAT_ARGB32,
@@ -141,10 +116,6 @@ class Command(BaseCommand):
         handler.render_cairo(ctx)
 
         # Create the final png image
-        img.write_to_png(
-            settings.DATA_FILES_PATH +
-            "/" +
-            file_name +
-            ".png")
+	img.write_to_png(settings.DATA_FILES_PATH + "/" + file_name +".png")
 
         logger.info("SVG and PNG Created")
