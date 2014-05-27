@@ -43,14 +43,18 @@ source: function(request, response) {
     $.getJSON( "/api/search/",
         request,
         function(data, status, xhr) {
-            cache[term] = data;
-            response(data);
+            var reshaped_data = [];
+            for (var i = 0; i < data[1].length; i++){
+                reshaped_data.push({label: data[1][i], value: data[3][i]});
+            }
+            cache[term] = reshaped_data;
+            response(reshaped_data);
     });
     },
 select: function(event, ui){
     event.preventDefault();
     $(this).val(ui.item.label);
-    window.location.href="/" + ui.item.value;
+    window.location.href=ui.item.value;
 },
 });
 

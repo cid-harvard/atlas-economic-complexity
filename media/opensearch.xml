@@ -6,5 +6,6 @@
     <Language>en</Language>
     <Url type="text/html" method="get" template="http://localhost:8000/search/?term={searchTerms}"/>
     <Url type="application/opensearchdescription+xml" template="http://localhost:8000/media/opensearch.xml" rel="self"/>
+    <Url type="application/x-suggestions+json" template="http://localhost:8000/api/search/?term={searchTerms}"/>
     <moz:SearchForm>http://localhost:8000/search/</moz:SearchForm>
 </OpenSearchDescription>

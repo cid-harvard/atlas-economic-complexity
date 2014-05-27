@@ -52,7 +52,10 @@ def api_search(request):
             # },
             "size": 8
         })
-    result_list = []
+
+    labels = []
+    urls = []
+
     for x in result['hits']['hits']:
         label = x['_source']['title'] + year_string
         url = x['_source']['url'] + year_url_param
@@ -60,8 +63,15 @@ def api_search(request):
         # instead of pregenerating it. See issue # 134
         if years and len(years) > 1:
             url = url.replace("tree_map", "stacked")
-        result_list.append(dict(label=label, value=url))
-    return HttpResponse(json.dumps(result_list))
+        labels.append(label)
+        urls.append("http://localhost:8000/" + url)
+
+    return HttpResponse(json.dumps([
+        query,
+        labels,
+        [],
+        urls
+    ]))
 
 
 def search(request):
