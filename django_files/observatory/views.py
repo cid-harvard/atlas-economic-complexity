@@ -1183,7 +1183,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   # Force lazy queryset to hit the DB to reduce number of DB queries later
   years_available = list(years_available)
 
-  country1_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
+  country1_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None
   warning, alert, title = None, None, None
   data_as_text = {}
   # What is actually being shown on the page
