@@ -2,7 +2,7 @@ from django.http import HttpResponse
 
 import json
 
-from observatory.models import Hs4, Sitc4
+from observatory.models import Hs4, Sitc4, Country
 
 
 def api_dropdown_products(request, product_class="hs4"):
@@ -26,4 +26,10 @@ def api_dropdown_countries(request):
     """API to dynamically fill in a country dropdown, product name to code. Can
     also set lang=foo to get a specific language, but it'll default to the
     django user locale. """
-    return HttpResponse("", content_type="application/json")
+
+    lang = request.session.get('django_language', "en")
+    lang = request.GET.get("lang", lang)
+
+    countries = Country.objects.get_all(lang)
+    return HttpResponse(json.dumps([(c["name"], c["name_3char"].lower()) for c in countries]),
+                        content_type="application/json")
