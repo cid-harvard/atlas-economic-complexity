@@ -6,11 +6,9 @@ from observatory.models import Hs4, Sitc4
 
 
 def api_dropdown_products(request, product_class="hs4"):
-    """
-
-    can also set  lang=foo
-
-    """
+    """API to dynamically fill in a product dropdown, product name to code. Can
+    also set lang=foo to get a specific language, but it'll default to the
+    django user locale. """
 
     lang = request.session.get('django_language', "en")
     lang = request.GET.get("lang", lang)
@@ -25,4 +23,7 @@ def api_dropdown_products(request, product_class="hs4"):
 
 
 def api_dropdown_countries(request):
+    """API to dynamically fill in a country dropdown, product name to code. Can
+    also set lang=foo to get a specific language, but it'll default to the
+    django user locale. """
     return HttpResponse("", content_type="application/json")
