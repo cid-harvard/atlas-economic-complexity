@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>jQuery UI Autocomplete - Remote with caching</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<title>Atlas of Economic Complexity | Search</title>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css" type="text/css" media="all" />
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <style>
-.ui-autocomplete-loading {
-    background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
-}
 </style>
 <script>
+
+// Function to read query parameters
+function getQueryParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+// jQuery hack to highlight search terms
 $(function() {
 $.ui.autocomplete.prototype._renderItem = function( ul, item){
   var term = this.term.split(' ').join('|');
@@ -23,6 +27,8 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item){
      .append( "<a>" + t + "</a>" )
      .appendTo( ul );
 };
+
+// Set up autocomplete callback
 var cache = {};
 $("#searchbar").autocomplete({
 minLength: 3,
@@ -40,22 +46,26 @@ source: function(request, response) {
             response(data);
     });
     },
-focus: function(event, ui){
-    event.preventDefault();
-    $(this).val(ui.item.label);
-},
 select: function(event, ui){
     event.preventDefault();
     $(this).val(ui.item.label);
     window.location.href="/" + ui.item.value;
 },
 });
+
+
+querystring = getQueryParameterByName("term");
+var bar = $("#searchbar");
+bar.val(querystring);
+bar.autocomplete("search", querystring);
+bar.focus();
+
         });
 </script>
 </head>
 <body>
 <div class="ui-widget">
-    <label for="searchbar">Search: </label>
+    <label for="searchbar">Atlas Search: </label>
     <input id="searchbar">
 </div>
 </body>
