@@ -2,9 +2,45 @@ from django.conf import settings
 from django.http import HttpResponse
 from elasticsearch import Elasticsearch
 
+from collections import defaultdict
 import json
+import re
 
 from observatory import helpers
+
+# These are different from the regions in the DB in that they are a bit more
+# generalized.
+REGIONS = [
+    "europe",
+    "asia",
+    "america",
+    "africa",
+    "carribean",
+    "micronesia",
+    "melanesia",
+    "polynesia",
+    "australia"
+]
+
+REGIONS_RE = re.compile("|".join(REGIONS), re.IGNORECASE)
+
+API_NAMES = ["casy", "cspy", "csay", "ccsy", "sapy"]
+API_NAMES_RE = re.compile("|".join(API_NAMES), re.IGNORECASE)
+
+TRADE_FLOWS = ["import", "export", "net_import", "net_export"]
+TRADE_FLOWS_RE = re.compile("|".join(TRADE_FLOWS), re.IGNORECASE)
+
+
+def extract_regions(query):
+    return re.findall(REGIONS_RE, query)
+
+
+def extract_api_names(query):
+    return re.findall(API_NAMES_RE, query)
+
+
+def extract_trade_flows(query):
+    return re.findall(TRADE_FLOWS_RE, query)
 
 
 def generate_year_strings(years):
@@ -38,7 +74,41 @@ def parse_search(query):
         kwargs["year_string"], kwargs["year_url_param"] = \
             generate_year_strings(years)
 
+    regions = extract_regions(query)
+    if len(regions):
+        kwargs["regions"] = regions
+
+    api_names = extract_api_names(query)
+    if len(api_names):
+        kwargs["api_names"] = api_names
+
+    trade_flows = extract_trade_flows(query)
+    if len(trade_flows):
+        kwargs["trade_flows"] = trade_flows
+
+    # Determine query type
+    if len(query) == 4 and query in API_NAMES:
+        query_type = "api"
+    else:
+        pass
+
     return query, query_type, kwargs
+
+
+def prepare_filters(kwargs):
+
+    filters = defaultdict(list)
+
+    if "regions" in kwargs:
+        filters["region"] += kwargs["regions"]
+
+    if "api_names" in kwargs:
+        filters["api_name"] += kwargs["api_names"]
+
+    if "trade_flows" in kwargs:
+        filters["trade_flow"] += kwargs["trade_flows"]
+
+    return filters
 
 
 def api_search(request):
@@ -48,35 +118,44 @@ def api_search(request):
         return HttpResponse("[]")
 
     query, query_type, kwargs = parse_search(query)
+    filters = prepare_filters(kwargs)
 
-    es = Elasticsearch()
-    result = es.search(
-        index="questions",
-        body={
-            "query": {
-                "filtered": {
-                    "query": {
-                        "fuzzy_like_this": {
-                            "like_text": query,
-                            "fields": ["title", "api_name"],
-                            "fuzziness": 3,
-                            "max_query_terms": 15,
-                            "prefix_length": 4
-                        }
+    es_query = {
+        "query": {
+            "filtered": {
+                "query": {
+                    "fuzzy_like_this": {
+                        "like_text": query,
+                        "fields": ["title"],
+                        "fuzziness": 3,
+                        "max_query_terms": 15,
+                        "prefix_length": 4
                     }
-                }
-            },
-            # "highlight": {
-            #     "pre_tags": ["<div class=highlighted>"],
-            #     "fields": {"title": {}},
-            #     "post_tags": ["</div>"]
-            # },
-            "size": 8
-        })
+                },
+            }
+        },
+        # "highlight": {
+        #     "pre_tags": ["<div class=highlighted>"],
+        #     "fields": {"title": {}},
+        #     "post_tags": ["</div>"]
+        # },
+        "size": 8
+    }
 
+    # Add filters to the query if they were given
+    if filters:
+        es_query["query"]["filtered"]["filter"] = {"terms": filters}
+
+    # TODO: for some reason match filters are getting ORd instead of ANDed?
+
+    # Do the query
+    es = Elasticsearch()
+    result = es.search(index="questions", body=es_query)
+
+    # Format the results in a way that complies with the OpenSearch standard's
+    # suggestion extension
     labels = []
     urls = []
-
     for x in result['hits']['hits']:
         label = x['_source']['title'] + kwargs.get('year_string', '')
         url = x['_source']['url'] + kwargs.get('year_url_param', '')
