@@ -75,9 +75,15 @@ source: function(request, response) {
     });
     },
 select: function(event, ui){
+    // Go to selected URL
     event.preventDefault();
     $(this).val(ui.item.label);
     window.location.href=ui.item.value;
+},
+focus: function(event, ui){
+    // Get rid of behavior where keyboard up down arrow replaces textbox with
+    // url instead of search result.
+    event.preventDefault();
 },
 });
 
