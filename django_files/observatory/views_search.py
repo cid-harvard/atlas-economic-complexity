@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from elasticsearch import Elasticsearch
@@ -64,7 +65,7 @@ def api_search(request):
         if years and len(years) > 1:
             url = url.replace("tree_map", "stacked")
         labels.append(label)
-        urls.append("http://localhost:8000/" + url)
+        urls.append(settings.HTTP_HOST + url)
 
     return HttpResponse(json.dumps([
         query,
@@ -75,4 +76,4 @@ def api_search(request):
 
 
 def search(request):
-    return render_to_response("test_search.html")
+    return render_to_response("searchresults.html")
