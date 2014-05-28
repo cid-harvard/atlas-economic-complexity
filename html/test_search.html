@@ -8,6 +8,29 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <style>
+h1 {
+    font-family: "Gill Sans", "Gill Sans MT", "Helvetica Neue", Calibri, Arial, sans-serif;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 110px;
+}
+
+#search {
+    text-align: center;
+    margin-top: 40px;
+}
+#search input {
+    width: 400px;
+}
+
+.ui-menu {
+    width: 390px;
+}
+.ui-menu .ui-menu-item {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
 </style>
 <script>
 
@@ -69,9 +92,9 @@ bar.focus();
 </script>
 </head>
 <body>
-<div class="ui-widget">
-    <label for="searchbar">Atlas Search: </label>
-    <input id="searchbar">
+<h1>Search the Atlas of Economic Complexity</h1>
+<div id="search">
+    <input id="searchbar" placeholder="E.g. 'Burundi imports 1997 2000', 'wine Italy', 'Taiwan feasible'">
 </div>
 </body>
 </html>
