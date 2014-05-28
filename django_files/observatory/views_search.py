@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from elasticsearch import Elasticsearch
 
 import json
@@ -76,4 +76,4 @@ def api_search(request):
 
 
 def search(request):
-    return render_to_response("searchresults.html")
+    return render("searchresults.html")

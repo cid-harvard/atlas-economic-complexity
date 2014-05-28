@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+    <ShortName>Economic Complexity</ShortName>
+    <Description>Search the Atlas of Economic Complexity</Description>
+    <Query role="example" searchTerms="germany wine 1997 2000"/>
+    <Language>en</Language>
+    <Url type="text/html" method="get" template="{{HTTP_HOST}}search/?term={searchTerms}"/>
+    <Url type="application/opensearchdescription+xml" template="{{HTTP_HOST}}media/opensearch.xml" rel="self"/>
+    <Url type="application/x-suggestions+json" template="{{HTTP_HOST}}api/search/?term={searchTerms}"/>
+    <moz:SearchForm>{{HTTP_HOST}}search/</moz:SearchForm>
+</OpenSearchDescription>
