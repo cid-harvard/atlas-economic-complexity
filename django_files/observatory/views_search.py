@@ -151,6 +151,9 @@ def prepare_filters(kwargs):
     if "trade_flows" in kwargs:
         filters["trade_flow"] += kwargs["trade_flows"]
 
+    if "product_code" in kwargs:
+        filters["product_code"].append(kwargs["product_code"])
+
     return filters
 
 
