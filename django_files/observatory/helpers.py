@@ -238,4 +238,8 @@ def extract_years(input_str):
     if len(results) == 0:
         return None, None
     else:
-        return results[0].span(), results[0].groups()
+        years = results[0].groups()
+        for year in years:
+            if not (1995 <= int(year) <= 2013):
+                return None, None
+        return results[0].span(), years
