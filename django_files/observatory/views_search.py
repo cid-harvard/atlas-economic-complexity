@@ -6,8 +6,6 @@ from collections import defaultdict
 import json
 import re
 
-from observatory import helpers
-
 # These are different from the regions in the DB in that they are a bit more
 # generalized.
 REGIONS = [
@@ -29,6 +27,29 @@ API_NAMES_RE = re.compile("|".join(API_NAMES), re.IGNORECASE)
 
 TRADE_FLOWS = ["import", "export", "net_import", "net_export"]
 TRADE_FLOWS_RE = re.compile("|".join(TRADE_FLOWS), re.IGNORECASE)
+
+YEAR_EXPRESSIONS = [
+    re.compile(r'between (\d{4}) and (\d{4})', re.IGNORECASE),
+    re.compile(r'from (\d{4}) to (\d{4})', re.IGNORECASE),
+    re.compile(r'(\d{4}).*(\d{4})'),
+    re.compile(r'(?:in|at|during) (\d{4})', re.IGNORECASE),
+    re.compile(r'(\d{4})')
+]
+
+
+def extract_years(input_str):
+    """Extract things that look like years out of a given plaintext."""
+    results = (exp.search(input_str) for exp in YEAR_EXPRESSIONS)
+    results = [result for result in results if result is not None]
+
+    if len(results) == 0:
+        return None, None
+    else:
+        years = results[0].groups()
+        for year in years:
+            if not (1995 <= int(year) <= 2013):
+                return None, None
+        return results[0].span(), years
 
 
 def extract_regions(query):
@@ -65,7 +86,7 @@ def parse_search(query):
     query_type = None
 
     # Extract years like in "germany france 2012 2014"
-    span, years = helpers.extract_years(query)
+    span, years = extract_years(query)
     if span is not None:
         # Strip out year expression from query since elasticsearch doesn't
         # contain year data
@@ -144,7 +165,7 @@ def api_search(request):
 
     # Add filters to the query if they were given. Filters are ANDed.
     if filters:
-        es_filters = [{"terms": {k:v}} for k,v in filters.iteritems()]
+        es_filters = [{"terms": {k: v}} for k, v in filters.iteritems()]
         es_filters = {"bool": {"must": es_filters}}
         es_query["query"]["filtered"]["filter"] = es_filters
 
@@ -172,4 +193,3 @@ def api_search(request):
         [],
         urls
     ]))
-
