@@ -4,8 +4,14 @@ $.ajax({
 })
 	.done(function( data ){
 		for(var i = 0; i < data.length; i++){
-			$("#country_product_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");	
+			$("#country_product_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
+
+			if(app_type == "casy" || app_type == "ccsy"){
+				$("#highlight_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
+			}				
 		}
+		$('#country_product_select, #highlight_select').chosen({ allow_single_deselect: true });
+
 	})
 
 $.ajax({
@@ -25,17 +31,20 @@ $.ajax({
 			} else {
 				$("#country_trade_partner_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
 			}
+			if(app_type == "cspy" || app_type == "csay" || app_type == "sapy"){
+				$("#highlight_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
+			}
 		}
-	})
 
-	.then(function(){
-		$('#country1_select, #country_trade_partner_select').chosen({ allow_single_deselect: true });
-		$('#country_product_select').chosen({ allow_single_deselect: true });		
+		$('#country1_select, #country_trade_partner_select, #highlight_select').chosen({ allow_single_deselect: true });	
 	  	$("#country1_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$("#country1 select").val()+".png') no-repeat")
 	  		.css("background-size", "25px")
 	  		.css("padding-left", "30px")
-	  		.css("margin-top", "-2px");	 		
+	  		.css("margin-top", "-2px");
+	  	$('#country_trade_partner_select_chosen').css("width", "140px");
 	});
+
+
 
 // initialize other dropdowns
 $(document).ready(function(){
