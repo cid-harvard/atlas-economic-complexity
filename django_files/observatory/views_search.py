@@ -142,11 +142,11 @@ def api_search(request):
         "size": 8
     }
 
-    # Add filters to the query if they were given
+    # Add filters to the query if they were given. Filters are ANDed.
     if filters:
-        es_query["query"]["filtered"]["filter"] = {"terms": filters}
-
-    # TODO: for some reason match filters are getting ORd instead of ANDed?
+        es_filters = [{"terms": {k:v}} for k,v in filters.iteritems()]
+        es_filters = {"bool": {"must": es_filters}}
+        es_query["query"]["filtered"]["filter"] = es_filters
 
     # Do the query
     es = Elasticsearch()
