@@ -2,7 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from elasticsearch import Elasticsearch
 
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 import json
 import re
 
@@ -62,16 +62,10 @@ def extract_product_code(query):
         return result.span(), result.groups()[0]
 
 
-def extract_regions(query):
-    return re.findall(REGIONS_RE, query)
-
-
-def extract_api_names(query):
-    return re.findall(API_NAMES_RE, query)
-
-
-def extract_trade_flows(query):
-    return re.findall(TRADE_FLOWS_RE, query)
+def make_extractor(compiled_regex):
+    def inner(query):
+        return re.findall(compiled_regex, query)
+    return inner
 
 
 def generate_year_strings(years):
@@ -87,6 +81,14 @@ def generate_year_strings(years):
         year_string = " (%s to %s)" % (years[0], years[1])
         year_url_param = "%s.%s/" % (years[0], years[1])
     return year_string, year_url_param
+
+
+# Extractors to run on query string, in order.
+EXTRACTORS = OrderedDict([
+    ("regions", make_extractor(REGIONS_RE)),
+    ("api_names", make_extractor(API_NAMES_RE)),
+    ("trade_flows", make_extractor(TRADE_FLOWS_RE)),
+])
 
 
 def parse_search(query):
@@ -117,17 +119,11 @@ def parse_search(query):
         query = query[:span[0]] + query[span[1]:]
         kwargs["product_code"] = product_code
 
-    regions = extract_regions(query)
-    if len(regions):
-        kwargs["regions"] = regions
-
-    api_names = extract_api_names(query)
-    if len(api_names):
-        kwargs["api_names"] = api_names
-
-    trade_flows = extract_trade_flows(query)
-    if len(trade_flows):
-        kwargs["trade_flows"] = trade_flows
+    # Extract the remaining common fields like region, product codes etc.
+    for extractor_name, extractor in EXTRACTORS.iteritems():
+        result = extractor(query)
+        if len(result):
+            kwargs[extractor_name] = result
 
     # Determine query type
     if len(query) == 4 and query in API_NAMES:
@@ -197,7 +193,6 @@ def api_search(request):
             }
         }
 
-    print es_query
     # Do the query
     es = Elasticsearch()
     result = es.search(index="questions", body=es_query)
