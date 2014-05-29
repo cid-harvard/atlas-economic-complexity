@@ -52,6 +52,16 @@ def extract_years(input_str):
         return results[0].span(), years
 
 
+def extract_product_code(query):
+    """Returns only first product code."""
+    result = re.search(r"(\d{4})", query)
+
+    if result is None:
+        return None, None
+    else:
+        return result.span(), result.groups()[0]
+
+
 def extract_regions(query):
     return re.findall(REGIONS_RE, query)
 
@@ -87,13 +97,25 @@ def parse_search(query):
 
     # Extract years like in "germany france 2012 2014"
     span, years = extract_years(query)
-    if span is not None:
+    if years is not None:
         # Strip out year expression from query since elasticsearch doesn't
         # contain year data
         query = query[:span[0]] + query[span[1]:]
         kwargs["years"] = years
         kwargs["year_string"], kwargs["year_url_param"] = \
             generate_year_strings(years)
+
+    # It matters that years get extracted before product codes since it's much
+    # likelier that '2012' is a year than a product code. Years are checked to
+    # be within valid bounds, anything that's not a valid year doesn't get
+    # stripped from the query and thus can potentially be found as a product
+    # code.
+
+    # Extract product code
+    span, product_code = extract_product_code(query)
+    if product_code is not None:
+        query = query[:span[0]] + query[span[1]:]
+        kwargs["product_code"] = product_code
 
     regions = extract_regions(query)
     if len(regions):
