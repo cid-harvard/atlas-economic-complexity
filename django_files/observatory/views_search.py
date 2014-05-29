@@ -168,17 +168,7 @@ def api_search(request):
 
     es_query = {
         "query": {
-            "filtered": {
-                "query": {
-                    "fuzzy_like_this": {
-                        "like_text": query,
-                        "fields": ["title"],
-                        "fuzziness": 3,
-                        "max_query_terms": 15,
-                        "prefix_length": 4
-                    }
-                },
-            }
+            "filtered": {}
         },
         # "highlight": {
         #     "pre_tags": ["<div class=highlighted>"],
@@ -194,6 +184,20 @@ def api_search(request):
         es_filters = {"bool": {"must": es_filters}}
         es_query["query"]["filtered"]["filter"] = es_filters
 
+    # Add fuzzy search for query string if any non-filter query string remains
+    # after taking out the filters
+    if query.strip() != "":
+        es_query["query"]["filtered"]["query"] = {
+            "fuzzy_like_this": {
+                "like_text": query,
+                "fields": ["title"],
+                "fuzziness": 3,
+                "max_query_terms": 15,
+                "prefix_length": 4
+            }
+        }
+
+    print es_query
     # Do the query
     es = Elasticsearch()
     result = es.search(index="questions", body=es_query)
