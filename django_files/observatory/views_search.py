@@ -131,6 +131,7 @@ def make_extractor(compiled_regex, remove_extracted=True,
 
         matches = re.finditer(compiled_regex, query)
         results = []
+        spans = ()
 
         for match in matches:
             if remove_extracted:
@@ -142,10 +143,12 @@ def make_extractor(compiled_regex, remove_extracted=True,
                 else:
                     # Remove whole match at once
                     match_spans = (match.span(), )
-                query = remove_spans(query, match_spans)
+
+                spans += match_spans
 
             results.append((match.groups(), match_spans))
 
+        query = remove_spans(query, spans)
         return results, query
 
     return extractor
