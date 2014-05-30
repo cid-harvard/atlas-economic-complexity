@@ -62,12 +62,6 @@ def extract_product_code(query):
         return result.span(), result.groups()[0]
 
 
-def make_extractor(compiled_regex):
-    def inner(query):
-        return re.findall(compiled_regex, query)
-    return inner
-
-
 def generate_year_strings(years):
     """Handle generating URL parts like '2010.2012' or search result additions
     like (2012 to 2014). """
@@ -83,11 +77,86 @@ def generate_year_strings(years):
     return year_string, year_url_param
 
 
+def remove_spans(string, spans):
+    """Given a list of (start, end) index pairs, remove all those from a
+    string. This is tricky because if you remove them one by one the indices
+    are off. """
+
+    if len(spans) == 0:
+        return string
+
+    result = []
+
+    span_iter = iter(spans)
+    current_span = span_iter.next()
+
+    for idx, c in enumerate(string):
+
+        if idx < current_span[0]:
+            result.append(c)
+        elif idx >= current_span[1]:
+
+            current_span = next(span_iter, None)
+            if current_span is not None:
+                if not (current_span[0] <= idx < current_span[1]):
+                    result.append(c)
+            else:
+                result.append(string[idx:])
+                break
+
+    return "".join(result)
+
+
+def make_extractor(compiled_regex, remove_extracted=True,
+                   remove_only_matches=False):
+    """Given a regex, gives you back a function that'll use that regex to
+    extract data from a string. Specifically it:
+
+        1. Finds all strings matched by the regex
+        2. Returns those strings and their start and end positions as a list of
+        tuples:
+            [(("cat", "fish"), ((2, 5),(8, 12))),
+            (("dog", "bone"), ((14, 27),))]
+        3. Optionally removes those strings from the original string.
+        4. Returns the original string, possibly unchanged depending on (3)
+
+    :param remove_extracted: Whether to remove the extracted string from the
+    original or not.
+    :param remove_only_matches: If the regex has multiple capturing parentheses
+    (a.k.a groups), this will remove only the parenthesized part. So if set to
+    True, given r"(\d{4}) to (\d{4})", this will remove both numbers AND the '
+    to ', as opposed to removing just the numbers. It will also return multiple
+    spans for each removed part. """
+    def extractor(query):
+
+        matches = re.finditer(compiled_regex, query)
+        results = []
+
+        for match in matches:
+            if remove_extracted:
+
+                if remove_only_matches:
+                    # Remove match groups individually
+                    group_indices = range(1, len(match.groups()) + 1)
+                    match_spans = tuple(match.span(i) for i in group_indices)
+                else:
+                    # Remove whole match at once
+                    match_spans = (match.span(), )
+                query = remove_spans(query, match_spans)
+
+            results.append((match.groups(), match_spans))
+
+        return results, query
+
+    return extractor
+
+
 # Extractors to run on query string, in order.
+# elasticsearch field -> extractor function
 EXTRACTORS = OrderedDict([
-    ("regions", make_extractor(REGIONS_RE)),
-    ("api_names", make_extractor(API_NAMES_RE)),
-    ("trade_flows", make_extractor(TRADE_FLOWS_RE)),
+    ("region", make_extractor(REGIONS_RE)),
+    ("api_name", make_extractor(API_NAMES_RE)),
+    ("trade_flow", make_extractor(TRADE_FLOWS_RE)),
 ])
 
 
@@ -121,7 +190,7 @@ def parse_search(query):
 
     # Extract the remaining common fields like region, product codes etc.
     for extractor_name, extractor in EXTRACTORS.iteritems():
-        result = extractor(query)
+        result, query = extractor(query)
         if len(result):
             kwargs[extractor_name] = result
 
