@@ -21,7 +21,11 @@ class Command(BaseCommand):
                                     'region__name',
                                     ))
         countries = [[c] for c in countries_flat]
-        products = list(Hs4.objects.get_low_level().only('name_en', 'code'))
+        products = list(Hs4.objects.get_low_level()
+                        .only('name_en',
+                              'code',
+                              'community__name',
+                              ))
 
         # Which products are feasible for Latvia?
         casy_questions = self.generate_index_entries(['casy'], ['pie_scatter'],
@@ -152,7 +156,8 @@ class Command(BaseCommand):
                 trade_flow=args[3],
                 years=args[4],
                 product_name=args[5].name_en if args[5] is not None else None,
-                product_code=args[5].code if args[5] is not None else None
+                product_code=args[5].code if args[5] is not None else None,
+                product_community=args[5].community.name if args[5] is not None else None,
             )
             kwargs = {k: v for k, v in kwargs.iteritems() if v is not None}
             index.update(kwargs)
