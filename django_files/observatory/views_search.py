@@ -138,7 +138,7 @@ def make_extractor(compiled_regex, remove_extracted=True,
 
                 if remove_only_matches:
                     # Remove match groups individually
-                    group_indices = range(1, len(match.groups()) + 1)
+                    group_indices = range(1, len(match.group()) + 1)
                     match_spans = tuple(match.span(i) for i in group_indices)
                 else:
                     # Remove whole match at once
@@ -146,7 +146,7 @@ def make_extractor(compiled_regex, remove_extracted=True,
 
                 spans += match_spans
 
-            results.append((match.groups(), match_spans))
+            results.append(((match.group(),), match_spans))
 
         query = remove_spans(query, spans)
         return results, query
@@ -195,7 +195,7 @@ def parse_search(query):
     for extractor_name, extractor in EXTRACTORS.iteritems():
         result, query = extractor(query)
         if len(result):
-            kwargs[extractor_name] = result
+            kwargs[extractor_name] = (x[0][0] for x in result)
 
     # Determine query type
     if len(query) == 4 and query in API_NAMES:
@@ -210,14 +210,14 @@ def prepare_filters(kwargs):
 
     filters = defaultdict(list)
 
-    if "regions" in kwargs:
-        filters["region"] += kwargs["regions"]
+    if "region" in kwargs:
+        filters["region"] += kwargs["region"]
 
-    if "api_names" in kwargs:
-        filters["api_name"] += kwargs["api_names"]
+    if "api_name" in kwargs:
+        filters["api_name"] += kwargs["api_name"]
 
-    if "trade_flows" in kwargs:
-        filters["trade_flow"] += kwargs["trade_flows"]
+    if "trade_flow" in kwargs:
+        filters["trade_flow"] += kwargs["trade_flow"]
 
     if "product_code" in kwargs:
         filters["product_code"].append(kwargs["product_code"])
