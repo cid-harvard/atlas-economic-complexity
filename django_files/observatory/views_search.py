@@ -20,6 +20,30 @@ REGIONS = [
     "australia"
 ]
 
+# These are different from the product communities in the DB in that the names
+# are simplified.
+# TODO: maybe put this in the DB as a property? The actual community names are
+# too long to be handy to remember
+PRODUCT_COMMUNITY = [
+    "Animal Products",
+    "Vegetable products",
+    "Foodstuffs",
+    "Mineral Products",
+    "Chemicals",
+    "Plastics",
+    "Leather",
+    "Wood Products",
+    "Textiles",
+    "Footwear",
+    "Stone",
+    "Metals",
+    "Machinery",
+    "Transportation",
+    "Service"
+]
+PRODUCT_COMMUNITY_RE = re.compile("|".join(PRODUCT_COMMUNITY),
+                                  re.IGNORECASE)
+
 REGIONS_RE = re.compile("|".join(REGIONS), re.IGNORECASE)
 
 API_NAMES = ["casy", "cspy", "csay", "ccsy", "sapy"]
@@ -158,6 +182,7 @@ EXTRACTORS = OrderedDict([
     ("app_name", make_extractor(APP_NAMES_RE)),
     ("trade_flow", make_extractor(TRADE_FLOWS_RE)),
     ("product_code", make_extractor(PRODUCT_CODE_RE)),
+    ("product_community", make_extractor(PRODUCT_COMMUNITY_RE)),
 ])
 
 
