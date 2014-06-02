@@ -13,7 +13,7 @@ REGIONS = [
     "asia",
     "america",
     "africa",
-    "carribean",
+    "caribbean",
     "micronesia",
     "melanesia",
     "polynesia",
@@ -153,7 +153,7 @@ def make_extractor(compiled_regex, remove_extracted=True,
 # Extractors to run on query string, in order.
 # elasticsearch field -> extractor function
 EXTRACTORS = OrderedDict([
-    ("region", make_extractor(REGIONS_RE)),
+    ("regions", make_extractor(REGIONS_RE)),
     ("api_name", make_extractor(API_NAMES_RE)),
     ("app_name", make_extractor(APP_NAMES_RE)),
     ("trade_flow", make_extractor(TRADE_FLOWS_RE)),

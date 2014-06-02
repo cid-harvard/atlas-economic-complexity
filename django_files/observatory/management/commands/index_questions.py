@@ -15,8 +15,11 @@ class Command(BaseCommand):
 
         # TODO: "the" in country names
         trade_flows = ["import", "export"]
-        countries_flat = list(Country.objects.get_valid().only('name_en',
-                                                               'name_3char'))
+        countries_flat = list(Country.objects.get_valid()
+                              .only('name_en',
+                                    'name_3char',
+                                    'region__name',
+                                    ))
         countries = [[c] for c in countries_flat]
         products = list(Hs4.objects.get_low_level().only('name_en', 'code'))
 
@@ -135,12 +138,17 @@ class Command(BaseCommand):
             )
             index["url"] = url
 
+            regions = None
+            if args[2] is not None:
+                regions = [c.region.name for c in args[2]]
+
             # Add in params into elasticsearch in case we need them later
             kwargs = dict(
                 api_name=args[0],
                 app_name=args[1],
                 country_names=country_names,
                 country_codes=country_codes,
+                regions=regions,
                 trade_flow=args[3],
                 years=args[4],
                 product_name=args[5].name_en if args[5] is not None else None,
