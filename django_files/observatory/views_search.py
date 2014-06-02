@@ -222,11 +222,6 @@ def api_search(request):
         "query": {
             "filtered": {}
         },
-        # "highlight": {
-        #     "pre_tags": ["<div class=highlighted>"],
-        #     "fields": {"title": {}},
-        #     "post_tags": ["</div>"]
-        # },
         "size": 8
     }
 
