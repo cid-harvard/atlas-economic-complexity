@@ -28,6 +28,12 @@ API_NAMES_RE = re.compile("|".join(API_NAMES), re.IGNORECASE)
 TRADE_FLOWS = ["import", "export", "net_import", "net_export"]
 TRADE_FLOWS_RE = re.compile("|".join(TRADE_FLOWS), re.IGNORECASE)
 
+APP_NAMES = ["map", "pie_scatter", "stacked", "product_space", "rings",
+             "tree_map"]
+APP_NAMES_RE = re.compile("|".join(APP_NAMES))
+
+PRODUCT_CODE_RE = r"(\d{4})"
+
 YEAR_EXPRESSIONS = [
     re.compile(r'between (\d{4}) and (\d{4})', re.IGNORECASE),
     re.compile(r'from (\d{4}) to (\d{4})', re.IGNORECASE),
@@ -50,16 +56,6 @@ def extract_years(input_str):
             if not (1995 <= int(year) <= 2013):
                 return None, None
         return results[0].span(), years
-
-
-def extract_product_code(query):
-    """Returns only first product code."""
-    result = re.search(r"(\d{4})", query)
-
-    if result is None:
-        return None, None
-    else:
-        return result.span(), result.groups()[0]
 
 
 def generate_year_strings(years):
@@ -159,7 +155,9 @@ def make_extractor(compiled_regex, remove_extracted=True,
 EXTRACTORS = OrderedDict([
     ("region", make_extractor(REGIONS_RE)),
     ("api_name", make_extractor(API_NAMES_RE)),
+    ("app_name", make_extractor(APP_NAMES_RE)),
     ("trade_flow", make_extractor(TRADE_FLOWS_RE)),
+    ("product_code", make_extractor(PRODUCT_CODE_RE)),
 ])
 
 
@@ -184,12 +182,6 @@ def parse_search(query):
     # be within valid bounds, anything that's not a valid year doesn't get
     # stripped from the query and thus can potentially be found as a product
     # code.
-
-    # Extract product code
-    span, product_code = extract_product_code(query)
-    if product_code is not None:
-        query = query[:span[0]] + query[span[1]:]
-        kwargs["product_code"] = product_code
 
     # Extract the remaining common fields like region, product codes etc.
     for extractor_name, extractor in EXTRACTORS.iteritems():
@@ -216,11 +208,14 @@ def prepare_filters(kwargs):
     if "api_name" in kwargs:
         filters["api_name"] += kwargs["api_name"]
 
+    if "app_name" in kwargs:
+        filters["app_name"] += kwargs["app_name"]
+
     if "trade_flow" in kwargs:
         filters["trade_flow"] += kwargs["trade_flow"]
 
     if "product_code" in kwargs:
-        filters["product_code"].append(kwargs["product_code"])
+        filters["product_code"] += kwargs["product_code"]
 
     return filters
 
