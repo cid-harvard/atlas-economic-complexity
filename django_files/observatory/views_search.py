@@ -202,20 +202,9 @@ def prepare_filters(kwargs):
 
     filters = defaultdict(list)
 
-    if "region" in kwargs:
-        filters["region"] += kwargs["region"]
-
-    if "api_name" in kwargs:
-        filters["api_name"] += kwargs["api_name"]
-
-    if "app_name" in kwargs:
-        filters["app_name"] += kwargs["app_name"]
-
-    if "trade_flow" in kwargs:
-        filters["trade_flow"] += kwargs["trade_flow"]
-
-    if "product_code" in kwargs:
-        filters["product_code"] += kwargs["product_code"]
+    for key in EXTRACTORS.keys():
+        if key in kwargs:
+            filters[key] += kwargs[key]
 
     return filters
 
