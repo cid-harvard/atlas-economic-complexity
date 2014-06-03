@@ -9,11 +9,11 @@ Adding the Atlas to computer via virtualenv
         
 2. Create the virtual environment
 
-        mkvirtualenv atlas_economic_complexity
+        mkvirtualenv env
         
 3. Activate this newly created environment
 
-        workon atlas_economic_complexity
+        workon env
 
 4. Install the required Python libraries
 
