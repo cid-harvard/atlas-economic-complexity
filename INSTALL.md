@@ -17,6 +17,7 @@ Adding the Atlas to computer via virtualenv
 
 4. Install the required Python libraries
 
+        cd atlas-economic-complexity
         pip install -r requirements.txt
         
 5. Create a MySQL database on your local machine
