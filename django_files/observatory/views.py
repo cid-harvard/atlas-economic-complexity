@@ -31,6 +31,7 @@ import msgpack
 import re
 import fpe
 import time
+from django.core.urlresolvers import resolve
 
 from urlparse import urlparse
 from django.core.urlresolvers import resolve
@@ -732,7 +733,8 @@ def filename_to_url(request, fileName,):
      product = data[6]
      year= data[7]  
      # Build the url
-     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response
@@ -746,7 +748,8 @@ def filename_to_url(request, fileName,):
      product = data[6]
      year= data[7]  
      # Build the url
-     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response
@@ -760,7 +763,8 @@ def filename_to_url(request, fileName,):
      product = data[7]
      year= data[8]  
      # Build the url
-     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
      print url
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
@@ -2643,3 +2647,4 @@ def api_search(request):
 
 def search(request):
     return render_to_response("test_search.html")
+
