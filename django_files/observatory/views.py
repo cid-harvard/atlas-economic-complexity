@@ -31,6 +31,7 @@ import msgpack
 import re
 import fpe
 import time
+from django.core.urlresolvers import resolve
 
 from urlparse import urlparse
 from django.core.urlresolvers import resolve
@@ -732,7 +733,8 @@ def filename_to_url(request, fileName,):
      product = data[6]
      year= data[7]  
      # Build the url
-     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response
@@ -746,7 +748,8 @@ def filename_to_url(request, fileName,):
      product = data[6]
      year= data[7]  
      # Build the url
-     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response
@@ -760,7 +763,8 @@ def filename_to_url(request, fileName,):
      product = data[7]
      year= data[8]  
      # Build the url
-     url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
      print url
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
@@ -1482,21 +1486,21 @@ def api_casy(request, trade_flow, country1, year):
   request_hash_dictionary['trade_flow'] = trade_flow
   request_hash_dictionary['country'] = country_code
 
-  refererUrl = request.META['HTTP_REFERER']
-  view, args, kwargs = resolve(urlparse(refererUrl)[2])
-  request_hash_string = kwargs['app_name'] + '_' + lang + '_' + prod_class + '_' + kwargs['trade_flow'] + '_' + kwargs['country1'] + '_' + kwargs['country2'] + '_' + kwargs['product'] + '_' + year
+  #refererUrl = request.META['HTTP_REFERER']
+  #view, args, kwargs = resolve(urlparse(refererUrl)[2])
+  #request_hash_string = kwargs['app_name'] + '_' + lang + '_' + prod_class + '_' + kwargs['trade_flow'] + '_' + kwargs['country1'] + '_' + kwargs['country2'] + '_' + kwargs['product'] + '_' + year
 
   # Set the product stuff based on the app
   if ( app_name in [ "product_space", "pie_scatter" ] ):
       request_hash_dictionary['product_type'] = 'all'
       request_hash_dictionary['product_display'] = 'show'
   else:
-      request_hash_dictionary['product_type'] = 'show'
-      request_hash_dictionary['product_display'] = 'all'
+      request_hash_dictionary['product_type'] = 'all'
+      request_hash_dictionary['product_display'] = 'show'
   request_hash_dictionary['year'] = year
 
   # We are here, so let us store this data somewhere
-  # request_hash_string = "_".join( request_hash_dictionary.values() ) #base64.b64encode( request_unique_hash )
+  request_hash_string = "_".join( request_hash_dictionary.values() ) #base64.b64encode( request_unique_hash )
   # Setup the store data
   store_data = request.build_absolute_uri().replace( "product_classification", "prod_class" ) + "||"
   store_page_url = request.build_absolute_uri().replace( "/api/", "/explore/" + app_name + "/" )
@@ -2643,3 +2647,4 @@ def api_search(request):
 
 def search(request):
     return render_to_response("test_search.html")
+
