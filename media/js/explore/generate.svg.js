@@ -71,7 +71,11 @@ page.open( page_url, function ( status ) {
             } );
         }, function() {
             // Debug
-	    console.log("Generating SVG for URL : " + page_url);	
+            var now = new Date(); 
+	    var datetime = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
+	    datetime += ' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(); 
+	    console.log(datetime + " Generating SVG for URL : " + page_url);	
+
             // Get the page content now
             result = page.evaluate( function () {
                 // Setup the visualization container
@@ -121,7 +125,10 @@ page.open( page_url, function ( status ) {
                 // Debug the exception
                 // console.log( e ); 
             }
-            console.log("SVG Generated");
+            var now1 = new Date(); 
+	    var datetime1 = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
+	    datetime1 += ' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(); 
+            console.log(datetime1 + " SVG Generated");
             // Get out now
             phantom.exit();
         } );
