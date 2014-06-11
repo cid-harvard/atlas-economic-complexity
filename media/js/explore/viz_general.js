@@ -392,9 +392,7 @@ var flat_data,
       // Make the AJAX call to retrieve other years
 
       d3.json(api_uri + '&amp;data_type=json', function(raw) {
-
         rawData = raw;
-        
         item_type = raw["item_type"];
         flat_data=raw["data"];
         attr=raw["attr"];
@@ -424,8 +422,6 @@ var flat_data,
         d3.select("#viz").transition().style("opacity", 1)
         set_year(arg);
       });
-
-
       return;
     }
 
@@ -881,7 +877,6 @@ var flat_data,
             d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
 
               if (error) { // Default data
-
                 return console.warn(error);
 
               } else {
@@ -1689,10 +1684,7 @@ var flat_data,
         
         // Update the keys based on product category availability
         console.log("click")
-
-
       })
-
     })
     
 
@@ -1717,7 +1709,6 @@ var flat_data,
         .datum(rawData)
         .call(controls); 
     }     
-
   }
   
   network = function(req) {
@@ -2118,6 +2109,13 @@ var flat_data,
       app_type= raw["app_type"];
       prod_class = raw["prod_class"];
       region_attrs = {};
+
+      if(rawData.data.length < 1){
+        $("#viz").html("<i class='fa fa-ban fa-5x flash'></i><h2>The data you requested could not be found!</h2>")
+          .css("text-align", "center")
+          .css("position", "relative")
+          .css("top", $("#viz").height()*0.40);
+      }
 
       if(app_type=="casy") {
 
