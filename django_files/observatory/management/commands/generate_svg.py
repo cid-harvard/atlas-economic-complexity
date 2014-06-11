@@ -19,6 +19,10 @@ logger = logging.getLogger(__name__)
 from urlparse import urlparse
 from django.core.urlresolvers import resolve
 from django.http import HttpResponseRedirect, Http404
+
+from optparse import make_option
+from django.core.management.base import BaseCommand
+
 # Setup the path constants
 
 # Setup the supported languages so that we can loop over them
@@ -50,12 +54,19 @@ app_list = ["tree_map"]  # , "product_space", "stacked", "pie_scatter" ]
 
 class Command(BaseCommand):
     help = 'Generate the JSON & SVG data for all permutations of the data set'
+    option_list = BaseCommand.option_list + (
+         make_option('--data-file',
+            action='store_true',
+            dest='data-file',
+            default=False,
+            help='specify filename to run on'),
+    )
     def handle(self, *args, **options):
-        if args:
-            path = args[0]
-            self.batch_url(path)
-        else:
-            self.process_url()
+     if options['data-file']:
+        path = args[0]
+        self.batch_url(path)
+     else:
+        self.process_url()
 
     def process_url(self):
         # Setup the product classifications -> years mapping
@@ -367,3 +378,4 @@ class Command(BaseCommand):
             ".png")
 
         logger.info("SVG and PNG Created")
+

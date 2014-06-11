@@ -1,135 +1,467 @@
-<!doctype html>
+{% load i18n %}
+{% load humanize %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>The Observatory Embeded</title>
-  <meta name="description" content="Networks in Macro Economics">
-  <meta name="author" content="Alexander Simoes">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  
+  {% if displayviz %}
+  <meta property="og:image" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
+  {% else %}
+  <meta property="og:image" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
+  {% endif %}  
+  <meta name="twitter:card" content="photo">
+  <meta name="twitter:site" content="@romsson">
+  <meta name="twitter:creator" content="@romsson">
+  <meta name="twitter:title" content="{% if title %}{{title}} @Atlas_facts {% else %} The Atlas Of Economic Complexity {% endif %}">
+  {% if displayviz %}
+  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
+  {% else %}
+  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
+  {% endif %} 
+  <meta name="twitter:domain" content="http://www.atlas.cid.harvard.edu/">
+  <base href="{{HTTP_HOST}}">
+  <title>The Atlas Of Economic Complexity{% if title %} | {{title}}{% else %}{% endif %}</title>
+  <meta name="description" content="Networks in Macro Economics with World Trade Data">
+  <!-- The Atlas Of Economic Complexity | ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})
+  <!-- Necessary for google to crawl the site, since it is purely ajax based.
+        When the crawler reaches the page it will request the current URL plus
+        the additional URL query parameter _escaped_fragment_= -->
+  <meta name="fragment" content="!">
   
-  <link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}img/favicon.ico">
+  <!-- Load non-standard fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
   
+  <link rel="stylesheet" href="/media/js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="/media/css/normalize.css">
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />  
-  <style>
-  body {
-    overflow: hidden;
-    font-family: 'PT Sans Narrow', sans-serif, 'Arial';
-    font-size: 14px;
-  }
-  #mouseover {
-    position: absolute;
-    left: -125px;
-    font-size: 12px;
-    line-height: 15px;
-  /*  padding: 10px;*/
-    border-radius: 3px;
-    background: rgba(255, 255, 255, 0.9);
-    color: black;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-    border: 1px solid rgba(200, 200, 200, 0.85);
-    pointer-events: "none";
-    text-align: center;
-    width: 180px;
-    z-index: 999;
-  }
-  #mouseover_cat {
-    text-transform: uppercase;
-    text-align: left;
-    font-size: 10px;
-    margin-bottom: 2px;
-    color: #666;
-    text-align: center;
-  }
-  #mouseover_title {
-   font-size: 16px;
-   margin: 10px;
-  }
-  #mouseover_table {
-    margin: 10px;
-    text-align: left;
-    width: 160px;
-  }
-  #mouseover_table td:nth-child(2) {
-    text-align: right;
-  }
-  
-  </style>
-</head>
-<body>
+  <link rel="stylesheet" href="/media/css/style.css?{{ VERSION }}">
+  <link rel="stylesheet" href="/media/js/libs/toastr/toastr.min.css" />
+  <link rel="stylesheet" href="/media/js/libs/chosen/chosen.css" />
+  <link rel="stylesheet" href="/media/js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
+  <link rel="stylesheet" href="/media/js/libs/bootstro/bootstro.min.css"/>
+  <link rel='stylesheet' type='text/css' href='/media/js/libs/tipsy/tipsy.css'>
 
-  <div id="dataviz"><img src="/media/img/all/loader.gif" alt="please be patient..." /> Loading...</div>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">  
+
+  <link rel="stylesheet" href="/media/css/countries.css?{{ VERSION }}" />
+
+  <link rel="stylesheet" href="/media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
+  <link rel="stylesheet" type="text/css" href="/media/css/widgets.css?{{ VERSION }}">
+  <!-- VizWiz -->
+
+  <link href="/media/js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css"> 
+  
+  <link href="/media/js/libs/d3plus/d3plus.css" rel="stylesheet" type="text/css"> 
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body class="app" >
+  {% if alert %}
+  <div class="alert">
+    <div>
+      {% if alert.title %}
+      <h4>{{alert.title}}</h4>
+      {% endif %}
+      {% if alert.text %}{{alert.text|safe}}{% endif %}
+    </div>
+  </div>
+  {% endif %}
+  {% if warning %}
+  <div class="warning">
+    <div>
+      {% if warning.title %}
+      <h4>{{warning.title}}</h4>
+      {% endif %}
+      {% if warning.text %}{{warning.text|safe}}{% endif %}
+    </div>
+  </div>
+  {% endif %}
+  <div id="container">
+    <header>
+     <div class="logo" style="background-color: #fafafa; width:165px; height:66px;">
+        <a href="" title="Home" style="text-decoration: none;">
+        <h1 style="background: url({{ STATIC_URL }}img/all/logo_rainbow.png) repeat-x 100% 100%; padding-bottom:22px; color: black; font-size:43px;">The Atlas</h1>
+        <h2 style="font-size:14px; margin-top:-25px; text-align:center; margin-left:0px; letter-spacing:1px; color:white; text-transform:uppercase; text-decoration:none; background-color: #a0a6a9;">of Economic Complexity</h2></a> 
+      </div>  
+      <nav>
+        <ul>
+          <li><a {% if isbrowsemode %}href="endbrowse"{% else %}href="explore"{% endif %}>Explore</a></li>
+          <li><a href="stories">Stories</a></li>
+          <li><a href="rankings">Rankings</a></li>
+          <li><a id="newBook" href="book">New Book</a></li>
+          <li><a href="about">About</a></li>
+        </ul>
+      </nav> 
+      <br class="clear">
+    </header>
+
+
+
 
   <!-- The JavaScript -->
   <!-- Libraries -->
-  <script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
-  <script src="/media/js/libs/d3/d3.v2.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+  <script type="text/javascript" src="/media/js/libs/helpbox.js"></script>
+
+  <script src="/media/js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
+
+  <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+  <script src="/media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="/media/js/libs/bootstro/bootstro.min.js"></script>
+  <script src="/media/js/libs/chosen/chosen.jquery.js" ></script>
+
   <!-- App -->
-  <script src="/media/js/explore/general.js"></script>
-  {% if app == "tree_map" %}<script src="/media/js/apps/tree_map.js"></script>{% endif %}
-  {% if app == "stacked" %}<script src="/media/js/apps/stacked.js"></script>{% endif %}
-  {% if app == "product_space" %}<script src="/media/js/apps/product_space.js"></script>{% endif %}
+  <script src="/media/js/explore/general.js?{{ VERSION }}"></script>
+  <script src="/media/js/story/createStory.js?{{ VERSION }}"></script> 
+  <script src="/media/js/explore/key.js?{{ VERSION }}"></script>
+  <script src="/media/js/explore/timeline.js?{{ VERSION }}"></script>
+  <script src="/media/js/explore/controls.js?{{ VERSION }}"></script>
+  <script src="/media/js/apps/related.js?{{ VERSION }}"></script>
+  <script src="/media/js/libs/toastr/toastr.min.js"></script>
+
+<!--
+    <script src="{{ STATIC_URL }}js/libs/vizwiz/lib/modernizr.custom.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/general.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/utils.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/tooltip.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/viz/viz.js"></script>
+-->
+  <script src="/media/js/libs/d3plus/lib/modernizr.custom.js"></script>
+  <script src="/media/js/libs/d3plus/src/general.js"></script>
+  <script src="/media/js/libs/d3plus/src/utils.js"></script>
+  <script src="/media/js/libs/d3plus/src/tooltip.js"></script>
+
+  {% if app_name != "map" %}
+
+    <script src="/media/js/libs/vizwiz/src/utils.slider.js"></script>
+
+
+    <script src="/media/js/libs/d3plus/src/viz/viz.js"></script>
+
+      {% if app_name == "tree_map" %}<script src="/media/js/libs/d3plus/src/viz/tree_map.js"></script>{% endif %}
+      {% if app_name == "stacked" %}<script src="/media/js/libs/d3plus/src/viz/stacked.js"></script>{% endif %}
+      {% if app_name == "pie_scatter" or app_name == "scatterplot" %}<script src="/media/js/libs/d3plus/src/viz/pie_scatter.js"></script>{% endif %}
+      {% if app_name == "product_space" %}<script src="/media/js/libs/d3plus/src/viz/network.js"></script>{% endif %}
+      {% if app_name == "map" %}<!-- <script src="media/js/libs/d3plus/src/viz/geo_map.js"></script>-->{% endif %}
+      {% if app_name == "rings" %}<script src="/media/js/libs/d3plus/src/viz/rings.js"></script>{% endif %}
+
+    {% elif app_name == "scatterplot_new" %}
+
+      <script src="{{ STATIC_URL }}../js/libs/d3plus/d3plus.v1.2.4.js"></script>
+
+    {% endif %}
+
+
+  {% if app_name == "map" %}
+
+    <script src="/media/js/libs/vizwiz/lib/modernizr.custom.js"></script>
+    <script src="/media/js/libs/vizwiz/src/general.js"></script>
+    <script src="/media/js/libs/vizwiz/src/utils.js"></script>
+    <script src="/media/js/libs/vizwiz/src/tooltip.js"></script>
+    <script src="/media/js/libs/vizwiz/src/utils.slider.orig.js"></script>
+    <script src="/media/js/libs/vizwiz/src/viz/viz.js"></script>
+    <script src="/media/js/apps/map.js"></script>
+
+  {% endif %}
+
+  {% if app_name == "rankings" %}
+
+    <script src="/media/js/libs/sorttable/sorttable.js"></script>
+  
+  {% endif %}
+
+
+  <script src="/media/js/explore/viz_general.js"></script> 
+
+  <!-- Glossary -->
+  <div id="glossary" style="display:none;">
+    {% include "about/glossary_text.html" %}
+  </div>
+
+  <script>
+    $("#glossary h4").each(function(index) {
+        if($("#glossary").length > 0) {
+          var word = $(this).text();
+          var definition = $("#glossary").find("p")[index].innerHTML;
+
+          $(".definition").each(function () {
+            // Update all instances of that word in the content page with mouse over def.
+            var html = $(this).html();
+            html = html.replace(new RegExp(word, 'g'), '<font class="definition trigger-link" data-container="body" data-toggle="popover" data-placement="top" data-content="'+definition+'" title="<b>'+word+'</b>">'+word+'</font>');
+            $(this).html(html);
+           $(this).children().popover({ html: true, trigger: "hover", delay: { show: 1000, hide: 100, title: "word"}});
+
+          });
+        }  
+    });
+
+  </script> 
+        <script type="text/javascript">
+        clicked = false;
+        $("#showMore").click(function(){
+          if(clicked == false){
+            $(this).addClass("moreActive");
+            $(this).html("<i class='fa fa-caret-up'> Less Options</i> ");
+            clicked = true;
+          }else{
+            $(this).removeClass("moreActive");
+            $(this).html("<i class='fa fa-caret-down'> More Options");
+            clicked = false;
+          }
+          $("#moreOptions").slideToggle(100);
+        });
+      </script>
+  {% include "story/init_story.html" %}
+
+
   <script>
   
-  /*
-  // viz holder dimensions to that of the window
-  $("#dataviz").width($(window).width())
-  $("#dataviz").height($(window).height())
+  // variables from server
+  var app,
+    app_types = ["tree_map", "stacked", "product_space", "rings", "pie_scatter", "map"],
+    app_type ="{{app_type}}",
+    warning = "{{warning}}",
+    is_alert = "{{alert}}",
+    api_uri = "{{api_uri}}",
+    year =  "{{year}}",
+    app_name = "{{app_name}}",
+    years_available = {{years_available|safe}},
+    trade_flow = "{{trade_flow}}",
+    country1 = "{{country1}}",
+    country2 = "{{country2}}",
+    product = "{{product}}",
+    item_type = "{{item_type}}",
+    prod_or_partner = "{{prod_or_partner}}",
+    lang= "{{lang}}",
+    embed=false,
+    d = "{{redesign_api_uri}}",
+    year_start = "{{year_start}}",
+    year_end = "{{year_end}}",
+    product_code = "{{product_code}}",
+    prod_class = "{{prod_class}}",
+    previous_page = "{{previous_page}}",
+    previous_image = "{{ STATIC_URL }}/img/empty_static.png",
+    static_url = "{{STATIC_URL}}";
+
+  // Use chosen plugin to make dropdowns look fancy
+  $(".dropdown_container select").chosen()
+  $(".nesting select").chosen()
+  // language select dropdown
+  $(".language_select select").chosen();
+  $(".language_select .chzn-search").hide();
+  $(".language_select select").chosen().change(function(){
+    // set session data to new language
+    var language = $(this).val();
+    window.location = "/set_language/"+language+"/";
+  });
   
-  var url = "/api/{{trade_flow}}/{{country1}}/{{country2}}/{{product}}/{{year}}/?lang={{lang}}";
-  d3.json(url, function(data){
-    var this_years_data = data.data.filter(function(d){ return d.year == parseInt(data.year)})
-    if(!this_years_data.length){
-      $("#dataviz").html("No data available for this selection...")
-      return;
-    }
-    data.attr_data.forEach(function(attr){
-      var id_property = attr["community_id"] ? "community_id" : "region_id",
-        name_property = attr["community__name"] ? "community__name" : "region__name",
-        color_property = attr["community__color"] ? "community__color" : "region__color",
-        text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
-      attr["category_id"] = attr[id_property]; delete attr[id_property];
-      attr["category_name"] = attr[name_property]; delete attr[name_property];
-      attr["category_color"] = attr[color_property]; delete attr[color_property];
-      attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
-      attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
-    })
-    data.attr_data = d3.nest()
-      .key(function(d) { return d["id"]; })
-      .rollup(function(d){ return d[0] })
-      .map(data.attr_data);
-    var app_data = {
-      "attr_data": data.attr_data,
-      "raw_data": data.data,
-      "selector": "#dataviz",
-      "year": "{{year}}",
-      "other": {{other|safe}}};
-    switch("{{app}}"){
-      case "tree_map":
-        var app = new TreeMap(app_data);
-        app.build();
-        break;
-      case "stacked":
-        var app = new Stacked(app_data);
-        app.build();
-        break;
-      case "product_space":
-        var app = new ProductSpace(app_data);
-        break;
-      case "map":
-        var app = new Map(app_data);
-        app.build();
-        break;
+
+  // Variables from query string
+  var queryParameters = {}, queryString = location.search.substring(1),
+      re = /([^&=]+)=([^&]*)/g, m, queryActivated = false;
+   
+  // Creates a map with the query string parameters
+  while (m = re.exec(queryString)) {
+      queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+  }
+
+  // Add new parameters or update existing ones
+  queryParameters['prod_class'] = "{{prod_class}}";
+  queryParameters['details_treemap'] = queryParameters['details_treemap'] || 2;
+  queryParameters['cat_id'] = queryParameters['cat_id'] || "";
+  queryParameters['cont_id'] = queryParameters['cont_id'] || "";
+  queryParameters['show_related'] = Boolean(queryParameters['show_related']) || false;  
+  //queryParameters['trade_flow'] = queryParameters['trade_flow'] || "net";
+  queryParameters['highlight'] = queryParameters['highlight'] || "";
+
+  function updateURLQueryParameters() {
+    history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
+  }
+
+
+  if(queryActivated) {
+    updateURLQueryParameters();
+
+    // Put once the visualization is loaded
+    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
+    $("#highlight_select").trigger("chosen:updated")
+    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
+    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
+
+//    $("input[name='level_detail']").prop("selected", false);
+
+    
+    //$(".btn-detail").prop("selected", false);
+    //$("input[name='level_detail'][value='nesting_0']").prop("selected", true);
+     
+  }
+
+
+  // Dynamically update the interface based on queryParameters values
+  if(app_type=="tree_map") {
+    d3.selectAll("input[name='level_detail']").property("checked", false)
+    d3.selectAll("input[value='nesting_"+queryParameters['details_treemap']+"']").property("checked", true)
+  }
+
+  // set active link in top nav for current page
+  var current_page = "explore";
+  $("nav ul a").each(function(i, el){
+    if($(el).text().toLowerCase() == current_page){
+      $(el).addClass("current");
     }
   })
-  */
+
+  // Check to see if the title overflows (in the case of long product names)
+  function isOverflowed(element){
+      return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+  }
   
-  var api_uri = "/api/{{trade_flow}}/{{country1}}/{{country2}}/{{product}}/{{year}}/?lang={{lang}}",
-    w = $(window).width(),
-    h = $(window).height();
-  build_app(api_uri, "{{app}}", [w, h], "embed")
+  var title = d3.select("#title")
+  var shrink_size = 30;
+
+  while(isOverflowed(title.node())) {
+    $("#title").children().css("font-size", shrink_size+"px")
+    shrink_size -= 1; 
+  }
+
+  // Page init scripts
+  $(function () {
+
+    $('.chosen-select').chosen();
+    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+    $("#help").click(function(){
+        bootstro.start(".bootstro",{
+          finishButtonText: "Done"
+        });
+      });
+ 
+    // Be sure we came back to the top of the page
+    $(this).scrollTop(0);
+    
+    $(".chosen-select").chosen(); 
+    $('.chosen-container').css('width', '150px');
+    $('#country1_select_chosen').css('width', '170px');
+    //$('#country1_select_chosen').css('font-size', '18px');    
+    $('#year1_select_chosen').css('width', '60px');
+    $('#year2_select_chosen').css('width', '80px');
+
+
+    $('#country_trade_partner_select_chosen').css('width', '140px');
+    $('#country_product_select_chosen').css('width', '140px');
+
+    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+    $("#country1 select").change(function() {
+      $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
+      $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
+      $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
+      $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
+      $("#country1_select_chosen .chosen-single span").css("color", "black");
+    });
+
+    $("#country-trade-partner select").change(function() {
+      $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
+      $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
+      $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
+      $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
+    });
+
+  // For some reason, $("#country1_select_chosen select").trigger("chosen:updated"); does not work
+  $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country1 select").val()+".png') no-repeat");
+  $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
+  $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
+  $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
+
+  $("#country1_select_chosen .chosen-results").hover(function() {
+    $("#country1_select_chosen .chosen-results").css("color", "black");
+  });
+
+  $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country-trade-partner select").val()+".png') no-repeat");
+  $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
+  $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
+  $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
+
+  $('#myTab a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+
+  $('label[value=map]').click(function() { return update_viz("map"); } );   
+  $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );
+  $('label[value=stacked]').click(function() { return update_viz("stacked"); } );
+  $('label[value=scatterplot]').click(function() { return update_viz("scatterplot"); } );
+  $('label[value=rankings]').click(function() { return update_viz("rankings"); } );
+
+  //To display visualization in full screen, while viewing stories
+  var contentWidth=$("#content").width();
+
+  // Call the original and let is handle the stuff - trying again
+  build_viz_app_original(api_uri, contentWidth, 520);
+
+});
+  </script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-41291966-1', 'harvard.edu');
+    ga('send', 'pageview');
+  </script>
+            
+   {% include "story/body_story.html" %}
+
+<!-- Activates tooltips /////////////////////////////////////////////////////////////////// -->
+
+<script type="text/javascript" src="/media/js/explore/tooltips.js"></script>
+<script type="text/javascript" src="/media/js/libs/tipsy/tipsy.jquery.js"></script>
+<script type='text/javascript'>
+  $(function(){
+    $('button[title]').tipsy({gravity: 'w', delayIn: 500});
+    $('label[title]').tipsy({gravity: 'n', delayIn: 500});    
+  }); 
+</script>
+
+  <script type="text/javascript">
+
+    if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "http://atlas.cid.harvard.edu/beta" || previous_page == "None" || previous_page == "http://127.0.0.1:8000/"){
+      $("#historyTab").css("display", "none");
+      $("#history").css("display", "none");      
+      console.log("no previous page!");
+    } else if(previous_image == "http://atlas.cid.harvard.edu/media/img/all/loader.gif"){
+        console.log("this page doesn't exist!");
+    } else{
+        previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}"; 
+        $("#historySlide").attr("href", previous_page);      
+    }
+
+    $("#historySlide, #historyOverlay").css("background-image", "url("+previous_image+")");
+
+    $("#historySlide").mouseenter(function(){
+      $("#historyOverlay").show();
+    });
+
+    $("#historySlide").mouseleave(function(){
+      $("#historyOverlay").hide();
+    });
+    if( /iPhone/i.test(navigator.userAgent) ) {
+      $("head").append('<meta name="viewport" content="width=648, initial-scale=0.3" />')
+    }
+    if( /iPad/i.test(navigator.userAgent) ) {
+      $("head").append('<meta name="viewport" content="width=648, initial-scale=0.7" />')
+    }    
   </script>
 </body>
+  {% include "story/story_forms.html" %}
 </html>
