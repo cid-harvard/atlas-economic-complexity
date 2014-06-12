@@ -1,6 +1,5 @@
 Django==1.4.5
 MySQL-python
-numpy
 msgpack-python
 pycrypto==2.6
 elasticsearch>=1.0.0,<2.0.0
