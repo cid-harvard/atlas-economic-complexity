@@ -2149,39 +2149,21 @@ table tbody tr td span {
 table tr.odd {
   background-color: #EEE;
 }
-.flash {
-    padding-bottom: 0px;
-    -webkit-animation-name: flash;
-    -webkit-animation-duration: 1500ms;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: cubic;
-    -moz-animation-name: flash;
-    -moz-animation-duration: 1500ms;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-timing-function: cubic;
-    -ms-animation-name: flash;
-    -ms-animation-duration: 1500ms;
-    -ms-animation-iteration-count: infinite;
-    -ms-animation-timing-function: cubic;
-    
-    animation-name: flash;
-    animation-duration: 1500ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: cubic;
+#dataError{
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
 }
-@-ms-keyframes flash {
-    0%,100% {opacity:0.6; }
-    50% {opacity:1; }
+#dataError img{
+
 }
-@-moz-keyframes flash {
-    0%,100% {opacity:0.6; }
-    50% {opacity:1; }
+#dataError ul{
+margin-left: 50px;
 }
-@-webkit-keyframes flash {
-    0%,100% {opacity:0.6; }
-    50% {opacity:1; }
+#dataError ul li{
+  text-align: left;
+  font-size: 16px;  
 }
-@keyframes flash {
-    0%,100% {opacity:0.6; }
-    50% {opacity:1; }
+#dataError ul li a{
+  color:steelblue;
 }

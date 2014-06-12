@@ -2095,7 +2095,7 @@ var flat_data,
       single_year_param = "&amp;single_year=true";
     }
 
-    d3.json(api_uri + '&amp;data_type=json' + single_year_param, function(raw) {
+    d3.json(api_uri + '&amp;data_type=json' + single_year_param, function(error, raw) {
 
       // This needs to be global 
       rawData = raw;
@@ -2111,10 +2111,13 @@ var flat_data,
       region_attrs = {};
 
       if(rawData.data.length < 1){
-        $("#viz").html("<i class='fa fa-ban fa-5x flash'></i><h2>The data you requested could not be found!</h2>")
-          .css("text-align", "center")
+        $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported by "+rawData.country1.name+"</li><li><a href='https://github.com/cid-harvard/atlas-data'>View Our Data</a></li></ul></div>")
           .css("position", "relative")
-          .css("top", $("#viz").height()*0.40);
+          .css("top", $("#viz").height()*0.30);
+      }
+
+      if(error){
+        console.log(error);
       }
 
       if(app_type=="casy") {

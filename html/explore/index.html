@@ -570,7 +570,11 @@
 			<div style="clear:both"></div>
         <!-- ajax loading gif -->
         <div id="loader">
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" /><br />Loading...
+          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
+          <p>Loading</p>
+        </div>
+        <br />
+        Loading...
         </div>
         
         <!-- the canvas for the visualization -->
@@ -604,10 +608,13 @@
           <div id="loader">
           <!--if static image mode is PNG-->
           {% if displayviz %}
-            <img src="{{ displayImage }}" alt="loading" style="width: 750px; height:520px; margin-top:-150px; opacity:.7"/><br />
+          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
+              <p>Loading</p>
+              <br />
             <span style="width: 750px; height:520px; margin-top:-550px; opacity:.7">Loading...</span>
           {% else %}
-  	         <img src="{{ displayImage }}" alt="loading"/><br />
+          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
+          <p>Loading</p>
           {% endif %}
           </div>
           

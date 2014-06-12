@@ -18,7 +18,7 @@ i{
 	margin: 0 auto;
 }
 
-i:hover{
+i:not(.flash):hover{
 	color:#A41034;
 }
 #downloadPlaceholder{
