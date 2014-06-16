@@ -49,26 +49,25 @@ urlpatterns = patterns('',
   (r'^download/$', 'observatory.views.download'),
 
   # about section ###########################################################
-  (r'^about/$', 'observatory.views.about'),
+  (r'^about/$', 'observatory.views_infopages.about'),
   (r'^about/data/$', RedirectView.as_view(url='/about/data/sitc4/')),
-  (r'^about/data/(?P<data_type>\w+)/$', "observatory.views.about_data"),
-  (r'^about/permissions/$', "observatory.views.permissions"),
-  (r'^about/support/$', "observatory.views.support"),
-  (r'^about/research/$', "observatory.views.research"),
-  (r'^about/glossary/$', "observatory.views.glossary"),
-  (r'^about/team/$', "observatory.views.team"),
-  (r'^about/data/$', "observatory.views.data"),
-  (r'^about/permissions/$', "observatory.views.permissions"),
-  (r'^about/privacy/$', "observatory.views.privacy"),
+  (r'^about/data/(?P<data_type>\w+)/$', "observatory.views_infopages.about_data"),
+  (r'^about/permissions/$', "observatory.views_infopages.permissions"),
+  (r'^about/support/$', "observatory.views_infopages.support"),
+  (r'^about/research/$', "observatory.views_infopages.research"),
+  (r'^about/glossary/$', "observatory.views_infopages.glossary"),
+  (r'^about/team/$', "observatory.views_infopages.team"),
+  (r'^about/data/$', "observatory.views_infopages.data"),
+  (r'^about/permissions/$', "observatory.views_infopages.permissions"),
+  (r'^about/privacy/$', "observatory.views_infopages.privacy"),
 
   # book ###################################################################
-  (r'^book/$', 'observatory.views.book'),
+  (r'^book/$', 'observatory.views_infopages.book'),
 
   # API #######################################################################
-  (r'^api/$', 'observatory.views.api'),
-  (r'^api/apps/$', 'observatory.views.api_apps'),
-  (r'^api/data/$', 'observatory.views.api_data'),
-  (r'^api/views/$', 'observatory.views.api_views'),
+  (r'^api/$', 'observatory.views_infopages.api'),
+  (r'^api/apps/$', 'observatory.views_infopages.api_apps'),
+  (r'^api/data/$', 'observatory.views_infopages.api_data'),
 
   # Story #####
   (r'^generate_png/$', 'observatory.views_stories.generate_png'),
@@ -118,6 +117,8 @@ urlpatterns = patterns('',
 
   (r'^api/search/$', 'observatory.views.api_search'),
   (r'^search/$', 'observatory.views.search'),
+
+  (r'^api/views/$', 'observatory.views.api_views'),
 
   # Overview (Countries) ######################################################
   (r'^country/(?P<country>\w{2,3})/$', 'observatory.views_overview.country2'),
