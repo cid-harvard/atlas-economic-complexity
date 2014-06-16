@@ -4,6 +4,9 @@ import fpe
 
 from django.core import serializers
 from django.db.models import F, Q, Max
+from django.shortcuts import render_to_response, redirect
+from django.template import RequestContext
+from django.http import (HttpResponse)
 
 from observatory.models import observastory, storychapter, observatoryuser
 #object used to Encrypt/Decrypt
