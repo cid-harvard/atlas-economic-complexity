@@ -137,12 +137,6 @@ def filename_to_url(request, fileName,):
 def fluid(request):
   return render_to_response("fluid.html", context_instance=RequestContext(request))
 
-###################
-## Abandoned function? Does nothing.
-###################
-def new_ps(request):
-  ps_nodes = Sitc4.objects.get_all("en")
-  return render_to_response("new_ps.html", {"ps_nodes":json.dumps(ps_nodes, indent=2)},context_instance=RequestContext(request))
 
 def home(request):
   iscreatemode=False
@@ -1679,64 +1673,6 @@ def api_views(request):
   r = redis.Redis(db=1)
   recent_views = r.lrange("views", -15, -1)
   return HttpResponse("[%s]" % ",".join(recent_views))
-
-
-
-###################
-## Abandoned function? Coresponding model/tables 'wdi' & 'wdi_cwy'
-###################
-def get_similar_productive(country, year):
-  # correlation = request.GET.get("c", "pearson")
-  import math
-  from scipy.stats.stats import pearsonr as cor_func
-  # if correlation == "pearson":
-  #   from scipy.stats.stats import pearsonr as cor_func
-  # else:
-  #   from scipy.stats.stats import spearmanr as cor_func
-  y = year
-  c = country
-  country_lookup = get_country_lookup()
-  prods = list(Sitc4.objects.filter(ps_size__isnull=False).values_list("id", flat=True))
-  cpys = Sitc4_cpy.objects.filter(year=y, export_rca__isnull=False, export_rca__gt=0).values_list("country", "product", "export_rca")
-  country_vectors = {}
-  for cpy in cpys:
-    if cpy[0] not in country_vectors:
-      country_vectors[cpy[0]] = [0] * len(prods)
-    try:
-      prod_pos = prods.index(cpy[1])
-      country_vectors[cpy[0]][prod_pos] = math.log(cpy[2]+0.1, 10)
-    except:
-      pass
-  cors = []
-  for this_c, rcas in country_vectors.items():
-    # raise Exception(rcas, country_vectors[c.id])
-    cors.append([country_lookup[this_c][0], country_lookup[this_c][1], cor_func(country_vectors[c.id], rcas)[0]])
-    # raise Exception(cors)
-  cors.sort(key=lambda x: x[2], reverse=True)
-  return cors
-  # raise Exception(cors)
-  # raise Exception(cor_func(country_vectors[50], country_vectors[105]))
-  return render_to_response("explore/similar.html", {"cors": cors})
-
-###################
-## Abandoned function? Coresponding model/tables 'wdi' & 'wdi_cwy'
-###################
-def similar_wdi(request, country, indicator, year):
-  y = int(year)
-  c = clean_country(country)
-  if indicator == "0":
-    this_index = 0
-    name = "Productive strucuture correlation"
-    values = get_similar_productive(c, y)
-  else:
-    i = Wdi.objects.get(pk=indicator)
-    this_wdi = wdis = Wdi_cwy.objects.get(year=y, wdi=i, country=c)
-    wdis = Wdi_cwy.objects.filter(year=y, wdi=i, country__region__isnull=False).order_by("-value")
-    this_index = list(wdis).index(this_wdi)
-    values = list(wdis.values_list("country__name_en", "country__name_3char", "value"))
-    name = i.name
-  return HttpResponse(json.dumps({"index": this_index, "values":values, "wdi": name}))
-
 
 
 ###############################################################################

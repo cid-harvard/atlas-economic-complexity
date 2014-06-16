@@ -37,7 +37,6 @@ urlpatterns = patterns('',
   ## Revisiting old patterns
   ####
 
-#  (r'^new_ps/', 'observatory.views.new_ps'),
   # internationalization ######################################################
   (r'^i18n/', include('django.conf.urls.i18n')),
   (r'^set_language/(?P<lang>[a-z-]{2,5})/$', 'observatory.views.set_language'),
@@ -107,10 +106,6 @@ urlpatterns = patterns('',
   (r'^explore/$', 'observatory.views.explore_random'),
   (r'^explore/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/(?P<year>[0-9\.]+)/$', 'observatory.views.explore'),
   (r'^explore/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/$', 'observatory.views.explore'),
-
-  # Find similar countries
-  # (r'^similar/(?P<country>\w{2,3})/(?P<year>[0-9\.]+)/$', 'observatory.views.similar'),
-  (r'^similar_wdi/(?P<country>\w{2,3})/(?P<indicator>\d+)/(?P<year>[0-9\.]+)/$', 'observatory.views.similar_wdi'),
 
   # Embed URL
   (r'^embed/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/(?P<year>[0-9\.]+)/$', 'observatory.views.embed'),
