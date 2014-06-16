@@ -2160,10 +2160,28 @@ table tr.odd {
 #dataError ul{
 margin-left: 50px;
 }
+
 #dataError ul li{
   text-align: left;
   font-size: 16px;  
 }
+
 #dataError ul li a{
   color:steelblue;
+}
+
+#refreshOverlay{
+  position: absolute;
+  z-index: 100;
+  width: 748px;
+  height: 520px;
+  background-color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  display: none;
+}
+
+#refreshText{
+  text-align: center;
+  position: relative;
+  top: 200px;
 }
