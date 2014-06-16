@@ -2,17 +2,12 @@
 # Django
 from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect, HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.core.urlresolvers import resolve
 from django.conf import settings
-from django.contrib.sessions.models import Session
-from django.utils.translation import ungettext
-from django.views.decorators.csrf import ensure_csrf_cookie
 # General
 import os
 import collections
-import base64
 from django.db.models import F
 from django.db.models import Q
 import json
@@ -22,24 +17,20 @@ from elasticsearch import Elasticsearch
 # Project specific
 from django.utils.translation import gettext as _
 # App specific
-from observatory.models import *
-from observatory.models import storychapter
+from observatory.models import (Country, Country_region, Cy, Hs4, Hs4_py,
+                                Hs4_cpy, Hs4_ccpy, Sitc4, Sitc4_py, Sitc4_cpy,
+                                Sitc4_ccpy)
+from observatory.models import observastory, observastoryuser, storychapter
+from observatory.models import raw_q
 from observatory import helpers
 from django.db.models import Max
-from django.forms import ModelForm
-import msgpack
-import re
 import fpe
 import time
-from django.core.urlresolvers import resolve
 
 from urlparse import urlparse
-from django.core.urlresolvers import resolve
-from django.http import HttpResponseRedirect, Http404
 
 # Import for cache
 if settings.REDIS:
-  from django.core.cache import cache, get_cache
   import redis
   import msgpack
 
