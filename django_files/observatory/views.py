@@ -139,20 +139,11 @@ def home(request):
   request.session['create']=iscreatemode
   isbrowsemode=False
   request.session['retrieve']=isbrowsemode
-  import urllib2
   try:
     ip = request.META["HTTP_X_FORWARDED_FOR"]
   except KeyError:
     ip = request.META["REMOTE_ADDR"]
-# Removed because causes issues when offline
-#  url = "http://api.hostip.info/get_json.php?ip="+ip
-#  json_response = json.loads(urllib2.urlopen(url).read())
-#  country_code = json_response["country_code"]
-#  try:
-#    c = Country.objects.get(name_2char=country_code)
-#  except Country.DoesNotExist:
     c = Country.objects.get(name_2char="us")
-   # c = Country.objects.order_by('?')[0] # not all countries from this list can be used..
   return render_to_response("home.html",
     {"default_country": c},
     context_instance=RequestContext(request))
