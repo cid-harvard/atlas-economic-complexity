@@ -1,5 +1,6 @@
 from observatory.models import (Country, Hs4, Sitc4)
 from django.template import RequestContext
+from django.shortcuts import render_to_response
 
 
 def about(request):
