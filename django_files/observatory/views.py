@@ -1,35 +1,35 @@
 # -*- coding: utf-8 -*-
-# Django
-from django.shortcuts import render_to_response, redirect
-from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect, HttpResponseRedirect
-from django.template import RequestContext
-from django.core.urlresolvers import resolve
-from django.conf import settings
-# General
+
+# Standard Library
 import os
 import collections
-from django.db.models import F
-from django.db.models import Q
 import json
-from django.core import serializers
-from django.core.urlresolvers import reverse
-from elasticsearch import Elasticsearch
-# Project specific
-from django.utils.translation import gettext as _
-# App specific
-from observatory.models import (Country, Country_region, Cy, Hs4, Hs4_py,
-                                Hs4_cpy, Hs4_ccpy, Sitc4, Sitc4_py, Sitc4_cpy,
-                                Sitc4_ccpy)
-from observatory.models import observastory, observastoryuser, storychapter
-from observatory.models import raw_q
-from observatory import helpers
-from django.db.models import Max
-import fpe
 import time
-
 from urlparse import urlparse
 
-# Import for cache
+# 3rd Party
+import fpe
+from elasticsearch import Elasticsearch
+
+# Django
+from django.shortcuts import render_to_response, redirect
+from django.http import (HttpResponse, Http404, HttpResponsePermanentRedirect,
+                         HttpResponseRedirect)
+from django.template import RequestContext
+from django.conf import settings
+from django.db.models import F, Q, Max
+from django.core import serializers
+from django.core.urlresolvers import reverse, resolve
+from django.utils.translation import gettext as _
+
+# Local
+from observatory.models import (Country, Country_region, Cy, Hs4, Hs4_py,
+                                Hs4_cpy, Sitc4, Sitc4_py, Sitc4_cpy)
+from observatory.models import observastory, storychapter
+from observatory.models import raw_q
+from observatory import helpers
+
+# Conditional things
 if settings.REDIS:
   import redis
   import msgpack
@@ -49,7 +49,9 @@ if not settings.HTTP_HOST:
 else:
   HTTP_HOST = settings.HTTP_HOST
 
+
 #object used to Encrypt/Decrypt
+# 2014-06-16 mali: wtf is this?
 ###############################
 fpe_obj = fpe.FPEInteger(key=b'mypetsnameeloise', radix=10, width=10)
 
