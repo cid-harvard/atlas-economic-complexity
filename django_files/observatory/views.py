@@ -134,10 +134,6 @@ def filename_to_url(request, fileName,):
      return response
 
 
-def fluid(request):
-  return render_to_response("fluid.html", context_instance=RequestContext(request))
-
-
 def home(request):
   iscreatemode=False
   request.session['create']=iscreatemode
