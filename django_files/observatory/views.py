@@ -7,8 +7,6 @@ import json
 import time
 from urlparse import urlparse
 
-# 3rd Party
-from elasticsearch import Elasticsearch
 
 # Django
 from django.shortcuts import render_to_response, redirect
