@@ -18,7 +18,6 @@ from django.db.models import Q
 import json
 from django.core import serializers
 from django.core.urlresolvers import reverse
-from elasticsearch import Elasticsearch
 # Project specific
 from django.utils.translation import gettext as _
 # App specific
@@ -731,7 +730,7 @@ def filename_to_url(request, fileName,):
      country1 = data[4]
      country2 = data[5]
      product = data[6]
-     year= data[7]  
+     year= data[7]
      # Build the url
      #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
      url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
@@ -746,7 +745,7 @@ def filename_to_url(request, fileName,):
      country1 = data[4]
      country2 = data[5]
      product = data[6]
-     year= data[7]  
+     year= data[7]
      # Build the url
      #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
      url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
@@ -754,14 +753,14 @@ def filename_to_url(request, fileName,):
      response = full_url
      return response
   if app_name1 == "tree" or "pie" or "product":
-     app_name = data[0] + "_" + data[1]  
-     language = data[2] 
+     app_name = data[0] + "_" + data[1]
+     language = data[2]
      prod_class = data[3]
      trade_flow = data[4]
      country1 = data[5]
      country2 = data[6]
      product = data[7]
-     year= data[8]  
+     year= data[8]
      # Build the url
      #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
      url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
@@ -1198,12 +1197,10 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   # Verify countries from DB
   countries = [None, None]
-  country_lists = [None, None]
   for i, country in enumerate([country1, country2]):
     if country != "show" and country != "all":
       try:
         countries[i] = Country.objects.get(name_3char=country)
-        country_lists[i] = Country.objects.get_all(lang)
       except Country.DoesNotExist:
         alert = {"title": "Country could not be found",
           "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='about/data/country/'>list of countries</a>."%(country)}
@@ -1222,7 +1219,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   # Force lazy queryset to hit the DB to reduce number of DB queries later
   years_available = list(years_available)
 
-  country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
+  country1_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None
   warning, alert, title = None, None, None
   data_as_text = {}
   # What is actually being shown on the page
@@ -1392,8 +1389,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "year2_list": year2_list,
     "year_interval_list": year_interval_list,
     "trade_flow_list": trade_flow_list,
-    "country1_list": country_lists[0],
-    "country2_list": country_lists[1],
     "product_list": product_list,
     "api_uri": api_uri,
     "app_type": app_type,
@@ -2586,65 +2581,4 @@ def get_country_lookup():
   for c in Country.objects.all():
     lookup[c.id] = [c.name_en, c.name_3char]
   return lookup
-
-def api_search(request):
-
-    query = request.GET.get("term", None)
-    if query == None:
-        return HttpResponse("[]")
-
-    span, years = helpers.extract_years(query)
-    if span is not None:
-        # Strip out year expression from query since elasticsearch doesn't
-        # contain year data
-        query = query[:span[0]] + query[span[1]:]
-
-    if years is None:
-        year_string = ""
-        year_url_param = ""
-    elif len(years) == 1:
-        year_string = " (%s)" % years[0]
-        year_url_param = "%s/" % years[0]
-    else:
-        year_string = " (%s to %s)" % (years[0], years[1])
-        year_url_param = "%s.%s/" % (years[0], years[1])
-
-    es = Elasticsearch()
-    result = es.search(
-        index="questions",
-        body={
-            "query": {
-                "filtered": {
-                    "query": {
-                        "fuzzy_like_this": {
-                            "like_text": query,
-                            "fields": ["title"],
-                            "fuzziness": 3,
-                            "max_query_terms": 15,
-                            "prefix_length": 4
-                        }
-                    }
-                }
-            },
-            # "highlight": {
-            #     "pre_tags": ["<div class=highlighted>"],
-            #     "fields": {"title": {}},
-            #     "post_tags": ["</div>"]
-            # },
-            "size": 8
-        })
-    result_list = []
-    for x in result['hits']['hits']:
-        label = x['_source']['title'] + year_string
-        url = x['_source']['url'] + year_url_param
-        # TODO: This is a hack, the correct way is to generate the url here
-        # instead of pregenerating it. See issue # 134
-        if years and len(years) > 1:
-            url = url.replace("tree_map", "stacked")
-        result_list.append(dict(label=label, value=url))
-    return HttpResponse(json.dumps(result_list))
-
-
-def search(request):
-    return render_to_response("test_search.html")
 

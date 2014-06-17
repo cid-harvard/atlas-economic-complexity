@@ -4,6 +4,7 @@ from django.conf.urls.defaults import *
 #from django.views.generic.simple import redirect_to
 from django.conf.urls import patterns, include
 from django.views.generic import TemplateView, RedirectView
+from django.views.generic.simple import direct_to_template
 
 # sitemap
 from django.conf.urls.defaults import *
@@ -73,6 +74,8 @@ urlpatterns = patterns('',
   (r'^api/apps/$', 'observatory.views.api_apps'),
   (r'^api/data/$', 'observatory.views.api_data'),
   (r'^api/views/$', 'observatory.views.api_views'),
+  (r'^api/dropdowns/products/$', 'observatory.views_dropdown.api_dropdown_products'),
+  (r'^api/dropdowns/countries/$', 'observatory.views_dropdown.api_dropdown_countries'),
 
   # Story #####
   (r'^generate_png/$','observatory.views.generate_png'),
@@ -125,8 +128,8 @@ urlpatterns = patterns('',
 
   (r'^api/near/(?P<country>\w{3})/(?P<year>[0-9\.]+)/(?P<num_prods>\d+)/$', 'observatory.views_exhibit.api_near'),
 
-  (r'^api/search/$', 'observatory.views.api_search'),
-  (r'^search/$', 'observatory.views.search'),
+  (r'^api/search/$', 'observatory.views_search.api_search'),
+  (r'^search/$', direct_to_template, {'template': 'searchresults.html'}),
 
   # Overview (Countries) ######################################################
   (r'^country/(?P<country>\w{2,3})/$', 'observatory.views_overview.country2'),
@@ -156,6 +159,8 @@ urlpatterns = patterns('',
   url(r'^favicon\.ico$', RedirectView.as_view(url='/media/img/favicon.ico')),
 
   url(r'^sitemap\.xml$', RedirectView.as_view(url='/media/sitemaps/sitemap_index.xml')),
-  #(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+  url(r'^opensearch.xml$', direct_to_template, {'template': 'opensearch.xml',
+                                                'mimetype':
+                                                'application/opensearchdescription+xml'}),
 
 )
