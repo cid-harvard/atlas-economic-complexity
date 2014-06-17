@@ -33,11 +33,9 @@ function waitFor(testFx, onReady, timeOutMillis) {
             } else {
                 if(!condition) {
                     // If condition still not fulfilled (timeout but condition is 'false')
-                    console.log("'waitFor()' timeout");
                     phantom.exit(1);
                 } else {
                     // Condition fulfilled (timeout and/or condition is 'true')
-                    console.log("'waitFor()' finished in " + (new Date().getTime() - start) + "ms.");
                     typeof(onReady) === "string" ? eval(onReady) : onReady(); //< Do what it's supposed to do once the condition is fulfilled
                     clearInterval(interval); //< Stop this interval
                 }
@@ -48,7 +46,6 @@ function waitFor(testFx, onReady, timeOutMillis) {
 // Parse command line arguments
 if ( system.args.length != 3 ) {
     // We cannot proceed just exit at this point
-    console.log( "Usage: generate.svg.js [File to save SVG data to] [URL to retrieve the SVG data from]" );
 
     // Exit out of the program at this point
     phantom.exit( 1 );
@@ -74,8 +71,7 @@ page.open( page_url, function ( status ) {
             } );
         }, function() {
             // Debug
-            console.log( "The loader has disappeared which means the svg data has been loaded" );
-
+	    console.log("Generating SVG for URL : " + page_url);	
             // Get the page content now
             result = page.evaluate( function () {
                 // Setup the visualization container
@@ -123,9 +119,9 @@ page.open( page_url, function ( status ) {
                 fs.write( file_name, result.trim(), 'w' );
             } catch( e ) {
                 // Debug the exception
-                console.log( e );
+                // console.log( e ); 
             }
-
+            console.log("SVG Generated");
             // Get out now
             phantom.exit();
         } );

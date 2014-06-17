@@ -9,7 +9,7 @@ function Key() {
       cats = pretty_cats(attrs);
       sitcs = pretty_sitcs(attrs);
       
-      if (prod_class == "sitc4" && (app_type=="casy"||app_type=="ccsy")){
+      if (prod_class == "sitc4" && (app_type=="casy"||app_type=="ccsy")) {
         d3.select(this)
           .attr("id", "sitc1")
           .selectAll("a").data(d3.values(sitcs))
@@ -26,8 +26,6 @@ function Key() {
           .append("a")
           .call(key_icon)
       }
-      // put tooltip on mouseover
-     // $('#key a').toopt({"gravity":'s',"fade":true}); 
 
     })
   }
@@ -194,8 +192,6 @@ function Key() {
       
     })
     
-    // Update tooltips 
-   // $(".tooltipbs").tooltip({delay: { show: 500, hide: 100 }});
   }
   
   
@@ -249,6 +245,22 @@ function Key() {
     classification = value;
     return key;
   };
+
+  key.disable = function(list) {
+
+    // Only works for rings
+
+    // Re-enable all
+
+    for(var p in cats) {
+      d3.selectAll(".cat_"+p).style("opacity", "1").style("pointer-events", "auto");
+    };
+
+    list.forEach(function(d) {
+      d3.selectAll(".cat_"+d).style("opacity", ".05").style("pointer-events", "none"); // "auto"
+    });
+
+  }
   
   /////////////////////////////////////////////////////////////////////
   // BE SURE TO ALWAYS RETURN THE APP TO ALLOW FOR METHOD CHAINING

@@ -323,7 +323,7 @@ class Hs4_py(models.Model):
 	class Meta:
 		db_table = DB_PREFIX+"observatory_hs4_py"
 
-	product = models.ForeignKey(Sitc4)
+	product = models.ForeignKey('Hs4')
 	year = models.PositiveSmallIntegerField(max_length=4)
 	pci = models.FloatField(null=True)
 	pci_rank = models.PositiveSmallIntegerField(max_length=4)

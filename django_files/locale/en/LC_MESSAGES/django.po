@@ -43,9 +43,6 @@ msgstr "Products"
 msgid "Bilateral"
 msgstr "Bilateral"
 
-msgid "Export"
-msgstr "Export"
-
 msgid "Imports"
 msgstr "Imports"
 
@@ -117,5 +114,4 @@ msgstr "Next"
 
 msgid "Previous"
 msgstr "Previous"
-
 

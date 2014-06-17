@@ -355,12 +355,18 @@ var flat_data,
 
   }
   
-  set_scatter_year = function(arg)
-  {
+  set_scatter_year = function(arg) {
     var nest_level = ($("#nesting_level").val());
     year=arg
     set_depth(nest_level)
     d3.select("#viz").call(viz.year(arg))
+  }
+
+  set_scatterplot_year = function(arg) {
+
+    year_data = flat_data.filter(function(d){ return d.year == arg})
+    // d3.select("#viz").call(viz.time("year", 2012))
+ 
   }
 
   create_rankings = function(year) {
@@ -368,7 +374,6 @@ var flat_data,
   }
 
   set_rankings_year = function(arg) {
-
     
 
   }
@@ -387,9 +392,7 @@ var flat_data,
       // Make the AJAX call to retrieve other years
 
       d3.json(api_uri + '&amp;data_type=json', function(raw) {
-
         rawData = raw;
-        
         item_type = raw["item_type"];
         flat_data=raw["data"];
         attr=raw["attr"];
@@ -419,8 +422,6 @@ var flat_data,
         d3.select("#viz").transition().style("opacity", 1)
         set_year(arg);
       });
-
-
       return;
     }
 
@@ -606,8 +607,7 @@ var flat_data,
 
   }
   
-  construct_nest = function(flat)
-  {
+  construct_nest = function(flat) {
     // Ask for visualizations that need to be sorted by export/import/net values
     if (app_type == "casy" || app_type == "sapy" || app_type == "ccsy")
     {
@@ -858,32 +858,80 @@ var flat_data,
   }
     var inner_html = function(obj) {
 
-      var html = "<div class='d3plus_tooltip_title'>More Visualizations </div><br><br>";
-      html += " <table>";
 
-      if(app_name!="tree_map") {
-        html += "<tr><td><img src='"+static_url+"img/home/treeMap-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
-      }
-      if(app_name!="stacked"){
-        html += "<tr><td><img src='"+static_url+"img/home/stacked-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
-      }
-      if(app_name!="map"){
-        html += "<tr><td><img src='"+static_url+"img/home/geo-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Map</a></td></tr></a>";
-      }
-      if(app_name!="pie_scatter"){
-        html += "<tr><td><img src='"+static_url+"img/home/productFeas-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"pie_scatter\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Feasability</a></td></tr></a>";
-      }
-      if(app_name!="product_space"){
-        html += "<tr><td><img src='"+static_url+"img/home/productSpace-thumb.png' style='width:60px;'></td>";
-        html += "<td><a onclick='update_viz(\"product_space\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Space</a></td></tr></a>";
-      }            
-   
-      html += "</table>";
+      if(queryParameters.show_related) { 
+
+
+      var html = "<div class='d3plus_tooltip_title'>Related Visualizations </div><br>";
+      html += "<div id='related_links'></div>";
+
+      var name = "";
+
+      // Retrieve the name from id
+      flat_data.filter(function(d) {
+        if(d.id == obj)
+          name = d.name;
+      })
+
+      setTimeout(function() {
+            d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
+
+              if (error) { // Default data
+                return console.warn(error);
+
+              } else {
+                json = data;
+              }
+
+              related_html = "";
+
+              json.filter(function(d, i) { 
+                d3.select("#related_links")
+                  .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+d.value+"'>"+d.label+"</a>");
+
+              })
+
+      //        console.log("appended", related_html)
+        //      d3.select("#related").related_html("tata")//related_html);
+
+            })
+
+      }, 500)
+
       return html;
+
+      } else {
+
+
+        var html = "<div class='d3plus_tooltip_title'>Related Visualizations</div><br><br>";
+        html += " <table>";
+
+        if(app_name!="tree_map") {
+          html += "<tr><td><img src='"+static_url+"img/home/treeMap-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
+        }
+        if(app_name!="stacked"){
+          html += "<tr><td><img src='"+static_url+"img/home/stacked-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
+        }
+        if(app_name!="map"){
+          html += "<tr><td><img src='"+static_url+"img/home/geo-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Map</a></td></tr></a>";
+        }
+        if(app_name!="pie_scatter"){
+          html += "<tr><td><img src='"+static_url+"img/home/productFeas-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"pie_scatter\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Feasability</a></td></tr></a>";
+        }
+        if(app_name!="product_space"){
+          html += "<tr><td><img src='"+static_url+"img/home/productSpace-thumb.png' style='width:60px;'></td>";
+          html += "<td><a onclick='update_viz(\"product_space\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Space</a></td></tr></a>";
+        }            
+     
+        html += "</table>";
+        return html;
+
+      }
+
     }
 
   tree = function() {
@@ -1075,7 +1123,8 @@ var flat_data,
           $("#stacked_layout").buttonset();
           $("#stacked_capita").buttonset();
           $("#stacked_controls input[type='radio']").change(function(e){
-            if($(e.target).attr("name") == "labels"){
+
+            if($(e.target).attr("name") == "labels") {
               ($(e.target).attr("id")=="false") ? d3.select("#viz").call(viz.labels(false)) :
                                                   d3.select("#viz").call(viz.labels(true))
             }
@@ -1191,25 +1240,130 @@ var flat_data,
 
   scatterplot = function() {
 
-    // 1-Which product classification?
+    flat_data = construct_nest(flat_data);
 
-    // 2-Load external metadata
+    viz = d3plus.viz()
 
-    // 3-Init Javasript visualization
+    if(item_type=="product") {
+  
+      if (prod_class == "sitc4"){
+        flat_data = flat_data.filter(function(d){
+          return d.distance != 0;
+        });
+      }
+      flat_data = construct_scatter_nest(flat_data);
 
-    // 4-Process data (flatten, ..)
+    viz
+      .type("pie_scatter")
+      .height(height)
+      .width(width)
+      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .text_var("name")
+      .id_var("id")
+      .attrs(attr)
+      .xaxis_var("distance")
+      .yaxis_var("share")
+      .value_var("world_trade")
+      .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
+      .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .depth("nesting_2")
+      .text_format(txt_format)
+      .number_format(num_format)
+      .spotlight(false)
+      .dev(false)
+      .font('PT Sans Narrow')
+      .click_function(inner_html)
+  //    .static_axis(false)
+      .year(year)
+    
+    d3.select("#loader").style("display", "none");
 
-    // 5-Keys, controls, ..
+    flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
+  
+    flat_data.map(function(d){
+      d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+      d.id = String(d.id)
+    })
+  
 
-    // 6-Init the visualization
+ } else {
+
+    viz
+      .type("pie_scatter")
+      .height(height)
+      .width(width)
+      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .text_var("name")
+      .id_var("id")
+      .attrs(region_attrs)
+      .xaxis_var("share")
+      .yaxis_var("value")
+      .value_var("share")
+      .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
+      .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .depth("nesting_2")
+      .text_format(txt_format)
+      .number_format(num_format)
+      .spotlight(false)
+      .dev(false)
+      .font('PT Sans Narrow')
+      .click_function(inner_html)
+  //    .static_axis(false)
+      .year(year)
+    
 
 
+
+ }
+
+    d3.select("#viz")
+      .style('height','520px')
+      .datum(flat_data)
+      .call(viz) 
+
+    // highlight(queryParameters['highlight']);
+
+    d3.select("#loader").style("display", "none");  
+
+    if(!embed){
+      key = Key()
+        .classification(rawData.class)
+        .showing(item_type)
+
+      d3.select(".key")
+        .datum(attr_data)
+        .call(key);
+
+      controls = Controls()
+        .app_type(app_name)
+        .year(year)
+
+      d3.select("#tool_pane")
+        .datum(rawData)
+        .call(controls);
+      
+      $("#pie_yvar").buttonset();
+      $("#pie_spot").buttonset();
+      $("#pie_controls input[type='radio']").change(function(e){
+        if($(e.target).attr("name") == "yvar"){
+          ($(e.target).attr("id")=="complexity") ? d3.select("#viz").call(viz.yaxis_var("complexity")) :
+                                              d3.select("#viz").call(viz.yaxis_var("opp_gain"))
+        }
+        if($(e.target).attr("name") == "pie_spot"){
+          ($(e.target).attr("id")=="spot_off") ? d3.select("#viz").call(viz.spotlight(false)) :
+                                              d3.select("#viz").call(viz.spotlight(true))
+        }
+      })         
+    }
+
+/*
     flat_data = construct_nest(flat_data);
 
     if(item_type=="country") {
 
-
-      flat_data = flat_data.filter(function(d){ return d.year == year})
+      //year_data = flat_data.filter(function(d){ return d.year == year})
      
       var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
 
@@ -1222,20 +1376,20 @@ var flat_data,
         .x("value")         // key for x-axis
         .y("share")        // key for y-axis
         .legend(false)
+        .descs(["id","distance","complexity","year"])
+        .html(function() {  return "Here is the tooltip"; })
         .text("name")
         .size("value")
         .draw()             // finally, draw the visualization!
         .height(height)
         .width(width)
-
+        .time({"year":year})
 
     } else {
 
-
-
     flat_data = flat_data.filter(function(d){ return d.share > .075 && d.year == year})
    
-var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
+    var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
 
     // instantiate d3plus
     viz = d3plus.viz()
@@ -1257,8 +1411,6 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
 
 
     }
-
-
 
 
     if (!embed) {
@@ -1286,22 +1438,23 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
         .call(controls); 
     } 
 
-
-
-   timeline = Slider()
-          .callback('set_scatter_year')
+    timeline = Slider()
+          .callback('set_scatterplot_year')
           .initial_value(parseInt(year))
           .max_width(670)
           .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
-          .datum(years_available)
-          .call(timeline)
+
+    d3.select("#ui_bottom").append("div")
+      .attr("class","slider")
+      .datum(years_available)
+      .call(timeline)
 
     d3.select("#loader").style("display", "none");  
 
-  }
 
+    */
+
+  }
 
 
   rankings = function() {
@@ -1309,7 +1462,6 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
     var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"})//.html("Rankings")
 
     d3.select("#loader").style("display", "none");  
-
 
     var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
 
@@ -1321,9 +1473,9 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
     thead.append("tr").selectAll("th")
       .data(function() {
         if(item_type=="country")
-          return ["Rank", "Abbrv", "Country", "Complexity", "Share", "Value"]
+          return ["Rank", "", "Abbrv", "Country", "Complexity", "Share", "Value"]
         else
-          return ["Rank", "HS4", "Product", "Complexity", "Share", "Value"]      ;
+          return ["Rank", "", "HS4", "Product", "Complexity", "Share", "Value"]      ;
 
       })
       .enter()
@@ -1345,13 +1497,13 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
     var cells = rows.selectAll("td")
       .data(function(d) { 
         if(item_type=="country")
-          return [d+1, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+          return [d+1, '<img src="/media/img/icons/flag_'+year_data[d].abbrv+'.png" alt="Flag of {{country.name}}"  style="width: 20px;" /> ', year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
         else
-          return [d+1, year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
+          return [d+1, '<img src="/media/img/icons/community_'+year_data[d].community_id+'.png" alt="{{p.1}}" style="width: 20px;" />', year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
       })
       .enter()
       .append("td")
-      .text(function(d, i) { return d; })
+      .html(function(d, i) { return d; })
 
 
     timeline = Slider()
@@ -1528,6 +1680,11 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
       .datum(data)
       .call(viz);  
     
+      d3.selectAll(".node, .d3plus_network_connection").on("mouseup", function() {
+        
+        // Update the keys based on product category availability
+        console.log("click")
+      })
     })
     
 
@@ -1552,7 +1709,6 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
         .datum(rawData)
         .call(controls); 
     }     
-
   }
   
   network = function(req) {
@@ -1939,7 +2095,7 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
       single_year_param = "&amp;single_year=true";
     }
 
-    d3.json(api_uri + '&amp;data_type=json' + single_year_param, function(raw) {
+    d3.json(api_uri + '&amp;data_type=json' + single_year_param, function(error, raw) {
 
       // This needs to be global 
       rawData = raw;
@@ -1954,238 +2110,271 @@ var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","d
       prod_class = raw["prod_class"];
       region_attrs = {};
 
-      if(app_type=="casy") {
-
-
-        // No attr=raw["attr"] for this one, so where to get it?
-        // json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang);
-        //  attr_data = attr_data_file.attr_data;
-        // magic_numbers = rawData["magic_numbers"]
-        world_trade = rawData["world_trade"]
-        code_look = rawData["code_look"]
-        
-        world_totals = {}
-        w_years = d3plus.utils.uniques(world_trade,"year")
-
-        w_years.forEach(function(d){
-          world_totals[d] = world_trade.filter(function(p){ return p.year == d}) 
-        });
+      if(error){
+        $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported by "+rawData.country1.name+"</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
+          .css("position", "relative")
+          .css("top", $("#viz").height()*0.30);
       }
-      
-      if (prod_class == "sitc4" && (app_type == "casy" || app_type == "ccsy"|| app_type=="sapy")){
-        attr_data.map(function(g){
-          g.sitc1_name = attr[g.code.slice(0, 1)+"000"].name; 
-          g.sitc1_id = parseInt(g.code.slice(0, 1)+"000");
-          g.sitc1_color = attr[g.code.slice(0, 1)+"000"].color
-        });
-      }
-    
-      // attr_data = clean_attr_data(attr_data)
-      rawData.attr_data = clean_attr_data(rawData.attr_data)
 
-      if (app_name=="stacked") {
-        flat_data = construct_nest(flat_data)
-        stack(); 
+      // Data is found, but it is not usable to generate visualization
+      if(rawData.data.length == 0){  // <<<<<<<<< TODO: What is the threshold for this??
+        $("#loader").css("display", "none");
+        $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported by "+rawData.country1.name+"</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
+          .css("position", "relative")
+          .css("top", $("#viz").height()*0.30);
+      } 
 
-        timeline = Slider()
-                  .callback('set_stack_year')
-                  .initial_value([parseInt(year_start),parseInt(year_end)])
-                  //[parseInt(years_available[0]),parseInt(years_available.slice(-1)[0])])
-                  .max_width(670)
-                  .title("")
-                d3.select("#ui_bottom").append("div")
-                  .attr("class","slider")
-                  .datum(years_available)
-                  .call(timeline)
-        // get rid of play button -->                  
-        d3.select('#play_button').style("display","none") 
-      }
-      
-      if (app_name=="tree_map") {
-        flat_data = construct_nest(flat_data);
-        
-        timeline = Slider()
-          .callback('set_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
-          // .style("overflow","auto")
-          .datum(years_available)
-          .call(timeline)
-        d3.select("#ui_bottom").append("br")
+      // else if(rawData.data.length > 0 && ????){
 
-        tree();
+      // }
 
-        if(queryParameters['cont_id']!="") {
-          var e = document.createEvent('UIEvents');
-          e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-          d3.select(".cat_"+queryParameters['cont_id']).node().dispatchEvent(e);
-        }
+      else{
 
-        if(queryParameters['cat_id']!="") {
-          var e = document.createEvent('UIEvents');
-          e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-          d3.select(".cat_"+queryParameters['cat_id']).node().dispatchEvent(e);
-        }
 
-      }
-      
-      if (app_name=="pie_scatter") {
-        if (prod_class == "sitc4"){
-          flat_data = flat_data.filter(function(d){
-            return d.distance != 0;
+        if(app_type=="casy") {
+
+          // No attr=raw["attr"] for this one, so where to get it?
+          // json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang);
+          //  attr_data = attr_data_file.attr_data;
+          // magic_numbers = rawData["magic_numbers"]
+          world_trade = rawData["world_trade"]
+          code_look = rawData["code_look"]
+          
+          world_totals = {}
+          w_years = d3plus.utils.uniques(world_trade,"year")
+
+          w_years.forEach(function(d){
+            world_totals[d] = world_trade.filter(function(p){ return p.year == d}) 
           });
         }
-        flat_data = construct_scatter_nest(flat_data);
-        // where = flat_data.filter(function(d){ return d.year == year; })
-        pie_scatter();
         
-        timeline = Slider()
-                  .callback('set_scatter_year')
-                  .initial_value(parseInt(year))
-                  .max_width(670)
-                  .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
-          .datum(years_available)
-          .call(timeline)
-        // get rid of play button -->                  
-        // d3.select('#play_button').style("display","none") 
-
-        if(queryParameters['cat']!="" && queryActivated) {
-          var e = document.createEvent('UIEvents');
-          e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-          d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
+        if (prod_class == "sitc4" && (app_type == "casy" || app_type == "ccsy"|| app_type=="sapy")){
+          attr_data.map(function(g){
+            g.sitc1_name = attr[g.code.slice(0, 1)+"000"].name; 
+            g.sitc1_id = parseInt(g.code.slice(0, 1)+"000");
+            g.sitc1_color = attr[g.code.slice(0, 1)+"000"].color
+          });
         }
-      }
       
+        // attr_data = clean_attr_data(attr_data)
+        rawData.attr_data = clean_attr_data(rawData.attr_data)
 
-      if(app_name=="product_space") {
+        if (app_name=="stacked") {
+          flat_data = construct_nest(flat_data)
+          stack(); 
 
-        flat_data = construct_scatter_nest(flat_data);
-        network( api_uri + '&amp;data_type=json' );
+          timeline = Slider()
+                    .callback('set_stack_year')
+                    .initial_value([parseInt(year_start),parseInt(year_end)])
+                    //[parseInt(years_available[0]),parseInt(years_available.slice(-1)[0])])
+                    .max_width(670)
+                    .title("")
+                  d3.select("#ui_bottom").append("div")
+                    .attr("class","slider")
+                    .datum(years_available)
+                    .call(timeline)
+          // get rid of play button -->                  
+          d3.select('#play_button').style("display","none") 
+        }
         
-        timeline = Slider()
-          .callback('set_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
-          // .style("overflow","auto")
-          .datum(years_available)
-          .call(timeline)
-
-        d3.select("#ui_bottom").append("br")
-      }
-
-
-      if(app_name=="rings") {
-
-        flat_data = construct_scatter_nest(flat_data);
-        rings( api_uri + '&amp;data_type=json' );
-
-        timeline = Slider()
-          .callback('set_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
-          // .style("overflow","auto")
-          .datum(years_available)
-          .call(timeline)
+        if (app_name=="tree_map") {
+          flat_data = construct_nest(flat_data);
           
-        d3.select("#ui_bottom").append("br")
+          timeline = Slider()
+            .callback('set_year')
+            .initial_value(parseInt(year))
+            .max_width(670)
+            .title("")
+          d3.select("#ui_bottom").append("div")
+            .attr("class","slider")
+            // .style("overflow","auto")
+            .datum(years_available)
+            .call(timeline)
+          d3.select("#ui_bottom").append("br")
 
-      }
+          tree();
 
-      if(app_name=="map") {
+          if(queryParameters['cont_id']!="") {
+            var e = document.createEvent('UIEvents');
+            e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            d3.select(".cat_"+queryParameters['cont_id']).node().dispatchEvent(e);
+          }
 
-        map()
+          if(queryParameters['cat_id']!="") {
+            var e = document.createEvent('UIEvents');
+            e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            d3.select(".cat_"+queryParameters['cat_id']).node().dispatchEvent(e);
+          }
+
+        }
         
-        timeline = Slider()
-          .callback('set_map_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-        d3.select("#ui_bottom").append("div")
-          .attr("class","slider")
-          // .style("overflow","auto")
-          .datum(years_available)
-          .call(timeline)
-        d3.select("#ui_bottom").append("br")  
+        if (app_name=="pie_scatter") {
+          if (prod_class == "sitc4"){
+            flat_data = flat_data.filter(function(d){
+              return d.distance != 0;
+            });
+          }
+          flat_data = construct_scatter_nest(flat_data);
+          // where = flat_data.filter(function(d){ return d.year == year; })
+          pie_scatter();
+          
+          timeline = Slider()
+                    .callback('set_scatter_year')
+                    .initial_value(parseInt(year))
+                    .max_width(670)
+                    .title("")
+          d3.select("#ui_bottom").append("div")
+            .attr("class","slider")
+            .datum(years_available)
+            .call(timeline)
+          // get rid of play button -->                  
+          // d3.select('#play_button').style("display","none") 
+
+          if(queryParameters['cat']!="" && queryActivated) {
+            var e = document.createEvent('UIEvents');
+            e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
+          }
+        }
         
-        // Fix wrong shape file with MDV
-        d3.select("#MDV").style("display", "none")
-      }
- 
-      if(app_name=="scatterplot") {
+
+        if(app_name=="product_space") {
+
+          flat_data = construct_scatter_nest(flat_data);
+          network( api_uri + '&amp;data_type=json' );
+          
+          timeline = Slider()
+            .callback('set_year')
+            .initial_value(parseInt(year))
+            .max_width(670)
+            .title("")
+
+          d3.select("#ui_bottom").append("div")
+            .attr("class","slider")
+            // .style("overflow","auto")
+            .datum(years_available)
+            .call(timeline)
+
+          d3.select("#ui_bottom").append("br")
+        }
 
 
-        scatterplot();
+        if(app_name=="rings") {
 
-     
+          flat_data = construct_scatter_nest(flat_data);
+          rings( api_uri + '&amp;data_type=json' );
 
-      }
+          timeline = Slider()
+            .callback('set_year')
+            .initial_value(parseInt(year))
+            .max_width(670)
+            .title("")
+
+          d3.select("#ui_bottom").append("div")
+            .attr("class","slider")
+            // .style("overflow","auto")
+            .datum(years_available)
+            .call(timeline)
+            
+          d3.select("#ui_bottom").append("br")
+
+        }
+
+        if(app_name=="map") {
+
+          map()
+          
+          timeline = Slider()
+            .callback('set_map_year')
+            .initial_value(parseInt(year))
+            .max_width(670)
+            .title("")
+          d3.select("#ui_bottom").append("div")
+            .attr("class","slider")
+            // .style("overflow","auto")
+            .datum(years_available)
+            .call(timeline)
+          d3.select("#ui_bottom").append("br")  
+          
+          // Fix wrong shape file with MDV
+          d3.select("#MDV").style("display", "none")
+        }
+   
+        if(app_name=="scatterplot") {
 
 
-      if(app_name=="rankings") {
+          // where = flat_data.filter(function(d){ return d.year == year; })
+          
+          scatterplot();
 
-        rankings();
+          timeline = Slider()
+                    .callback('set_scatter_year')
+                    .initial_value(parseInt(year))
+                    .max_width(670)
+                    .title("")
+
+          d3.select("#ui_bottom").append("div")
+            .attr("class","slider")
+            .datum(years_available)
+            .call(timeline)
 
 
-      }
+      
+        }
 
-      // // Create Year Toggle
-      // if (app_name == "tree_map") {
-      //   timeline = Slider()
-      //     .callback('set_year')
-      //     .initial_value(parseInt(year))
-      //     .max_width(540)
-      //     .title("")
-      //   d3.select("#ui_bottom").append("div")
-      //     .attr("class","slider")
-      //     // .style("overflow","auto")
-      //     .datum(years_available)
-      //     .call(timeline)
-      //   d3.select("#ui_bottom").append("br")
-      // }
-      // 
-      // if (app_name == "stacked")
-      // {
-      //   timeline = Slider()
-      //             .callback('set_stack_year')
-      //             .initial_value([parseInt(year_start),parseInt(year_end)])
-      //             .max_width(540)
-      //             .title("")
-      //           d3.select("#ui_bottom").append("div")
-      //             .attr("class","slider")
-      //             .datum(years_available)
-      //             .call(timeline)
-      //   // get rid of play button -->                  
-      //   d3.select('#play_button').style("display","none")          
-      // }
-      // 
-      // if (app_name == "pie_scatter")
-      // {
-      //   timeline = Slider()
-      //             .callback('set_scatter_year')
-      //             .initial_value(parseInt(year))
-      //             .max_width(540)
-      //             .title("")
-      //           d3.select("#ui_bottom").append("div")
-      //             .attr("class","slider")
-      //             .datum(years_available)
-      //             .call(timeline)
-      //   // get rid of play button -->                  
-      //   d3.select('#play_button').style("display","none")          
-      // }
-    
+
+        if(app_name=="rankings") {
+
+          rankings();
+
+
+        }
+
+        // // Create Year Toggle
+        // if (app_name == "tree_map") {
+        //   timeline = Slider()
+        //     .callback('set_year')
+        //     .initial_value(parseInt(year))
+        //     .max_width(540)
+        //     .title("")
+        //   d3.select("#ui_bottom").append("div")
+        //     .attr("class","slider")
+        //     // .style("overflow","auto")
+        //     .datum(years_available)
+        //     .call(timeline)
+        //   d3.select("#ui_bottom").append("br")
+        // }
+        // 
+        // if (app_name == "stacked")
+        // {
+        //   timeline = Slider()
+        //             .callback('set_stack_year')
+        //             .initial_value([parseInt(year_start),parseInt(year_end)])
+        //             .max_width(540)
+        //             .title("")
+        //           d3.select("#ui_bottom").append("div")
+        //             .attr("class","slider")
+        //             .datum(years_available)
+        //             .call(timeline)
+        //   // get rid of play button -->                  
+        //   d3.select('#play_button').style("display","none")          
+        // }
+        // 
+        // if (app_name == "pie_scatter")
+        // {
+        //   timeline = Slider()
+        //             .callback('set_scatter_year')
+        //             .initial_value(parseInt(year))
+        //             .max_width(540)
+        //             .title("")
+        //           d3.select("#ui_bottom").append("div")
+        //             .attr("class","slider")
+        //             .datum(years_available)
+        //             .call(timeline)
+        //   // get rid of play button -->                  
+        //   d3.select('#play_button').style("display","none")          
+        // }
+        }
       }) // attr  
    // }) // api_uri
 
