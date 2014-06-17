@@ -27,7 +27,7 @@ source: function(request, response) {
         response(cache[term]);
         return;
     }
-    $.getJSON( "/api/search/",
+    $.getJSON( "../api/search/",
         request,
         function(data, status, xhr) {
             var reshaped_data = [];
