@@ -475,9 +475,13 @@
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs">
   <li id="helpTab" {% if app_name != "product_space" and app_name != "pie_scatter" %}class="active"{% endif %}><a href="#helpPane" data-toggle="tab">Help</a></li>
 
-  {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None"%}
+<!--  History Tab 
+ 
+{% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None"%}
   <li id="historyTab"><a href="#history" data-toggle="tab">History</a></li>
-  {% endif %}
+{% endif %}
+
+ -->
 
   {% if app_name == "product_space" or app_name == "pie_scatter" %}
     <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
