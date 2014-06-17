@@ -149,6 +149,7 @@ $(".select .next").click(function(){
   url_request = "/api/"+url_request.join("/")+"/";
   d3.json(url_request, function(json){
     // console.log(json)
+
     build_app(json, url_request)
   });
   return false;

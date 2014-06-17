@@ -3,6 +3,7 @@ function build_app(api_uri, type_of_app, dimensions, embed){
   // show loading icon and clear current HTML container
   d3.select("#viz").html("")
   d3.select("#loader").style("display", "block");
+
   
   // get data from server
   d3.json(api_uri, function(data){
@@ -10,6 +11,7 @@ function build_app(api_uri, type_of_app, dimensions, embed){
     build(data, dimensions)
     // hide loading icon
     d3.select("#loader").style("display", "none");
+          
   })
   
   // Given raw data from the server clean it and build an app

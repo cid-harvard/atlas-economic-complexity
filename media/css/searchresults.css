@@ -1,0 +1,24 @@
+h1 {
+    font-family: "Gill Sans", "Gill Sans MT", "Helvetica Neue", Calibri, Arial, sans-serif;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 110px;
+}
+
+#search {
+    text-align: center;
+    margin-top: 40px;
+}
+#search input {
+    font-size: 14px;
+    width: 400px;
+}
+
+.ui-menu {
+    width: 390px;
+}
+.ui-menu .ui-menu-item {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+

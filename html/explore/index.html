@@ -22,6 +22,7 @@
   <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
   {% endif %} 
   <meta name="twitter:domain" content="http://www.atlas.cid.harvard.edu/">
+  <link rel="search" type="application/opensearchdescription+xml" href="{{HTTP_HOST}}opensearch.xml" title="Atlas of Economic Complexity"/>
   <base href="{{HTTP_HOST}}">
   <title>The Atlas Of Economic Complexity{% if title %} | {{title}}{% else %}{% endif %}</title>
   <meta name="description" content="Networks in Macro Economics with World Trade Data">
@@ -124,8 +125,8 @@
       </div>
 
       <!-- The title -->
-      <div class="app_title" id="title">
-        <h2 style="margin-left:10px; width:700px;" id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2>
+      <div class="app_title" id="title"  original-title='{% trans "Economic Complexity" %}'>
+        <h2 style="margin-left:10px; width:700px;" id="text_title" >{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2>
       </div>
       
       <br style="clear:both">
@@ -252,7 +253,7 @@
 
           <div id="tfViz" data-toggle="buttons" style="margin-left:5px;">
 
-            <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip" title="Treemap" >
+            <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip">
 
               <input type="radio" style="background:url({{ STATIC_URL }}img/home/treeMap-thumb.png) no-repeat;"> <img src="{{ STATIC_URL }}img/home/treeMap-thumb.png" style="width:38px;"/>
             </label>
@@ -474,9 +475,13 @@
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs">
   <li id="helpTab" {% if app_name != "product_space" and app_name != "pie_scatter" %}class="active"{% endif %}><a href="#helpPane" data-toggle="tab">Help</a></li>
 
-  {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None"%}
+<!--  History Tab 
+ 
+{% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None"%}
   <li id="historyTab"><a href="#history" data-toggle="tab">History</a></li>
-  {% endif %}
+{% endif %}
+
+ -->
 
   {% if app_name == "product_space" or app_name == "pie_scatter" %}
     <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
@@ -559,6 +564,7 @@
       <!-- the Visualization -->
     {% if isbrowsemode %}
     <div id="content" style="width: 95%; min-height:765px;">
+
 			<div style="margin-left: 20px; width: 75%; float:left">
 				<h2>{{ browseStoryName }}</h2>
 				<p>{{ browseStoryDesc }}</p>
@@ -570,7 +576,11 @@
 			<div style="clear:both"></div>
         <!-- ajax loading gif -->
         <div id="loader">
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" /><br />Loading...
+          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
+          <p>Loading</p>
+        </div>
+        <br />
+        Loading...
         </div>
         
         <!-- the canvas for the visualization -->
@@ -579,7 +589,8 @@
         </div>
         
         <!-- Container for the visualization -->
-        <div  id="viz" style="width: 100%; min-height:520px"></div>
+        <div  id="viz" style="width: 100%; min-height:520px">
+        </div>
         
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
@@ -598,22 +609,31 @@
 		</div> 
 </div>      
     {% else %}
-      <div id="content"  class="container" style="width: 750px; min-height:600px;">
+      <div id="content"  class="container" style="width: 750px; min-height:600px;">          
         <div class="contentViz">
         <!-- ajax loading gif -->
           <div id="loader">
           <!--if static image mode is PNG-->
           {% if displayviz %}
-            <img src="{{ displayImage }}" alt="loading" style="width: 750px; height:520px; margin-top:-150px; opacity:.7"/><br />
+          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
+              <p>Loading</p>
+              <br />
             <span style="width: 750px; height:520px; margin-top:-550px; opacity:.7">Loading...</span>
           {% else %}
-  	         <img src="{{ displayImage }}" alt="loading"/><br />
+          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
+          <p>Loading</p>
           {% endif %}
           </div>
           
           <!-- the canvas for the visualization -->
           <div id="text_data"></div>
-          <div id="historyOverlay"></div>
+          <div id="historyOverlay"></div>  
+          <div id="refreshOverlay" onclick="update_viz();">
+            <div id="refreshText">
+              <i class="refreshIcon fa fa-refresh fa-4x"></i>
+              <h1>Click Here To Refresh The Visualization</h1>
+            </div>
+          </div>                
           <!-- Container for the visualization -->
           <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width:750px;min-height:520px;">
           </div>  
@@ -1566,7 +1586,6 @@
 
 <!-- Activates tooltips /////////////////////////////////////////////////////////////////// -->
 
-<script type="text/javascript" src="../media/js/explore/tooltips.js"></script>
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
 <script type='text/javascript'>
   $(function(){
@@ -1602,7 +1621,28 @@
     }
     if( /iPad/i.test(navigator.userAgent) ) {
       $("head").append('<meta name="viewport" content="width=648, initial-scale=0.7" />')
-    }    
+    }  
+
+
+  function refresh_overlay(){
+    $("#refreshOverlay").show();
+  }
+  function remove_overlay(){
+    $("#refreshOverlay").hide();
+  }
+
+  $("select").change(function(){
+    if($(this).attr("id") != "highlight_select"){
+      refresh_overlay();
+    }
+  }); 
+  $(".nav-tabs li a").click(function(){
+    if($(this).parent().attr("class") != "active"){
+      refresh_overlay();
+    } else{
+      remove_overlay();
+    }
+  });  
   </script>
 </body>
   {% include "story/story_forms.html" %}
