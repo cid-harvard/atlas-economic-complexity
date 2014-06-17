@@ -18,7 +18,6 @@ from django.db.models import Q
 import json
 from django.core import serializers
 from django.core.urlresolvers import reverse
-from elasticsearch import Elasticsearch
 # Project specific
 from django.utils.translation import gettext as _
 # App specific
@@ -31,6 +30,12 @@ import msgpack
 import re
 import fpe
 import time
+from django.core.urlresolvers import resolve
+
+from urlparse import urlparse
+from django.core.urlresolvers import resolve
+from django.http import HttpResponseRedirect, Http404
+
 # Import for cache
 if settings.REDIS:
   from django.core.cache import cache, get_cache
@@ -688,17 +693,23 @@ def url_to_filename(request,Url):
   prod_class = request.GET.get("product_classification", prod_class)
   #Get session parameters
   language=lang
-  # Split the array to get the parts we want
-  full_url=Url.split('explore/')
-  localhost=full_url[0]
-  url_content = full_url[1]
-  # Split the array to get the parts we want
-  url =  url_content.split('/')
-  static_image_name = '_'.join(url)
-  response = static_image_name
-  return response
+  try:
+      view, args, kwargs = resolve(urlparse(Url)[2])
+      app_name = kwargs["app_name"]
+      trade_flow = kwargs["trade_flow"]
+      country1 = kwargs["country1"]
+      product = kwargs["product"]
+      country2 = kwargs["country2"]
+      year = kwargs["year"]
+      url = reverse(view, kwargs=kwargs)
+      product_file_bit = country2 + "_" + product
+      file_name = app_name + "_" + language + "_" + prod_class + "_" + trade_flow + "_" + country1 + "_" + product_file_bit + "_" + str(year)
+      response = file_name
+      return response
+  except Http404:
+      print "Invalid Url"
 
-def filename_to_url(request, FileName):
+def filename_to_url(request, fileName,):
   # set language (if session data available use that as default)
   lang = request.session['django_language'] if 'django_language' in request.session else "en"
   lang = request.GET.get("lang", lang)
@@ -708,27 +719,52 @@ def filename_to_url(request, FileName):
   #Get session parameters
   language=lang
   # Split the array to get the parts we want
-  data=FileName.split('_')
+  data=fileName.split('_')
   app_name1=data[0]
   app_name2=data[1]
-  if app_name1 == "stacked" or "map":
+  if app_name1 == "stacked":
      app_name= data[0]
-     del data[0]
-     del data[1]
-     url='/'.join(data)
+     lanuage = data[1]
+     prod_class = data[2]
+     trade_flow = data[3]
+     country1 = data[4]
+     country2 = data[5]
+     product = data[6]
+     year= data[7]
      # Build the url
-     url = app_name + "/" + url
+     #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response
-
+  if app_name1 == "map":
+     app_name= data[0]
+     lanuage = data[1]
+     prod_class = data[2]
+     trade_flow = data[3]
+     country1 = data[4]
+     country2 = data[5]
+     product = data[6]
+     year= data[7]
+     # Build the url
+     #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
+     full_url = request.META['HTTP_HOST'] + '/explore/' + url
+     response = full_url
+     return response
   if app_name1 == "tree" or "pie" or "product":
      app_name = data[0] + "_" + data[1]
-     del data[0]
-     del data[1]
-     url = '/'.join(data)
+     language = data[2]
+     prod_class = data[3]
+     trade_flow = data[4]
+     country1 = data[5]
+     country2 = data[6]
+     product = data[7]
+     year= data[8]
      # Build the url
-     url = app_name + "/" + url
+     #url = app_name + "/" + trade_flow + "/" + country1 + "/" + country2 + "/" + product + "/" + year
+     url = reverse('observatory.views.explore', kwargs={'app_name': app_name,'trade_flow':trade_flow,'country1':country1,'country2':country2,'product':product,'year':year})
+     print url
      full_url = request.META['HTTP_HOST'] + '/explore/' + url
      response = full_url
      return response
@@ -1148,10 +1184,10 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   # Check staic image mode
   if( settings.STATIC_IMAGE_MODE == "SVG" ):
     # Check if we have a valid PNG image to display for this
-    if os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg"):
+    if os.path.exists( settings.DATA_FILES_PATH + "/" + request_hash_string + ".png"):
         # display the  static images
         displayviz = True
-        displayImage = settings.STATIC_URL + "data/" + request_hash_string + ".svg"
+        displayImage = settings.STATIC_URL + "data/" + request_hash_string + ".png"
     else:
         displayviz=False
         displayImage = settings.STATIC_URL + "img/all/loader.gif"
@@ -1445,13 +1481,17 @@ def api_casy(request, trade_flow, country1, year):
   request_hash_dictionary['trade_flow'] = trade_flow
   request_hash_dictionary['country'] = country_code
 
+  #refererUrl = request.META['HTTP_REFERER']
+  #view, args, kwargs = resolve(urlparse(refererUrl)[2])
+  #request_hash_string = kwargs['app_name'] + '_' + lang + '_' + prod_class + '_' + kwargs['trade_flow'] + '_' + kwargs['country1'] + '_' + kwargs['country2'] + '_' + kwargs['product'] + '_' + year
+
   # Set the product stuff based on the app
   if ( app_name in [ "product_space", "pie_scatter" ] ):
       request_hash_dictionary['product_type'] = 'all'
       request_hash_dictionary['product_display'] = 'show'
   else:
-      request_hash_dictionary['product_type'] = 'show'
-      request_hash_dictionary['product_display'] = 'all'
+      request_hash_dictionary['product_type'] = 'all'
+      request_hash_dictionary['product_display'] = 'show'
   request_hash_dictionary['year'] = year
 
   # We are here, so let us store this data somewhere
@@ -2542,63 +2582,3 @@ def get_country_lookup():
     lookup[c.id] = [c.name_en, c.name_3char]
   return lookup
 
-def api_search(request):
-
-    query = request.GET.get("term", None)
-    if query == None:
-        return HttpResponse("[]")
-
-    span, years = helpers.extract_years(query)
-    if span is not None:
-        # Strip out year expression from query since elasticsearch doesn't
-        # contain year data
-        query = query[:span[0]] + query[span[1]:]
-
-    if years is None:
-        year_string = ""
-        year_url_param = ""
-    elif len(years) == 1:
-        year_string = " (%s)" % years[0]
-        year_url_param = "%s/" % years[0]
-    else:
-        year_string = " (%s to %s)" % (years[0], years[1])
-        year_url_param = "%s.%s/" % (years[0], years[1])
-
-    es = Elasticsearch()
-    result = es.search(
-        index="questions",
-        body={
-            "query": {
-                "filtered": {
-                    "query": {
-                        "fuzzy_like_this": {
-                            "like_text": query,
-                            "fields": ["title"],
-                            "fuzziness": 3,
-                            "max_query_terms": 15,
-                            "prefix_length": 4
-                        }
-                    }
-                }
-            },
-            # "highlight": {
-            #     "pre_tags": ["<div class=highlighted>"],
-            #     "fields": {"title": {}},
-            #     "post_tags": ["</div>"]
-            # },
-            "size": 8
-        })
-    result_list = []
-    for x in result['hits']['hits']:
-        label = x['_source']['title'] + year_string
-        url = x['_source']['url'] + year_url_param
-        # TODO: This is a hack, the correct way is to generate the url here
-        # instead of pregenerating it. See issue # 134
-        if years and len(years) > 1:
-            url = url.replace("tree_map", "stacked")
-        result_list.append(dict(label=label, value=url))
-    return HttpResponse(json.dumps(result_list))
-
-
-def search(request):
-    return render_to_response("test_search.html")
