@@ -3,9 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  
   {% if displayviz %}
   <meta property="og:image" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
@@ -147,17 +145,6 @@
                 <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="width:130px">
 
                 <option value=""></option>
-                  {% if country1_list %}
-                    {% for c in country1_list %}
-                      {% if c.id == country1.id %}
-                      <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-                      {% else %}
-                      <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                      {% endif %}
-                    {% endfor %}
-                  {% else %}
-                    {% include "explore/list_countries.html" %}
-                  {% endif %}
               </select>
             </div>
 
@@ -198,21 +185,9 @@
           
                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="width:130px" placeholder="All Products" >
-                  <option value=""></option>
-                  {% if product_list %}
-                    {% for p in product_list %}
-                      {% if p.id == product.id %}
-                    <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-                      {% else %}
-                    <option value="{{p.code}}">{{ p.name }}</option>
-                      {% endif %}   
-                    {% endfor %}
-                  {% else %}  
-                    {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
-                    {% include template %}
-                    {% endwith %}
-                  {% endif %}                          
+                <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="width:130px">
+                <option value=""></option>
+                                     
                 </select>
               </div>
             </div>
@@ -225,21 +200,6 @@
 
                   <select data-placeholder="All Countries" id="country_trade_partner_select" class="chosen-select-deselect" tabindex="-1" style="width:130px;">
                     <option value=""></option>
-                    {% if country1_list %}
-
-                    {% for c in country1_list %}
-                      {% if c.id == country2.id %}
-                      <option value="{{c.name_3char|lower}}" selected>{{ c.name }}</option>
-                      {% else %}
-                      <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                      {% endif %}
-                    {% endfor %}
-
-                  {% else %}
-
-                    {% include "explore/list_countries.html" %}
-
-                  {% endif %}
 
                   </select>
               </div>
@@ -336,20 +296,8 @@
         <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
         <select>
-         <option value=""></option>
-          {% if product_list %}
-            {% for p in product_list %}
-              {% if p.id == product.id %}
-            <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-              {% else %}
-            <option value="{{p.code}}">{{ p.name }}</option>
-              {% endif %}   
-            {% endfor %}
-          {% else %}  
-            {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
-            {% include template %}
-            {% endwith %}
-          {% endif %}  
+        <option value=""></option>
+        
       </div>
 
       <!-- Product Trade Flow -->
@@ -385,13 +333,15 @@
                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
                 <select data-placeholder="All Countries" class="chosen-select-deselect" tabindex="-1" style="display: none;" id="products_country1_select">
-                    <option value=""></option>
-                    {% if country1_list %}{% for c in country1_list %}
-                      {% if c.id == country1.id %}<option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-                    {% else %}
-                    <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                    {% endif %}
-                    {% endfor %}  
+                    <option value="">ALL</option>
+                  {% if country1_list %}
+                    {% for c in country1_list %}
+                      {% if c.id == country1.id %}
+                      <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+                      {% else %}
+                      <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
                     {% include "explore/list_countries.html" %}
                   {% endif %}
@@ -766,19 +716,7 @@
                 {% if app_type = "casy" or app_type = "ccsy" %}
                     <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
                       <option value=""></option>
-                        {% if product_list %}
-                          {% for p in product_list %}
-                            {% if p.id == product.id %}
-                          <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-                            {% else %}
-                          <option value="{{p.code}}">{{ p.name }}</option>
-                            {% endif %}   
-                          {% endfor %}
-                        {% else %}  
-                          {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
-                          {% include template %}
-                          {% endwith %}
-                        {% endif %}  
+ 
                     </select>
 
                  {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
@@ -786,13 +724,7 @@
                   <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
 
                   <option value=""></option>
-                    {% if country1_list %}
-                      {% for c in country1_list %}
-                        <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                      {% endfor %}
-                    {% else %}
-                      {% include "explore/list_countries.html" %}
-                    {% endif %}
+
                 </select>
 
                 {% endif %}     
@@ -1272,11 +1204,10 @@
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
   <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
-
+  <script type="text/javascript" src="media/js/explore/dropdowns.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
-
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
   <script src="{{ STATIC_URL }}js/libs/chosen/chosen.jquery.js" ></script>
@@ -1499,8 +1430,8 @@
   // Page init scripts
   $(function () {
 
-    $('.chosen-select').chosen();
-    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+
 
     $("#help").click(function(){
         bootstro.start(".bootstro",{
@@ -1511,18 +1442,14 @@
     // Be sure we came back to the top of the page
     $(this).scrollTop(0);
     
-    $(".chosen-select").chosen(); 
     $('.chosen-container').css('width', '150px');
     $('#country1_select_chosen').css('width', '170px');
     //$('#country1_select_chosen').css('font-size', '18px');    
     $('#year1_select_chosen').css('width', '60px');
     $('#year2_select_chosen').css('width', '80px');
 
-
     $('#country_trade_partner_select_chosen').css('width', '140px');
     $('#country_product_select_chosen').css('width', '140px');
-
-    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
 
     $("#country1 select").change(function() {
       $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
