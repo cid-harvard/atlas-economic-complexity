@@ -253,23 +253,34 @@
           <div id="tfViz" data-toggle="buttons" style="margin-left:5px;">
 
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip">
-              <input type="radio" style="background:url({{ STATIC_URL }}img/home/treeMap-thumb.png) no-repeat;"> <img src="{{ STATIC_URL }}img/home/treeMap-thumb.png" style="width:38px;"/>
+              <input type="radio" style="background:url({{ STATIC_URL }}img/home/treeMap-thumb.png) no-repeat;"> 
+              <img src="{{ STATIC_URL }}img/home/treeMap-thumb.png" style="width:38px;"/>
             </label>
+
             <label value="map" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Map" >
-               <input type="radio" style="background:url({{ STATIC_URL }}img/home/geo-thumb.png) no-repeat;"> <img src="{{ STATIC_URL }}img/home/geo-thumb.png" style="width:38px;"/>
+              <input type="radio" style="background:url({{ STATIC_URL }}img/home/geo-thumb.png) no-repeat;"> 
+              <img src="{{ STATIC_URL }}img/home/geo-thumb.png" style="width:38px;"/>
             </label>
+
             <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Stacked Graph" >
-              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/stacked-thumb.png" style="width:38px;"/>
+              <input type="radio" name="viz_apps">
+              <img src="{{ STATIC_URL }}img/home/stacked-thumb.png" style="width:38px;"/>
             </label>
-            <label value="product_space" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Product Space" >
-              <input type="radio" name="viz_apps" > <img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="width:38px;"/>
+
+            <label value="product_space" class="btn btn-default {% if app_name == 'product_space' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Space" >
+              <input type="radio" style="background:url({{ STATIC_URL }}img/home/productSpace-thumb.png) no-repeat;"> 
+              <img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="width:38px;"/>
             </label>
-            <label value="pie_scatter" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Product Feasability">
-              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/ProductFeas2-thumb.png" style="width:38px;"/>
-            </label> 
+
+            <label value="pie_scatter" class="btn btn-default {% if app_name == 'pie_scatter' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Feasability" >
+              <input type="radio" style="background:url({{ STATIC_URL }}img/home/ProductFeas2-thumb.png) no-repeat;"> 
+              <img src="{{ STATIC_URL }}img/home/ProductFeas2-thumb.png" style="width:38px;"/>
+            </label>
+
             {% if app_name == "rings" %}
             <label value="rings" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Rings" >
-              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:38px;"/>
+              <input type="radio" name="viz_apps">
+              <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:38px;"/>
             </label>                         
             {% endif %}
             {% if app_name == 'scatterplot' or app_name == 'rankings' %}
@@ -1566,13 +1577,10 @@
     $(this).tab('show')
   })
 
-  $('label[value=map]').click(function() { return update_viz("map"); } );   
-  $('label[value=tree_map]').click(function() { return update_viz("tree_map"); } );
-  $('label[value=stacked]').click(function() { return update_viz("stacked"); } );
-  $('label[value=scatterplot]').click(function() { return update_viz("scatterplot"); } );
-  $('label[value=rankings]').click(function() { return update_viz("rankings"); } );
-  $('label[value=pie_scatter]').click(function() { return update_viz("pie_scatter"); } );
-  $('label[value=product_space]').click(function() { return update_viz("product_space"); } );
+
+  $("label").click(function(){
+    return update_viz($(this).attr("value"));
+  });
 
   //To display visualization in full screen, while viewing stories
   var contentWidth=$("#content").width();
@@ -1654,7 +1662,7 @@
         remove_overlay();
       }
     } 
-  });  
+  });
   </script>
 </body>
   {% include "story/story_forms.html" %}
