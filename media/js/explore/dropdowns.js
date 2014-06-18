@@ -15,6 +15,8 @@ $(document).ready(function(){
             }
         }
         $('#country_product_select, #highlight_select').chosen({ allow_single_deselect: true });
+        $("#country_product_select_chosen, #highlight_select_chosen").css("width", "140px");
+
 
     })
 
