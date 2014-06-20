@@ -277,7 +277,7 @@ function update_viz(viz) {
         // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
         if(current_year2=="") {
 
-          if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings")
+          if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings" || current_viz == "pie_scatter" || current_viz == "product_space")
             url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";         
           else if(current_viz == "map") // Can't be a map of products
             url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";     
@@ -358,7 +358,9 @@ function update_viz(viz) {
           if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings")
             url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";       
           else if(current_viz == "map") // Can't be a map of products
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";      
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/"; 
+          else if(current_viz == "pie_scatter" || current_viz == "product_space")
+              url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/"; 
           else 
             console.log("Should not be here")
 

@@ -1330,7 +1330,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     if app_type in ["cspy", "sapy"]:
       prod_or_partner = "product"
     elif app_type == "casy":
-      if app_name in ("stacked", "map", "tree_map"):
+      if app_name in ("stacked", "map", "tree_map","pie_scatter", "product_space"):
         prod_or_partner = "product"
 
 
