@@ -9,7 +9,7 @@ $(document).ready(function(){
     var h3_holder = "Product Feasibility";
     var p_holder = "Determine how plausible it is for a country to produce a specific product based on what they're already producing.";
   } else{
-    var h3_holder =" ";
+    var h3_holder ="";
     var p_holder = "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function.";
   }
 
@@ -17,7 +17,7 @@ $(document).ready(function(){
 
   function exit(){
     if(app_name == "pie_scatter" || app_name == "product_space"){
-      $("#helpBoxInner").hide();  
+      $("#helpBoxInner").hide();
     }
     $("#helpBoxInner h3").html(h3_holder);
     $("#helpBoxInner p").html(p_holder);
