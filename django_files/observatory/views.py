@@ -503,6 +503,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "trade_flow": trade_flow,
     "country1": countries[0] or country1,
     "country2": countries[1] or country2,
+    "country1_3char": countries[0].name_3char if countries[0] else "",
+    "country2_3char": countries[1].name_3char if countries[1] else "",
     "product": product,
     "years_available": years_available,
     "year": year,

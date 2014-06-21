@@ -25,13 +25,15 @@ $(document).ready(function(){
         url: "http://localhost:8000/api/dropdowns/countries/"
     })
     .done(function( data ){
+        var c1 = country1_3char.toLowerCase();
+        var c2 = country2_3char.toLowerCase();
         for(var i = 0; i < data.length; i++){
-            if (country1 == data[i][0]){
+            if (c1 == data[i][1]){
                 $("#country1_select").append("<option value='"+data[i][1]+"' selected>"+data[i][0]+"</option>");
             } else {
                 $("#country1_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
             }
-            if (country2 == data[i][0]){
+            if (c2 == data[i][1]){
                 $("#country_trade_partner_select").append("<option value='"+data[i][1]+"' selected>"+data[i][0]+"</option>");
             } else {
                 $("#country_trade_partner_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
