@@ -1,7 +1,7 @@
 Django==1.4.5
 MySQL-python
 msgpack-python
-pycrypto==2.6
+pycrypto==2.6.1
 elasticsearch>=1.0.0,<2.0.0
 redis
 cairosvg
