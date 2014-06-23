@@ -3,7 +3,7 @@
 ###############################################################################
 # Need to create a settings_local.py file adjacent to this one with the
 # following variables:
-# 
+#
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -14,22 +14,22 @@
 #         'PORT': '',
 #     }
 # }
-# 
+#
 # STATICFILES_DIRS = (
 #   "/Users/[USERNAME]/Sites/env/observatory/media/",
 # )
-# 
+#
 # LOCALE_PATHS = (
 #   '/Users/[USERNAME]/Sites/env/observatory/django_files/locale',
 # )
-# 
+#
 # TEMPLATE_DIRS = (
 #   '/Users/[USERNAME]/Sites/env/observatory/html',
 # )
-# 
+#
 # SECRET_KEY = 'my_pets_name_is_eloise'
 #
-# IF YOU ARE RUNNING THE SERVER LOCALLY (AND DO NOT WANT TO INSTALL REDIS): 
+# IF YOU ARE RUNNING THE SERVER LOCALLY (AND DO NOT WANT TO INSTALL REDIS):
 # Set the REDIS flag to false
 # Define a django dummy cache framework
 #
@@ -38,7 +38,7 @@
 # CACHES = {
 #    'default': {
 #        'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
-#    }, 
+#    },
 #}
 # HTTP_HOST = '/'
 # DB_PREFIX = ''
@@ -61,7 +61,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
   "django.core.context_processors.static",
   "django.contrib.messages.context_processors.messages",
   "atlas.context_processors.supported_langs",
-  "atlas.context_processors.settings_view",  
+  "atlas.context_processors.settings_view",
 )
 USE_L10N = True
 USE_TZ = True
@@ -108,7 +108,7 @@ CACHES = {
     'default': {
         'BACKEND': 'redis_cache.cache.RedisCache',
         'LOCATION': '127.0.0.1:6379:0',
-    }, 
+    },
 }
 
 VERSION = '1.0.4'
