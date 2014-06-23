@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/toastr/toastr.min.css" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/chosen/chosen.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/chosen/chosen.min.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
   <link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>
@@ -582,23 +582,13 @@
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
 
                 <span id="highlight">
-
                 {% if app_type = "casy" or app_type = "ccsy" %}
-                    <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
-                      <option value=""></option>
-
+                    <select data-placeholder="All Producs" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
                     </select>
-
                  {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
-
                   <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
-
-                  <option value=""></option>
-
                 </select>
-
                 {% endif %}
-
                 </span>
 
               </div>
@@ -859,41 +849,15 @@
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
 
                 <span id="highlight">
-
                 {% if app_type = "casy" or app_type = "ccsy" %}
                     <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
                       <option value=""></option>
-                        {% if product_list %}
-                          {% for p in product_list %}
-                            {% if p.id == product.id %}
-                          <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-                            {% else %}
-                          <option value="{{p.code}}">{{ p.name }}</option>
-                            {% endif %}
-                          {% endfor %}
-                        {% else %}
-                          {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
-                          {% include template %}
-                          {% endwith %}
-                        {% endif %}
                     </select>
-
                  {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
-
                   <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
-
                   <option value=""></option>
-                    {% if country1_list %}
-                      {% for c in country1_list %}
-                        <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                      {% endfor %}
-                    {% else %}
-                      {% include "explore/list_countries.html" %}
-                    {% endif %}
                 </select>
-
                 {% endif %}
-
                 </span>
 
               </div>
@@ -1080,7 +1044,7 @@
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
-  <script src="{{ STATIC_URL }}js/libs/chosen/chosen.jquery.js" ></script>
+  <script src="{{ STATIC_URL }}js/libs/chosen/chosen.jquery.min.js" ></script>
 
   <!-- App -->
   <script src="{{ STATIC_URL }}js/explore/general.js?{{ VERSION }}"></script>
@@ -1260,8 +1224,6 @@
     // Put once the visualization is loaded
     $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
     $("#highlight_select").trigger("chosen:updated")
-    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
-    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
 
 //    $("input[name='level_detail']").prop("selected", false);
 

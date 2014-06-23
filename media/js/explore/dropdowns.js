@@ -16,6 +16,7 @@ $(document).ready(function(){
         }
         $('#country_product_select, #highlight_select').chosen({ allow_single_deselect: true });
         $("#country_product_select_chosen, #highlight_select_chosen").css("width", "140px");
+        $("#highlight_select").trigger("chosen:updated");
 
 
     })
@@ -49,15 +50,6 @@ $(document).ready(function(){
         .css("padding-left", "30px")
         .css("margin-top", "-2px");
         $('#country_trade_partner_select_chosen').css("width", "140px");
-
-
-        $("#country1 .active-result").each(
-            function(index, result) {
-            select_index = $(result).data("option-array-index");
-            country_code = $("#country1 select")[0][select_index].value;
-            console.log(country_code);
-        });
-
 
     });
 
