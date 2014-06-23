@@ -255,119 +255,9 @@
 
           </div>
 
-          <!-- Diversification TAB -->
-<!--           <div class="tab-pane" id="tab-diversification" style="text-align:left; padding:0 25px">
-            <p>Visualization:</p>
-            <div  id="div_apps" data-toggle="buttons" style="margin-top:10px;">
-
-
-            <button value="product_space" type="radio"  title="A map of technological relatedness" toolTip="0" class="divBtn btn btn-default {% if app_name == "product_space" %}active{% endif %}" onclick="update_viz('product_space');">
-
-
-                <img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="height:35px; width:35px;">
-
-
-                <p style="display:inline;">Product Space</p>
-              </button>
-
-              <p style="clear:both"></p><br>
-
-
-              <button title="Opportunities for a country to diversify and potential gains" value="pie_scatter" type="radio" class="divBtn btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}"onclick="update_viz('pie_scatter');">
-
-
-                <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="height:35px; width:35px">
-
-
-                <p style="display:inline;">Product Feasability</p>
-
-              </button>
-
-              {% if app_name == "rings" %}
-              <p style="clear:both"></p><br>
-
-              <button title="Product-centric navigation of the Product Space" value="rings" type="radio" class="divBtn btn btn-default {% if app_name == "rings" %}active{% endif %}"onclick="update_viz('rings');">
-
-
-                <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="height:35px; width:35px">
-
-
-                <p style="display:inline;">Rings</p>
-              </button>
-
-              {% endif %}
-
-            </div>
-
-            <br><br>
-
-          </div> -->
         </div>
       </div>
 
-    <!-- Product Tab -->
-    <div class="tab-pane " id="tab-products">
-      <b style="margin:10px 0px">Select a Product:</b>
-      <div class="dropdown_container" id="product" width="120px" style="margin-left: 10px;" onmouseover="$('.show-product').css('visibility', 'visible');"  onmouseout="$('.show-product').css('visibility', 'hidden');">
-
-        <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-        <select>
-        <option value=""></option>
-
-      </div>
-
-      <!-- Product Trade Flow -->
-      <div style="margin-left: 15p; margin-top:20px; font-weight:bold;">Select a <span class="definition">{% trans "Trade Flow" %}:</div>
-
-      <div class="dropdown_container" id="product-trade-flow" width="120px" style="margin-left: 10px;" onmouseover="$('.show-trade-flow').css('visibility', 'visible');"  onmouseout="$('.show-trade-flow').css('visibility', 'hidden');">
-
-      <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-        <select data-url_pos="5">
-          {% for tf in trade_flow_list %}
-          {% if tf.0 == trade_flow %}
-          <option value="{{tf.0}}" selected="selected">{{ tf.1 }}</option>
-          {% else %}
-          <option value="{{tf.0}}">{{ tf.1 }}</option>
-          {% endif %}
-          {% endfor %}
-        </select>
-
-      </div>
-
-      <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px">
-        <li class="active"><a href="#show-country-partner"><span style="font-size:16px;" class="definition">Country</span></a></li>
-      </ul>
-
-          <!-- Tab Trade Partner/Product -->
-          <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px">
-
-            <div class="tab-pane active" id="show-country-product">
-
-              <div id="country-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-country-product').css('visibility', 'visible');"  onmouseout="$('.show-country-product').css('visibility', 'hidden');">
-
-                <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-                <select data-placeholder="All Countries" class="chosen-select-deselect" tabindex="-1" style="display: none;" id="products_country1_select">
-                    <option value="">ALL</option>
-                  {% if country1_list %}
-                    {% for c in country1_list %}
-                      {% if c.id == country1.id %}
-                      <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-                      {% else %}
-                      <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                      {% endif %}
-                    {% endfor %}
-                  {% else %}
-                    {% include "explore/list_countries.html" %}
-                  {% endif %}
-                </select>
-              </div>
-            </div>
-          </div>
-
-    </div> <!-- End Product Tab -->
 
   <!-- END -->
   </div>
@@ -410,33 +300,6 @@
         </div>
       </div>
 
-<!--       <div class="tab-pane" id="country-over-time">
-
-        <div class="product_class" style="float:left; margin-left:10px;">
-           <select data-url_pos="5" id="year1_select" style="width:80px">
-            {% for y in year1_list %}
-            {% if y == year or y == year_start %}
-            <option value="{{y}}" selected="selected">{{ y }}</option>
-            {% else %}
-            <option value="{{y}}">{{ y }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-
-        <div class="product_class" style="float:left; margin-left:10px;">
-           <select data-url_pos="5" id="year1_select" style="width:80px">
-            {% for y in year1_list %}
-            {% if y == year or y == year_start %}
-            <option value="{{y}}" selected="selected">{{ y }}</option>
-            {% else %}
-            <option value="{{y}}">{{ y }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-
-      </div> -->
     </div>
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs" id="utilityBox">
