@@ -610,7 +610,7 @@ text-decoration: none;
 .app #main #content .contentInner{
   background-color: #fff;
   border: 1px solid #cccccc;
-  border-radius: 0 0 10px 10px !important;
+  border-radius: 0 0 10px 0px !important;
   overflow: visible;
   height: 300px;
 }
@@ -1743,7 +1743,9 @@ display: block;
         }
 
 /* ben's changes */
-
+#utilityBox{
+  margin-top:10px;
+}
 #helpBoxInner{
   position:absolute;
   height:125px;
@@ -1772,18 +1774,19 @@ display: block;
 
 .app #main #app_pane #help{
   position: relative;
-  width: 231px;
+  width: 230px;
   padding:5px;
   left:-1px;
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 0px 10px;
   border: solid 2px rgb(176,23,31);
   border-bottom-width: 3px;
+  border-right:none;
   border-top: none;
   background-color: rgb(205,38,38);
   color:#fff;
 }
 
-#help:hover{
+.app #main #app_pane #help:hover{
   border-color:rgba(176,23,31, 1.0) ;
   background-color:rgba(176,23,31, 1.0) ;
 }
