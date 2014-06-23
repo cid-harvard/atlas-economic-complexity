@@ -199,7 +199,6 @@
 
                   <select data-placeholder="All Countries" id="country_trade_partner_select" class="chosen-select-deselect" tabindex="-1" style="width:130px;">
                     <option value=""></option>
-
                   </select>
               </div>
             </div>
@@ -1340,6 +1339,8 @@
     trade_flow = "{{trade_flow}}",
     country1 = "{{country1}}",
     country2 = "{{country2}}",
+    country1_3char = "{{country1_3char}}",
+    country2_3char = "{{country2_3char}}",
     product = "{{product}}",
     item_type = "{{item_type}}",
     prod_or_partner = "{{prod_or_partner}}",
@@ -1495,7 +1496,7 @@
   })
 
 
-  $("label").click(function(){
+  $("#tfViz label").click(function(){
     return update_viz($(this).attr("value"));
   });
 

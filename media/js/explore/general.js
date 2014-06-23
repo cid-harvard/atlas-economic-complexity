@@ -1,26 +1,26 @@
 function build_app(api_uri, type_of_app, dimensions, embed){
-  
+
   // show loading icon and clear current HTML container
   d3.select("#viz").html("")
   d3.select("#loader").style("display", "block");
 
-  
+
   // get data from server
   d3.json(api_uri, function(data){
     // build the app with data from server
     build(data, dimensions)
     // hide loading icon
     d3.select("#loader").style("display", "none");
-          
+
   })
-  
+
   // Given raw data from the server clean it and build an app
   function build(data, dimensions){
-    
+
     // clean up attribute data
     data.attr_data = clean_attr_data(data.attr_data)
     var showing = data.item_type;
-    
+
     // initialize the app (build it for the first time)
     app = App()
       .width(dimensions[0])
@@ -46,11 +46,11 @@ function build_app(api_uri, type_of_app, dimensions, embed){
       controls = Controls()
         .app_type(type_of_app)
         .year(year)
-    
+
       d3.select(".key")
         .datum(data.attr_data)
         .call(key);
-    
+
       d3.select("#timeline")
         .datum(data.data)
         .call(timeline);
@@ -60,7 +60,7 @@ function build_app(api_uri, type_of_app, dimensions, embed){
         .call(controls);
     }
   }
-  
+
 }
 
 function clean_attr_data(attrs){
@@ -136,17 +136,17 @@ function make_mouseover(options){
   if($("#mouseover").length){
     $("#mouseover").remove();
   }
-  
+
   var cont = $("<div id='mouseover'>").appendTo("#viz");
-  
+
   var cat = $("<div id='mouseover_cat'>").appendTo("#mouseover");
   cat.css("background", options.category_color)
   cat.css("color", options.category_text_color)
   cat.text(options.category)
-  
+
   var title = $("<div id='mouseover_title'>").appendTo("#mouseover");
   title.text(options.title)
-  
+
   if(options.values){
     var table = $("<table id='mouseover_table'>").appendTo("#mouseover");
     options.values.forEach(function(v){
@@ -155,14 +155,14 @@ function make_mouseover(options){
       tr.append("<td>"+v[1]+"</td>")
     })
   }
-  
+
   var left = d3.mouse(d3.select("#viz").node())[0];
   left = (left + $("#mouseover").width()/2) > options.width ? options.width - $("#mouseover").width()/2 : left;
   left = (left - $("#mouseover").width()/2) < 0 ? $("#mouseover").width()/2 : left;
-  
+
   var top = d3.mouse(d3.select("#viz").node())[1] - $("#mouseover").height() - 40;
   top = top < 0 ? d3.mouse(d3.select("#viz").node())[1] + 40 : top;
-  
+
   cont.css({
     "left": left - ($("#mouseover").width()/2),
     "top":  top
@@ -170,7 +170,7 @@ function make_mouseover(options){
 }
 
 function get_root(d){
-  if(!d.parent){ 
+  if(!d.parent){
     return d
   }
   return get_root(d.parent)
@@ -178,18 +178,18 @@ function get_root(d){
 
 
 function update_viz(viz) {
-  
+
   // Make sure we don't keep some parameter
   queryParameters['highlight'] = "";
   var queryString = "";
-  if(queryActivated) 
+  if(queryActivated)
     queryString = "?"+$.param(queryParameters);
 
   // Fix for Firefox
   var url = $('base')[0].href + "explore/";
 
   var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
-  current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz; 
+  current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz;
   var current_year1 = $("#year1").find(":selected").val();
 
   // Import or Export
@@ -200,29 +200,29 @@ function update_viz(viz) {
     current_flow = "export";
 
   // COUNTRIES
-  if($(".main-countries-products").find(".active").index()==0) { 
+  if($(".main-countries-products").find(".active").index()==0) {
 
     var current_country1 = $("#country1").find(":selected").val();
-    current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1; 
+    current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1;
 
     var current_country2 = $("#country-trade-partner").find(":selected").val();
-    current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2; 
+    current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2;
 
     var current_product = $("#country_product_select").find(":selected").val();
-    current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product; 
+    current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product;
 
     var current_year2 = $("#year2").find(":selected").val();
-    current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2; 
+    current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2;
 
 
     // From trade partner to map
     if(typeof(viz)=="undefined" && current_country2!="all")
       current_viz = "tree_map";
 
-    if(current_year2!="") { 
+    if(current_year2!="") {
       // Automatically switch
       current_viz = "stacked";
-    } 
+    }
 
     if(current_year2=="" && current_viz == "stacked")
       current_viz = "tree_map";
@@ -234,16 +234,16 @@ function update_viz(viz) {
 
     if(viz=="stacked" && current_year2=="") {
       if(prod_class="hs4") {
-        if(current_year1 > 2012)
+        if(current_year1 < 2012)
           current_year2 = 2012;
         else
           current_year2 = 1995;
       } else { // "sitc"
-        if(current_year1 > 2010) {
+        if(current_year1 < 2010) {
           current_year2 = 2010;
 
         }
-        if(current_year2>2009)
+        if(current_year2 > 2009)
           current_year2 = 2009;
       }
       current_viz = viz;
@@ -256,9 +256,9 @@ function update_viz(viz) {
       // if a country is not selected..
       if(current_country1=="all") {
 
-        if(current_year2=="") { 
-          
-          url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";         
+        if(current_year2=="") {
+
+          url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";
 
         } else {
           if(parseInt(current_year1)>parseInt(current_year2)) {
@@ -266,9 +266,9 @@ function update_viz(viz) {
             current_year1 = current_year2;
             current_year2 = tmp;
           }
-        
+
           url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"."+current_year2+".2/";
-        } 
+        }
 
 
       } else if(current_product=="all") {
@@ -278,32 +278,32 @@ function update_viz(viz) {
         if(current_year2=="") {
 
           if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings" || current_viz == "pie_scatter" || current_viz == "product_space")
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";         
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
           else if(current_viz == "map") // Can't be a map of products
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";     
-          else 
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
+          else
             console.log("Should not be here")
           // http://atlas.cid.harvard.edu/explore/map/export/usa/show/all/2011/
 
         } else {
-        
+
           if(parseInt(current_year1)>parseInt(current_year2)) {
             var tmp = current_year1;
             current_year1 = current_year2;
             current_year2 = tmp;
           }
-      
+
           // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/all/1995.2011.2/
           url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"."+current_year2+".2/"
-         
+
         }
 
       } else {
-        
+
         if(current_year2=="") {
 
           url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/"
-          
+
         } else {
 
           if(parseInt(current_year1)>parseInt(current_year2)) {
@@ -315,7 +315,7 @@ function update_viz(viz) {
           // Where does United States export Crude Petroleum to?
           // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/2709/1995.2011.2/
           url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"."+current_year2+".2/"
-          
+
         }
       }
 
@@ -331,9 +331,9 @@ function update_viz(viz) {
 
       if(current_country2=="all") {
 
-        if(current_year2=="") { 
+        if(current_year2=="") {
 
-         url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";     
+         url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";
 
         } else {
 
@@ -343,25 +343,25 @@ function update_viz(viz) {
             current_year2 = tmp;
 
           }
-        
+
           // http://127.0.0.1:8000/explore/stacked/export/alb/show/all/1995.2011.2/
 
           url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"."+current_year2+".2/"
-        } 
+        }
 
       } else {
 
-        if(current_year2=="") { 
+        if(current_year2=="") {
 
           // What did Albania export to Italy in 1995?
           // http://127.0.0.1:8000/explore/tree_map/export/alb/ita/show/1995/
           if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings")
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";       
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";
           else if(current_viz == "map") // Can't be a map of products
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/"; 
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
           else if(current_viz == "pie_scatter" || current_viz == "product_space")
-              url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/"; 
-          else 
+              url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
+          else
             console.log("Should not be here")
 
         } else {
@@ -372,7 +372,7 @@ function update_viz(viz) {
             current_year2 = tmp;
 
           }
-        
+
           // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/chn/show/1995.2011.2/
           url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"
         }
@@ -394,11 +394,11 @@ function update_viz(viz) {
 
      else if (current_country2!="all" && current_year2 != "") {
 
-      window.location.assign(url+queryString);  
+      window.location.assign(url+queryString);
 
     } else {
 
-      window.location.assign(url+queryString);            
+      window.location.assign(url+queryString);
     }
 
   // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/show/all/0101/2011/
@@ -413,16 +413,16 @@ function update_viz(viz) {
     var current_product = $("#product").find(":selected").val();
 
     var current_product_country = $("#products_country1_select").find(":selected").val();
-    current_product_country = (typeof current_product_country == "undefined" || current_product_country == "") ? "all" : current_product_country; 
+    current_product_country = (typeof current_product_country == "undefined" || current_product_country == "") ? "all" : current_product_country;
 
     // Product space http://127.0.0.1:8000/explore/product_space/export/usa/all/show/2011/
     url += current_viz+"/"+current_flow+"/"+current_country1+"/"+"all/show/"+current_year1+"/";
-    
+
     // Make sure we have country for product space and diversity
     if( (current_viz == "product_space" || current_viz=="pie_scatter" || current_viz=="rings" ) && current_country1 == "") {
-      alert("Please select at least one country");  
+      alert("Please select at least one country");
       return;
-    } 
+    }
 
     window.location.assign(url+queryString);
 
