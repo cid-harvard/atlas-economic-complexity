@@ -40,14 +40,12 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/toastr/toastr.min.css" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/chosen/chosen.min.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
   <link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>
 
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/countries.css?{{ VERSION }}" />
 
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/widgets.css?{{ VERSION }}">
@@ -142,7 +140,7 @@
 
               <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="width:130px">
+                <select data-placeholder="All Countries" id="country1_select" style="width:130px">
 
                 <option value=""></option>
               </select>
@@ -184,7 +182,7 @@
 
                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="width:130px">
+                <select data-placeholder="All Products" id="country_product_select" " style="width:130px">
                 <option value=""></option>
 
                 </select>
@@ -197,7 +195,7 @@
 
                  <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-trade-partner tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                  <select data-placeholder="All Countries" id="country_trade_partner_select" class="chosen-select-deselect" tabindex="-1" style="width:130px;">
+                  <select data-placeholder="All Countries" id="country_trade_partner_select" style="width:130px;">
                     <option value=""></option>
                   </select>
               </div>
@@ -274,8 +272,7 @@
 
         <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh over-time tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top"style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-        <div id="year1" style="float:left; margin-left:10px;">
-           <select data-url_pos="5" id="year1_select" class="chosen-select-deselect" data-placeholder="All Countries" style="width:80px;">
+           <select id="year1_select" style="margin-left: 10px;">
             {% for y in year1_list %}
             {% if y == year or y == year_start %}
             <option value="{{y}}" selected="selected">{{ y }}</option>
@@ -284,10 +281,8 @@
             {% endif %}
             {% endfor %}
           </select>
-        </div>
 
-        <div id="year2" style="float:left; margin-left:10px;">
-          <select data-placeholder="End" class="chosen-select-deselect" id="year2_select" tabindex="-1" style="display: none;">
+          <select data-placeholder="End " id="year2_select" style="margin-left: 10px;">
             <option value=""></option>
             {% for y in year1_list %}
             {% if y == year_end %}
@@ -297,7 +292,6 @@
             {% endif %}
             {% endfor %}
           </select>
-        </div>
       </div>
 
     </div>
@@ -580,17 +574,9 @@
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
-
                 <span id="highlight">
-                {% if app_type = "casy" or app_type = "ccsy" %}
-                    <select data-placeholder="All Producs" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
-                    </select>
-                 {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
-                  <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
-                </select>
-                {% endif %}
+                    <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
                 </span>
-
               </div>
 
           </div>
@@ -790,9 +776,9 @@
 
                    function highlight(value) {
 
+                var v = value ? value : $("#highlight_select").select2("val").trim();
               {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
 
-                var v = value ? value : $("#highlight").find(":selected").val().trim();
                 d3.select("#viz").call(chart.highlight([]));
                 d3.select("#viz").call(chart.highlight(v));
 
@@ -803,8 +789,6 @@
               {% endif %}
 
               {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
-
-                var v = value ? value : $("#highlight").find(":selected").val().trim();
 
                 {% if app_type = "casy" %}
 
@@ -835,8 +819,7 @@
 
               function reset_highlight() {
 
-                $("#highlight").find(":selected").prop("selected", false);
-                $("#highlight_select").trigger("chosen:updated");
+                $("#highlight_select").select2("val", "");
                 queryParameters["highlight"] = "";
                 if(queryActivated)
                   updateURLQueryParameters();
@@ -849,15 +832,7 @@
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
 
                 <span id="highlight">
-                {% if app_type = "casy" or app_type = "ccsy" %}
-                    <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
-                      <option value=""></option>
-                    </select>
-                 {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
-                  <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
-                  <option value=""></option>
-                </select>
-                {% endif %}
+                    <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
                 </span>
 
               </div>
@@ -904,7 +879,6 @@
         <a style=" margin-left:150px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
 
         <div class="language_select" style="float:right; margin-right:150px;">
-
           <div class="text">
             Language:
           </div>
@@ -1044,7 +1018,7 @@
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
-  <script src="{{ STATIC_URL }}js/libs/chosen/chosen.jquery.min.js" ></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
 
   <!-- App -->
   <script src="{{ STATIC_URL }}js/explore/general.js?{{ VERSION }}"></script>
@@ -1182,13 +1156,8 @@
     previous_image = "{{ STATIC_URL }}/img/empty_static.png",
     static_url = "{{STATIC_URL}}";
 
-  // Use chosen plugin to make dropdowns look fancy
-  $(".dropdown_container select").chosen()
-  $(".nesting select").chosen()
   // language select dropdown
-  $(".language_select select").chosen();
-  $(".language_select .chzn-search").hide();
-  $(".language_select select").chosen().change(function(){
+  $(".language_select select").on("change", function(){
     // set session data to new language
     var language = $(this).val();
     window.location = "/set_language/"+language+"/";
@@ -1222,8 +1191,7 @@
     updateURLQueryParameters();
 
     // Put once the visualization is loaded
-    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
-    $("#highlight_select").trigger("chosen:updated")
+    $("#highlight_select").select2("val", queryParameters['highlight']);
 
 //    $("input[name='level_detail']").prop("selected", false);
 
@@ -1275,45 +1243,6 @@
 
     // Be sure we came back to the top of the page
     $(this).scrollTop(0);
-
-    $('.chosen-container').css('width', '150px');
-    $('#country1_select_chosen').css('width', '170px');
-    //$('#country1_select_chosen').css('font-size', '18px');
-    $('#year1_select_chosen').css('width', '60px');
-    $('#year2_select_chosen').css('width', '80px');
-
-    $('#country_trade_partner_select_chosen').css('width', '140px');
-    $('#country_product_select_chosen').css('width', '140px');
-
-    $("#country1 select").change(function() {
-      $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
-      $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
-      $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
-      $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
-      $("#country1_select_chosen .chosen-single span").css("color", "black");
-    });
-
-    $("#country-trade-partner select").change(function() {
-      $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
-      $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
-      $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
-      $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
-    });
-
-  // For some reason, $("#country1_select_chosen select").trigger("chosen:updated"); does not work
-  $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country1 select").val()+".png') no-repeat");
-  $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
-  $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
-  $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
-
-  $("#country1_select_chosen .chosen-results").hover(function() {
-    $("#country1_select_chosen .chosen-results").css("color", "black");
-  });
-
-  $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country-trade-partner select").val()+".png') no-repeat");
-  $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
-  $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
-  $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
 
   $('#myTab a').click(function (e) {
     e.preventDefault()

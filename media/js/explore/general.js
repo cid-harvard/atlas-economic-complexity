@@ -190,7 +190,7 @@ function update_viz(viz) {
 
   var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
   current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz;
-  var current_year1 = $("#year1").find(":selected").val();
+  var current_year1 = $("#year1_select").val();
 
   // Import or Export
   var current_flow = $(".flow-direction").find(".active").index() == 0 ? "export": "import";
