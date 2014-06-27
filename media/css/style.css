@@ -46,41 +46,6 @@ dl dd {
   pointer-events: none;
 }
 
-/*
-button {
-  font-family: 'PT Sans Narrow',Helvetica,Arial;
-  text-decoration: none;
-  display: block;
-  padding: 5px;
-  border: 1px solid #DDD;
-  text-align: center;
-
-  -moz-border-radius:5px;
-  -webkit-border-radius:5px;
-  -o-border-radius:5px;
-  border-radius:5px;
-
-  background:#FFFFFF;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEE));
-  background:-moz-linear-gradient(0% 90% 90deg, #EEE, #FFF);
-
-  -webkit-transition: all .4s ease-in-out;
-  -moz-transition: all .4s ease-in-out;
-  -o-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
-}
-button:hover {
-  border-color:#999;
-  background:#aaa;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbb), to(#aaa));
-  background:-moz-linear-gradient(0% 90% 90deg, #bbb, #aaa);
-}
-button:active {
-  background:#888;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#999));
-  background:-moz-linear-gradient(0% 90% 90deg, #888, #999);
-}
-*/
 font.definition {
   transition: 0s border-bottom;
 }
@@ -249,14 +214,11 @@ header h1 a img {
   height: 50px;
 }
 .app_title h2 {
- /*  font-family: 'Cardo', serif, 'Times'; */
- /* font-family:'PT Sans Narrow',Helvetica,Arial;*/
   font-size: 30px;
   font-weight: normal;
   line-height: 36px;
   margin: 6px 0 0 10px;
   width: 815px;
-/*  width: 828px;*/
 }
 .app_title#icons{
   width: 188px;
@@ -361,7 +323,6 @@ width: 160px;
   border-radius: 10px 0 0 10px;
   font-size: 90%;
   float: left;
-/*  padding: 10px;*/
   margin-left: 0px;
   padding-bottom: 0px;
   min-height: 440px;
@@ -394,7 +355,6 @@ text-decoration: none;
   font-weight:500;
 }
 .app #main #app_pane .accordion div div{
-/*  display: none;*/
   padding: 0 10px 5px 10px;
 }
 .app #main #app_pane .accordion div div h4 {
@@ -518,7 +478,6 @@ text-decoration: none;
   border: solid 1px #ccc;
   font-family: monospace;
   font-size: 10px;
-/*  height: 75px;*/
   overflow: hidden;
   width: 160px;
 }
@@ -726,7 +685,6 @@ text-decoration: none;
   width: auto;
 }
 .app #main #content #timeline .slider#interval {
-/*  height: 4px;*/
   margin: auto;
   width: 100px;
 }
@@ -744,7 +702,6 @@ text-decoration: none;
 .app #main #content #timeline #stacked_controls {
   display: none;
   margin: auto;
-/*  width: 515px;*/
   width: 600px;
 }
 .app #main #content #timeline #stacked_controls > div {
@@ -866,69 +823,11 @@ footer.logos {
 /*
  * Tooltip styling for apps
  */
- /*
-.tooltip{
-  color:#fff;
-  font:15px/1.1 Arial,Georgia,sans-serif;
-  font-weight: bold;
-  text-shadow: 0 -1px 1px #222;
-  position:absolute;
-  padding:5px 10px;
-  top:20px;
-  margin:1em 0 3em;
-  background:#075698;
-  left:20px;
-  border: solid 1px #ddd;
-
-  -moz-border-radius:4px;
-  -webkit-border-radius:4px;
-  border-radius:4px;
-  background:-webkit-gradient(linear, left top, left bottom, from(rgba(10,10,10,1)), to(rgba(25,25,25,.65)));
-  background:-moz-linear-gradient(top,rgba(10,10,10,1),rgba(80,80,80,.9));
-  background:-o-linear-gradient(top,rgba(10,10,10,1),rgba(80,80,80,.9));
-  background:linear-gradient(top,rgba(10,10,10,1),rgba(80,80,80,.9));
-
-  -moz-box-shadow: 0px 0px 4px #000; /* FF3.5+ */
-  /*-webkit-box-shadow: 0px 0px 4px #000; /* Saf3.0+, Chrome */
-  /*box-shadow: 0px 0px 4px #000; /* Opera 10.5, IE 9.0 */
-  /*filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=0px, OffY=0px, Color='#000'); /* IE6,IE7 */
-  /*-ms-filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=0px, OffY=0px, Color='#000')"; /* IE8 */
-  /*width: 200px;
-  z-index: 9999;
-}
-.tooltip img {
-  float: left;
-/*  margin: 0 10px 0 0;*/
- /* margin: 2px 0 0 0;
-  width: 20px;
-}
-.tooltip span.tt_title {
-  float: right;
-  width: 170px;
-}
-.tooltip table {
-  font-size: 11px;
-  margin: 10px 0 0 0;
-  width: 100%;
-}
-.tooltip table td{
-  text-align: right;
-}
-.tooltip table td:first-child{
-  text-align: left;
-  width: 75%;
-}
-.tooltip table td:last-child{
-  text-align: left;
-}
-*/
 
 #main #sidebar {
   border-radius: 10px 0 0 10px;
   float: left;
   padding: 10px;
-/*  margin-left: 0px;
-  padding-bottom: 0px;*/
   width: 165px;
   background-color: #fff;
   border: 1px solid #cccccc;
@@ -945,7 +844,6 @@ footer.logos {
 }
 #main #sidebar h3 {
   border-bottom: 1px solid #ccc;
-  /*font-family: 'Cardo', sans-serif, 'Arial';*/
   font-size: 20px;
   font-weight: normal;
   margin: 0;
@@ -996,7 +894,6 @@ dl.file_list p {
   background: #eee;
 }
 #main #sidebar nav[role="navigation"] ul li a.active {
-/*  margin: 0 0 0 10px;*/
   color: black;
   text-decoration: underline;
 }
@@ -1013,7 +910,6 @@ dl.file_list p {
   left: -125px;
   font-size: 12px;
   line-height: 15px;
-/*  padding: 10px;*/
   border-radius: 3px;
   background: rgba(255, 255, 255, 0.9);
   color: black;
@@ -1048,7 +944,6 @@ dl.file_list p {
 
 
 .post {
-/*  border-bottom: solid 1px #ccc;*/
   margin: 0 0 40px 0;
 }
 .post:last-child {
@@ -1119,7 +1014,6 @@ dl.file_list p {
 }
 #related div {
   background: white;
-/*    border: solid #999 1px;*/
   height: 250px;
   padding: 10px;
   width: 994px;
@@ -1989,7 +1883,6 @@ table thead th{
   border-bottom: 1px solid #999;
   cursor: pointer;
   text-align: left;
-/*  padding: 0 12px 0 0;*/
 }
 table thead th a{
   font-weight: normal;
@@ -1997,7 +1890,6 @@ table thead th a{
 }
 table thead th.sorttable_sorted,
 table thead th.sorttable_sorted_reverse{
-/*  padding: 0;*/
 }
 table thead th.sorttable_sorted a,
 table thead th.sorttable_sorted_reverse a{
@@ -2061,7 +1953,6 @@ table tbody tr td span {
   border-right: 5px solid transparent;
   border-top: 5px solid black;
   display: inline;
-/*  font-size: 4px;*/
   position: relative;
   top: 12px;
   margin: 0 0 0 4px;
@@ -2073,7 +1964,6 @@ table tbody tr td span {
   border-right: 5px solid transparent;
   border-bottom: 5px solid black;
   display: inline;
-/*  font-size: 4px;*/
   position: relative;
   bottom: 12px;
   margin: 0 0 0 4px;
@@ -2085,7 +1975,6 @@ table tbody tr td span {
 .dropdown {
   display: inline;
   float: left;
-/*  margin: 6px 0;*/
   font-size: 34px;
   margin: 0 200px;
   text-align: center;
@@ -2104,15 +1993,10 @@ table tbody tr td span {
   outline:none;
   text-align: left;
 }
-.dropdown a:hover {
-/*      color:#5d4617;*/
-}
 .dropdown dt a:hover {
-/*      color:#5d4617;*/
   border: 1px solid #666;
 }
 .dropdown dt a {
-  /*font-family: 'Cardo', serif, 'Times';*/
   font-size: 30px;
   font-weight: normal;
   line-height: 36px;
@@ -2124,7 +2008,6 @@ table tbody tr td span {
 }
 .dropdown dt a span {
   cursor: pointer;
-/*    display: inline-block;*/
   padding: 5px;
 }
 .dropdown dd ul {
