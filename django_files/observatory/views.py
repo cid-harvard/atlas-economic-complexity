@@ -459,12 +459,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   # Return page without visualization data
 
-  # Making sure we return the product list every time
-  if prod_class == "sitc4":
-    product_list = Sitc4.objects.get_all(lang)
-  else:
-    product_list = Hs4.objects.get_all(lang)
-
   # Record views in redis for "newest viewed pages" visualization
   if settings.REDIS:
     views_image_path = settings.STATIC_URL + "data/" + request_hash_string + ".png"
@@ -506,6 +500,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "country1_3char": countries[0].name_3char if countries[0] else "",
     "country2_3char": countries[1].name_3char if countries[1] else "",
     "product": product,
+    "product_code": product.code if not isinstance(product, basestring) else product,
     "years_available": years_available,
     "year": year,
     "year_start": year_start,
@@ -514,7 +509,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "year2_list": year2_list,
     "year_interval_list": year_interval_list,
     "trade_flow_list": trade_flow_list,
-    "product_list": product_list,
     "api_uri": api_uri,
     "app_type": app_type,
     "redesign_api_uri": redesign_api_uri,

@@ -14,9 +14,9 @@
 
   <!-- Load non-standard fonts -->
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css" />
   <link rel="stylesheet" href="media/css/normalize.css">
   <link rel="stylesheet" href="media/css/style.css">	
-  <link rel="stylesheet" href="media/js/libs/chosen/chosen.css" />
 
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -64,20 +64,18 @@
   </div> <!-- END #container -->
 
   <script src="media/js/libs/jquery/jquery-1.10.2.min.js"></script>	
-	<script src="media/js/libs/chosen/chosen.jquery.min.js" ></script>
   <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
 
   <script>
-	
-  	// language select dropdown
-  	$(".language_select select").chosen();
-  	$(".language_select .chzn-search").hide();
-  	$(".language_select select").chosen().change(function(){
-  		// set session data to new language
-  		var language = $(this).val();
-  		window.location = "/set_language/"+language+"/";
-  	});
-  	
+
+  // language select dropdown
+  $(".language_select select").select2();
+  $(".language_select select").on("change", function(){
+    // set session data to new language
+    var language = $(this).val();
+    window.location = "/set_language/"+language+"/";
+  });
     // google analytics
   
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
