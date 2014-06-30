@@ -320,13 +320,14 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   # Verify countries from DB
   countries = [None, None]
+  alert = None
   for i, country in enumerate([country1, country2]):
     if country != "show" and country != "all":
       try:
         countries[i] = Country.objects.get(name_3char=country)
       except Country.DoesNotExist:
         alert = {"title": "Country could not be found",
-          "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='about/data/country/'>list of countries</a>."%(country)}
+          "text": "There was no country with the 3 letter abbreviation <strong>%s</strong>. Please double check the <a href='about/data/country/'>list of countries</a>."%(country)}
 
   # The years of data available tends to vary based on the dataset used (Hs4
   # vs Sitc4) and the specific country.
@@ -343,10 +344,11 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   years_available = list(years_available)
 
   country1_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None
-  warning, alert, title = None, None, None
+  warning, title = None, None
   data_as_text = {}
   # What is actually being shown on the page
   item_type = "product"
+  prod_or_partner = "partner"
 
   # To make sure it cannot be another product class
   if prod_class != "hs4" and prod_class != "sitc4":
@@ -449,7 +451,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       #trade_flow_list.pop(_("net_export"), None)
 
     # Should we show the product or partner tab pane?
-    prod_or_partner = "partner" # quick fix should be merged with item_type
+    # quick fix should be merged with item_type
     if app_type in ["cspy", "sapy"]:
       prod_or_partner = "product"
     elif app_type == "casy":
