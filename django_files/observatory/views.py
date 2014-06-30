@@ -345,8 +345,9 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
   if len(years_available) == 0:
       alert = {"title": """The product classification you're using (%s) does
-               not seem to include the country code (%s) you selected. Please
-               try a different product classification or country.""" % (prod_class, countries[0].name)}
+               not seem to include data for the country code (%s) you selected.
+               Please try a different product classification or country.""" %
+               (prod_class, countries[0].name)}
       years_available = range(1995, 2012)  #Dummy
 
   country1_list, product_list, year1_list, year2_list, year_interval = None, None, None, None, None
