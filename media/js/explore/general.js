@@ -249,6 +249,13 @@ function update_viz(viz) {
       current_viz = viz;
     }
 
+    // Selecting a specific product doesn't make sense for product feasibility
+    // and product space. And also both of these graphs only answer "what"
+    // questions and not "where" questions.
+    if(viz == "pie_scatter" || viz == "product_space"){
+        current_product = "all";
+    }
+
     // Where does United States export Crude Petroleum to?
     // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
     if($(".tab-trade-partner-product").find(".active").index()==0) {
@@ -333,7 +340,11 @@ function update_viz(viz) {
 
         if(current_year2=="") {
 
-         url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";
+         if(current_viz == "pie_scatter" || current_viz == "product_space"){
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
+         } else {
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";
+        }
 
         } else {
 
@@ -360,7 +371,7 @@ function update_viz(viz) {
           else if(current_viz == "map") // Can't be a map of products
             url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
           else if(current_viz == "pie_scatter" || current_viz == "product_space")
-              url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
+              url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
           else
             console.log("Should not be here")
 
