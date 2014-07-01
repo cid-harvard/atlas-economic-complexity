@@ -375,53 +375,6 @@
 </div> <!-- END app selection pane -->
 {% endif %}
       <!-- the Visualization -->
-    {% if isbrowsemode %}
-    <div id="content" style="width: 95%; min-height:765px;">
-
-			<div style="margin-left: 20px; width: 75%; float:left">
-				<h2>{{ browseStoryName }}</h2>
-				<p>{{ browseStoryDesc }}</p>
-			</div>
-			<div style="float:right;margin-right: 20px;margin-top: 20px;">
-				<button id="endrstory" class="endbstory"
-				onclick="location.href='endbrowsestory/',clearLocalStorage()">Exit</button>
-			</div>
-			<div style="clear:both"></div>
-        <!-- ajax loading gif -->
-        <div id="loader">
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
-          <p>Loading</p>
-        </div>
-        <br />
-        Loading...
-        </div>
-
-        <!-- the canvas for the visualization -->
-        <div id="text_data">
-
-        </div>
-
-        <!-- Container for the visualization -->
-        <div  id="viz" style="width: 100%; min-height:520px">
-        </div>
-
-        <!-- Container for the key/legend -->
-        <div class="key {{prod_class}}" style="min-height:50px"></div>
-			<div style="margin-left: 20px; width: 80%;">
-				<h3 style="margin-bottom: 0px;">{{ browseChapterName }}</h3>
-				<p>{{ browseChapterDesc }}</p>
-			</div>
-		<div class="BrowseNextPrev">
-				<div style="clear: both;"></div>
-				<button id="BrowsePrev" class="BrowsePrev" onclick="checkChapterCount(-1)">Prev</button>
-				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button>
-				{% if userId %}
-				<a><img src="{{ STATIC_URL }}img/app/like.png" id="likeImage" alt="like" /></a>
-                   <h3 id="likeCount">{{likeCount}} Likes</h3>
-				{% endif %}
-		</div>
-</div>
-    {% else %}
       <div id="content"  class="container" style="width: 750px; min-height:600px;">
         <div class="contentViz">
         <!-- ajax loading gif -->
@@ -894,27 +847,9 @@
          <!--<p id="showMore"><i class='fa fa-caret-down'> More Options</i></p>-->
       </div>
 
-       {% endif %}
 
       <!-- The right pane -->
-      <div id="tool_pane" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media, email, or even create a 'story' and post it to our site." data-toggle="tooltip" data-bootstro-placement="left">
-      {% if isbrowsemode %}
-      {% else %}
-      <div id= "createStoryPlaceHolder">
-        <h4 id="sidebar-create-story" class="tooltipbs" data-toggle="tooltip" data-placement="top" title="Create stories" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Create-a-Story</h4>
-
-    		<span class="glyphicon glyphicon-plus-sign tooltipbs" style="color:rgb(60, 59, 55);"data-placement="right" data-toggle="tooltip" {% if not iscreatemode %} title="Create a new story" onclick="showCreateStoryDialog()" {% endif %}  {% if iscreatemode %}  style="color:rgb(60, 59, 55)" title="Story is under construction!" {% endif %}></span>
-        <!--<span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');"></span>-->
-
-        {% if iscreatemode %}
-          <span class="glyphicon glyphicon-plus tooltipbs" data-placement="right" data-toggle="tooltip" onclick="openCreateChapterDialog()" title="Add a new chapter"></span>
-          <span class="glyphicon glyphicon-stop tooltipbs" data-placement="right" data-toggle="tooltip" onclick="endStory()" title="End the story" style="margin-left: 4px"></span>
-        {% endif %}
-
-        <br/>
-        <br/>
-      </div>
-      {% endif %}
+      <div id="tool_pane" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media and email." data-toggle="tooltip" data-bootstro-placement="left">
 
     <div id="sharebuttons">
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">Share</h4>
@@ -1021,7 +956,6 @@
 
   <!-- App -->
   <script src="{{ STATIC_URL }}js/explore/general.js?{{ VERSION }}"></script>
-  <script src="{{ STATIC_URL }}js/story/createStory.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/explore/key.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/explore/timeline.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/explore/controls.js?{{ VERSION }}"></script>
@@ -1121,7 +1055,6 @@
           $("#moreOptions").slideToggle(100);
         });
       </script>
-  {% include "story/init_story.html" %}
  
 <script type="text/javascript">
 $(function(){
@@ -1283,7 +1216,6 @@ $(function(){
     ga('send', 'pageview');
   </script>
 
-   {% include "story/body_story.html" %}
 
 <!-- Activates tooltips /////////////////////////////////////////////////////////////////// -->
 
@@ -1349,5 +1281,4 @@ $(function(){
   });
   </script>
 </body>
-  {% include "story/story_forms.html" %}
 </html>
