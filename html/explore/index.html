@@ -916,25 +916,25 @@
       </div>
       {% endif %}
 
-    <div id="shareThisPlaceholder">
+    <div id="sharebuttons">
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">Share</h4>
-
-        <a href="#" id="fbShare" class="addthis_button_facebook" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook">
+        {% with current_url=request.build_absolute_uri|iriencode %}
+        <a href="https://facebook.com/sharer.php?u={{current_url}}" target="_blank">
           <i class="fa fa-facebook fa-lg"></i>
         </a>
 
-        <a class="addthis_button_twitter">
+        <a href="https://twitter.com/intent/tweet?url={{current_url}}&text={{title|iriencode}}&via=atlas_facts" target="_blank">
           <i class="fa fa-twitter fa-lg"></i>
         </a>
 
-        <a class="addthis_button_google_plusone_share" >
+        <a href="https://plus.google.com/share?url={{current_url}}">
           <i class="fa fa-google-plus fa-lg"></i>
         </a>
 
-        <a class="addthis_button_email">
+        <a href="mailto:?subject=Atlas of Economic Complexity: {{title}}&body=Take a look here: {{current_url}}">
           <i class="fa fa-envelope fa-lg"></i>
         </a>
-
+        {% endwith %}
     </div>
      {% if isbrowsemode %}
      {% else %}
@@ -1015,7 +1015,6 @@
   <script type="text/javascript" src="media/js/searchresults.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
-  <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
