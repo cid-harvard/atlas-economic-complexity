@@ -52,6 +52,7 @@
   <link href="{{ STATIC_URL }}js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css">
 
   <link href="{{ STATIC_URL }}js/libs/d3plus/d3plus.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/searchresults.css" type="text/css" media="all" />
 
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -1011,6 +1012,7 @@
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
   <script type="text/javascript" src="media/js/explore/dropdowns.js"></script>
+  <script type="text/javascript" src="media/js/searchresults.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
@@ -1121,6 +1123,19 @@
         });
       </script>
   {% include "story/init_story.html" %}
+ 
+<script type="text/javascript">
+$(function(){
+        $("#text_title").click(function() {
+            var current_content = $(this).html();
+            var new_input = $("<input type='text' id='text_title' />");
+            new_input.val(current_content);
+            $(this).replaceWith(new_input);
+            new_input.focus();
+            new_input.autocomplete(autocomplete_settings);
+            });
+        });
+</script>
 
 
   <script>

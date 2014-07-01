@@ -18,10 +18,7 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item){
 
 // Set up autocomplete callback
 var cache = {};
-$("#searchbar").autocomplete({
-minLength: 3,
-delay: 260,
-source: function(request, response) {
+var search_data_source = function(request, response) {
     var term = request.term;
     if (term in cache) {
         response(cache[term]);
@@ -37,19 +34,30 @@ source: function(request, response) {
             cache[term] = reshaped_data;
             response(reshaped_data);
     });
-    },
-select: function(event, ui){
+};
+
+var search_select_function = function(event, ui){
     // Go to selected URL
     event.preventDefault();
     $(this).val(ui.item.label);
     window.location.href=ui.item.value;
-},
-focus: function(event, ui){
+};
+
+var search_focus_function = function(event, ui){
     // Get rid of behavior where keyboard up down arrow replaces textbox with
     // url instead of search result.
     event.preventDefault();
-},
-});
+};
+
+autocomplete_settings = {
+    minLength: 3,
+    delay: 260,
+    source: search_data_source,
+    select: search_select_function,
+    focus: search_focus_function,
+}
+
+$("#searchbar").autocomplete(autocomplete_settings);
 
 
 querystring = getQueryParameterByName("term");
