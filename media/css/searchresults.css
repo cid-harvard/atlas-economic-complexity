@@ -58,4 +58,5 @@ h1#search_title {
     top: 0;
     left: 0;
     cursor: default;
+    z-index: 100000;
 }
