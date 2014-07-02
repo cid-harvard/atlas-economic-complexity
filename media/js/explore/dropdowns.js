@@ -1,63 +1,84 @@
-$.ajax({
-	dataType: "json",
-	url: "http://localhost:8000/api/dropdowns/products/"
-})
-	.done(function( data ){
-		for(var i = 0; i < data.length; i++){
-			$("#country_product_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
-
-			if(app_type == "casy" || app_type == "ccsy"){
-				$("#highlight_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
-			}				
-		}
-		$('#country_product_select, #highlight_select').chosen({ allow_single_deselect: true });
-
-	})
-
-$.ajax({
-	dataType: "json",
-	url: "http://localhost:8000/api/dropdowns/countries/"
-})
-
-	.done(function( data ){
-		for(var i = 0; i < data.length; i++){
-			if (country1 == data[i][0]){
-				$("#country1_select").append("<option value='"+data[i][1]+"' selected>"+data[i][0]+"</option>");
-			} else {
-				$("#country1_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
-			}
-			if (country2 == data[i][0]){
-				$("#country_trade_partner_select").append("<option value='"+data[i][1]+"' selected>"+data[i][0]+"</option>");
-			} else {
-				$("#country_trade_partner_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
-			}
-			if(app_type == "cspy" || app_type == "csay" || app_type == "sapy"){
-				$("#highlight_select").append("<option value='"+data[i][1]+"'>"+data[i][0]+"</option>");
-			}
-		}
-
-		$('#country1_select, #country_trade_partner_select, #highlight_select').chosen({ allow_single_deselect: true });	
-	  	$("#country1_select_chosen .chosen-single span").css("background", "url('media/img/icons/flag_"+$("#country1 select").val()+".png') no-repeat")
-	  		.css("background-size", "25px")
-	  		.css("padding-left", "30px")
-	  		.css("margin-top", "-2px");
-	  	$("#country1_select div ")
-	  	$('#country_trade_partner_select_chosen').css("width", "140px");
-
-
-	  	$("#country1 .active-result").each(
-	  		function(index, result) {
-	  			select_index = $(result).data("option-array-index");
-	  			country_code = $("#country1 select")[0][select_index].value;
-	  			console.log(country_code);
-	  		});
-
-
-	});
-
-
 
 // initialize other dropdowns
 $(document).ready(function(){
-	$('#year1_select, #year2_select').chosen({ allow_single_deselect: true });
-});	
+
+    $.ajax({
+        dataType: "json",
+        url: "api/dropdowns/products/"
+    })
+    .done(function( data ){
+
+        var product_dropdowns = ["#country_product_select"];
+        var highlight_contains_products = (app_type == "casy" || app_type == "ccsy");
+        if(highlight_contains_products){
+            product_dropdowns.push("#highlight_select");
+        }
+
+        for(var i = 0; i < data.length; i++){
+            $(product_dropdowns.join(", ")).append($('<option/>').val(data[i][1]).text(data[i][0]));
+        }
+
+        var product_options = {
+            placeholder:"All Products",
+            allowClear: true,
+        };
+
+        $("#country_product_select")
+            .select2(product_options)
+            .select2("val", product_code);
+
+        if (highlight_contains_products){
+            $("#highlight_select")
+                .select2(product_options);
+        }
+    })
+
+    $.ajax({
+        dataType: "json",
+        url: "api/dropdowns/countries/"
+    })
+    .done(function( data ){
+
+        // Calculate which dropdowns to populate
+        var country_dropdowns = ["#country1_select", "#country_trade_partner_select"];
+        var highlight_contains_countries = (app_type == "cspy" || app_type == "csay" || app_type == "sapy");
+        if(highlight_contains_countries){
+            country_dropdowns.push("#highlight_select");
+        }
+
+        for(var i = 0; i < data.length; i++){
+            $(country_dropdowns.join(", ")).append($('<option/>').val(data[i][1]).text(data[i][0]));
+        }
+
+        var c1 = country1_3char.toLowerCase();
+        var c2 = country2_3char.toLowerCase();
+
+        function format_country_dropdown(country){
+            return "<img class='flag' src='media/img/icons/flag_" + country.id + ".png' width='20%'/> " + country.text;
+        }
+
+        var country_options = {
+            placeholder:"All Countries",
+            formatResult: format_country_dropdown,
+            formatSelection: format_country_dropdown,
+            allowClear: true,
+        };
+
+        $("#country1_select")
+            .select2(country_options)
+            .select2("val", c1);
+
+        $("#country_trade_partner_select")
+            .select2(country_options)
+            .select2("val", c2);
+
+        if (highlight_contains_countries){
+            $("#highlight_select")
+                .select2(country_options);
+        }
+
+    });
+
+    $('#year1_select, #year2_select').select2();
+    $('.language_select select').select2();
+});

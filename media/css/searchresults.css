@@ -1,4 +1,4 @@
-h1 {
+h1#search_title {
     font-family: "Gill Sans", "Gill Sans MT", "Helvetica Neue", Calibri, Arial, sans-serif;
     font-weight: 300;
     text-align: center;
@@ -14,11 +14,48 @@ h1 {
     width: 400px;
 }
 
+#text_title {
+    font-size: 30px;
+    font-weight: normal;
+    line-height: 36px;
+    margin: 6px 0px 0px 10px;
+    width: 700px;
+    font-family: "PT Sans Narrow",sans-serif,"Arial";
+    color: #343434;
+}
+
 .ui-menu {
     width: 390px;
+    list-style: none;
+    padding: 2px;
+    margin: 0;
+    display: block;
+    outline: none;
+}
+.ui-menu .ui-menu {
+    position: absolute;
+    width: 100%;
 }
 .ui-menu .ui-menu-item {
     padding-bottom: 5px;
     border-bottom: 1px solid #ccc;
 }
 
+.ui-menu :hover {
+    border-radius: 0px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.ui-widget-content .ui-state-focus {
+    border-radius: 0px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;
+}

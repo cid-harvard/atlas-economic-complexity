@@ -1,65 +1,51 @@
-<!doctype html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Atlas of Economic Complexity</title>
-    <link rel="stylesheet" href="stylesheets/app.css" />
-    <script src="bower_components/modernizr/modernizr.js"></script>
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-  </head>
-  <body id="error">
+{% extends "template.html" %}
+<link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
+{% block page_title %}500{% endblock %}
+{% block heading_title %}500{% endblock %}
+{% block css %}
+<style>
+  #text_title{
+    font-size:70px;
+    margin-top:120px;
+    float:left;
+    display:block;
+    padding-left:30px;
+  }
+  #message{
+    border-radius:3px;
+    float:left;
+    display:block;
+    margin-top:120px;
+    padding:30px;
+  }
+  #message p{
+    font-size:30px;
+    margin-top:0px;
+  }
+  #backHome{
+    border:solid 1px rgb(52,52,52);
+    padding:10px;
+    font-size:16px;
+    border-radius:3px;
+    transition:all 250ms;
+    color:rgb(52, 52, 52);
+  }
+  #backHome:hover{
+    background-color: rgb(52, 52, 52);
+    color:rgb(250,250,250);
+  }
+</style>
+{% endblock %}
+{% block content %}
 
-    <div class="show-for-small-only" id="logo">
-      <h2>THE ATLAS</h2>
-      <h2 class="bottom">of Economic Complexity</h2>  
-    </div>
-    <div class="row" id="header">
-      <nav class="medium-12 medium-centered columns">
-        <div class=" hide-for-small-only" id="logo">
-          <h3>THE ATLAS</h3>
-          <h3 class="bottom">of Economic Complexity</h3>  
-        </div>
-        <ul class="hide-for-small-only cl-effect-1">
-          <li><a href="#">Explore</a></li>
-          <li><a href="#">Rankings</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Stories</a></li>
-          <li><a href="#">Glossary</a></li>
-        </ul>
-      </nav>      
-    </div>
     <section id="message">
-      <div class="row">
-        <div class="small-11 small-centered medium-12 columns ">
-          <h1><b>500</b></h1>
-          <p>Oh no! There's been an internal server error. Please contact the network administrator at <a href="mailto:atlas.cid.harvard@gmail.com?subject=404 Error"><b>atlas.cid.harvard@gmail.com</b></a></p>
-          <a href="index.html"><button>Back to Home Page</button></a>           
-        </div>
-      </div>
+        <p>Sorry for the inconvenience, there seems to have been an internal server error!<br>Please contact the network administrator at <a href="mailto:atlas.cid.harvard@gmail.com?subject=404 Error"><b>atlas.cid.harvard@gmail.com</b></a></p>
+        <a id="backHome" href="http://atlas.cid.harvard.edu">Back to Home Page</a>
     </section>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/foundation/js/foundation.min.js"></script>  
-    <script type="text/javascript">
 
-      WebFontConfig = {
-        google: { families: [ 'Lato:300,400,700:latin' ] }
-      };
-      (function() {
-        var wf = document.createElement('script');
-        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-        wf.type = 'text/javascript';
-        wf.async = 'true';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(wf, s);
-      })(); 
-      $(document).foundation({
-        offcanvas : {
-          open_method: 'move', // Sets method in which offcanvas opens, can also be 'overlap'
-          close_on_click : true
-        }
-      });
+    <script type="text/javascript">
+      var title = document.getElementById("text_title");
+      title.style.marginLeft = 0;
     </script>
-  </body>
-</html>
+
+{% endblock %}

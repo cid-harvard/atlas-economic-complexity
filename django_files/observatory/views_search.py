@@ -263,7 +263,6 @@ def api_search(request):
             "fuzzy_like_this": {
                 "like_text": query,
                 "fields": ["title"],
-                "fuzziness": 3,
                 "max_query_terms": 15,
                 "prefix_length": 4
             }

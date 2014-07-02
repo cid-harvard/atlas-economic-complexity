@@ -33,6 +33,61 @@ body{
   float: right;
 }
 
+.dropdown {
+  display: inline;
+  float: left;
+  font-size: 34px;
+  margin: 0 200px;
+  text-align: center;
+  z-index: 99;
+}
+.dropdown dt{
+  display: inline;
+}
+.q {
+  float: left;
+}
+.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
+.dropdown dd { position:relative; }
+.dropdown a, .dropdown a:visited {
+  text-decoration:none;
+  outline:none;
+  text-align: left;
+}
+.dropdown dt a:hover {
+  border: 1px solid #666;
+}
+.dropdown dt a {
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 36px;
+
+  background: url("media/img/all/arrow.png") no-repeat scroll right center;
+  padding-right: 20px;
+  border: 1px solid #bbb;
+  width: 150px;
+}
+.dropdown dt a span {
+  cursor: pointer;
+  padding: 5px;
+}
+.dropdown dd ul {
+  background: white none repeat scroll 0 0;
+  border: 1px solid #efefef;
+  display: none;
+  left: 0px;
+  padding: 5px 0px;
+  position: absolute;
+  top: 2px;
+  width: auto;
+  min-width: 90px;
+  list-style: none;
+  height: 200px;
+  overflow-y: scroll;
+}
+.dropdown span.value { display:none; }
+.dropdown dd ul li a { padding:5px; display:block;}
+.dropdown dd ul li a:hover { background-color:#eee;}
 </style>
 {% endblock %}
 
@@ -44,7 +99,7 @@ body{
     <h3><a href="rankings/country/">Country Rankings</a></h3>
     <p>Rank countries based on their economic complexity for a given year</p>
     <h3><a href="rankings/product/">Product Rankings</a></h3>
-    <p>Rank products in the SITC4 classification based on their complexity for a given year</p>
+    <p>Rank products in the HS4 classification based on their complexity for a given year</p>
     <h3>Download</h3>
     <p>
       <a href="rankings/{{category}}/{{year}}/download/">&raquo; Download {{year}} data</a><br />
@@ -81,7 +136,7 @@ body{
     <th><a class="sort">Delta</a></th>
     {% else %}
     <th class="sorttable_sorted"><a class="sort">Rank</a><div id="sorttable_sortfwdind" class="sort_arrow_down"></div></th>
-    <th><a class="sort">SITC4</a></th>
+    <th><a class="sort">HS4 Code</a></th>
     <th><a class="sort">Product</a></th>
     <th><a class="sort">PCI Value</a></th>
     <th></th>

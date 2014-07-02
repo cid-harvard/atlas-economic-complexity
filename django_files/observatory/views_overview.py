@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Django
+from django.db.models import Sum
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
