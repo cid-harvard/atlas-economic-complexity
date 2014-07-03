@@ -1,38 +1,51 @@
 {% extends "template.html" %}
 <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
-{% block page_title %}Home{% endblock %}
-{% block heading_title %}{% endblock %}
-{% block_css %}
-{% end_block %}
-{% block_content %}
+{% block page_title %}404{% endblock %}
+{% block heading_title %}404{% endblock %}
+{% block css %}
+<style>
+  #text_title{
+    font-size:70px;
+    margin-top:120px;
+    float:left;
+    display:block;
+    padding-left:30px;
+  }
+  #message{
+    border-radius:3px;
+    float:left;
+    display:block;
+    margin-top:120px;
+    padding:30px;
+  }
+  #message p{
+    font-size:30px;
+    margin-top:0px;
+  }
+  #backHome{
+    border:solid 1px rgb(52,52,52);
+    padding:10px;
+    font-size:16px;
+    border-radius:3px;
+    transition:all 250ms;
+    color:rgb(52, 52, 52);
+  }
+  #backHome:hover{
+    background-color: rgb(52, 52, 52);
+    color:rgb(250,250,250);
+  }
+</style>
+{% endblock %}
+{% block content %}
 
-    <div class="show-for-small-only" id="logo">
-      <h2>THE ATLAS<br></h2>
-      <h2 class="bottom">of Economic Complexity</h2>  
-    </div>
-    <div class="row" id="header">
-      <nav class="medium-12 medium-centered columns">
-        <div class=" hide-for-small-only" id="logo">
-          <h3>THE ATLAS</h3>
-          <h3 class="bottom">of Economic Complexity</h3>  
-        </div>
-        <ul class="hide-for-small-only cl-effect-1">
-          <li><a href="#">Explore</a></li>
-          <li><a href="#">Rankings</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Stories</a></li>
-          <li><a href="#">Glossary</a></li>
-        </ul>
-      </nav>      
-    </div>
     <section id="message">
-      <div class="row">
-        <div class="small-11 small-centered medium-12 columns ">
-          <h1><b>404</b></h1>
-          <p>Sorry for the inconvenience, but the page that you're looking for doesn't seem to exist! Please contact the network administrator at <a href="mailto:atlas.cid.harvard@gmail.com?subject=404 Error"><b>atlas.cid.harvard@gmail.com</b></a></p> 
-          <a href="index.html"><button>Back to Home Page</button></a>            
-        </div>              
-      </div>
-    </section>  
+        <p>Sorry for the inconvenience, but the page that you're looking for doesn't seem to exist!<br>Please contact the network administrator at <a href="mailto:atlas.cid.harvard@gmail.com?subject=404 Error"><b>atlas.cid.harvard@gmail.com</b></a></p>
+        <a id="backHome" href="http://atlas.cid.harvard.edu">Back to Home Page</a>
+    </section>
+
+    <script type="text/javascript">
+      var title = document.getElementById("text_title");
+      title.style.marginLeft = 0;
+    </script>
 
 {% endblock %}
