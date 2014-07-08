@@ -183,7 +183,7 @@ def set_product_classification(request, prod_class):
 def download(request):
 
   content = request.POST.get("file_content")
-  title = request.POST.get("file_name")
+  title = request.POST.get("file_name").replace(" ", "_")
   file_format = request.POST.get("file_format").lower()
 
   if len(content) == 0 or "</svg>" not in content:
