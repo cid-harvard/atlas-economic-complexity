@@ -11,7 +11,7 @@ $(function(){
         var file_type = this.id;
         form.children("#file_format").val(file_type);
         var svg_content = $("#viz svg")[0].outerHTML;
-        form.children("#content").val(svg_content);
+        form.children("#file_content").val(svg_content);
         form.submit();
     });
 
