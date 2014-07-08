@@ -871,44 +871,17 @@
         </a>
         {% endwith %}
     </div>
-     {% if isbrowsemode %}
-     {% else %}
 
-
-	<!--   DOWNLOAD OPTIONS // TO BE IMPLEMENTED SOON
-
-        <div class="control_container" id="download">
-          <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">{% trans "Download" %}</h4>
-          <a class="pdf" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PDF</a>
-          <a class="svg" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> SVG</a>
-        <a class="png" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PNG</a>
-          <a class="csv" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> CSV</a>
-       </div>
-	<form class="download" method="POST" action="download/">
-      {% csrf_token %}
-      <input type="hidden" name="url" value="" />
-      <input type="hidden" name="title" value="" />
-      <input type="hidden" name="format" value="svg" />
-      <input type="hidden" name="content" value="" />
-    </form>-->
-  <!--  <div id = "downloadPlaceholder" >
-
+    <form id="download" method="POST" action="{{HTTP_HOST}}download/">
+        {% csrf_token %}
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>
-
-        <div class="control_container tooltipbs" id="download" style="pointer-events: none; cursor: default;" data-placement="right" data-toggle="tooltip" title="Not Available">
-
-          <span class="glyphicon glyphicon-save" style="margin:5px; font-size:18px; color:lightgray"></span>
-         <!-- <a class="pdf" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">PDF</a>
-          <a class="svg" href="#" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">SVG</a>-->
-          <!--<a href="{% url observatory.views.download %}" class="png" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">PNG</a>
-         <!-- <a class="csv" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">CSV</a>
-
-         <a class="text" href="#" style="font-size:14px; color:lightgray; margin:3px; text-align:center;"> <span>{% trans "Data" %}</span></a>
-
-        </div>
-
-      -->
-
+        <a id="pdf" href="#">PDF</a>
+        <a id="png" href="#">PNG</a>
+        <a id="svg" href="#">SVG</a>
+        <input type="hidden" id="file_content" name="file_content"/>
+        <input type="hidden" name="file_name" value="{{title}}"/>
+        <input type="hidden" id="file_format" name="file_format" value="svg"/>
+    </form>
 
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">Feedback</h4>
 
@@ -917,18 +890,8 @@
         </a>
 
 
-        {% if displayviz %}
-        <div id="downloadPlaceholder">
-          <span class="dlOption"><a href="{{ displayImage }}"><i class="fa fa-download"></i></a><p>PNG</p></span>
-<!--      <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>SVG</p></span>
-          <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>PDF</p></span>
-          <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>TEXT</p></span> -->
-        </div>
-        {% endif %}
-
     </div>
 
-    {% endif %}
 
       </div> <!-- END Right pane -->
 
@@ -948,6 +911,7 @@
   <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
   <script type="text/javascript" src="media/js/explore/dropdowns.js"></script>
   <script type="text/javascript" src="media/js/searchresults.js"></script>
+  <script type="text/javascript" src="media/js/explore/download.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.js"></script>
@@ -1071,6 +1035,37 @@ $(function(){
 
 
   <script>
+
+
+// Set up jquery to use django CSRF token
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+
 
   // variables from server
   var app,

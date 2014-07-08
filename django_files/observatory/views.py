@@ -17,6 +17,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse, resolve
 from django.utils.translation import gettext as _
 
+import cairosvg
+
 # Local
 from observatory.models import (Country, Country_region, Cy, Hs4, Hs4_py,
                                 Hs4_cpy, Sitc4, Sitc4_py, Sitc4_cpy)
@@ -179,47 +181,31 @@ def set_product_classification(request, prod_class):
   return response
 
 def download(request):
-  import cairo, rsvg, xml.dom.minidom
-  import csv
-  #raise Exception(request.POST)
-  content = request.POST.get("content")
 
-  title = request.POST.get("title")
+  content = request.POST.get("file_content")
+  title = request.POST.get("file_name").replace(" ", "_")
+  file_format = request.POST.get("file_format").lower()
 
-  format = request.POST.get("format")
+  if len(content) == 0 or "</svg>" not in content:
+    return HttpResponse(status=500,
+                        content="Invalid svg image.")
 
-  if format == "svg" or format == "pdf" or format == "png":
-    svg = rsvg.Handle(data=content.encode("utf-8"))
-    x = settings.EXPORT_IMAGE_WIDTH
-    y = settings.EXPORT_IMAGE_HEIGHT
+  if file_format == "svg":
+    response = HttpResponse(content.encode("utf-8"),
+                            mimetype="application/octet-stream")
 
-  if format == "svg":
-    response = HttpResponse(content.encode("utf-8"), mimetype="application/octet-stream")
+  elif file_format == "pdf":
+    response = HttpResponse(cairosvg.svg2pdf(bytestring=content),
+                            mimetype="application/pdf")
 
-  elif format == "pdf":
-    response = HttpResponse(mimetype='application/pdf')
-    surf = cairo.PDFSurface(response, x, y)
-    cr = cairo.Context(surf)
-    svg.render_cairo(cr)
-    surf.finish()
-
-  elif format == "png":
-    response = HttpResponse(mimetype='image/png')
-    surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, x, y)
-    cr = cairo.Context(surf)
-    svg.render_cairo(cr)
-    surf.write_to_png(response)
+  elif file_format == "png":
+    response = HttpResponse(cairosvg.svg2png(bytestring=content),
+                            mimetype="image/png")
 
   else:
-    response = HttpResponse(mimetype="text/csv;charset=UTF-8")
-    csv_writer = csv.writer(response, delimiter=',', quotechar='"')#, quoting=csv.QUOTE_MINIMAL)
-    item_list = json.loads(content,encoding='utf-8')
-    # raise Exception(content)
-    for item in item_list:
-      csv_writer.writerow([i.encode("utf-8") for i in item])
+    return HttpResponse(status=500, content="Wrong image format.")
 
-  # Need to change with actual title
-  response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
+  response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, file_format)
 
   return response
 
