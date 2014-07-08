@@ -17,6 +17,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse, resolve
 from django.utils.translation import gettext as _
 
+import cairosvg
+
 # Local
 from observatory.models import (Country, Country_region, Cy, Hs4, Hs4_py,
                                 Hs4_cpy, Sitc4, Sitc4_py, Sitc4_cpy)
@@ -180,11 +182,13 @@ def set_product_classification(request, prod_class):
 
 def download(request):
 
-  import cairosvg
-
   content = request.POST.get("content")
   title = request.POST.get("title")
   file_format = request.POST.get("file_format").lower()
+
+  if len(content) == 0 or "</svg>" not in content:
+    return HttpResponse(status=500,
+                        content="Invalid svg image.")
 
   if file_format == "svg":
     response = HttpResponse(content.encode("utf-8"),
