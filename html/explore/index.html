@@ -872,7 +872,7 @@
         {% endwith %}
     </div>
 
-    <form id="download" method="POST" action="/download/">
+    <form id="download" method="POST" action="{{HTTP_HOST}}download/">
         {% csrf_token %}
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>
         <a id="pdf" href="#">PDF</a>
