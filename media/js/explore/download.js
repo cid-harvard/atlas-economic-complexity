@@ -10,8 +10,17 @@ $(function(){
         var form = $(this).parent();
         var file_type = this.id;
         form.children("#file_format").val(file_type);
-        var svg_content = $("#viz svg")[0].outerHTML;
-        form.children("#file_content").val(svg_content);
+        var svg_elem = $("#viz svg")[0];
+        if (svg_elem.outerHTML !== undefined){
+            form.children("#file_content").val(svg_elem);
+        } else if (typeof XMLSerializer !== undefined) {
+            form.children("#file_content").val((new XMLSerializer).serializeToString(svg_elem));
+        } else if (xmlNode.xml) {
+            form.children("#file_content").val(svg_elem.xml);
+        } else {
+            alert("Sorry, your browser doesn't support this feature. Please try the newest Google Chrome or Mozilla Firefox.");
+            return;
+        }
         form.submit();
     });
 
