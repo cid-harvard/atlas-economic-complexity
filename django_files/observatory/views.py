@@ -210,34 +210,6 @@ def download(request):
   return response
 
 
-def app_redirect(request, app_name, trade_flow, filter, year):
-  # Corrent for old spelling of tree map as one word
-  if app_name == "treemap":
-    app_name = "tree_map"
-
-  # Bilateral
-  if "." in filter:
-    bilateral_filters = filter.split(".")
-
-    # Country x Product
-    if len(bilateral_filters[1]) > 3:
-      country1, country2, product = bilateral_filters[0], "show", bilateral_filters[1]
-
-    # Country x Country
-    else:
-      country1, country2, product = bilateral_filters[0], bilateral_filters[1], "show"
-
-  # Product
-  elif len(filter) > 3:
-    country1, country2, product = "show", "all", filter
-
-  # Country
-  else:
-    country1, country2, product = filter, "all", "show"
-  # raise Exception("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
-  return HttpResponsePermanentRedirect(HTTP_HOST+"explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
-
-
 def explore(request, app_name, trade_flow, country1, country2, product, year="2011"):
   iscreatemode=False
   iscreatemode = request.session['create'] if 'create' in request.session else False
