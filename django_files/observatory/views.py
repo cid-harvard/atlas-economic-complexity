@@ -1589,9 +1589,3 @@ def clean_product(product, prod_class):
         p = None
   return p
 
-def get_country_lookup():
-  lookup = {}
-  for c in Country.objects.all():
-    lookup[c.id] = [c.name_en, c.name_3char]
-  return lookup
-
