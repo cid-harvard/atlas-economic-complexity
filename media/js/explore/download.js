@@ -12,7 +12,7 @@ $(function(){
         form.children("#file_format").val(file_type);
         var svg_elem = $("#viz svg")[0];
         if (svg_elem.outerHTML !== undefined){
-            form.children("#file_content").val(svg_elem);
+            form.children("#file_content").val(svg_elem.outerHTML);
         } else if (typeof XMLSerializer !== undefined) {
             form.children("#file_content").val((new XMLSerializer).serializeToString(svg_elem));
         } else if (xmlNode.xml) {
