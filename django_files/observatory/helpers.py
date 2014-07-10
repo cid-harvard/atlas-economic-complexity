@@ -79,28 +79,28 @@ def get_country(country):
     return c
 
 
-# Returns the Product object or None
-def get_product(product, classification):
-    # first try looking up based on 3 character code
+def get_product_by_code(product_code, classification="hs4"):
+    """Look up a product code in a given product code with fallback to
+    another."""
     if classification == "hs4":
         try:
-            p = Hs4.objects.get(code=product)
+            p = Hs4.objects.get(code=product_code)
         except Hs4.DoesNotExist:
-            # next try SITC4
             try:
-                conv_code = Sitc4.objects.get(code=product).conversion_code
+                conv_code = Sitc4.objects\
+                    .get(code=product_code).conversion_code
                 p = Hs4.objects.get(code=conv_code)
-            except Sitc4.DoesNotExist:
+            except (Hs4.DoesNotExist, Sitc4.DoesNotExist):
                 p = None
     else:
         try:
-            p = Sitc4.objects.get(code=product)
+            p = Sitc4.objects.get(code=product_code)
         except Sitc4.DoesNotExist:
-            # next try SITC4
             try:
-                conv_code = Hs4.objects.get(code=product).conversion_code
+                conv_code = Hs4.objects\
+                    .get(code=product_code).conversion_code
                 p = Sitc4.objects.get(code=conv_code)
-            except Hs4.DoesNotExist:
+            except (Hs4.DoesNotExist, Sitc4.DoesNotExist):
                 p = None
     return p
 

@@ -421,7 +421,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   #p_code, product = None, None
   if product not in ("show", "all"):
     p_code = product
-    product = clean_product(p_code, prod_class)
+    product = helpers.get_product_by_code(p_code, prod_class)
 
   if not alert:
 
@@ -758,7 +758,7 @@ def api_sapy(request, trade_flow, product, year):
   lang = request.session['django_language'] if 'django_language' in request.session else "en"
   lang = request.GET.get("lang", lang)
   crawler = request.GET.get("_escaped_fragment_", False)
-  product = clean_product(product, prod_class)
+  product = helpers.get_product_by_code(product, prod_class)
   #Set product code to product
   product_code = product.code
   """Set query params with our changes"""
@@ -1357,7 +1357,7 @@ def api_cspy(request, trade_flow, country1, product, year):
   country1 = Country.objects.get(name_3char=country1)
   #Get app_name from session
   app_name = request.session['app_name'] if 'app_name' in request.session else ""
-  product = clean_product(product, prod_class)
+  product = helpers.get_product_by_code(product, prod_class)
   article = "to" if trade_flow == "export" else "from"
 
   '''Set query params with our changes'''
@@ -1564,28 +1564,4 @@ def clean_country(country):
     except Country.DoesNotExist:
       c = None
   return c
-
-def clean_product(product, prod_class):
-  # first try looking up based on 3 character code
-  if prod_class == "hs4":
-    try:
-      p = Hs4.objects.get(code=product)
-    except Hs4.DoesNotExist:
-      # next try SITC4
-      try:
-        conv_code = Sitc4.objects.get(code=product).conversion_code
-        p = Hs4.objects.get(code=conv_code)
-      except Hs4.DoesNotExist:
-        p = None
-  else:
-    try:
-      p = Sitc4.objects.get(code=product)
-    except Sitc4.DoesNotExist:
-      # next try SITC4
-      try:
-        conv_code = Hs4.objects.get(code=product).conversion_code
-        p = Sitc4.objects.get(code=conv_code)
-      except Hs4.DoesNotExist:
-        p = None
-  return p
 
