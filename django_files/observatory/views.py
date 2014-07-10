@@ -1549,19 +1549,3 @@ def api_views(request):
   recent_views = r.lrange("views", -15, -1)
   return HttpResponse("[%s]" % ",".join(recent_views))
 
-
-###############################################################################
-## Helpers
-###############################################################################
-def clean_country(country):
-  # first try looking up based on 3 character code
-  try:
-    c = Country.objects.get(name_3char=country)
-  except Country.DoesNotExist:
-    # next try 2 character code
-    try:
-      c = Country.objects.get(name_2char=country)
-    except Country.DoesNotExist:
-      c = None
-  return c
-
