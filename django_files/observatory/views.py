@@ -1543,19 +1543,6 @@ def api_cspy(request, trade_flow, country1, product, year):
     """Return to browser as JSON for AJAX request"""
     return HttpResponse(json.dumps(json_response))
 
-# Embed for iframe
-def embed(request, app_name, trade_flow, country1, country2, product, year):
-  lang = request.GET.get("lang", "en")
-  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
-  prod_class = request.GET.get("product_classification", prod_class)
-  query_string = request.GET.copy()
-  query_string["product_classification"] = prod_class
-  # get distince years from db, different for diff product classifications
-  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
-  years_available.sort()
-
-  return render_to_response("explore/embed.html", {"app":app_name, "trade_flow": trade_flow, "country1":country1, "country2":country2, "product":product, "year":year, "other":json.dumps(query_string),"years_available":json.dumps(years_available), "lang":lang})
-
 
 def api_views(request):
   r = redis.Redis(db=1)
