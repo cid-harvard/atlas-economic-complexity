@@ -3,6 +3,7 @@ from django.db import models
 from django.forms import ModelForm
 from django.conf import settings
 
+from cache_utils.decorators import cached
 
 if not settings.DB_PREFIX:
   DB_PREFIX = ''
@@ -358,6 +359,7 @@ class Hs4_manager(models.Manager):
 			lang = lang.replace("-", "_")
 		return self.extra(select={"name": "name_"+lang})
 
+	@cached(60)
 	def get_all(self, lang):
 		products = self.filter_lang(lang)
 		products = products.filter(community__isnull=False)#, ps_size__isnull=False)
