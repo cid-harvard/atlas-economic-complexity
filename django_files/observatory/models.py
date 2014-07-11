@@ -359,7 +359,7 @@ class Hs4_manager(models.Manager):
 			lang = lang.replace("-", "_")
 		return self.extra(select={"name": "name_"+lang})
 
-	@cached(60)
+	@cached(settings.CACHE_VERY_LONG)
 	def get_all(self, lang):
 		products = self.filter_lang(lang)
 		products = products.filter(community__isnull=False)#, ps_size__isnull=False)

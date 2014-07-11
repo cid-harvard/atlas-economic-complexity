@@ -1,6 +1,9 @@
+from django.conf import settings
+
+from cache_utils.decorators import cached
+
 from observatory.models import (Hs4_cpy, Sitc4_cpy, Country, Hs4, Sitc4,
                                 Sitc4_py, Hs4_py, Cy)
-from cache_utils.decorators import cached
 
 
 # make sure app name is in the list of possible apps
@@ -222,7 +225,7 @@ def params_to_url(api_name=None, app_name=None, country_codes=None,
     return url
 
 
-@cached(60)
+@cached(settings.CACHE_VERY_LONG)
 def get_world_trade(prod_class="hs4"):
     """Get world trade volume for every product in a classification."""
     if prod_class == "sitc4":
@@ -239,7 +242,7 @@ def get_world_trade(prod_class="hs4"):
                 'world_trade'))
 
 
-@cached(60)
+@cached(settings.CACHE_VERY_LONG)
 def get_attrs(prod_class="hs4", name="name_en"):
     """Get extraneous attributes (like color and code) for each product in a
     classification."""
@@ -274,7 +277,7 @@ def get_attrs(prod_class="hs4", name="name_en"):
     return attr
 
 
-@cached(60)
+@cached(settings.CACHE_VERY_LONG)
 def get_years_available(prod_class="hs4"):
     """Get years available for a given classification."""
     if prod_class == "sitc4":
@@ -286,7 +289,7 @@ def get_years_available(prod_class="hs4"):
     return sorted(list(years_available))
 
 
-@cached(60)
+@cached(settings.CACHE_VERY_LONG)
 def get_inflation_adjustment(country, first_year, last_year):
     """For a given country and year range, get inflation adjustment
     constants."""
