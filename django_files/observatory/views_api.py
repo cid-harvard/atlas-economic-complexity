@@ -91,115 +91,12 @@ def api_casy(request, trade_flow, country1, year):
     store_data = store_data + store_page_url + "||"
     store_data = store_data + request_hash_string
 
-    # Write the store data to file
-    store_file = open(
-        settings.DATA_FILES_PATH +
-        "/" +
-        request_hash_string +
-        ".store",
-        "w+")
-    store_file.write(store_data)
-    store_file.close()
-
-    # Set proper permissions since we want the cron to remove the file as well
-    os.chmod(
-        settings.DATA_FILES_PATH +
-        "/" +
-        request_hash_string +
-        ".store",
-        0o777)
-
-    svg_path = settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg"
-    json_path = settings.DATA_FILES_PATH + "/" + request_hash_string + ".json"
-    if os.path.exists(svg_path):
-        # Check the request data type
-        if (request.GET.get('data_type', None) is None):
-            # Let us get the data from the file
-            response_json_data = open(settings.DATA_FILES_PATH + "/" +
-                                      request_hash_string + ".svg", "r")
-
-            # Set the return data
-            returnData = response_json_data.read()
-
-            # Return to browser as JSON for AJAX request
-            return HttpResponse(returnData)
-        elif (request.GET.get('data_type', '') == 'json'):
-            # Check if we have the valid json file
-            if os.path.exists(json_path):
-                # Let us get the data from the file
-                response_json_data = open(settings.DATA_FILES_PATH + "/" +
-                                          request_hash_string + ".json", "r")
-
-                # Set the return data
-                returnData = response_json_data.read()
-
-                # Return to browser as JSON for AJAX request
-                return HttpResponse(returnData)
-
-    # Get attribute information
-    if prod_class == "sitc4":
-        world_trade = list(
-            Sitc4_py.objects.all().values(
-                'year',
-                'product_id',
-                'world_trade'))
-        attr_list = list(
-            Sitc4.objects.all().values(
-                'code',
-                name,
-                'id',
-                'color'))
-        attr = {}
-        for i in attr_list:
-            attr[
-                i['code']] = {
-                'code': i['code'],
-                'name': i[name],
-                'color': i['color']}
-
-    elif prod_class == "hs4":
-        world_trade = list(
-            Hs4_py.objects.all().values(
-                'year',
-                'product_id',
-                'world_trade'))
-        attr_list = list(
-            Hs4.objects.all().values(
-                'code',
-                name,
-                'id',
-                'community_id__color'))
-        attr = {}
-        for i in attr_list:
-            attr[
-                i['code']] = {
-                'code': i['code'],
-                'name': i[name],
-                'item_id': i['id'],
-                'color': i['community_id__color']}
-
-    # get distince years from db, different for diff product classifications
-    years_available = sorted(
-        list(
-            Sitc4_cpy.objects.values_list(
-                "year",
-                flat=True).distinct()) if prod_class == "sitc4" else list(
-            Hs4_cpy.objects.values_list(
-                "year",
-                flat=True).distinct()))
-
-    # Inflation adjustment
-    magic = Cy.objects.filter(country=country1.id,
-                              year__range=(years_available[0],
-                                           years_available[-1])).values('year',
-                                                                        'pc_constant',
-                                                                        'pc_current',
-                                                                        'notpc_constant')
-    magic_numbers = {}
-    for i in magic:
-        magic_numbers[i['year']] = {"pc_constant": i['pc_constant'],
-                                    "pc_current": i['pc_current'],
-                                    "notpc_constant": i["notpc_constant"]}
+    world_trade = helpers.get_world_trade(prod_class=prod_class)
+    attr = helpers.get_attrs(prod_class=prod_class, name=name)
+    years_available = helpers.get_years_available(prod_class=prod_class)
+    magic_numbers = helpers.get_inflation_adjustment(country1,
+                                                     years_available[0],
+                                                     years_available[-1])
 
     '''Define parameters for query'''
     if crawler or single_year:
