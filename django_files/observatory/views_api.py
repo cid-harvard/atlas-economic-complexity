@@ -136,7 +136,7 @@ def api_casy(request, trade_flow, country1, year):
             key += ":%d" % int(year)
         # See if this key is already in the cache
         cache_query = raw.get(key)
-        if (cache_query is None):
+        if cache_query is None:
 
             rows = raw_q(query=q, params=None)
             total_val = sum([r[4] for r in rows])
@@ -155,14 +155,12 @@ def api_casy(request, trade_flow, country1, year):
                         "#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
 
             # SAVE key in cache.
-            raw.set(key, msgpack.dumps(rows))  # , 'data', json.dumps(rows))
+            raw.set(key, msgpack.dumps(rows))
             json_response["data"] = rows
 
         else:
             # If already cached, now simply retrieve
-            encoded = cache_query
-            decoded = msgpack.loads(encoded)
-            json_response["data"] = decoded
+            json_response["data"] = msgpack.loads(cache_query)
 
     else:
         rows = raw_q(query=q, params=None)
@@ -203,12 +201,6 @@ def api_casy(request, trade_flow, country1, year):
     json_response["world_trade"] = world_trade
     json_response["prod_class"] = prod_class
     json_response["other"] = query_params
-
-    if not os.path.exists(json_path):
-        response_json_file = open(settings.DATA_FILES_PATH + "/" +
-                                  request_hash_string + ".json", "w+")
-        response_json_file.write(json.dumps(json_response))
-        response_json_file.close()
 
     # Check the request data type
     if (request.GET.get('data_type', None) is None):
