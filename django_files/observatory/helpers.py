@@ -231,7 +231,7 @@ def get_world_trade(prod_class="hs4"):
     if prod_class == "sitc4":
         return list(
             Sitc4_py.objects.all().values(
-                'year'
+                'year',
                 'product_id',
                 'world_trade'))
     elif prod_class == "hs4":
