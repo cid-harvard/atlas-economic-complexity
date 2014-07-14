@@ -23,7 +23,7 @@ else:
 
 
 def api_casy(request, trade_flow, country1, year):
-    '''<COUNTRY> / all / show / <YEAR>'''
+    """<COUNTRY> / all / show / <YEAR>"""
 
     # Get session / request vars
     prod_class = request.GET.get("prod_class",
@@ -33,8 +33,6 @@ def api_casy(request, trade_flow, country1, year):
                            request.session.get('django_language', 'en'))
     name = "name_%s" % lang
     single_year = 'single_year' in request.GET
-    app_name = request.session.get("app_name", "tree_map")
-    country_code = country1
     country1 = Country.objects.get(name_3char=country1)
 
     '''Set query params with our changes'''
