@@ -47,7 +47,10 @@ def api_casy(request, trade_flow, country1, year):
                                                      years_available[0],
                                                      years_available[-1])
 
-    items = Hs4_cpy.objects.all()
+    if prod_class == "sitc4":
+        items = Sitc4_cpy.objects
+    else:
+        items = Hs4_cpy.objects
 
     # Export value and rca changes based on trade flow
     if trade_flow == "net_export":

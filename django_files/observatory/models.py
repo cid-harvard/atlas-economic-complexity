@@ -310,7 +310,9 @@ class Sitc4_py(models.Model):
 		db_table = DB_PREFIX+"observatory_sitc4_py"
 
 	product = models.ForeignKey(Sitc4)
-	year = models.PositiveSmallIntegerField(max_length=4)
+	# The unique=True here is a workaround that somehow makes the ForeignObject
+	# on cpy work.
+	year = models.PositiveSmallIntegerField(max_length=4, unique=True)
 	pci = models.FloatField(null=True)
 	pci_rank = models.PositiveSmallIntegerField(max_length=4)
 	world_trade = models.FloatField(null=True)
@@ -441,6 +443,8 @@ class Sitc4_cpy(models.Model):
 	export_rca = models.FloatField(null=True)
 	distance = models.FloatField(null=True)
 	opp_gain = models.FloatField(null=True)
+
+	product_year = models.ForeignObject(Sitc4_py, ('product', 'year'), ('product', 'year'))
 
 	def __unicode__(self):
 		return "CPY: %s.%s.%d" % (self.country.name, self.product.code, self.year)
