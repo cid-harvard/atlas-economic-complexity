@@ -2,6 +2,7 @@ import os
 import collections
 import json
 
+from django.core.cache import cache
 from django.conf import settings
 from django.http import HttpResponse
 
@@ -23,73 +24,23 @@ else:
 
 def api_casy(request, trade_flow, country1, year):
     '''<COUNTRY> / all / show / <YEAR>'''
-    # Setup the hash dictionary
-    request_hash_dictionary = collections.OrderedDict()
 
-    # Store the country code
-    country_code = country1
-    '''Init variables'''
+    # Get session / request vars
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
     lang = request.GET.get("lang",
                            request.session.get('django_language', 'en'))
-    crawler = request.GET.get("_escaped_fragment_", False)
-    country1 = Country.objects.get(name_3char=country1)
+    name = "name_%s" % lang
     single_year = 'single_year' in request.GET
+    app_name = request.session.get("app_name", "tree_map")
+    country_code = country1
+    country1 = Country.objects.get(name_3char=country1)
 
     '''Set query params with our changes'''
     query_params = request.GET.copy()
     query_params["lang"] = lang
     query_params["product_classification"] = prod_class
-    # Get app_name  from session
-    app_name = request.session.get("app_name", "tree_map")
-    # See if we have an app name passed as part of the request URL
-    forced_app_name = request.GET.get("use_app_name", None)
-    # If we have an app name passed, override and use that
-    if (forced_app_name is not None):
-        # override the app_name in this case, since generate_svg will pass app
-        # names specifically
-        app_name = forced_app_name
-    '''Grab extraneous details'''
-    # Clasification & Django Data Call
-    name = "name_%s" % lang
-    # Add prod class to request hash dictionary
-    request_hash_dictionary['app_name'] = app_name
-    request_hash_dictionary['lang'] = lang
-    request_hash_dictionary['prod_class'] = prod_class
-
-    # Add the arguments to the request hash dictionary
-    request_hash_dictionary['trade_flow'] = trade_flow
-    request_hash_dictionary['country'] = country_code
-
-    # Set the product stuff based on the app
-    if (app_name in ["product_space", "pie_scatter"]):
-        request_hash_dictionary['product_type'] = 'all'
-        request_hash_dictionary['product_display'] = 'show'
-    else:
-        request_hash_dictionary['product_type'] = 'all'
-        request_hash_dictionary['product_display'] = 'show'
-    request_hash_dictionary['year'] = year
-
-    # We are here, so let us store this data somewhere
-    # base64.b64encode( request_unique_hash )
-    request_hash_string = "_".join(request_hash_dictionary.values())
-    # Setup the store data
-    store_data = request.build_absolute_uri().replace(
-        "product_classification",
-        "prod_class") + "||"
-    store_page_url = request.build_absolute_uri().replace(
-        "/api/",
-        "/explore/" +
-        app_name +
-        "/")
-    store_page_url = store_page_url.replace("data_type=json", "headless=true")
-    store_page_url = store_page_url.replace(
-        "product_classification",
-        "prod_class")
-    store_data = store_data + store_page_url + "||"
-    store_data = store_data + request_hash_string
 
     world_trade = helpers.get_world_trade(prod_class=prod_class)
     attr = helpers.get_attrs(prod_class=prod_class, name=name)
@@ -98,96 +49,63 @@ def api_casy(request, trade_flow, country1, year):
                                                      years_available[0],
                                                      years_available[-1])
 
-    '''Define parameters for query'''
-    if crawler or single_year:
-        year_where = "AND cpy.year = %s" % (year,)
-    else:
-        year_where = " "
-    rca_col = "null"
+    items = Hs4_cpy.objects.all()
+
+    # Export value and rca changes based on trade flow
     if trade_flow == "net_export":
-        val_col = "export_value - import_value as val"
-        rca_col = "export_rca"
+        items = items.extra(select={'val': 'export_value - import_value',
+                                    'rca': 'export_rca'})
     elif trade_flow == "net_import":
-        val_col = "import_value - export_value as val"
+        items = items.extra(select={'val': 'import_value - export_value',
+                                    'rca': 'null'})
     elif trade_flow == "export":
-        val_col = "export_value as val"
-        rca_col = "export_rca"
+        items = items.extra(select={'val': 'export_value',
+                            'rca': 'export_rca'})
     else:
-        val_col = "import_value as val"
+        items = items.extra(select={'val': 'import_value',
+                            'rca': 'null'})
 
-    """Create query [year, id, abbrv, name_lang, val, export_rca]"""
-    q = """
-    SELECT cpy.year, p.id, p.code, p.name_%s, p.community_id, c.color,c.name, %s, %s, distance, opp_gain, py.pci
-    FROM %sobservatory_%s_cpy as cpy, %sobservatory_%s as p, %sobservatory_%s_community as c, %sobservatory_%s_py as py
-    WHERE country_id=%s and cpy.product_id = p.id %s and p.community_id = c.id and py.product_id=p.id and cpy.year=py.year
-    HAVING val > 0
-    ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, prod_class, DB_PREFIX, prod_class, DB_PREFIX, prod_class, country1.id, year_where)
+    # TODO: get this from lang variable and sanitize
+    items = items.extra(select={'name': 'name_en'})
 
-    """Prepare JSON response"""
+    items = items.values_list('year', 'product__id', 'product__code',
+                              'product__name', 'product__community_id',
+                              'product__community__color',
+                              'product__community__name', 'val', 'rca',
+                              'distance', 'opp_gain', 'product_year__pci',)
+
+    if single_year:
+        items = items.filter(year=year)
+
+    items = items.filter(country_id=country1.id)
+
     json_response = {}
 
-    """Check cache"""
-    if settings.REDIS:
-        raw = redis.Redis("localhost")
-        key = "%s:%s:%s:%s:%s" % (
-            country1.name_3char, "all", "show", prod_class, trade_flow)
-        if single_year:
-            key += ":%d" % int(year)
-        # See if this key is already in the cache
-        cache_query = raw.get(key)
-        if cache_query is None:
+    # Generate cache key
+    key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show",
+                              prod_class, trade_flow)
+    if single_year:
+        key += ":%d" % int(year)
 
-            rows = raw_q(query=q, params=None)
-            total_val = sum([r[4] for r in rows])
-            """Add percentage value to return vals"""
-            rows = [
-                {"year": r[0], "item_id": r[1], "abbrv": r[2], "name":
-                 r[3], "value": r[7], "rca": r[8], "distance": r[9],
-                 "opp_gain": r[10], "pci": r[11], "share":
-                 (r[7] / total_val) * 100, "community_id": r[4], "color":
-                 r[5], "community_name": r[6], "code": r[2], "id": r[2]}
-                for r in rows]
-
-            if crawler == "":
-                return [
-                    rows, total_val, [
-                        "#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
-
-            # SAVE key in cache.
-            raw.set(key, msgpack.dumps(rows))
-            json_response["data"] = rows
-
-        else:
-            # If already cached, now simply retrieve
-            json_response["data"] = msgpack.loads(cache_query)
-
+    # Check cache
+    cached_data = cache.get(key)
+    if cached_data is not None:
+        json_response["data"] = msgpack.loads(cached_data)
     else:
-        rows = raw_q(query=q, params=None)
+        rows = list(items)
         total_val = sum([r[7] for r in rows])
         """Add percentage value to return vals"""
-        rows = [{"year": r[0],
-                 "item_id":r[1],
-                 "abbrv":r[2],
-                 "name":r[3],
-                 "value":r[7],
-                 "rca":r[8],
-                 "distance":r[9],
-                 "opp_gain":r[10],
-                 "pci": r[11],
-                 "share": (r[7] / total_val)*100,
-                 "community_id": r[4],
-                 "color": r[5],
-                 "community_name":r[6],
-                 "code":r[2],
-                 "id": r[2]} for r in rows]
+        rows = [{"year": r[0], "item_id": r[1], "abbrv": r[2], "name": r[3],
+                 "value": r[7], "rca": r[8], "distance": r[9], "opp_gain":
+                 r[10], "pci": r[11], "share": (r[7] / total_val) * 100,
+                 "community_id": r[4], "color": r[5], "community_name": r[6],
+                 "code": r[2], "id": r[2]} for r in rows]
 
-        if crawler == "":
-            return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value",
-                                      "RCA", "%"]]
-
+        # Save in cache
+        cache.set(key, msgpack.dumps(rows))
         json_response["data"] = rows
 
+    # Add in remaining metadata
     json_response["attr"] = attr
     json_response["attr_data"] = Sitc4.objects.get_all(
         lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang)
