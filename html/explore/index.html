@@ -32,22 +32,18 @@
 
   <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}img/favicon.ico">
   <!-- Load non-standard fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
-  <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
 
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/toastr/toastr.min.css" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/chosen/chosen.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
   <link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>
 
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/countries.css?{{ VERSION }}" />
 
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/widgets.css?{{ VERSION }}">
@@ -56,6 +52,7 @@
   <link href="{{ STATIC_URL }}js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css">
 
   <link href="{{ STATIC_URL }}js/libs/d3plus/d3plus.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/searchresults.css" type="text/css" media="all" />
 
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -92,9 +89,9 @@
       <nav>
         <ul>
           <li><a {% if isbrowsemode %}href="endbrowse"{% else %}href="explore"{% endif %}>Explore</a></li>
-          <li><a href="stories">Stories</a></li>
           <li><a href="rankings">Rankings</a></li>
           <li><a id="newBook" href="book">New Book</a></li>
+          <li><a href="about/glossary/">Glossary</a></li>
           <li><a href="about">About</a></li>
         </ul>
       </nav>
@@ -142,7 +139,7 @@
 
               <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                <select data-placeholder="All Countries" id="country1_select" class="chosen-select-deselect" tabindex="-1" style="width:130px">
+                <select data-placeholder="All Countries" id="country1_select" style="width:130px">
 
                 <option value=""></option>
               </select>
@@ -184,7 +181,7 @@
 
                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                <select data-placeholder="All Products" id="country_product_select" class="chosen-select-deselect" tabindex="-1" style="width:130px">
+                <select data-placeholder="All Products" id="country_product_select" " style="width:130px">
                 <option value=""></option>
 
                 </select>
@@ -197,9 +194,8 @@
 
                  <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-trade-partner tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-                  <select data-placeholder="All Countries" id="country_trade_partner_select" class="chosen-select-deselect" tabindex="-1" style="width:130px;">
+                  <select data-placeholder="All Countries" id="country_trade_partner_select" style="width:130px;">
                     <option value=""></option>
-
                   </select>
               </div>
             </div>
@@ -222,7 +218,7 @@
               <img src="{{ STATIC_URL }}img/home/geo-thumb.png" style="width:38px;"/>
             </label>
 
-            <label value="stacked" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Stacked Graph" >
+            <label value="stacked" class="btn btn-default {% if app_name == 'stacked' %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Stacked Graph" >
               <input type="radio" name="viz_apps">
               <img src="{{ STATIC_URL }}img/home/stacked-thumb.png" style="width:38px;"/>
             </label>
@@ -233,12 +229,12 @@
             </label>
 
             <label value="pie_scatter" class="btn btn-default {% if app_name == 'pie_scatter' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Feasability" >
-              <input type="radio" style="background:url({{ STATIC_URL }}img/home/ProductFeas2-thumb.png) no-repeat;">
-              <img src="{{ STATIC_URL }}img/home/ProductFeas2-thumb.png" style="width:38px;"/>
+              <input type="radio" style="background:url({{ STATIC_URL }}img/home/productFeas2-thumb.png) no-repeat;">
+              <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:38px;"/>
             </label>
 
             {% if app_name == "rings" %}
-            <label value="rings" class="btn btn-default {% if year_interval_list %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Rings" >
+            <label value="rings" class="btn btn-default {% if app_name == "rings" %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Rings" >
               <input type="radio" name="viz_apps">
               <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:38px;"/>
             </label>
@@ -256,119 +252,9 @@
 
           </div>
 
-          <!-- Diversification TAB -->
-<!--           <div class="tab-pane" id="tab-diversification" style="text-align:left; padding:0 25px">
-            <p>Visualization:</p>
-            <div  id="div_apps" data-toggle="buttons" style="margin-top:10px;">
-
-
-            <button value="product_space" type="radio"  title="A map of technological relatedness" toolTip="0" class="divBtn btn btn-default {% if app_name == "product_space" %}active{% endif %}" onclick="update_viz('product_space');">
-
-
-                <img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="height:35px; width:35px;">
-
-
-                <p style="display:inline;">Product Space</p>
-              </button>
-
-              <p style="clear:both"></p><br>
-
-
-              <button title="Opportunities for a country to diversify and potential gains" value="pie_scatter" type="radio" class="divBtn btn btn-default {% if app_name == "pie_scatter" %}active{% endif %}"onclick="update_viz('pie_scatter');">
-
-
-                <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="height:35px; width:35px">
-
-
-                <p style="display:inline;">Product Feasability</p>
-
-              </button>
-
-              {% if app_name == "rings" %}
-              <p style="clear:both"></p><br>
-
-              <button title="Product-centric navigation of the Product Space" value="rings" type="radio" class="divBtn btn btn-default {% if app_name == "rings" %}active{% endif %}"onclick="update_viz('rings');">
-
-
-                <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="height:35px; width:35px">
-
-
-                <p style="display:inline;">Rings</p>
-              </button>
-
-              {% endif %}
-
-            </div>
-
-            <br><br>
-
-          </div> -->
         </div>
       </div>
 
-    <!-- Product Tab -->
-    <div class="tab-pane " id="tab-products">
-      <b style="margin:10px 0px">Select a Product:</b>
-      <div class="dropdown_container" id="product" width="120px" style="margin-left: 10px;" onmouseover="$('.show-product').css('visibility', 'visible');"  onmouseout="$('.show-product').css('visibility', 'hidden');">
-
-        <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-        <select>
-        <option value=""></option>
-
-      </div>
-
-      <!-- Product Trade Flow -->
-      <div style="margin-left: 15p; margin-top:20px; font-weight:bold;">Select a <span class="definition">{% trans "Trade Flow" %}:</div>
-
-      <div class="dropdown_container" id="product-trade-flow" width="120px" style="margin-left: 10px;" onmouseover="$('.show-trade-flow').css('visibility', 'visible');"  onmouseout="$('.show-trade-flow').css('visibility', 'hidden');">
-
-      <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-trade-flow" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-        <select data-url_pos="5">
-          {% for tf in trade_flow_list %}
-          {% if tf.0 == trade_flow %}
-          <option value="{{tf.0}}" selected="selected">{{ tf.1 }}</option>
-          {% else %}
-          <option value="{{tf.0}}">{{ tf.1 }}</option>
-          {% endif %}
-          {% endfor %}
-        </select>
-
-      </div>
-
-      <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px">
-        <li class="active"><a href="#show-country-partner"><span style="font-size:16px;" class="definition">Country</span></a></li>
-      </ul>
-
-          <!-- Tab Trade Partner/Product -->
-          <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px">
-
-            <div class="tab-pane active" id="show-country-product">
-
-              <div id="country-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-country-product').css('visibility', 'visible');"  onmouseout="$('.show-country-product').css('visibility', 'hidden');">
-
-                <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-                <select data-placeholder="All Countries" class="chosen-select-deselect" tabindex="-1" style="display: none;" id="products_country1_select">
-                    <option value="">ALL</option>
-                  {% if country1_list %}
-                    {% for c in country1_list %}
-                      {% if c.id == country1.id %}
-                      <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-                      {% else %}
-                      <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                      {% endif %}
-                    {% endfor %}
-                  {% else %}
-                    {% include "explore/list_countries.html" %}
-                  {% endif %}
-                </select>
-              </div>
-            </div>
-          </div>
-
-    </div> <!-- End Product Tab -->
 
   <!-- END -->
   </div>
@@ -385,8 +271,7 @@
 
         <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh over-time tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top"style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
-        <div id="year1" style="float:left; margin-left:10px;">
-           <select data-url_pos="5" id="year1_select" class="chosen-select-deselect" data-placeholder="All Countries" style="width:80px;">
+           <select id="year1_select" style="margin-left: 10px;">
             {% for y in year1_list %}
             {% if y == year or y == year_start %}
             <option value="{{y}}" selected="selected">{{ y }}</option>
@@ -395,10 +280,8 @@
             {% endif %}
             {% endfor %}
           </select>
-        </div>
 
-        <div id="year2" style="float:left; margin-left:10px;">
-          <select data-placeholder="End" class="chosen-select-deselect" id="year2_select" tabindex="-1" style="display: none;">
+          <select data-placeholder="End " id="year2_select" style="margin-left: 10px;">
             <option value=""></option>
             {% for y in year1_list %}
             {% if y == year_end %}
@@ -408,36 +291,8 @@
             {% endif %}
             {% endfor %}
           </select>
-        </div>
       </div>
 
-<!--       <div class="tab-pane" id="country-over-time">
-
-        <div class="product_class" style="float:left; margin-left:10px;">
-           <select data-url_pos="5" id="year1_select" style="width:80px">
-            {% for y in year1_list %}
-            {% if y == year or y == year_start %}
-            <option value="{{y}}" selected="selected">{{ y }}</option>
-            {% else %}
-            <option value="{{y}}">{{ y }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-
-        <div class="product_class" style="float:left; margin-left:10px;">
-           <select data-url_pos="5" id="year1_select" style="width:80px">
-            {% for y in year1_list %}
-            {% if y == year or y == year_start %}
-            <option value="{{y}}" selected="selected">{{ y }}</option>
-            {% else %}
-            <option value="{{y}}">{{ y }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-
-      </div> -->
     </div>
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs" id="utilityBox">
@@ -516,56 +371,10 @@
       </div>
     </div>
   </div>
+  <button name="button" id="help">Help</button>
 </div> <!-- END app selection pane -->
 {% endif %}
       <!-- the Visualization -->
-    {% if isbrowsemode %}
-    <div id="content" style="width: 95%; min-height:765px;">
-
-			<div style="margin-left: 20px; width: 75%; float:left">
-				<h2>{{ browseStoryName }}</h2>
-				<p>{{ browseStoryDesc }}</p>
-			</div>
-			<div style="float:right;margin-right: 20px;margin-top: 20px;">
-				<button id="endrstory" class="endbstory"
-				onclick="location.href='endbrowsestory/',clearLocalStorage()">Exit</button>
-			</div>
-			<div style="clear:both"></div>
-        <!-- ajax loading gif -->
-        <div id="loader">
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
-          <p>Loading</p>
-        </div>
-        <br />
-        Loading...
-        </div>
-
-        <!-- the canvas for the visualization -->
-        <div id="text_data">
-
-        </div>
-
-        <!-- Container for the visualization -->
-        <div  id="viz" style="width: 100%; min-height:520px">
-        </div>
-
-        <!-- Container for the key/legend -->
-        <div class="key {{prod_class}}" style="min-height:50px"></div>
-			<div style="margin-left: 20px; width: 80%;">
-				<h3 style="margin-bottom: 0px;">{{ browseChapterName }}</h3>
-				<p>{{ browseChapterDesc }}</p>
-			</div>
-		<div class="BrowseNextPrev">
-				<div style="clear: both;"></div>
-				<button id="BrowsePrev" class="BrowsePrev" onclick="checkChapterCount(-1)">Prev</button>
-				<button id="BrowseNext" class="BrowseNext" onclick="checkChapterCount(1)">Next</button>
-				{% if userId %}
-				<a><img src="{{ STATIC_URL }}img/app/like.png" id="likeImage" alt="like" /></a>
-                   <h3 id="likeCount">{{likeCount}} Likes</h3>
-				{% endif %}
-		</div>
-</div>
-    {% else %}
       <div id="content"  class="container" style="width: 750px; min-height:600px;">
         <div class="contentViz">
         <!-- ajax loading gif -->
@@ -717,27 +526,9 @@
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
-
                 <span id="highlight">
-
-                {% if app_type = "casy" or app_type = "ccsy" %}
-                    <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
-                      <option value=""></option>
-
-                    </select>
-
-                 {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
-
-                  <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
-
-                  <option value=""></option>
-
-                </select>
-
-                {% endif %}
-
+                    <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
                 </span>
-
               </div>
 
           </div>
@@ -937,9 +728,9 @@
 
                    function highlight(value) {
 
+                var v = value ? value : $("#highlight_select").select2("val").trim();
               {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
 
-                var v = value ? value : $("#highlight").find(":selected").val().trim();
                 d3.select("#viz").call(chart.highlight([]));
                 d3.select("#viz").call(chart.highlight(v));
 
@@ -950,8 +741,6 @@
               {% endif %}
 
               {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
-
-                var v = value ? value : $("#highlight").find(":selected").val().trim();
 
                 {% if app_type = "casy" %}
 
@@ -982,8 +771,7 @@
 
               function reset_highlight() {
 
-                $("#highlight").find(":selected").prop("selected", false);
-                $("#highlight_select").trigger("chosen:updated");
+                $("#highlight_select").select2("val", "");
                 queryParameters["highlight"] = "";
                 if(queryActivated)
                   updateURLQueryParameters();
@@ -996,41 +784,7 @@
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
 
                 <span id="highlight">
-
-                {% if app_type = "casy" or app_type = "ccsy" %}
-                    <select data-placeholder="All Products" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display:none;" onchange="highlight();" >
-                      <option value=""></option>
-                        {% if product_list %}
-                          {% for p in product_list %}
-                            {% if p.id == product.id %}
-                          <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-                            {% else %}
-                          <option value="{{p.code}}">{{ p.name }}</option>
-                            {% endif %}
-                          {% endfor %}
-                        {% else %}
-                          {% with "explore/list_products_"|add:prod_class|add:".html" as template %}
-                          {% include template %}
-                          {% endwith %}
-                        {% endif %}
-                    </select>
-
-                 {% elif app_type = "csay" or app_type = "cspy" or app_type = "sapy" %}
-
-                  <select data-placeholder="All Countries" id="highlight_select" class="chosen-select-deselect" tabindex="-1" style="display: none;" onchange="highlight();">
-
-                  <option value=""></option>
-                    {% if country1_list %}
-                      {% for c in country1_list %}
-                        <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-                      {% endfor %}
-                    {% else %}
-                      {% include "explore/list_countries.html" %}
-                    {% endif %}
-                </select>
-
-                {% endif %}
-
+                    <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
                 </span>
 
               </div>
@@ -1077,7 +831,6 @@
         <a style=" margin-left:150px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
 
         <div class="language_select" style="float:right; margin-right:150px;">
-
           <div class="text">
             Language:
           </div>
@@ -1094,85 +847,41 @@
          <!--<p id="showMore"><i class='fa fa-caret-down'> More Options</i></p>-->
       </div>
 
-       {% endif %}
 
       <!-- The right pane -->
-      <div id="tool_pane" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media, email, or even create a 'story' and post it to our site." data-toggle="tooltip" data-bootstro-placement="left">
-      {% if isbrowsemode %}
-      {% else %}
-      <div id= "createStoryPlaceHolder">
-        <h4 id="sidebar-create-story" class="tooltipbs" data-toggle="tooltip" data-placement="top" title="Create stories" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 10px 0px; padding: 0 0 2px 0; text-align:center;">Create-a-Story</h4>
+      <div id="tool_pane" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media and email." data-toggle="tooltip" data-bootstro-placement="left">
 
-    		<span class="glyphicon glyphicon-plus-sign tooltipbs" style="color:rgb(60, 59, 55);"data-placement="right" data-toggle="tooltip" {% if not iscreatemode %} title="Create a new story" onclick="showCreateStoryDialog()" {% endif %}  {% if iscreatemode %}  style="color:rgb(60, 59, 55)" title="Story is under construction!" {% endif %}></span>
-        <!--<span class="glyphicon glyphicon-list-alt tooltipbs" data-placement="right" data-toggle="tooltip" title="Browse existing stories"  onclick="window.location.assign('stories/');"></span>-->
-
-        {% if iscreatemode %}
-          <span class="glyphicon glyphicon-plus tooltipbs" data-placement="right" data-toggle="tooltip" onclick="openCreateChapterDialog()" title="Add a new chapter"></span>
-          <span class="glyphicon glyphicon-stop tooltipbs" data-placement="right" data-toggle="tooltip" onclick="endStory()" title="End the story" style="margin-left: 4px"></span>
-        {% endif %}
-
-        <br/>
-        <br/>
-      </div>
-      {% endif %}
-
-    <div id="shareThisPlaceholder">
+    <div id="sharebuttons">
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">Share</h4>
-
-        <a href="#" id="fbShare" class="addthis_button_facebook" data-placement="right" data-toggle="tooltip" title="Share this page with Facebook">
+        {% with current_url=request.build_absolute_uri|iriencode %}
+        <a href="https://facebook.com/sharer.php?u={{current_url}}" target="_blank">
           <i class="fa fa-facebook fa-lg"></i>
         </a>
 
-        <a class="addthis_button_twitter">
+        <a href="https://twitter.com/intent/tweet?url={{current_url}}&text={{title|iriencode}}&via=atlas_facts" target="_blank">
           <i class="fa fa-twitter fa-lg"></i>
         </a>
 
-        <a class="addthis_button_google_plusone_share" >
+        <a href="https://plus.google.com/share?url={{current_url}}">
           <i class="fa fa-google-plus fa-lg"></i>
         </a>
 
-        <a class="addthis_button_email">
+        <a href="mailto:?subject=Atlas of Economic Complexity: {{title}}&body=Take a look here: {{current_url}}">
           <i class="fa fa-envelope fa-lg"></i>
         </a>
-
+        {% endwith %}
     </div>
-     {% if isbrowsemode %}
-     {% else %}
 
-
-	<!--   DOWNLOAD OPTIONS // TO BE IMPLEMENTED SOON
-
-        <div class="control_container" id="download">
-          <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; ; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px">{% trans "Download" %}</h4>
-          <a class="pdf" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PDF</a>
-          <a class="svg" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> SVG</a>
-        <a class="png" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> PNG</a>
-          <a class="csv" href="#"><img src="/{{ STATIC_URL }}img/app/download.png" /> CSV</a>
-       </div>
-	<form class="download" method="POST" action="download/">
-      {% csrf_token %}
-      <input type="hidden" name="url" value="" />
-      <input type="hidden" name="title" value="" />
-      <input type="hidden" name="format" value="svg" />
-      <input type="hidden" name="content" value="" />
-    </form>-->
-  <!--  <div id = "downloadPlaceholder" >
-
+    <form id="download" method="POST" action="{{HTTP_HOST}}download/">
+        {% csrf_token %}
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>
-
-        <div class="control_container tooltipbs" id="download" style="pointer-events: none; cursor: default;" data-placement="right" data-toggle="tooltip" title="Not Available">
-
-          <span class="glyphicon glyphicon-save" style="margin:5px; font-size:18px; color:lightgray"></span>
-         <!-- <a class="pdf" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">PDF</a>
-          <a class="svg" href="#" style="font-size:14px; color:lightgray; margin:4px; text-align:center;">SVG</a>-->
-         <!-- <a class="csv" href="#" style="font-size:14px; color:lightgray; margin:5px; text-align:center;">CSV</a>
-
-         <a class="text" href="#" style="font-size:14px; color:lightgray; margin:3px; text-align:center;"> <span>{% trans "Data" %}</span></a>
-
-        </div>
-
-      -->
-
+        <a id="pdf" href="#">PDF</a>
+        <a id="png" href="#">PNG</a>
+        <a id="svg" href="#">SVG</a>
+        <input type="hidden" id="file_content" name="file_content"/>
+        <input type="hidden" name="file_name" value="{{title}}"/>
+        <input type="hidden" id="file_format" name="file_format" value="svg"/>
+    </form>
 
         <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">Feedback</h4>
 
@@ -1181,18 +890,8 @@
         </a>
 
 
-        {% if displayviz %}
-        <div id="downloadPlaceholder">
-          <span class="dlOption"><a href="{{ displayImage }}"><i class="fa fa-download"></i></a><p>PNG</p></span>
-<!--      <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>SVG</p></span>
-          <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>PDF</p></span>
-          <span class="dlOption"><a href="#"><i class="fa fa-download"></i></a><p>TEXT</p></span> -->
-        </div>
-        {% endif %}
-
     </div>
 
-    {% endif %}
 
       </div> <!-- END Right pane -->
 
@@ -1211,16 +910,16 @@
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
   <script type="text/javascript" src="media/js/explore/dropdowns.js"></script>
+  <script type="text/javascript" src="media/js/searchresults.js"></script>
+  <script type="text/javascript" src="media/js/explore/download.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
-  <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
-  <script src="{{ STATIC_URL }}js/libs/chosen/chosen.jquery.js" ></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
 
   <!-- App -->
   <script src="{{ STATIC_URL }}js/explore/general.js?{{ VERSION }}"></script>
-  <script src="{{ STATIC_URL }}js/story/createStory.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/explore/key.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/explore/timeline.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/explore/controls.js?{{ VERSION }}"></script>
@@ -1320,10 +1019,53 @@
           $("#moreOptions").slideToggle(100);
         });
       </script>
-  {% include "story/init_story.html" %}
+ 
+<script type="text/javascript">
+$(function(){
+        $("#text_title").click(function() {
+            var current_content = $(this).html();
+            var new_input = $("<input type='text' id='text_title' />");
+            new_input.val(current_content);
+            $(this).replaceWith(new_input);
+            new_input.focus();
+            new_input.autocomplete(autocomplete_settings);
+            });
+        });
+</script>
 
 
   <script>
+
+
+// Set up jquery to use django CSRF token
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+
 
   // variables from server
   var app,
@@ -1338,6 +1080,8 @@
     trade_flow = "{{trade_flow}}",
     country1 = "{{country1}}",
     country2 = "{{country2}}",
+    country1_3char = "{{country1_3char}}",
+    country2_3char = "{{country2_3char}}",
     product = "{{product}}",
     item_type = "{{item_type}}",
     prod_or_partner = "{{prod_or_partner}}",
@@ -1352,13 +1096,8 @@
     previous_image = "{{ STATIC_URL }}/img/empty_static.png",
     static_url = "{{STATIC_URL}}";
 
-  // Use chosen plugin to make dropdowns look fancy
-  $(".dropdown_container select").chosen()
-  $(".nesting select").chosen()
   // language select dropdown
-  $(".language_select select").chosen();
-  $(".language_select .chzn-search").hide();
-  $(".language_select select").chosen().change(function(){
+  $(".language_select select").on("change", function(){
     // set session data to new language
     var language = $(this).val();
     window.location = "/set_language/"+language+"/";
@@ -1392,10 +1131,7 @@
     updateURLQueryParameters();
 
     // Put once the visualization is loaded
-    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
-    $("#highlight_select").trigger("chosen:updated")
-    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
-    $("#highlight_select").find('[value="'+queryParameters['highlight']+'"]').prop("selected", true);
+    $("#highlight_select").select2("val", queryParameters['highlight']);
 
 //    $("input[name='level_detail']").prop("selected", false);
 
@@ -1448,52 +1184,13 @@
     // Be sure we came back to the top of the page
     $(this).scrollTop(0);
 
-    $('.chosen-container').css('width', '150px');
-    $('#country1_select_chosen').css('width', '170px');
-    //$('#country1_select_chosen').css('font-size', '18px');
-    $('#year1_select_chosen').css('width', '60px');
-    $('#year2_select_chosen').css('width', '80px');
-
-    $('#country_trade_partner_select_chosen').css('width', '140px');
-    $('#country_product_select_chosen').css('width', '140px');
-
-    $("#country1 select").change(function() {
-      $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
-      $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
-      $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
-      $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
-      $("#country1_select_chosen .chosen-single span").css("color", "black");
-    });
-
-    $("#country-trade-partner select").change(function() {
-      $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$(this).val()+".png') no-repeat");
-      $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
-      $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
-      $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
-    });
-
-  // For some reason, $("#country1_select_chosen select").trigger("chosen:updated"); does not work
-  $("#country1_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country1 select").val()+".png') no-repeat");
-  $("#country1_select_chosen .chosen-single span").css("background-size", "25px");
-  $("#country1_select_chosen .chosen-single span").css("padding-left", "30px");
-  $("#country1_select_chosen .chosen-single span").css("margin-top", "-2px");
-
-  $("#country1_select_chosen .chosen-results").hover(function() {
-    $("#country1_select_chosen .chosen-results").css("color", "black");
-  });
-
-  $("#country_trade_partner_select_chosen .chosen-single span").css("background", "url('{{ STATIC_URL }}img/icons/flag_"+$("#country-trade-partner select").val()+".png') no-repeat");
-  $("#country_trade_partner_select_chosen .chosen-single span").css("background-size", "25px");
-  $("#country_trade_partner_select_chosen .chosen-single span").css("padding-left", "30px");
-  $("#country_trade_partner_select_chosen .chosen-single span").css("margin-top", "-2px");
-
   $('#myTab a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
   })
 
 
-  $("label").click(function(){
+  $("#tfViz label").click(function(){
     return update_viz($(this).attr("value"));
   });
 
@@ -1514,7 +1211,6 @@
     ga('send', 'pageview');
   </script>
 
-   {% include "story/body_story.html" %}
 
 <!-- Activates tooltips /////////////////////////////////////////////////////////////////// -->
 
@@ -1580,5 +1276,4 @@
   });
   </script>
 </body>
-  {% include "story/story_forms.html" %}
 </html>
