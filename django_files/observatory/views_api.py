@@ -95,7 +95,6 @@ def api_casy(request, trade_flow, country1, year):
     else:
         rows = list(items)
         total_val = sum([r[7] for r in rows])
-        """Add percentage value to return vals"""
         rows = [{"year": r[0], "item_id": r[1], "abbrv": r[2], "name": r[3],
                  "value": r[7], "rca": r[8], "distance": r[9], "opp_gain":
                  r[10], "pci": r[11], "share": (r[7] / total_val) * 100,
@@ -136,127 +135,16 @@ def api_sapy(request, trade_flow, product, year):
                                                      'hs4'))
     lang = request.GET.get("lang",
                            request.session.get('django_language', 'en'))
-    crawler = request.GET.get("_escaped_fragment_", False)
+    name = "name_%s" % lang
+    single_year = 'single_year' in request.GET
     product = helpers.get_product_by_code(product, prod_class)
-    # Set product code to product
-    product_code = product.code
+
     """Set query params with our changes"""
     query_params = request.GET.copy()
     query_params["lang"] = lang
     query_params["product_classification"] = prod_class
-    # Get app_name from session
-    app_name = request.session[
-        'app_name'] if 'app_name' in request.session else ""
-    # Setup the hash dictionary
-    request_hash_dictionary = collections.OrderedDict()
-    # Add prod class to request hash dictionary
-    request_hash_dictionary['app_name'] = app_name
-    request_hash_dictionary['lang'] = lang
-    request_hash_dictionary['prod_class'] = prod_class
-    # Add the arguments to the request hash dictionary
-    request_hash_dictionary['trade_flow'] = trade_flow
-    request_hash_dictionary['country1'] = 'show'
-    request_hash_dictionary['country2'] = 'all'
-    request_hash_dictionary['product_dispaly'] = product_code
-    request_hash_dictionary['year'] = year
-    # We are here, so let us store this data somewhere
-    request_hash_string = "_".join(request_hash_dictionary.values())
-
-    # Setup the store data
-    store_data = request.build_absolute_uri().replace(
-        "product_classification", "prod_class") + "||"
-    store_page_url = request.build_absolute_uri().replace("/api/", "/explore/"
-                                                          + app_name + "/")
-    store_page_url = store_page_url.replace("data_type=json", "headless=true")
-    store_page_url = store_page_url.replace("product_classification",
-                                            "prod_class")
-    store_data = store_data + store_page_url + "||"
-    store_data = store_data + request_hash_string
-
-    # Write the store data to file
-    store_file = open(
-        settings.DATA_FILES_PATH +
-        "/" +
-        request_hash_string +
-        ".store",
-        "w+")
-    store_file.write(store_data)
-    store_file.close()
-
-    if (os.path.exists(settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg") is True):
-        # Check the request data type
-        if (request.GET.get('data_type', None) is None):
-            # Let us get the data from the file
-            response_json_data = open(
-                settings.DATA_FILES_PATH +
-                "/" +
-                request_hash_string +
-                ".svg",
-                "r")
-
-            # Set the return data
-            returnData = response_json_data.read()
-
-            #"""Return to browser as JSON for AJAX request"""
-            return HttpResponse(returnData)
-        elif (request.GET.get('data_type', '') == 'json'):
-            # Check if we have the valid json file
-            if (os.path.exists(settings.DATA_FILES_PATH + "/" + request_hash_string + ".json") is True):
-                # Let us get the data from the file
-                response_json_data = open(
-                    settings.DATA_FILES_PATH +
-                    "/" +
-                    request_hash_string +
-                    ".json",
-                    "r")
-
-                # Set the return data
-                returnData = response_json_data.read()
-
-                #"""Return to browser as JSON for AJAX request"""
-                return HttpResponse(returnData)
-
-    '''Grab extraneous details'''
-    # Clasification & Django Data Call
-    name = "name_%s" % lang
-
-    '''Grab extraneous details'''
-    if prod_class == "sitc4":
-        # attr_list = list(Sitc4.objects.all().values('code','name','color'))
-        attr_list = list(
-            Sitc4.objects.all().values(
-                'code',
-                name,
-                'id',
-                'color'))
-        attr = {}
-        for i in attr_list:
-            attr[
-                i['code']] = {
-                'code': i['code'],
-                'name': i[name],
-                'color': i['color']}
-           #.extra(where=['CHAR_LENGTH(code) = 2'])
-    elif prod_class == "hs4":
-        # attr_list = list(Hs4.objects.all().values('code','name'))
-        # #.extra(where=['CHAR_LENGTH(code) = 2'])
-        attr_list = list(
-            Hs4.objects.all().values(
-                'code',
-                name,
-                'id',
-                'community_id__color'))
-        attr = {}
-        for i in attr_list:
-            attr[
-                i['code']] = {
-                'code': i['code'],
-                'name': i[name],
-                'item_id': i['id'],
-                'color': i['community_id__color']}
 
     # Create dictionary of region codes
-    # .extra(where=['CHAR_LENGTH(code) = 2'])
     region_list = list(Country_region.objects.all().values())
     region = {}
     for i in region_list:
@@ -268,8 +156,10 @@ def api_sapy(request, trade_flow, product, year):
     for i, k in enumerate(continent_list):
         continents[k['continent']] = i*1000
 
+    attr = helpers.get_attrs(prod_class=prod_class, name=name)
+
     """Define parameters for query"""
-    year_where = "AND year = %s" % (year,) if crawler == "" else " "
+    year_where = "AND year = %s" % (year,) if single_year else " "
     rca_col = "null"
     if trade_flow == "net_export":
         val_col = "export_value - import_value as val"
@@ -291,65 +181,28 @@ def api_sapy(request, trade_flow, product, year):
     ORDER BY val DESC
     """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, product.id, year_where)
 
-    """Prepare JSON response"""
     json_response = {}
 
-    """Check cache"""
-    if settings.REDIS:
-        # raw = get_redis_connection('default')
-        raw = redis.Redis("localhost")
-        key = "%s:%s:%s:%s:%s" % ("show",
-                                  "all",
-                                  product.id,
-                                  prod_class,
-                                  trade_flow)
-        # See if this key is already in the cache
-        cache_query = raw.get(key)
-        if (cache_query is None):
-            rows = raw_q(query=q, params=None)
-            total_val = sum([r[6] for r in rows])
-             # raise Exception(total_val)
-            """Add percentage value to return vals"""
-            # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
-            rows = [
-                {"year": r[0], "item_id": r[1], "abbrv": r[2], "name": r[3],
+    # Generate cache key
+    key = "%s:%s:%s:%s:%s" % ("show", "all", product.id, prod_class,
+                              trade_flow)
+    if single_year:
+        key += ":%d" % int(year)
+
+    # Check cache
+    cached_data = cache.get(key)
+    if cached_data is not None:
+        json_response["data"] = msgpack.loads(cached_data)
+    else:
+        rows = raw_q(query=q, params=None)
+        total_val = sum([r[6] for r in rows])
+        rows = [{"year": r[0], "item_id": r[1], "abbrv": r[2], "name": r[3],
                  "value": r[6], "rca": r[7], "share": (r[6] / total_val) * 100,
                  "id": r[1], "region_id": r[4], "continent": r[5]}
                 for r in rows]
 
-            if crawler == "":
-                return [
-                    rows, total_val, [
-                        "#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
-
-            json_response["data"] = rows
-
-            # SAVE key in cache.
-            raw.set(key, msgpack.dumps(rows))
-
-        else:
-            # If already cached, now simply retrieve
-            encoded = cache_query
-            decoded = msgpack.loads(encoded)
-            json_response["data"] = decoded
-
-    else:
-        rows = raw_q(query=q, params=None)
-        total_val = sum([r[6] for r in rows])
-        # raise Exception(total_val)
-        """Add percentage value to return vals"""
-        # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
-        rows = [
-            {"year": r[0], "item_id": r[1], "abbrv": r[2], "name": r[3],
-             "value": r[6], "rca": r[7], "share": (r[6] / total_val) * 100,
-             "id": r[1], "region_id": r[4], "continent": r[5]}
-            for r in rows]
-
-        if crawler == "":
-            return [
-                rows, total_val, [
-                    "#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
-
+        # Save in cache
+        cache.set(key, msgpack.dumps(rows))
         json_response["data"] = rows
 
     json_response["attr_data"] = Country.objects.get_all(lang)
@@ -364,20 +217,7 @@ def api_sapy(request, trade_flow, product, year):
     json_response["continents"] = continents
     json_response["other"] = query_params
 
-    if not os.path.exists(settings.DATA_FILES_PATH + "/" + request_hash_string + ".json"):
-        response_json_file = open(
-            settings.DATA_FILES_PATH +
-            "/" +
-            request_hash_string +
-            ".json",
-            "w+")
-        response_json_file.write(json.dumps(json_response))
-        response_json_file.close()
-
-    # raise Exception(time.time() - start)
-    # Check the request data type
     if (request.GET.get('data_type', None) is None):
-        #"""Return to browser as JSON for AJAX request"""
         return HttpResponse("")
     elif (request.GET.get('data_type', '') == 'json'):
         """Return to browser as JSON for AJAX request"""
