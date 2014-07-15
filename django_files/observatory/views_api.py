@@ -22,6 +22,24 @@ else:
     DB_PREFIX = settings.DB_PREFIX
 
 
+def calculate_export_value_rca(items, trade_flow="export"):
+    """Given a cpy queryset and trade flow value, calculate trade flow value
+    and rca."""
+    if trade_flow == "net_export":
+        items = items.extra(select={'val': 'export_value - import_value',
+                                    'rca': 'export_rca'})
+    elif trade_flow == "net_import":
+        items = items.extra(select={'val': 'import_value - export_value',
+                                    'rca': 'null'})
+    elif trade_flow == "export":
+        items = items.extra(select={'val': 'export_value',
+                            'rca': 'export_rca'})
+    else:
+        items = items.extra(select={'val': 'import_value',
+                            'rca': 'null'})
+    return items
+
+
 def api_casy(request, trade_flow, country1, year):
     """<COUNTRY> / all / show / <YEAR>"""
 
@@ -51,19 +69,7 @@ def api_casy(request, trade_flow, country1, year):
     else:
         items = Hs4_cpy.objects
 
-    # Export value and rca changes based on trade flow
-    if trade_flow == "net_export":
-        items = items.extra(select={'val': 'export_value - import_value',
-                                    'rca': 'export_rca'})
-    elif trade_flow == "net_import":
-        items = items.extra(select={'val': 'import_value - export_value',
-                                    'rca': 'null'})
-    elif trade_flow == "export":
-        items = items.extra(select={'val': 'export_value',
-                            'rca': 'export_rca'})
-    else:
-        items = items.extra(select={'val': 'import_value',
-                            'rca': 'null'})
+    items = calculate_export_value_rca(items, trade_flow=trade_flow)
 
     # TODO: get this from lang variable and sanitize
     items = items.extra(select={'name': 'name_en'})
@@ -147,28 +153,24 @@ def api_sapy(request, trade_flow, product, year):
     continents = helpers.get_continent_list()
     attr = helpers.get_attrs(prod_class=prod_class, name=name)
 
-    """Define parameters for query"""
-    year_where = "AND year = %s" % (year,) if single_year else " "
-    rca_col = "null"
-    if trade_flow == "net_export":
-        val_col = "export_value - import_value as val"
-        rca_col = "export_rca"
-    elif trade_flow == "net_import":
-        val_col = "import_value - export_value as val"
-    elif trade_flow == "export":
-        val_col = "export_value as val"
-        rca_col = "export_rca"
+    if prod_class == "sitc4":
+        items = Sitc4_cpy.objects
     else:
-        val_col = "import_value as val"
+        items = Hs4_cpy.objects
 
-    """Create query [year, id, abbrv, name_lang, val, export_rca]"""
-    q = """
-    SELECT year, c.id, c.name_3char, c.name_%s, c.region_id, c.continent, %s, %s
-    FROM %sobservatory_%s_cpy as cpy, %sobservatory_country as c
-    WHERE product_id=%s and cpy.country_id = c.id %s
-    HAVING val > 0
-    ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, product.id, year_where)
+    items = calculate_export_value_rca(items, trade_flow=trade_flow)
+
+    # TODO: get this from lang variable and sanitize
+    items = items.extra(select={'name': 'name_en'})
+
+    items = items.values_list('year', 'country__id', 'country__name_3char',
+                              'name', 'country__region_id',
+                              'country__continent', 'val', 'rca')
+
+    if single_year:
+        items = items.filter(year=year)
+
+    items = items.filter(product_id=product.id)
 
     json_response = {}
 
@@ -183,7 +185,7 @@ def api_sapy(request, trade_flow, product, year):
     if cached_data is not None:
         json_response["data"] = msgpack.loads(cached_data)
     else:
-        rows = raw_q(query=q, params=None)
+        rows = list(items)
         total_val = sum([r[6] for r in rows])
         rows = [{"year": r[0], "item_id": r[1], "abbrv": r[2], "name": r[3],
                  "value": r[6], "rca": r[7], "share": (r[6] / total_val) * 100,
