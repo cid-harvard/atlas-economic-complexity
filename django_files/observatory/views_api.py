@@ -4,10 +4,11 @@ import json
 
 from django.core.cache import cache
 from django.conf import settings
+from django.db import connection
 from django.http import HttpResponse
 
 from observatory.models import (Country, Country_region, Cy, Hs4, Hs4_py,
-                                Hs4_cpy, Sitc4, Sitc4_py, Sitc4_cpy)
+                                Hs4_cpy, Sitc4, Sitc4_py, Sitc4_cpy, Hs4_ccpy, Sitc4_ccpy)
 from observatory.models import raw_q
 from observatory import helpers
 
@@ -22,22 +23,29 @@ else:
     DB_PREFIX = settings.DB_PREFIX
 
 
-def calculate_export_value_rca(items, trade_flow="export"):
+
+def calculate_export_value_rca(items, trade_flow="export", sum_val=False):
     """Given a cpy queryset and trade flow value, calculate trade flow value
-    and rca."""
+    and rca.
+
+    :param sum_val: If true, aggregate sum the trade flow value
+    """
+
     if trade_flow == "net_export":
-        items = items.extra(select={'val': 'export_value - import_value',
-                                    'rca': 'export_rca'})
+        select_dict = {'val': 'export_value - import_value',
+                       'rca': 'export_rca'}
     elif trade_flow == "net_import":
-        items = items.extra(select={'val': 'import_value - export_value',
-                                    'rca': 'null'})
+        select_dict = {'val': 'import_value - export_value',
+                       'rca': 'null'}
     elif trade_flow == "export":
-        items = items.extra(select={'val': 'export_value',
-                            'rca': 'export_rca'})
+        select_dict = {'val': 'export_value', 'rca': 'export_rca'}
     else:
-        items = items.extra(select={'val': 'import_value',
-                            'rca': 'null'})
-    return items
+        select_dict = {'val': 'import_value', 'rca': 'null'}
+
+    if sum_val:
+        select_dict['val'] = "sum(%s)" % select_dict['val']
+
+    return items.extra(select=select_dict)
 
 
 def api_casy(request, trade_flow, country1, year):
@@ -229,25 +237,23 @@ def api_csay(request, trade_flow, country1, year):
     region = helpers.get_region_list()
     continents = helpers.get_continent_list()
 
-    year_where = "AND year = %s" % (year,) if single_year == "" else " "
-    rca_col = "null"
-    if trade_flow == "net_export":
-        val_col = "SUM(export_value - import_value) as val"
-    elif trade_flow == "net_import":
-        val_col = "SUM(import_value - export_value) as val"
-    elif trade_flow == "export":
-        val_col = "SUM(export_value) as val"
+    if prod_class == "sitc4":
+        items = Sitc4_ccpy.objects
     else:
-        val_col = "SUM(import_value) as val"
+        items = Hs4_ccpy.objects
 
-    q = """
-    SELECT year, c.id, c.name_3char, c.name_%s, c.region_id, c.continent, %s, %s
-    FROM %sobservatory_%s_ccpy as ccpy, %sobservatory_country as c
-    WHERE origin_id=%s and ccpy.destination_id = c.id %s
-    GROUP BY year, destination_id
-    HAVING val > 0
-    ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, country1.id, year_where)
+    items = calculate_export_value_rca(items, trade_flow=trade_flow,
+                                       sum_val=True)
+
+    # TODO: get this from lang variable and sanitize
+    items = items.extra(select={'name': 'name_en'})
+
+    items = items.values_list('year', 'destination__id',
+                              'destination__name_3char', 'name',
+                              'destination__region_id',
+                              'destination__continent', 'val', 'rca')
+
+    items = items.filter(origin_id=country1.id)
 
     json_response = {}
 
@@ -258,15 +264,22 @@ def api_csay(request, trade_flow, country1, year):
     if cached_data is not None:
         json_response["data"] = msgpack.loads(cached_data)
     else:
-        rows = raw_q(query=q, params=None)
-        total_val = sum([r[6] for r in rows])
+        # This might possibly be the most disgusting hack ever made, simply
+        # because when doing an aggregate (like SUM()) in extra, django does
+        # not add that stuff correctly into the group by. It's also not
+        # possible to use annotate() here because it's a complex aggregate that
+        # uses addition / subtraction. C'est la vie :(
+        cursor = connection.cursor()
+        cursor.execute(str(items.query) + "group by `year`, `destination_id`")
+        rows = cursor.fetchall()
+        total_val = sum([r[1] for r in rows])
 
         """Add percentage value to return vals"""
         # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
         rows = [
-            {"year": r[0], "item_id": r[1], "abbrv": r[2], "name": r[3],
-             "value": r[6], "rca": r[7], "share": (r[6] / total_val) * 100,
-             "id": r[1], "region_id": r[4], "continent": r[5]}
+            {"year": r[3], "item_id": r[4], "abbrv": r[5], "name": r[2],
+             "value": r[1], "rca": r[0], "share": (r[1] / total_val) * 100,
+             "id": r[1], "region_id": r[6], "continent": r[7]}
             for r in rows]
 
         cache.set(key, msgpack.dumps(rows))
