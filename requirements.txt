@@ -1,4 +1,4 @@
-Django==1.4.5
+Django==1.6.5
 MySQL-python
 msgpack-python
 pycrypto==2.6.1
