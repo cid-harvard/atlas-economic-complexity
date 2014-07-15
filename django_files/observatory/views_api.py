@@ -215,112 +215,21 @@ def api_sapy(request, trade_flow, product, year):
         return HttpResponse(json.dumps(json_response))
 
 
-'''<COUNTRY> / show / product / <YEAR>'''
 def api_csay(request, trade_flow, country1, year):
+    """<COUNTRY> / show / product / <YEAR>"""
+
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
     lang = request.GET.get("lang",
                            request.session.get('django_language', 'en'))
-    crawler = request.GET.get("_escaped_fragment_", False)
+    single_year = "single_year" in request.GET
     country1 = Country.objects.get(name_3char=country1)
-    # Get app_name from session
-    app_name = request.session[
-        'app_name'] if 'app_name' in request.session else ""
-    """Set query params with our changes"""
-    query_params = request.GET.copy()
-    query_params["lang"] = lang
-    query_params["product_classification"] = prod_class
-    # Setup the hash dictionary
-    request_hash_dictionary = collections.OrderedDict()
-    # Setup the hash dictionary
-    request_hash_dictionary = collections.OrderedDict()
-    # Add prod class to request hash dictionary
-    request_hash_dictionary['app_name'] = app_name
-    request_hash_dictionary['lang'] = lang
-    request_hash_dictionary['prod_class'] = prod_class
-    # Add the arguments to the request hash dictionary
-    request_hash_dictionary['trade_flow'] = trade_flow
-    request_hash_dictionary['country1'] = country1.name_3char.lower()
-    request_hash_dictionary['product_dispaly'] = 'show'
-    request_hash_dictionary['country2'] = 'all'
-    request_hash_dictionary['year'] = year
 
-    # We are here, so let us store this data somewhere
-    request_hash_string = "_".join(request_hash_dictionary.values())
+    region = helpers.get_region_list()
+    continents = helpers.get_continent_list()
 
-    # Setup the store data
-    store_data = request.build_absolute_uri().replace(
-        "product_classification",
-        "prod_class") + "||"
-    store_page_url = request.build_absolute_uri().replace(
-        "/api/",
-        "/explore/" +
-        app_name +
-        "/")
-    store_page_url = store_page_url.replace("data_type=json", "headless=true")
-    store_page_url = store_page_url.replace(
-        "product_classification",
-        "prod_class")
-    store_data = store_data + store_page_url + "||"
-    store_data = store_data + request_hash_string
-
-    # Write the store data to file
-    store_file = open(
-        settings.DATA_FILES_PATH +
-        "/" +
-        request_hash_string +
-        ".store",
-        "w+")
-    store_file.write(store_data)
-    store_file.close()
-
-    if (os.path.exists(settings.DATA_FILES_PATH + "/" + request_hash_string + ".svg") is True):
-        # Check the request data type
-        if (request.GET.get('data_type', None) is None):
-            # Let us get the data from the file
-            response_json_data = open(
-                settings.DATA_FILES_PATH +
-                "/" +
-                request_hash_string +
-                ".svg",
-                "r")
-
-            # Set the return data
-            returnData = response_json_data.read()
-
-            #"""Return to browser as JSON for AJAX request"""
-            return HttpResponse(returnData)
-        elif (request.GET.get('data_type', '') == 'json'):
-            # Check if we have the valid json file
-            if (os.path.exists(settings.DATA_FILES_PATH + "/" + request_hash_string + ".json") is True):
-                # Let us get the data from the file
-                response_json_data = open(
-                    settings.DATA_FILES_PATH +
-                    "/" +
-                    request_hash_string +
-                    ".json",
-                    "r")
-
-                # Set the return data
-                returnData = response_json_data.read()
-
-                #"""Return to browser as JSON for AJAX request"""
-                return HttpResponse(returnData)
-    '''Grab extraneous details'''
-    region_list = list(
-        Country_region.objects.all().values())  # .extra(where=['CHAR_LENGTH(code) = 2'])
-    region = {}
-    for i in region_list:
-        region[i['id']] = i
-
-    continent_list = list(Country.objects.all().distinct().values('continent'))
-    continents = {}
-    for i, k in enumerate(continent_list):
-        continents[k['continent']] = i*1000
-
-    """Define parameters for query"""
-    year_where = "AND year = %s" % (year,) if crawler == "" else " "
+    year_where = "AND year = %s" % (year,) if single_year == "" else " "
     rca_col = "null"
     if trade_flow == "net_export":
         val_col = "SUM(export_value - import_value) as val"
@@ -331,7 +240,6 @@ def api_csay(request, trade_flow, country1, year):
     else:
         val_col = "SUM(import_value) as val"
 
-    '''Create query [year, id, abbrv, name_lang, val, rca]'''
     q = """
     SELECT year, c.id, c.name_3char, c.name_%s, c.region_id, c.continent, %s, %s
     FROM %sobservatory_%s_ccpy as ccpy, %sobservatory_country as c
@@ -341,44 +249,14 @@ def api_csay(request, trade_flow, country1, year):
     ORDER BY val DESC
     """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, country1.id, year_where)
 
-    """Prepare JSON response"""
     json_response = {}
 
-    """Check cache"""
-    if settings.REDIS:
-        raw = redis.Redis("localhost")
-        key = "%s:%s:%s:%s:%s" % (
-            country1.name_3char, "show", "all", prod_class, trade_flow)
-        # See if this key is already in the cache
-        cache_query = raw.get(key)
-        if (cache_query is None):
-            rows = raw_q(query=q, params=None)
-            total_val = sum([r[6] for r in rows])
+    key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", "all", prod_class,
+                              trade_flow)
 
-            """Add percentage value to return vals"""
-            # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
-            rows = [
-                {"year": r[0], "item_id": r[1], "abbrv": r[2], "name": r[3],
-                 "value": r[6], "rca": r[7], "share": (r[6] / total_val) * 100,
-                 "id": r[1], "region_id": r[4], "continent": r[5]}
-                for r in rows]
-
-            if crawler == "":
-                return [
-                    rows, total_val, [
-                        "#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
-
-            json_response["data"] = rows
-
-            # SAVE key in cache.
-            raw.set(key, msgpack.dumps(rows))
-
-        else:
-            # If already cached, now simply retrieve
-            encoded = cache_query
-            decoded = msgpack.loads(encoded)
-            json_response["data"] = decoded
-
+    cached_data = cache.get(key)
+    if cached_data is not None:
+        json_response["data"] = msgpack.loads(cached_data)
     else:
         rows = raw_q(query=q, params=None)
         total_val = sum([r[6] for r in rows])
@@ -391,40 +269,21 @@ def api_csay(request, trade_flow, country1, year):
              "id": r[1], "region_id": r[4], "continent": r[5]}
             for r in rows]
 
-        if crawler == "":
-            return [
-                rows, total_val, [
-                    "#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
-
+        cache.set(key, msgpack.dumps(rows))
         json_response["data"] = rows
 
-    # get distince years from db, different for diff product classifications
-    years_available = sorted(
-        list(
-            Sitc4_cpy.objects.values_list(
-                "year",
-                flat=True).distinct()) if prod_class == "sitc4" else list(
-            Hs4_cpy.objects.values_list(
-                "year",
-                flat=True).distinct()))
+    years_available = helpers.get_years_available()
+    magic_numbers = helpers.get_inflation_adjustment(country1,
+                                                     years_available[0],
+                                                     years_available[-1])
 
-    magic = Cy.objects.filter(country=country1.id,
-                              year__range=(years_available[0],
-                                           years_available[-1])).values('year',
-                                                                        'pc_constant',
-                                                                        'pc_current',
-                                                                        'notpc_constant')
-    magic_numbers = {}
-    for i in magic:
-        magic_numbers[i['year']] = {"pc_constant": i['pc_constant'],
-                                    "pc_current": i['pc_current'],
-                                    "notpc_constant": i["notpc_constant"]}
-
-    """Set article variable for question """
-    article = "to" if trade_flow == "export" else "from"
+    query_params = request.GET.copy()
+    query_params["lang"] = lang
+    query_params["product_classification"] = prod_class
 
     json_response["attr_data"] = Country.objects.get_all(lang)
     json_response["country1"] = country1.to_json()
+    article = "to" if trade_flow == "export" else "from"
     json_response["title"] = "Where does %s %s %s?" % (
         country1.name, trade_flow, article)
     json_response["year"] = year
