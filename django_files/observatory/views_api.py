@@ -35,7 +35,6 @@ def api_casy(request, trade_flow, country1, year):
     single_year = 'single_year' in request.GET
     country1 = Country.objects.get(name_3char=country1)
 
-    '''Set query params with our changes'''
     query_params = request.GET.copy()
     query_params["lang"] = lang
     query_params["product_classification"] = prod_class
@@ -128,8 +127,9 @@ def api_casy(request, trade_flow, country1, year):
 
 
 def api_sapy(request, trade_flow, product, year):
-    # Setup the hash dictionary
-    """Init variables"""
+    """show / all / <product> / <year>"""
+
+    # Get session / request vars
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
@@ -139,23 +139,12 @@ def api_sapy(request, trade_flow, product, year):
     single_year = 'single_year' in request.GET
     product = helpers.get_product_by_code(product, prod_class)
 
-    """Set query params with our changes"""
     query_params = request.GET.copy()
     query_params["lang"] = lang
     query_params["product_classification"] = prod_class
 
-    # Create dictionary of region codes
-    region_list = list(Country_region.objects.all().values())
-    region = {}
-    for i in region_list:
-        region[i['id']] = i
-
-    # Create dictinoary for continent groupings
-    continent_list = list(Country.objects.all().distinct().values('continent'))
-    continents = {}
-    for i, k in enumerate(continent_list):
-        continents[k['continent']] = i*1000
-
+    region = helpers.get_region_list()
+    continents = helpers.get_continent_list()
     attr = helpers.get_attrs(prod_class=prod_class, name=name)
 
     """Define parameters for query"""

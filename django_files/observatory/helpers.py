@@ -3,7 +3,7 @@ from django.conf import settings
 from cache_utils.decorators import cached
 
 from observatory.models import (Hs4_cpy, Sitc4_cpy, Country, Hs4, Sitc4,
-                                Sitc4_py, Hs4_py, Cy)
+                                Sitc4_py, Hs4_py, Cy, Country_region)
 
 
 # make sure app name is in the list of possible apps
@@ -308,3 +308,21 @@ def get_inflation_adjustment(country, first_year, last_year):
             "pc_current": year['pc_current'],
             "notpc_constant": year["notpc_constant"]}
     return magic_numbers
+
+
+#@cached(settings.CACHE_VERY_LONG)
+def get_region_list():
+    region_list = list(Country_region.objects.all().values())
+    region = {}
+    for i in region_list:
+        region[i['id']] = i
+    return region
+
+
+#@cached(settings.CACHE_VERY_LONG)
+def get_continent_list():
+    continent_list = list(Country.objects.all().distinct().values('continent'))
+    continents = {}
+    for i, k in enumerate(continent_list):
+        continents[k['continent']] = i*1000
+    return continents
