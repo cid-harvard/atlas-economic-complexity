@@ -339,43 +339,39 @@ def api_ccsy(request, trade_flow, country1, country2, year):
 
     attr = helpers.get_attrs(prod_class=prod_class, name=name)
 
-    '''Define parameters for query'''
-    year_where = "AND year = %s" % (year,) if single_year else " "
-    rca_col = "null"
-    if trade_flow == "net_export":
-        val_col = "(export_value - import_value) as val"
-    elif trade_flow == "net_import":
-        val_col = "(import_value - export_value) as val"
-    elif trade_flow == "export":
-        val_col = "export_value as val"
+    if prod_class == "sitc4":
+        items = Sitc4_ccpy.objects
     else:
-        val_col = "import_value as val"
+        items = Hs4_ccpy.objects
 
-    '''Create query'''
-    q = """
-    SELECT year, p.id, p.code, p.name_%s, p.community_id, c.name, c.color, %s, %s
-    FROM %sobservatory_%s_ccpy as ccpy, %sobservatory_%s as p, %sobservatory_%s_community as c
-    WHERE origin_id=%s and destination_id=%s and ccpy.product_id = p.id and p.community_id = c.id %s
-    HAVING val > 0
-    ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX,
-           prod_class, DB_PREFIX, prod_class, country1.id, country2.id,
-           year_where)
+    items = calculate_export_value_rca(items, trade_flow=trade_flow)
+
+    # TODO: get this from lang variable and sanitize
+    items = items.extra(select={'name': 'name_en'})
+
+    items = items.values_list('year', 'product__id', 'product__code',
+                              'name', 'product__community_id',
+                              'product__community__name',
+                              'product__community__color', 'val', 'rca')
+
+    if single_year:
+        items = items.filter(year=year)
+
+    items = items.filter(origin_id=country1.id, destination_id=country2.id)
 
     json_response = {}
 
-    key = "%s:%s:%s:%s:%s" % (country1.name_3char, country2.name_3char,
-                              "show", prod_class, trade_flow)
+    key = "%s:%s:%s:%s:%s" % (country1.name_3char, country2.name_3char, "show",
+                              prod_class, trade_flow)
 
     cached_data = cache.get(key)
     if cached_data is not None:
         json_response["data"] = msgpack.loads(cached_data)
     else:
-        rows = raw_q(query=q, params=None)
+        rows = list(items)
         total_val = sum([r[7] for r in rows])
 
         """Add percentage value to return vals"""
-        # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
         rows = [{"year": r[0],
                  "item_id":r[1],
                  "abbrv":r[2],
