@@ -436,27 +436,21 @@ def api_cspy(request, trade_flow, country1, product, year):
     region = helpers.get_region_list()
     continents = helpers.get_continent_list()
 
-    '''Define parameters for query'''
-    year_where = "AND year = %s" % (year,) if single_year else " "
-    rca_col = "null"
-    if trade_flow == "net_export":
-        val_col = "(export_value - import_value) as val"
-    elif trade_flow == "net_import":
-        val_col = "(import_value - export_value) as val"
-    elif trade_flow == "export":
-        val_col = "export_value as val"
+    if prod_class == "sitc4":
+        items = Sitc4_ccpy.objects
     else:
-        val_col = "import_value as val"
+        items = Hs4_ccpy.objects
 
-    '''Create query'''
-    q = """
-    SELECT year, c.id, c.name_3char, c.name_%s, c.region_id, c.continent, %s, %s
-    FROM %sobservatory_%s_ccpy as ccpy, %sobservatory_country as c
-    WHERE origin_id=%s and ccpy.product_id=%s and ccpy.destination_id = c.id %s
-    GROUP BY year, destination_id
-    HAVING val > 0
-    ORDER BY val DESC
-    """ % (lang, val_col, rca_col, DB_PREFIX, prod_class, DB_PREFIX, country1.id, product.id, year_where)
+    items = calculate_export_value_rca(items, trade_flow)
+    items = items.extra(select={'name': 'name_en'})
+    items = items.values_list('year', 'destination__id',
+                              'destination__name_3char', 'name',
+                              'destination__region_id',
+                              'destination__continent', 'val', 'rca')
+    items = items.filter(origin_id=country1.id, product_id=product.id)
+
+    if single_year:
+        items = items.filter(year=year)
 
     json_response = {}
 
@@ -467,7 +461,7 @@ def api_cspy(request, trade_flow, country1, product, year):
     if cached_data is not None:
         json_response['data'] = msgpack.loads(cached_data)
     else:
-        rows = raw_q(query=q, params=None)
+        rows = list(items)
         total_val = sum([r[6] for r in rows])
 
         rows = [
@@ -501,5 +495,4 @@ def api_cspy(request, trade_flow, country1, product, year):
     if (request.GET.get('data_type', None) is None):
         return HttpResponse("")
     elif (request.GET.get('data_type', '') == 'json'):
-        """Return to browser as JSON for AJAX request"""
         return HttpResponse(json.dumps(json_response))
