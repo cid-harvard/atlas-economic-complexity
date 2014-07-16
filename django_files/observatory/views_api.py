@@ -224,7 +224,7 @@ def api_sapy(request, trade_flow, product, year):
 
 
 def api_csay(request, trade_flow, country1, year):
-    """<COUNTRY> / show / product / <YEAR>"""
+    """<COUNTRY> / show / all / <YEAR>"""
 
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
@@ -279,7 +279,7 @@ def api_csay(request, trade_flow, country1, year):
         rows = [
             {"year": r[3], "item_id": r[4], "abbrv": r[5], "name": r[2],
              "value": r[1], "rca": r[0], "share": (r[1] / total_val) * 100,
-             "id": r[1], "region_id": r[6], "continent": r[7]}
+             "id": r[4], "region_id": r[6], "continent": r[7]}
             for r in rows]
 
         cache.set(key, msgpack.dumps(rows))
