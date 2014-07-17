@@ -79,8 +79,13 @@ def get_rankings(category, year):
     if category == "country":
         year_rankings = Cy.objects\
             .filter(
-                year__in=[year, year - 1],
-                eci_rank__isnull=False)\
+                year__in=[year, year - 1]
+            )\
+            .exclude(eci_rank__isnull=True)\
+            .exclude(country__name_3char__isnull=True)\
+            .exclude(country__name_2char__isnull=True)\
+            .exclude(country__region__isnull=True)\
+            .exclude(eci_rank=0)\
             .values_list(
                 "eci_rank",
                 "country__name_3char",
@@ -91,6 +96,8 @@ def get_rankings(category, year):
         year_rankings = Hs4_py.objects\
             .filter(
                 year__in=[year, year - 1])\
+            .exclude(pci_rank__isnull=True)\
+            .exclude(pci_rank=0)\
             .values_list(
                 "pci_rank",
                 "product__code",
