@@ -310,7 +310,7 @@ def get_inflation_adjustment(country, first_year, last_year):
     return magic_numbers
 
 
-#@cached(settings.CACHE_VERY_LONG)
+@cached(settings.CACHE_VERY_LONG)
 def get_region_list():
     region_list = list(Country_region.objects.all().values())
     region = {}
@@ -319,7 +319,7 @@ def get_region_list():
     return region
 
 
-#@cached(settings.CACHE_VERY_LONG)
+@cached(settings.CACHE_VERY_LONG)
 def get_continent_list():
     continent_list = list(Country.objects.all().distinct().values('continent'))
     continents = {}
