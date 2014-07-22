@@ -13,7 +13,7 @@ def api_dropdown_products(request, product_class="hs4"):
     also set lang=foo to get a specific language, but it'll default to the
     django user locale. """
 
-    lang = helpers.get_language(request)
+    lang = helpers.get_language(request)['code']
 
     if product_class == "sitc4":
         products = Sitc4.objects.get_all(lang)
@@ -30,7 +30,7 @@ def api_dropdown_countries(request):
     also set lang=foo to get a specific language, but it'll default to the
     django user locale. """
 
-    lang = helpers.get_language(request)
+    lang = helpers.get_language(request)['code']
 
     countries = Country.objects.get_all(lang)
     country_info = [(c["name"], c["name_3char"].lower()) for c in countries]
