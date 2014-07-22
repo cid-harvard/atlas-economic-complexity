@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.core.cache import cache
 from django.db import connection
 from django.http import HttpResponse
@@ -101,7 +102,7 @@ def api_casy(request, trade_flow, country1, year):
                  "code": r[2], "id": r[2]} for r in rows]
 
         # Save in cache
-        cache.set(key, msgpack.dumps(rows))
+        cache.set(key, msgpack.dumps(rows), settings.CACHE_LONG)
         json_response["data"] = rows
 
     # Add in remaining metadata
@@ -183,7 +184,7 @@ def api_sapy(request, trade_flow, product, year):
                 for r in rows]
 
         # Save in cache
-        cache.set(key, msgpack.dumps(rows))
+        cache.set(key, msgpack.dumps(rows), settings.CACHE_LONG)
         json_response["data"] = rows
 
     json_response["attr_data"] = Country.objects.get_all(lang)
@@ -260,7 +261,7 @@ def api_csay(request, trade_flow, country1, year):
              "id": r[4], "region_id": r[6], "continent": r[7]}
             for r in rows]
 
-        cache.set(key, msgpack.dumps(rows))
+        cache.set(key, msgpack.dumps(rows), settings.CACHE_LONG)
         json_response["data"] = rows
 
     years_available = helpers.get_years_available()
@@ -360,7 +361,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
                  "id": r[2]} for r in rows]
 
         json_response["data"] = rows
-        cache.set(key, msgpack.dumps(rows))
+        cache.set(key, msgpack.dumps(rows), settings.CACHE_LONG)
 
     years_available = helpers.get_years_available(prod_class=prod_class)
     magic_numbers = helpers.get_inflation_adjustment(country1,
@@ -445,7 +446,7 @@ def api_cspy(request, trade_flow, country1, product, year):
             for r in rows]
 
         json_response["data"] = rows
-        cache.set(key, msgpack.dumps(rows))
+        cache.set(key, msgpack.dumps(rows), settings.CACHE_LONG)
 
     years_available = helpers.get_years_available(prod_class=prod_class)
     inflation_adjustment = helpers.get_inflation_adjustment(
