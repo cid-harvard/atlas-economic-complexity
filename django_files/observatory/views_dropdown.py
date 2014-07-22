@@ -3,6 +3,7 @@ from django.views.decorators.cache import cache_control
 
 import json
 
+from observatory import helpers
 from observatory.models import Hs4, Sitc4, Country
 
 
@@ -12,8 +13,7 @@ def api_dropdown_products(request, product_class="hs4"):
     also set lang=foo to get a specific language, but it'll default to the
     django user locale. """
 
-    lang = request.session.get('django_language', "en")
-    lang = request.GET.get("lang", lang)
+    lang = helpers.get_language(request)
 
     if product_class == "sitc4":
         products = Sitc4.objects.get_all(lang)
@@ -23,15 +23,16 @@ def api_dropdown_products(request, product_class="hs4"):
     return HttpResponse(json.dumps([(p["name"], p["code"]) for p in products]),
                         content_type="application/json")
 
+
 @cache_control(max_age=900)
 def api_dropdown_countries(request):
     """API to dynamically fill in a country dropdown, product name to code. Can
     also set lang=foo to get a specific language, but it'll default to the
     django user locale. """
 
-    lang = request.session.get('django_language', "en")
-    lang = request.GET.get("lang", lang)
+    lang = helpers.get_language(request)
 
     countries = Country.objects.get_all(lang)
-    return HttpResponse(json.dumps([(c["name"], c["name_3char"].lower()) for c in countries]),
+    country_info = [(c["name"], c["name_3char"].lower()) for c in countries]
+    return HttpResponse(json.dumps(country_info),
                         content_type="application/json")
