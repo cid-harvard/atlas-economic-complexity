@@ -31,6 +31,7 @@ def calculate_export_value_rca(items, trade_flow="export", sum_val=False):
 
     if sum_val:
         select_dict['val'] = "sum(%s)" % select_dict['val']
+        select_dict['rca'] = 'null'
 
     return items.extra(select=select_dict)
 
