@@ -1,27 +1,14 @@
-import os
-import collections
 import json
 
 from django.core.cache import cache
-from django.conf import settings
 from django.db import connection
 from django.http import HttpResponse
 
-from observatory.models import (Country, Country_region, Cy, Hs4, Hs4_py,
-                                Hs4_cpy, Sitc4, Sitc4_py, Sitc4_cpy, Hs4_ccpy, Sitc4_ccpy)
-from observatory.models import raw_q
+from observatory.models import (Country, Hs4, Hs4_cpy, Sitc4, Sitc4_cpy,
+                                Hs4_ccpy, Sitc4_ccpy)
 from observatory import helpers
 
-# Conditional things
-if settings.REDIS:
-    import redis
-    import msgpack
-
-if not settings.DB_PREFIX:
-    DB_PREFIX = ''
-else:
-    DB_PREFIX = settings.DB_PREFIX
-
+import msgpack
 
 
 def calculate_export_value_rca(items, trade_flow="export", sum_val=False):
@@ -234,7 +221,6 @@ def api_csay(request, trade_flow, country1, year):
                                                      'hs4'))
     lang = request.GET.get("lang",
                            request.session.get('django_language', 'en'))
-    single_year = "single_year" in request.GET
     country1 = Country.objects.get(name_3char=country1)
 
     region = helpers.get_region_list()
