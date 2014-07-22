@@ -93,6 +93,9 @@ def api_casy(request, trade_flow, country1, year):
 
     items = items.filter(country_id=country1.id)
 
+    items = items.extra(where=["export_value > 0"])
+
+
     json_response = {}
 
     # Generate cache key
