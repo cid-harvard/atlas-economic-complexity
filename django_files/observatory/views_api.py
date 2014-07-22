@@ -132,8 +132,7 @@ def api_sapy(request, trade_flow, product, year):
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
-    lang = request.GET.get("lang",
-                           request.session.get('django_language', 'en'))
+    lang = helpers.get_language(request)['code']
     name = "name_%s" % lang
     single_year = 'single_year' in request.GET
     product = helpers.get_product_by_code(product, prod_class)
@@ -152,10 +151,7 @@ def api_sapy(request, trade_flow, product, year):
         items = Hs4_cpy.objects
 
     items = calculate_export_value_rca(items, trade_flow=trade_flow)
-
-    # TODO: get this from lang variable and sanitize
-    items = items.extra(select={'name': 'name_en'})
-
+    items = items.extra(select={'name': name})
     items = items.values_list('year', 'country__id', 'country__name_3char',
                               'name', 'country__region_id',
                               'country__continent', 'val', 'rca')
@@ -214,8 +210,8 @@ def api_csay(request, trade_flow, country1, year):
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
-    lang = request.GET.get("lang",
-                           request.session.get('django_language', 'en'))
+    lang = helpers.get_language(request)['code']
+    name = "name_%s" % lang
     country1 = Country.objects.get(name_3char=country1)
 
     region = helpers.get_region_list()
@@ -228,10 +224,7 @@ def api_csay(request, trade_flow, country1, year):
 
     items = calculate_export_value_rca(items, trade_flow=trade_flow,
                                        sum_val=True)
-
-    # TODO: get this from lang variable and sanitize
-    items = items.extra(select={'name': 'name_en'})
-
+    items = items.extra(select={'name': name})
     items = items.values_list('year', 'destination__id',
                               'destination__name_3char', 'name',
                               'destination__region_id',
@@ -308,8 +301,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
-    lang = request.GET.get("lang",
-                           request.session.get('django_language', 'en'))
+    lang = helpers.get_language(request)['code']
     name = "name_%s" % lang
     single_year = 'single_year' in request.GET
     country1 = Country.objects.get(name_3char=country1)
@@ -329,10 +321,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
         items = Hs4_ccpy.objects
 
     items = calculate_export_value_rca(items, trade_flow=trade_flow)
-
-    # TODO: get this from lang variable and sanitize
-    items = items.extra(select={'name': 'name_en'})
-
+    items = items.extra(select={'name': name})
     items = items.values_list('year', 'product__id', 'product__code',
                               'name', 'product__community_id',
                               'product__community__name',
@@ -406,8 +395,8 @@ def api_cspy(request, trade_flow, country1, product, year):
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
-    lang = request.GET.get("lang",
-                           request.session.get('django_language', 'en'))
+    lang = helpers.get_language(request)['code']
+    name = "name_%s" % lang
 
     product = helpers.get_product_by_code(product, prod_class)
     country1 = Country.objects.get(name_3char=country1)
@@ -426,7 +415,7 @@ def api_cspy(request, trade_flow, country1, product, year):
         items = Hs4_ccpy.objects
 
     items = calculate_export_value_rca(items, trade_flow)
-    items = items.extra(select={'name': 'name_en'})
+    items = items.extra(select={'name': name})
     items = items.values_list('year', 'destination__id',
                               'destination__name_3char', 'name',
                               'destination__region_id',
