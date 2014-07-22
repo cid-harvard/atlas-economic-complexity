@@ -120,26 +120,22 @@ def explore(
         country2,
         product,
         year="2011"):
-    # Set app_name to session
+
     request.session['app_name'] = app_name
-    # Get URL query parameters
+
     was_redirected = request.GET.get("redirect", False)
+    lang = helpers.get_language(request)['code']
     crawler = request.GET.get("_escaped_fragment_", False)
-    options = request.GET.copy()
-    # set language (if session data available use that as default)
-    lang = request.session[
-        'django_language'] if 'django_language' in request.session else "en"
-    lang = request.GET.get("lang", lang)
-    options["lang"] = lang
-    # set product classification (if session data available use that as
-    # default)
-    prod_class = request.session[
-        'product_classification'] if 'product_classification' in request.session else "hs4"
+
+    prod_class = request.session['product_classification'] if\
+        'product_classification' in request.session else "hs4"
     prod_class = request.GET.get("product_classification", prod_class)
+
+    options = request.GET.copy()
+    options["lang"] = lang
     options["product_classification"] = prod_class
     options = options.urlencode()
-    # Get session parameters
-    language = lang
+
     # Setup the hash dictionary
     request_hash_dictionary = collections.OrderedDict()
 
@@ -380,7 +376,7 @@ def explore(
 
     return render_to_response(
         "explore/index.html",
-        {"language": language,
+        {"lang": lang,
          "warning": warning,
          "alert": alert,
          "prod_class": prod_class,
