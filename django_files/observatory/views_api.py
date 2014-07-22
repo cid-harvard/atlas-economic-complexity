@@ -42,8 +42,7 @@ def api_casy(request, trade_flow, country1, year):
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
-    lang = request.GET.get("lang",
-                           request.session.get('django_language', 'en'))
+    lang = helpers.get_language(request)['code']
     name = "name_%s" % lang
     single_year = 'single_year' in request.GET
     country1 = Country.objects.get(name_3char=country1)
@@ -65,10 +64,7 @@ def api_casy(request, trade_flow, country1, year):
         items = Hs4_cpy.objects
 
     items = calculate_export_value_rca(items, trade_flow=trade_flow)
-
-    # TODO: get this from lang variable and sanitize
-    items = items.extra(select={'name': 'name_en'})
-
+    items = items.extra(select={'name': name})
     items = items.values_list('year', 'product__id', 'product__code',
                               'product__name', 'product__community_id',
                               'product__community__color',
@@ -79,7 +75,6 @@ def api_casy(request, trade_flow, country1, year):
         items = items.filter(year=year)
 
     items = items.filter(country_id=country1.id)
-
     items = items.extra(where=["export_value > 0"])
 
 

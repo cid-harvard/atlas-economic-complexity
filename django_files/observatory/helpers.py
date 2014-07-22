@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.utils.translation import get_language_info
 
 from cache_utils.decorators import cached
 
@@ -326,3 +327,13 @@ def get_continent_list():
     for i, k in enumerate(continent_list):
         continents[k['continent']] = i*1000
     return continents
+
+
+def get_language(request):
+    """Given a request, check the GET params and then the session to find
+    language info specified in 2 char ISO code form, and then make sure it's
+    valid, and return a tuple in the format of django's get_language_info.
+    Nonexistent languages raise KeyError."""
+    lang = request.GET.get("lang",
+                           request.session.get('django_language', 'en'))
+    return get_language_info(lang)
