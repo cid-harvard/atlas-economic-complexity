@@ -36,7 +36,6 @@ def calculate_export_value_rca(items, trade_flow="export", sum_val=False):
 
     return items.extra(select=select_dict)
 
-
 def api_casy(request, trade_flow, country1, year):
     """<COUNTRY> / all / show / <YEAR>"""
 
@@ -327,7 +326,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
     items = items.values_list('year', 'product__id', 'product__code',
                               'name', 'product__community_id',
                               'product__community__name',
-                              'product__community__color', 'val', 'rca')
+                              'product__community__color', 'val')
 
     if single_year:
         items = items.filter(year=year)
@@ -352,7 +351,6 @@ def api_ccsy(request, trade_flow, country1, country2, year):
                  "abbrv":r[2],
                  "name":r[3],
                  "value":r[7],
-                 "rca":r[5],
                  "share": (r[7] / total_val)*100,
                  "community_id":r[4],
                  "community_name":r[5],
@@ -421,7 +419,7 @@ def api_cspy(request, trade_flow, country1, product, year):
     items = items.values_list('year', 'destination__id',
                               'destination__name_3char', 'name',
                               'destination__region_id',
-                              'destination__continent', 'val', 'rca')
+                              'destination__continent', 'val')
     items = items.filter(origin_id=country1.id, product_id=product.id)
 
     if single_year:
@@ -441,7 +439,7 @@ def api_cspy(request, trade_flow, country1, product, year):
 
         rows = [
             {"year": r[0], "item_id": r[1], "abbrv": r[2], "name": r[3],
-             "value": r[6], "rca": r[7], "share": (r[6] / total_val) * 100,
+             "value": r[6], "share": (r[6] / total_val) * 100,
              "region_id": r[4], "continent": r[5], "id": r[1]}
             for r in rows]
 
