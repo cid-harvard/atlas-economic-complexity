@@ -12,29 +12,39 @@ from observatory import helpers
 import msgpack
 
 
-def calculate_export_value_rca(items, trade_flow="export", sum_val=False):
-    """Given a cpy queryset and trade flow value, calculate trade flow value
-    and rca.
+def calculate_volume(items, trade_flow="export", sum_val=False):
+    """Given a queryset and trade flow value, append the proper value field
+    expression to select.
 
     :param sum_val: If true, aggregate sum the trade flow value
     """
 
     if trade_flow == "net_export":
-        select_dict = {'val': 'export_value - import_value',
-                       'rca': 'export_rca'}
+        select_dict = {'val': 'export_value - import_value'}
     elif trade_flow == "net_import":
-        select_dict = {'val': 'import_value - export_value',
-                       'rca': 'null'}
+        select_dict = {'val': 'import_value - export_value'}
     elif trade_flow == "export":
-        select_dict = {'val': 'export_value', 'rca': 'export_rca'}
+        select_dict = {'val': 'export_value'}
     else:
-        select_dict = {'val': 'import_value', 'rca': 'null'}
+        select_dict = {'val': 'import_value'}
 
     if sum_val:
         select_dict['val'] = "sum(%s)" % select_dict['val']
-        select_dict['rca'] = 'null'
 
     return items.extra(select=select_dict)
+
+
+def calculate_rca(items, trade_flow="export"):
+    """Given a queryset and trade flow value, append the proper rca field to
+    select."""
+
+    if trade_flow in ["net_export", "export"]:
+        select_dict = {'rca': 'export_rca'}
+    else:
+        select_dict = {'rca': 'null'}
+
+    return items.extra(select=select_dict)
+
 
 def api_casy(request, trade_flow, country1, year):
     """<COUNTRY> / all / show / <YEAR>"""
@@ -64,7 +74,8 @@ def api_casy(request, trade_flow, country1, year):
     else:
         items = Hs4_cpy.objects
 
-    items = calculate_export_value_rca(items, trade_flow=trade_flow)
+    items = calculate_volume(items, trade_flow=trade_flow)
+    items = calculate_rca(items, trade_flow=trade_flow)
     items = items.extra(select={'name': name})
     items = items.values_list('year', 'product__id', 'product__code',
                               'product__name', 'product__community_id',
@@ -151,7 +162,8 @@ def api_sapy(request, trade_flow, product, year):
     else:
         items = Hs4_cpy.objects
 
-    items = calculate_export_value_rca(items, trade_flow=trade_flow)
+    items = calculate_volume(items, trade_flow=trade_flow)
+    items = calculate_rca(items, trade_flow=trade_flow)
     items = items.extra(select={'name': name})
     items = items.values_list('year', 'country__id', 'country__name_3char',
                               'name', 'country__region_id',
@@ -223,13 +235,13 @@ def api_csay(request, trade_flow, country1, year):
     else:
         items = Hs4_ccpy.objects
 
-    items = calculate_export_value_rca(items, trade_flow=trade_flow,
+    items = calculate_volume(items, trade_flow=trade_flow,
                                        sum_val=True)
     items = items.extra(select={'name': name})
     items = items.values_list('year', 'destination__id',
                               'destination__name_3char', 'name',
                               'destination__region_id',
-                              'destination__continent', 'val', 'rca')
+                              'destination__continent', 'val')
 
     items = items.filter(origin_id=country1.id)
 
@@ -250,14 +262,18 @@ def api_csay(request, trade_flow, country1, year):
         cursor = connection.cursor()
         cursor.execute(str(items.query) + "group by `year`, `destination_id`")
         rows = cursor.fetchall()
-        total_val = sum([r[1] for r in rows])
+        total_val = sum([r[0] for r in rows])
 
-        """Add percentage value to return vals"""
-        # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
         rows = [
-            {"year": r[3], "item_id": r[4], "abbrv": r[5], "name": r[2],
-             "value": r[1], "rca": r[0], "share": (r[1] / total_val) * 100,
-             "id": r[4], "region_id": r[6], "continent": r[7]}
+            {"year": r[2],
+             "item_id": r[3],
+             "abbrv": r[4],
+             "name": r[1],
+             "value": r[0],
+             "share": (r[0] / total_val) * 100,
+             "id": r[3],
+             "region_id": r[5],
+             "continent": r[6]}
             for r in rows]
 
         cache.set(key, msgpack.dumps(rows), settings.CACHE_LONG)
@@ -321,7 +337,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
     else:
         items = Hs4_ccpy.objects
 
-    items = calculate_export_value_rca(items, trade_flow=trade_flow)
+    items = calculate_volume(items, trade_flow=trade_flow)
     items = items.extra(select={'name': name})
     items = items.values_list('year', 'product__id', 'product__code',
                               'name', 'product__community_id',
@@ -414,7 +430,7 @@ def api_cspy(request, trade_flow, country1, product, year):
     else:
         items = Hs4_ccpy.objects
 
-    items = calculate_export_value_rca(items, trade_flow)
+    items = calculate_volume(items, trade_flow)
     items = items.extra(select={'name': name})
     items = items.values_list('year', 'destination__id',
                               'destination__name_3char', 'name',
