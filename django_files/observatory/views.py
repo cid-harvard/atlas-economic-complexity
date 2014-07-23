@@ -11,19 +11,17 @@ from django.shortcuts import render_to_response, redirect
 from django.http import (HttpResponse, HttpResponseRedirect)
 from django.template import RequestContext
 from django.conf import settings
+from django.core.cache import cache
 from django.core.urlresolvers import reverse, resolve
 from django.utils import translation
 from django.utils.translation import gettext as _
 
 import cairosvg
+from redis_cache.cache import RedisCache
 
 # Local
 from observatory.models import (Country, Hs4_cpy, Sitc4_cpy)
 from observatory import helpers
-
-# Conditional things
-if settings.REDIS:
-    import redis
 
 if not settings.DB_PREFIX:
     DB_PREFIX = ''
@@ -359,10 +357,8 @@ def explore(
             if app_name in ("stacked", "map", "tree_map", "pie_scatter", "product_space"):
                 prod_or_partner = "product"
 
-    # Return page without visualization data
-
     # Record views in redis for "newest viewed pages" visualization
-    if settings.REDIS:
+    if isinstance(cache, RedisCache):
         views_image_path = settings.STATIC_URL + \
             "data/" + request_hash_string + ".png"
         view_data = {
@@ -371,8 +367,8 @@ def explore(
             "title": title,
             "url": request.build_absolute_uri()
         }
-        raw = redis.Redis("localhost", db=1)
-        raw.rpush("views", json.dumps(view_data))
+        r = cache.raw_client
+        r.rpush("views", json.dumps(view_data))
 
     return render_to_response(
         "explore/index.html",
@@ -427,6 +423,11 @@ def explore_random(request):
 
 
 def api_views(request):
-    r = redis.Redis(db=1)
+    """Return metadata of the last 15 visits to the site, in JSON."""
+
+    if not isinstance(cache, RedisCache):
+        return HttpResponse("")
+
+    r = cache.raw_client
     recent_views = r.lrange("views", -15, -1)
     return HttpResponse("[%s]" % ",".join(recent_views))
