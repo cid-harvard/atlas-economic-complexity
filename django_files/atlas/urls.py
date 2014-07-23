@@ -1,13 +1,11 @@
 #from django.conf.urls import patterns, include, url
 #from django.conf.urls import patterns, url
-from django.conf.urls.defaults import *
 #from django.views.generic.simple import redirect_to
 from django.conf.urls import patterns, include
 from django.views.generic import TemplateView, RedirectView
-from django.views.generic.simple import direct_to_template
 
 # sitemap
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.conf import settings
 
@@ -97,29 +95,22 @@ urlpatterns = patterns('',
   (r'^browseStoryPrev/$', 'observatory.views_stories.browseStoryPrev'),
   (r'^createStory/$', 'observatory.views_stories.createStory'),
 
-  # Explore (App) #############################################################
-  # Legacy app redirect
-  (r'^app/(?P<app_name>[a-z0-9_]+)/(?P<trade_flow>\w{6,10})/(?P<filter>[a-z0-9\.]+)/(?P<year>[0-9\.]+)/$', 'observatory.views.app_redirect'),
-
   # New app URL structure
   (r'^explore/$', 'observatory.views.explore_random'),
   (r'^explore/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/(?P<year>[0-9\.]+)/$', 'observatory.views.explore'),
   (r'^explore/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/$', 'observatory.views.explore'),
 
-  # Embed URL
-  (r'^embed/(?P<app_name>[a-z_]+)/(?P<trade_flow>\w{6,10})/(?P<country1>\w{3,4})/(?P<country2>\w{3,4})/(?P<product>\w{3,4})/(?P<year>[0-9\.]+)/$', 'observatory.views.embed'),
-
   # API #######################################################################
-  (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/all/show/(?P<year>[0-9\.]+)/$', 'observatory.views.api_casy'),
-  (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/show/all/(?P<year>[0-9\.]+)/$', 'observatory.views.api_csay'),
-  (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/(?P<country2>\w{3})/show/(?P<year>[0-9\.]+)/$', 'observatory.views.api_ccsy'),
-  (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/show/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views.api_cspy'),
-  (r'^api/(?P<trade_flow>[a-z_]{6,10})/show/all/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views.api_sapy'),
+  (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/all/show/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_casy'),
+  (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/show/all/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_csay'),
+  (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/(?P<country2>\w{3})/show/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_ccsy'),
+  (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/show/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_cspy'),
+  (r'^api/(?P<trade_flow>[a-z_]{6,10})/show/all/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_sapy'),
 
   (r'^api/near/(?P<country>\w{3})/(?P<year>[0-9\.]+)/(?P<num_prods>\d+)/$', 'observatory.views_exhibit.api_near'),
 
   (r'^api/search/$', 'observatory.views_search.api_search'),
-  (r'^search/$', direct_to_template, {'template': 'searchresults.html'}),
+  (r'^search/$', TemplateView.as_view(template_name='searchresults.html')),
 
   (r'^api/views/$', 'observatory.views.api_views'),
 
@@ -145,8 +136,7 @@ urlpatterns = patterns('',
   url(r'^favicon\.ico$', RedirectView.as_view(url='/media/img/favicon.ico')),
 
   url(r'^sitemap\.xml$', RedirectView.as_view(url='/media/sitemaps/sitemap_index.xml')),
-  url(r'^opensearch.xml$', direct_to_template, {'template': 'opensearch.xml',
-                                                'mimetype':
-                                                'application/opensearchdescription+xml'}),
+  url(r'^opensearch.xml$', TemplateView.as_view(template_name='opensearch.xml',
+                                                content_type='application/opensearchdescription+xml'))
 
 )

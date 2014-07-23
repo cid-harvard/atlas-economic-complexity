@@ -114,6 +114,11 @@ CACHES = {
 
 VERSION = '1.0.4'
 
+CACHE_VERY_SHORT = 60*10  # 10 minutes
+CACHE_SHORT = 60*60  # 1 hour
+CACHE_LONG = 60*60*24  # 1 day
+CACHE_VERY_LONG = 60*60*24*7  # 1 week
+
 try:
   from settings_local import *
 except ImportError:

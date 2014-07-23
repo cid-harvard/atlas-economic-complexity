@@ -1,4 +1,10 @@
-from observatory.models import Hs4_cpy, Sitc4_cpy, Country, Hs4, Sitc4
+from django.conf import settings
+from django.utils.translation import get_language_info
+
+from cache_utils.decorators import cached
+
+from observatory.models import (Hs4_cpy, Sitc4_cpy, Country, Hs4, Sitc4,
+                                Sitc4_py, Hs4_py, Cy, Country_region)
 
 
 # make sure app name is in the list of possible apps
@@ -77,28 +83,28 @@ def get_country(country):
     return c
 
 
-# Returns the Product object or None
-def get_product(product, classification):
-    # first try looking up based on 3 character code
+def get_product_by_code(product_code, classification="hs4"):
+    """Look up a product code in a given product code with fallback to
+    another."""
     if classification == "hs4":
         try:
-            p = Hs4.objects.get(code=product)
+            p = Hs4.objects.get(code=product_code)
         except Hs4.DoesNotExist:
-            # next try SITC4
             try:
-                conv_code = Sitc4.objects.get(code=product).conversion_code
+                conv_code = Sitc4.objects\
+                    .get(code=product_code).conversion_code
                 p = Hs4.objects.get(code=conv_code)
-            except Sitc4.DoesNotExist:
+            except (Hs4.DoesNotExist, Sitc4.DoesNotExist):
                 p = None
     else:
         try:
-            p = Sitc4.objects.get(code=product)
+            p = Sitc4.objects.get(code=product_code)
         except Sitc4.DoesNotExist:
-            # next try SITC4
             try:
-                conv_code = Hs4.objects.get(code=product).conversion_code
+                conv_code = Hs4.objects\
+                    .get(code=product_code).conversion_code
                 p = Sitc4.objects.get(code=conv_code)
-            except Hs4.DoesNotExist:
+            except (Hs4.DoesNotExist, Sitc4.DoesNotExist):
                 p = None
     return p
 
@@ -218,3 +224,116 @@ def params_to_url(api_name=None, app_name=None, country_codes=None,
         url += "%s/" % years
 
     return url
+
+
+@cached(settings.CACHE_VERY_LONG)
+def get_world_trade(prod_class="hs4"):
+    """Get world trade volume for every product in a classification."""
+    if prod_class == "sitc4":
+        return list(
+            Sitc4_py.objects.all().values(
+                'year',
+                'product_id',
+                'world_trade'))
+    elif prod_class == "hs4":
+        return list(
+            Hs4_py.objects.all().values(
+                'year',
+                'product_id',
+                'world_trade'))
+
+
+@cached(settings.CACHE_VERY_LONG)
+def get_attrs(prod_class="hs4", name="name_en"):
+    """Get extraneous attributes (like color and code) for each product in a
+    classification."""
+    if prod_class == "sitc4":
+        attr_list = list(
+            Sitc4.objects.all().values(
+                'code',
+                name,
+                'id',
+                'color'))
+        attr = {}
+        for i in attr_list:
+            attr[i['code']] = {
+                'code': i['code'],
+                'name': i[name],
+                'color': i['color']}
+    elif prod_class == "hs4":
+        attr_list = list(
+            Hs4.objects.all().values(
+                'code',
+                name,
+                'id',
+                'community_id__color'))
+        attr = {}
+        for i in attr_list:
+            attr[
+                i['code']] = {
+                'code': i['code'],
+                'name': i[name],
+                'item_id': i['id'],
+                'color': i['community_id__color']}
+    return attr
+
+
+@cached(settings.CACHE_VERY_LONG)
+def get_years_available(prod_class="hs4"):
+    """Get years available for a given classification."""
+    if prod_class == "sitc4":
+        years_available = Sitc4_cpy.objects\
+            .values_list("year", flat=True).distinct()
+    else:
+        years_available = Hs4_cpy.objects\
+            .values_list("year", flat=True).distinct()
+    return sorted(list(years_available))
+
+
+@cached(settings.CACHE_VERY_LONG)
+def get_inflation_adjustment(country, first_year, last_year):
+    """For a given country and year range, get inflation adjustment
+    constants."""
+    inflation_constants = Cy.objects\
+        .filter(country=country.id,
+                year__range=(first_year,
+                             last_year))\
+        .values('year',
+                'pc_constant',
+                'pc_current',
+                'notpc_constant')
+    magic_numbers = {}
+    for year in inflation_constants:
+        magic_numbers[year['year']] = {
+            "pc_constant": year['pc_constant'],
+            "pc_current": year['pc_current'],
+            "notpc_constant": year["notpc_constant"]}
+    return magic_numbers
+
+
+@cached(settings.CACHE_VERY_LONG)
+def get_region_list():
+    region_list = list(Country_region.objects.all().values())
+    region = {}
+    for i in region_list:
+        region[i['id']] = i
+    return region
+
+
+@cached(settings.CACHE_VERY_LONG)
+def get_continent_list():
+    continent_list = list(Country.objects.all().distinct().values('continent'))
+    continents = {}
+    for i, k in enumerate(continent_list):
+        continents[k['continent']] = i*1000
+    return continents
+
+
+def get_language(request):
+    """Given a request, check the GET params and then the session to find
+    language info specified in 2 char ISO code form, and then make sure it's
+    valid, and return a tuple in the format of django's get_language_info.
+    Nonexistent languages raise KeyError."""
+    lang = request.GET.get("lang",
+                           request.session.get('django_language', 'en'))
+    return get_language_info(lang)
