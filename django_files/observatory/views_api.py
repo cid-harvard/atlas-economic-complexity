@@ -20,18 +20,24 @@ def calculate_volume(items, trade_flow="export", sum_val=False):
     """
 
     if trade_flow == "net_export":
-        select_dict = {'val': 'export_value - import_value'}
+        val = '`export_value` - `import_value`'
     elif trade_flow == "net_import":
-        select_dict = {'val': 'import_value - export_value'}
+        val = '`import_value` - `export_value`'
     elif trade_flow == "export":
-        select_dict = {'val': 'export_value'}
+        val = '`export_value`'
     else:
-        select_dict = {'val': 'import_value'}
+        val = '`import_value`'
+
+    # Don't include negative or 0 trade volumes. Especially useful with net
+    # import / export since negative values don't mean anything
+    filter_expr = ["%s > 0" % val]
 
     if sum_val:
-        select_dict['val'] = "sum(%s)" % select_dict['val']
+        val = "sum(%s)" % val
+        filter_expr = None
 
-    return items.extra(select=select_dict)
+    return items.extra(select={'val': val},
+                       where=filter_expr)
 
 
 def calculate_rca(items, trade_flow="export"):
@@ -260,7 +266,21 @@ def api_csay(request, trade_flow, country1, year):
         # possible to use annotate() here because it's a complex aggregate that
         # uses addition / subtraction. C'est la vie :(
         cursor = connection.cursor()
-        cursor.execute(str(items.query) + "group by `year`, `destination_id`")
+
+        if trade_flow == "net_export":
+            val = '`export_value` - `import_value`'
+        elif trade_flow == "net_import":
+            val = '`import_value` - `export_value`'
+        elif trade_flow == "export":
+            val = '`export_value`'
+        else:
+            val = '`import_value`'
+
+        complete_query = str(items.query) + \
+            " group by `year`, `destination_id`" + \
+            " HAVING sum(%s) > 0" % val
+
+        cursor.execute(complete_query)
         rows = cursor.fetchall()
         total_val = sum([r[0] for r in rows])
 
