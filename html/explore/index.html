@@ -135,11 +135,9 @@
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-countries">
             <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">Select a Country:</span>
-            <div id="country1" width="120px" style="margin-left: 0px;" onmouseover="$('.show-partner').css('visibility', 'visible');"  onmouseout="$('.show-partner').css('visibility', 'hidden');">
+            <div id="country1" width="190px" style="margin-left: 0px;">
 
-              <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-                <select data-placeholder="All Countries" id="country1_select" style="width:130px">
+                <select data-placeholder="All Countries" id="country1_select" style="width:190px">
 
                 <option value=""></option>
               </select>
@@ -177,11 +175,9 @@
 
             <div class="tab-pane {% if prod_or_partner == "product" %} active{% endif %}" id="show-country-product">
 
-              <div id="country-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-country-product').css('visibility', 'visible');"  onmouseout="$('.show-country-product').css('visibility', 'hidden');">
+              <div id="country-product" width="170px" style="margin-left:10px;">
 
-                <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-                <select data-placeholder="All Products" id="country_product_select" " style="width:130px">
+                <select data-placeholder="All Products" id="country_product_select" style="width:170px">
                 <option value=""></option>
 
                 </select>
@@ -190,11 +186,9 @@
 
             <div class="tab-pane {% if prod_or_partner == "partner" %} active{% endif %}" id="show-country-partner">
 
-              <div id="country-trade-partner" style="margin-left: 10px;" onmouseover="$('.show-trade-partner').css('visibility', 'visible');" onmouseout="$('.show-trade-partner').css('visibility', 'hidden');">
+              <div id="country-trade-partner" width="170px" style="margin-left: 10px;">
 
-                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-trade-partner tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-                  <select data-placeholder="All Countries" id="country_trade_partner_select" style="width:130px;">
+                  <select data-placeholder="All Countries" id="country_trade_partner_select" style="width:170px;">
                     <option value=""></option>
                   </select>
               </div>
@@ -265,11 +259,9 @@
       <li class="active"><a href="#country-year"><span class="glyphicon glyphicon-calendar"></span> <span style="font-size:16px;">Time Period</span></a></li>
     </ul>
 
-    <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px;"  onmouseover="$('.over-time').css('visibility', 'visible');"  onmouseout="$('.over-time').css('visibility', 'hidden');">
+    <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px;">
 
       <div class="tab-pane active" id="country-year">
-
-        <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh over-time tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top"style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
            <select id="year1_select" style="margin-left: 10px;">
             {% for y in year1_list %}
