@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db import connection
 from django.http import HttpResponse
+from django.views.decorators.cache import cache_control
 
 from observatory.models import (Country, Hs4, Hs4_cpy, Sitc4, Sitc4_cpy,
                                 Hs4_ccpy, Sitc4_ccpy)
@@ -52,6 +53,7 @@ def calculate_rca(items, trade_flow="export"):
     return items.extra(select=select_dict)
 
 
+@cache_control(max_age=settings.CACHE_VERY_SHORT)
 def api_casy(request, trade_flow, country1, year):
     """<COUNTRY> / all / show / <YEAR>"""
 
@@ -143,6 +145,7 @@ def api_casy(request, trade_flow, country1, year):
         return HttpResponse(json.dumps(json_response))
 
 
+@cache_control(max_age=settings.CACHE_VERY_SHORT)
 def api_sapy(request, trade_flow, product, year):
     """show / all / <product> / <year>"""
 
@@ -223,6 +226,7 @@ def api_sapy(request, trade_flow, product, year):
         return HttpResponse(json.dumps(json_response))
 
 
+@cache_control(max_age=settings.CACHE_VERY_SHORT)
 def api_csay(request, trade_flow, country1, year):
     """<COUNTRY> / show / all / <YEAR>"""
 
@@ -332,6 +336,7 @@ def api_csay(request, trade_flow, country1, year):
         return HttpResponse(json.dumps(json_response))
 
 
+@cache_control(max_age=settings.CACHE_VERY_SHORT)
 def api_ccsy(request, trade_flow, country1, country2, year):
 
     # Get session / request vars
@@ -425,6 +430,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
         return HttpResponse(json.dumps(json_response))
 
 
+@cache_control(max_age=settings.CACHE_VERY_SHORT)
 def api_cspy(request, trade_flow, country1, product, year):
     """ country / show / product / year """
 
