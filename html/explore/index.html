@@ -134,7 +134,7 @@
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-countries">
-            <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">Select a Country:</span>
+            <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">Select a Country</span>
             <div id="country1" width="190px" style="margin-left: 0px;">
 
                 <select data-placeholder="All Countries" id="country1_select" style="width:190px">
@@ -143,17 +143,14 @@
               </select>
             </div>
 
-          <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
-            <li class="active"><a href="#tab-trade"><span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;" title='{% trans "Trade Flow" %}'>{% trans "Trade Flow" %}</span></a></li>
-          </ul>
+            <br>
 
         <!-- TRADE / DIVERSIFICATION -->
-        <div class="tab-content"  style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:210px; height:335px;">
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-trade">
 
-          <div id="trade_flow" style="margin-left: 8px;">
+          <div id="trade_flow" style="margin-left: -5px;">
 
             <div class="btn-group flow-direction" data-toggle="buttons" style="margin-top:5px; margin-left:5px">
               <label class="btn btn-default {% if trade_flow == "export" or trade_flow == "net_export" %} active{% endif %}">
@@ -165,13 +162,13 @@
             </div>
           </div>
 
-          <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:10px; width:190px;">
+          <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:0px; width:200px;">
             <li{% if prod_or_partner == "product" %} class="active"{% endif %}><a href="#show-country-product"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray;"></span>  <span style="font-size:14px; color:gray;">Product</span></a></li>
             <li{% if prod_or_partner == "partner" %} class="active"{% endif %}><a href="#show-country-partner"><span class="glyphicon glyphicon-globe" style="font-size:14px; color:gray;"></span> <span style="font-size:14px;">Partner</span></a></li>
           </ul>
 
           <!-- Tab Trade Partner/Product -->
-          <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:190px; margin-left:10px; height:60px">
+          <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:200px; margin-left:0px; height:60px">
 
             <div class="tab-pane {% if prod_or_partner == "product" %} active{% endif %}" id="show-country-product">
 
@@ -193,12 +190,13 @@
                   </select>
               </div>
             </div>
+
           </div>
 
           <!-- App selection -->
-          <div style="font-weight:bold; margin-top:0px; margin-left:10px">
+          <div style="font-weight:bold; margin-top:0px; margin-left:5px">
           <br>
-          Visualization:</div>
+          Trade Data Visualization</div>
 
           <div id="tfViz" data-toggle="buttons" style="margin-left:5px;">
 
@@ -216,6 +214,11 @@
               <input type="radio" name="viz_apps">
               <img src="{{ STATIC_URL }}img/home/stacked-thumb.png" style="width:38px;"/>
             </label>
+
+            <div style="font-weight:bold; margin-top:0px; margin-left:5px">
+            <br>
+            Complexity Visualization</div>
+
 
             <label value="product_space" class="btn btn-default {% if app_name == 'product_space' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Space" >
               <input type="radio" style="background:url({{ STATIC_URL }}img/home/productSpace-thumb.png) no-repeat;">
@@ -247,7 +250,7 @@
           </div>
 
         </div>
-      </div>
+
 
 
   <!-- END -->
