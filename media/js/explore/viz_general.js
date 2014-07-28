@@ -858,10 +858,6 @@ var flat_data,
   }
     var inner_html = function(obj) {
 
-
-      if(queryParameters.show_related) { 
-
-
       var html = "<div class='d3plus_tooltip_title'>Related Visualizations </div><br>";
       html += "<div id='related_links'></div>";
 
@@ -874,7 +870,8 @@ var flat_data,
       })
 
       setTimeout(function() {
-            d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
+          //  d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
+            d3.json("/api/search/?term="+name, function(error, data) {
 
               if (error) { // Default data
                 return console.warn(error);
@@ -885,9 +882,10 @@ var flat_data,
 
               related_html = "";
 
-              json.filter(function(d, i) { 
+              data[1].forEach(function(d, i) {
+
                 d3.select("#related_links")
-                  .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+d.value+"'>"+d.label+"</a>");
+                  .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+data[3][i]+"'>"+d+"</a>");
 
               })
 
@@ -896,41 +894,11 @@ var flat_data,
 
             })
 
-      }, 500)
+      }, 100)
 
       return html;
 
-      } else {
 
-
-        var html = "<div class='d3plus_tooltip_title'>Related Visualizations</div><br><br>";
-        html += " <table>";
-
-        if(app_name!="tree_map") {
-          html += "<tr><td><img src='"+static_url+"img/home/treeMap-thumb.png' style='width:60px;'></td>";
-          html += "<td><a onclick='update_viz(\"tree_map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Tree Map</a></td></tr></a>";
-        }
-        if(app_name!="stacked"){
-          html += "<tr><td><img src='"+static_url+"img/home/stacked-thumb.png' style='width:60px;'></td>";
-          html += "<td><a onclick='update_viz(\"stacked\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Stacked Graph</a></td></tr></a>";
-        }
-        if(app_name!="map"){
-          html += "<tr><td><img src='"+static_url+"img/home/geo-thumb.png' style='width:60px;'></td>";
-          html += "<td><a onclick='update_viz(\"map\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Map</a></td></tr></a>";
-        }
-        if(app_name!="pie_scatter"){
-          html += "<tr><td><img src='"+static_url+"img/home/productFeas-thumb.png' style='width:60px;'></td>";
-          html += "<td><a onclick='update_viz(\"pie_scatter\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Feasability</a></td></tr></a>";
-        }
-        if(app_name!="product_space"){
-          html += "<tr><td><img src='"+static_url+"img/home/productSpace-thumb.png' style='width:60px;'></td>";
-          html += "<td><a onclick='update_viz(\"product_space\")' style='font-size:14px; margin-left: 10px; cursor:pointer;'>Product Space</a></td></tr></a>";
-        }            
-     
-        html += "</table>";
-        return html;
-
-      }
 
     }
 
