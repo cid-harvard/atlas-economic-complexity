@@ -188,8 +188,8 @@ function update_viz(viz) {
   // Fix for Firefox
   var url = $('base')[0].href + "explore/";
 
-  var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
-  current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz;
+  var current_viz = (typeof viz != "undefined" )  ? viz : app_name;
+  //current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz;
   var current_year1 = $("#year1_select").val();
 
   // Import or Export
@@ -198,7 +198,6 @@ function update_viz(viz) {
 
   if(current_viz=="product_space" || current_viz=="pie_scatter" || current_viz=="rings")
     current_flow = "export";
-
 
   var current_country1 = $("#country1").find(":selected").val();
   current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1;
@@ -209,9 +208,8 @@ function update_viz(viz) {
   var current_product = $("#country_product_select").find(":selected").val();
   current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product;
 
-  var current_year2 = $("#year2").find(":selected").val();
+  var current_year2 = $("#year2_select").find(":selected").val();
   current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2;
-
 
   // From trade partner to map
   if(typeof(viz)=="undefined" && current_country2!="all")
