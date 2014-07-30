@@ -189,7 +189,6 @@ function update_viz(viz) {
   var url = $('base')[0].href + "explore/";
 
   var current_viz = (typeof viz != "undefined" )  ? viz : app_name;
-  //current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz;
   var current_year1 = $("#year1_select").val();
 
   // Import or Export
@@ -215,15 +214,10 @@ function update_viz(viz) {
   if(typeof(viz)=="undefined" && current_country2!="all")
     current_viz = "tree_map";
 
-  if(current_year2!="") {
-    // Automatically switch
-    current_viz = "stacked";
-  }
-
   if(current_year2=="" && current_viz == "stacked")
     current_viz = "tree_map";
 
-  if(viz=="tree_map" || viz=="map" || viz=="scatterplot" || viz=="rankings") {
+  if(viz=="tree_map" || viz=="map" || viz=="scatterplot" || viz=="rankings" || viz=="pie_scatter" || viz=="product_space") {
     current_year2 = "";
     current_viz = viz;
   }
