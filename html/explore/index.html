@@ -134,28 +134,23 @@
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-countries">
-            <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">Select a Country:</span>
-            <div id="country1" width="120px" style="margin-left: 0px;" onmouseover="$('.show-partner').css('visibility', 'visible');"  onmouseout="$('.show-partner').css('visibility', 'hidden');">
+            <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">Select a Country</span>
+            <div id="country1" width="190px" style="margin-left: 0px;">
 
-              <button type="button" onclick="update_viz()" class="glyphicon glyphicon-refresh show-partner tooltipbs" data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-                <select data-placeholder="All Countries" id="country1_select" style="width:130px">
+                <select data-placeholder="All Countries" id="country1_select" style="width:190px">
 
                 <option value=""></option>
               </select>
             </div>
 
-          <ul class="nav nav-tabs main-countries-products" id="myTab" style="width:210px; margin-top:20px">
-            <li class="active"><a href="#tab-trade"><span class="glyphicon glyphicon-resize-horizontal"></span> <span style="font-size:14px;" title='{% trans "Trade Flow" %}'>{% trans "Trade Flow" %}</span></a></li>
-          </ul>
+            <br>
 
         <!-- TRADE / DIVERSIFICATION -->
-        <div class="tab-content"  style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:210px; height:335px;">
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-trade">
 
-          <div id="trade_flow" style="margin-left: 8px;">
+          <div id="trade_flow" style="margin-left: -5px;">
 
             <div class="btn-group flow-direction" data-toggle="buttons" style="margin-top:5px; margin-left:5px">
               <label class="btn btn-default {% if trade_flow == "export" or trade_flow == "net_export" %} active{% endif %}">
@@ -167,21 +162,19 @@
             </div>
           </div>
 
-          <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:10px; width:190px;">
+          <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:0px; width:200px;">
             <li{% if prod_or_partner == "product" %} class="active"{% endif %}><a href="#show-country-product"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray;"></span>  <span style="font-size:14px; color:gray;">Product</span></a></li>
             <li{% if prod_or_partner == "partner" %} class="active"{% endif %}><a href="#show-country-partner"><span class="glyphicon glyphicon-globe" style="font-size:14px; color:gray;"></span> <span style="font-size:14px;">Partner</span></a></li>
           </ul>
 
           <!-- Tab Trade Partner/Product -->
-          <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:190px; margin-left:10px; height:60px">
+          <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px; width:200px; margin-left:0px; height:60px">
 
             <div class="tab-pane {% if prod_or_partner == "product" %} active{% endif %}" id="show-country-product">
 
-              <div id="country-product" width="120px" style="margin-left:10px;"  onmouseover="$('.show-country-product').css('visibility', 'visible');"  onmouseout="$('.show-country-product').css('visibility', 'hidden');">
+              <div id="country-product" width="170px" style="margin-left:10px;">
 
-                <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-country-product tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-                <select data-placeholder="All Products" id="country_product_select" " style="width:130px">
+                <select data-placeholder="All Products" id="country_product_select" style="width:170px">
                 <option value=""></option>
 
                 </select>
@@ -190,21 +183,20 @@
 
             <div class="tab-pane {% if prod_or_partner == "partner" %} active{% endif %}" id="show-country-partner">
 
-              <div id="country-trade-partner" style="margin-left: 10px;" onmouseover="$('.show-trade-partner').css('visibility', 'visible');" onmouseout="$('.show-trade-partner').css('visibility', 'hidden');">
+              <div id="country-trade-partner" width="170px" style="margin-left: 10px;">
 
-                 <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh show-trade-partner tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top" style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
-
-                  <select data-placeholder="All Countries" id="country_trade_partner_select" style="width:130px;">
+                  <select data-placeholder="All Countries" id="country_trade_partner_select" style="width:170px;">
                     <option value=""></option>
                   </select>
               </div>
             </div>
+
           </div>
 
           <!-- App selection -->
-          <div style="font-weight:bold; margin-top:0px; margin-left:10px">
+          <div style="font-weight:bold; margin-top:0px; margin-left:5px">
           <br>
-          Visualization:</div>
+          Trade Data Visualization</div>
 
           <div id="tfViz" data-toggle="buttons" style="margin-left:5px;">
 
@@ -223,12 +215,17 @@
               <img src="{{ STATIC_URL }}img/home/stacked-thumb.png" style="width:38px;"/>
             </label>
 
+            <div style="font-weight:bold; margin-top:0px; margin-left:5px">
+            <br>
+            Complexity Visualization</div>
+
+
             <label value="product_space" class="btn btn-default {% if app_name == 'product_space' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Space" >
               <input type="radio" style="background:url({{ STATIC_URL }}img/home/productSpace-thumb.png) no-repeat;">
               <img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="width:38px;"/>
             </label>
 
-            <label value="pie_scatter" class="btn btn-default {% if app_name == 'pie_scatter' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Feasability" >
+            <label value="pie_scatter" class="btn btn-default {% if app_name == 'pie_scatter' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Feasibility" >
               <input type="radio" style="background:url({{ STATIC_URL }}img/home/productFeas2-thumb.png) no-repeat;">
               <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:38px;"/>
             </label>
@@ -253,7 +250,7 @@
           </div>
 
         </div>
-      </div>
+
 
 
   <!-- END -->
@@ -265,11 +262,9 @@
       <li class="active"><a href="#country-year"><span class="glyphicon glyphicon-calendar"></span> <span style="font-size:16px;">Time Period</span></a></li>
     </ul>
 
-    <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px;"  onmouseover="$('.over-time').css('visibility', 'visible');"  onmouseout="$('.over-time').css('visibility', 'hidden');">
+    <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px;">
 
       <div class="tab-pane active" id="country-year">
-
-        <button type="button" onclick="update_viz();" class="glyphicon glyphicon-refresh over-time tooltipbs"  data-toggle="tooltip" title="Refresh" data-placement="top"style="float:right; margin-right:10px; width:25px; height:20px; font-size:8px; visibility:hidden;"></button>
 
            <select id="year1_select" style="margin-left: 10px;">
             {% for y in year1_list %}
@@ -542,7 +537,7 @@
 
           {% if app_name == "pie_scatter" %}
             <div class="product_class" style="float:left;">
-              <span class="definition" style="font-weight:bold;">Y-Axis: </span>
+              <span class="definition" style="font-weight:bold;">Y-Axis </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
                 <label class="btn btn-default active" id="complexity" name="yvar" >
                   <input type="radio" id="complexity" name="yvar"> Complexity
@@ -553,7 +548,7 @@
               </div>
             </div>
             <div class="product_class" style="float:left;">
-              <span class="definition" style="font-weight:bold;">Spotlight: </span>
+              <span class="definition" style="font-weight:bold;">Hide exportations (Spotlight) </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:20px;">
 
                 <label class="btn btn-default active" id="complexity" name="yvar" >
@@ -583,7 +578,7 @@
           {% if app_name == "scatterplot" %}
 
             <div class="product_class" style="float:left;">
-              <span class="definition" style="font-weight:bold;">X-Axis: </span>
+              <span class="definition" style="font-weight:bold;">X-Axis </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
                 <label class="btn btn-default active" id="complexity" name="yvar" >
                   <input type="radio" id="complexity" name="yvar"> Distance
@@ -595,7 +590,7 @@
             </div>
 
             <div class="product_class" style="float:left;">
-              <span class="definition" style="font-weight:bold;">Y-Axis: </span>
+              <span class="definition" style="font-weight:bold;">Y-Axis </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
                 <label class="btn btn-default active" id="complexity" name="yvar" >
                   <input type="radio" id="complexity" name="yvar"> Complexity
@@ -651,7 +646,7 @@
           {% if app_name == "product_space" %}
 
           <div class="vizControl col-md-4">
-            <span class="definition" style="font-weight:bold;">Product Class:</span>
+            <span class="definition" style="font-weight:bold;">Product Class.</span>
             <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
               <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
                 <input type="radio" name="product_class" value="sitc4"> SITC4

@@ -188,8 +188,7 @@ function update_viz(viz) {
   // Fix for Firefox
   var url = $('base')[0].href + "explore/";
 
-  var current_viz = (typeof viz != "undefined" )  ? viz : $("#viz_apps").find(".active").attr("value");
-  current_viz = (typeof current_viz == "undefined" || current_viz == "") ? "tree_map" : current_viz;
+  var current_viz = (typeof viz != "undefined" )  ? viz : app_name;
   var current_year1 = $("#year1_select").val();
 
   // Import or Export
@@ -199,247 +198,209 @@ function update_viz(viz) {
   if(current_viz=="product_space" || current_viz=="pie_scatter" || current_viz=="rings")
     current_flow = "export";
 
-  // COUNTRIES
-  if($(".main-countries-products").find(".active").index()==0) {
+  var current_country1 = $("#country1").find(":selected").val();
+  current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1;
 
-    var current_country1 = $("#country1").find(":selected").val();
-    current_country1 = (typeof current_country1 == "undefined" || current_country1 == "") ? "all" : current_country1;
+  var current_country2 = $("#country-trade-partner").find(":selected").val();
+  current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2;
 
-    var current_country2 = $("#country-trade-partner").find(":selected").val();
-    current_country2 = (typeof current_country2 == "undefined" || current_country2 == "") ? "all" : current_country2;
+  var current_product = $("#country_product_select").find(":selected").val();
+  current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product;
 
-    var current_product = $("#country_product_select").find(":selected").val();
-    current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product;
+  var current_year2 = $("#year2_select").find(":selected").val();
+  current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2;
 
-    var current_year2 = $("#year2").find(":selected").val();
-    current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2;
+  // From trade partner to map
+  if(typeof(viz)=="undefined" && current_country2!="all")
+    current_viz = "tree_map";
 
+  if(current_year2=="" && current_viz == "stacked")
+    current_viz = "tree_map";
 
-    // From trade partner to map
-    if(typeof(viz)=="undefined" && current_country2!="all")
-      current_viz = "tree_map";
+  if(viz=="tree_map" || viz=="map" || viz=="scatterplot" || viz=="rankings" || viz=="pie_scatter" || viz=="product_space") {
+    current_year2 = "";
+    current_viz = viz;
+  }
 
-    if(current_year2!="") {
-      // Automatically switch
-      current_viz = "stacked";
+  if(viz=="stacked" && current_year2=="") {
+    if(prod_class="hs4") {
+      if(current_year1 < 2012)
+        current_year2 = 2012;
+      else
+        current_year2 = 1995;
+    } else { // "sitc"
+      if(current_year1 < 2010) {
+        current_year2 = 2010;
+
+      }
+      if(current_year2 > 2009)
+        current_year2 = 2009;
     }
+    current_viz = viz;
+  }
 
-    if(current_year2=="" && current_viz == "stacked")
-      current_viz = "tree_map";
+  // Selecting a specific product doesn't make sense for product feasibility
+  // and product space. And also both of these graphs only answer "what"
+  // questions and not "where" questions.
+  if(viz == "pie_scatter" || viz == "product_space"){
+      current_product = "all";
+  }
 
-    if(viz=="tree_map" || viz=="map" || viz=="scatterplot" || viz=="rankings") {
-      current_year2 = "";
-      current_viz = viz;
-    }
+  // Where does United States export Crude Petroleum to?
+  // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
+  if($(".tab-trade-partner-product").find(".active").index()==0) {
 
-    if(viz=="stacked" && current_year2=="") {
-      if(prod_class="hs4") {
-        if(current_year1 < 2012)
-          current_year2 = 2012;
+    // if a country is not selected..
+    if(current_country1=="all") {
+
+      if(current_year2=="") {
+
+        url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";
+
+      } else {
+        if(parseInt(current_year1)>parseInt(current_year2)) {
+          var tmp = current_year1;
+          current_year1 = current_year2;
+          current_year2 = tmp;
+        }
+
+        url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"."+current_year2+".2/";
+      }
+
+
+    } else if(current_product=="all") {
+
+      // What did United States export in 2011?
+      // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
+      if(current_year2=="") {
+
+        if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings" || current_viz == "pie_scatter" || current_viz == "product_space")
+          url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
+        else if(current_viz == "map") // Can't be a map of products
+          url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
         else
-          current_year2 = 1995;
-      } else { // "sitc"
-        if(current_year1 < 2010) {
-          current_year2 = 2010;
-
-        }
-        if(current_year2 > 2009)
-          current_year2 = 2009;
-      }
-      current_viz = viz;
-    }
-
-    // Selecting a specific product doesn't make sense for product feasibility
-    // and product space. And also both of these graphs only answer "what"
-    // questions and not "where" questions.
-    if(viz == "pie_scatter" || viz == "product_space"){
-        current_product = "all";
-    }
-
-    // Where does United States export Crude Petroleum to?
-    // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
-    if($(".tab-trade-partner-product").find(".active").index()==0) {
-
-      // if a country is not selected..
-      if(current_country1=="all") {
-
-        if(current_year2=="") {
-
-          url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";
-
-        } else {
-          if(parseInt(current_year1)>parseInt(current_year2)) {
-            var tmp = current_year1;
-            current_year1 = current_year2;
-            current_year2 = tmp;
-          }
-
-          url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"."+current_year2+".2/";
-        }
-
-
-      } else if(current_product=="all") {
-
-        // What did United States export in 2011?
-        // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
-        if(current_year2=="") {
-
-          if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings" || current_viz == "pie_scatter" || current_viz == "product_space")
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
-          else if(current_viz == "map") // Can't be a map of products
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
-          else
-            console.log("Should not be here")
-          // http://atlas.cid.harvard.edu/explore/map/export/usa/show/all/2011/
-
-        } else {
-
-          if(parseInt(current_year1)>parseInt(current_year2)) {
-            var tmp = current_year1;
-            current_year1 = current_year2;
-            current_year2 = tmp;
-          }
-
-          // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/all/1995.2011.2/
-          url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"."+current_year2+".2/"
-
-        }
+          console.log("Should not be here")
+        // http://atlas.cid.harvard.edu/explore/map/export/usa/show/all/2011/
 
       } else {
 
-        if(current_year2=="") {
-
-          url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/"
-
-        } else {
-
-          if(parseInt(current_year1)>parseInt(current_year2)) {
-            var tmp = current_year1;
-            current_year1 = current_year2;
-            current_year2 = tmp;
-          }
-
-          // Where does United States export Crude Petroleum to?
-          // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/2709/1995.2011.2/
-          url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"."+current_year2+".2/"
-
-        }
-      }
-
-    // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
-    } else if($(".tab-trade-partner-product").find(".active").index()==1) {
-
-      if(current_country1 == current_country2) {
-
-        alert("A country cannot trade with itself. Please select another country.")
-        return;
-      }
-
-
-      if(current_country2=="all") {
-
-        if(current_year2=="") {
-
-         if(current_viz == "pie_scatter" || current_viz == "product_space"){
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
-         } else {
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";
+        if(parseInt(current_year1)>parseInt(current_year2)) {
+          var tmp = current_year1;
+          current_year1 = current_year2;
+          current_year2 = tmp;
         }
 
-        } else {
+        // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/all/1995.2011.2/
+        url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"."+current_year2+".2/"
 
-          if(parseInt(current_year1)>parseInt(current_year2)) {
-            var tmp = current_year1;
-            current_year1 = current_year2;
-            current_year2 = tmp;
-
-          }
-
-          // http://127.0.0.1:8000/explore/stacked/export/alb/show/all/1995.2011.2/
-
-          url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"."+current_year2+".2/"
-        }
-
-      } else {
-
-        if(current_year2=="") {
-
-          // What did Albania export to Italy in 1995?
-          // http://127.0.0.1:8000/explore/tree_map/export/alb/ita/show/1995/
-          if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings")
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";
-          else if(current_viz == "map") // Can't be a map of products
-            url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
-          else if(current_viz == "pie_scatter" || current_viz == "product_space")
-              url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
-          else
-            console.log("Should not be here")
-
-        } else {
-
-          if(parseInt(current_year1)>parseInt(current_year2)) {
-            var tmp = current_year1;
-            current_year1 = current_year2;
-            current_year2 = tmp;
-
-          }
-
-          // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/chn/show/1995.2011.2/
-          url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"
-        }
       }
 
     } else {
 
-      console.log("error");
+      if(current_year2=="") {
+
+        url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"/"
+
+      } else {
+
+        if(parseInt(current_year1)>parseInt(current_year2)) {
+          var tmp = current_year1;
+          current_year1 = current_year2;
+          current_year2 = tmp;
+        }
+
+        // Where does United States export Crude Petroleum to?
+        // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/2709/1995.2011.2/
+        url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_product+"/"+current_year1+"."+current_year2+".2/"
+
+      }
     }
 
-    if(current_country1=="all" && current_product=="all") {
-      alert("Please, select at least one country or one product");
+  // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
+  } else if($(".tab-trade-partner-product").find(".active").index()==1) {
 
-    } else  if(current_country1=="all" && current_country2=="all" && $(".tab-trade-partner-product").find(".active").index()==1) {
+    if(current_country1 == current_country2) {
 
-      alert("Please, select at least one country");
-
-    }
-
-     else if (current_country2!="all" && current_year2 != "") {
-
-      window.location.assign(url+queryString);
-
-    } else {
-
-      window.location.assign(url+queryString);
-    }
-
-  // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/show/all/0101/2011/
-  } else if($(".main-countries-products").find(".active").index()==1) {
-
-    // Product space or diversification?
-    var current_viz = (typeof viz != "undefined" )  ? viz : $("#div_apps").find(".active").attr("value");
-
-    current_country1 = $("#country1").find(":selected").val();
-    console.log("diver", current_viz, current_country1)
-
-    var current_product = $("#product").find(":selected").val();
-
-    var current_product_country = $("#products_country1_select").find(":selected").val();
-    current_product_country = (typeof current_product_country == "undefined" || current_product_country == "") ? "all" : current_product_country;
-
-    // Product space http://127.0.0.1:8000/explore/product_space/export/usa/all/show/2011/
-    url += current_viz+"/"+current_flow+"/"+current_country1+"/"+"all/show/"+current_year1+"/";
-
-    // Make sure we have country for product space and diversity
-    if( (current_viz == "product_space" || current_viz=="pie_scatter" || current_viz=="rings" ) && current_country1 == "") {
-      alert("Please select at least one country");
+      alert("A country cannot trade with itself. Please select another country.")
       return;
     }
+
+
+    if(current_country2=="all") {
+
+      if(current_year2=="") {
+
+       if(current_viz == "pie_scatter" || current_viz == "product_space"){
+          url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
+       } else {
+          url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";
+      }
+
+      } else {
+
+        if(parseInt(current_year1)>parseInt(current_year2)) {
+          var tmp = current_year1;
+          current_year1 = current_year2;
+          current_year2 = tmp;
+
+        }
+
+        // http://127.0.0.1:8000/explore/stacked/export/alb/show/all/1995.2011.2/
+
+        url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"."+current_year2+".2/"
+      }
+
+    } else {
+
+      if(current_year2=="") {
+
+        // What did Albania export to Italy in 1995?
+        // http://127.0.0.1:8000/explore/tree_map/export/alb/ita/show/1995/
+        if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings")
+          url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";
+        else if(current_viz == "map") // Can't be a map of products
+          url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
+        else if(current_viz == "pie_scatter" || current_viz == "product_space")
+            url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
+        else
+          console.log("Should not be here")
+
+      } else {
+
+        if(parseInt(current_year1)>parseInt(current_year2)) {
+          var tmp = current_year1;
+          current_year1 = current_year2;
+          current_year2 = tmp;
+
+        }
+
+        // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/chn/show/1995.2011.2/
+        url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"
+      }
+    }
+
+  } else {
+
+    console.log("error");
+  }
+
+  if(current_country1=="all" && current_product=="all") {
+    alert("Please, select at least one country or one product");
+
+  } else  if(current_country1=="all" && current_country2=="all" && $(".tab-trade-partner-product").find(".active").index()==1) {
+
+    alert("Please, select at least one country");
+
+  }
+
+   else if (current_country2!="all" && current_year2 != "") {
 
     window.location.assign(url+queryString);
 
   } else {
 
-    console.log("ERROR IN SELECTING COUNTRIES/PRODUCTS TAB");
-
+    window.location.assign(url+queryString);
   }
+
+  window.location.assign(url+queryString);
 }

@@ -4,7 +4,8 @@ $(document).ready(function(){
 
     $.ajax({
         dataType: "json",
-        url: "api/dropdowns/products/"
+        data: {lang: lang},
+        url: "api/dropdowns/products/" + prod_class
     })
     .done(function( data ){
 
@@ -35,6 +36,7 @@ $(document).ready(function(){
 
     $.ajax({
         dataType: "json",
+        data: {lang: lang},
         url: "api/dropdowns/countries/"
     })
     .done(function( data ){

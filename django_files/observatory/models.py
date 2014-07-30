@@ -3,6 +3,7 @@ from django.db import models
 from django.forms import ModelForm
 from django.conf import settings
 
+from cache_utils.decorators import cached
 
 if not settings.DB_PREFIX:
   DB_PREFIX = ''
@@ -242,6 +243,7 @@ class Sitc4_manager(models.Manager):
 			lang = lang.replace("-", "_")
 		return self.extra(select={"name": "name_"+lang})
 
+	@cached(settings.CACHE_VERY_LONG)
 	def get_all(self, lang):
 
 		products = self.filter_lang(lang)
@@ -309,7 +311,9 @@ class Sitc4_py(models.Model):
 		db_table = DB_PREFIX+"observatory_sitc4_py"
 
 	product = models.ForeignKey(Sitc4)
-	year = models.PositiveSmallIntegerField(max_length=4)
+	# The unique=True here is a workaround that somehow makes the ForeignObject
+	# on cpy work.
+	year = models.PositiveSmallIntegerField(max_length=4, unique=True)
 	pci = models.FloatField(null=True)
 	pci_rank = models.PositiveSmallIntegerField(max_length=4)
 	world_trade = models.FloatField(null=True)
@@ -323,7 +327,9 @@ class Hs4_py(models.Model):
 		db_table = DB_PREFIX+"observatory_hs4_py"
 
 	product = models.ForeignKey('Hs4')
-	year = models.PositiveSmallIntegerField(max_length=4)
+	# The unique=True here is a workaround that somehow makes the ForeignObject
+	# on cpy work.
+	year = models.PositiveSmallIntegerField(max_length=4, unique=True)
 	pci = models.FloatField(null=True)
 	pci_rank = models.PositiveSmallIntegerField(max_length=4)
 	world_trade = models.FloatField(null=True)
@@ -358,6 +364,7 @@ class Hs4_manager(models.Manager):
 			lang = lang.replace("-", "_")
 		return self.extra(select={"name": "name_"+lang})
 
+	@cached(settings.CACHE_VERY_LONG)
 	def get_all(self, lang):
 		products = self.filter_lang(lang)
 		products = products.filter(community__isnull=False)#, ps_size__isnull=False)
@@ -438,6 +445,8 @@ class Sitc4_cpy(models.Model):
 	distance = models.FloatField(null=True)
 	opp_gain = models.FloatField(null=True)
 
+	product_year = models.ForeignObject(Sitc4_py, ('product', 'year'), ('product', 'year'))
+
 	def __unicode__(self):
 		return "CPY: %s.%s.%d" % (self.country.name, self.product.code, self.year)
 
@@ -458,6 +467,8 @@ class Hs4_cpy(models.Model):
 	export_rca = models.FloatField(null=True)
 	distance = models.FloatField(null=True)
 	opp_gain = models.FloatField(null=True)
+
+	product_year = models.ForeignObject(Hs4_py, ('product', 'year'), ('product', 'year'))
 
 	def __unicode__(self):
 		return "CPY: %s.%s.%d" % (self.country.name, self.product.code, self.year)
