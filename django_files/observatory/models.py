@@ -91,6 +91,7 @@ class Country_region(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_country_region"
+        managed = False
 
     def __unicode__(self):
         return self.name
@@ -143,6 +144,7 @@ class Country(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_country"
+        managed = False
 
     name = models.CharField(max_length=200)
     name_numeric = models.PositiveSmallIntegerField(max_length=4, null=True)
@@ -223,6 +225,7 @@ class Sitc4_community(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_sitc4_community"
+        managed = False
 
     code = models.CharField(max_length=4)
     name = models.CharField(max_length=100, null=True)
@@ -269,6 +272,7 @@ class Sitc4(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_sitc4"
+        managed = False
 
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=4)
@@ -314,6 +318,7 @@ class Sitc4_py(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_sitc4_py"
+        managed = False
 
     product = models.ForeignKey(Sitc4)
     # The unique=True here is a workaround that somehow makes the ForeignObject
@@ -331,6 +336,7 @@ class Hs4_py(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_hs4_py"
+        managed = False
 
     product = models.ForeignKey('Hs4')
     # The unique=True here is a workaround that somehow makes the ForeignObject
@@ -350,6 +356,7 @@ class Hs4_community(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_hs4_community"
+        managed = False
 
     code = models.CharField(max_length=4)
     name = models.CharField(max_length=100, null=True)
@@ -402,6 +409,7 @@ class Hs4(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_hs4"
+        managed = False
 
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=4)
@@ -446,6 +454,7 @@ class Sitc4_cpy(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_sitc4_cpy"
+        managed = False
 
     country = models.ForeignKey(Country)
     product = models.ForeignKey(Sitc4)
@@ -471,6 +480,7 @@ class Hs4_cpy(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_hs4_cpy"
+        managed = False
 
     country = models.ForeignKey(Country)
     product = models.ForeignKey(Hs4)
@@ -497,6 +507,7 @@ class Sitc4_ccpy(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_sitc4_ccpy"
+        managed = False
 
     year = models.PositiveSmallIntegerField(max_length=4)
     origin = models.ForeignKey(Country, related_name="sitc4_ccpys_origin")
@@ -515,6 +526,7 @@ class Hs4_ccpy(models.Model):
 
     class Meta:
         db_table = DB_PREFIX+"observatory_hs4_ccpy"
+        managed = False
 
     year = models.PositiveSmallIntegerField(max_length=4)
     origin = models.ForeignKey(Country, related_name="hs4_ccpys_origin")
