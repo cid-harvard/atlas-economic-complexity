@@ -84,7 +84,10 @@
      <div class="logo" style="background-color: #fafafa; width:165px; height:66px;">
         <a href="" title="Home" style="text-decoration: none;">
         <h1 style="background: url({{ STATIC_URL }}img/all/logo_rainbow.png) repeat-x 100% 100%; padding-bottom:22px; color: black; font-size:43px;">The Atlas</h1>
-        <h2 style="font-size:14px; margin-top:-25px; text-align:center; margin-left:0px; letter-spacing:1px; color:white; text-transform:uppercase; text-decoration:none; background-color: #a0a6a9;">of Economic Complexity</h2></a>
+
+
+
+        <h2 style="font-size:14px; margin-top:-25px; text-align:center; margin-left:0px; letter-spacing:1px; color:white; text-transform:uppercase; text-decoration:none; background-color: #a0a6a9;" class="element">of Economic Complexity</h2></a>
       </div>
       <nav>
         <ul>
@@ -119,9 +122,34 @@
 
       </div>
 
+      <style type="text/css">
+      .typed-cursor {
+          opacity: 1;
+          -webkit-animation: blink 0.7s infinite;
+          -moz-animation: blink 0.7s infinite;
+          animation: blink 0.5s infinite;
+          font-size: 32px;
+      }
+      @keyframes blink{
+          0% { opacity:1; }
+          50% { opacity:0; }
+          100% { opacity:1; }
+      }
+      @-webkit-keyframes blink{
+          0% { opacity:1; }
+          50% { opacity:0; }
+          100% { opacity:1; }
+      }
+      @-moz-keyframes blink{
+          0% { opacity:1; }
+          50% { opacity:0; }
+          100% { opacity:1; }
+      }
+      </style>
+
       <!-- The title -->
       <div class="app_title" id="title"  original-title='{% trans "Economic Complexity" %}'>
-        <h2 style="margin-left:10px; width:700px;" id="text_title" >{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2>
+        <h2 style="margin-left:10px; width:700px;"><span id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</span><span id="text_blink"></span></h2>
       </div>
 
       <br style="clear:both">
@@ -912,6 +940,7 @@
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
+  <script src="{{ STATIC_URL }}js/libs/typed.js"></script>  
 
   <!-- App -->
   <script src="{{ STATIC_URL }}js/explore/general.js?{{ VERSION }}"></script>
@@ -1024,6 +1053,7 @@ $(function(){
             $(this).replaceWith(new_input);
             new_input.focus();
             new_input.autocomplete(autocomplete_settings);
+            $(".typed-cursor").remove()
             });
         });
 </script>
@@ -1151,18 +1181,6 @@ $.ajaxSetup({
     }
   })
 
-  // Check to see if the title overflows (in the case of long product names)
-  function isOverflowed(element){
-      return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
-  }
-
-  var title = d3.select("#title")
-  var shrink_size = 30;
-
-  while(isOverflowed(title.node())) {
-    $("#title").children().css("font-size", shrink_size+"px")
-    shrink_size -= 1;
-  }
 
   // Page init scripts
   $(function () {
@@ -1215,6 +1233,35 @@ $.ajaxSetup({
     $('button[title]').tipsy({gravity: 'w', delayIn: 500});
     $('label[title]').tipsy({gravity: 'n', delayIn: 500});
   });
+</script>
+
+<script>
+
+
+  $("#text_blink").typed({
+    strings: [""],
+    typeSpeed: 0,
+    callback: function() { 
+
+      console.log("done");
+
+      // Check to see if the title overflows (in the case of long product names)
+      function isOverflowed(element){
+          return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+      }
+
+      var title = d3.select("#title")
+      var shrink_size = 30;
+
+      while(isOverflowed(title.node())) {
+        $("#title").children().children().css("font-size", shrink_size+"px")
+        shrink_size -= 1;
+      }
+
+        }
+    });
+
+
 </script>
 
   <script type="text/javascript">
