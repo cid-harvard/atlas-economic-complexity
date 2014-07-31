@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 from django.forms import ModelForm
 from django.conf import settings
@@ -564,12 +563,3 @@ class Wdi_cwy(models.Model):
         return "[%s] %s: %s" % (
             self.year, self.country.name_3char, self.wdi.name)
 
-
-def raw_q(*args, **kwargs):
-    '''Returns an array based on the keyword arguments'''
-    from django.db import connection, transaction
-    cursor = connection.cursor()
-    cursor.execute(kwargs["query"])
-    # raise Exception(cursor.description)
-    # raise Exception(cursor.rowcount)
-    return cursor.fetchall()
