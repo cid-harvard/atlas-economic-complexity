@@ -4,6 +4,8 @@ from django.template import RequestContext
 
 from observatory.models import Cy, Hs4_py
 
+from operator import itemgetter
+
 
 def index(request, category="country", year=2012):
     year = int(year)
@@ -70,21 +72,16 @@ def download(request, category="country", year=None):
 
 
 def get_rankings(category, year):
-    from collections import defaultdict
-    year = int(year)
 
-    rankings = defaultdict(dict)
-    rankings_list = []
+    year = int(year)
 
     if category == "country":
         year_rankings = Cy.objects\
             .filter(
-                year__in=[year, year - 1]
+                year__in=[year, year - 1],
+                country__originally_included=True
             )\
             .exclude(eci_rank__isnull=True)\
-            .exclude(country__name_3char__isnull=True)\
-            .exclude(country__name_2char__isnull=True)\
-            .exclude(country__region__isnull=True)\
             .exclude(eci_rank=0)\
             .values_list(
                 "eci_rank",
@@ -95,7 +92,8 @@ def get_rankings(category, year):
     elif category == "product":
         year_rankings = Hs4_py.objects\
             .filter(
-                year__in=[year, year - 1])\
+                year__in=[year, year - 1]
+            )\
             .exclude(pci_rank__isnull=True)\
             .exclude(pci_rank=0)\
             .values_list(
@@ -105,15 +103,26 @@ def get_rankings(category, year):
                 "pci",
                 "year")
 
-    for r in year_rankings:
-        rankings[r[1]][r[4]] = r
-    for r in rankings.values():
-        if year-1 in r and year in r:
-            rankings_list.append(
-                [r[year][0], r[year][1], r[year][2], r[year][3],
-                 r[year - 1][0] - r[year][0]])
-        elif year-1 not in r:
-            rankings_list.append(
-                [r[year][0], r[year][1], r[year][2], r[year][3], 0])
-    rankings_list.sort(key=lambda x: x[0])
-    return rankings_list
+    # Sort by eci_rank and then year
+    rankings_sorted = sorted(year_rankings, key=itemgetter(0, 4))
+
+    # Split into two sorted year lists and recalculate ranks because eci_rank
+    # doesn't work because it includes countries other than the original 128 we
+    # chose for analysis. (country_originally_included)
+    rankings_thisyear = [r for r in rankings_sorted if r[4] == year]
+    rankings_thisyear = [r + (i + 1,) for i, r in enumerate(rankings_thisyear)]
+    rankings_lastyear = [r for r in rankings_sorted if r[4] == year - 1]
+    rankings_lastyear = {r[1]: r + (i + 1,) for i, r in enumerate(rankings_lastyear)}
+
+    rankings_with_delta = []
+    for i, r in enumerate(rankings_thisyear):
+
+        key = r[1]
+        if key not in rankings_lastyear:
+            delta = 0
+        else:
+            delta = rankings_lastyear[key][5] - r[5]
+
+        rankings_with_delta.append([r[5], r[1], r[2], r[3], delta])
+
+    return rankings_with_delta
