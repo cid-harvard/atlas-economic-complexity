@@ -154,6 +154,7 @@ class Country(models.Model):
 	name_numeric = models.PositiveSmallIntegerField(max_length=4, null=True)
 	name_2char = models.CharField(max_length=2, null=True)
 	name_3char = models.CharField(max_length=3, null=True)
+	originally_included = models.BooleanField()
 	continent = models.CharField(max_length=50, null=True)
 	region = models.ForeignKey(Country_region, null=True)
 	capital_city = models.CharField(max_length=100, null=True)
