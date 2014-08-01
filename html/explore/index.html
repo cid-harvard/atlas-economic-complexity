@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load humanize %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,28 +31,26 @@
   <meta name="fragment" content="!">
 
   <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}img/favicon.ico">
-  <!-- Load non-standard fonts -->
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
 
+  {% compress css %}
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/toastr/toastr.min.css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
-  <link rel='stylesheet' type='text/css' href='../media/js/libs/tipsy/tipsy.css'>
+  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/widgets.css?{{ VERSION }}">
+  <link href="{{ STATIC_URL }}js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}js/libs/d3plus/d3plus.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/searchresults.css" />
+  {% endcompress %}
 
+  <link rel='stylesheet' type='text/css' href='{{ STATIC_URL }}/js/libs/tipsy/tipsy.css'>
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css" />
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
 
-  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/widgets.css?{{ VERSION }}">
-  <!-- VizWiz -->
-
-  <link href="{{ STATIC_URL }}js/libs/vizwiz/src/vizwhiz.d3.css" rel="stylesheet" type="text/css">
-
-  <link href="{{ STATIC_URL }}js/libs/d3plus/d3plus.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/searchresults.css" type="text/css" media="all" />
 
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -923,23 +922,27 @@
 
   </div> <!-- END #container -->
 
+  <!-- Glossary -->
+  <div id="glossary" style="display:none;">
+    {% include "about/glossary_text.html" %}
+  </div>
 
 
-
-  <!-- The JavaScript -->
-  <!-- Libraries -->
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="media/js/libs/helpbox.js"></script>
-  <script type="text/javascript" src="media/js/explore/dropdowns.js"></script>
-  <script type="text/javascript" src="media/js/searchresults.js"></script>
-  <script type="text/javascript" src="media/js/explore/download.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
+
+
+  {% compress js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/libs/helpbox.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/explore/dropdowns.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL}}js/searchresults.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL}}js/explore/download.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
   <script src="{{ STATIC_URL }}js/libs/bootstrap/js/bootstrap.min.js"></script>
   <script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
-  <script src="{{ STATIC_URL }}js/libs/typed.js"></script>  
+  <script src="{{ STATIC_URL }}js/libs/typed.js"></script>
 
   <!-- App -->
   <script src="{{ STATIC_URL }}js/explore/general.js?{{ VERSION }}"></script>
@@ -949,18 +952,12 @@
   <script src="{{ STATIC_URL }}js/apps/related.js?{{ VERSION }}"></script>
   <script src="{{ STATIC_URL }}js/libs/toastr/toastr.min.js"></script>
 
-<!--
-    <script src="{{ STATIC_URL }}js/libs/vizwiz/lib/modernizr.custom.js"></script>
-    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/general.js"></script>
-    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/utils.js"></script>
-    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/tooltip.js"></script>
-    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.js"></script>
-    <script src="{{ STATIC_URL }}js/libs/vizwiz/src/viz/viz.js"></script>
--->
   <script src="{{ STATIC_URL }}js/libs/d3plus/lib/modernizr.custom.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3plus/src/general.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3plus/src/utils.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3plus/src/tooltip.js"></script>
+  <script src="{{ STATIC_URL }}js/explore/viz_general.js"></script>
+  {% endcompress %}
 
   {% if app_name != "map" %}
 
@@ -978,7 +975,7 @@
 
     {% elif app_name == "scatterplot_new" %}
 
-      <script src="{{ STATIC_URL }}js/libs/d3plus/d3plus.v1.2.4.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/d3plus/d3plus.v1.2.4.js"></script>
 
     {% endif %}
 
@@ -1001,13 +998,6 @@
 
   {% endif %}
 
-
-  <script src="{{ STATIC_URL }}js/explore/viz_general.js"></script>
-
-  <!-- Glossary -->
-  <div id="glossary" style="display:none;">
-    {% include "about/glossary_text.html" %}
-  </div>
 
   <script>
     $("#glossary h4").each(function(index) {
