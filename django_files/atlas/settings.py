@@ -73,6 +73,7 @@ STATIC_URL = '/media/'
 STATICFILES_FINDERS = (
   'django.contrib.staticfiles.finders.FileSystemFinder',
   'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+  'compressor.finders.CompressorFinder',
 )
 TEMPLATE_LOADERS = (
   'django.template.loaders.filesystem.Loader',
@@ -101,7 +102,8 @@ INSTALLED_APPS = (
   'django.contrib.humanize',
   'django.contrib.sitemaps',
   'observatory',
-  'blog'
+  'blog',
+  'compressor'
 )
 
 
@@ -112,12 +114,14 @@ CACHES = {
     },
 }
 
-VERSION = '1.0.5'
+VERSION = '1.0.6'
 
 CACHE_VERY_SHORT = 60*10  # 10 minutes
 CACHE_SHORT = 60*60  # 1 hour
 CACHE_LONG = 60*60*24  # 1 day
 CACHE_VERY_LONG = 60*60*24*7  # 1 week
+
+COMPRESS_DEBUG_TOGGLE = "no_compress"
 
 try:
   from settings_local import *

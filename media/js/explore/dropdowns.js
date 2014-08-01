@@ -5,7 +5,7 @@ $(document).ready(function(){
     $.ajax({
         dataType: "json",
         data: {lang: lang},
-        url: "api/dropdowns/products/" + prod_class
+        url: "api/dropdowns/products/" + prod_class + "/"
     })
     .done(function( data ){
 

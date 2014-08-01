@@ -3,6 +3,8 @@
 *.svn-base
 .picasa.ini
 .ropeproject/
+.DS_Store
+CACHE
 
 #sample data
 media/data/*.json
