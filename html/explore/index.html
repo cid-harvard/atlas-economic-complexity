@@ -228,18 +228,18 @@
           <div id="tfViz" data-toggle="buttons" style="margin-left:5px;">
 
             <label value="tree_map" class="btn btn-default {% if app_name == 'tree_map' %}active{% endif %} tooltipbs" data-placement="top" data-toggle="tooltip">
-              <input type="radio" style="background:url({{ STATIC_URL }}img/home/treeMap-thumb.png) no-repeat;">
-              <img src="{{ STATIC_URL }}img/home/treeMap-thumb.png" style="width:38px;"/>
+              <input type="radio" style="background:url({{ STATIC_URL }}img/common/treemap.png) no-repeat;">
+              <img src="{{ STATIC_URL }}img/common/treemap.png" style="width:38px;"/>
             </label>
 
             <label value="map" class="btn btn-default {% if app_name == 'map' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Map" >
-              <input type="radio" style="background:url({{ STATIC_URL }}img/home/geo-thumb.png) no-repeat;">
-              <img src="{{ STATIC_URL }}img/home/geo-thumb.png" style="width:38px;"/>
+              <input type="radio" style="background:url({{ STATIC_URL }}img/common/geo.png) no-repeat;">
+              <img src="{{ STATIC_URL }}img/common/geo.png" style="width:38px;"/>
             </label>
 
             <label value="stacked" class="btn btn-default {% if app_name == 'stacked' %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Stacked Graph" >
               <input type="radio" name="viz_apps">
-              <img src="{{ STATIC_URL }}img/home/stacked-thumb.png" style="width:38px;"/>
+              <img src="{{ STATIC_URL }}img/common/stackedgraph.png" style="width:38px;"/>
             </label>
 
             <div style="font-weight:bold; margin-top:0px; margin-left:5px">
@@ -248,13 +248,13 @@
 
 
             <label value="product_space" class="btn btn-default {% if app_name == 'product_space' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Space" >
-              <input type="radio" style="background:url({{ STATIC_URL }}img/home/productSpace-thumb.png) no-repeat;">
-              <img src="{{ STATIC_URL }}img/home/productSpace-thumb.png" style="width:38px;"/>
+              <input type="radio" style="background:url({{ STATIC_URL }}img/common/productspace.png) no-repeat;">
+              <img src="{{ STATIC_URL }}img/common/productspace.png" style="width:38px;"/>
             </label>
 
             <label value="pie_scatter" class="btn btn-default {% if app_name == 'pie_scatter' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Feasibility" >
-              <input type="radio" style="background:url({{ STATIC_URL }}img/home/productFeas2-thumb.png) no-repeat;">
-              <img src="{{ STATIC_URL }}img/home/productFeas2-thumb.png" style="width:38px;"/>
+              <input type="radio" style="background:url({{ STATIC_URL }}img/common/feasibility.png) no-repeat;">
+              <img src="{{ STATIC_URL }}img/common/feasibility.png" style="width:38px;"/>
             </label>
 
             {% if app_name == "rings" %}
