@@ -4,8 +4,8 @@
 
 {% block page_title %}{{product.name_en}} Exporters and Importers{% endblock %}
 {% block heading_title %}
-Learn More About: Trade of </h2>
-<dl class="dropdown">
+<span style="float:left">Learn More About: Trade of </span>
+<dl class="dropdown" style="float:left; margin-left:10px; margin-top:-2px">
   <dt><a href="#"><span>{{product.name_en}}</span></a></dt>
   <dd>
     <ul>
@@ -15,6 +15,7 @@ Learn More About: Trade of </h2>
     </ul>
   </dd>
 </dl>
+
 {% endblock %}
 
 {% block css %}
@@ -298,7 +299,7 @@ table td:nth-child(4){
       
       <h3>What countries export {{product.name_en}}?</h3>
       
-      <iframe src="http://atlas.media.mit.edu/embed/tree_map/export/show/all/{{product.code}}/2010/" width="470" height="300" frameborder="0"></iframe>
+      <iframe src="http://atlas.media.mit.edu/explore/embed/tree_map/hs/export/show/all/{{product.code}}/2012/?controls=false" width="470" height="300" frameborder="0"></iframe>
       
       <div class="list">
         <!-- table of product exports -->
@@ -329,7 +330,7 @@ table td:nth-child(4){
       
       <h3>What countries import {{product.name_en}}?</h3>
       
-      <iframe src="http://atlas.media.mit.edu/embed/tree_map/import/show/all/{{product.code}}/2010/" width="470" height="300" frameborder="0"></iframe>
+      <iframe src="http://atlas.media.mit.edu/explore/embed/tree_map/hs/import/show/all/{{product.code}}/2012/?controls=false" width="470" height="300" frameborder="0"></iframe>
       
       <div class="list">
         <!-- table of product exports -->
