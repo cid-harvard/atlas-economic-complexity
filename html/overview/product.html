@@ -245,6 +245,13 @@ table td:nth-child(4){
 #quick_info table td:nth-child(1) {
   width: 170px;
 }
+
+a.product, a.country {
+  text-decoration: none;
+  padding: 0px;
+  margin: 0px;
+}
+
 </style>
 {% endblock %}
 
@@ -273,7 +280,7 @@ table td:nth-child(4){
           <td>
             {% for c in export_countries %}
               {% if forloop.counter < 6 %}
-                {{c.3}} ({{c.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
+                <img src="/media/img/icons/flag_{{c.2|lower}}.png" alt="{{c.3}}" /> <a href="/country/{{c.2|lower}}/" class="country">{{c.3}}</a> ({{c.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
               {% endif %}
             {% endfor %}
           </td>
@@ -283,7 +290,7 @@ table td:nth-child(4){
           <td>
             {% for c in import_countries %}
               {% if forloop.counter < 6 %}
-                {{c.3}} ({{c.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
+                <img src="/media/img/icons/flag_{{c.2|lower}}.png" alt="{{c.3}}" /> <a href="/country/{{c.2|lower}}/" class="country">{{c.3}} ({{c.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
               {% endif %}
             {% endfor %}
           </td>
