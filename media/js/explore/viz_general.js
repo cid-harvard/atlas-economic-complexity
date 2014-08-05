@@ -861,15 +861,45 @@ var flat_data,
       var html = "<div class='d3plus_tooltip_title'>Related Visualizations </div><br>";
       html += "<div id='related_links'></div>";
 
-      var name = "";
+      var name = "", object = null;
 
-      // Retrieve the name from id
-      flat_data.filter(function(d) {
-        if(d.id == obj)
-          name = d.name;
-      })
+      if(viz.depth() == "nesting_2") {
+        
+        // Retrieve the name from id
+        flat_data.forEach(function(d) {
+          if(d.id == obj) {
+            name = d.name;
+            object = d;
+            return;
+          }
+        })
+
+      } else if(viz.depth() == "nesting_1") {
+
+        // Retrieve the name from id
+        flat_data.forEach(function(d) {
+          if(d.nesting_1.id == obj) {
+            name = d.nesting_1.name;
+            object = d;
+            return;
+          }
+        })
+
+      } else if(viz.depth() == "nesting_0") {
+
+        // Retrieve the name from id
+        flat_data.forEach(function(d) {
+          if(d.nesting_0.id == obj) {
+            name = d.nesting_0.name;
+            object = d;
+            return;
+          }
+        })
+
+      }
 
       setTimeout(function() {
+
           //  d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
             d3.json("/api/search/?term="+name, function(error, data) {
 
