@@ -450,7 +450,7 @@
             {% endif %}
             {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}
               <div class="vizControl col-md-4" >
-                <span class="definition" style="font-weight:bold;">Detail Level:</span>
+                <span class="definition" style="font-weight:bold;">Detail Level</span>
                 <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
                     <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
@@ -487,7 +487,7 @@
               <span class="definition" style="font-weight:bold;">Color</span>
               <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default btn-detail active">
-                  <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Category
+                  <input type="radio" name="level_detail" value="nesting_0" onchange="d3.select('#viz').call(viz.color_var('color'))"> Category
                 </label>
                 <label class="btn btn-default btn-detail disabled">
                   <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Growth 1-year
@@ -564,7 +564,7 @@
                 </div>
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
-                <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
+                <span class="definition" style="font-weight:bold; display:inline;">Highlight</span>
                 <span id="highlight">
                     <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
                 </span>
@@ -701,14 +701,14 @@
             </div>
           </div>
           <div class="vizControl col-md-4">
-            <span class="definition">Color by:</span>
+            <span class="definition">Color by</span>
             <div class="btn-group community" style="margin-right:20px;">
               <label type="button" class="btn btn-default active" value="category"> Category</label>
               <label type="button" class="btn btn-default disabled" value="category"> Community</label>
             </div>
           </div>
           <div class="vizControl col-md-4">
-            <span class="definition">Size by: </span>
+            <span class="definition">Size by</span>
             <div class="btn-group node_size" data-toggle="buttons" >
               <label type="button" class="btn btn-default active" value="none">
                 <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
@@ -820,7 +820,7 @@
                </script>
               {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "rings" %}
               <div class="col-span-4" style="float:left; margin-top:20px; position:relative; z-index:100;">
-                <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
+                <span class="definition" style="font-weight:bold; display:inline;">Highlight</span>
 
                 <span id="highlight">
                     <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
