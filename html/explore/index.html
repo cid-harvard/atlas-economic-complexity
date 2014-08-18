@@ -450,26 +450,26 @@
             {% endif %}
             {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}
               <div class="vizControl col-md-4" >
-                  <span class="definition" style="font-weight:bold;">Detail Level:</span>
-                  <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-                    <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
-                      <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
-                    </label>
-                    {% if app_type == "casy" or app_type == "ccsy" %}
-                    <label class="btn btn-default btn-detail">
-                      <input type="radio" name="level_detail" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
-                    </label>
-                    {% endif %}
-                    <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
-                      <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
-                    </label>
-                  </div>
+                <span class="definition" style="font-weight:bold;">Detail Level:</span>
+                <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                  <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
+                    <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
+                  </label>
+                  {% if app_type == "casy" or app_type == "ccsy" %}
+                  <label class="btn btn-default btn-detail">
+                    <input type="radio" name="level_detail" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
+                  </label>
+                  {% endif %}
+                  <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
+                    <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
+                  </label>
                 </div>
+              </div>
             {% endif %}
 
             {% if app_name != "product_space" and app_name != "rings" and app_name != "pie_scatter"%}
               <div class="vizControl col-md-4" >
-                <span class="definition" style="font-weight:bold;">Trade Flow:</span>
+                <span class="definition" style="font-weight:bold;">Trade Flow</span>
                 <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
                     <input type="radio" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
@@ -481,6 +481,24 @@
               </div>
             {% endif %}
           </div>
+
+          {% if app_name == "tree_map" %}
+            <div class="vizControl col-md-6" >
+              <span class="definition" style="font-weight:bold;">Color</span>
+              <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                <label class="btn btn-default btn-detail active">
+                  <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Category
+                </label>
+                <label class="btn btn-default btn-detail disabled">
+                  <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Growth 1-year
+                </label>
+                <label class="btn btn-default btn-detail disabled">
+                  <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Growth 5-year
+                </label>
+              </div>
+            </div>
+          {% endif %}
+
           {% if app_name == "stacked" %}
 
           <style type="text/css">.contentInner{height:300px;} #timeline{min-height: 227px}</style>
@@ -530,20 +548,20 @@
 
               <div class="vizControl col-md-8">
                 <span class="definition" style="font-weight:bold;">Adjust:</span>
-<div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-              <label class="btn btn-default active">
-                <input type="radio" id="current" name="capita" checked="checked"> Current
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="notpc_constant" name="capita"> Constant
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="pc_current" name="capita"> Per Capita Current
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
-              </label>
-            </div>
+                <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                  <label class="btn btn-default active">
+                    <input type="radio" id="current" name="capita" checked="checked"> Current
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" id="notpc_constant" name="capita"> Constant
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" id="pc_current" name="capita"> Per Capita Current
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
+                  </label>
+                </div>
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
