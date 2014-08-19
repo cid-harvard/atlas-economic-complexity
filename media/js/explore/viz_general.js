@@ -377,6 +377,49 @@ var flat_data,
     
 
   }
+
+  display_growth = function(arg) {
+
+    // Check if a treemap of map
+
+    // Local variables
+    var curr_year = parseInt(viz.year());
+    var prev_year = curr_year - arg;
+    var curr_year_prods = flat_data.filter(function(d) { return d.year==curr_year; });
+    var prev_year_prods = flat_data.filter(function(d) { return d.year==prev_year; });
+
+    curr_year_prods.forEach(function(d) {
+
+      prev_year_prods.forEach(function(e) {
+
+        if(e.id == d.id) {
+          d.diff = d.value - e.value;
+          return ;
+        }
+
+      })
+
+    })
+
+    var min_diff = d3.min(curr_year_prods, function(d) { return d.diff });
+    var max_diff = d3.max(curr_year_prods, function(d) { return d.diff });
+
+    var diff_color_scale = d3.scale.linear().domain([min_diff, 0, max_diff]).range(["red", "black", "green"]);
+
+    // Adding new diff attribute for all the years
+    flat_data.forEach(function(d) {
+      d.diff_color = "#000000";
+    })
+
+/*
+    curr_year_prods.forEach(function(d) {
+      d.diff_color = diff_color_scale(d.diff)
+    })
+*/
+    // Updating the treemap
+    d3.select('#viz').call(viz.color_var('diff_color'))
+
+  }
   
   set_year = function(arg) {
 

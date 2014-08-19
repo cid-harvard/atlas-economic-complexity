@@ -482,22 +482,23 @@
             {% endif %}
           </div>
 
-          {% if app_name == "tree_map" %}
+          {% if app_name == "tree_map" or app_name == "map" %}
             <div class="vizControl col-md-6" >
-              <span class="definition" style="font-weight:bold;">Color</span>
+              <span class="definition" style="font-weight:bold;">Color by</span>
               <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default btn-detail active">
                   <input type="radio" name="level_detail" value="nesting_0" onchange="d3.select('#viz').call(viz.color_var('color'))"> Category
                 </label>
                 <label class="btn btn-default btn-detail disabled">
-                  <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Growth 1-year
+                  <input type="radio" name="level_detail" value="nesting_2" onchange="display_growth(1);"> Growth 1-year
                 </label>
                 <label class="btn btn-default btn-detail disabled">
-                  <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Growth 5-year
+                  <input type="radio" name="level_detail" value="nesting_2" onchange="display_growth(2);"> Growth 5-year
                 </label>
               </div>
             </div>
           {% endif %}
+
 
           {% if app_name == "stacked" %}
 
