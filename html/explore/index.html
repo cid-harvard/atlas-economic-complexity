@@ -976,6 +976,13 @@
   <script src="{{ STATIC_URL }}js/libs/d3plus/src/utils.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3plus/src/tooltip.js"></script>
   <script src="{{ STATIC_URL }}js/explore/viz_general.js"></script>
+  <script type="text/javascript">
+  // Hack to be able to get error messages out of selenium
+  window.jsErrors = [];
+  window.onerror = function(errorMessage) {
+      window.jsErrors[window.jsErrors.length] = errorMessage;
+  }
+  </script>
   {% endcompress %}
 
   {% if app_name != "map" %}
