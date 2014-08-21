@@ -133,15 +133,15 @@ function Slider() {
           {
             switch (showing) {
               case 1: tick.style("left",t+"%")
-                          .text("Â·")
+                          .text("·")
                       break;
               case 2: tick.style("left",t+"%")
-                          .text("Â·")  
+                          .text("·")  
                       break;
               default: tick.style("left",t-1+"%")
                        if (index%showing==2 )
                        {
-                       tick.text("Â·");  
+                       tick.text("·");  
                        }
                       break;
             }            }
