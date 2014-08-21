@@ -1,7 +1,5 @@
 {% extends "template.html" %}
 <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
-<link rel="stylesheet" href="{{ STATIC_URL }}css/searchresults.css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" />
 {% block page_title %}Home{% endblock %}
 {% block heading_title %}{% endblock %}
 
@@ -413,6 +411,9 @@ footer.credits, footer.logos {
 
 </style>
 
+<link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/searchresults.css" />
+
 <!-- Hidden Modal Window for Video -->
 
   <div id="videoModal">
@@ -561,17 +562,16 @@ footer.credits, footer.logos {
 
   <p style="clear:both"></p>
 
-<!--
       <div id="searchBox">
         <span style="float:left; margin-left:0px;font-size:30px; text-transform: none;">Search The Atlas »</span>
-        <input id="text_title" type="text" placeholder="What did Germany export in 2012?" class="ui-autocomplete-input"/>
+        <input id="searchbar" placeholder="E.g. 'Burundi imports 1997 2000', 'wine Italy', 'petroleum'">
         <span id="searchButton">
           <h4>Search</h4>
         </span>
       </div>
 
   <p style="clear:both"></p>
--->
+
     <div class="other_apps" style="float:left; width:455px; margin:20px; margin-top:80px; border: solid 1px lightgray;">
   
     <a href="explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/">
