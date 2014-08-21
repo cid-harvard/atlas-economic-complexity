@@ -592,6 +592,7 @@
                 </label>
               </div>
             </div>
+
             <div class="product_class" style="float:left;">
               <span class="definition" style="font-weight:bold;">Hide exports (Spotlight) </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:20px;">
@@ -603,7 +604,7 @@
                   <input type="radio" id="spot_on" name="pie_spot"> On
                 </label>
 
-<!--                 <label class="btn btn-default">
+<!--            <label class="btn btn-default">
                   <input type="radio">None
                 </label>
                 <label class="btn btn-default">
@@ -615,10 +616,22 @@
 
               </div>
             </div>
+
+            <div class="product_class" style="float:left;">
+              <span class="definition">Size by</span>
+              <div class="btn-group node_size" data-toggle="buttons" >
+                <label type="button" class="btn btn-default disabled" value="none">
+                  <input type="radio" name="node_size" value="none" onchange=""> None
+                </label>
+                <label type="button" class="btn btn-default active" value="world_trade">
+                  <input type="radio" name="node_size" value="world_trade" onchange=""> World Trade
+                </label>
+              </div>
+            </div>
+
             <p style="clear:both">
 
           {% endif %}
-
 
           {% if app_name == "scatterplot" %}
 
@@ -647,16 +660,16 @@
             </div>
 
             <div class="product_class" style="float:left;">
-            <span class="definition">Size by: </span>
-            <div class="btn-group node_size" data-toggle="buttons" >
-              <label type="button" class="btn btn-default active" value="none">
-                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
-              </label>
-              <label type="button" class="btn btn-default" value="world_trade">
-                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
-              </label>
+              <span class="definition">Size by: </span>
+              <div class="btn-group node_size" data-toggle="buttons" >
+                <label type="button" class="btn btn-default active" value="none">
+                  <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
+                </label>
+                <label type="button" class="btn btn-default" value="world_trade">
+                  <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
+                </label>
+              </div>
             </div>
-          </div>
 
        <p style="clear:both">
 
