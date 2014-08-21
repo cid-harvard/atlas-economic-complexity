@@ -2276,7 +2276,7 @@ var flat_data,
           // get rid of play button -->                  
           // d3.select('#play_button').style("display","none") 
 
-          if(queryParameters['cat']!="" && queryActivated) {
+          if(typeof(queryParameters['cat']) != "undefined" && queryParameters['cat']!="" && queryActivated) {
             var e = document.createEvent('UIEvents');
             e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
