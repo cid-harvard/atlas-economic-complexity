@@ -326,7 +326,7 @@
 
  -->
 
-    <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
+  <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
 </ul>
 <div class="tab-content" style="padding-top:0px;">
   {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None" %}
@@ -733,7 +733,6 @@
             </div>
           </div>
 
-
           <script>
             function updateRCA(v) {
               d3.select("#rca-threshold").text(v);
@@ -761,28 +760,26 @@
 
          {% if app_name == "map" %}
 
-         <!-- TO BE IMPLEMENTED
+
           <b>Color scale: </b>
           <div class="btn-group product_class">
-            <label type="button" class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}" value="sitc4">Linear</label>
-            <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4">Log</label>
+            <label type="button" class="btn btn-default disabled" value="sitc4">Linear</label>
+            <label type="button" class="btn btn-default active" value="hs4">Log</label>
           </div>
-          -->
 
          {% endif %}
 
+        {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "rings" %}
+        <div class="col-span-4" style="float:left; margin-top:20px; position:relative; z-index:100;">
+          <span class="definition" style="font-weight:bold; display:inline;">Highlight</span>
 
-              {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "rings" %}
-              <div class="col-span-4" style="float:left; margin-top:20px; position:relative; z-index:100;">
-                <span class="definition" style="font-weight:bold; display:inline;">Highlight</span>
+          <span id="highlight">
+              <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
+          </span>
 
-                <span id="highlight">
-                    <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
-                </span>
+        </div>
 
-              </div>
-
-              {% endif %}
+        {% endif %}
 	      </div>
         <br>
         <div id="moreOptions">
@@ -949,8 +946,7 @@
 
     <script src="{{ STATIC_URL }}js/libs/d3plus/d3plus.v1.2.4.js"></script>
 
-    {% endif %}
-
+  {% endif %}
 
   {% if app_name == "map" %}
 
@@ -987,71 +983,64 @@
         }
     });
 
-  </script>
-        <script type="text/javascript">
-        clicked = false;
-        $("#showMore").click(function(){
-          if(clicked == false){
-            $(this).addClass("moreActive");
-            $(this).html("<i class='fa fa-caret-up'> Less Options</i> ");
-            clicked = true;
-          }else{
-            $(this).removeClass("moreActive");
-            $(this).html("<i class='fa fa-caret-down'> More Options");
-            clicked = false;
-          }
-          $("#moreOptions").slideToggle(100);
-        });
-      </script>
- 
-<script type="text/javascript">
-$(function(){
-        $("#text_title").click(function() {
-            var current_content = $(this).html();
-            var new_input = $("<input type='text' id='text_title' />");
-            new_input.val(current_content);
-            $(this).replaceWith(new_input);
-            new_input.focus();
-            new_input.autocomplete(autocomplete_settings);
-            $(".typed-cursor").remove()
-            });
-        });
+  clicked = false;
+  $("#showMore").click(function(){
+    if(clicked == false){
+      $(this).addClass("moreActive");
+      $(this).html("<i class='fa fa-caret-up'> Less Options</i> ");
+      clicked = true;
+    }else{
+      $(this).removeClass("moreActive");
+      $(this).html("<i class='fa fa-caret-down'> More Options");
+      clicked = false;
+    }
+    $("#moreOptions").slideToggle(100);
+  });
+
+  $(function() {
+    $("#text_title").click(function() {
+      var current_content = $(this).html();
+      var new_input = $("<input type='text' id='text_title' />");
+      new_input.val(current_content);
+      $(this).replaceWith(new_input);
+      new_input.focus();
+      new_input.autocomplete(autocomplete_settings);
+      $(".typed-cursor").remove()
+    });
+  });
 </script>
 
-    <script src="media/js/libs/sorttable/sorttable.js"></script>
-
-  <script>
+<script>
 
 
-// Set up jquery to use django CSRF token
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
+  // Set up jquery to use django CSRF token
+  function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie != '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
 
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-        }
-    }
-});
-
+  function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+          }
+      }
+  });
 
   // variables from server
   var app,
@@ -1096,20 +1085,14 @@ $.ajaxSetup({
 
   <script>
 
-
-
   if(queryActivated) {
     updateURLQueryParameters();
 
-
-//   $("input[name='level_detail']").prop("selected", false);
-
-
+    //$("input[name='level_detail']").prop("selected", false);
     //$(".btn-detail").prop("selected", false);
     //$("input[name='level_detail'][value='nesting_0']").prop("selected", true);
 
   }
-
 
   // Dynamically update the interface based on queryParameters values
   if(app_type=="tree_map") {
@@ -1128,9 +1111,6 @@ $.ajaxSetup({
 
   // Page init scripts
   $(function () {
-
-
-
 
     $("#help").click(function(){
         bootstro.start(".bootstro",{
@@ -1158,8 +1138,7 @@ $.ajaxSetup({
   build_viz_app_original(api_uri, contentWidth, 520);
 
 });
-  </script>
-  <script>
+
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -1177,17 +1156,11 @@ $.ajaxSetup({
     $('button[title]').tipsy({gravity: 'w', delayIn: 500});
     $('label[title]').tipsy({gravity: 'n', delayIn: 500});
   });
-</script>
-
-<script>
-
 
   $("#text_blink").typed({
     strings: [""],
     typeSpeed: 0,
     callback: function() { 
-
-      console.log("done");
 
       // Check to see if the title overflows (in the case of long product names)
       function isOverflowed(element){
@@ -1204,7 +1177,6 @@ $.ajaxSetup({
 
         }
     });
-
 
 </script>
 
@@ -1237,29 +1209,29 @@ $.ajaxSetup({
       $("head").append('<meta name="viewport" content="width=648, initial-scale=0.7" />')
     }
 
-
-  function refresh_overlay(){
-    $("#refreshOverlay").show();
-  }
-  function remove_overlay(){
-    $("#refreshOverlay").hide();
-  }
-
-  $("select").change(function(){
-    if($(this).attr("id") != "highlight_select"){
-      refresh_overlay();
+    function refresh_overlay(){
+      $("#refreshOverlay").show();
     }
-  });
-  $(".nav-tabs li a").click(function(){
-    var parent = $(this).parent();
-    if(parent.parent().attr("id") != "utilityBox"){
-      if($(this).parent().attr("class") != "active"){
+
+    function remove_overlay(){
+      $("#refreshOverlay").hide();
+    }
+
+    $("select").change(function(){
+      if($(this).attr("id") != "highlight_select"){
         refresh_overlay();
-      } else{
-        remove_overlay();
       }
-    }
-  });
+    });
+    $(".nav-tabs li a").click(function(){
+      var parent = $(this).parent();
+      if(parent.parent().attr("id") != "utilityBox"){
+        if($(this).parent().attr("class") != "active"){
+          refresh_overlay();
+        } else{
+          remove_overlay();
+        }
+      }
+    });
   </script>
 </body>
 </html>
