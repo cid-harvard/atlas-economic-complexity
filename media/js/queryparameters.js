@@ -8,6 +8,8 @@ while (m = re.exec(queryString)) {
   queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
 }
 
+if(typeof(queryParameters["queryActivated"]) != "undefined")
+  queryActivated = true;
 
 function updateURLQueryParameters() {
 

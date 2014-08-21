@@ -427,7 +427,7 @@ var flat_data,
 
 
     if((typeof(single_year) != "undefined") && single_year) {
-
+      
       single_year = false;
       d3.select("#loader").style("display", "block");
       d3.select("#loader").append("text").text("Loading more years...")
