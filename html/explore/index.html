@@ -759,11 +759,6 @@
          {% endif %}
 
 
-
-
-
-
-
          {% if app_name == "map" %}
 
          <!-- TO BE IMPLEMENTED
@@ -777,61 +772,6 @@
          {% endif %}
 
 
-              <script>
-
-                   function highlight(value) {
-
-                var v = value ? value : $("#highlight_select").select2("val").trim();
-              {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
-
-                d3.select("#viz").call(chart.highlight([]));
-                d3.select("#viz").call(chart.highlight(v));
-
-                queryParameters['highlight'] = v;
-                if(queryActivated)
-                  updateURLQueryParameters();
-
-              {% endif %}
-
-              {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
-
-                {% if app_type = "casy" %}
-
-                if(v.length>0)
-                  d3.select("#viz").call(viz.solo([v]));
-                else
-                  d3.select("#viz").call(viz.solo([]));
-
-                {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" or app_type = "sapy" %}
-
-                d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) {
-                  if(dd.abbrv.toLowerCase() == v)// && dd.year==year)
-                    return dd;
-                }).map(function(ddd) {
-                    return ddd.id
-                })));
-
-                {% elif app_type = "" %}
-
-                {% endif %}
-
-                queryParameters['highlight'] = v;
-
-                if(queryActivated)
-                  updateURLQueryParameters();
-                    {% endif %}
-              }
-
-              function reset_highlight() {
-
-                $("#highlight_select").select2("val", "");
-                queryParameters["highlight"] = "";
-                if(queryActivated)
-                  updateURLQueryParameters();
-
-              }
-
-               </script>
               {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "rings" %}
               <div class="col-span-4" style="float:left; margin-top:20px; position:relative; z-index:100;">
                 <span class="definition" style="font-weight:bold; display:inline;">Highlight</span>
@@ -1030,7 +970,6 @@
 
   {% endif %}
 
-
   <script>
     $("#glossary h4").each(function(index) {
         if($("#glossary").length > 0) {
@@ -1079,6 +1018,7 @@ $(function(){
         });
 </script>
 
+    <script src="media/js/libs/sorttable/sorttable.js"></script>
 
   <script>
 
@@ -1149,37 +1089,20 @@ $.ajaxSetup({
     window.location = "/set_language/"+language+"/";
   });
 
+  </script>
 
-  // Variables from query string
-  var queryParameters = {}, queryString = location.search.substring(1),
-      re = /([^&=]+)=([^&]*)/g, m, queryActivated = false;
+    <script src="media/js/highlight.js"></script>
+    <script src="media/js/queryparameters.js"></script>
 
-  // Creates a map with the query string parameters
-  while (m = re.exec(queryString)) {
-      queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-  }
+  <script>
 
-  // Add new parameters or update existing ones
-  queryParameters['prod_class'] = "{{prod_class}}";
-  queryParameters['details_treemap'] = queryParameters['details_treemap'] || 2;
-  queryParameters['cat_id'] = queryParameters['cat_id'] || "";
-  queryParameters['cont_id'] = queryParameters['cont_id'] || "";
-  queryParameters['show_related'] = Boolean(queryParameters['show_related']) || false;
-  //queryParameters['trade_flow'] = queryParameters['trade_flow'] || "net";
-  queryParameters['highlight'] = queryParameters['highlight'] || "";
-
-  function updateURLQueryParameters() {
-    history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
-  }
 
 
   if(queryActivated) {
     updateURLQueryParameters();
 
-    // Put once the visualization is loaded
-    $("#highlight_select").select2("val", queryParameters['highlight']);
 
-//    $("input[name='level_detail']").prop("selected", false);
+//   $("input[name='level_detail']").prop("selected", false);
 
 
     //$(".btn-detail").prop("selected", false);

@@ -1052,7 +1052,8 @@ var flat_data,
     } 
     
     d3.select("#loader").style("display", "none");
-    highlight(queryParameters['highlight']);
+    if(queryActivated)
+      highlight(queryParameters['highlight']);
 
     //d3.select("#viz").style("height", "0px");
     //d3.select("#viz svg").style("display", "none");
@@ -1972,7 +1973,8 @@ var flat_data,
       .style('height','520px')
       .datum(data)
       .call(viz);  
-
+    
+    if(queryActivated)
       highlight(queryParameters['highlight']);
     })
     
@@ -2235,18 +2237,19 @@ var flat_data,
 
           tree();
 
-          if(queryParameters['cont_id']!="") {
+          if(queryActivated && typeof(queryParameters['cont_id']) != "undefined" && queryParameters['cont_id']!="") {
             var e = document.createEvent('UIEvents');
             e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             d3.select(".cat_"+queryParameters['cont_id']).node().dispatchEvent(e);
           }
 
-          if(queryParameters['cat_id']!="") {
+          if(queryActivated && typeof(queryParameters['cat_id']) != "undefined" && queryParameters['cat_id']!="") {
             var e = document.createEvent('UIEvents');
             e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             d3.select(".cat_"+queryParameters['cat_id']).node().dispatchEvent(e);
           }
 
+           $("#highlight_select").select2("val", queryParameters['highlight']);
         }
         
         if (app_name=="pie_scatter") {
