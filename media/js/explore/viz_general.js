@@ -359,7 +359,17 @@ var flat_data,
     var nest_level = ($("#nesting_level").val());
     year=arg
     set_depth(nest_level)
-    d3.select("#viz").call(viz.year(arg))
+
+    var scatter_title = d3.select('#text_title').text();
+
+    scatter_title = scatter_title.replace(viz.year(), arg);
+    d3.select('#text_title').text(scatter_title);
+
+    // Update the URL
+    window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
+
+    d3.select("#viz").call(viz.year(arg));
+
   }
 
   set_scatterplot_year = function(arg) {
@@ -427,7 +437,7 @@ var flat_data,
 
 
     if((typeof(single_year) != "undefined") && single_year) {
-      
+
       single_year = false;
       d3.select("#loader").style("display", "block");
       d3.select("#loader").append("text").text("Loading more years...")
@@ -471,13 +481,13 @@ var flat_data,
     if(typeof(start_year) == "undefined")
       start_year = viz.year();
 
-   console.log("mouse drag start", start_year, arg);
+    console.log("mouse drag start", start_year, arg);
 
     var treemap_title = d3.select('#text_title').text();
     treemap_title = treemap_title.replace(viz.year(), arg);
     d3.select('#text_title').text(treemap_title);
     
-    // TODO: Check if IE compliant
+    // Update the URL
     window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
 
     // Update the year drowdown
