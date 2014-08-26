@@ -1,5 +1,8 @@
  function highlight(value) {
 
+  if(typeof(value) != "undefined")
+    highlight();
+
   var v = value ? value : $("#highlight_select").select2("val").trim();
 
   if(app_name == "product_space" || app_name == "rings" || app_type == "cspy") {
