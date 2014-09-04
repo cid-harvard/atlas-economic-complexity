@@ -1112,6 +1112,18 @@
   // Page init scripts
   $(function () {
 
+    if(queryParameters['disable_widgets']) {
+
+      var opacity_level = .2;
+
+      d3.select("#app_pane").style("opacity", opacity_level);
+      d3.select("#myTab").style("opacity", opacity_level);
+      d3.select("#tool_pane").style("opacity", opacity_level);
+      d3.select(".contentInner").style("opacity", opacity_level);
+      d3.select(".footerInner").style("opacity", opacity_level);      
+
+    }
+
     $("#help").click(function(){
         bootstro.start(".bootstro",{
           finishButtonText: "Done"
