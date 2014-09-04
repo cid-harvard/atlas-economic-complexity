@@ -905,7 +905,7 @@
   {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/libs/helpbox.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/explore/dropdowns.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL}}js/searchresults.js"></script>
+
   <script type="text/javascript" src="{{ STATIC_URL}}js/explore/download.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
@@ -997,17 +997,7 @@
     $("#moreOptions").slideToggle(100);
   });
 
-  $(function() {
-    $("#text_title").click(function() {
-      var current_content = $(this).html();
-      var new_input = $("<input type='text' id='text_title' />");
-      new_input.val(current_content);
-      $(this).replaceWith(new_input);
-      new_input.focus();
-      new_input.autocomplete(autocomplete_settings);
-      $(".typed-cursor").remove()
-    });
-  });
+
 </script>
 
 <script>
@@ -1080,8 +1070,9 @@
 
   </script>
 
-    <script src="media/js/highlight.js"></script>
-    <script src="media/js/queryparameters.js"></script>
+  <script src="media/js/highlight.js"></script>
+  <script src="media/js/queryparameters.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL}}js/searchresults.js"></script>
 
   <script>
 
@@ -1168,28 +1159,6 @@
     $('button[title]').tipsy({gravity: 'w', delayIn: 500});
     $('label[title]').tipsy({gravity: 'n', delayIn: 500});
   });
-
-  $("#text_blink").typed({
-    strings: [""],
-    typeSpeed: 0,
-    callback: function() { 
-
-      // Check to see if the title overflows (in the case of long product names)
-      function isOverflowed(element){
-          return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
-      }
-
-      var title = d3.select("#title")
-      var shrink_size = 30;
-
-      while(isOverflowed(title.node())) {
-        $("#title").children().children().css("font-size", shrink_size+"px")
-        shrink_size -= 1;
-      }
-
-        }
-    });
-
 </script>
 
   <script type="text/javascript">

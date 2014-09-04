@@ -25,8 +25,9 @@ function updateURLQueryParameters() {
 
 // Add new parameters or update existing ones
 queryParameters['prod_class'] = prod_class;
-queryParameters['details_treemap'] = queryParameters['details_treemap'] || 2;
-queryParameters['disable_widgets'] = queryParameters['disable_widgets'] || false;
+queryParameters['details_treemap'] = parseInt(queryParameters['details_treemap']) || 2;
+queryParameters['disable_widgets'] = Boolean(queryParameters['disable_widgets']) || false;
+queryParameters['disable_search'] = typeof queryParameters['disable_search'] !== 'undefined' ? queryParameters['disable_search']=="true" : false;
 //queryParameters['cat_id'] = queryParameters['cat_id'] || "";
 //queryParameters['cont_id'] = queryParameters['cont_id'] || "";
 //queryParameters['show_related'] = Boolean(queryParameters['show_related']) || false;
