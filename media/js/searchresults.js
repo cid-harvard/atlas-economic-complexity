@@ -40,7 +40,8 @@ var search_select_function = function(event, ui){
     // Go to selected URL
     event.preventDefault();
     $(this).val(ui.item.label);
-    window.location.href=ui.item.value;
+    
+    window.location.href=ui.item.value+"?"+$.param(queryParameters);
 };
 
 var search_focus_function = function(event, ui){
