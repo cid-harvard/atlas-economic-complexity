@@ -725,7 +725,7 @@ var flat_data,
             data[1].forEach(function(d, i) {
 
               d3.select("#related_links")
-                .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+data[3][i]+"'>"+d+"</a>");
+                .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+(data[3][i]+"?"+$.param(queryParameters))+"'>"+d+"</a>");
 
             })
 
