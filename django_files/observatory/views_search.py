@@ -50,7 +50,7 @@ API_NAMES = ["casy", "cspy", "csay", "ccsy", "sapy"]
 API_NAMES_RE = re.compile("|".join(API_NAMES), re.IGNORECASE)
 
 TRADE_FLOWS = ["import", "export", "net_import", "net_export"]
-TRADE_FLOWS_RE = re.compile("|".join(TRADE_FLOWS), re.IGNORECASE)
+TRADE_FLOWS_RE = re.compile("|".join(TRADE_FLOWS) + r"(?:s|ed)", re.IGNORECASE)
 
 APP_NAMES = ["map", "pie_scatter", "stacked", "product_space", "rings",
              "tree_map"]
