@@ -4,30 +4,7 @@ var flat_data,
       viz,
       timeline,
       rawData,
-      where = []
-      // year = "{{year}}";
-  
-  Array.prototype.contains = function(obj) {
-      var i = this.length;
-      while (i--) {
-          if (this[i] === obj) {
-              return true;
-          }
-      }
-      return false;
-  }
-  
-  Array.prototype.getUnique = function(){
-     var u = {}, a = [];
-     for(var i = 0, l = this.length; i < l; ++i){
-        if(u.hasOwnProperty(this[i])) {
-           continue;
-        }
-        a.push(this[i]);
-        u[this[i]] = 1;
-     }
-     return a;
-  }
+      where = [];
 
   // Sort array by year helper
   function compareYears(a, b) 
@@ -72,7 +49,6 @@ var flat_data,
       
       case "stacked":
 
-        
         // Use stack_nesting
         // var x=timeline.positions()
 //             start = x[0].handle[0][0].textContent
@@ -210,107 +186,33 @@ var flat_data,
     }
   }
   // Do I still need this?
-  stack_solo_filter = function(name)
-  {
-      var nest_level = ($("#nesting_level").val());
-      var use_this
-      if (nest_level == "nest0"){
-        //if we're display countries sort by 2nd tier 
-        (app_type=="csay"||app_type=="cspy"||app_type=="sapy") ? 
-        use_this = nest1_value : use_this = nest0_value;
-        console.log(use_this);
-      } else if(nest_level == "nest1"){ 
-        use_this = nest1_value  
-      } else { 
-        use_this = nest2_value } 
-        
-      var solos = []
-      use_this.forEach(function(d){
-        if (d.nesting_0.name == name){
-         solos.push(d.name)
-       } 
-      });
-      unq = solos.getUnique();
-      console.log(unq)
-      d3.select("#viz").call(viz.solo(unq));  
-  }
-  // Do I still need this?
-  pie_scatter_filter = function(name)
-  {
-    var nest_level = ($("#nesting_level").val());
-    var use_this
-    if (nest_level == "nest0"){
-      //if we're display countries sort by 2nd tier 
-      (app_type=="csay"||app_type=="cspy"||app_type=="sapy") ? 
-      use_this = nest1 : use_this = nest0;
-      console.log(use_this);
-    } else if(nest_level == "nest1"){ 
-      use_this = nest1 
-    } else { 
-      use_this = nest2 } 
-      
-    var soloing = []
-    use_this.forEach(function(d){
-      if (d.nesting_0.name == name){
-       soloing.push(d)
-     } 
-    });
-    // set_scatter_nesting(everybody)
-    set_depth(soloing)
-  }
-  // Do I still need this?
-  pie_scatter_solo = function(name)
-  {
-      var nest_level = ($("#nesting_level").val());
-      var use_this
-      if (nest_level == "nest0"){
-        //if we're display countries sort by 2nd tier 
-        (app_type=="csay"||app_type=="cspy"||app_type=="sapy") ? 
-        use_this = nest1 : use_this = nest0;
-        console.log(use_this);
-      } else if(nest_level == "nest1"){ 
-        use_this = nest1 
-      } else { 
-        use_this = nest2 } 
-        
-      var solos = []
-      use_this.forEach(function(d){
-        if (d.nesting_0.name == name){
-         solos.push(d.name)
-       } 
-      });
-      unq = solos.getUnique();
-      console.log("unq", unq)
-      d3.select("#viz").call(viz.solo(unq));  
-  }
-  // Do I still need this?
   sort_flat = function(arg)
   {
-      arg.forEach(function(d){ 
-        if (trade_flow=="net_export"){
-            val = d.export_value - d.import_value;
-            if (val > 0 ){ 
-              d.value = d.export_value - d.import_value;
-              // where.push(d);
-            }
-          } else if (trade_flow=="net_import") {
-             val = d.import_value - d.export_value;
-             if (val > 0 ){ 
-               d.value = d.import_value - d.export_value;
-               // where.push(d);
-              }        
-          } else if (trade_flow=="export"){
-            if (d.export_value > 0){
-              d.value = d.export_value;
-              // where.push(d);
-            }
-          } else {
-            if (d.import_value > 0){
-              d.value = d.import_value;
-              // where.push(d);
-            }
+    arg.forEach(function(d){ 
+      if (trade_flow=="net_export"){
+          val = d.export_value - d.import_value;
+          if (val > 0 ){ 
+            d.value = d.export_value - d.import_value;
+            // where.push(d);
           }
-        })
+        } else if (trade_flow=="net_import") {
+           val = d.import_value - d.export_value;
+           if (val > 0 ){ 
+             d.value = d.import_value - d.export_value;
+             // where.push(d);
+            }        
+        } else if (trade_flow=="export"){
+          if (d.export_value > 0){
+            d.value = d.export_value;
+            // where.push(d);
+          }
+        } else {
+          if (d.import_value > 0){
+            d.value = d.import_value;
+            // where.push(d);
+          }
+        }
+      })
   }
   
   set_stack_year = function(arg)
@@ -327,7 +229,6 @@ var flat_data,
 
     // TODO: Check if IE compliant
     window.history.pushState('The Atlas', d3.select('#text_title').text(), href);
-
 
     d3.select("#viz").call(viz.year([arg[0],arg[1]]))
     
@@ -352,14 +253,23 @@ var flat_data,
     $("#year2_select > [value='"+arg[1]+"']").attr("selected", true);
     $('select').trigger("chosen:updated");
 
-
   }
   
   set_scatter_year = function(arg) {
     var nest_level = ($("#nesting_level").val());
     year=arg
     set_depth(nest_level)
-    d3.select("#viz").call(viz.year(arg))
+
+    var scatter_title = d3.select('#text_title').text();
+
+    scatter_title = scatter_title.replace(viz.year(), arg);
+    d3.select('#text_title').text(scatter_title);
+
+    // Update the URL
+    window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
+
+    d3.select("#viz").call(viz.year(arg));
+
   }
 
   set_scatterplot_year = function(arg) {
@@ -375,7 +285,6 @@ var flat_data,
 
   set_rankings_year = function(arg) {
     
-
   }
 
   display_growth = function(arg) {
@@ -423,17 +332,14 @@ var flat_data,
   
   set_year = function(arg) {
 
-    //var SHOW_DIFF = true;
-
-
     if((typeof(single_year) != "undefined") && single_year) {
 
       single_year = false;
       d3.select("#loader").style("display", "block");
       d3.select("#loader").append("text").text("Loading more years...")
       d3.select("#viz").transition().style("opacity", 0)
-      // Make the AJAX call to retrieve other years
 
+      // Make the AJAX call to retrieve other years
       d3.json(api_uri + '&amp;data_type=json', function(raw) {
         rawData = raw;
         item_type = raw["item_type"];
@@ -448,19 +354,17 @@ var flat_data,
 
         if(app_name=="tree_map") {
 
-        d3.select("#viz")
-           .style('height','520px')
-           .datum(flat_data)
-           .call(viz);
-
+          d3.select("#viz")
+             .style('height','520px')
+             .datum(flat_data)
+             .call(viz);
 
         } else if(app_name=="product_space") {
+    
           network( api_uri + '&amp;data_type=json' );
     
-
         }
         
-
         d3.select("#loader").style("display", "none");
         d3.select("#viz").transition().style("opacity", 1)
         set_year(arg);
@@ -471,13 +375,13 @@ var flat_data,
     if(typeof(start_year) == "undefined")
       start_year = viz.year();
 
-   console.log("mouse drag start", start_year, arg);
+    console.log("mouse drag start", start_year, arg);
 
     var treemap_title = d3.select('#text_title').text();
     treemap_title = treemap_title.replace(viz.year(), arg);
     d3.select('#text_title').text(treemap_title);
     
-    // TODO: Check if IE compliant
+    // Update the URL
     window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
 
     // Update the year drowdown
@@ -485,144 +389,8 @@ var flat_data,
     $("#year1_select > [value='"+arg+"']").attr("selected", true);
     $('select').trigger("chosen:updated");
 
-    // TODO
-    // In which particular case are we?
-    // 
-    // What does %s %s?" % (countries[0].name, trade_flow.replace("_", " "), year)
-  /*
-    if(SHOW_DIFF) {
-
-      flat_data = flat_data.filter(function(d) { return !(d.year==2020); });
-
-      d3.select('.handle').on("mousedown", function() { 
-        start_year = arg;
-     
-      })      
-
-      d3.select('.handle').on("mouseup", function() { d3.select('#viz').call(viz.year(arg)) })      
-
-
-      var treemap_title = d3.select('#text_title').text();
-      treemap_title = treemap_title.replace(viz.year(), arg);
-      d3.select('#text_title').text(treemap_title);
-      
-      // TODO: Check if IE compliant
-      window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
-
-
-      flat_data1 = flat_data.filter(function(d) { return d.year == parseInt(start_year)});
-      flat_data2 = flat_data.filter(function(d) { return d.year == parseInt(arg)});
-
-
-      if(typeof(flat_data.filter(function(d) { return (d.year==(2010+50)); })[0]) == "undefined") {
-
-        console.log("PRE-Processing..")
-
-        for(y=1995; y<=2011; y++) {
-
-          var flat_data2 = flat_data.filter(function(d) { return d.year == y});
-
-          for(var i=0; i<flat_data1.length; i++) {
-          
-              var node = {};
-              node.abbrv = flat_data1[i].abbrv;
-              node.code = flat_data1[i].code;
-              node.color = flat_data1[i].color;
-              node.community_id = flat_data1[i].community_id;
-              node.community_name = flat_data1[i].community_name;
-            //  node.distance: 0.646177
-              node.id = flat_data1[i].id;
-              node.item_id = flat_data1[i].item_id;
-              node.name = flat_data1[i].name;
-              node.nesting_0 = flat_data1[i].nesting_0
-              node.nesting_1 = flat_data1[i].nesting_1
-              node.nesting_2 = flat_data1[i].nesting_2
-            //  node.opp_gain: 0.631009
-            //  node.pci: -3.20168
-            //  node.rca: null
-              node.share = flat_data1[i].share;
-              node.value = flat_data1[i].value;
-
-              node.value2 = 0;
-
-              for(var j=0; j<flat_data2.length; j++) {
-                if(flat_data1[i].id == flat_data2[j].id) {
-                  node.value2 = flat_data2[j].value - flat_data1[i].value;
-
-                }
-              }
-
-            //  if(node.value>0) {
-                node.year = y+50;
-            //  } else {
-            //    node.year = 2021;
-            //  }
-                node.share = Math.abs(node.share)
-                //node.value2 = Math.abs(node.value2)
-                flat_data.push(node);
-
-             // var node = {};
-             // node.year = 2021;
-             // node.value = exp_year1[i].value - exp_year2[j].value;
-             // node.share = exp_year1[i].share - exp_year2[j].share;
-            //  export_us.data.push(node);
-                    
-          }
-
-
-          pos_extent = d3.extent(flat_data, function(d) { 
-            if(d.year == y+50)
-              return d.value2; 
-          })
-
-          var color_scale = d3.scale.linear().domain([pos_extent[0], 0, pos_extent[1]]).range(["red", "black", "green"]);
-
-          flat_data.data = flat_data.map(function(d) {
-            if(d.year == y+50) {
-              d.color = color_scale(d.value2)
-              d.value2 = Math.abs(d.value2);
-            }
-            return d;
-          })
-
-        }
-        
-      }
-
-
-
-
-     viz
-      .type("tree_map")
-      .height(height)
-      .width(width)
-      .id_var("id")
-      .attrs(attr)
-      .text_var("name")
-      .value_var("value")
-      .tooltip_info({"short":["value"], "long": ["value", "distance", "year", 'id'], "other": [ "toto"]})
-      .name_array(["name"])
-      .title(title)
-      .total_bar({"prefix": "", "suffix": " USD"})
-      .nesting(["nesting_0","nesting_1","nesting_2"])
-      .nesting_aggs({"distance":"mean","complexity":"mean"})
-      .font("Helvetica Neue")
-      .year(arg+50);
-
-      // Change the data by creating a new year
-      d3.select('#viz').datum(flat_data).call(viz);
-      
-      // Change the color mapping
-
-    } else {
-*/
-      viz.year(arg);
-      d3.select('#viz').call(viz)
-  /*
-
-    }
-*/
-
+    viz.year(arg);
+    d3.select('#viz').call(viz)
 
   // Set the controls to this year as well
     d3.select("#tool_pane").call(controls.year(arg)); 
@@ -848,8 +616,7 @@ var flat_data,
       // return d3.round(value,2nd);
       return d3.format("f")(value)
     }
-  
-    
+   
   }
   
   txt_format = function(words)
@@ -943,35 +710,30 @@ var flat_data,
 
       setTimeout(function() {
 
-          //  d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
-            d3.json("/api/search/?term="+name, function(error, data) {
+        //  d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
+          d3.json("/api/search/?term="+name, function(error, data) {
 
-              if (error) { // Default data
-                return console.warn(error);
+            if (error) { // Default data
+              return console.warn(error);
 
-              } else {
-                json = data;
-              }
+            } else {
+              json = data;
+            }
 
-              related_html = "";
+            related_html = "";
 
-              data[1].forEach(function(d, i) {
+            data[1].forEach(function(d, i) {
 
-                d3.select("#related_links")
-                  .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+data[3][i]+"'>"+d+"</a>");
-
-              })
-
-      //        console.log("appended", related_html)
-        //      d3.select("#related").related_html("tata")//related_html);
+              d3.select("#related_links")
+                .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+(data[3][i]+"?"+$.param(queryParameters))+"'>"+d+"</a>");
 
             })
+
+          })
 
       }, 100)
 
       return html;
-
-
 
     }
 
@@ -1002,8 +764,7 @@ var flat_data,
       .font('PT Sans Narrow')
       .year(year)
      // .data_source("Data provided by: ",prod_class)
-
-    
+ 
       //d3.select("#loader").style("display", "none");
 
     if(item_type=="country"){
@@ -1052,7 +813,8 @@ var flat_data,
     } 
     
     d3.select("#loader").style("display", "none");
-    highlight(queryParameters['highlight']);
+    if(queryActivated)
+      highlight(queryParameters['highlight']);
 
     //d3.select("#viz").style("height", "0px");
     //d3.select("#viz svg").style("display", "none");
@@ -1080,125 +842,122 @@ var flat_data,
       .font('PT Sans Narrow')
       .number_format(num_format)
       .stack_type("monotone")
-      .click_function(inner_html)
-      // .year([year_start,year_end])
-      //.year([years_available[0],years_available.slice(-1)[0]])
+      .click_function(inner_html);
 
     d3.select("#loader").style("display", "none");
 
     if(queryActivated)
       highlight(queryParameters['highlight']);
 
-       flat_data.map(function(d){
-         d.id = String(d.id)
-       })
-       
-       if (app_type!="sapy")
-       {
-        
-         magic_numbers = rawData["magic_numbers"]
-         viz.tooltip_info({"short": ["distance", "year", "pc_current","pc_constant","notpc_constant"]})
-         flat_data.map(function(d){
+    flat_data.map(function(d){
+    d.id = String(d.id)
+    })
 
-          // Quick fix by rv
-          if(magic_numbers[d.year]) {
-            d.pc_constant = magic_numbers[d.year]["pc_constant"] * d.value
-            d.pc_current = magic_numbers[d.year]["pc_current"] * d.value
-            d.notpc_constant = magic_numbers[d.year]["notpc_constant"] * d.value
-          }
-         })
-       }
-       //viz.tooltip
-       if(item_type=="country")
-       {
-         viz.depth("nesting_1")
-         viz.sort("color")
-         viz.attrs(region_attrs) // For now this appears to be broken for country/region nesting
-       }
-       
-       // Since there is no title bar, we're gona bump the viz down 
-       d3.select("#viz").style("margin-top","15px")
-       
-       flat_data = flat_data.filter(function(d){ return d.share > 0.0075})
+    if (app_type!="sapy") {
 
-       // INCASE WE WANT TO COMBINE ALL THE FILTERED ELEMENTS INTO A SINGLE ELEMENT
-       // flat_data = flat_data.filter(function(d){return d.value > 85000000})
-       // flat_data.forEach(function(d){
-       //   if(d.share < 0.00125){
-       //     d.color = "lightgray"
-       //     d.id = "666666"
-       //     d.name = "Other"
-       //     d.nesting_0 = {"id":"666666","name":"Other"}
-       //     d.nesting_1 = {"id":"666666","name":"Other"}
-       //     d.nesting_2 = {"id":"666666","name":"Other"}
-       //   }
-       // })
+    magic_numbers = rawData["magic_numbers"]
+    viz.tooltip_info({"short": ["distance", "year", "pc_current","pc_constant","notpc_constant"]})
+    flat_data.map(function(d){
 
-       // Call Visualization itself        
-        d3.select("#viz")
-          .style('height','520px')
-          .datum(flat_data)
-          .call(viz)
-       
-        if (!embed){
-          key = Key()
-            .classification(rawData.class)
-            .showing(item_type)
+      // Quick fix by rv
+      if(magic_numbers[d.year]) {
+        d.pc_constant = magic_numbers[d.year]["pc_constant"] * d.value
+        d.pc_current = magic_numbers[d.year]["pc_current"] * d.value
+        d.notpc_constant = magic_numbers[d.year]["notpc_constant"] * d.value
+      }
+    })
+    }
+    //viz.tooltip
+    if(item_type=="country")
+    {
+      viz.depth("nesting_1")
+      viz.sort("color")
+      viz.attrs(region_attrs) // For now this appears to be broken for country/region nesting
+    }
 
-          d3.select(".key")
-            .datum(attr_data)
-            .call(key);
+    // Since there is no title bar, we're gona bump the viz down 
+    d3.select("#viz").style("margin-top","15px")
 
-          controls = Controls()
-            .app_type(app_name)
-            .year(year)
-    
-          d3.select("#tool_pane")
-            .datum(rawData)
-            .call(controls); 
-          
-          d3.select("#viz").call(viz.year([year_start,year_end]))
-          
-          $("#stacked_labels").buttonset();
-          $("#stacked_order").buttonset();
-          $("#stacked_layout").buttonset();
-          $("#stacked_capita").buttonset();
-          $("#stacked_controls input[type='radio']").change(function(e){
+    flat_data = flat_data.filter(function(d){ return d.share > 0.0075})
 
-            if($(e.target).attr("name") == "labels") {
-              ($(e.target).attr("id")=="false") ? d3.select("#viz").call(viz.labels(false)) :
-                                                  d3.select("#viz").call(viz.labels(true))
-            }
-            if($(e.target).attr("name") == "layout"){
-              //d3.select("#dataviz").call(app.layout($(e.target).attr("id")));
-              set_stack_layout($(e.target).attr("id"));
-            }
-            if($(e.target).attr("name") == "order"){
-              ($(e.target).attr("id")=="community") ? d3.select("#viz").call(viz.sort("color")) :
-                                                      d3.select("#viz").call(viz.sort("total"))
-              // d3.select("#viz").call(viz.sort($(e.target).attr("id")))
-            }
-            if($(e.target).attr("name") == "capita"){
-              set_stack_layout($(e.target).attr("id"));
-            }
-          })
-          // Now that we're done loading UI elements show the parent element
-          $("#stacked_controls").show();
-          
-          
-          d3.select(".axis_title_x").style("font-weight","bold");//.attr("y","40");
-          d3.select(".axis_title_y").style("font-weight","bold");//.attr("y","10"); 
-          
-        }
-        else
-        { 
-          // in this instance we're not getting year start/stop dates from explore view;
-          //we need to figure them out from api
-          var years = year.split('.')
-          year_s = years[0]  
-          year_e = years[1]
-          d3.select("#viz").call(viz.years([years_s,years_e]))
-        }
+    // INCASE WE WANT TO COMBINE ALL THE FILTERED ELEMENTS INTO A SINGLE ELEMENT
+    // flat_data = flat_data.filter(function(d){return d.value > 85000000})
+    // flat_data.forEach(function(d){
+    //   if(d.share < 0.00125){
+    //     d.color = "lightgray"
+    //     d.id = "666666"
+    //     d.name = "Other"
+    //     d.nesting_0 = {"id":"666666","name":"Other"}
+    //     d.nesting_1 = {"id":"666666","name":"Other"}
+    //     d.nesting_2 = {"id":"666666","name":"Other"}
+    //   }
+    // })
+
+    // Call Visualization itself        
+    d3.select("#viz")
+    .style('height','520px')
+    .datum(flat_data)
+    .call(viz)
+
+    if (!embed){
+    key = Key()
+      .classification(rawData.class)
+      .showing(item_type)
+
+    d3.select(".key")
+      .datum(attr_data)
+      .call(key);
+
+    controls = Controls()
+      .app_type(app_name)
+      .year(year)
+
+    d3.select("#tool_pane")
+      .datum(rawData)
+      .call(controls); 
+
+    d3.select("#viz").call(viz.year([year_start,year_end]))
+
+    $("#stacked_labels").buttonset();
+    $("#stacked_order").buttonset();
+    $("#stacked_layout").buttonset();
+    $("#stacked_capita").buttonset();
+    $("#stacked_controls input[type='radio']").change(function(e){
+
+      if($(e.target).attr("name") == "labels") {
+        ($(e.target).attr("id")=="false") ? d3.select("#viz").call(viz.labels(false)) :
+                                            d3.select("#viz").call(viz.labels(true))
+      }
+      if($(e.target).attr("name") == "layout"){
+        //d3.select("#dataviz").call(app.layout($(e.target).attr("id")));
+        set_stack_layout($(e.target).attr("id"));
+      }
+      if($(e.target).attr("name") == "order"){
+        ($(e.target).attr("id")=="community") ? d3.select("#viz").call(viz.sort("color")) :
+                                                d3.select("#viz").call(viz.sort("total"))
+        // d3.select("#viz").call(viz.sort($(e.target).attr("id")))
+      }
+      if($(e.target).attr("name") == "capita"){
+        set_stack_layout($(e.target).attr("id"));
+      }
+    })
+    // Now that we're done loading UI elements show the parent element
+    $("#stacked_controls").show();
+
+
+    d3.select(".axis_title_x").style("font-weight","bold");//.attr("y","40");
+    d3.select(".axis_title_y").style("font-weight","bold");//.attr("y","10"); 
+
+    } else { 
+      // in this instance we're not getting year start/stop dates from explore view;
+      //we need to figure them out from api
+      var years = year.split('.')
+      year_s = years[0]  
+      year_e = years[1]
+      d3.select("#viz").call(viz.years([years_s,years_e]))
+
+    }
+
   }
 
   pie_scatter = function() {
@@ -1233,8 +992,10 @@ var flat_data,
 
     flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
   
-    flat_data.map(function(d){
-      d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+    flat_data.map(function(d) {
+      if(typeof(world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]) != "undefined") {
+        d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+      } 
       d.id = String(d.id)
     })
   
@@ -1244,7 +1005,6 @@ var flat_data,
       .call(viz) 
 
     // highlight(queryParameters['highlight']);
-
 
     if(!embed){
       key = Key()
@@ -1277,7 +1037,6 @@ var flat_data,
       })         
     }
   }
-
 
   scatterplot = function() {
 
@@ -1353,10 +1112,6 @@ var flat_data,
       .click_function(inner_html)
   //    .static_axis(false)
       .year(year)
-    
-
-
-
  }
 
     d3.select("#viz")
@@ -1507,7 +1262,7 @@ var flat_data,
     var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
 
     // Create
-   var table = canvas.append("table").attr("class", "sortable"),
+    var table = canvas.append("table").attr("class", "sortable"),
         thead = table.append("thead"),
         tbody = table.append("tbody");
 
@@ -1546,7 +1301,6 @@ var flat_data,
       .append("td")
       .html(function(d, i) { return d; })
 
-
     timeline = Slider()
           .callback('set_rankings_year')
           .initial_value(parseInt(year))
@@ -1584,7 +1338,6 @@ var flat_data,
     } 
 
   }
-
 
   rings = function( req ) {
 
@@ -1683,14 +1436,10 @@ var flat_data,
         this_year = []
       })
 
-      
       var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
       var max_value = d3.max(year_data, function(d, i) { return d.value})
       var max_id = year_data.filter(function(d, i) { if(d.value==max_value) return d;} )[0].code
 
-      // var tooltips = {"short": ["id"],"long": {"basics":["id","val_usd"],"calculations":["distance", "complexity"]}}
-      // var tooltips = {"short": ["id"],"long": ["id","val_usd","distance"]}
-      // var tooltips = ["id","val_usd"]
       var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
 
       viz
@@ -1705,8 +1454,7 @@ var flat_data,
         .name_array(["value"])
         .value_var("world_trade")
         .highlight(max_id+"") 
-        .tooltip_info(tooltips)
-        //.nesting(["nesting_0","nesting_1","nesting_2"])
+        .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
         .nesting([])
         .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
         .click_function(inner_html)
@@ -1728,7 +1476,6 @@ var flat_data,
       })
     })
     
-
     d3.select("#loader").style("display", "none");  
     // Causes a bug
     //highlight(queryParameters['highlight']);
@@ -1941,7 +1688,6 @@ var flat_data,
       //   })
       // })      
 
-  
     viz
       .type("network")
       .width(width)
@@ -1963,8 +1709,6 @@ var flat_data,
 
     d3.select("#loader").style("display", "none");  
 
-
-    
     // Since there is no title bar, we're gona bump the viz down 
     d3.select("#viz").style("margin-top","15px")
     
@@ -1972,7 +1716,8 @@ var flat_data,
       .style('height','520px')
       .datum(data)
       .call(viz);  
-
+    
+    if(queryActivated)
       highlight(queryParameters['highlight']);
     })
     
@@ -1994,8 +1739,6 @@ var flat_data,
         .call(controls); 
     }     
 
-
-    
   }  
   
   map = function() {
@@ -2171,7 +1914,6 @@ var flat_data,
 
       else{
 
-
         if(app_type=="casy") {
 
           // No attr=raw["attr"] for this one, so where to get it?
@@ -2235,21 +1977,23 @@ var flat_data,
 
           tree();
 
-          if(queryParameters['cont_id']!="") {
+          if(queryActivated && typeof(queryParameters['cont_id']) != "undefined" && queryParameters['cont_id']!="") {
             var e = document.createEvent('UIEvents');
             e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             d3.select(".cat_"+queryParameters['cont_id']).node().dispatchEvent(e);
           }
 
-          if(queryParameters['cat_id']!="") {
+          if(queryActivated && typeof(queryParameters['cat_id']) != "undefined" && queryParameters['cat_id']!="") {
             var e = document.createEvent('UIEvents');
             e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             d3.select(".cat_"+queryParameters['cat_id']).node().dispatchEvent(e);
           }
 
+           $("#highlight_select").select2("val", queryParameters['highlight']);
         }
         
         if (app_name=="pie_scatter") {
+
           if (prod_class == "sitc4"){
             flat_data = flat_data.filter(function(d){
               return d.distance != 0;
@@ -2271,13 +2015,12 @@ var flat_data,
           // get rid of play button -->                  
           // d3.select('#play_button').style("display","none") 
 
-          if(queryParameters['cat']!="" && queryActivated) {
+          if(typeof(queryParameters['cat']) != "undefined" && queryParameters['cat']!="" && queryActivated) {
             var e = document.createEvent('UIEvents');
             e.initUIEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             d3.select(".cat_"+queryParameters['cat']).node().dispatchEvent(e);
           }
         }
-        
 
         if(app_name=="product_space") {
 
@@ -2299,11 +2042,10 @@ var flat_data,
           d3.select("#ui_bottom").append("br")
         }
 
-
         if(app_name=="rings") {
 
           flat_data = construct_scatter_nest(flat_data);
-          rings( api_uri + '&amp;data_type=json' );
+          rings(api_uri + '&amp;data_type=json');
 
           timeline = Slider()
             .callback('set_year')
@@ -2323,7 +2065,7 @@ var flat_data,
 
         if(app_name=="map") {
 
-          map()
+          map();
           
           timeline = Slider()
             .callback('set_map_year')
@@ -2343,7 +2085,6 @@ var flat_data,
    
         if(app_name=="scatterplot") {
 
-
           // where = flat_data.filter(function(d){ return d.year == year; })
           
           scatterplot();
@@ -2358,66 +2099,16 @@ var flat_data,
             .attr("class","slider")
             .datum(years_available)
             .call(timeline)
-
-
       
         }
-
 
         if(app_name=="rankings") {
 
           rankings();
 
-
         }
 
-        // // Create Year Toggle
-        // if (app_name == "tree_map") {
-        //   timeline = Slider()
-        //     .callback('set_year')
-        //     .initial_value(parseInt(year))
-        //     .max_width(540)
-        //     .title("")
-        //   d3.select("#ui_bottom").append("div")
-        //     .attr("class","slider")
-        //     // .style("overflow","auto")
-        //     .datum(years_available)
-        //     .call(timeline)
-        //   d3.select("#ui_bottom").append("br")
-        // }
-        // 
-        // if (app_name == "stacked")
-        // {
-        //   timeline = Slider()
-        //             .callback('set_stack_year')
-        //             .initial_value([parseInt(year_start),parseInt(year_end)])
-        //             .max_width(540)
-        //             .title("")
-        //           d3.select("#ui_bottom").append("div")
-        //             .attr("class","slider")
-        //             .datum(years_available)
-        //             .call(timeline)
-        //   // get rid of play button -->                  
-        //   d3.select('#play_button').style("display","none")          
-        // }
-        // 
-        // if (app_name == "pie_scatter")
-        // {
-        //   timeline = Slider()
-        //             .callback('set_scatter_year')
-        //             .initial_value(parseInt(year))
-        //             .max_width(540)
-        //             .title("")
-        //           d3.select("#ui_bottom").append("div")
-        //             .attr("class","slider")
-        //             .datum(years_available)
-        //             .call(timeline)
-        //   // get rid of play button -->                  
-        //   d3.select('#play_button').style("display","none")          
-        // }
-        }
-      }) // attr  
-   // }) // api_uri
-
-
+      }
+    }) // attr  
+ // }) // api_uri
 } 
