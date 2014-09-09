@@ -97,6 +97,19 @@ def generate_year_strings(years):
     return year_string, year_url_param
 
 
+def fix_spans(string, match, span):
+    """ 'where did germany export to between 2010 and 2012' with 'between (\d+)
+    and (\d+)' and (27, 47)"""
+
+    pattern = match.re.pattern
+
+    if "(" in pattern:
+        location = pattern.find("(")
+        span[0] = span[0] - location
+
+    return span
+
+
 def remove_spans(string, spans):
     """Given a list of (start, end) index pairs, remove all those from a
     string. This is tricky because if you remove them one by one the indices
