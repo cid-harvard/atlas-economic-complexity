@@ -252,7 +252,8 @@ def api_search(request):
 
     # Add filters to the query if they were given. Filters are ANDed.
     if filters:
-        es_filters = [{"terms": {k: v}} for k, v in filters.iteritems()]
+        es_filters = [{"terms": {k: [x.lower() for x in v]}}
+                      for k, v in filters.iteritems()]
         es_filters = {"bool": {"must": es_filters}}
         es_query["query"]["filtered"]["filter"] = es_filters
 
