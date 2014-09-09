@@ -2,6 +2,8 @@ from django.conf import settings
 from django.http import HttpResponse
 from elasticsearch import Elasticsearch
 
+from observatory.models import Country
+
 from collections import defaultdict, OrderedDict
 import json
 import re
@@ -19,6 +21,10 @@ REGIONS = [
     "polynesia",
     "australia"
 ]
+
+COUNTRY_CODE = Country.objects\
+    .filter(originally_included=True)\
+    .values_list("name_3char", flat=True)
 
 # These are different from the product communities in the DB in that the names
 # are simplified.
@@ -57,6 +63,8 @@ APP_NAMES = ["map", "pie_scatter", "stacked", "product_space", "rings",
 APP_NAMES_RE = re.compile("|".join(APP_NAMES))
 
 PRODUCT_CODE_RE = r"(\d{4})"
+
+COUNTRY_CODE_RE = re.compile("|".join(COUNTRY_CODE), re.IGNORECASE)
 
 YEAR_EXPRESSIONS = [
     re.compile(r'between (\d{4}) and (\d{4})', re.IGNORECASE),
@@ -195,6 +203,7 @@ EXTRACTORS = OrderedDict([
     ("app_name", make_extractor(APP_NAMES_RE)),
     ("trade_flow", make_extractor(TRADE_FLOWS_RE)),
     ("product_code", make_extractor(PRODUCT_CODE_RE)),
+    ("country_codes", make_extractor(COUNTRY_CODE_RE)),
     ("product_community", make_extractor(PRODUCT_COMMUNITY_RE)),
 ])
 
