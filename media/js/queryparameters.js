@@ -15,7 +15,7 @@ function updateURLQueryParameters() {
 
   // Remove empty query parameters
   for(var k in queryParameters){
-    if(queryParameters.hasOwnProperty(k) && !queryParameters[k]){
+    if(queryParameters.hasOwnProperty(k) && !queryParameters[k] && queryParameters[k] != 0){
       delete queryParameters[k];
     }
   }
@@ -26,7 +26,7 @@ function updateURLQueryParameters() {
 // Add new parameters or update existing ones
 queryParameters['prod_class'] = prod_class;
 queryParameters['details_treemap'] = parseInt(queryParameters['details_treemap']) || 2;
-queryParameters['disable_widgets'] = Boolean(queryParameters['disable_widgets']) || false;
+queryParameters['disable_widgets'] = typeof queryParameters['disable_widgets'] !== 'undefined' ? queryParameters['disable_widgets']=="true" : false;
 queryParameters['disable_search'] = typeof queryParameters['disable_search'] !== 'undefined' ? queryParameters['disable_search']=="true" : false;
 //queryParameters['cat_id'] = queryParameters['cat_id'] || "";
 //queryParameters['cont_id'] = queryParameters['cont_id'] || "";
