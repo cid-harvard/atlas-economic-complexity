@@ -16,3 +16,5 @@ django_files/atlas/settings_local.py
 env/
 
 *.store
+
+*.rdb
