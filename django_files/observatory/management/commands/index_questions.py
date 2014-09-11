@@ -34,19 +34,20 @@ class Command(BaseCommand):
         # What did Burundi export in 2013?
         casy_questions2 = self.generate_index_entries(['casy'],
                                                       [['tree_map',
+                                                        'stacked',
                                                        'product_space']],
                                                       countries, trade_flows,
                                                       [None])
 
         # Where did Albania export to in 2009?
         csay_questions = self.generate_index_entries(['csay'],
-                                                     [['map', 'tree_map']],
+                                                     [['tree_map', 'map', 'stacked']],
                                                      countries, trade_flows,
                                                      [None])
 
         # Who exported Petroleum in 1990?
         sapy_questions = self.generate_index_entries(['sapy'],
-                                                     [['map', 'tree_map']],
+                                                     [['tree_map', 'map', 'stacked']],
                                                      [None],
                                                      trade_flows, [None],
                                                      products)
@@ -59,13 +60,13 @@ class Command(BaseCommand):
                 countries_flat,
                 countries_flat),
         )
-        ccsy_questions = self.generate_index_entries(['ccsy'], [['tree_map']],
+        ccsy_questions = self.generate_index_entries(['ccsy'], [['tree_map', 'stacked']],
                                                      country_pairs,
                                                      trade_flows, [None])
 
         # Where did France export wine to in 2012?
         cspy_questions = self.generate_index_entries(['cspy'],
-                                                     [['map', 'tree_map']],
+                                                     [['tree_map', 'map', 'stacked']],
                                                      countries, trade_flows,
                                                      [None], products)
 
