@@ -64,7 +64,9 @@ APP_NAMES_RE = re.compile("|".join(APP_NAMES))
 
 PRODUCT_CODE_RE = r"(\d{4})"
 
-COUNTRY_CODE_RE = re.compile("|".join(COUNTRY_CODE), re.IGNORECASE)
+COUNTRY_CODE_RE = re.compile(
+    r"\b(?:" + "|".join(COUNTRY_CODE) + r")\b",
+    re.IGNORECASE)
 
 YEAR_EXPRESSIONS = [
     re.compile(r'between (\d{4}) and (\d{4})', re.IGNORECASE),
