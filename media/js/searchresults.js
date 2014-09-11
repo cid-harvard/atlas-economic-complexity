@@ -1,15 +1,23 @@
-if(!queryParameters['disable_search']) {
+if(typeof queryParameters != "undefined" && !queryParameters['disable_search']) {
+
+  function title_to_input() {
+
+    var current_content = $("#text_title").html();
+    var new_input = $("<input type='text' id='text_title' />");
+    new_input.val(current_content);
+    $("#text_title").replaceWith(new_input);
+    new_input.focus();
+    new_input.autocomplete(autocomplete_settings);
+    $(".typed-cursor").remove()
+
+  }
 
   $(function() {
-    $("#text_title").click(function() {
-      var current_content = $(this).html();
-      var new_input = $("<input type='text' id='text_title' />");
-      new_input.val(current_content);
-      $(this).replaceWith(new_input);
-      new_input.focus();
-      new_input.autocomplete(autocomplete_settings);
-      $(".typed-cursor").remove()
-    });
+
+    // OLD design
+    //$("#text_title").click(function() {
+    //  title_to_input();
+    //});
 
     $.ui.autocomplete.prototype._renderItem = function( ul, item){
       var term = this.term.split(' ').join('|');
@@ -24,6 +32,9 @@ if(!queryParameters['disable_search']) {
     // Set up autocomplete callback
     var cache = {};
     var search_data_source = function(request, response) {
+        if(request.term.length == 0)
+           request.term = $("#text_title").val();
+
         var term = request.term;
         if (term in cache) {
             response(cache[term]);
@@ -46,7 +57,10 @@ if(!queryParameters['disable_search']) {
         event.preventDefault();
         $(this).val(ui.item.label);
 
-        window.location.href=ui.item.value+"?"+$.param(queryParameters);
+        if(queryActivated)
+          window.location.href=ui.item.value+"?"+$.param(queryParameters);
+        else
+          window.location.href=ui.item.value; 
     };
 
     var search_focus_function = function(event, ui){
@@ -56,11 +70,12 @@ if(!queryParameters['disable_search']) {
     };
 
     autocomplete_settings = {
-        minLength: 3,
+        minLength: 0,
         delay: 260,
         source: search_data_source,
         select: search_select_function,
         focus: search_focus_function,
+        autoFocus: true,
     }
 
     $("#searchbar").autocomplete(autocomplete_settings);
@@ -92,6 +107,9 @@ if(!queryParameters['disable_search']) {
 
           }
       });
+
+    $("#text_title").focus();
+    $("#text_title").autocomplete(autocomplete_settings);
 
   });
 }

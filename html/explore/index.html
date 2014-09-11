@@ -147,7 +147,13 @@
 
       <!-- The title -->
       <div class="app_title" id="title"  original-title='{% trans "Economic Complexity" %}'>
-        <h2 style="margin-left:10px; width:700px;"><span id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</span><span id="text_blink"></span></h2>
+        <h2 style="margin-left:10px; width:700px;">
+        
+<input type='text' id='text_title' value="{% if title %}{{title}}{% else %}&nbsp;{% endif %}"/>
+
+<!--        <span id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</span><span id="text_blink"></span> -->
+
+        </h2>
       </div>
 
       <br style="clear:both">
@@ -1066,7 +1072,8 @@
     prod_class = "{{prod_class}}",
     previous_page = "{{previous_page}}",
     previous_image = "{{ STATIC_URL }}/img/empty_static.png",
-    static_url = "{{STATIC_URL}}";
+    static_url = "{{STATIC_URL}}",
+    in_iframe = is_in_iframe();
 
   // language select dropdown
   $(".language_select select").on("change", function(){
