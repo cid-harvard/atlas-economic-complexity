@@ -28,6 +28,10 @@ queryParameters['prod_class'] = prod_class;
 queryParameters['details_treemap'] = parseInt(queryParameters['details_treemap']) || 2;
 queryParameters['disable_widgets'] = typeof queryParameters['disable_widgets'] !== 'undefined' ? queryParameters['disable_widgets']=="true" : false;
 queryParameters['disable_search'] = typeof queryParameters['disable_search'] !== 'undefined' ? queryParameters['disable_search']=="true" : false;
+
+queryParameters['yaxis'] = queryParameters['yaxis'] || "complexity";
+
+
 //queryParameters['cat_id'] = queryParameters['cat_id'] || "";
 //queryParameters['cont_id'] = queryParameters['cont_id'] || "";
 //queryParameters['show_related'] = Boolean(queryParameters['show_related']) || false;

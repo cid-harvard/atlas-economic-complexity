@@ -228,7 +228,7 @@ var flat_data,
     href = href.replace(viz.year()[1], arg[1]);  
 
     // TODO: Check if IE compliant
-    window.history.pushState('The Atlas', d3.select('#text_title').text(), href);
+    update_url('The Atlas', d3.select('#text_title').text(), href);
 
     d3.select("#viz").call(viz.year([arg[0],arg[1]]))
     
@@ -266,7 +266,7 @@ var flat_data,
     d3.select('#text_title').text(scatter_title);
 
     // Update the URL
-    window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
+    update_url('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
 
     d3.select("#viz").call(viz.year(arg));
 
@@ -382,7 +382,7 @@ var flat_data,
     d3.select('#text_title').text(treemap_title);
     
     // Update the URL
-    window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
+    update_url('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
 
     // Update the year drowdown
     $("#year1_select > options").attr("selected", false);
@@ -405,7 +405,7 @@ var flat_data,
     d3.select('#text_title').text(map_title);
 
     // TODO: Check if IE compliant
-    window.history.pushState('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(app.year(), arg));
+    update_url('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(app.year(), arg));
 
     d3.select("#viz").call(app.year(parseInt(arg)));
     // Set the controls to this year as well
@@ -973,7 +973,7 @@ var flat_data,
       .id_var("id")
       .attrs(attr)
       .xaxis_var("distance")
-      .yaxis_var("complexity")
+
       .value_var("world_trade")
       .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
@@ -988,6 +988,12 @@ var flat_data,
   //    .static_axis(false)
       .year(year)
     
+    if(queryActivated && typeof(queryParameters['yaxis']) != "undefined" && queryParameters['yaxis'] == "opp_gain") {
+      viz.yaxis_var("opp_gain")
+    } else {
+      viz.yaxis_var("complexity")
+    }
+
     d3.select("#loader").style("display", "none");
 
     flat_data = flat_data.filter(function(d){ return d.share > 0.00125})

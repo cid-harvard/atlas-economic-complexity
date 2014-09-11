@@ -80,7 +80,6 @@ if(typeof queryParameters != "undefined" && !queryParameters['disable_search']) 
 
     $("#searchbar").autocomplete(autocomplete_settings);
 
-
     querystring = getQueryParameterByName("term");
     var bar = $("#searchbar");
     bar.val(querystring);
@@ -110,6 +109,10 @@ if(typeof queryParameters != "undefined" && !queryParameters['disable_search']) 
 
     $("#text_title").focus();
     $("#text_title").autocomplete(autocomplete_settings);
+
+    $("#text_title").click(function(e) {
+      $(this).autocomplete( "search", "" );
+    })
 
   });
 }

@@ -590,10 +590,10 @@
             <div class="product_class" style="float:left;">
               <span class="definition" style="font-weight:bold;">Y-Axis </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
-                <label class="btn btn-default active" id="complexity" name="yvar" >
+                <label class="btn btn-default active" id="yaxis-complexity" name="yvar" >
                   <input type="radio" id="complexity" name="yvar"> Complexity
                 </label>
-                <label class="btn btn-default" id="opp_gain" >
+                <label class="btn btn-default" id="yaxis-opp_gain" >
                   <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
                 </label>
               </div>
@@ -603,10 +603,10 @@
               <span class="definition" style="font-weight:bold;">Hide exports (Spotlight) </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:20px;">
 
-                <label class="btn btn-default active" id="complexity" name="yvar" >
+                <label class="btn btn-default active" id="spot-off" name="yvar" >
                   <input type="radio" id="spot_off" name="pie_spot"> Off
                 </label>
-                <label class="btn btn-default" id="opp_gain" >
+                <label class="btn btn-default" id="spot-on" >
                   <input type="radio" id="spot_on" name="pie_spot"> On
                 </label>
 
@@ -1100,9 +1100,16 @@
   }
 
   // Dynamically update the interface based on queryParameters values
-  if(app_type=="tree_map") {
+  if(app_name=="tree_map") {
     d3.selectAll("input[name='level_detail']").property("checked", false)
     d3.selectAll("input[value='nesting_"+queryParameters['details_treemap']+"']").property("checked", true)
+  }
+
+  if(app_name=="pie_scatter") {
+    if(queryParameters["yaxis"] == "opp_gain") {
+      d3.select("#yaxis-opp_gain").classed("active", true)
+      d3.select("#yaxis-complexity").classed("active", false)
+    }
   }
 
   // set active link in top nav for current page
