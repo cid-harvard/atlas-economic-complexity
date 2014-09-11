@@ -2,6 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from elasticsearch import Elasticsearch
 
+from observatory.helpers import get_title, params_to_url
 from observatory.models import Country
 
 from collections import defaultdict, OrderedDict
@@ -59,7 +60,7 @@ TRADE_FLOWS = ["import", "export", "net_import", "net_export"]
 TRADE_FLOWS_RE = re.compile("|".join(TRADE_FLOWS) + r"(?:s|ed)", re.IGNORECASE)
 
 APP_NAMES = ["map", "pie_scatter", "stacked", "product_space", "rings",
-             "tree_map"]
+             "tree_map", "network"]
 APP_NAMES_RE = re.compile("|".join(APP_NAMES))
 
 PRODUCT_CODE_RE = r"(\d{4})"
@@ -89,22 +90,8 @@ def extract_years(input_str):
         for year in years:
             if not (1995 <= int(year) <= 2013):
                 return None, None
-        return results[0].span(), years
+        return results[0].span(), [int(y) for y in years]
 
-
-def generate_year_strings(years):
-    """Handle generating URL parts like '2010.2012' or search result additions
-    like (2012 to 2014). """
-    if years is None:
-        year_string = ""
-        year_url_param = ""
-    elif len(years) == 1:
-        year_string = " (%s)" % years[0]
-        year_url_param = "%s/" % years[0]
-    else:
-        year_string = " (%s to %s)" % (years[0], years[1])
-        year_url_param = "%s.%s/" % (years[0], years[1])
-    return year_string, year_url_param
 
 
 def fix_spans(string, match, span):
@@ -223,8 +210,6 @@ def parse_search(query):
         # contain year data
         query = query[:span[0]] + query[span[1]:]
         kwargs["years"] = years
-        kwargs["year_string"], kwargs["year_url_param"] = \
-            generate_year_strings(years)
 
     # It matters that years get extracted before product codes since it's much
     # likelier that '2012' is a year than a product code. Years are checked to
@@ -302,13 +287,46 @@ def api_search(request):
     labels = []
     urls = []
     for x in result['hits']['hits']:
-        label = x['_source']['title'] + kwargs.get('year_string', '')
-        url = x['_source']['url'] + kwargs.get('year_url_param', '')
-        # TODO: This is a hack, the correct way is to generate the url here
-        # instead of pregenerating it. See issue # 134
-        if len(kwargs.get('years', '')) > 1:
-            url = url.replace("tree_map", "stacked")
-        labels.append(label)
+        data = x['_source']
+
+        # Regenerate title and url so we can add stuff into it dynamically,
+        # like the year being searched for, or forcing an app.
+        years = kwargs.get('years', None)
+
+        # Possible apps this title could be visualized as
+        app_names = data['app_name']
+
+        # If the app the user requested is possible, use that. Otherwise, use
+        # the first one as default
+        requested_app_name = filters.get("app_name", [None])[0]
+        if requested_app_name in app_names:
+            app_name = requested_app_name
+        else:
+            app_name = app_names[0]
+
+        # If multiple years are specified and we can do a stacked graph, do a
+        # stacked graph instead of a treemap
+        if years and len(years) == 2 and app_name == "tree_map":
+            app_name = "stacked"
+
+        title = get_title(
+            api_name=data['api_name'],
+            app_name=app_name,
+            country_names=data.get('country_names', None),
+            trade_flow=data['trade_flow'],
+            years=years,
+            product_name=data.get('product_name', None)
+        )
+        url = params_to_url(
+            api_name=data['api_name'],
+            app_name=app_name,
+            country_codes=data.get('country_codes', None),
+            trade_flow=data['trade_flow'],
+            years=years,
+            product_code=data.get('product_code', None)
+        )
+
+        labels.append(title)
         urls.append(settings.HTTP_HOST + url)
 
     return HttpResponse(json.dumps([
