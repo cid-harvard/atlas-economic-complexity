@@ -565,9 +565,6 @@ footer.credits, footer.logos {
       <div id="searchBox">
         <span style="float:left; margin-left:0px;font-size:30px; text-transform: none;">Search The Atlas »</span>
         <input id="searchbar" placeholder="E.g. 'Burundi imports 1997 2000', 'wine Italy', 'petroleum'">
-        <span id="searchButton">
-          <h4>Search</h4>
-        </span>
       </div>
 
   <p style="clear:both"></p>
@@ -799,12 +796,6 @@ d3.json("media/js/libs/d3/world-110m.json", function(error, world) {
   boundaries = topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; });
 });
 
-$(function() {
-
-  console.log("text_sitle")
-  $("#text_title").autocomplete(autocomplete_settings);
-
-});
 
 </script>
 

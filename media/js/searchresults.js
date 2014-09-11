@@ -1,4 +1,5 @@
-if(typeof queryParameters != "undefined" && !queryParameters['disable_search']) {
+
+if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefined" && !queryParameters['disable_search'])) {
 
   function title_to_input() {
 
@@ -78,8 +79,8 @@ if(typeof queryParameters != "undefined" && !queryParameters['disable_search']) 
         autoFocus: true,
     }
 
-    $("#searchbar").autocomplete(autocomplete_settings);
-
+    
+/*
     querystring = getQueryParameterByName("term");
     var bar = $("#searchbar");
     bar.val(querystring);
@@ -106,13 +107,22 @@ if(typeof queryParameters != "undefined" && !queryParameters['disable_search']) 
 
           }
       });
-
+*/
     $("#text_title").focus();
     $("#text_title").autocomplete(autocomplete_settings);
 
     $("#text_title").click(function(e) {
       $(this).autocomplete( "search", "" );
     })
+
+    $("#searchbar").focus();
+    $("#searchbar").autocomplete(autocomplete_settings);
+
+    $("#searchbar").click(function(e) {
+      $(this).autocomplete( "search", "" );
+    })
+
+
 
   });
 }
