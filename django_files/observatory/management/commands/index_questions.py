@@ -28,21 +28,26 @@ class Command(BaseCommand):
                               ))
 
         # Which products are feasible for Latvia?
-        casy_questions = self.generate_index_entries(['casy'], ['pie_scatter'],
+        casy_questions = self.generate_index_entries(['casy'], [['pie_scatter']],
                                                      countries, ['export'])
 
         # What did Burundi export in 2013?
-        casy_questions2 = self.generate_index_entries(['casy'], [None],
+        casy_questions2 = self.generate_index_entries(['casy'],
+                                                      [['tree_map',
+                                                       'product_space']],
                                                       countries, trade_flows,
                                                       [None])
 
         # Where did Albania export to in 2009?
-        csay_questions = self.generate_index_entries(['csay'], [None],
+        csay_questions = self.generate_index_entries(['csay'],
+                                                     [['map', 'tree_map']],
                                                      countries, trade_flows,
                                                      [None])
 
         # Who exported Petroleum in 1990?
-        sapy_questions = self.generate_index_entries(['sapy'], [None], [None],
+        sapy_questions = self.generate_index_entries(['sapy'],
+                                                     [['map', 'tree_map']],
+                                                     [None],
                                                      trade_flows, [None],
                                                      products)
 
@@ -54,12 +59,13 @@ class Command(BaseCommand):
                 countries_flat,
                 countries_flat),
         )
-        ccsy_questions = self.generate_index_entries(['ccsy'], [None],
+        ccsy_questions = self.generate_index_entries(['ccsy'], [['tree_map']],
                                                      country_pairs,
                                                      trade_flows, [None])
 
         # Where did France export wine to in 2012?
-        cspy_questions = self.generate_index_entries(['cspy'], [None],
+        cspy_questions = self.generate_index_entries(['cspy'],
+                                                     [['map', 'tree_map']],
                                                      countries, trade_flows,
                                                      [None], products)
 
@@ -134,7 +140,7 @@ class Command(BaseCommand):
 
             url = params_to_url(
                 api_name=args[0],
-                app_name=args[1],
+                app_name=args[1][0],
                 country_codes=country_codes,
                 trade_flow=args[3],
                 years=args[4],
