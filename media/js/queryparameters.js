@@ -24,7 +24,8 @@ function updateURLQueryParameters() {
 }
 
 // Add new parameters or update existing ones
-queryParameters['prod_class'] = prod_class;
+if(typeof(prod_class) != "undefined")
+  queryParameters['prod_class'] = prod_class;
 queryParameters['details_treemap'] = parseInt(queryParameters['details_treemap']) || 2;
 queryParameters['disable_widgets'] = typeof queryParameters['disable_widgets'] !== 'undefined' ? queryParameters['disable_widgets']=="true" : false;
 queryParameters['disable_search'] = typeof queryParameters['disable_search'] !== 'undefined' ? queryParameters['disable_search']=="true" : false;

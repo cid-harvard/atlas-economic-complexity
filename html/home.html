@@ -478,7 +478,7 @@ footer.credits, footer.logos {
   </a>
 </div>
 
-    <div style="float:left; width:350px; margin-bottom:30px; font-size: 30px; font-style:italic; background: url(media/img/home/quote.jpg) no-repeat; background-size:100px; padding-left:40px; padding-top:40px; color:gray">
+    <div style="float:left; width:350px; margin-bottom:30px; font-size: 30px; font-style:italic; background: url(media/img/home/quote.jpg) no-repeat; background-size:100px; padding-left:40px; padding-top:40px; color:gray" class="other_apps">
       Explore Growth Opportunities
     </div>
 
@@ -633,7 +633,25 @@ footer.credits, footer.logos {
           $("#videoModal").css("display", "none");
         });
       });
-    });
+
+
+      if(queryParameters['disable_widgets']) {
+
+        var opacity_level = 0;
+
+        d3.select("#carousel-example-generic").style("opacity", opacity_level);   
+        d3.selectAll(".other_apps").style("opacity", opacity_level);           
+      }
+
+      if(queryParameters['disable_search']) {
+
+        var opacity_level = 0;
+
+        d3.select("#searchBox").style("opacity", opacity_level);   
+        
+      }    });
+
+
 </script>
 <script>
   // Use to be: Rotate featured video randomly
@@ -651,6 +669,7 @@ footer.credits, footer.logos {
 <script src="media/js/libs/d3/d3.geo.projection.min.js"></script>
 <script src="media/js/libs/d3/topojson.min.js"></script>
 <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+<script src="media/js/queryparameters.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL}}js/searchresults.js"></script>
 
 <script>
