@@ -135,7 +135,7 @@ var flat_data,
   set_stack_layout = function(arg)
   {
 
-    if (arg=="share"){
+    if (arg=="share") {
       // set_stack_nesting(nest0_val);
       d3.select("#viz").call(viz.layout("share"));
       // d3.select("#viz").call(viz.value_var("my_share"));
@@ -144,46 +144,47 @@ var flat_data,
     {
       // Just double check if this app has adjustment values
       d3.select("#viz").call(viz.layout("value"));
-        if(app_type=="casy"){
-          var adjust = d3.select('input[name=capita]:checked').attr("id")
-          switch(adjust)
-          {
-           case "current":
-              d3.select("#viz").call(viz.value_var("value"));
-              break;
-           case "pc_current": //Per Capita Current (USD)
-              d3.select("#viz").call(viz.value_var("pc_current"));
-              break;
-           case "pc_constant": //Per Capita Constant (USD)
-              d3.select("#viz").call(viz.value_var("pc_constant"));
-              break;
-           case "notpc_constant": //Per Capita Constant (USD)
-              d3.select("#viz").call(viz.value_var("pc_constant"));
-              break;           
-          }
-          
+
+      if(app_type=="casy") { 
+        var adjust = d3.select('input[name=capita]:checked').attr("id")
+        switch(adjust) {
+
+         case "current":
+            d3.select("#viz").call(viz.value_var("value"));
+            break;
+         case "pc_current": //Per Capita Current (USD)
+            d3.select("#viz").call(viz.value_var("pc_current"));
+            break;
+         case "pc_constant": //Per Capita Constant (USD)
+            d3.select("#viz").call(viz.value_var("pc_constant"));
+            break;
+         case "notpc_constant": //Per Capita Constant (USD)
+            d3.select("#viz").call(viz.value_var("pc_constant"));
+            break;           
         }
-        else
-        {
-          d3.select("#viz").call(viz.value_var("value"));  
-        }
-    } 
-    else if(arg=="current"){
-      // d3.select("#viz").call(viz.layout("value"));
+        
+        queryParameters['yaxis'] = adjust;
+
+
+      } else {
+        d3.select("#viz").call(viz.value_var("value"));
+        queryParameters['yaxis'] = "current";
+      }
+    } else if(arg=="current") {
       d3.select("#viz").call(viz.value_var("value"));
-    }
-    else if(arg=="pc_current"){
-      // d3.select("#viz").call(viz.layout("value"));
+      queryParameters['yaxis'] = "current";
+    } else if(arg=="pc_current") {
       d3.select("#viz").call(viz.value_var("pc_current"));
-    }
-    else if(arg=="pc_constant"){
-      // d3.select("#viz").call(viz.layout("value"));
+      queryParameters['yaxis'] = "pc_current";
+    } else if(arg=="pc_constant") {
       d3.select("#viz").call(viz.value_var("pc_constant"));
-    }
-    else if(arg=="notpc_constant"){
-      // d3.select("#viz").call(viz.layout("value"));
+      queryParameters['yaxis'] = "pc_constant";
+    } else if(arg=="notpc_constant") {
       d3.select("#viz").call(viz.value_var("notpc_constant"));
+      queryParameters['yaxis'] = "notpc_constant";
     }
+
+    updateURLQueryParameters();
   }
   // Do I still need this?
   sort_flat = function(arg)
@@ -1051,9 +1052,18 @@ var flat_data,
       $("#pie_yvar").buttonset();
       $("#pie_spot").buttonset();
       $("#pie_controls input[type='radio']").change(function(e){
-        if($(e.target).attr("name") == "yvar"){
-          ($(e.target).attr("id")=="complexity") ? d3.select("#viz").call(viz.yaxis_var("complexity")) :
-                                              d3.select("#viz").call(viz.yaxis_var("opp_gain"))
+        if($(e.target).attr("name") == "yvar") {
+
+          if($(e.target).attr("id")=="complexity") {
+            d3.select("#viz").call(viz.yaxis_var("complexity"))
+            queryParameters['yaxis'] = "complexity";
+          } else {
+            d3.select("#viz").call(viz.yaxis_var("opp_gain"))
+            queryParameters['yaxis'] = "opp_gain";
+          }
+
+          updateURLQueryParameters();
+
         }
         if($(e.target).attr("name") == "pie_spot"){
           ($(e.target).attr("id")=="spot_off") ? d3.select("#viz").call(viz.spotlight(false)) :
