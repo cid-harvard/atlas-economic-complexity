@@ -829,7 +829,7 @@ var flat_data,
       .type("stacked")
       .height(height)
       .width(748)
-      .value_var("value")
+      //.value_var("value")
       .sort("color")
       .xaxis_var("year")
       .attrs(attr)
@@ -844,13 +844,32 @@ var flat_data,
       .stack_type("monotone")
       .click_function(inner_html);
 
+    if(queryActivated && typeof(queryParameters['yaxis']) != "undefined") {
+
+      switch (queryParameters['yaxis']) {
+        case "pc_current":
+          viz.value_var("pc_current");
+          break;
+        case "pc_constant":
+          viz.value_var("pc_constant");
+          break;
+        case "notpc_constant":
+          viz.value_var("notpc_constant");
+          break;
+        default:
+         viz.value_var("value");
+      }
+    } else {
+      viz.value_var("value");
+    }
+
     d3.select("#loader").style("display", "none");
 
-    if(queryActivated)
-      highlight(queryParameters['highlight']);
+    //if(queryActivated)
+    //  highlight(queryParameters['highlight']);
 
     flat_data.map(function(d){
-    d.id = String(d.id)
+      d.id = String(d.id)
     })
 
     if (app_type!="sapy") {

@@ -554,18 +554,18 @@
           <div class="ui_bottom_row row">
 
               <div class="vizControl col-md-8">
-                <span class="definition" style="font-weight:bold;">Adjust:</span>
+                <span class="definition" style="font-weight:bold;">Y-axis</span>
                 <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-                  <label class="btn btn-default active">
+                  <label class="btn btn-default active capita">
                     <input type="radio" id="current" name="capita" checked="checked"> Current
                   </label>
-                  <label class="btn btn-default">
+                  <label class="btn btn-default capita">
                     <input type="radio" id="notpc_constant" name="capita"> Constant
                   </label>
-                  <label class="btn btn-default">
+                  <label class="btn btn-default capita">
                     <input type="radio" id="pc_current" name="capita"> Per Capita Current
                   </label>
-                  <label class="btn btn-default">
+                  <label class="btn btn-default capita">
                     <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
                   </label>
                 </div>
@@ -1110,6 +1110,18 @@
       d3.select("#yaxis-opp_gain").classed("active", true)
       d3.select("#yaxis-complexity").classed("active", false)
     }
+  }
+
+  if(app_name=="stacked") {
+    d3.selectAll('.capita').classed("active", false);
+    if(queryParameters["yaxis"] == "pc_constant")
+      d3.select(d3.select("#pc_constant").node().parentNode).classed("active", true)
+    else if(queryParameters["yaxis"] == "notpc_constant")
+      d3.select(d3.select("#notpc_constant").node().parentNode).classed("active", true)      
+    else if(queryParameters["yaxis"] == "pc_current")
+      d3.select(d3.select("#pc_current").node().parentNode).classed("active", true) 
+    else
+      d3.select(d3.select("#current").node().parentNode).classed("active", true)   
   }
 
   // set active link in top nav for current page
