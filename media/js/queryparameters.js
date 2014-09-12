@@ -30,10 +30,13 @@ queryParameters['details_treemap'] = parseInt(queryParameters['details_treemap']
 queryParameters['disable_widgets'] = typeof queryParameters['disable_widgets'] !== 'undefined' ? queryParameters['disable_widgets']=="true" : false;
 queryParameters['disable_search'] = typeof queryParameters['disable_search'] !== 'undefined' ? queryParameters['disable_search']=="true" : false;
 
-if(app_name == "stacked")
+if(app_name == "stacked") {
   queryParameters['yaxis'] = queryParameters['yaxis'] || "current";
-else if(app_name == "pie_scatter")
+  queryParameters['yaxis'] = ["current", "notpc_constant", "pc_constant", "pc_current"].indexOf(queryParameters['yaxis']) < 0 ? "current" : queryParameters['yaxis'];
+} else if(app_name == "pie_scatter") {
   queryParameters['yaxis'] = queryParameters['yaxis'] || "complexity";
+  queryParameters['yaxis'] = ["complexity", "opp_gain"].indexOf(queryParameters['yaxis']) < 0 ? "complexity" : queryParameters['yaxis'];
+}
 
 //queryParameters['cat_id'] = queryParameters['cat_id'] || "";
 //queryParameters['cont_id'] = queryParameters['cont_id'] || "";
