@@ -138,7 +138,7 @@ def get_title(api_name, app_name, country_names=None, trade_flow=None,
     # Latvia?
     if api_name == "casy":
         if app_name == "pie_scatter":
-            return "Which products are feasible for %s %s?" % (country_names[0],
+            return "Which products are feasible for %s%s?" % (country_names[0],
                                           get_time_clause(years))
         else:
             return "What did %s %s%s?" % (country_names[0],
