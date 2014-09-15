@@ -13,14 +13,15 @@ if(typeof(queryParameters["queryActivated"]) != "undefined")
 
 function updateURLQueryParameters() {
 
+
   // Remove empty query parameters
   for(var k in queryParameters){
     if(queryParameters.hasOwnProperty(k) && !queryParameters[k] && queryParameters[k] != 0){
       delete queryParameters[k];
     }
   }
-
-  history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
+  if(queryActivated)
+    history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
 }
 
 // Add new parameters or update existing ones
