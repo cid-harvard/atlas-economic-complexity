@@ -311,7 +311,7 @@ def api_search(request):
                 # If multiple years are specified and we can do a stacked
                 # graph, do a stacked graph instead of a treemap or map
                 app_name = "stacked"
-            elif app_name in ["network", "pie_scatter"]:
+            elif app_name in ["product_space", "pie_scatter"]:
                 # Some apps can never have multiple years so just use the first
                 # one specified
                 years = [years[0]]
