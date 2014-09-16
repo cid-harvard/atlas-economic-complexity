@@ -297,18 +297,26 @@ def api_search(request):
         app_names = data['app_name']
 
         # If the app the user requested is possible, use that. Otherwise, use
-        # the first one as default
+        # the first one as default. App names in the elasticsearch index are
+        # sorted in a certain way for this to make sense so check out the
+        # indexer script
         requested_app_name = filters.get("app_name", [None])[0]
         if requested_app_name in app_names:
             app_name = requested_app_name
         else:
             app_name = app_names[0]
 
-        # If multiple years are specified and we can do a stacked graph, do a
-        # stacked graph instead of a treemap
-        if years and len(years) == 2 and app_name == "tree_map":
-            app_name = "stacked"
+        if years and len(years) == 2:
+            if app_name in ["map", "tree_map"]:
+                # If multiple years are specified and we can do a stacked
+                # graph, do a stacked graph instead of a treemap or map
+                app_name = "stacked"
+            elif app_name in ["network", "pie_scatter"]:
+                # Some apps can never have multiple years so just use the first
+                # one specified
+                years = [years[0]]
 
+        # If no years specified, use default years
         if years is None:
             if app_name == "stacked":
                 years = [1995, 2012]
