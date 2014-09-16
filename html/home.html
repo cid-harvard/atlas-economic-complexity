@@ -564,7 +564,7 @@ footer.credits, footer.logos {
 
       <div id="searchBox">
         <span style="float:left; margin-left:0px;font-size:30px; text-transform: none;">Search The Atlas »</span>
-        <input id="searchbar" placeholder="E.g. 'Burundi imports 1997 2000', 'wine Italy', 'petroleum'">
+        <input id="searchbar" placeholder="E.g. 'Burundi imports 1997 2000', 'wine Italy', 'petroleum'" >
       </div>
 
   <p style="clear:both"></p>
@@ -622,6 +622,8 @@ footer.credits, footer.logos {
 {% block js %}
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
+<script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
       $("#videoLaunch").click(function(){
