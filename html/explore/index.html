@@ -908,7 +908,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
   <script src="{{ STATIC_URL }}js/utils.js"></script>
   <script src="//www.google-analytics.com/cx/api.js?experiment=EPHVMSYzTle7CyfuFBrg1A"></script>
-  
+
   {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/libs/helpbox.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/explore/dropdowns.js"></script>
@@ -1112,33 +1112,35 @@
     //$(".btn-detail").prop("selected", false);
     //$("input[name='level_detail'][value='nesting_0']").prop("selected", true);
 
-  }
 
-  // Dynamically update the interface based on queryParameters values
-  if(app_name=="tree_map") {
-    d3.selectAll("input[name='level_detail']").property("checked", false)
-    d3.selectAll("input[value='nesting_"+queryParameters['details_treemap']+"']").property("checked", true)
-  }
-
-  if(app_name=="pie_scatter") {
-    if(queryParameters["yaxis"] == "opp_gain") {
-      d3.select("#yaxis-opp_gain").classed("active", true)
-      d3.select("#yaxis-complexity").classed("active", false)
+    // Dynamically update the interface based on queryParameters values
+    if(app_name=="tree_map") {
+      d3.selectAll("input[name='level_detail']").property("checked", false)
+      d3.selectAll("input[value='nesting_"+queryParameters['details_treemap']+"']").property("checked", true)
     }
-  }
 
-  if(app_name=="stacked") {
-    d3.selectAll('.capita').classed("active", false);
-    if(queryParameters["yaxis"] == "pc_constant")
-      d3.select(d3.select("#pc_constant").node().parentNode).classed("active", true)
-    else if(queryParameters["yaxis"] == "notpc_constant")
-      d3.select(d3.select("#notpc_constant").node().parentNode).classed("active", true)      
-    else if(queryParameters["yaxis"] == "pc_current")
-      d3.select(d3.select("#pc_current").node().parentNode).classed("active", true) 
-    else
-      d3.select(d3.select("#current").node().parentNode).classed("active", true)   
-  }
+    if(app_name=="pie_scatter") {
+      if(queryParameters["yaxis"] == "opp_gain") {
+        d3.select("#yaxis-opp_gain").classed("active", true)
+        d3.select("#yaxis-complexity").classed("active", false)
+      }
+    }
 
+    if(app_name=="stacked") {
+      d3.selectAll('.capita').classed("active", false);
+      if(queryParameters["yaxis"] == "pc_constant")
+        d3.select(d3.select("#pc_constant").node().parentNode).classed("active", true)
+      else if(queryParameters["yaxis"] == "notpc_constant")
+        d3.select(d3.select("#notpc_constant").node().parentNode).classed("active", true)      
+      else if(queryParameters["yaxis"] == "pc_current")
+        d3.select(d3.select("#pc_current").node().parentNode).classed("active", true) 
+      else
+        d3.select(d3.select("#current").node().parentNode).classed("active", true)   
+    }
+
+
+  }
+  
   // set active link in top nav for current page
   var current_page = "explore";
   $("nav ul a").each(function(i, el){
