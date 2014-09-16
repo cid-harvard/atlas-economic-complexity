@@ -309,6 +309,12 @@ def api_search(request):
         if years and len(years) == 2 and app_name == "tree_map":
             app_name = "stacked"
 
+        if years is None:
+            if app_name == "stacked":
+                years = [1995, 2012]
+            else:
+                years = [2012]
+
         title = get_title(
             api_name=data['api_name'],
             app_name=app_name,
