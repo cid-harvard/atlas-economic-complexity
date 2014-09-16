@@ -907,6 +907,7 @@
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
   <script src="{{ STATIC_URL }}js/utils.js"></script>
+  <script src="//www.google-analytics.com/cx/api.js?experiment=EPHVMSYzTle7CyfuFBrg1A"></script>
 
   {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/libs/helpbox.js"></script>
@@ -980,6 +981,20 @@
   {% endif %}
 
   <script>
+
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-41291966-1', 'harvard.edu');
+    ga('send', 'pageview');
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41291966-1']);
+    _gaq.push(['_trackPageview']);
+
+
     $("#glossary h4").each(function(index) {
         if($("#glossary").length > 0) {
           var word = $(this).text();
@@ -1097,33 +1112,35 @@
     //$(".btn-detail").prop("selected", false);
     //$("input[name='level_detail'][value='nesting_0']").prop("selected", true);
 
-  }
 
-  // Dynamically update the interface based on queryParameters values
-  if(app_name=="tree_map") {
-    d3.selectAll("input[name='level_detail']").property("checked", false)
-    d3.selectAll("input[value='nesting_"+queryParameters['details_treemap']+"']").property("checked", true)
-  }
-
-  if(app_name=="pie_scatter") {
-    if(queryParameters["yaxis"] == "opp_gain") {
-      d3.select("#yaxis-opp_gain").classed("active", true)
-      d3.select("#yaxis-complexity").classed("active", false)
+    // Dynamically update the interface based on queryParameters values
+    if(app_name=="tree_map") {
+      d3.selectAll("input[name='level_detail']").property("checked", false)
+      d3.selectAll("input[value='nesting_"+queryParameters['details_treemap']+"']").property("checked", true)
     }
-  }
 
-  if(app_name=="stacked") {
-    d3.selectAll('.capita').classed("active", false);
-    if(queryParameters["yaxis"] == "pc_constant")
-      d3.select(d3.select("#pc_constant").node().parentNode).classed("active", true)
-    else if(queryParameters["yaxis"] == "notpc_constant")
-      d3.select(d3.select("#notpc_constant").node().parentNode).classed("active", true)      
-    else if(queryParameters["yaxis"] == "pc_current")
-      d3.select(d3.select("#pc_current").node().parentNode).classed("active", true) 
-    else
-      d3.select(d3.select("#current").node().parentNode).classed("active", true)   
-  }
+    if(app_name=="pie_scatter") {
+      if(queryParameters["yaxis"] == "opp_gain") {
+        d3.select("#yaxis-opp_gain").classed("active", true)
+        d3.select("#yaxis-complexity").classed("active", false)
+      }
+    }
 
+    if(app_name=="stacked") {
+      d3.selectAll('.capita').classed("active", false);
+      if(queryParameters["yaxis"] == "pc_constant")
+        d3.select(d3.select("#pc_constant").node().parentNode).classed("active", true)
+      else if(queryParameters["yaxis"] == "notpc_constant")
+        d3.select(d3.select("#notpc_constant").node().parentNode).classed("active", true)      
+      else if(queryParameters["yaxis"] == "pc_current")
+        d3.select(d3.select("#pc_current").node().parentNode).classed("active", true) 
+      else
+        d3.select(d3.select("#current").node().parentNode).classed("active", true)   
+    }
+
+
+  }
+  
   // set active link in top nav for current page
   var current_page = "explore";
   $("nav ul a").each(function(i, el){
@@ -1175,12 +1192,7 @@
 
 });
 
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-41291966-1', 'harvard.edu');
-    ga('send', 'pageview');
+
   </script>
 
 
