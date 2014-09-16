@@ -59,9 +59,15 @@ API_NAMES_RE = re.compile("|".join(API_NAMES), re.IGNORECASE)
 TRADE_FLOWS = ["import", "export", "net_import", "net_export"]
 TRADE_FLOWS_RE = re.compile("|".join(TRADE_FLOWS) + r"(?:s|ed)", re.IGNORECASE)
 
+APP_NAME_SYNONYMS = {"network": "product_space",
+                     "treemap": "tree_map",
+                     "tree map": "tree_map",
+                     "feasibility": "pie_scatter",
+                     "stacked graph": "stacked",
+                     "product space": "product_space"}
 APP_NAMES = ["map", "pie_scatter", "stacked", "product_space", "rings",
-             "tree_map", "network"]
-APP_NAMES_RE = re.compile("|".join(APP_NAMES))
+             "tree_map"]
+APP_NAMES_RE = re.compile("|".join(APP_NAMES + APP_NAME_SYNONYMS.keys()))
 
 PRODUCT_CODE_RE = r"(\d{4})"
 
@@ -221,7 +227,7 @@ def parse_search(query):
     for extractor_name, extractor in EXTRACTORS.iteritems():
         result, query = extractor(query)
         if len(result):
-            kwargs[extractor_name] = (x[0][0] for x in result)
+            kwargs[extractor_name] = [x[0][0] for x in result]
 
     # Determine query type
     if len(query) == 4 and query in API_NAMES:
@@ -249,7 +255,16 @@ def api_search(request):
     if query is None:
         return HttpResponse("[]")
 
+    # Parse search query
     query, query_type, kwargs = parse_search(query)
+
+    # Resolve any synonyms. feasibility -> pie_scatter etc.
+    if "app_name" in kwargs:
+        given_app_name = kwargs["app_name"][0]
+        kwargs["app_name"] = [APP_NAME_SYNONYMS.get(given_app_name,
+                                                    given_app_name)]
+
+    # Prepare elasticsearch filters
     filters = prepare_filters(kwargs)
 
     es_query = {
