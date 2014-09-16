@@ -1,6 +1,9 @@
 
 if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefined" && !queryParameters['disable_search'])) {
 
+  // Ask GA for the search variation
+  var search_var = cxApi.chooseVariation();
+
   function title_to_input() {
 
     var current_content = $("#text_title").html();
@@ -24,9 +27,14 @@ if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefi
       var term = this.term.split(' ').join('|');
       var re = new RegExp("(" + term + ")", "gi") ;
       var t = item.label.replace(re,"<b>$1</b>");
+
+      var suggestion_page = "Title";
+      if($("#searchbar").length > 0)
+        suggestion_page = "Home";
+
       return $( "<li></li>" )
          .data( "item.autocomplete", item )
-         .append( "<a>" + t + "</a>" )
+         .append('<a onclick="_gaq.push([\'_trackEvent\', \'Suggestion-'+suggestion_page+'\', \'Clicked\', \''+this.term+'\'])">' + t + "</a>" )
          .appendTo( ul );
     };
 
@@ -36,6 +44,7 @@ if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefi
         if(request.term.length == 0)
            request.term = $("#text_title").val();
 
+        request.search_var = search_var;
         var term = request.term;
         if (term in cache) {
             response(cache[term]);
@@ -51,6 +60,14 @@ if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefi
                 cache[term] = reshaped_data;
                 response(reshaped_data);
         });
+
+        if($("#searchbar").length > 0)
+          _gaq.push(['_trackEvent', 'Search-Home', 'Typing', $("#searchbar").val()]);
+
+        if($("#text_title").length > 0)
+          _gaq.push(['_trackEvent', 'Search-Page', 'Typing', $("#text_title").val()]);
+
+        console.log("keypress", $("#searchbar").val(), $("#text_title").val());
     };
 
     var search_select_function = function(event, ui){
@@ -115,6 +132,7 @@ if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefi
 
     $("#text_title").click(function(e) {
       $(this).autocomplete( "search", "");
+      _gaq.push(['_trackEvent', 'Search-Page', 'Focus', $(this).val()]);
     })
 
     autocomplete_settings_home = {
@@ -131,6 +149,7 @@ if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefi
     $("#searchbar").autocomplete(autocomplete_settings_home);
 
     $("#searchbar").click(function(e) {
+      _gaq.push(['_trackEvent', 'Search-Home', 'Focus', $(this).val()]);
       $(this).autocomplete( "search", "" );
     })
 
