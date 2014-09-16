@@ -35,8 +35,7 @@ class Command(BaseCommand):
         casy_questions2 = self.generate_index_entries(['casy'],
                                                       [['tree_map',
                                                         'stacked',
-                                                       'product_space',
-                                                        'network']],
+                                                       'product_space']],
                                                       countries, trade_flows,
                                                       [None])
 
