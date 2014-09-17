@@ -99,7 +99,6 @@ def extract_years(input_str):
         return results[0].span(), [int(y) for y in years]
 
 
-
 def fix_spans(string, match, span):
     """ 'where did germany export to between 2010 and 2012' with 'between (\d+)
     and (\d+)' and (27, 47)"""
@@ -337,6 +336,10 @@ def api_search(request):
                 years = [1995, 2012]
             else:
                 years = [2012]
+
+        # You can't show a product space based on imports so ignore those
+        if app_name == "product_space" and data["trade_flow"] == "import":
+            continue
 
         title = get_title(
             api_name=data['api_name'],
