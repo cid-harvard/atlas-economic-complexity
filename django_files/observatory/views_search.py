@@ -254,6 +254,10 @@ def api_search(request):
     if query is None:
         return HttpResponse("[]")
 
+    # For user experiment, run search version 1 or 2, 2 being more feature
+    # rich and having parsed filters. See atlas-data#32
+    search_version = request.GET.get("search_version", 2)
+
     # Parse search query
     query, query_type, kwargs = parse_search(query)
 
@@ -264,7 +268,10 @@ def api_search(request):
                                                     given_app_name)]
 
     # Prepare elasticsearch filters
-    filters = prepare_filters(kwargs)
+    if search_version == 2:
+        filters = prepare_filters(kwargs)
+    else:
+        filters = {}
 
     es_query = {
         "query": {
@@ -274,7 +281,7 @@ def api_search(request):
     }
 
     # Add filters to the query if they were given. Filters are ANDed.
-    if filters:
+    if len(filters) > 0:
         es_filters = [{"terms": {k: [x.lower() for x in v]}}
                       for k, v in filters.iteritems()]
         es_filters = {"bool": {"must": es_filters}}
@@ -288,7 +295,7 @@ def api_search(request):
                 "like_text": query,
                 "fields": ["title"],
                 "max_query_terms": 15,
-                "prefix_length": 4
+                "prefix_length": 3
             }
         }
 
