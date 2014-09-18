@@ -1,8 +1,6 @@
 
 if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefined" && !queryParameters['disable_search'])) {
 
-  // Ask GA for the search variation
-  var search_var = cxApi.chooseVariation();
 
   function title_to_input() {
 
