@@ -1202,20 +1202,7 @@
 <!-- Activates tooltips /////////////////////////////////////////////////////////////////// -->
 
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
-<script type='text/javascript'>
-  $(function(){
-    $('button[title]').tipsy({gravity: 'w', delayIn: 500});
-    $('label[title]').tipsy({gravity: 'n', delayIn: 500});
 
-    if(!$.cookie("popup")) {
-      setTimeout(function() {
-        //bootstro.start("#text_title",{finishButtonText: "Got it!"});
-       $.cookie("popup",true);
-     }, 2000);
-    }
-
-  });
-</script>
 
   <script type="text/javascript">
 
@@ -1271,6 +1258,20 @@
         }
       }
     });
+
+  $(function() {
+    $('button[title]').tipsy({gravity: 'w', delayIn: 500});
+    $('label[title]').tipsy({gravity: 'n', delayIn: 500});
+
+    if(!($.cookie("popup") == "true") && (previous_page == "None" || previous_page == "http://127.0.0.1:8000/" || previous_page == "http://atlas.cid.harvard.edu/")) {
+      setTimeout(function() {
+        bootstro.start("#text_title",{finishButtonText: "Got it!"});
+        console.log("toto")
+       $.cookie("popup", "true");
+     }, 2000);
+    }
+
+  });
   </script>
 </body>
 </html>
