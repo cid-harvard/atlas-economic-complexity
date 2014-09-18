@@ -75,6 +75,9 @@ COUNTRY_CODE_RE = re.compile(
     r"\b(?:" + "|".join(COUNTRY_CODE) + r")\b",
     re.IGNORECASE)
 
+VIZ_PARAMS = ["opp_gain"]
+VIZ_PARAMS_RE = re.compile("|".join(VIZ_PARAMS))
+
 YEAR_EXPRESSIONS = [
     re.compile(r'between (\d{4}) and (\d{4})', re.IGNORECASE),
     re.compile(r'from (\d{4}) to (\d{4})', re.IGNORECASE),
@@ -199,6 +202,7 @@ EXTRACTORS = OrderedDict([
     ("product_code", make_extractor(PRODUCT_CODE_RE)),
     ("country_codes", make_extractor(COUNTRY_CODE_RE)),
     ("product_community", make_extractor(PRODUCT_COMMUNITY_RE)),
+    ("viz_params", make_extractor(VIZ_PARAMS_RE)),
 ])
 
 
@@ -262,15 +266,18 @@ def api_search(request):
     search_version = int(request.GET.get("search_var", 0))
 
     # Parse search query
-    query, query_type, kwargs = parse_search(query,
-                                             strip_keywords=(search_version != 1))
-    print query, query_type
+    query, query_type, kwargs = parse_search(
+        query,
+        strip_keywords=(search_version != 1))
 
     # Resolve any synonyms. feasibility -> pie_scatter etc.
     if "app_name" in kwargs:
         given_app_name = kwargs["app_name"][0]
         kwargs["app_name"] = [APP_NAME_SYNONYMS.get(given_app_name,
                                                     given_app_name)]
+
+    # Viz params are not an elasticsearch filter so pop that off
+    viz_params = kwargs.pop("viz_params", None)
 
     # Prepare elasticsearch filters
     if search_version == 2 or search_version == 0:
@@ -369,6 +376,11 @@ def api_search(request):
             years=years,
             product_code=data.get('product_code', None)
         )
+
+        if viz_params:
+            if app_name == "pie_scatter":
+                url += "?queryActivated=True"
+                url += "&yaxis=%s" % viz_params[0]
 
         labels.append(title)
         urls.append(settings.HTTP_HOST + url)
