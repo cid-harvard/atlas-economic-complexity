@@ -202,8 +202,9 @@ EXTRACTORS = OrderedDict([
 ])
 
 
-def parse_search(query):
-    """Given a search query string, figure out what kind of search it is."""
+def parse_search(query, strip_keywords=True):
+    """Given a search query string, figure out what kind of search it is. Parse
+    keywords like years, locations, product codes, etc."""
 
     kwargs = {}
     query_type = None
@@ -224,7 +225,9 @@ def parse_search(query):
 
     # Extract the remaining common fields like region, product codes etc.
     for extractor_name, extractor in EXTRACTORS.iteritems():
-        result, query = extractor(query)
+        result, stripped_query = extractor(query)
+        if strip_keywords:
+            query = stripped_query
         if len(result):
             kwargs[extractor_name] = [x[0][0] for x in result]
 
@@ -256,10 +259,12 @@ def api_search(request):
 
     # For user experiment, run search version 1 or 2, 2 being more feature
     # rich and having parsed filters. See atlas-data#32
-    search_version = request.GET.get("search_version", 2)
+    search_version = int(request.GET.get("search_var", 0))
 
     # Parse search query
-    query, query_type, kwargs = parse_search(query)
+    query, query_type, kwargs = parse_search(query,
+                                             strip_keywords=(search_version != 1))
+    print query, query_type
 
     # Resolve any synonyms. feasibility -> pie_scatter etc.
     if "app_name" in kwargs:
@@ -268,7 +273,7 @@ def api_search(request):
                                                     given_app_name)]
 
     # Prepare elasticsearch filters
-    if search_version == 2:
+    if search_version == 2 or search_version == 0:
         filters = prepare_filters(kwargs)
     else:
         filters = {}
