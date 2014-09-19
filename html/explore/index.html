@@ -721,15 +721,24 @@
             </div>
           </div>
           <div class="vizControl col-md-4">
-            <span class="definition">Color by</span>
-            <div class="btn-group community" style="margin-right:20px;">
-              <label type="button" class="btn btn-default active" value="category"> Category</label>
-              <label type="button" class="btn btn-default disabled" value="category"> Community</label>
+            <span class="definition">Color</span>
+            <div class="btn-group community" style="margin-right:20px;" data-toggle="buttons">
+              <label type="button" class="btn btn-default active" value="category"> 
+                <input type="radio" name="node_color" value="category" onchange="change_node_color(this.value)"> Category
+              </label>
+              <!--
+              <label type="button" class="btn btn-default" value="pci">
+                <input type="radio" name="node_color" value="pci" onchange="change_node_color(this.value)"> PCI
+              </label>
+              <label type="button" class="btn btn-default disabled" value="community">
+                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> Community
+              </label>
+              -->
             </div>
           </div>
           <div class="vizControl col-md-4">
-            <span class="definition">Size by</span>
-            <div class="btn-group node_size" data-toggle="buttons" >
+            <span class="definition">Size</span>
+            <div class="btn-group node_size" data-toggle="buttons">
               <label type="button" class="btn btn-default active" value="none">
                 <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
               </label>

@@ -19,6 +19,23 @@ var flat_data,
     change_size_node = !change_size_node;
     d3.select("#viz").call(viz.solo([]));
   }
+
+  
+  function change_node_color(v) {
+
+    if(v == "category")
+      d3.selectAll(".node").attr("fill", function(d) { return find_color(d.id); }).style("stroke", "#333")
+    else if(v == "pci") {
+      var pci_extent = d3.extent(flat_data, function(d) { return d.complexity });
+
+      var pci_color_scale = d3.scale.linear()
+                              .domain(pci_extent)
+                              .range(["red", "black"]);
+
+      d3.selectAll(".node").attr("fill", function(d) { return pci_color_scale(d.complexity); }).style("stroke", "#333")
+    }
+
+  }  
   
   function nest_drop_report(nest_level) 
   {
@@ -1545,7 +1562,7 @@ var flat_data,
       viz_nodes = hs.nodes
       viz_links = hs.edges
       
-      viz_nodes.forEach(function(node){
+      viz_nodes.forEach(function(node) {
        if (prod_class=="hs4"){
           node.item_id = attr[node.id.slice(2,6)]['item_id']
           node.id = node.id.slice(2,6);
@@ -1556,6 +1573,7 @@ var flat_data,
           node.id = node.code
         }
       })
+
       if (prod_class=="hs4"){
         viz_links.forEach(function(link){
           link.source = viz_nodes[link.source]
@@ -1580,15 +1598,22 @@ var flat_data,
         var this_year = flat_data.filter(function(p){ return p.year == year})
         
         viz_nodes.forEach(function(n){
+
           if (prod_class=="hs4")
           {
-            // var d = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
+           var dd = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
            var d = this_year.filter(function(p){ return p.code == n.id })[0]
+
            if (typeof d == "undefined")
            {
             var d = {}; 
             // d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
            }
+
+            if( (typeof(dd) != "undefined") && (typeof(dd.complexity) != "undefined"))
+              n.complexity = dd.complexity;
+            else
+              n.complexity = 0;
 
             d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0];
 
@@ -1641,7 +1666,7 @@ var flat_data,
           }
         
           // obj.year = year;
-          d.active = d.rca >=1 ? 1 : 0
+          d.active = d.rca >=1 ? 1 : 0;
           data.push(d)
           
         })
