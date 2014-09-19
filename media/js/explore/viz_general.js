@@ -297,12 +297,14 @@ var flat_data,
  
   }
 
-  create_rankings = function(year) {
+  function updateRCA(v) {
+    d3.select("#rca-threshold").text(v);
+        data.forEach(function(d){
+          d.active = d.rca >= v ? 1 : 0
+          return d;
+        })
 
-  }
-
-  set_rankings_year = function(arg) {
-    
+    d3.select("#viz").call(chart.highlight(""))
   }
 
   display_growth = function(arg) {
@@ -1601,7 +1603,8 @@ var flat_data,
 
           if (prod_class=="hs4")
           {
-           var dd = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
+           // Required for color by PCI 
+           //var dd = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
            var d = this_year.filter(function(p){ return p.code == n.id })[0]
 
            if (typeof d == "undefined")
@@ -1610,10 +1613,11 @@ var flat_data,
             // d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
            }
 
-            if( (typeof(dd) != "undefined") && (typeof(dd.complexity) != "undefined"))
-              n.complexity = dd.complexity;
-            else
-              n.complexity = 0;
+            // Required for color by PCI
+            // if( (typeof(dd) != "undefined") && (typeof(dd.complexity) != "undefined"))
+            //  n.complexity = dd.complexity;
+            // else
+            //  n.complexity = 0;
 
             d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0];
 
