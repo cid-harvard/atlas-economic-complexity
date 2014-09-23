@@ -56,6 +56,12 @@
   <![endif]-->
 </head>
 <body class="app" >
+<script>
+  var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot", "rankings"];
+  var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
+</script>
+{% if not displayIframe %}
+
   {% if alert %}
   <div class="alert">
     <div>
@@ -104,13 +110,6 @@
        {% endif %}
       <div class="app_title" id="icons" style="width:230px; height:60px; margin-left:10px;">
 
-      <script>
-
-      var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot", "rankings"];
-      var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
-
-      </script>
-
         <ul class="nav nav-tabs" id="myTab">
           <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
         </ul>
@@ -154,8 +153,7 @@
       </div>
 
       <br style="clear:both">
-  	 {% if isbrowsemode %}
-  	 {% else %}
+
 
       <!-- The left pane -->
       <div id="app_pane" style="width:230px; height:810px;">
@@ -329,6 +327,7 @@
 
  -->
 
+
   <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
 </ul>
 <div class="tab-content" style="padding-top:0px;">
@@ -397,9 +396,11 @@
   </div>
   <button name="button" id="help">Help</button>
 </div> <!-- END app selection pane -->
+
 {% endif %}
       <!-- the Visualization -->
-      <div id="content"  class="container" style="width: 750px; min-height:600px;">
+      <div id="content"  class="container" style="{% if not displayIframe %} width: 750px; min-height:600px; {% else %} width: 100%; height:100%; {% endif %}">
+
         <div class="contentViz">
         <!-- ajax loading gif -->
           <div id="loader">
@@ -425,9 +426,10 @@
             </div>
           </div>
           <!-- Container for the visualization -->
-          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width:750px;min-height:520px;">
+          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left" id="viz" style="{% if not displayIframe %} width: 750px; min-height:520px; {% else %} width: 100%; height:100%; {% endif %}">
           </div>
 		  </div>
+{% if not displayIframe %}
         <div class="contentInner">
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
@@ -885,7 +887,7 @@
     <canvas style="display: none; overflow:hidden;" id="canvas" width="750px" height="520px"></canvas>
 
   </div> <!-- END #container -->
-
+{% endif %}
   <!-- Glossary -->
   <div id="glossary" style="display:none;">
     {% include "about/glossary_text.html" %}
@@ -1176,11 +1178,22 @@
     return update_viz($(this).attr("value"));
   });
 
+  {% if displayIframe %}
+  //To display visualization in full screen, while viewing stories
+  var contentWidth = window.innerWidth;
+  var contentHeight = window.innerHeight;
+
+  {% else %}
+
   //To display visualization in full screen, while viewing stories
   var contentWidth=$("#content").width();
+  var contentHeight = 520;
+
+  {% endif %}
 
   // Call the original and let is handle the stuff - trying again
-  build_viz_app_original(api_uri, contentWidth, 520);
+  build_viz_app_original(api_uri, contentWidth, contentHeight);
+
 
 });
 
