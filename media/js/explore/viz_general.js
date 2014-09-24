@@ -1591,7 +1591,16 @@ var flat_data,
       }
       
       flat_data.map(function(d){
-        d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+                    if (typeof world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0] != "undefined")
+              {
+                d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+              }
+              else // if not then assign value as 0
+              {
+                d.world_trade = 0
+              }
+
+      //  d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
       })
       
       data = []
