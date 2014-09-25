@@ -402,7 +402,8 @@ def explore(
                                            None),
          "item_type": item_type,
          "displayviz": displayviz,
-         "displayImage": displayImage
+         "displayImage": displayImage,
+         "displayIframe": request.GET.get("displayIframe", False)
          },
         context_instance=RequestContext(request))
 

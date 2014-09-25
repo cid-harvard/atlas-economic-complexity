@@ -18,6 +18,27 @@
   <link rel="stylesheet" href="media/css/normalize.css">
   <link rel="stylesheet" href="media/css/style.css">	
 
+<!-- Load the Content Experiment JavaScript API client for the experiment -->
+<script src="//www.google-analytics.com/cx/api.js?experiment=1TlRMfvcStutXnhZwghKnw"></script>
+
+  <script>
+    // Ask GA for the search variation
+    var search_var = cxApi.chooseVariation();
+  
+    // google analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-41291966-1', 'harvard.edu');
+    ga('send', 'pageview');
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41291966-1']);
+    _gaq.push(['_trackPageview']);
+
+  </script>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -76,25 +97,6 @@
     var language = $(this).val();
     window.location = "/set_language/"+language+"/";
   });
-    // google analytics
-  
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-41291966-1', 'harvard.edu');
-    ga('send', 'pageview');
-
-    // current nav styling
-  	$(function(){
-  		var current_page = document.location.pathname.split("/")[1];
-  		$("nav ul a").each(function(i, el){
-  			if($(el).text().toLowerCase() == current_page){
-  				$(el).addClass("current");
-  			}
-  		})
-  	})
 	</script>
 
 <style>
@@ -122,6 +124,17 @@ function sticky_relocate() {
   }
 }
 
+
+
+// current nav styling
+$(function(){
+  var current_page = document.location.pathname.split("/")[1];
+  $("nav ul a").each(function(i, el){
+    if($(el).text().toLowerCase() == current_page){
+      $(el).addClass("current");
+    }
+  })
+})
 $(function() {
   $(window).scroll(sticky_relocate);
   sticky_relocate();

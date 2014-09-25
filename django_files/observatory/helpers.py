@@ -134,12 +134,12 @@ def get_title(api_name, app_name, country_names=None, trade_flow=None,
     second is the end year.
     :param str product_name: Localized name of product
     """
-
     # e.g. What did Burundi export in 2013? Which products are feasible for
     # Latvia?
     if api_name == "casy":
         if app_name == "pie_scatter":
-            return "Which products are feasible for %s?" % country_names[0]
+            return "Which products are feasible for %s%s?" % (country_names[0],
+                                          get_time_clause(years))
         else:
             return "What did %s %s%s?" % (country_names[0],
                                           trade_flow,
@@ -221,7 +221,7 @@ def params_to_url(api_name=None, app_name=None, country_codes=None,
     url = "explore/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country_codes[0],
                                        country_codes[1], product_code)
     if years is not None:
-        url += "%s/" % years
+        url += "%s/" % years_to_string(years)
 
     return url
 
@@ -337,3 +337,15 @@ def get_language(request):
     lang = request.GET.get("lang",
                            request.session.get('django_language', 'en'))
     return get_language_info(lang)
+
+
+def years_to_string(years):
+    year_tuple = tuple(years)
+    if len(year_tuple) == 1:
+        return "%d" % year_tuple
+    elif len(year_tuple) == 2:
+        return "%d.%d" % year_tuple
+    elif len(year_tuple) == 3:
+        return "%d.%d..%d" % year_tuple
+    else:
+        raise ValueError("Invalid year tuple")

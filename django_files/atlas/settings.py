@@ -114,7 +114,7 @@ CACHES = {
     },
 }
 
-VERSION = '1.0.6'
+VERSION = '1.0.7'
 
 CACHE_VERY_SHORT = 60*10  # 10 minutes
 CACHE_SHORT = 60*60  # 1 hour

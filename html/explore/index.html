@@ -51,12 +51,17 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css" />
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
 
-
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
 <body class="app" >
+<script>
+  var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot", "rankings"];
+  var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
+</script>
+{% if not displayIframe %}
+
   {% if alert %}
   <div class="alert">
     <div>
@@ -83,8 +88,6 @@
         <a href="" title="Home" style="text-decoration: none;">
         <h1 style="background: url({{ STATIC_URL }}img/all/logo_rainbow.png) repeat-x 100% 100%; padding-bottom:22px; color: black; font-size:43px;">The Atlas</h1>
 
-
-
         <h2 style="font-size:14px; margin-top:-25px; text-align:center; margin-left:0px; letter-spacing:1px; color:white; text-transform:uppercase; text-decoration:none; background-color: #a0a6a9;" class="element">of Economic Complexity</h2></a>
       </div>
       <nav>
@@ -106,13 +109,6 @@
        </div>
        {% endif %}
       <div class="app_title" id="icons" style="width:230px; height:60px; margin-left:10px;">
-
-      <script>
-
-      var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot", "rankings"];
-      var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
-
-      </script>
 
         <ul class="nav nav-tabs" id="myTab">
           <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
@@ -147,12 +143,17 @@
 
       <!-- The title -->
       <div class="app_title" id="title"  original-title='{% trans "Economic Complexity" %}'>
-        <h2 style="margin-left:10px; width:700px;"><span id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</span><span id="text_blink"></span></h2>
+        <h2 style="margin-left:10px; width:700px;"></h2>
+        
+        <input type='text' id='text_title' value="{% if title %}{{title}}{% else %}&nbsp;{% endif %}" data-toggle="tooltip" class="tab-content bootstro" data-bootstro-content="<span style='font-size:20px; color:red'>NEW</span><br><span style='font-size:18px'>Titles on the page are now <b>interactive!</b> Type in any <b>Country</b> (France, Germany) or <b>Product</b> (Cars, Horses) and let the magic begin.</span>" data-bootstro-placement="left"/>
+
+<!--        <span id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</span><span id="text_blink"></span> -->
+
+        
       </div>
 
       <br style="clear:both">
-  	 {% if isbrowsemode %}
-  	 {% else %}
+
 
       <!-- The left pane -->
       <div id="app_pane" style="width:230px; height:810px;">
@@ -182,7 +183,7 @@
               <label class="btn btn-default {% if trade_flow == "export" or trade_flow == "net_export" %} active{% endif %}">
                 <input type="radio" name="flow_direction" value="export" onchange="$('.flow-direction').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;Export&nbsp;
               </label>
-              <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}">
+              <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}  {% if app_name == "product_space" or app_name == "pie_scatter" %} disabled{% endif %}">
                 <input type="radio" name="flow_direction" id="flow_direction" value="import" onchange="$('.flow-direction').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;Import&nbsp;
               </label>
             </div>
@@ -241,8 +242,20 @@
               <img src="{{ STATIC_URL }}img/common/stackedgraph.png" style="width:38px;"/>
             </label>
 
+            {% if app_name == 'scatterplot' or app_name == 'rankings' %}
+              <label value="scatterplot" class="btn btn-default {% if app_name == 'scatterplot' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Scatter Plot" >
+              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/scatterplot-thumb.png" style="width:38px;"/>
+              </label>
+
+              <label value="rankings" class="btn btn-default {% if app_name == 'rankings' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Rankings" >
+              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/rankings-thumb.png" style="width:38px;"/>
+              </label>
+            {% endif %}
+
             <div style="font-weight:bold; margin-top:0px; margin-left:5px">
             <br>
+
+
             Complexity Visualization</div>
 
 
@@ -262,22 +275,10 @@
               <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:38px;"/>
             </label>
             {% endif %}
-            {% if app_name == 'scatterplot' or app_name == 'rankings' %}
-              <label value="scatterplot" class="btn btn-default {% if app_name == 'scatterplot' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Scatter Plot" >
-              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/scatterplot-thumb.png" style="width:38px;"/>
-              </label>
-
-              <label value="rankings" class="btn btn-default {% if app_name == 'rankings' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Rankings" >
-              <input type="radio" name="viz_apps"> <img src="{{ STATIC_URL }}img/home/rankings-thumb.png" style="width:38px;"/>
-              </label>
-            {% endif %}
           </div>
 
           </div>
-
         </div>
-
-
 
   <!-- END -->
   </div>
@@ -326,7 +327,8 @@
 
  -->
 
-    <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
+
+  <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
 </ul>
 <div class="tab-content" style="padding-top:0px;">
   {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None" %}
@@ -394,9 +396,11 @@
   </div>
   <button name="button" id="help">Help</button>
 </div> <!-- END app selection pane -->
+
 {% endif %}
       <!-- the Visualization -->
-      <div id="content"  class="container" style="width: 750px; min-height:600px;">
+      <div id="content"  class="container" style="{% if not displayIframe %} width: 750px; min-height:600px; {% else %} width: 100%; height:100%; {% endif %}">
+
         <div class="contentViz">
         <!-- ajax loading gif -->
           <div id="loader">
@@ -422,9 +426,10 @@
             </div>
           </div>
           <!-- Container for the visualization -->
-          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left"id="viz" style="width:750px;min-height:520px;">
+          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left" id="viz" style="{% if not displayIframe %} width: 750px; min-height:520px; {% else %} width: 100%; height:100%; {% endif %}">
           </div>
 		  </div>
+{% if not displayIframe %}
         <div class="contentInner">
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
@@ -450,26 +455,26 @@
             {% endif %}
             {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}
               <div class="vizControl col-md-4" >
-                  <span class="definition" style="font-weight:bold;">Detail Level:</span>
-                  <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-                    <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
-                      <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
-                    </label>
-                    {% if app_type == "casy" or app_type == "ccsy" %}
-                    <label class="btn btn-default btn-detail">
-                      <input type="radio" name="level_detail" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
-                    </label>
-                    {% endif %}
-                    <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
-                      <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
-                    </label>
-                  </div>
+                <span class="definition" style="font-weight:bold;">Detail Level</span>
+                <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                  <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
+                    <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
+                  </label>
+                  {% if app_type == "casy" or app_type == "ccsy" %}
+                  <label class="btn btn-default btn-detail">
+                    <input type="radio" name="level_detail" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
+                  </label>
+                  {% endif %}
+                  <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
+                    <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
+                  </label>
                 </div>
+              </div>
             {% endif %}
 
-            {% if app_name != "product_space" and app_name != "rings"%}
+            {% if app_name != "product_space" and app_name != "rings" and app_name != "pie_scatter"%}
               <div class="vizControl col-md-4" >
-                <span class="definition" style="font-weight:bold;">Trade Flow:</span>
+                <span class="definition" style="font-weight:bold;">Trade Flow</span>
                 <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
                     <input type="radio" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
@@ -481,11 +486,27 @@
               </div>
             {% endif %}
           </div>
-          {% if app_name == "stacked" %}
 
+          {% if app_name == "tree_map" or app_name == "map" %}
+            <div class="vizControl col-md-6" >
+              <span class="definition" style="font-weight:bold;">Color by</span>
+              <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                <label class="btn btn-default btn-detail active">
+                  <input type="radio" name="level_detail" value="nesting_0" onchange="d3.select('#viz').call(viz.color_var('color'))"> Category
+                </label>
+                <label class="btn btn-default btn-detail disabled">
+                  <input type="radio" name="level_detail" value="nesting_2" onchange="display_growth(1);"> Growth 1-year
+                </label>
+                <label class="btn btn-default btn-detail disabled">
+                  <input type="radio" name="level_detail" value="nesting_2" onchange="display_growth(2);"> Growth 5-year
+                </label>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if app_name == "stacked" %}
           <style type="text/css">.contentInner{height:300px;} #timeline{min-height: 227px}</style>
           <div>
-
           <div id="stacked_controls" style="float:left; width:100%; ">
 
           <div class="row">
@@ -529,24 +550,24 @@
           <div class="ui_bottom_row row">
 
               <div class="vizControl col-md-8">
-                <span class="definition" style="font-weight:bold;">Adjust:</span>
-<div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
-              <label class="btn btn-default active">
-                <input type="radio" id="current" name="capita" checked="checked"> Current
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="notpc_constant" name="capita"> Constant
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="pc_current" name="capita"> Per Capita Current
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
-              </label>
-            </div>
+                <span class="definition" style="font-weight:bold;">Y-axis</span>
+                <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
+                  <label class="btn btn-default active capita">
+                    <input type="radio" id="current" name="capita" checked="checked"> Current
+                  </label>
+                  <label class="btn btn-default capita">
+                    <input type="radio" id="notpc_constant" name="capita"> Constant
+                  </label>
+                  <label class="btn btn-default capita">
+                    <input type="radio" id="pc_current" name="capita"> Per Capita Current
+                  </label>
+                  <label class="btn btn-default capita">
+                    <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
+                  </label>
+                </div>
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
-                <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
+                <span class="definition" style="font-weight:bold; display:inline;">Highlight</span>
                 <span id="highlight">
                     <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
                 </span>
@@ -565,26 +586,27 @@
             <div class="product_class" style="float:left;">
               <span class="definition" style="font-weight:bold;">Y-Axis </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
-                <label class="btn btn-default active" id="complexity" name="yvar" >
+                <label class="btn btn-default active" id="yaxis-complexity" name="yvar" >
                   <input type="radio" id="complexity" name="yvar"> Complexity
                 </label>
-                <label class="btn btn-default" id="opp_gain" >
+                <label class="btn btn-default" id="yaxis-opp_gain" >
                   <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
                 </label>
               </div>
             </div>
+
             <div class="product_class" style="float:left;">
-              <span class="definition" style="font-weight:bold;">Hide exportations (Spotlight) </span>
+              <span class="definition" style="font-weight:bold;">Hide exports (Spotlight) </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:20px;">
 
-                <label class="btn btn-default active" id="complexity" name="yvar" >
+                <label class="btn btn-default active" id="spot-off" name="yvar" >
                   <input type="radio" id="spot_off" name="pie_spot"> Off
                 </label>
-                <label class="btn btn-default" id="opp_gain" >
+                <label class="btn btn-default" id="spot-on" >
                   <input type="radio" id="spot_on" name="pie_spot"> On
                 </label>
 
-<!--                 <label class="btn btn-default">
+<!--            <label class="btn btn-default">
                   <input type="radio">None
                 </label>
                 <label class="btn btn-default">
@@ -596,10 +618,22 @@
 
               </div>
             </div>
+
+            <div class="product_class" style="float:left;">
+              <span class="definition">Size by</span>
+              <div class="btn-group node_size" data-toggle="buttons" >
+                <label type="button" class="btn btn-default disabled" value="none">
+                  <input type="radio" name="node_size" value="none" onchange=""> None
+                </label>
+                <label type="button" class="btn btn-default active" value="world_trade">
+                  <input type="radio" name="node_size" value="world_trade" onchange=""> World Trade
+                </label>
+              </div>
+            </div>
+
             <p style="clear:both">
 
           {% endif %}
-
 
           {% if app_name == "scatterplot" %}
 
@@ -628,18 +662,18 @@
             </div>
 
             <div class="product_class" style="float:left;">
-            <span class="definition">Size by: </span>
-            <div class="btn-group node_size" data-toggle="buttons" >
-              <label type="button" class="btn btn-default active" value="none">
-                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
-              </label>
-              <label type="button" class="btn btn-default" value="world_trade">
-                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
-              </label>
+              <span class="definition">Size by: </span>
+              <div class="btn-group node_size" data-toggle="buttons" >
+                <label type="button" class="btn btn-default active" value="none">
+                  <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
+                </label>
+                <label type="button" class="btn btn-default" value="world_trade">
+                  <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
+                </label>
+              </div>
             </div>
-          </div>
 
-       <p style="clear:both">
+          <p style="clear:both">
 
           <div class="product_class" style="float:left;">
             <span class="definition">Color by: </span>
@@ -653,7 +687,7 @@
             </div>
           </div>
 
-            <div class="product_class" style="float:left;">
+          <div class="product_class" style="float:left;">
             <span class="definition">Scale: </span>
             <div class="btn-group node_size" data-toggle="buttons" >
               <label type="button" class="btn btn-default active" value="none">
@@ -666,8 +700,6 @@
           </div>
 
           {% endif %}
-
-        <!-- Those used to be in the right side bar -->
 
           {% if app_name == "product_space" %}
 
@@ -683,15 +715,24 @@
             </div>
           </div>
           <div class="vizControl col-md-4">
-            <span class="definition">Color by:</span>
-            <div class="btn-group community" style="margin-right:20px;">
-              <label type="button" class="btn btn-default active" value="category"> Category</label>
-              <label type="button" class="btn btn-default disabled" value="category"> Community</label>
+            <span class="definition">Color</span>
+            <div class="btn-group community" style="margin-right:20px;" data-toggle="buttons">
+              <label type="button" class="btn btn-default active" value="category"> 
+                <input type="radio" name="node_color" value="category" onchange="change_node_color(this.value)"> Category
+              </label>
+              <!--
+              <label type="button" class="btn btn-default" value="pci">
+                <input type="radio" name="node_color" value="pci" onchange="change_node_color(this.value)"> PCI
+              </label>
+              <label type="button" class="btn btn-default disabled" value="community">
+                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> Community
+              </label>
+              -->
             </div>
           </div>
           <div class="vizControl col-md-4">
-            <span class="definition">Size by: </span>
-            <div class="btn-group node_size" data-toggle="buttons" >
+            <span class="definition">Size</span>
+            <div class="btn-group node_size" data-toggle="buttons">
               <label type="button" class="btn btn-default active" value="none">
                 <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
               </label>
@@ -700,19 +741,6 @@
               </label>
             </div>
           </div>
-
-
-          <script>
-            function updateRCA(v) {
-              d3.select("#rca-threshold").text(v);
-                  data.forEach(function(d){
-                    d.active = d.rca >= v ? 1 : 0
-                    return d;
-                  })
-
-              d3.select("#viz").call(chart.highlight(""))
-            }
-          </script>
 
           <div class="btn-group col-md-4" id="viz_apps" data-toggle="buttons" style="margin-top:20px;">
           <span class="definition" style="font-weight:bold;">
@@ -727,90 +755,28 @@
          {% endif %}
 
 
-
-
-
-
-
          {% if app_name == "map" %}
 
-         <!-- TO BE IMPLEMENTED
+
           <b>Color scale: </b>
           <div class="btn-group product_class">
-            <label type="button" class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}" value="sitc4">Linear</label>
-            <label type="button" class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}" value="hs4">Log</label>
+            <label type="button" class="btn btn-default disabled" value="sitc4">Linear</label>
+            <label type="button" class="btn btn-default active" value="hs4">Log</label>
           </div>
-          -->
 
          {% endif %}
 
+        {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "rings" %}
+        <div class="col-span-4" style="float:left; margin-top:20px; position:relative; z-index:100;">
+          <span class="definition" style="font-weight:bold; display:inline;">Highlight</span>
 
-              <script>
+          <span id="highlight">
+              <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
+          </span>
 
-                   function highlight(value) {
+        </div>
 
-                var v = value ? value : $("#highlight_select").select2("val").trim();
-              {% if app_name == "product_space" or app_name == "rings" or app_type = "cspy" %}
-
-                d3.select("#viz").call(chart.highlight([]));
-                d3.select("#viz").call(chart.highlight(v));
-
-                queryParameters['highlight'] = v;
-                if(queryActivated)
-                  updateURLQueryParameters();
-
-              {% endif %}
-
-              {% if app_name == "pie_scatter" or app_name == "tree_map" or app_name == "stacked"  %}
-
-                {% if app_type = "casy" %}
-
-                if(v.length>0)
-                  d3.select("#viz").call(viz.solo([v]));
-                else
-                  d3.select("#viz").call(viz.solo([]));
-
-                {% elif app_type = "csay" or app_type = "ccsy" or app_type = "cspy" or app_type = "sapy" %}
-
-                d3.select("#viz").call(viz.solo(flat_data.filter(function(dd) {
-                  if(dd.abbrv.toLowerCase() == v)// && dd.year==year)
-                    return dd;
-                }).map(function(ddd) {
-                    return ddd.id
-                })));
-
-                {% elif app_type = "" %}
-
-                {% endif %}
-
-                queryParameters['highlight'] = v;
-
-                if(queryActivated)
-                  updateURLQueryParameters();
-                    {% endif %}
-              }
-
-              function reset_highlight() {
-
-                $("#highlight_select").select2("val", "");
-                queryParameters["highlight"] = "";
-                if(queryActivated)
-                  updateURLQueryParameters();
-
-              }
-
-               </script>
-              {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "tree_map" or app_name == "rings" %}
-              <div class="col-span-4" style="float:left; margin-top:20px; position:relative; z-index:100;">
-                <span class="definition" style="font-weight:bold; display:inline;">Highlight:</span>
-
-                <span id="highlight">
-                    <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
-                </span>
-
-              </div>
-
-              {% endif %}
+        {% endif %}
 	      </div>
         <br>
         <div id="moreOptions">
@@ -921,22 +887,23 @@
     <canvas style="display: none; overflow:hidden;" id="canvas" width="750px" height="520px"></canvas>
 
   </div> <!-- END #container -->
-
+{% endif %}
   <!-- Glossary -->
   <div id="glossary" style="display:none;">
     {% include "about/glossary_text.html" %}
   </div>
 
-
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" ></script>
-
+  <script src="{{ STATIC_URL }}js/utils.js"></script>
+  <script src="//www.google-analytics.com/cx/api.js?experiment=1TlRMfvcStutXnhZwghKnw"></script>
 
   {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/libs/helpbox.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/explore/dropdowns.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL}}js/searchresults.js"></script>
+
   <script type="text/javascript" src="{{ STATIC_URL}}js/explore/download.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
 
@@ -957,6 +924,13 @@
   <script src="{{ STATIC_URL }}js/libs/d3plus/src/utils.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3plus/src/tooltip.js"></script>
   <script src="{{ STATIC_URL }}js/explore/viz_general.js"></script>
+  <script type="text/javascript">
+  // Hack to be able to get error messages out of selenium
+  window.jsErrors = [];
+  window.onerror = function(errorMessage) {
+      window.jsErrors[window.jsErrors.length] = errorMessage;
+  }
+  </script>
   {% endcompress %}
 
   {% if app_name != "map" %}
@@ -977,8 +951,7 @@
 
     <script src="{{ STATIC_URL }}js/libs/d3plus/d3plus.v1.2.4.js"></script>
 
-    {% endif %}
-
+  {% endif %}
 
   {% if app_name == "map" %}
 
@@ -998,8 +971,24 @@
 
   {% endif %}
 
-
   <script>
+
+
+    // Ask GA for the search variation
+    var search_var = cxApi.chooseVariation();
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-41291966-1', 'harvard.edu');
+    ga('send', 'pageview');
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41291966-1']);
+    _gaq.push(['_trackPageview']);
+
+
     $("#glossary h4").each(function(index) {
         if($("#glossary").length > 0) {
           var word = $(this).text();
@@ -1016,70 +1005,54 @@
         }
     });
 
-  </script>
-        <script type="text/javascript">
-        clicked = false;
-        $("#showMore").click(function(){
-          if(clicked == false){
-            $(this).addClass("moreActive");
-            $(this).html("<i class='fa fa-caret-up'> Less Options</i> ");
-            clicked = true;
-          }else{
-            $(this).removeClass("moreActive");
-            $(this).html("<i class='fa fa-caret-down'> More Options");
-            clicked = false;
-          }
-          $("#moreOptions").slideToggle(100);
-        });
-      </script>
- 
-<script type="text/javascript">
-$(function(){
-        $("#text_title").click(function() {
-            var current_content = $(this).html();
-            var new_input = $("<input type='text' id='text_title' />");
-            new_input.val(current_content);
-            $(this).replaceWith(new_input);
-            new_input.focus();
-            new_input.autocomplete(autocomplete_settings);
-            $(".typed-cursor").remove()
-            });
-        });
+  clicked = false;
+  $("#showMore").click(function(){
+    if(clicked == false){
+      $(this).addClass("moreActive");
+      $(this).html("<i class='fa fa-caret-up'> Less Options</i> ");
+      clicked = true;
+    }else{
+      $(this).removeClass("moreActive");
+      $(this).html("<i class='fa fa-caret-down'> More Options");
+      clicked = false;
+    }
+    $("#moreOptions").slideToggle(100);
+  });
+
+
 </script>
 
+<script>
 
-  <script>
 
+  // Set up jquery to use django CSRF token
+  function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie != '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
 
-// Set up jquery to use django CSRF token
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-        }
-    }
-});
-
+  function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+          }
+      }
+  });
 
   // variables from server
   var app,
@@ -1108,7 +1081,8 @@ $.ajaxSetup({
     prod_class = "{{prod_class}}",
     previous_page = "{{previous_page}}",
     previous_image = "{{ STATIC_URL }}/img/empty_static.png",
-    static_url = "{{STATIC_URL}}";
+    static_url = "{{STATIC_URL}}",
+    in_iframe = is_in_iframe();
 
   // language select dropdown
   $(".language_select select").on("change", function(){
@@ -1117,49 +1091,48 @@ $.ajaxSetup({
     window.location = "/set_language/"+language+"/";
   });
 
+  </script>
 
-  // Variables from query string
-  var queryParameters = {}, queryString = location.search.substring(1),
-      re = /([^&=]+)=([^&]*)/g, m, queryActivated = false;
+  <script src="media/js/highlight.js"></script>
+  <script src="media/js/queryparameters.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL}}js/searchresults.js"></script>
 
-  // Creates a map with the query string parameters
-  while (m = re.exec(queryString)) {
-      queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-  }
-
-  // Add new parameters or update existing ones
-  queryParameters['prod_class'] = "{{prod_class}}";
-  queryParameters['details_treemap'] = queryParameters['details_treemap'] || 2;
-  queryParameters['cat_id'] = queryParameters['cat_id'] || "";
-  queryParameters['cont_id'] = queryParameters['cont_id'] || "";
-  queryParameters['show_related'] = Boolean(queryParameters['show_related']) || false;
-  //queryParameters['trade_flow'] = queryParameters['trade_flow'] || "net";
-  queryParameters['highlight'] = queryParameters['highlight'] || "";
-
-  function updateURLQueryParameters() {
-    history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
-  }
-
+  <script>
 
   if(queryActivated) {
     updateURLQueryParameters();
 
-    // Put once the visualization is loaded
-    $("#highlight_select").select2("val", queryParameters['highlight']);
-
-//    $("input[name='level_detail']").prop("selected", false);
-
-
+    //$("input[name='level_detail']").prop("selected", false);
     //$(".btn-detail").prop("selected", false);
     //$("input[name='level_detail'][value='nesting_0']").prop("selected", true);
 
-  }
+
+    // Dynamically update the interface based on queryParameters values
+    if(app_name=="tree_map") {
+      d3.selectAll("input[name='level_detail']").property("checked", false)
+      d3.selectAll("input[value='nesting_"+queryParameters['details_treemap']+"']").property("checked", true)
+    }
+
+    if(app_name=="pie_scatter") {
+      if(queryParameters["yaxis"] == "opp_gain") {
+        d3.select("#yaxis-opp_gain").classed("active", true)
+        d3.select("#yaxis-complexity").classed("active", false)
+      }
+    }
+
+    if(app_name=="stacked") {
+      d3.selectAll('.capita').classed("active", false);
+      if(queryParameters["yaxis"] == "pc_constant")
+        d3.select(d3.select("#pc_constant").node().parentNode).classed("active", true)
+      else if(queryParameters["yaxis"] == "notpc_constant")
+        d3.select(d3.select("#notpc_constant").node().parentNode).classed("active", true)      
+      else if(queryParameters["yaxis"] == "pc_current")
+        d3.select(d3.select("#pc_current").node().parentNode).classed("active", true) 
+      else
+        d3.select(d3.select("#current").node().parentNode).classed("active", true)   
+    }
 
 
-  // Dynamically update the interface based on queryParameters values
-  if(app_type=="tree_map") {
-    d3.selectAll("input[name='level_detail']").property("checked", false)
-    d3.selectAll("input[value='nesting_"+queryParameters['details_treemap']+"']").property("checked", true)
   }
 
   // set active link in top nav for current page
@@ -1174,8 +1147,17 @@ $.ajaxSetup({
   // Page init scripts
   $(function () {
 
+    if(queryParameters['disable_widgets']) {
 
+      var opacity_level = .2;
 
+      d3.select("#app_pane").style("opacity", opacity_level);
+      d3.select("#myTab").style("opacity", opacity_level);
+      d3.select("#tool_pane").style("opacity", opacity_level);
+      d3.select(".contentInner").style("opacity", opacity_level);
+      d3.select(".footerInner").style("opacity", opacity_level);      
+
+    }
 
     $("#help").click(function(){
         bootstro.start(".bootstro",{
@@ -1196,64 +1178,37 @@ $.ajaxSetup({
     return update_viz($(this).attr("value"));
   });
 
+  {% if displayIframe %}
+  //To display visualization in full screen, while viewing stories
+  var contentWidth = window.innerWidth;
+  var contentHeight = window.innerHeight;
+
+  {% else %}
+
   //To display visualization in full screen, while viewing stories
   var contentWidth=$("#content").width();
+  var contentHeight = 520;
+
+  {% endif %}
 
   // Call the original and let is handle the stuff - trying again
-  build_viz_app_original(api_uri, contentWidth, 520);
+  build_viz_app_original(api_uri, contentWidth, contentHeight);
+
 
 });
-  </script>
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-41291966-1', 'harvard.edu');
-    ga('send', 'pageview');
+
+
   </script>
 
 
 <!-- Activates tooltips /////////////////////////////////////////////////////////////////// -->
 
 <script type="text/javascript" src="../media/js/libs/tipsy/tipsy.jquery.js"></script>
-<script type='text/javascript'>
-  $(function(){
-    $('button[title]').tipsy({gravity: 'w', delayIn: 500});
-    $('label[title]').tipsy({gravity: 'n', delayIn: 500});
-  });
-</script>
 
-<script>
-
-
-  $("#text_blink").typed({
-    strings: [""],
-    typeSpeed: 0,
-    callback: function() { 
-
-      console.log("done");
-
-      // Check to see if the title overflows (in the case of long product names)
-      function isOverflowed(element){
-          return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
-      }
-
-      var title = d3.select("#title")
-      var shrink_size = 30;
-
-      while(isOverflowed(title.node())) {
-        $("#title").children().children().css("font-size", shrink_size+"px")
-        shrink_size -= 1;
-      }
-
-        }
-    });
-
-
-</script>
 
   <script type="text/javascript">
+
+
 
     if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "http://atlas.cid.harvard.edu/beta" || previous_page == "None" || previous_page == "http://127.0.0.1:8000/"){
       $("#historyTab").css("display", "none");
@@ -1282,28 +1237,42 @@ $.ajaxSetup({
       $("head").append('<meta name="viewport" content="width=648, initial-scale=0.7" />')
     }
 
-
-  function refresh_overlay(){
-    $("#refreshOverlay").show();
-  }
-  function remove_overlay(){
-    $("#refreshOverlay").hide();
-  }
-
-  $("select").change(function(){
-    if($(this).attr("id") != "highlight_select"){
-      refresh_overlay();
+    function refresh_overlay(){
+      $("#refreshOverlay").show();
     }
-  });
-  $(".nav-tabs li a").click(function(){
-    var parent = $(this).parent();
-    if(parent.parent().attr("id") != "utilityBox"){
-      if($(this).parent().attr("class") != "active"){
+
+    function remove_overlay(){
+      $("#refreshOverlay").hide();
+    }
+
+    $("select").change(function(){
+      if($(this).attr("id") != "highlight_select"){
         refresh_overlay();
-      } else{
-        remove_overlay();
       }
+    });
+    $(".nav-tabs li a").click(function(){
+      var parent = $(this).parent();
+      if(parent.parent().attr("id") != "utilityBox"){
+        if($(this).parent().attr("class") != "active"){
+          refresh_overlay();
+        } else{
+          remove_overlay();
+        }
+      }
+    });
+
+  $(function() {
+    $('button[title]').tipsy({gravity: 'w', delayIn: 500});
+    $('label[title]').tipsy({gravity: 'n', delayIn: 500});
+
+    if(!($.cookie("popup") == "true") && (previous_page == "None" || previous_page == "http://127.0.0.1:8000/" || previous_page == "http://atlas.cid.harvard.edu/")) {
+      setTimeout(function() {
+        bootstro.start("#text_title",{finishButtonText: "Got it!"});
+        console.log("toto")
+       $.cookie("popup", "true");
+     }, 2000);
     }
+
   });
   </script>
 </body>

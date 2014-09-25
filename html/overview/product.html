@@ -4,8 +4,8 @@
 
 {% block page_title %}{{product.name_en}} Exporters and Importers{% endblock %}
 {% block heading_title %}
-Learn More About: Trade of </h2>
-<dl class="dropdown">
+<span style="float:left">Learn More About: Trade of </span>
+<dl class="dropdown" style="float:left; margin-left:10px; margin-top:-2px">
   <dt><a href="#"><span>{{product.name_en}}</span></a></dt>
   <dd>
     <ul>
@@ -15,6 +15,7 @@ Learn More About: Trade of </h2>
     </ul>
   </dd>
 </dl>
+
 {% endblock %}
 
 {% block css %}
@@ -244,6 +245,13 @@ table td:nth-child(4){
 #quick_info table td:nth-child(1) {
   width: 170px;
 }
+
+a.product, a.country {
+  text-decoration: none;
+  padding: 0px;
+  margin: 0px;
+}
+
 </style>
 {% endblock %}
 
@@ -272,7 +280,7 @@ table td:nth-child(4){
           <td>
             {% for c in export_countries %}
               {% if forloop.counter < 6 %}
-                {{c.3}} ({{c.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
+                <img src="/media/img/icons/flag_{{c.2|lower}}.png" alt="{{c.3}}" /> <a href="/country/{{c.2|lower}}/" class="country">{{c.3}}</a> ({{c.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
               {% endif %}
             {% endfor %}
           </td>
@@ -282,7 +290,7 @@ table td:nth-child(4){
           <td>
             {% for c in import_countries %}
               {% if forloop.counter < 6 %}
-                {{c.3}} ({{c.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
+                <img src="/media/img/icons/flag_{{c.2|lower}}.png" alt="{{c.3}}" /> <a href="/country/{{c.2|lower}}/" class="country">{{c.3}} ({{c.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
               {% endif %}
             {% endfor %}
           </td>
@@ -298,7 +306,7 @@ table td:nth-child(4){
       
       <h3>What countries export {{product.name_en}}?</h3>
       
-      <iframe src="http://atlas.media.mit.edu/embed/tree_map/export/show/all/{{product.code}}/2010/" width="470" height="300" frameborder="0"></iframe>
+      <iframe src="http://atlas.media.mit.edu/explore/embed/tree_map/hs/export/show/all/{{product.code}}/2012/?controls=false" width="470" height="300" frameborder="0"></iframe>
       
       <div class="list">
         <!-- table of product exports -->
@@ -329,7 +337,7 @@ table td:nth-child(4){
       
       <h3>What countries import {{product.name_en}}?</h3>
       
-      <iframe src="http://atlas.media.mit.edu/embed/tree_map/import/show/all/{{product.code}}/2010/" width="470" height="300" frameborder="0"></iframe>
+      <iframe src="http://atlas.media.mit.edu/explore/embed/tree_map/hs/import/show/all/{{product.code}}/2012/?controls=false" width="470" height="300" frameborder="0"></iframe>
       
       <div class="list">
         <!-- table of product exports -->

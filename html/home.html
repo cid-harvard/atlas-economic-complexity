@@ -7,6 +7,10 @@
 
 <style>
 
+body {
+  background-color: white;
+}
+
 .carousel {
   position: relative;
 }
@@ -407,6 +411,9 @@ footer.credits, footer.logos {
 
 </style>
 
+<link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/searchresults.css" />
+
 <!-- Hidden Modal Window for Video -->
 
   <div id="videoModal">
@@ -508,7 +515,7 @@ footer.credits, footer.logos {
 }
 #searchBox input{
   padding:0px 10px;
-  border: solid 2px rgba(68,68,68,0.4);
+  border: solid 1px rgba(68,68,68,0.4);
   width:668px;
   height: 52px;
   font-size: 20px;
@@ -552,33 +559,27 @@ footer.credits, footer.logos {
   font-weight: 400;
 }
 </style>
-<!--
+
   <p style="clear:both"></p>
 
       <div id="searchBox">
-        <span style="float:left; margin-left:0px;font-size:30px; text-transform: none;">Search The Atlas »</span><input id="homeSearch" type="text" placeholder="What did Germany export in 2012?" />
-        <span id="searchButton">
-          <h4>Search</h4>
-        </span>
+        <span style="float:left; margin-left:0px;font-size:30px; text-transform: none;">Search The Atlas »</span>
+        <input id="searchbar" placeholder="E.g. 'Burundi imports 1997 2000', 'wine Italy', 'petroleum'" >
       </div>
--->
+
   <p style="clear:both"></p>
 
     <div class="other_apps" style="float:left; width:455px; margin:20px; margin-top:80px; border: solid 1px lightgray;">
   
-  <a href="explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/">    <h3 style="float:left; margin-left:50px;font-size:30px; text-transform: none;">Browse Countries »</h3>
-
-      <!--<div class="earth_teaser" style="margin-top:0px"></div>-->
-      <div id="map" style="width:450px; height:250px"></div>
-      
-   
-  </a>
+    <a href="explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/">
+      <h3 style="float:left; margin-left:50px;font-size:30px; text-transform: none;">Browse Countries »</h3>
+        <!--<div class="earth_teaser" style="margin-top:0px"></div>-->
+        <div id="map" style="width:450px; height:250px"></div>
+    </a>
    <div style="text-align:right; float:right; color:lightgray;" >Map transition by <a href="http://www.jasondavies.com/maps/transition/" style="text-decoration:none;color:lightgray; padding:0px; padding-top:10px" class="credits">Jason Davies</a></div>
    </div> 
  
 <style>
-
-
 
 
 </style>
@@ -589,24 +590,24 @@ footer.credits, footer.logos {
         <a href="explore/tree_map/export/show/all/0106/2012/" class="products-tmb" style="background: url('media/img/icons/community_0.png') no-repeat; background-size:50px;"></a>
         <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_10.png') no-repeat; background-size:50px;"></a>
         <a href="explore/tree_map/export/show/all/8509/2012/" class="products-tmb" style="background: url('media/img/icons/community_11.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8802/2012/" class="products-tmb" style="background: url('media/img/icons/community_12.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_13.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_14.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_15.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_20.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_21.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_22.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_30.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_31.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_40.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_41.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/8473/2012/" class="products-tmb" style="background: url('media/img/icons/community_12.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/3813/2012/" class="products-tmb" style="background: url('media/img/icons/community_13.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/8485/" class="products-tmb" style="background: url('media/img/icons/community_14.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/8455/2012/" class="products-tmb" style="background: url('media/img/icons/community_15.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/6302/2012/" class="products-tmb" style="background: url('media/img/icons/community_20.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/0901/2012/" class="products-tmb" style="background: url('media/img/icons/community_21.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/4405/2012/" class="products-tmb" style="background: url('media/img/icons/community_22.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/7010/2012/" class="products-tmb" style="background: url('media/img/icons/community_30.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/7612/2012/" class="products-tmb" style="background: url('media/img/icons/community_31.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/2201/2012/" class="products-tmb" style="background: url('media/img/icons/community_40.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/7102/2012/" class="products-tmb" style="background: url('media/img/icons/community_41.png') no-repeat; background-size:50px;"></a>
         <a href="explore/tree_map/export/show/all/4704/2012/" class="products-tmb" style="background: url('media/img/icons/community_42.png') no-repeat; background-size:50px;"></a>
         <a href="explore/tree_map/export/show/all/1121/2012/" class="products-tmb" style="background: url('media/img/icons/community_43.png') no-repeat; background-size:50px;"></a>
         <a href="explore/tree_map/export/show/all/5417/2012/" class="products-tmb" style="background: url('media/img/icons/community_44.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_50.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_51.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/8455/2012/" class="products-tmb" style="background: url('media/img/icons/community_50.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/8006/2012/" class="products-tmb" style="background: url('media/img/icons/community_51.png') no-repeat; background-size:50px;"></a>
         <a href="explore/tree_map/export/show/all/2709/2012/" class="products-tmb" style="background: url('media/img/icons/community_52.png') no-repeat; background-size:50px;"></a>
-        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_54.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/7102/2012/" class="products-tmb" style="background: url('media/img/icons/community_54.png') no-repeat; background-size:50px;"></a>
         <a href="explore/tree_map/export/show/all/8445/2012/" class="products-tmb" style="background: url('media/img/icons/community_60.png') no-repeat; background-size:50px;"></a>
         <a href="explore/tree_map/export/show/all/5908/2012/" class="products-tmb" style="background: url('media/img/icons/community_61.png') no-repeat; background-size:50px;"></a>
         <a href="explore/tree_map/export/show/all/1001/2010/" class="products-tmb" style="background: url('media/img/icons/community_70.png') no-repeat; background-size:50px;"></a>
@@ -620,7 +621,9 @@ footer.credits, footer.logos {
 
 {% block js %}
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
+<script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
       $("#videoLaunch").click(function(){
@@ -632,7 +635,25 @@ footer.credits, footer.logos {
           $("#videoModal").css("display", "none");
         });
       });
-    });
+
+
+      if(queryParameters['disable_widgets']) {
+
+        var opacity_level = 0;
+
+        d3.select("#carousel-example-generic").style("opacity", opacity_level);   
+        d3.selectAll(".other_apps").style("opacity", opacity_level);           
+      }
+
+      if(queryParameters['disable_search']) {
+
+        var opacity_level = 0;
+
+        d3.select("#searchBox").style("opacity", opacity_level);   
+        
+      }    });
+
+
 </script>
 <script>
   // Use to be: Rotate featured video randomly
@@ -650,8 +671,9 @@ footer.credits, footer.logos {
 <script src="media/js/libs/d3/d3.geo.projection.min.js"></script>
 <script src="media/js/libs/d3/topojson.min.js"></script>
 <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+<script src="media/js/queryparameters.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL}}js/searchresults.js"></script>
 
-  <script type="text/javascript" src="media/js/searchresults.js"></script>
 <script>
 $(function() {
 
@@ -664,7 +686,6 @@ $(function() {
 
 });
 </script>
-
 <script>
 
 var ratio = window.devicePixelRatio || 1,
@@ -794,6 +815,7 @@ d3.json("media/js/libs/d3/world-110m.json", function(error, world) {
   land = topojson.feature(world, world.objects.land);
   boundaries = topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; });
 });
+
 
 </script>
 

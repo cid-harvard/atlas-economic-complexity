@@ -2,6 +2,9 @@ from django.conf import settings
 from django.http import HttpResponse
 from elasticsearch import Elasticsearch
 
+from observatory.helpers import get_title, params_to_url
+from observatory.models import Country
+
 from collections import defaultdict, OrderedDict
 import json
 import re
@@ -19,6 +22,10 @@ REGIONS = [
     "polynesia",
     "australia"
 ]
+
+COUNTRY_CODE = Country.objects\
+    .filter(originally_included=True)\
+    .values_list("name_3char", flat=True)
 
 # These are different from the product communities in the DB in that the names
 # are simplified.
@@ -50,13 +57,26 @@ API_NAMES = ["casy", "cspy", "csay", "ccsy", "sapy"]
 API_NAMES_RE = re.compile("|".join(API_NAMES), re.IGNORECASE)
 
 TRADE_FLOWS = ["import", "export", "net_import", "net_export"]
-TRADE_FLOWS_RE = re.compile("|".join(TRADE_FLOWS), re.IGNORECASE)
+TRADE_FLOWS_RE = re.compile("|".join(TRADE_FLOWS) + r"(?:s|ed)", re.IGNORECASE)
 
+APP_NAME_SYNONYMS = {"network": "product_space",
+                     "treemap": "tree_map",
+                     "tree map": "tree_map",
+                     "feasibility": "pie_scatter",
+                     "stacked graph": "stacked",
+                     "product space": "product_space"}
 APP_NAMES = ["map", "pie_scatter", "stacked", "product_space", "rings",
              "tree_map"]
-APP_NAMES_RE = re.compile("|".join(APP_NAMES))
+APP_NAMES_RE = re.compile("|".join(APP_NAMES + APP_NAME_SYNONYMS.keys()))
 
 PRODUCT_CODE_RE = r"(\d{4})"
+
+COUNTRY_CODE_RE = re.compile(
+    r"\b(?:" + "|".join(COUNTRY_CODE) + r")\b",
+    re.IGNORECASE)
+
+VIZ_PARAMS = ["opp_gain"]
+VIZ_PARAMS_RE = re.compile("|".join(VIZ_PARAMS))
 
 YEAR_EXPRESSIONS = [
     re.compile(r'between (\d{4}) and (\d{4})', re.IGNORECASE),
@@ -79,22 +99,20 @@ def extract_years(input_str):
         for year in years:
             if not (1995 <= int(year) <= 2013):
                 return None, None
-        return results[0].span(), years
+        return results[0].span(), [int(y) for y in years]
 
 
-def generate_year_strings(years):
-    """Handle generating URL parts like '2010.2012' or search result additions
-    like (2012 to 2014). """
-    if years is None:
-        year_string = ""
-        year_url_param = ""
-    elif len(years) == 1:
-        year_string = " (%s)" % years[0]
-        year_url_param = "%s/" % years[0]
-    else:
-        year_string = " (%s to %s)" % (years[0], years[1])
-        year_url_param = "%s.%s/" % (years[0], years[1])
-    return year_string, year_url_param
+def fix_spans(string, match, span):
+    """ 'where did germany export to between 2010 and 2012' with 'between (\d+)
+    and (\d+)' and (27, 47)"""
+
+    pattern = match.re.pattern
+
+    if "(" in pattern:
+        location = pattern.find("(")
+        span[0] = span[0] - location
+
+    return span
 
 
 def remove_spans(string, spans):
@@ -182,12 +200,15 @@ EXTRACTORS = OrderedDict([
     ("app_name", make_extractor(APP_NAMES_RE)),
     ("trade_flow", make_extractor(TRADE_FLOWS_RE)),
     ("product_code", make_extractor(PRODUCT_CODE_RE)),
+    ("country_codes", make_extractor(COUNTRY_CODE_RE)),
     ("product_community", make_extractor(PRODUCT_COMMUNITY_RE)),
+    ("viz_params", make_extractor(VIZ_PARAMS_RE)),
 ])
 
 
-def parse_search(query):
-    """Given a search query string, figure out what kind of search it is."""
+def parse_search(query, strip_keywords=True):
+    """Given a search query string, figure out what kind of search it is. Parse
+    keywords like years, locations, product codes, etc."""
 
     kwargs = {}
     query_type = None
@@ -199,8 +220,6 @@ def parse_search(query):
         # contain year data
         query = query[:span[0]] + query[span[1]:]
         kwargs["years"] = years
-        kwargs["year_string"], kwargs["year_url_param"] = \
-            generate_year_strings(years)
 
     # It matters that years get extracted before product codes since it's much
     # likelier that '2012' is a year than a product code. Years are checked to
@@ -210,9 +229,11 @@ def parse_search(query):
 
     # Extract the remaining common fields like region, product codes etc.
     for extractor_name, extractor in EXTRACTORS.iteritems():
-        result, query = extractor(query)
+        result, stripped_query = extractor(query)
+        if strip_keywords:
+            query = stripped_query
         if len(result):
-            kwargs[extractor_name] = (x[0][0] for x in result)
+            kwargs[extractor_name] = [x[0][0] for x in result]
 
     # Determine query type
     if len(query) == 4 and query in API_NAMES:
@@ -240,8 +261,29 @@ def api_search(request):
     if query is None:
         return HttpResponse("[]")
 
-    query, query_type, kwargs = parse_search(query)
-    filters = prepare_filters(kwargs)
+    # For user experiment, run search version 1 or 2, 2 being more feature
+    # rich and having parsed filters. See atlas-data#32
+    search_version = int(request.GET.get("search_var", 0))
+
+    # Parse search query
+    query, query_type, kwargs = parse_search(
+        query,
+        strip_keywords=(search_version != 1))
+
+    # Resolve any synonyms. feasibility -> pie_scatter etc.
+    if "app_name" in kwargs:
+        given_app_name = kwargs["app_name"][0]
+        kwargs["app_name"] = [APP_NAME_SYNONYMS.get(given_app_name,
+                                                    given_app_name)]
+
+    # Viz params are not an elasticsearch filter so pop that off
+    viz_params = kwargs.pop("viz_params", None)
+
+    # Prepare elasticsearch filters
+    if search_version == 2 or search_version == 0:
+        filters = prepare_filters(kwargs)
+    else:
+        filters = {}
 
     es_query = {
         "query": {
@@ -251,8 +293,9 @@ def api_search(request):
     }
 
     # Add filters to the query if they were given. Filters are ANDed.
-    if filters:
-        es_filters = [{"terms": {k: v}} for k, v in filters.iteritems()]
+    if len(filters) > 0:
+        es_filters = [{"terms": {k: [x.lower() for x in v]}}
+                      for k, v in filters.iteritems()]
         es_filters = {"bool": {"must": es_filters}}
         es_query["query"]["filtered"]["filter"] = es_filters
 
@@ -264,7 +307,7 @@ def api_search(request):
                 "like_text": query,
                 "fields": ["title"],
                 "max_query_terms": 15,
-                "prefix_length": 4
+                "prefix_length": 3
             }
         }
 
@@ -277,13 +320,69 @@ def api_search(request):
     labels = []
     urls = []
     for x in result['hits']['hits']:
-        label = x['_source']['title'] + kwargs.get('year_string', '')
-        url = x['_source']['url'] + kwargs.get('year_url_param', '')
-        # TODO: This is a hack, the correct way is to generate the url here
-        # instead of pregenerating it. See issue # 134
-        if len(kwargs.get('years', '')) > 1:
-            url = url.replace("tree_map", "stacked")
-        labels.append(label)
+        data = x['_source']
+
+        # Regenerate title and url so we can add stuff into it dynamically,
+        # like the year being searched for, or forcing an app.
+        years = kwargs.get('years', None)
+
+        # Possible apps this title could be visualized as
+        app_names = data['app_name']
+
+        # If the app the user requested is possible, use that. Otherwise, use
+        # the first one as default. App names in the elasticsearch index are
+        # sorted in a certain way for this to make sense so check out the
+        # indexer script
+        requested_app_name = filters.get("app_name", [None])[0]
+        if requested_app_name in app_names:
+            app_name = requested_app_name
+        else:
+            app_name = app_names[0]
+
+        if years and len(years) == 2:
+            if app_name in ["map", "tree_map"]:
+                # If multiple years are specified and we can do a stacked
+                # graph, do a stacked graph instead of a treemap or map
+                app_name = "stacked"
+            elif app_name in ["product_space", "pie_scatter"]:
+                # Some apps can never have multiple years so just use the first
+                # one specified
+                years = [years[0]]
+
+        # If no years specified, use default years
+        if years is None:
+            if app_name == "stacked":
+                years = [1995, 2012]
+            else:
+                years = [2012]
+
+        # You can't show a product space based on imports so ignore those
+        if app_name == "product_space" and data["trade_flow"] == "import":
+            continue
+
+        title = get_title(
+            api_name=data['api_name'],
+            app_name=app_name,
+            country_names=data.get('country_names', None),
+            trade_flow=data['trade_flow'],
+            years=years,
+            product_name=data.get('product_name', None)
+        )
+        url = params_to_url(
+            api_name=data['api_name'],
+            app_name=app_name,
+            country_codes=data.get('country_codes', None),
+            trade_flow=data['trade_flow'],
+            years=years,
+            product_code=data.get('product_code', None)
+        )
+
+        if viz_params:
+            if app_name == "pie_scatter":
+                url += "?queryActivated=True"
+                url += "&yaxis=%s" % viz_params[0]
+
+        labels.append(title)
         urls.append(settings.HTTP_HOST + url)
 
     return HttpResponse(json.dumps([

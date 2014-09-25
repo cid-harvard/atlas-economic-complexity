@@ -60,3 +60,12 @@ h1#search_title {
     cursor: default;
     z-index: 100000;
 }
+
+.ui-menu-item  {
+    font-size: 24px;
+    font-family: arial,sans-serif;
+}
+
+.app .ui-menu-item  {
+    font-size: 18px;
+}
