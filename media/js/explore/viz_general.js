@@ -1395,8 +1395,8 @@ var flat_data,
 
   rings = function( req ) {
 
-    (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
-                          req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json";
+    (prod_class=="hs4") ? req = "/media/js/data/network_hs.json" : 
+                          req = "/media/js/data/network_sitc.json";
     
     d3.json(req, function(hs) {
 
@@ -1555,8 +1555,8 @@ var flat_data,
   
   network = function(req) {
 
-    (prod_class=="hs4") ? req = "/media/js/libs/vizwiz/examples/data/network_hs.json" : 
-                          req = "/media/js/libs/vizwiz/examples/data/network_sitc2.json";
+    (prod_class=="hs4") ? req = "/media/js/data/network_hs.json" : 
+                          req = "/media/js/data/network_sitc.json";
     
     d3.json(req, function(hs) {
       viz = d3plus.viz()
