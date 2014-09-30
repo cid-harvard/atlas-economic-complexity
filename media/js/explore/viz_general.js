@@ -1555,12 +1555,17 @@ var flat_data,
   
   network = function(req) {
 
-    (prod_class=="hs4") ? req = "/media/js/data/network_hs.json" : 
-                          req = "/media/js/data/network_sitc.json";
-    
+    // Loading graph nodes positions and links
+    if(item_type=="product") {
+      (prod_class=="hs4") ? req = "/media/js/data/network_hs.json" : 
+                            req = "/media/js/data/network_sitc.json";
+    } else {
+      req = "/media/js/data/network_country.json";
+    }
+
     d3.json(req, function(hs) {
-      viz = d3plus.viz()
-      
+
+      viz = d3plus.viz();
       viz_nodes = hs.nodes
       viz_links = hs.edges
       
@@ -1576,31 +1581,26 @@ var flat_data,
         }
       })
 
-      if (prod_class=="hs4"){
+      if (prod_class=="hs4") {
         viz_links.forEach(function(link){
           link.source = viz_nodes[link.source]
           link.target = viz_nodes[link.target]
         })  
-      }
-      else
-      {
+      } else {
         viz_links.forEach(function(link){
           link.source =viz_nodes.filter(function(d){ return d.code == link.source })[0]
           link.target =viz_nodes.filter(function(d){ return d.code == link.target })[0]
         })     
       }
       
-      flat_data.map(function(d){
-                    if (typeof world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0] != "undefined")
-              {
-                d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
-              }
-              else // if not then assign value as 0
-              {
-                d.world_trade = 0
-              }
+      flat_data.map(function(d) {
 
-      //  d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+        if (typeof world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0] != "undefined") {
+          d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+        } else { // if not then assign value as 0
+          d.world_trade = 0
+        }
+
       })
       
       data = []
@@ -1610,14 +1610,12 @@ var flat_data,
         
         viz_nodes.forEach(function(n){
 
-          if (prod_class=="hs4")
-          {
+          if (prod_class=="hs4") {
            // Required for color by PCI 
            //var dd = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
            var d = this_year.filter(function(p){ return p.code == n.id })[0]
 
-           if (typeof d == "undefined")
-           {
+           if (typeof d == "undefined") {
             var d = {}; 
             // d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
            }
@@ -1646,14 +1644,12 @@ var flat_data,
               }  
             // Double check if this product existed then
             var test = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]//['world_trade']
-            if (typeof test != "undefined")
-              {
-                d.world_trade = test['world_trade']
-              }
-              else // if not then assign value as 0
-              {
-                d.world_trade = 0
-              }
+
+            if (typeof test != "undefined") {
+              d.world_trade = test['world_trade']
+            } else { // if not then assign value as 0
+              d.world_trade = 0
+            }
               // var obj = {}
               // obj.name = attr[n.code].name
               // obj.id = attr[n.code].code
@@ -1770,10 +1766,9 @@ var flat_data,
       .attrs(attr)
       .value_var("world_trade")
       .name_array(["value"])
-      //.nesting(["nesting_0","nesting_1","nesting_2"])
       .nesting([])
       .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
-      // .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
+      .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .text_format(txt_format)
       .number_format(num_format)
       .font("PT Sans Narrow")
@@ -1782,8 +1777,8 @@ var flat_data,
 
     d3.select("#loader").style("display", "none");  
 
-    // Since there is no title bar, we're gona bump the viz down 
-    d3.select("#viz").style("margin-top","15px")
+    // If there is no title bar, we're gona bump the viz down 
+    //  d3.select("#viz").style("margin-top","15px")
     
     d3.select("#viz")
       .style('height','520px')
@@ -1792,9 +1787,11 @@ var flat_data,
     
     if(queryActivated)
       highlight(queryParameters['highlight']);
+
     })
     
-    if(!embed){
+    if(!embed) {
+      
       key = Key()
         .classification(rawData.class)
         .showing(item_type)
@@ -1947,7 +1944,7 @@ var flat_data,
 
     var single_year_param = "";
 
-    if(app_type=="casy" && (app_name=="tree_map" || app_name=="product_space")) {
+    if(app_type=="casy" && (app_name=="tree_map" || app_name=="product_space" || app_name=="country_space")) {
       single_year = true;
       single_year_param = "&amp;single_year=true";
     }
@@ -1979,13 +1976,8 @@ var flat_data,
         $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported by "+rawData.country1.name+"</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
           .css("position", "relative")
           .css("top", $("#viz").height()*0.30);
-      } 
 
-      // else if(rawData.data.length > 0 && ????){
-
-      // }
-
-      else{
+      } else {
 
         if(app_type=="casy") {
 
@@ -2114,6 +2106,28 @@ var flat_data,
 
           d3.select("#ui_bottom").append("br")
         }
+
+
+        if(app_name=="country_space") {
+          console.log("context", app_name, app_type, api_uri+ '&amp;data_type=json')
+          flat_data = construct_scatter_nest(flat_data);
+          network(api_uri + '&amp;data_type=json');
+          /*
+          timeline = Slider()
+            .callback('set_year')
+            .initial_value(parseInt(year))
+            .max_width(670)
+            .title("")
+
+          d3.select("#ui_bottom").append("div")
+            .attr("class","slider")
+            // .style("overflow","auto")
+            .datum(years_available)
+            .call(timeline)
+
+          d3.select("#ui_bottom").append("br")
+          */
+        } 
 
         if(app_name=="rings") {
 
