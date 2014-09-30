@@ -239,7 +239,7 @@ def explore(
     trade_flow_list = [
         ("export", _("Export")), ("import", _("Import")),
         ("net_export", _("Net Export")), ("net_import", _("Net Import"))]
-    if (app_name == "product_space" or app_name == "rings"):
+    if (app_name == "product_space" or app_name == "country_space" or app_name == "rings"):
         trade_flow_list = [trade_flow_list[0]]
 
     year1_list = range(
@@ -353,7 +353,7 @@ def explore(
         if app_type in ["cspy", "sapy"]:
             prod_or_partner = "product"
         elif app_type == "casy":
-            if app_name in ("stacked", "map", "tree_map", "pie_scatter", "product_space"):
+            if app_name in ("stacked", "map", "tree_map", "pie_scatter", "product_space", "country_space"):
                 prod_or_partner = "product"
 
     # Record views in redis for "newest viewed pages" visualization
