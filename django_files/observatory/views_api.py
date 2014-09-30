@@ -214,7 +214,6 @@ def api_sapy(request, trade_flow, product, year):
     json_response["year"] = year
     json_response["item_type"] = "country"
     json_response["app_type"] = "sapy"
-    json_response["attr"] = attr
     json_response["region"] = region
     json_response["continents"] = continents
     json_response["other"] = query_params
