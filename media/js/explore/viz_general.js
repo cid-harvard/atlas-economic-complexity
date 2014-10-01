@@ -381,7 +381,7 @@ var flat_data,
 
         } else if(app_name=="product_space") {
     
-          network( api_uri + '&amp;data_type=json' );
+          network();
     
         }
         
@@ -1549,7 +1549,7 @@ var flat_data,
     }     
   }
   
-  network = function(req) {
+  network = function() {
 
     // Loading graph nodes positions and links
     if(item_type=="product") {
@@ -1697,23 +1697,32 @@ var flat_data,
           var d = {}; 
           var test = this_year.filter(function(p){ return p.abbrv == n.id })[0]
 
-            if (typeof test != "undefined") {
-              //d.world_trade = test['world_trade']
-//              d = test;
-            n.year = test.year;
-            n.active = test.rca >=1 ? 1 : 0;
-            n.name = test.name;
-            n.year = 1995;
-    //        d.item_id = viz_nodes.map(function(d) { return d.id; }).indexOf(n.id);
-                 
-            data.push(n);
+          if (typeof test != "undefined") {
 
+            d.year = test.year;
+            d.rca = test.rca;
+            d.name = test.name;
+            d.active = d.rca >=1 ? 1 : 0;
+            d.item_id = n.item_id;
+            d.region = n.region;
+            d.eci = n.eci;
+            d.pop = n.pop;
+            d.color = test.color;
+            d.id = n.id;
+
+          } else {
+
+            d.id = n.id;
+            d.name = n.name;
+            d.item_id = n.item_id
+            d.year = year;
           }
+
+          data.push(d);
 
         });
 
       });
-
 
     }
 
@@ -1938,7 +1947,8 @@ var flat_data,
       }
 
       // Data is found, but it is not usable to generate visualization
-      if(rawData.data.length == 0){  // <<<<<<<<< TODO: What is the threshold for this??
+      if(rawData.data.length == 0) {  // <<<<<<<<< TODO: What is the threshold for this??
+    
         $("#loader").css("display", "none");
         $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported by "+rawData.country1.name+"</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
           .css("position", "relative")
@@ -1971,7 +1981,6 @@ var flat_data,
           });
         }
       
-        // attr_data = clean_attr_data(attr_data)
         rawData.attr_data = clean_attr_data(rawData.attr_data)
 
         if (app_name=="stacked") {
@@ -1988,7 +1997,7 @@ var flat_data,
                     .attr("class","slider")
                     .datum(years_available)
                     .call(timeline)
-          // get rid of play button -->                  
+            
           d3.select('#play_button').style("display","none") 
         }
         
@@ -2057,7 +2066,7 @@ var flat_data,
         if(app_name == "product_space" || app_name == "country_space") {
 
           flat_data = construct_nest(rawData.data);
-          network( api_uri + '&amp;data_type=json' );
+          network();
           
           timeline = Slider()
             .callback('set_year')
