@@ -10,3 +10,4 @@ django-cache-utils
 django-redis
 django-compressor
 html5lib
+celery
