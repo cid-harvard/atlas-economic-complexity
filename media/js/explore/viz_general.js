@@ -787,14 +787,12 @@ var flat_data,
  
       //d3.select("#loader").style("display", "none");
 
-    if(item_type=="country"){
+    if(item_type=="country") {
       
       viz.depth("nesting_2") // Updated to low level
          .attrs(region_attrs)
 
-    }
-    else
-    {
+    } else {
       // Update Detail level to deepest
       $('#nesting_level').val("nesting_2")
       $('#nesting_level').trigger("liszt:updated");
@@ -1568,18 +1566,28 @@ var flat_data,
       viz = d3plus.viz();
       viz_nodes = hs.nodes
       viz_links = hs.edges
-      
+
+      // Create node ids
       viz_nodes.forEach(function(node) {
-       if (prod_class=="hs4"){
-          node.item_id = attr[node.id.slice(2,6)]['item_id']
-          node.id = node.id.slice(2,6);
+
+        if(item_type == "product") {
+
+          if (prod_class=="hs4"){
+            node.item_id = attr[node.id.slice(2,6)]['item_id']
+            node.id = node.id.slice(2,6);
+          } else {
+            node.item_id = node.id
+            node.id = node.code
+          }
+
+        } else {
+
+          console.log("here", node)
         }
-        else
-        {
-          node.item_id = node.id
-          node.id = node.code
-        }
-      })
+
+      }) // end of viz_nodes.forEach
+
+    if(item_type == "product") {
 
       if (prod_class=="hs4") {
         viz_links.forEach(function(link){
@@ -1588,8 +1596,8 @@ var flat_data,
         })  
       } else {
         viz_links.forEach(function(link){
-          link.source =viz_nodes.filter(function(d){ return d.code == link.source })[0]
-          link.target =viz_nodes.filter(function(d){ return d.code == link.target })[0]
+          link.source = viz_nodes.filter(function(d){ return d.code == link.source })[0]
+          link.target = viz_nodes.filter(function(d){ return d.code == link.target })[0]
         })     
       }
       
@@ -1603,14 +1611,20 @@ var flat_data,
 
       })
       
-      data = []
-      the_years = d3plus.utils.uniques(flat_data,"year")
-      the_years.forEach(function(year){
+      data = [];
+
+      // Create list of unique years
+      the_years = d3plus.utils.uniques(flat_data,"year");
+
+      // Fill the data object with data from all the years
+      the_years.forEach(function(year) {
+
         var this_year = flat_data.filter(function(p){ return p.year == year})
         
         viz_nodes.forEach(function(n){
 
           if (prod_class=="hs4") {
+
            // Required for color by PCI 
            //var dd = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
            var d = this_year.filter(function(p){ return p.code == n.id })[0]
@@ -1634,14 +1648,15 @@ var flat_data,
             
             // var obj = vizwhiz.utils.merge(d,attr[n.id])
             // obj.world_trade = d.world_trade
-          }
-          else 
-          {
+          } else {
+
             var d = this_year.filter(function(p){ return p.id == n.code })[0]
+
             if (typeof d == "undefined")
               {
                 var d = {}
               }  
+
             // Double check if this product existed then
             var test = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]//['world_trade']
 
@@ -1682,86 +1697,18 @@ var flat_data,
         
         this_year = []
       })
-      
-      
-      // data = []
-      // the_years = vizwhiz.utils.uniques(flat_data,"year")
-      // the_years.forEach(function(year){
-      //   viz_nodes.forEach(function(n){
-      //     if (prod_class=="hs4")
-      //     {
-      //       var d = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
-      //       var obj = vizwhiz.utils.merge(d,attr[n.id])
-      //       if (typeof d == "undefined"){
-      //         var d = {}
-      //         d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
-      //       }
-      //       else // We still need to assign a world trade value
-      //       {
-      //         d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
-      //       }
-      //       obj.world_trade = d.world_trade
-      //     }
-      //     else 
-      //     {
-      //       var d = flat_data.filter(function(p){ return p.year == year && p.id == n.code })[0]
-      //       if (typeof d == "undefined")
-      //       {
-      //         var d = {}
-      //         // Double check if this product existed then
-      //         test = world_totals[year].filter(function(z){ return n.id==z.product_id })[0]//['world_trade']
-      //         if(typeof test != "undefined"){
-      //           d.world_trade = test['world_trade']
-      //         }
-      //         else // if not then assign value as 0
-      //         {
-      //           d.world_trade = 0
-      //         }
-      //         var obj = {}
-      //         obj.name = attr[n.code].name
-      //         obj.id = attr[n.code].code
-      //         obj.world_trade = d.world_trade
-      //         // d.world_trade = world_totals[year].filter(function(z){ return n.id==z.product_id })[0]['world_trade']
-      //       }
-      //       else // We still need to assign a world trade value
-      //       {
-      //         // d.world_trade = world_totals[year].filter(function(z){ return n.id==z.product_id })[0]['world_trade']
-      //       
-      //         test = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]//['world_trade']
-      //         if(typeof test != "undefined"){
-      //           d.world_trade = test['world_trade']
-      //         }
-      //         else{
-      //           d.world_trade = 0
-      //         }
-      //     
-      //         var obj = vizwhiz.utils.merge(d,attr[n.id])
-      //         obj.id = attr[n.code].code
-      //         obj.world_trade = d.world_trade
-      //       }
-      //     }
-      //   
-      //     // var d = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
-      //   
-      //     // var obj = vizwhiz.utils.merge(d,attr[n.id])
-      //     // d.name = attr[n.id].name
-      //     obj.year = year;
-      //     obj.x = n.x
-      //     obj.y = n.y
-      //     // obj = vizwhiz.utils.merge(obj,n)
-      //     // obj.active = Math.floor(Math.random()*2);
-      //     obj.active = d.rca >=1 ? 1 : 0
-      //     // console.log(obj);
-      //     data.push(obj)
-      //     
-      //   })
-      // })      
+
+
+    } else { // if item_type == country
+
+      data = rawData.data;
+    }
 
     viz
       .type("network")
       .width(width)
       .height(height)
-      .links(viz_links)
+      .links([])
       .nodes(viz_nodes)
       .attrs(attr)
       .value_var("world_trade")
@@ -1774,6 +1721,10 @@ var flat_data,
       .font("PT Sans Narrow")
       .year(year)
       .click_function(inner_html)      
+
+    if(item_type=="country") {
+      viz.attrs(attr_data);
+    }
 
     d3.select("#loader").style("display", "none");  
 
@@ -1788,10 +1739,10 @@ var flat_data,
     if(queryActivated)
       highlight(queryParameters['highlight']);
 
-    })
+    }) // end of d3.json
     
     if(!embed) {
-      
+
       key = Key()
         .classification(rawData.class)
         .showing(item_type)
