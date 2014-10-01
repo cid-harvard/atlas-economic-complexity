@@ -439,14 +439,13 @@ var flat_data,
   }
   
   construct_nest = function(flat) {
+
     // Ask for visualizations that need to be sorted by export/import/net values
-    if (app_type == "casy" || app_type == "sapy" || app_type == "ccsy")
-    {
+    if (app_type == "casy" || app_type == "sapy" || app_type == "ccsy") {
       
       // sort_flat(flat); 
       
-      if (app_type == "casy" || app_type=="ccsy")
-      {
+      if (app_type == "casy" || app_type=="ccsy") {
         flat = flat.filter(function(d){ return d.community_id != undefined; })
         flat.map(function(d,i){
           
@@ -467,12 +466,11 @@ var flat_data,
           }
           d.nesting_2 = {"name":d.name,"id":d.code}; 
          }) 
-      } 
-      else //SAPY query displays country information and needs different tailored nesting
-      {
+      } else {//SAPY query displays country information and needs different tailored nesting
+    
         region = rawData["region"];
         continent = rawData["continents"];
-        
+
         // What to do with countries that do not have regions predefined? 
         // Filtering them for now I guess.. "final solution" ???
         flat = flat.filter(function(d){ return d.region_id != undefined; })
@@ -1581,8 +1579,7 @@ var flat_data,
           }
 
         } else {
-
-          console.log("here", node)
+          node.item_id = node.id;
         }
 
       }) // end of viz_nodes.forEach
@@ -1670,7 +1667,7 @@ var flat_data,
           // obj.year = year;
           d.active = d.rca >=1 ? 1 : 0;
           data.push(d)
-          
+        
         })
         
         this_year = []
@@ -1679,13 +1676,11 @@ var flat_data,
 
     } else { // if item_type == country
 
+      // Conver the links with the right index
       viz_links.forEach(function(link){
-        console.log("link", link)
         link.source = viz_nodes[viz_nodes.map(function(d) { return d.id; }).indexOf(link.source)]
         link.target = viz_nodes[viz_nodes.map(function(d) { return d.id; }).indexOf(link.target)]
       })  
-
-     // data = rawData.data;
 
       data = [];
 
@@ -1704,14 +1699,16 @@ var flat_data,
 
             if (typeof test != "undefined") {
               //d.world_trade = test['world_trade']
-              d = test;
-            } else { // if not then assign value as 0
-              
-              d.rca = 0;
-            }
+//              d = test;
+            n.year = test.year;
+            n.active = test.rca >=1 ? 1 : 0;
+            n.name = test.name;
+            n.year = 1995;
+    //        d.item_id = viz_nodes.map(function(d) { return d.id; }).indexOf(n.id);
+                 
+            data.push(n);
 
-          d.active = d.rca >=1 ? 1 : 0;
-          data.push(d)
+          }
 
         });
 
@@ -1727,7 +1724,7 @@ var flat_data,
       .links(viz_links)
       .nodes(viz_nodes)
       .attrs(attr)
-      .value_var("world_trade")
+      .value_var("value")
       .name_array(["value"])
       .nesting([])
       .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
@@ -1740,8 +1737,9 @@ var flat_data,
 
     if(item_type=="country") {
       viz
+        .name_array(["name"])
         .attrs(attr_data)
-        .value_var("value");
+        .value_var("eci");
     }
 
     d3.select("#loader").style("display", "none");  
@@ -1995,8 +1993,10 @@ var flat_data,
         }
         
         if (app_name=="tree_map") {
+
           flat_data = construct_nest(flat_data);
-          
+          tree();
+
           timeline = Slider()
             .callback('set_year')
             .initial_value(parseInt(year))
@@ -2009,7 +2009,6 @@ var flat_data,
             .call(timeline)
           d3.select("#ui_bottom").append("br")
 
-          tree();
 
           if(queryActivated && typeof(queryParameters['cont_id']) != "undefined" && queryParameters['cont_id']!="") {
             var e = document.createEvent('UIEvents');
@@ -2033,8 +2032,8 @@ var flat_data,
               return d.distance != 0;
             });
           }
+
           flat_data = construct_scatter_nest(flat_data);
-          // where = flat_data.filter(function(d){ return d.year == year; })
           pie_scatter();
           
           timeline = Slider()
@@ -2042,12 +2041,11 @@ var flat_data,
                     .initial_value(parseInt(year))
                     .max_width(670)
                     .title("")
+
           d3.select("#ui_bottom").append("div")
             .attr("class","slider")
             .datum(years_available)
             .call(timeline)
-          // get rid of play button -->                  
-          // d3.select('#play_button').style("display","none") 
 
           if(typeof(queryParameters['cat']) != "undefined" && queryParameters['cat']!="" && queryActivated) {
             var e = document.createEvent('UIEvents');
@@ -2056,9 +2054,9 @@ var flat_data,
           }
         }
 
-        if(app_name=="product_space") {
+        if(app_name == "product_space" || app_name == "country_space") {
 
-          flat_data = rawData.data; //construct_scatter_nest(rawData.data);
+          flat_data = construct_nest(rawData.data);
           network( api_uri + '&amp;data_type=json' );
           
           timeline = Slider()
@@ -2075,28 +2073,6 @@ var flat_data,
 
           d3.select("#ui_bottom").append("br")
         }
-
-
-        if(app_name=="country_space") {
-          console.log("context", app_name, app_type, api_uri+ '&amp;data_type=json')
-          flat_data = construct_nest(flat_data);
-          network(api_uri + '&amp;data_type=json');
-
-          timeline = Slider()
-            .callback('set_year')
-            .initial_value(parseInt(year))
-            .max_width(670)
-            .title("")
-
-          d3.select("#ui_bottom").append("div")
-            .attr("class","slider")
-            // .style("overflow","auto")
-            .datum(years_available)
-            .call(timeline)
-
-          d3.select("#ui_bottom").append("br")
-
-        } 
 
         if(app_name=="rings") {
 
@@ -2141,8 +2117,6 @@ var flat_data,
    
         if(app_name=="scatterplot") {
 
-          // where = flat_data.filter(function(d){ return d.year == year; })
-          
           scatterplot();
 
           timeline = Slider()
