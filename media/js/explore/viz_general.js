@@ -554,10 +554,10 @@ var flat_data,
     return flat;
     
   }
-  // Do I still need this?
-  construct_scatter_nest = function(flat)
-  {
-    flat = flat.filter(function(d){ return d.community_id != undefined; })
+
+  construct_scatter_nest = function(flat) {
+
+    var flat = flat.filter(function(d){ return d.community_id != undefined; })
     
     flat.map(function(d){
       d.active = d.rca >=1 ? true : false
@@ -1601,6 +1601,7 @@ var flat_data,
         })     
       }
       
+      // Making sure no missing world_trade value
       flat_data.map(function(d) {
 
         if (typeof world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0] != "undefined") {
@@ -1621,7 +1622,7 @@ var flat_data,
 
         var this_year = flat_data.filter(function(p){ return p.year == year})
         
-        viz_nodes.forEach(function(n){
+        viz_nodes.forEach(function(n) {
 
           if (prod_class=="hs4") {
 
@@ -1645,9 +1646,7 @@ var flat_data,
             // Added for 2012 data
             if(typeof(d.world_trade) != "undefined")
               d.world_trade = d.world_trade['world_trade'];
-            
-            // var obj = vizwhiz.utils.merge(d,attr[n.id])
-            // obj.world_trade = d.world_trade
+
           } else {
 
             var d = this_year.filter(function(p){ return p.id == n.code })[0]
@@ -1665,28 +1664,7 @@ var flat_data,
             } else { // if not then assign value as 0
               d.world_trade = 0
             }
-              // var obj = {}
-              // obj.name = attr[n.code].name
-              // obj.id = attr[n.code].code
-              // obj.world_trade = d.world_trade
-              // d.world_trade = testworld_totals[year].filter(function(z){ return n.id==z.product_id })[0]['world_trade']
-            // }
-            // else // We still need to assign a world trade value
-            // {
-            //   // d.world_trade = world_totals[year].filter(function(z){ return n.id==z.product_id })[0]['world_trade']
-            // 
-            //   test = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]//['world_trade']
-            //   if(typeof test != "undefined"){
-            //     d.world_trade = test['world_trade']
-            //   }
-            //   else{
-            //     d.world_trade = 0
-            //   }
-            //           
-            //   var obj = vizwhiz.utils.merge(d,attr[n.id])
-            //   obj.id = attr[n.code].code
-            //   obj.world_trade = d.world_trade
-            // }
+
           }
         
           // obj.year = year;
@@ -1701,14 +1679,52 @@ var flat_data,
 
     } else { // if item_type == country
 
-      data = rawData.data;
+      viz_links.forEach(function(link){
+        console.log("link", link)
+        link.source = viz_nodes[viz_nodes.map(function(d) { return d.id; }).indexOf(link.source)]
+        link.target = viz_nodes[viz_nodes.map(function(d) { return d.id; }).indexOf(link.target)]
+      })  
+
+     // data = rawData.data;
+
+      data = [];
+
+      // Create list of unique years
+      the_years = d3plus.utils.uniques(rawData.data, "year");
+
+      // Fill the data object with data from all the years
+      the_years.forEach(function(year) {
+
+        var this_year = flat_data.filter(function(p){ return p.year == year})
+        
+        viz_nodes.forEach(function(n) {
+
+          var d = {}; 
+          var test = this_year.filter(function(p){ return p.abbrv == n.id })[0]
+
+            if (typeof test != "undefined") {
+              //d.world_trade = test['world_trade']
+              d = test;
+            } else { // if not then assign value as 0
+              
+              d.rca = 0;
+            }
+
+          d.active = d.rca >=1 ? 1 : 0;
+          data.push(d)
+
+        });
+
+      });
+
+
     }
 
     viz
       .type("network")
       .width(width)
       .height(height)
-      .links([])
+      .links(viz_links)
       .nodes(viz_nodes)
       .attrs(attr)
       .value_var("world_trade")
@@ -1723,7 +1739,9 @@ var flat_data,
       .click_function(inner_html)      
 
     if(item_type=="country") {
-      viz.attrs(attr_data);
+      viz
+        .attrs(attr_data)
+        .value_var("value");
     }
 
     d3.select("#loader").style("display", "none");  
@@ -2040,7 +2058,7 @@ var flat_data,
 
         if(app_name=="product_space") {
 
-          flat_data = construct_scatter_nest(flat_data);
+          flat_data = rawData.data; //construct_scatter_nest(rawData.data);
           network( api_uri + '&amp;data_type=json' );
           
           timeline = Slider()
@@ -2061,9 +2079,9 @@ var flat_data,
 
         if(app_name=="country_space") {
           console.log("context", app_name, app_type, api_uri+ '&amp;data_type=json')
-          flat_data = construct_scatter_nest(flat_data);
+          flat_data = construct_nest(flat_data);
           network(api_uri + '&amp;data_type=json');
-          /*
+
           timeline = Slider()
             .callback('set_year')
             .initial_value(parseInt(year))
@@ -2077,7 +2095,7 @@ var flat_data,
             .call(timeline)
 
           d3.select("#ui_bottom").append("br")
-          */
+
         } 
 
         if(app_name=="rings") {
