@@ -239,13 +239,6 @@ function update_viz(viz) {
     current_viz = viz;
   }
 
-  // Selecting a specific product doesn't make sense for product feasibility
-  // and product space. And also both of these graphs only answer "what"
-  // questions and not "where" questions.
-  if(viz == "pie_scatter" || viz == "product_space"){
-      current_product = "all";
-  }
-
   // Where does United States export Crude Petroleum to?
   // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
   if($(".tab-trade-partner-product").find(".active").index()==0) {
