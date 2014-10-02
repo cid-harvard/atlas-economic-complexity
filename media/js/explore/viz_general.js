@@ -798,6 +798,7 @@ var flat_data,
       .text_var("name")
       .id_var("id")
       .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"distance":"mean"})
       .depth("nesting_0")
       .text_format(txt_format)
       .font('PT Sans Narrow')
