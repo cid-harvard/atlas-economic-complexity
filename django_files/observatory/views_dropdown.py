@@ -20,6 +20,7 @@ def api_dropdown_products(request, product_class="hs4"):
         products = Sitc4.objects.get_all(lang)
     elif product_class == "hs4":
         products = Hs4.objects.get_all(lang)
+        products = [x for x in products if len(x["code"]) > 3]
 
     return HttpResponse(json.dumps([(p["name"], p["code"]) for p in products]),
                         content_type="application/json")
