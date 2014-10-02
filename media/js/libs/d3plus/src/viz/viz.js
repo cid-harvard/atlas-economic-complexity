@@ -750,6 +750,9 @@ d3plus.viz = function() {
               if ([vars.year_var,"icon"].indexOf(key) >= 0 || (key == vars.id_var && !to_return[vars.id_var])) {
                 to_return[key] = leaves[0][key];
               }
+              else if (key == "distance") {
+                to_return[key] = d3.mean(leaves, function(d){ return d[key]; })
+              }
               else if (vars.keys[key] === "number" && key != vars.id_var) {
                 to_return[key] = d3.sum(leaves, function(d){ return d[key]; })
               }
