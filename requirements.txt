@@ -10,6 +10,5 @@ django-cache-utils
 django-redis
 django-compressor
 html5lib
-celery
-celery[redis]
+celery[redis,msgpack]
 click
