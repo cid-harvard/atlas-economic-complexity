@@ -11,4 +11,5 @@ django-redis
 django-compressor
 html5lib
 celery
+celery[redis]
 click
