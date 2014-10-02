@@ -255,11 +255,9 @@
             <div style="font-weight:bold; margin-top:0px; margin-left:5px">
             <br>
 
-
             Complexity Visualization</div>
 
-
-            <label value="product_space" class="btn btn-default {% if app_name == 'product_space' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Space" >
+            <label value="product_space" class="btn btn-default {% if app_name == 'product_space' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product & Country Space" >
               <input type="radio" style="background:url({{ STATIC_URL }}img/common/productspace.png) no-repeat;">
               <img src="{{ STATIC_URL }}img/common/productspace.png" style="width:38px;"/>
             </label>
@@ -511,7 +509,7 @@
 
           <div class="row">
             <div class="vizControl col-md-4">
-              <span class="definition" style="font-weight:bold;">Labels:</span>
+              <span class="definition" style="font-weight:bold;">Labels</span>
               <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default active">
                   <input type="radio" id="true" name="labels" checked="checked">On
@@ -522,7 +520,7 @@
               </div>
             </div>
             <div class="vizControl col-md-4">
-            <span class="definition" style="font-weight:bold;">Layout:</span>
+            <span class="definition" style="font-weight:bold;">Layout</span>
               <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default active">
                   <input type="radio" id="value" name="layout" checked="checked">Value
@@ -535,7 +533,7 @@
             </div>
 
             <div class="vizControl col-md-4">
-            <span class="definition" style="font-weight:bold;">Ordering:</span>
+            <span class="definition" style="font-weight:bold;">Ordering</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default active">
                 <input type="radio" id="community" name="order" checked="checked">Community
@@ -598,24 +596,12 @@
             <div class="product_class" style="float:left;">
               <span class="definition" style="font-weight:bold;">Hide exports (Spotlight) </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:20px;">
-
                 <label class="btn btn-default active" id="spot-off" name="yvar" >
                   <input type="radio" id="spot_off" name="pie_spot"> Off
                 </label>
                 <label class="btn btn-default" id="spot-on" >
                   <input type="radio" id="spot_on" name="pie_spot"> On
                 </label>
-
-<!--            <label class="btn btn-default">
-                  <input type="radio">None
-                </label>
-                <label class="btn btn-default">
-                  <input type="radio">Available
-                </label>
-                <label class="btn btn-default">
-                  <input type="radio">Missing
-                </label>    -->
-
               </div>
             </div>
 

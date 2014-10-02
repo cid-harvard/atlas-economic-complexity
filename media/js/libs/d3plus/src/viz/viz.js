@@ -750,6 +750,9 @@ d3plus.viz = function() {
               if ([vars.year_var,"icon"].indexOf(key) >= 0 || (key == vars.id_var && !to_return[vars.id_var])) {
                 to_return[key] = leaves[0][key];
               }
+              else if (key == "distance") {
+                to_return[key] = d3.mean(leaves, function(d){ return d[key]; })
+              }
               else if (vars.keys[key] === "number" && key != vars.id_var) {
                 to_return[key] = d3.sum(leaves, function(d){ return d[key]; })
               }
@@ -2073,7 +2076,7 @@ d3plus.viz = function() {
       .attr("y2",vars.y_scale(y_val))
       .attr("opacity",function(d){
         var yes = y_val > vars.y_scale.domain()[1] && y_val < vars.y_scale.domain()[0]
-        return y_val != null && yes ? 1 : 0
+        return 1;//y_val != null && yes ? 1 : 0
       })
       
     d3.select("#y_axis_val_text").transition().duration(vars.graph.timing)

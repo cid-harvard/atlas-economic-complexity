@@ -7,20 +7,24 @@ var flat_data,
       where = [];
 
   // Sort array by year helper
-  function compareYears(a, b) 
-  {
+  function compareYears(a, b) {
     return a.year - b.year;
   }
 
+  // Change the node size for network app
   function change_node_size(v) {
     if(typeof(change_size_node) == "undefined")
        change_size_node = false;
 
     change_size_node = !change_size_node;
     d3.select("#viz").call(viz.solo([]));
+
+    queryParameters['node_size'] = change_size_node;
+    updateURLQueryParameters();
+
   }
 
-  
+  // Change the node color for network app
   function change_node_color(v) {
 
     if(v == "category")
@@ -37,13 +41,10 @@ var flat_data,
 
   }  
   
-  function nest_drop_report(nest_level) 
-  {
+  function nest_drop_report(nest_level) {
 
-    console.log("nest_drop_report", nest_level);
     // Find Out app_type
-    switch (app_name)
-    {
+    switch (app_name) {
       case "tree_map":
         // Use tree_nesting 
         if (nest_level == "nesting_0") {
@@ -90,35 +91,13 @@ var flat_data,
     }
     
   }
-  
-  get_totals = function()
-  {
-    annual = {}  
-    years_available.forEach(function(d){
-      data = rawData["data"];
-      flat = data.filter(function(g){ return g.year == d; })
-      if(app_type=='casy'||app_type=='ccsy'){
-        flat = flat.filter(function(z){ return z.community_id != undefined})
-      }
-      else
-      {
-        flat = flat.filter(function(z){ return z.region_id != undefined})
-      }
-      
-      sort_flat(flat)
-      x = d3.sum(flat, function(t){ return t["value"] })
-      annual[d] = x
-    })
-    // d3.sum(current, function(d){ return d["value"] })
-  }     
-  
-  set_depth = function(arg)
-  {
+
+  // Change the app nesting level
+  set_depth = function(arg) {
     d3.select('#viz').call(viz.depth(arg))    
   }
   
-  check_category_presence = function(arg)
-  {
+  check_category_presence = function(arg) {
     missing = []
     current = []
     arg.forEach(function(d){
@@ -149,8 +128,7 @@ var flat_data,
     return missing;
   }
   
-  set_stack_layout = function(arg)
-  {
+  set_stack_layout = function(arg) {
 
     if (arg=="share") {
       // set_stack_nesting(nest0_val);
@@ -203,38 +181,8 @@ var flat_data,
 
     updateURLQueryParameters();
   }
-  // Do I still need this?
-  sort_flat = function(arg)
-  {
-    arg.forEach(function(d){ 
-      if (trade_flow=="net_export"){
-          val = d.export_value - d.import_value;
-          if (val > 0 ){ 
-            d.value = d.export_value - d.import_value;
-            // where.push(d);
-          }
-        } else if (trade_flow=="net_import") {
-           val = d.import_value - d.export_value;
-           if (val > 0 ){ 
-             d.value = d.import_value - d.export_value;
-             // where.push(d);
-            }        
-        } else if (trade_flow=="export"){
-          if (d.export_value > 0){
-            d.value = d.export_value;
-            // where.push(d);
-          }
-        } else {
-          if (d.import_value > 0){
-            d.value = d.import_value;
-            // where.push(d);
-          }
-        }
-      })
-  }
-  
-  set_stack_year = function(arg)
-  {   
+
+  set_stack_year = function(arg) {   
 
     var stacked_title = d3.select('#text_title').text();
     stacked_title = stacked_title.replace(viz.year()[0], arg[0]);
@@ -274,6 +222,7 @@ var flat_data,
   }
   
   set_scatter_year = function(arg) {
+
     var nest_level = ($("#nesting_level").val());
     year=arg
     set_depth(nest_level)
@@ -381,7 +330,7 @@ var flat_data,
 
         } else if(app_name=="product_space") {
     
-          network( api_uri + '&amp;data_type=json' );
+          network();
     
         }
         
@@ -417,8 +366,8 @@ var flat_data,
     $(".app_title#icons h2").text(arg)
   }
   
-  set_map_year = function(arg)
-  {
+  set_map_year = function(arg) {
+
     console.log(arg+"", "->", app.year()+"")
     var map_title = d3.select('#text_title').text();
     map_title = map_title.replace(app.year(), arg);
@@ -439,14 +388,11 @@ var flat_data,
   }
   
   construct_nest = function(flat) {
+
     // Ask for visualizations that need to be sorted by export/import/net values
-    if (app_type == "casy" || app_type == "sapy" || app_type == "ccsy")
-    {
+    if (app_type == "casy" || app_type == "sapy" || app_type == "ccsy") {
       
-      // sort_flat(flat); 
-      
-      if (app_type == "casy" || app_type=="ccsy")
-      {
+      if (app_type == "casy" || app_type=="ccsy") {
         flat = flat.filter(function(d){ return d.community_id != undefined; })
         flat.map(function(d,i){
           
@@ -467,12 +413,12 @@ var flat_data,
           }
           d.nesting_2 = {"name":d.name,"id":d.code}; 
          }) 
-      } 
-      else //SAPY query displays country information and needs different tailored nesting
-      {
+
+      } else { // Needs different tailored nesting
+    
         region = rawData["region"];
         continent = rawData["continents"];
-        
+
         // What to do with countries that do not have regions predefined? 
         // Filtering them for now I guess.. "final solution" ???
         flat = flat.filter(function(d){ return d.region_id != undefined; })
@@ -498,7 +444,6 @@ var flat_data,
           d.id = piece
         })    
       }
-      
       
     }    
     else  // The remaining queries CSAY and CSPY were preprocessed per the query group_by statement
@@ -554,10 +499,10 @@ var flat_data,
     return flat;
     
   }
-  // Do I still need this?
-  construct_scatter_nest = function(flat)
-  {
-    flat = flat.filter(function(d){ return d.community_id != undefined; })
+
+  construct_scatter_nest = function(flat) {
+
+    var flat = flat.filter(function(d){ return d.community_id != undefined; })
     
     flat.map(function(d){
       d.active = d.rca >=1 ? true : false
@@ -583,23 +528,22 @@ var flat_data,
     return flat
   }
   
-  num_format = function(value,name)
-  { 
-    switch(name)
-    {
-    case 'pc_constant':
-      return "$"+ d3.round(value)
-      break;
-    case 'pc_current':
-      return "$"+ d3.round(value)
-      break;  
-    case 'Per Capita Constant':
-      return "$"+ d3.round(value)
-      break;
-    case 'Per Capita Current':
-      return "$"+d3.round(value)
-      break;
-    default:   
+  num_format = function(value, name) { 
+   
+    switch(name) {
+      case 'pc_constant':
+        return "$"+ d3.round(value)
+        break;
+      case 'pc_current':
+        return "$"+ d3.round(value)
+        break;  
+      case 'Per Capita Constant':
+        return "$"+ d3.round(value)
+        break;
+      case 'Per Capita Current':
+        return "$"+d3.round(value)
+        break;
+      default:   
     }
     // console.log(value)
     // DO I NEED THIS ANYMORE!??
@@ -639,10 +583,9 @@ var flat_data,
    
   }
   
-  txt_format = function(words)
-  {
-    switch(words)
-    {
+  txt_format = function(words) {
+
+    switch(words) {
      case 'pc_constant':
        return "Per Capita Constant"
        break;
@@ -686,76 +629,78 @@ var flat_data,
        return words     
     }
   }
-    var inner_html = function(obj) {
 
-      var html = "<div class='d3plus_tooltip_title'>Related Visualizations </div><br>";
-      html += "<div id='related_links'></div>";
+  // Create tooltip content
+  var inner_html = function(obj) {
 
-      var name = "", object = null;
+    var html = "<div class='d3plus_tooltip_title'>Related Visualizations </div><br>";
+    html += "<div id='related_links'></div>";
 
-      if(viz.depth() == "nesting_2") {
-        
-        // Retrieve the name from id
-        flat_data.forEach(function(d) {
-          if(d.id == obj) {
-            name = d.name;
-            object = d;
-            return;
+    var name = "", object = null;
+
+    if(viz.depth() == "nesting_2") {
+      
+      // Retrieve the name from id
+      flat_data.forEach(function(d) {
+        if(d.id == obj) {
+          name = d.name;
+          object = d;
+          return;
+        }
+      })
+
+    } else if(viz.depth() == "nesting_1") {
+
+      // Retrieve the name from id
+      flat_data.forEach(function(d) {
+        if(d.nesting_1.id == obj) {
+          name = d.nesting_1.name;
+          object = d;
+          return;
+        }
+      })
+
+    } else if(viz.depth() == "nesting_0") {
+
+      // Retrieve the name from id
+      flat_data.forEach(function(d) {
+        if(d.nesting_0.id == obj) {
+          name = d.nesting_0.name;
+          object = d;
+          return;
+        }
+      })
+
+    }
+
+    // Required to make sure the tooltip has been created
+    setTimeout(function() {
+
+      //  Sample of API result: /media/js/data/search_sample.json
+        d3.json("/api/search/?term="+name, function(error, data) {
+
+          if (error) { // Default data
+            return console.warn(error);
+
+          } else {
+            json = data;
           }
-        })
 
-      } else if(viz.depth() == "nesting_1") {
+          related_html = "";
 
-        // Retrieve the name from id
-        flat_data.forEach(function(d) {
-          if(d.nesting_1.id == obj) {
-            name = d.nesting_1.name;
-            object = d;
-            return;
-          }
-        })
+          data[1].forEach(function(d, i) {
 
-      } else if(viz.depth() == "nesting_0") {
-
-        // Retrieve the name from id
-        flat_data.forEach(function(d) {
-          if(d.nesting_0.id == obj) {
-            name = d.nesting_0.name;
-            object = d;
-            return;
-          }
-        })
-
-      }
-
-      setTimeout(function() {
-
-        //  d3.json("/media/js/data/search_sample.json?term="+name, function(error, data) {
-          d3.json("/api/search/?term="+name, function(error, data) {
-
-            if (error) { // Default data
-              return console.warn(error);
-
-            } else {
-              json = data;
-            }
-
-            related_html = "";
-
-            data[1].forEach(function(d, i) {
-
-              d3.select("#related_links")
-                .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+(data[3][i]+"?"+$.param(queryParameters))+"'>"+d+"</a>");
-
-            })
+            d3.select("#related_links")
+              .append("div").style("font-size", "14px").style("margin-top", "6px").html("<a href='"+(data[3][i]+"?"+$.param(queryParameters))+"'>"+d+"</a>");
 
           })
 
-      }, 100)
+        })
 
-      return html;
+    }, 100)
 
-    }
+    return html;
+  }
 
   tree = function() {
           
@@ -771,7 +716,6 @@ var flat_data,
       .value_var("value")
       .tooltip_info({"short": ["value", "distance", "year"], "long": ["value", "distance", "year"]})
       .name_array(["name"])
-      //.title("")
       .total_bar({"prefix": "", "suffix": " USD"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
       .nesting_aggs({"distance":"mean","complexity":"mean"})
@@ -785,16 +729,12 @@ var flat_data,
       .year(year)
      // .data_source("Data provided by: ",prod_class)
  
-      //d3.select("#loader").style("display", "none");
-
-    if(item_type=="country"){
+    if(item_type=="country") {
       
       viz.depth("nesting_2") // Updated to low level
          .attrs(region_attrs)
 
-    }
-    else
-    {
+    } else {
       // Update Detail level to deepest
       $('#nesting_level').val("nesting_2")
       $('#nesting_level').trigger("liszt:updated");
@@ -814,6 +754,7 @@ var flat_data,
         .showing(item_type)
       
       at = d3.values(attr_data)
+
       if(item_type!="country")
       {
         at = at.filter(function(d){return d.ps_size != undefined})
@@ -892,26 +833,28 @@ var flat_data,
       d.id = String(d.id)
     })
 
+    // If not showing countries exporting a product
     if (app_type!="sapy") {
 
-    magic_numbers = rawData["magic_numbers"]
-    viz.tooltip_info({"short": ["distance", "year", "pc_current","pc_constant","notpc_constant"]})
-    flat_data.map(function(d){
+      magic_numbers = rawData["magic_numbers"]
+      viz.tooltip_info({"short": ["distance", "year", "pc_current","pc_constant","notpc_constant"]})
+      flat_data.map(function(d){
 
-      // Quick fix by rv
-      if(magic_numbers[d.year]) {
-        d.pc_constant = magic_numbers[d.year]["pc_constant"] * d.value
-        d.pc_current = magic_numbers[d.year]["pc_current"] * d.value
-        d.notpc_constant = magic_numbers[d.year]["notpc_constant"] * d.value
-      }
-    })
+        // Quick fix by rv
+        if(magic_numbers[d.year]) {
+          d.pc_constant = magic_numbers[d.year]["pc_constant"] * d.value
+          d.pc_current = magic_numbers[d.year]["pc_current"] * d.value
+          d.notpc_constant = magic_numbers[d.year]["notpc_constant"] * d.value
+        }
+      })
     }
+
     //viz.tooltip
-    if(item_type=="country")
-    {
-      viz.depth("nesting_1")
-      viz.sort("color")
-      viz.attrs(region_attrs) // For now this appears to be broken for country/region nesting
+    if(item_type=="country") {
+      viz
+        .depth("nesting_1")
+        .sort("color")
+        .attrs(region_attrs)
     }
 
     // Since there is no title bar, we're gona bump the viz down 
@@ -983,7 +926,6 @@ var flat_data,
     // Now that we're done loading UI elements show the parent element
     $("#stacked_controls").show();
 
-
     d3.select(".axis_title_x").style("font-weight","bold");//.attr("y","40");
     d3.select(".axis_title_y").style("font-weight","bold");//.attr("y","10"); 
 
@@ -1012,7 +954,6 @@ var flat_data,
       .id_var("id")
       .attrs(attr)
       .xaxis_var("distance")
-
       .value_var("world_trade")
       .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
@@ -1207,105 +1148,7 @@ var flat_data,
         }
       })         
     }
-
-/*
-    flat_data = construct_nest(flat_data);
-
-    if(item_type=="country") {
-
-      //year_data = flat_data.filter(function(d){ return d.year == year})
-     
-      var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
-
-      // instantiate d3plus
-      viz = d3plus.viz()
-        .container("#viz")  // container DIV to hold the visualization
-        .data(flat_data)  // data to use with the visualization
-        .type("chart")      // visualization type
-        .id("id")         // key for which our data is unique on
-        .x("value")         // key for x-axis
-        .y("share")        // key for y-axis
-        .legend(false)
-        .descs(["id","distance","complexity","year"])
-        .html(function() {  return "Here is the tooltip"; })
-        .text("name")
-        .size("value")
-        .draw()             // finally, draw the visualization!
-        .height(height)
-        .width(width)
-        .time({"year":year})
-
-    } else {
-
-    flat_data = flat_data.filter(function(d){ return d.share > .075 && d.year == year})
-   
-    var tooltips = {"": ["id","distance","complexity","year"],"other": ["val_usd","distance"]}
-
-    // instantiate d3plus
-    viz = d3plus.viz()
-      .container("#viz")  // container DIV to hold the visualization
-      .data(flat_data)  // data to use with the visualization
-      .type("chart")      // visualization type
-      .id("id")         // key for which our data is unique on
-      .x("value")         // key for x-axis
-      .y("distance")        // key for y-axis
-      .legend(false)
-      .text("name")
-      .size("rca")
-      .descs({"short": ["id"],"long": ["distance"]})
-      .style({"labels": {"align": "start"}})
-      .tooltip({"short": ["id"],"long": ["distance"]})
-      .draw()             // finally, draw the visualization!
-      .height(height)
-      .width(width)
-
-
-    }
-
-
-    if (!embed) {
-      
-      key = Key()
-        .classification(rawData.class)
-        .showing(item_type)
-      
-      at = d3.values(attr_data)
-      if(item_type!="country")
-      {
-        at = at.filter(function(d){return d.ps_size != undefined})
-      }
-      
-      d3.select(".key")
-        .datum(at)
-        .call(key);
-
-      controls = Controls()
-        .app_type(app_name)
-        .year(year)
-      
-      d3.select("#tool_pane")
-        .datum(rawData)
-        .call(controls); 
-    } 
-
-    timeline = Slider()
-          .callback('set_scatterplot_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-
-    d3.select("#ui_bottom").append("div")
-      .attr("class","slider")
-      .datum(years_available)
-      .call(timeline)
-
-    d3.select("#loader").style("display", "none");  
-
-
-    */
-
   }
-
 
   rankings = function() {
 
@@ -1553,7 +1396,7 @@ var flat_data,
     }     
   }
   
-  network = function(req) {
+  network = function() {
 
     // Loading graph nodes positions and links
     if(item_type=="product") {
@@ -1568,18 +1411,27 @@ var flat_data,
       viz = d3plus.viz();
       viz_nodes = hs.nodes
       viz_links = hs.edges
-      
+
+      // Create node ids
       viz_nodes.forEach(function(node) {
-       if (prod_class=="hs4"){
-          node.item_id = attr[node.id.slice(2,6)]['item_id']
-          node.id = node.id.slice(2,6);
+
+        if(item_type == "product") {
+
+          if (prod_class=="hs4"){
+            node.item_id = attr[node.id.slice(2,6)]['item_id']
+            node.id = node.id.slice(2,6);
+          } else {
+            node.item_id = node.id
+            node.id = node.code
+          }
+
+        } else {
+          node.item_id = node.id;
         }
-        else
-        {
-          node.item_id = node.id
-          node.id = node.code
-        }
-      })
+
+      }) // end of viz_nodes.forEach
+
+    if(item_type == "product") {
 
       if (prod_class=="hs4") {
         viz_links.forEach(function(link){
@@ -1588,11 +1440,12 @@ var flat_data,
         })  
       } else {
         viz_links.forEach(function(link){
-          link.source =viz_nodes.filter(function(d){ return d.code == link.source })[0]
-          link.target =viz_nodes.filter(function(d){ return d.code == link.target })[0]
+          link.source = viz_nodes.filter(function(d){ return d.code == link.source })[0]
+          link.target = viz_nodes.filter(function(d){ return d.code == link.target })[0]
         })     
       }
       
+      // Making sure no missing world_trade value
       flat_data.map(function(d) {
 
         if (typeof world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0] != "undefined") {
@@ -1603,14 +1456,20 @@ var flat_data,
 
       })
       
-      data = []
-      the_years = d3plus.utils.uniques(flat_data,"year")
-      the_years.forEach(function(year){
+      data = [];
+
+      // Create list of unique years
+      the_years = d3plus.utils.uniques(flat_data,"year");
+
+      // Fill the data object with data from all the years
+      the_years.forEach(function(year) {
+
         var this_year = flat_data.filter(function(p){ return p.year == year})
         
-        viz_nodes.forEach(function(n){
+        viz_nodes.forEach(function(n) {
 
           if (prod_class=="hs4") {
+
            // Required for color by PCI 
            //var dd = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
            var d = this_year.filter(function(p){ return p.code == n.id })[0]
@@ -1631,17 +1490,16 @@ var flat_data,
             // Added for 2012 data
             if(typeof(d.world_trade) != "undefined")
               d.world_trade = d.world_trade['world_trade'];
-            
-            // var obj = vizwhiz.utils.merge(d,attr[n.id])
-            // obj.world_trade = d.world_trade
-          }
-          else 
-          {
+
+          } else {
+
             var d = this_year.filter(function(p){ return p.id == n.code })[0]
+
             if (typeof d == "undefined")
               {
                 var d = {}
               }  
+
             // Double check if this product existed then
             var test = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]//['world_trade']
 
@@ -1650,112 +1508,70 @@ var flat_data,
             } else { // if not then assign value as 0
               d.world_trade = 0
             }
-              // var obj = {}
-              // obj.name = attr[n.code].name
-              // obj.id = attr[n.code].code
-              // obj.world_trade = d.world_trade
-              // d.world_trade = testworld_totals[year].filter(function(z){ return n.id==z.product_id })[0]['world_trade']
-            // }
-            // else // We still need to assign a world trade value
-            // {
-            //   // d.world_trade = world_totals[year].filter(function(z){ return n.id==z.product_id })[0]['world_trade']
-            // 
-            //   test = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]//['world_trade']
-            //   if(typeof test != "undefined"){
-            //     d.world_trade = test['world_trade']
-            //   }
-            //   else{
-            //     d.world_trade = 0
-            //   }
-            //           
-            //   var obj = vizwhiz.utils.merge(d,attr[n.id])
-            //   obj.id = attr[n.code].code
-            //   obj.world_trade = d.world_trade
-            // }
+
           }
         
           // obj.year = year;
           d.active = d.rca >=1 ? 1 : 0;
           data.push(d)
-          
+        
         })
         
         this_year = []
       })
-      
-      
-      // data = []
-      // the_years = vizwhiz.utils.uniques(flat_data,"year")
-      // the_years.forEach(function(year){
-      //   viz_nodes.forEach(function(n){
-      //     if (prod_class=="hs4")
-      //     {
-      //       var d = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
-      //       var obj = vizwhiz.utils.merge(d,attr[n.id])
-      //       if (typeof d == "undefined"){
-      //         var d = {}
-      //         d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
-      //       }
-      //       else // We still need to assign a world trade value
-      //       {
-      //         d.world_trade = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]['world_trade']
-      //       }
-      //       obj.world_trade = d.world_trade
-      //     }
-      //     else 
-      //     {
-      //       var d = flat_data.filter(function(p){ return p.year == year && p.id == n.code })[0]
-      //       if (typeof d == "undefined")
-      //       {
-      //         var d = {}
-      //         // Double check if this product existed then
-      //         test = world_totals[year].filter(function(z){ return n.id==z.product_id })[0]//['world_trade']
-      //         if(typeof test != "undefined"){
-      //           d.world_trade = test['world_trade']
-      //         }
-      //         else // if not then assign value as 0
-      //         {
-      //           d.world_trade = 0
-      //         }
-      //         var obj = {}
-      //         obj.name = attr[n.code].name
-      //         obj.id = attr[n.code].code
-      //         obj.world_trade = d.world_trade
-      //         // d.world_trade = world_totals[year].filter(function(z){ return n.id==z.product_id })[0]['world_trade']
-      //       }
-      //       else // We still need to assign a world trade value
-      //       {
-      //         // d.world_trade = world_totals[year].filter(function(z){ return n.id==z.product_id })[0]['world_trade']
-      //       
-      //         test = world_totals[year].filter(function(z){ return n.item_id==z.product_id })[0]//['world_trade']
-      //         if(typeof test != "undefined"){
-      //           d.world_trade = test['world_trade']
-      //         }
-      //         else{
-      //           d.world_trade = 0
-      //         }
-      //     
-      //         var obj = vizwhiz.utils.merge(d,attr[n.id])
-      //         obj.id = attr[n.code].code
-      //         obj.world_trade = d.world_trade
-      //       }
-      //     }
-      //   
-      //     // var d = flat_data.filter(function(p){ return p.year == year && p.code == n.id })[0]
-      //   
-      //     // var obj = vizwhiz.utils.merge(d,attr[n.id])
-      //     // d.name = attr[n.id].name
-      //     obj.year = year;
-      //     obj.x = n.x
-      //     obj.y = n.y
-      //     // obj = vizwhiz.utils.merge(obj,n)
-      //     // obj.active = Math.floor(Math.random()*2);
-      //     obj.active = d.rca >=1 ? 1 : 0
-      //     // console.log(obj);
-      //     data.push(obj)
-      //     
-      //   })
-      // })      
+
+
+    } else { // if item_type == country
+
+      // Conver the links with the right index
+      viz_links.forEach(function(link){
+        link.source = viz_nodes[viz_nodes.map(function(d) { return d.id; }).indexOf(link.source)]
+        link.target = viz_nodes[viz_nodes.map(function(d) { return d.id; }).indexOf(link.target)]
+      })  
+
+      data = [];
+
+      // Create list of unique years
+      the_years = d3plus.utils.uniques(rawData.data, "year");
+
+      // Fill the data object with data from all the years
+      the_years.forEach(function(year) {
+
+        var this_year = flat_data.filter(function(p){ return p.year == year})
+        
+        viz_nodes.forEach(function(n) {
+
+          var d = {}; 
+          var test = this_year.filter(function(p){ return p.abbrv == n.id })[0]
+
+          if (typeof test != "undefined") {
+
+            d.year = test.year;
+            d.rca = test.rca;
+            d.name = test.name;
+            d.active = d.rca >=1 ? 1 : 0;
+            d.item_id = n.item_id;
+            d.region = n.region;
+            d.eci = n.eci;
+            d.pop = n.pop;
+            d.color = test.color;
+            d.id = n.id;
+
+          } else {
+
+            d.id = n.id;
+            d.name = n.name;
+            d.item_id = n.item_id
+            d.year = year;
+          }
+
+          data.push(d);
+
+        });
+
+      });
+
+    }
 
     viz
       .type("network")
@@ -1764,7 +1580,7 @@ var flat_data,
       .links(viz_links)
       .nodes(viz_nodes)
       .attrs(attr)
-      .value_var("world_trade")
+      .value_var("value")
       .name_array(["value"])
       .nesting([])
       .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
@@ -1774,6 +1590,13 @@ var flat_data,
       .font("PT Sans Narrow")
       .year(year)
       .click_function(inner_html)      
+
+    if(item_type=="country") {
+      viz
+        .name_array(["name"])
+        .attrs(attr_data)
+        .value_var("eci");
+    }
 
     d3.select("#loader").style("display", "none");  
 
@@ -1788,10 +1611,10 @@ var flat_data,
     if(queryActivated)
       highlight(queryParameters['highlight']);
 
-    })
+    }) // end of d3.json
     
     if(!embed) {
-      
+
       key = Key()
         .classification(rawData.class)
         .showing(item_type)
@@ -1857,32 +1680,6 @@ var flat_data,
     d3.select("#mdv").attr("fill", "white");
   }
 
-    function checkParameterExists(parameter)
-    {
-       //Get Query String from url
-       fullQString = window.location.search.substring(1);
-       
-       paramCount = 0;
-       queryStringComplete = "?";
-
-       if(fullQString.length > 0)
-       {
-           //Split Query String into separate parameters
-           paramArray = fullQString.split("&");
-           
-           //Loop through params, check if parameter exists.  
-           for (i=0;i<paramArray.length;i++)
-           {
-             currentParameter = paramArray[i].split("=");
-             if(currentParameter[0] == parameter) //Parameter already exists in current url
-             {
-                return true;
-             }
-           }
-       }
-       
-       return false;
-    }
 
   function build_viz_app(api_uri,w,h){
     // Are we headless
@@ -1971,7 +1768,8 @@ var flat_data,
       }
 
       // Data is found, but it is not usable to generate visualization
-      if(rawData.data.length == 0){  // <<<<<<<<< TODO: What is the threshold for this??
+      if(rawData.data.length == 0) {  // <<<<<<<<< TODO: What is the threshold for this??
+    
         $("#loader").css("display", "none");
         $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported by "+rawData.country1.name+"</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
           .css("position", "relative")
@@ -2004,30 +1802,32 @@ var flat_data,
           });
         }
       
-        // attr_data = clean_attr_data(attr_data)
         rawData.attr_data = clean_attr_data(rawData.attr_data)
 
         if (app_name=="stacked") {
+
           flat_data = construct_nest(flat_data)
           stack(); 
 
           timeline = Slider()
                     .callback('set_stack_year')
                     .initial_value([parseInt(year_start),parseInt(year_end)])
-                    //[parseInt(years_available[0]),parseInt(years_available.slice(-1)[0])])
                     .max_width(670)
                     .title("")
-                  d3.select("#ui_bottom").append("div")
-                    .attr("class","slider")
-                    .datum(years_available)
-                    .call(timeline)
-          // get rid of play button -->                  
+
+          d3.select("#ui_bottom").append("div")
+            .attr("class","slider")
+            .datum(years_available)
+            .call(timeline)
+            
           d3.select('#play_button').style("display","none") 
         }
         
         if (app_name=="tree_map") {
+
           flat_data = construct_nest(flat_data);
-          
+          tree();
+
           timeline = Slider()
             .callback('set_year')
             .initial_value(parseInt(year))
@@ -2039,8 +1839,6 @@ var flat_data,
             .datum(years_available)
             .call(timeline)
           d3.select("#ui_bottom").append("br")
-
-          tree();
 
           if(queryActivated && typeof(queryParameters['cont_id']) != "undefined" && queryParameters['cont_id']!="") {
             var e = document.createEvent('UIEvents');
@@ -2064,8 +1862,8 @@ var flat_data,
               return d.distance != 0;
             });
           }
+
           flat_data = construct_scatter_nest(flat_data);
-          // where = flat_data.filter(function(d){ return d.year == year; })
           pie_scatter();
           
           timeline = Slider()
@@ -2073,12 +1871,11 @@ var flat_data,
                     .initial_value(parseInt(year))
                     .max_width(670)
                     .title("")
+
           d3.select("#ui_bottom").append("div")
             .attr("class","slider")
             .datum(years_available)
             .call(timeline)
-          // get rid of play button -->                  
-          // d3.select('#play_button').style("display","none") 
 
           if(typeof(queryParameters['cat']) != "undefined" && queryParameters['cat']!="" && queryActivated) {
             var e = document.createEvent('UIEvents');
@@ -2087,10 +1884,10 @@ var flat_data,
           }
         }
 
-        if(app_name=="product_space") {
+        if(app_name == "product_space" || app_name == "country_space") {
 
-          flat_data = construct_scatter_nest(flat_data);
-          network( api_uri + '&amp;data_type=json' );
+          flat_data = construct_nest(rawData.data);
+          network();
           
           timeline = Slider()
             .callback('set_year')
@@ -2106,28 +1903,6 @@ var flat_data,
 
           d3.select("#ui_bottom").append("br")
         }
-
-
-        if(app_name=="country_space") {
-          console.log("context", app_name, app_type, api_uri+ '&amp;data_type=json')
-          flat_data = construct_scatter_nest(flat_data);
-          network(api_uri + '&amp;data_type=json');
-          /*
-          timeline = Slider()
-            .callback('set_year')
-            .initial_value(parseInt(year))
-            .max_width(670)
-            .title("")
-
-          d3.select("#ui_bottom").append("div")
-            .attr("class","slider")
-            // .style("overflow","auto")
-            .datum(years_available)
-            .call(timeline)
-
-          d3.select("#ui_bottom").append("br")
-          */
-        } 
 
         if(app_name=="rings") {
 
@@ -2172,8 +1947,6 @@ var flat_data,
    
         if(app_name=="scatterplot") {
 
-          // where = flat_data.filter(function(d){ return d.year == year; })
-          
           scatterplot();
 
           timeline = Slider()

@@ -11,6 +11,32 @@ while (m = re.exec(queryString)) {
 if(typeof(queryParameters["queryActivated"]) != "undefined")
   queryActivated = true;
 
+function checkParameterExists(parameter) {
+   //Get Query String from url
+   fullQString = window.location.search.substring(1);
+   
+   paramCount = 0;
+   queryStringComplete = "?";
+
+   if(fullQString.length > 0)
+   {
+       //Split Query String into separate parameters
+       paramArray = fullQString.split("&");
+       
+       //Loop through params, check if parameter exists.  
+       for (i=0;i<paramArray.length;i++)
+       {
+         currentParameter = paramArray[i].split("=");
+         if(currentParameter[0] == parameter) //Parameter already exists in current url
+         {
+            return true;
+         }
+       }
+   }
+   
+   return false;
+}
+
 function updateURLQueryParameters() {
 
 
@@ -27,9 +53,11 @@ function updateURLQueryParameters() {
 // Add new parameters or update existing ones
 if(typeof(prod_class) != "undefined")
   queryParameters['prod_class'] = prod_class;
+
 queryParameters['details_treemap'] = parseInt(queryParameters['details_treemap']) || 2;
 queryParameters['disable_widgets'] = typeof queryParameters['disable_widgets'] !== 'undefined' ? queryParameters['disable_widgets']=="true" : false;
 queryParameters['disable_search'] = typeof queryParameters['disable_search'] !== 'undefined' ? queryParameters['disable_search']=="true" : false;
+queryParameters['node_size'] = queryParameters['node_size'] || "none";
 
 if(typeof(app_name) != "undefined") {
   if(app_name == "stacked") {
