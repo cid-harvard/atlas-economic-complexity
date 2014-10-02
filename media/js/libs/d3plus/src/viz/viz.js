@@ -2073,7 +2073,7 @@ d3plus.viz = function() {
       .attr("y2",vars.y_scale(y_val))
       .attr("opacity",function(d){
         var yes = y_val > vars.y_scale.domain()[1] && y_val < vars.y_scale.domain()[0]
-        return y_val != null && yes ? 1 : 0
+        return 1;//y_val != null && yes ? 1 : 0
       })
       
     d3.select("#y_axis_val_text").transition().duration(vars.graph.timing)
