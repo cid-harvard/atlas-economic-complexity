@@ -85,6 +85,7 @@ MIDDLEWARE_CLASSES = (
   'django.contrib.sessions.middleware.SessionMiddleware',
   'django.middleware.csrf.CsrfViewMiddleware',
   'django.middleware.locale.LocaleMiddleware',
+  'atlas.middleware.PrerenderMiddleware'
 )
 
 ROOT_URLCONF = 'atlas.urls'
