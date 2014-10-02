@@ -1,3 +1,4 @@
+from atlas import celery_tasks
 
 class PrerenderMiddleware(object):
     """Middleware to prerender crawler requests with phantomjs."""
@@ -12,6 +13,7 @@ class PrerenderMiddleware(object):
         # Pop off _escaped_fragment_
         request.GET = request.GET.copy()
         request.GET.pop('_escaped_fragment_')
+        request.prerender = True
 
         return None
 
@@ -21,6 +23,13 @@ class PrerenderMiddleware(object):
         if response.streaming:
             return response
 
-        #if "_escaped_fragment_" in request.args:
-        response.content = response.content
+        # If prerender is not needed, just return
+        if not (hasattr(request, "prerender") and request.prerender):
+            return response
+
+        # TODO: pass in HTML somehow, since this doesn't work. Maybe write to
+        # tempfile and pass file:// url?
+        promise = celery_tasks.prerender.delay(response.content)
+        response.content = promise.get()
+
         return response
