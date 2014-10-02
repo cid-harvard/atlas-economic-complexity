@@ -80,15 +80,10 @@ TEMPLATE_LOADERS = (
   'django.template.loaders.app_directories.Loader',
 )
 
-# Uncomment lines for caching support
 MIDDLEWARE_CLASSES = (
-#  'django.middleware.cache.UpdateCacheMiddleware',
   'django.middleware.common.CommonMiddleware',
   'django.contrib.sessions.middleware.SessionMiddleware',
   'django.middleware.csrf.CsrfViewMiddleware',
-  'django.contrib.auth.middleware.AuthenticationMiddleware',
-  'django.contrib.messages.middleware.MessageMiddleware',
-#  'django.middleware.cache.FetchFromCacheMiddleware',
   'django.middleware.locale.LocaleMiddleware',
 )
 
@@ -97,10 +92,8 @@ WSGI_APPLICATION = 'atlas.wsgi.application'
 
 INSTALLED_APPS = (
   'django.contrib.sessions',
-  'django.contrib.messages',
   'django.contrib.staticfiles',
   'django.contrib.humanize',
-  'django.contrib.sitemaps',
   'observatory',
   'blog',
   'compressor'
