@@ -1,4 +1,5 @@
 from celery import Celery
+from celery.utils.log import get_task_logger
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -20,6 +21,7 @@ app = Celery('tasks',
              backend="redis")
 app.conf.CELERY_TASK_SERIALIZER = "msgpack"
 
+logger = get_task_logger(__name__)
 # ----------- Helpers ------------
 
 
@@ -73,8 +75,13 @@ def prerender(url):
     """
 
     # Initialize webdriver
-    driver = webdriver.PhantomJS(service_args=["--load-images=false",
-                                               "--disk-cache=true"])
+    driver = webdriver.PhantomJS(
+        service_args=["--debug=false",
+                      "--load-images=false",
+                      "--disk-cache=true",
+                      "--max-disk-cache-size=100000"
+                      ])
+
     driver.set_page_load_timeout(MAX_WAIT)
     driver.set_script_timeout(MAX_WAIT)
 
@@ -91,9 +98,9 @@ def prerender(url):
         wait_condition = expected_conditions.\
             invisibility_of_element_located((By.CSS_SELECTOR, "#loader"))
 
-    # Wait until rendering ends
     try:
-        WebDriverWait(driver, 3).until(wait_condition)
+        WebDriverWait(driver, timeout=5,
+                      poll_frequency=1).until(wait_condition)
     except TimeoutException:
         viz_loaded = False
 
