@@ -360,6 +360,7 @@ var flat_data,
 
     viz.year(arg);
     d3.select('#viz').call(viz)
+    year = viz.year();
 
   // Set the controls to this year as well
     d3.select("#tool_pane").call(controls.year(arg)); 
@@ -1169,7 +1170,7 @@ var flat_data,
         if(item_type=="country")
           return ["Rank", "", "Abbrv", "Country", "Complexity", "Share", "Value"]
         else
-          return ["Rank", "", "HS4", "Product", "Complexity", "Share", "Value"]      ;
+          return ["Rank", "", "HS4", "Product", "Complexity", "Share", "Value"];
 
       })
       .enter()
@@ -1763,7 +1764,7 @@ var flat_data,
       region_attrs = {};
 
       if(error){
-        $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported by "+rawData.country1.name+"</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
+        $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
           .css("position", "relative")
           .css("top", $("#viz").height()*0.30);
       }
@@ -1772,12 +1773,21 @@ var flat_data,
       if(rawData.data.length == 0) {  // <<<<<<<<< TODO: What is the threshold for this??
     
         $("#loader").css("display", "none");
-        $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported by "+rawData.country1.name+"</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
+        $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
           .css("position", "relative")
           .css("top", $("#viz").height()*0.30);
 
       } else {
 
+/*
+         if(rawData.data.filter(function(d) { return d.year == parseInt(year); }).length == 0) {
+
+                $("#loader").css("display", "none");
+                $("#viz").html("<div id='dataError'><img src='../media/img/all/loadError.png'><h2><b>Data not found for the year: "+year+"</b></h2><ul><li>The data may not exist</li><li>It's values may be too small</li><li>It may not have been reported</li><li><a href='https://github.com/cid-harvard/atlas-data'>View our data</a></li></ul></div>")
+                  .css("position", "relative")
+                  .css("top", $("#viz").height()*0.30);
+        }
+*/
         if(app_type=="casy") {
 
           // No attr=raw["attr"] for this one, so where to get it?
