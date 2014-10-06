@@ -75,7 +75,6 @@ function Key() {
     a.attr("title", function(d){ return d.name; })
     a.attr("data-placement", "bottom")
 
-
     // Check if any product in this category
     available_cat = Array();
 
@@ -96,8 +95,10 @@ function Key() {
     // show icons or just text of that region
     if(showing == "product"){
 
-      a.attr("class", function(d){ return showing + " tooltipbs cat_"+d.id; })
-      .style("opacity", function(d){ return typeof(available_cat[d.id]) == "undefined" ? .2 : 1; })
+      a.attr("class", function(d){ return showing + " tooltipbs cat_"+d.id; });
+
+      if(prod_class == "hs4")
+        a.style("opacity", function(d){ return typeof(available_cat[d.id]) == "undefined" ? .2 : 1; })
       a.append("img")
         .attr("src", function(d){
           return "/media/img/icons/community_"+d.id+".png"
@@ -122,12 +123,17 @@ function Key() {
         // d3.select("#viz").call(viz.solo([]));
         // d3.select("#viz").call(viz.highlight(null));
       })
+
+
     a.on("click", function(d) {
 
       if(showing == "product") {
 
-        if(typeof(available_cat[d.id]) == "undefined")
-          return;
+        if(prod_class == "hs4") {
+          // Disable categories if not available
+          if(typeof(available_cat[d.id]) == "undefined")
+              return;
+          }
       } else {
         if(typeof(available_cat[d.continent]) == "undefined")
           return;
@@ -148,7 +154,10 @@ function Key() {
                               .style("cursor","");
 
         if(showing == "product") {
-          d3.selectAll(".key a").style("opacity", function(d){ return typeof(available_cat[d.id]) == "undefined" ? .2 : 1; })
+          if(prod_class == "hs4")
+            d3.selectAll(".key a").style("opacity", function(d){ return typeof(available_cat[d.id]) == "undefined" ? .2 : 1; })
+          else
+                        d3.selectAll(".key a").style("opacity", function(d){ return 1; })
         } else {
           d3.selectAll(".key a").style("opacity", function(d){ return typeof(available_cat[d.continent]) == "undefined" ? .1 : 1; })          
         }
