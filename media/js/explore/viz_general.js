@@ -1813,6 +1813,7 @@ var flat_data,
           });
         }
         
+        /* Do we need this?
         if (prod_class == "sitc4" && (app_type == "casy" || app_type == "ccsy"|| app_type=="sapy")){
           attr_data.map(function(g){
             g.sitc1_name = attr[g.code.slice(0, 1)+"000"].name; 
@@ -1820,7 +1821,7 @@ var flat_data,
             g.sitc1_color = attr[g.code.slice(0, 1)+"000"].color
           });
         }
-      
+      */
         rawData.attr_data = clean_attr_data(rawData.attr_data)
 
         if (app_name=="stacked") {
