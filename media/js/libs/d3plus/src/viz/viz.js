@@ -643,7 +643,7 @@ d3plus.viz = function() {
       else {
         vars.error = ""
       }
-      
+
       if (vars.dev) console.log("[d3plus] Building \"" + vars.type + "\"")
       d3plus[vars.type](vars)
       if (vars.dev) console.log("[d3plus] *** End Chart ***")

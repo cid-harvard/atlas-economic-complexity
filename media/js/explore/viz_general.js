@@ -1594,11 +1594,14 @@ var flat_data,
       .click_function(inner_html)      
 
     if(item_type=="country") {
+
       viz
         .name_array(["name"])
+        .tooltip_info(["id","share","value"])
         .attrs(attr_data)
-        .value_var("eci");
+        .value_var("rca");
     }
+
 
     d3.select("#loader").style("display", "none");  
 

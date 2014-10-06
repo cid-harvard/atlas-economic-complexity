@@ -125,7 +125,7 @@ function Key() {
     a.on("click", function(d) {
 
       if(showing == "product") {
-        console.log("ddd", d.id, d)
+
         if(typeof(available_cat[d.id]) == "undefined")
           return;
       } else {
@@ -161,8 +161,7 @@ function Key() {
       }
       // Otherwise, we need to filter just this community
       // by using VizWiz soloing functionality 
-      else
-      {
+      else  {
         // Grey out the other communities
         d3.selectAll(".key a").style("opacity",".3")
                               .style("pointer-events","none")
@@ -171,7 +170,7 @@ function Key() {
         // Now we'll keep our selection highlighted
         // Check to see app is display country info, in which case
         // we need filter by continent              
-        if (d.continent != undefined){
+        if (d.continent != undefined) {
           // If this is a continent, we want to select all the regions
           d3.selectAll("."+d.continent).style("opacity","1")
                                    .style("pointer-events","auto")  
@@ -184,7 +183,10 @@ function Key() {
             if(dd.nesting_0.name == d.continent)// && dd.year==year) 
               return dd;
           }).map(function(ddd) { 
-              return ddd.id 
+            if(app_name == "product_space" || app_name == "country_space")
+              return ddd.abbrv;
+            else
+              return ddd.id;
           })));
 
           sessionStorage.setItem("continent",d.continent);
