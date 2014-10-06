@@ -217,6 +217,7 @@ def api_sapy(request, trade_flow, product, year):
     json_response["region"] = region
     json_response["continents"] = continents
     json_response["other"] = query_params
+    json_response["prod_class"] = prod_class
 
     if (request.GET.get('data_type', None) is None):
         return HttpResponse("")
