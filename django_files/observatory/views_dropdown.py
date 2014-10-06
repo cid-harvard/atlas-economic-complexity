@@ -34,7 +34,13 @@ def api_dropdown_countries(request):
 
     lang = helpers.get_language(request)['code']
 
-    countries = Country.objects.get_all(lang)
-    country_info = [(c["name"], c["name_3char"].lower()) for c in countries]
+    countries = Country.objects\
+        .filter_lang(lang)\
+        .filter(originally_included=True)\
+        .values("name", "name_3char")
+
+    country_info = list((c["name"], c["name_3char"].lower())
+                        for c in countries)
+
     return HttpResponse(json.dumps(country_info),
                         content_type="application/json")
