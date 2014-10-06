@@ -1551,7 +1551,6 @@ var flat_data,
             d.year = test.year;
             d.rca = test.rca;
             d.name = test.name;
-            d.active = d.rca >=1 ? 1 : 0;
             d.item_id = n.item_id;
             d.region = n.region;
             d.eci = n.eci;
@@ -1561,12 +1560,18 @@ var flat_data,
 
           } else {
 
+            // This causes a problem for the missing countries
+            d.pop = n.pop;
             d.id = n.id;
-            d.name = n.name;
+            d.name = d.abbrv;
             d.item_id = n.item_id
             d.year = year;
+            d.rca = 0;
+            d.eci = n.eci;
+            d.color = "#fff";
           }
-
+          
+          d.active = d.rca >=1 ? 1 : 0;
           data.push(d);
 
         });
@@ -1594,11 +1599,14 @@ var flat_data,
       .click_function(inner_html)      
 
     if(item_type=="country") {
+
       viz
         .name_array(["name"])
+        .tooltip_info(["pop", "id", "eci"])
         .attrs(attr_data)
-        .value_var("eci");
+        .value_var("rca");
     }
+
 
     d3.select("#loader").style("display", "none");  
 
