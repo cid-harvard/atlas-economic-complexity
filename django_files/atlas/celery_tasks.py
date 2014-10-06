@@ -16,10 +16,8 @@ MAX_WAIT = 20
 SVG_REGEX = re.compile(r"<svg.*</svg>")
 
 # Celery app
-app = Celery('tasks',
-             broker='redis://localhost:6379/3',
-             backend="redis")
-app.conf.CELERY_TASK_SERIALIZER = "msgpack"
+app = Celery('tasks')
+app.config_from_object("atlas.celeryconfig")
 
 logger = get_task_logger(__name__)
 # ----------- Helpers ------------
