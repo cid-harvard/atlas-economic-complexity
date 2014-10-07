@@ -227,7 +227,9 @@ var flat_data,
 
     var nest_level = ($("#nesting_level").val());
     year=arg
-    set_depth(nest_level)
+    
+    // Why are we doing that?
+    //set_depth(nest_level)
 
     var scatter_title = d3.select('#text_title').text();
 
@@ -1090,16 +1092,16 @@ var flat_data,
       .type("pie_scatter")
       .height(height)
       .width(width)
-      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .tooltip_info({"short": ["value", "share", "rca"], "long": ["value", "share", "rca"]})
       .text_var("name")
       .id_var("id")
       .attrs(region_attrs)
-      .xaxis_var("share")
-      .yaxis_var("values")
-      .value_var("share")
+      .xaxis_var("rca")
+      .yaxis_var("value")
+      .value_var("value")
       .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
-      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .nesting_aggs({"value":"sum","share":"mean","rca":"mean"})
       .depth("nesting_2")
       .text_format(txt_format)
       .number_format(num_format)
