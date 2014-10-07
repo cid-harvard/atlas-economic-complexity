@@ -1163,14 +1163,29 @@ var flat_data,
       .id_var("id")
       .height(height)
       .width(width)
-      .year(1995)
-      .title("Products Ranking")
+      .year(year)
       .data(flat_data)
-      .columns(["id", "year", "name", "opp_gain", "pci", "rca", "value"])
-      .nesting(["nesting_0","nesting_1","nesting_2"])
-      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
-      .depth("nesting_2");
 
+
+    if(item_type=="product") {
+
+      viz
+        .columns(["id", "year", "name", "opp_gain", "pci", "rca",  "distance", "value"])
+        .nesting(["nesting_0","nesting_1","nesting_2"])
+        .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+        .title("Products Ranking")
+        .depth("nesting_2");
+
+    } else {
+
+      viz
+        .columns(["id", "year", "name", "rca", "value"])
+        .nesting(["nesting_0","nesting_1","nesting_2"])
+        .nesting_aggs({"value":"mean", "rca":"mean"})
+        .title("Countries Ranking")
+        .depth("nesting_1");
+
+    }
 
     d3.select("#viz").call(viz)
 
