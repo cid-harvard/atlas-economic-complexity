@@ -2080,9 +2080,8 @@ d3plus.viz = function() {
       }
     }
 
-
     y_val = d3.mean(flat_data.filter(function(d) { return d.pci != null && d.year == year;}), function(d) { return d.pci; })
-    console.log(y_val)
+
     d3.select("#y_axis_val").transition().duration(vars.graph.timing)
       .attr("y1",vars.y_scale(y_val))
       .attr("y2",vars.y_scale(y_val))

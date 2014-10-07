@@ -299,7 +299,7 @@ def explore(
     app_type = helpers.get_app_type(country1, country2, product, year)
 
     # What is actually being shown on the page
-    if app_type == "csay":
+    if app_type == "csay" or app_type == "sapy":
       item_type = "country"
     else:
       item_type = "product"

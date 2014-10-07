@@ -623,19 +623,19 @@
 
           {% if app_name == "scatterplot" %}
 
-            <div class="product_class" style="float:left;">
-              <span class="definition" style="font-weight:bold;">X-Axis </span>
-              <div class="btn-group" data-toggle="buttons" style="margin-right:10px;">
-                <label class="btn btn-default active" >
-                  <input type="radio" id="complexity" onchange="d3.select('#viz').call(viz.xaxis_var('distance'))"> Distance
-                </label>
-                <label class="btn btn-default">
-                  <input type="radio" name="yvar" onchange="d3.select('#viz').call(viz.xaxis_var('pci'))"> PCI
-                </label>
-              </div>
-            </div>
-
             {% if item_type == "product" %}
+
+              <div class="product_class" style="float:left;">
+                <span class="definition" style="font-weight:bold;">X-Axis </span>
+                <div class="btn-group" data-toggle="buttons" style="margin-right:10px;">
+                  <label class="btn btn-default active" >
+                    <input type="radio" id="complexity" onchange="d3.select('#viz').call(viz.xaxis_var('distance'))"> Distance
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" name="yvar" onchange="d3.select('#viz').call(viz.xaxis_var('pci'))"> PCI
+                  </label>
+                </div>
+              </div>
 
               <div class="product_class" style="float:left;">
                 <span class="definition" style="font-weight:bold;">Y-Axis </span>
