@@ -2068,12 +2068,29 @@ d3plus.viz = function() {
     
     if (typeof y_val == "string") y_val = parseFloat(y_val)
       
+    if(app_name == "pie_scatter") {
+      if(queryActivated && typeof(queryParameters['cat_id']) != "undefined" && queryParameters['cat_id']!="") {
+
+//        y_val = d3.mean(flat_data.filter(function(d) {
+//          console.log(queryParameters['cat_id'], d.nesting_0.id, d.pci)
+//          return d.nesting_0.id == queryParameters['cat_id'] && d.pci != null;
+//        }), function(d) { return d.pci; })
+      } else {
+
+      }
+    }
+
+
+    y_val = d3.mean(flat_data.filter(function(d) { return d.pci != null && d.year == year;}), function(d) { return d.pci; })
+    console.log(y_val)
     d3.select("#y_axis_val").transition().duration(vars.graph.timing)
       .attr("y1",vars.y_scale(y_val))
       .attr("y2",vars.y_scale(y_val))
       .attr("opacity",function(d){
-        var yes = y_val > vars.y_scale.domain()[1] && y_val < vars.y_scale.domain()[0]
-        return 1;//y_val != null && yes ? 1 : 0
+          return 1;
+//        var yes = y_val > vars.y_scale.domain()[1] && y_val < vars.y_scale.domain()[0]
+ //       else
+//          return 0; //y_val != null && yes ? 1 : 0
       })
       
     d3.select("#y_axis_val_text").transition().duration(vars.graph.timing)
@@ -2085,7 +2102,7 @@ d3plus.viz = function() {
         else return null
       })
       .attr("y",(vars.y_scale(y_val)+20)+"px")
-      
+
 
     vars.chart_enter.append("line")
       .attr("id","x_axis_val")
