@@ -748,20 +748,17 @@ var flat_data,
            .style('height','520px')
            .datum(flat_data)
            .call(viz);
+
     
     // If we embed we do not need key/controls
     if (!embed){
-      
+
       key = Key()
         .classification(rawData.class)
         .showing(item_type)
       
       at = d3.values(attr_data)
 
-      if(item_type!="country")
-      {
-        at = at.filter(function(d){return d.ps_size != undefined})
-      }
       
       d3.select(".key")
         .datum(at)
@@ -1816,7 +1813,7 @@ var flat_data,
           });
         }
         
-        /* Do we need this?
+
         if (prod_class == "sitc4" && (app_type == "casy" || app_type == "ccsy"|| app_type=="sapy")){
           attr_data.map(function(g){
             g.sitc1_name = attr[g.code.slice(0, 1)+"000"].name; 
@@ -1824,7 +1821,7 @@ var flat_data,
             g.sitc1_color = attr[g.code.slice(0, 1)+"000"].color
           });
         }
-      */
+
         rawData.attr_data = clean_attr_data(rawData.attr_data)
 
         if (app_name=="stacked") {
@@ -1847,10 +1844,8 @@ var flat_data,
         }
         
         if (app_name=="tree_map") {
-
           flat_data = construct_nest(flat_data);
-          tree();
-
+          
           timeline = Slider()
             .callback('set_year')
             .initial_value(parseInt(year))
@@ -1862,6 +1857,8 @@ var flat_data,
             .datum(years_available)
             .call(timeline)
           d3.select("#ui_bottom").append("br")
+
+          tree();
 
           if(queryActivated && typeof(queryParameters['cont_id']) != "undefined" && queryParameters['cont_id']!="") {
             var e = document.createEvent('UIEvents');
@@ -1876,7 +1873,7 @@ var flat_data,
           }
 
            $("#highlight_select").select2("val", queryParameters['highlight']);
-        }
+        } 
         
         if (app_name=="pie_scatter") {
 
