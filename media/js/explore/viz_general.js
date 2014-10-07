@@ -1154,6 +1154,27 @@ var flat_data,
 
   rankings = function() {
 
+    d3.select("#viz").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical"})
+
+    d3.select("#loader").style("display", "none");  
+
+    viz = ranking.viz()
+      .container("#viz")
+      .id_var("id")
+      .height(height)
+      .width(width)
+      .year(1995)
+      .title("Products Ranking")
+      .data(flat_data)
+      .columns(["id", "year", "name", "opp_gain", "pci", "rca", "value"])
+      .nesting(["nesting_0","nesting_1","nesting_2"])
+      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .depth("nesting_2");
+
+
+    d3.select("#viz").call(viz)
+
+/*
     var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"})//.html("Rankings")
 
     d3.select("#loader").style("display", "none");  
@@ -1236,6 +1257,7 @@ var flat_data,
         .call(controls); 
     } 
 
+*/
   }
 
   rings = function( req ) {
@@ -1983,6 +2005,20 @@ var flat_data,
         }
 
         if(app_name=="rankings") {
+
+          flat_data = construct_nest(flat_data);
+          
+          timeline = Slider()
+            .callback('set_year')
+            .initial_value(parseInt(year))
+            .max_width(670)
+            .title("")
+          d3.select("#ui_bottom").append("div")
+            .attr("class","slider")
+            // .style("overflow","auto")
+            .datum(years_available)
+            .call(timeline)
+          d3.select("#ui_bottom").append("br")
 
           rankings();
 
