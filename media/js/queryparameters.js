@@ -59,6 +59,8 @@ queryParameters['disable_widgets'] = typeof queryParameters['disable_widgets'] !
 queryParameters['disable_search'] = typeof queryParameters['disable_search'] !== 'undefined' ? queryParameters['disable_search']=="true" : false;
 queryParameters['node_size'] = queryParameters['node_size'] || "none";
 
+queryParameters["queryActivated"] = queryActivated || false;
+
 if(typeof(app_name) != "undefined") {
   if(app_name == "stacked") {
     queryParameters['yaxis'] = queryParameters['yaxis'] || "current";

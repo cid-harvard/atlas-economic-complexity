@@ -245,14 +245,14 @@ function update_viz(viz) {
 
     if(prod_class=="hs4") {
 
-      current_year1 = Math.max(Math.min(current_year1, current_year2), 1995);
-      current_year2 = Math.min(Math.max(current_year1, current_year2), 2012);
+      current_year1 = 1995;
+      current_year2 = 2012;
 
     } else { // "sitc"
 
-      current_year1 = Math.max(Math.min(current_year1, current_year2), 1962);
-      current_year2 = Math.min(Math.max(current_year1, current_year2), 2010);
 
+      current_year1 = 1962;
+      current_year2 = 2010;
     }
   }
 
@@ -269,11 +269,6 @@ function update_viz(viz) {
         url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";
 
       } else {
-        if(parseInt(current_year1)>parseInt(current_year2)) {
-          var tmp = current_year1;
-          current_year1 = current_year2;
-          current_year2 = tmp;
-        }
 
         url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"."+current_year2+".2/";
       }
