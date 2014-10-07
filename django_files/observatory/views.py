@@ -206,8 +206,7 @@ def explore(
     year1_list, year2_list = None, None
     warning, title = None, None
     data_as_text = {}
-    # What is actually being shown on the page
-    item_type = "product"
+
     prod_or_partner = "partner"
 
     # To make sure it cannot be another product class
@@ -298,6 +297,13 @@ def explore(
 
     app_type = helpers.get_app_type(country1, country2, product, year)
 
+    # What is actually being shown on the page
+    if app_type == "csay":
+      item_type = "country"
+    else:
+      item_type = "product"
+
+
     # Some countries need "the" before their names
     list_countries_the = set(
         ("Cayman Islands",
@@ -353,7 +359,7 @@ def explore(
         if app_type in ["cspy", "sapy"]:
             prod_or_partner = "product"
         elif app_type == "casy":
-            if app_name in ("stacked", "map", "tree_map", "pie_scatter", "product_space", "country_space"):
+            if app_name in ("stacked", "map", "tree_map", "pie_scatter", "product_space", "country_space", "rankings", "scatterplot"):
                 prod_or_partner = "product"
 
     # Record views in redis for "newest viewed pages" visualization
