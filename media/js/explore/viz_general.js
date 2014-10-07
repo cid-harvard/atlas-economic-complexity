@@ -86,6 +86,8 @@ var flat_data,
         break;
       
       case "pie_scatter":
+      case "scatterplot":
+
         set_depth(nest_level)
         break;
     }
@@ -316,7 +318,7 @@ var flat_data,
         attr=raw["attr"];
         attr_data = raw["attr_data"];
         app_type= raw["app_type"];
-        prod_class = raw["prod_class"];
+        //prod_class = raw["prod_class"];
         region_attrs = {};
 
         flat_data = construct_nest(flat_data);
@@ -1054,16 +1056,16 @@ var flat_data,
       .type("pie_scatter")
       .height(height)
       .width(width)
-      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .tooltip_info({"short": ["share", "value"], "long": ["share", "value"]})
       .text_var("name")
       .id_var("id")
       .attrs(attr)
       .xaxis_var("distance")
-      .yaxis_var("share")
-      .value_var("world_trade")
+      .yaxis_var("value")
+      .value_var("value")
       .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
-      .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
+      .nesting_aggs({"share":"mean", "value":"mean"})
       .depth("nesting_2")
       .text_format(txt_format)
       .number_format(num_format)
@@ -1078,12 +1080,13 @@ var flat_data,
 
     flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
   
-    flat_data.map(function(d){
-      d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+    flat_data.map(function(d) {
+      if(typeof(world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]) != "undefined") {
+        d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+      } 
       d.id = String(d.id)
     })
   
-
  } else {
 
     viz
@@ -1095,7 +1098,7 @@ var flat_data,
       .id_var("id")
       .attrs(region_attrs)
       .xaxis_var("share")
-      .yaxis_var("value")
+      .yaxis_var("values")
       .value_var("share")
       .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
@@ -1767,8 +1770,8 @@ var flat_data,
       flat_data=raw["data"];
       attr=raw["attr"];
       attr_data = raw["attr_data"];
-      app_type= raw["app_type"];
-      prod_class = raw["prod_class"];
+      //app_type= raw["app_type"];
+      //prod_class = raw["prod_class"];
       region_attrs = {};
 
       if(error){

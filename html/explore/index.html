@@ -688,13 +688,13 @@
           {% if app_name == "product_space" %}
 
           <div class="vizControl col-md-4">
-            <span class="definition" style="font-weight:bold;">Product Class.</span>
+            <span class="definition" style="font-weight:bold;">Product Class:</span>
             <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
               <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
-                <input type="radio" name="product_class" value="sitc4"> SITC4
+                <input type="radio" onchange="queryActivated=true;queryParameters['prod_class'] = 'sitc4';updateURLQueryParameters();prod_class='sitc4';update_viz(app_name);"> SITC4
               </label>
                <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-                <input type="radio" name="product_class" value="hs4"> HS4
+                <input type="radio" onchange="queryActivated=true;queryParameters['prod_class'] = 'hs4';updateURLQueryParameters();prod_class='hs4';update_viz(app_name);"> HS4
               </label>
             </div>
           </div>
