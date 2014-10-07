@@ -125,9 +125,10 @@ def explore(
     lang = helpers.get_language(request)['code']
     crawler = request.GET.get("_escaped_fragment_", False)
 
-    prod_class = request.session['product_classification'] if\
-        'product_classification' in request.session else "hs4"
-    prod_class = request.GET.get("prod_class", prod_class)
+    # Get session / request vars
+    prod_class = request.GET.get("prod_class",
+                                 request.session.get('product_classification',
+                                                     'hs4'))
 
     options = request.GET.copy()
     options["lang"] = lang
