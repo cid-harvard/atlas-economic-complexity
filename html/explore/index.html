@@ -625,12 +625,12 @@
 
             <div class="product_class" style="float:left;">
               <span class="definition" style="font-weight:bold;">X-Axis </span>
-              <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
-                <label class="btn btn-default active" id="complexity" name="yvar" >
-                  <input type="radio" id="complexity" name="yvar"> Distance
+              <div class="btn-group" data-toggle="buttons" style="margin-right:10px;">
+                <label class="btn btn-default active" >
+                  <input type="radio" id="complexity" onchange="d3.select('#viz').call(viz.xaxis_var('distance'))"> Distance
                 </label>
-                <label class="btn btn-default" id="opp_gain" >
-                  <input type="radio" id="opp_gain" name="yvar"> PCI
+                <label class="btn btn-default">
+                  <input type="radio" name="yvar" onchange="d3.select('#viz').call(viz.xaxis_var('pci'))"> PCI
                 </label>
               </div>
             </div>
@@ -639,6 +639,9 @@
               <span class="definition" style="font-weight:bold;">Y-Axis </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
                 <label class="btn btn-default active" id="complexity" name="yvar" >
+                  <input type="radio" id="complexity" name="yvar"> Current
+                </label>
+                <label class="btn btn-default" id="complexity" name="yvar" >
                   <input type="radio" id="complexity" name="yvar"> Complexity
                 </label>
                 <label class="btn btn-default" id="opp_gain" >
@@ -650,10 +653,7 @@
             <div class="product_class" style="float:left;">
               <span class="definition">Size by: </span>
               <div class="btn-group node_size" data-toggle="buttons" >
-                <label type="button" class="btn btn-default active" value="none">
-                  <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
-                </label>
-                <label type="button" class="btn btn-default" value="world_trade">
+                <label type="button" class="btn btn-default active" value="world_trade">
                   <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
                 </label>
               </div>
@@ -664,23 +664,8 @@
           <div class="product_class" style="float:left;">
             <span class="definition">Color by: </span>
             <div class="btn-group node_size" data-toggle="buttons" >
-              <label type="button" class="btn btn-default active" value="none">
-                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
-              </label>
-              <label type="button" class="btn btn-default" value="world_trade">
-                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> Category
-              </label>
-            </div>
-          </div>
-
-          <div class="product_class" style="float:left;">
-            <span class="definition">Scale: </span>
-            <div class="btn-group node_size" data-toggle="buttons" >
-              <label type="button" class="btn btn-default active" value="none">
-                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> Linear
-              </label>
-              <label type="button" class="btn btn-default" value="world_trade">
-                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> Log
+              <label type="button" class="btn btn-default active" value="world_trade">
+                <input type="radio" name="node_size" value="world_trade"> Category
               </label>
             </div>
           </div>
