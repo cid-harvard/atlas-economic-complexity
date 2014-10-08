@@ -1,8 +1,11 @@
 from atlas import celery_tasks
-import tempfile
-import os
+
+import celery
+from django.conf import settings
 
 import logging
+import os
+import tempfile
 
 logger = logging.getLogger(__name__)
 
@@ -47,11 +50,16 @@ class PrerenderMiddleware(object):
 
         # Try to prerender, if it times out just return the original
         try:
-            async_result = celery_tasks.prerender.delay(url)
-            response.content = async_result.get(timeout=10)
+            prerender = celery_tasks.prerender.s(url)
+            get_image = celery_tasks\
+                .prerendered_html_to_image.s(name="hello.png",
+                                             path=settings.STATIC_IMAGE_PATH)
+            result = celery.chain(prerender, get_image)()
+            response.content = result.parent.get(timeout=10)
+            return response
         except Exception:
-            async_result.forget()
+            result.forget()
             logger.exception()
+            raise
         finally:
             temp.close()
-            return response
