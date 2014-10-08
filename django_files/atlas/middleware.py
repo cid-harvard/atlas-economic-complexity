@@ -1,4 +1,5 @@
 from atlas import celery_tasks
+from observatory import helpers
 
 import celery
 from django.conf import settings
@@ -51,15 +52,17 @@ class PrerenderMiddleware(object):
         # Try to prerender, if it times out just return the original
         try:
             prerender = celery_tasks.prerender.s(url)
+            filename = helpers.url_to_hash(request.path, request.GET) + ".png"
             get_image = celery_tasks\
-                .prerendered_html_to_image.s(name="hello.png",
+                .prerendered_html_to_image.s(name=filename,
                                              path=settings.STATIC_IMAGE_PATH)
             result = celery.chain(prerender, get_image)()
             response.content = result.parent.get(timeout=10)
             return response
         except Exception:
-            result.forget()
-            logger.exception()
+            if "result" in locals():
+                result.forget()
+            logger.exception("Error occurred while prerendering page.")
             raise
         finally:
             temp.close()
