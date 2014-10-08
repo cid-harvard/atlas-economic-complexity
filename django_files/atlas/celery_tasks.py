@@ -59,7 +59,7 @@ def extract_svg(source):
 
 # ----------- Main ------------
 
-@app.task
+@app.task(soft_time_limit=30)
 def prerender(url):
     """ Pass in a URL to get the post-javascript-execution fully rendered html
     of the page. You might need to put in a snippet like this into the page to
@@ -119,7 +119,7 @@ def prerender(url):
     return page_source
 
 
-@app.task
+@app.task(soft_time_limit=5)
 def prerendered_html_to_image(html, name, path=None):
 
     if path is not None:
