@@ -373,7 +373,6 @@ var flat_data,
   
   set_map_year = function(arg) {
 
-    console.log(arg+"", "->", app.year()+"")
     var map_title = d3.select('#text_title').text();
     map_title = map_title.replace(app.year(), arg);
     d3.select('#text_title').text(map_title);
@@ -1189,92 +1188,21 @@ var flat_data,
 
     }
 
+
     d3.select("#viz").call(viz)
 
-/*
-    var canvas = d3.select("#viz").append("div").style({"font-size": "14px", "overflow-y": "scroll", "overflow": "-moz-scrollbars-vertical", "height":"500px"})//.html("Rankings")
-
-    d3.select("#loader").style("display", "none");  
-
-    var year_data = flat_data.filter(function(d, i) { if(d.year==parseInt(year)) return d;});
-
-    // Create
-    var table = canvas.append("table").attr("class", "sortable"),
-        thead = table.append("thead"),
-        tbody = table.append("tbody");
-
-    thead.append("tr").selectAll("th")
-      .data(function() {
-        if(item_type=="country")
-          return ["Rank", "", "Abbrv", "Country", "Complexity", "Share", "Value"]
-        else
-          return ["Rank", "", "HS4", "Product", "Complexity", "Share", "Value"];
-
-      })
-      .enter()
-      .append("th")
-      .attr("class", function(d) {
-        if(d=="Rank")
-          return "sorttable_sorted"
-        else 
-          return "sort"
-      })
-      .text(function(d) { return d; });
-
-    var rows = tbody.selectAll("tr")
-      .data(d3.range(year_data.length))
-      .enter()
-      .append("tr")
-      .classed("odd", function(d, i) { return (i % 2) == 0; });
-
-    var cells = rows.selectAll("td")
-      .data(function(d) { 
-        if(item_type=="country")
-          return [d+1, '<img src="/media/img/icons/flag_'+year_data[d].abbrv+'.png" alt="Flag of {{country.name}}"  style="width: 20px;" /> ', year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
-        else
-          return [d+1, '<img src="/media/img/icons/community_'+year_data[d].community_id+'.png" alt="{{p.1}}" style="width: 20px;" />', year_data[d].abbrv, year_data[d].name, year_data[d].pci, year_data[d].share, year_data[d].value];
-      })
-      .enter()
-      .append("td")
-      .html(function(d, i) { return d; })
-
-    timeline = Slider()
-          .callback('set_rankings_year')
-          .initial_value(parseInt(year))
-          .max_width(670)
-          .title("")
-
-    d3.select("#ui_bottom").append("div")
-      .attr("class","slider")
-      .datum(years_available)
-      .call(timeline)
-
-    if (!embed) {
-      
+    if(!embed) {
+    
       key = Key()
         .classification(rawData.class)
         .showing(item_type)
-      
-      at = d3.values(attr_data)
-      if(item_type!="country")
-      {
-        at = at.filter(function(d){return d.ps_size != undefined})
-      }
-      
+
       d3.select(".key")
-        .datum(at)
+        .datum(attr_data)
         .call(key);
 
-      controls = Controls()
-        .app_type(app_name)
-        .year(year)
-      
-      d3.select("#tool_pane")
-        .datum(rawData)
-        .call(controls); 
-    } 
-
-*/
+    }
+    
   }
 
   rings = function( req ) {
