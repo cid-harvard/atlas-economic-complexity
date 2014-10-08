@@ -109,6 +109,7 @@ def prerender(url):
     page_source = driver.page_source
 
     if not viz_loaded or (errors and len(errors) > 0):
+        driver.quit()
         raise RuntimeError("""The url could not be prerendered. Visualization
                            loaded within timeout = %s, JS errors = %s""" %
                            (viz_loaded, errors))
