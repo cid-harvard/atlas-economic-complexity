@@ -85,28 +85,31 @@ def prerender(url):
     driver.set_page_load_timeout(MAX_WAIT)
     driver.set_script_timeout(MAX_WAIT)
 
-    # Load URL in webdriver
     viz_loaded = True
-    driver.get(url)
-
-    # Check app type and decide on how to wait for the script to end
-    app_type = driver.execute_script("return window.app_name;")
-    if app_type == "tree_map":
-        wait_condition = visualization_loaded((By.CSS_SELECTOR,
-                                               "#viz svg tspan"))
-    else:
-        wait_condition = expected_conditions.\
-            invisibility_of_element_located((By.CSS_SELECTOR, "#loader"))
+    errors = None
 
     try:
+        # Load URL in webdriver
+        driver.get(url)
+
+        # Check app type and decide on how to wait for the script to end
+        app_type = driver.execute_script("return window.app_name;")
+        if app_type == "tree_map":
+            wait_condition = visualization_loaded((By.CSS_SELECTOR,
+                                                   "#viz svg tspan"))
+        else:
+            wait_condition = expected_conditions.\
+                invisibility_of_element_located((By.CSS_SELECTOR, "#loader"))
+
         WebDriverWait(driver, timeout=5,
                       poll_frequency=1).until(wait_condition)
+
+        # Collect JS errors
+        errors = driver.execute_script("return window.jsErrors;")
+        page_source = driver.page_source
+
     except TimeoutException:
         viz_loaded = False
-
-    # Collect JS errors
-    errors = driver.execute_script("return window.jsErrors;")
-    page_source = driver.page_source
 
     if not viz_loaded or (errors and len(errors) > 0):
         driver.quit()
