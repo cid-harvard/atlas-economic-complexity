@@ -1,3 +1,4 @@
+import cairosvg
 from celery import Celery
 from celery.utils.log import get_task_logger
 from selenium import webdriver
@@ -6,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
+import os
 import re
 
 
@@ -114,3 +116,15 @@ def prerender(url):
     driver.quit()
 
     return page_source
+
+
+@app.task
+def prerendered_html_to_image(html, name, path=None):
+
+    if path is not None:
+        name = os.path.join(path, name)
+
+    logger.info(name)
+    svg = extract_svg(html)
+    cairosvg.svg2png(bytestring=svg, write_to=name)
+    return svg[:10]
