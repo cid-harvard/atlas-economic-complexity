@@ -32,14 +32,15 @@ ranking.viz = function() {
 
     selection.each(function(data_passed) {
 
-      if (vars.dev) console.log("Update", vars.year)
+      if (vars.dev) console.log("Update", vars.year, vars.solo)
 
 			var level = parseInt(vars.depth[vars.depth.length-1]);
 
+
+			// Treating nesting levels
 			if(level == 0) {
 
-				console.log("level 0", vars.data)
-
+				if (vars.dev) console.log("level 0", vars.data)
 
 			  var xaxis_sums = d3.nest()
 			    .key(function(d){return d[vars.xaxis_var] })
@@ -57,7 +58,11 @@ ranking.viz = function() {
 
 		  vars.table = vars.parent.selectAll("table").data([vars.data.filter(function(d) { 
 
-		  	return d.year == vars.year;
+		  	// TODO: support filter by individual elements and not only community
+		  	if(vars.solo.length > 0)
+					return (d.year == vars.year) && (d.community_name == vars.solo[0]);
+		  	else
+			  	return d.year == vars.year;
 	
 		  })]);
 
@@ -68,10 +73,6 @@ ranking.viz = function() {
 
 		  var caption = vars.table_enter.append("caption")
     										.html(vars.title);
-
-			var drag = d3.behavior.drag()
-			    .origin(function(d) { return d; })
-			    .on("drag", function() { console.log("start drag"); });
 
 	    // Create
 	    var thead = vars.table_enter.append("thead"),
@@ -91,12 +92,11 @@ ranking.viz = function() {
 	      })
 	      .text(function(d) { return d; })
 
-	      thead.selectAll("tr > th")
-
+	     thead.selectAll("tr > th")
 	      .on("click", function(d,i) {
 
 	        var is_sorted = (d3.select(this).attr("id") == "sorted");
-	        console.log("click")
+	        if (vars.dev) console.log("click")
 	        // toggle sorted state
 	        thead.selectAll("th").attr("id", null);
 	        if (!is_sorted)
@@ -106,7 +106,7 @@ ranking.viz = function() {
 	        if (i == 0) {
 	          tbody.selectAll("tr").sort(function(a, b) {
 	            var ascending = d3.ascending(a.value, b.value);
-	            console.log(ascending, a[1], a)
+	            if (vars.dev) console.log(ascending, a[1], a)
 	            return is_sorted ? ascending : - ascending;
 	          });
 	        } else if (i == 2 || i == 3) {
@@ -124,17 +124,27 @@ ranking.viz = function() {
 				  	.classed("odd", function(d, i) { return (i % 2) == 0; })
 				    .selectAll("td")
 				    .data(function(d) {
-				    	return vars.columns.map(function(c) { return d[c]})
+
+				    	return vars.columns.map(function(c) { 
+
+					    	if(c == "name") {
+					        if(item_type=="country")
+					          return '<a href="/country/'+d.abbrv+'/"><img src="/media/img/icons/flag_'+d.abbrv+'.png" style="width: 20px;">'+d[c]+'</a>';
+					        else
+					          return '<a href="/hs4/'+d.abbrv+'/"><img src="/media/img/icons/community_'+d.community_id+'.png" style="width: 20px;">'+d[c]+'</a>';
+					      } else {
+					    		return d[c];
+					    	}
+				    	})
 				    	//return d3.values(d); 
 				    })
 				  .enter().append("td")
 				    .style("border", "1px black solid")
 				    .style("padding", "5px")
-				    //.on("mouseover", function(){ d3.select(this).style("background-color", "aliceblue")})
-				    //.on("mouseout", function(){ d3.select(this).style("background-color", "white")})
-				    .text(function(d){ return d; })
+				    .html(function(d){ 
+				    	return d; 
+				    })
 				    .style("font-size", "12px")
-
 
       });
   }
@@ -197,6 +207,8 @@ ranking.viz = function() {
 chart.solo = function(x) {
   if (!arguments.length) return vars.solo;
 
+  console.log("solo", x);
+
   if(x instanceof Array) {
     vars.solo = x;
   } else {
@@ -229,9 +241,8 @@ chart.depth = function(x) {
 };
 
 
-  console.log("update", chart.year())
-
+if (vars.dev)   console.log("update", chart.year())
 
   return chart;
 
-	}
+}
