@@ -1,62 +1,60 @@
-#tool_pane{
-	text-align: center;
-	width: 55px;
-	padding:0 10px;
+#tool_pane {
+    width: 55px;
+    padding: 0 10px;
+    text-align: center;
 }
-#tool_pane h4{
-	padding: 0px;
+#tool_pane h4 {
+    padding: 0;
 }
-#tool_pane  a{
-
-	display: block;
-}
-
-i{
-	color:#666;
-	padding-bottom: 20px;
-	display: block;
-	margin: 0 auto;
+#tool_pane  a {
+    display: block;
 }
 
-i:not(.refreshIcon):hover{
-	color:#A41034;
+i {
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    color: #666666;
 }
-#downloadPlaceholder{
 
+i:not(.refreshIcon):hover {
+    color: #A41034;
 }
-#downloadPlaceholder i{
-	padding-bottom: 0px;
+
+#downloadPlaceholder i {
+    padding-bottom: 0;
 }
-span.dlOption{
-	padding-bottom: 20px;
+span.dlOption {
+    padding-bottom: 20px;
 }
-.dlOption p{
-	margin: 0;
-	margin-bottom: 10px;
-	color: #666;
+.dlOption p {
+    margin: 0;
+    margin-bottom: 10px;
+    color: #666666;
 }
-.dlOption a p:hover{
-	text-decoration: none;
-	cursor: default;
+.dlOption a p:hover {
+    cursor: default;
+    text-decoration: none;
 }
-.bootstro-backdrop{
-	z-index: 1000;
+.bootstro-backdrop {
+    z-index: 1000;
 }
-#moreOptions{
-	display: none;
-	margin-bottom: 20px;
+#moreOptions {
+    display: none;
+    margin-bottom: 20px;
 }
-#moContainer{
-	width: 100%;
+#moContainer {
+    width: 100%;
 }
-#showMore{
-	cursor: pointer;
-	width: 120px;
-	margin: 0 auto;
-	margin-bottom: 20px;
-	font-weight: bold;	
+#showMore {
+    font-weight: bold;
+    width: 120px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    cursor: pointer;
 }
-#showMore:hover, .moreActive{
-	color:#A41034;
-	text-decoration: underline;
+#showMore:hover,
+ .moreActive {
+    text-decoration: underline;
+    color: #A41034;
 }

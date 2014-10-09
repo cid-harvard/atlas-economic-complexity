@@ -1,1 +1,1261 @@
-#country1_select_chosen .chosen-results li.active-result[data-option-array-index='1'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='1'] { background: url('../img/icons/flag_afg.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='2'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='2'] { background: url('../img/icons/flag_alb.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='3'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='3'] { background: url('../img/icons/flag_dza.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='4'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='4'] { background: url('../img/icons/flag_and.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='5'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='5'] { background: url('../img/icons/flag_ago.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='6'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='6'] { background: url('../img/icons/flag_aia.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='7'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='7'] { background: url('../img/icons/flag_ata.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='8'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='8'] { background: url('../img/icons/flag_atg.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='9'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='9'] { background: url('../img/icons/flag_arg.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='10'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='10'] { background: url('../img/icons/flag_arm.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='11'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='11'] { background: url('../img/icons/flag_abw.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='12'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='12'] { background: url('../img/icons/flag_aus.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='13'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='13'] { background: url('../img/icons/flag_aut.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='14'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='14'] { background: url('../img/icons/flag_aze.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='15'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='15'] { background: url('../img/icons/flag_bhs.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='16'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='16'] { background: url('../img/icons/flag_bhr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='17'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='17'] { background: url('../img/icons/flag_bgd.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='18'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='18'] { background: url('../img/icons/flag_brb.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='19'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='19'] { background: url('../img/icons/flag_blr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='20'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='20'] { background: url('../img/icons/flag_bel.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='21'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='21'] { background: url('../img/icons/flag_blz.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='22'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='22'] { background: url('../img/icons/flag_ben.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='23'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='23'] { background: url('../img/icons/flag_bmu.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='24'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='24'] { background: url('../img/icons/flag_btn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='25'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='25'] { background: url('../img/icons/flag_bol.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='26'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='26'] { background: url('../img/icons/flag_bih.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='27'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='27'] { background: url('../img/icons/flag_bwa.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='28'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='28'] { background: url('../img/icons/flag_bra.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='29'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='29'] { background: url('../img/icons/flag_brn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='30'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='30'] { background: url('../img/icons/flag_bgr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='31'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='31'] { background: url('../img/icons/flag_bfa.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='32'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='32'] { background: url('../img/icons/flag_bdi.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='33'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='33'] { background: url('../img/icons/flag_khm.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='34'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='34'] { background: url('../img/icons/flag_cmr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='35'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='35'] { background: url('../img/icons/flag_can.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='36'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='36'] { background: url('../img/icons/flag_cpv.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='37'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='37'] { background: url('../img/icons/flag_cym.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='38'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='38'] { background: url('../img/icons/flag_caf.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='39'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='39'] { background: url('../img/icons/flag_tcd.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='40'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='40'] { background: url('../img/icons/flag_chi.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='41'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='41'] { background: url('../img/icons/flag_chl.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='42'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='42'] { background: url('../img/icons/flag_chn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='43'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='43'] { background: url('../img/icons/flag_col.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='44'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='44'] { background: url('../img/icons/flag_com.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='45'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='45'] { background: url('../img/icons/flag_cog.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='46'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='46'] { background: url('../img/icons/flag_cod.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='47'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='47'] { background: url('../img/icons/flag_cri.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='48'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='48'] { background: url('../img/icons/flag_civ.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='49'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='49'] { background: url('../img/icons/flag_hrv.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='50'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='50'] { background: url('../img/icons/flag_cub.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='51'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='51'] { background: url('../img/icons/flag_cyp.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='52'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='52'] { background: url('../img/icons/flag_cze.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='53'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='53'] { background: url('../img/icons/flag_dnk.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='54'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='54'] { background: url('../img/icons/flag_dji.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='55'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='55'] { background: url('../img/icons/flag_dma.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='56'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='56'] { background: url('../img/icons/flag_dom.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='57'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='57'] { background: url('../img/icons/flag_ecu.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='58'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='58'] { background: url('../img/icons/flag_egy.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='59'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='59'] { background: url('../img/icons/flag_slv.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='60'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='60'] { background: url('../img/icons/flag_gnq.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='61'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='61'] { background: url('../img/icons/flag_eri.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='62'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='62'] { background: url('../img/icons/flag_est.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='63'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='63'] { background: url('../img/icons/flag_eth.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='64'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='64'] { background: url('../img/icons/flag_fro.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='65'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='65'] { background: url('../img/icons/flag_flk.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='66'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='66'] { background: url('../img/icons/flag_fji.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='67'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='67'] { background: url('../img/icons/flag_fin.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='68'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='68'] { background: url('../img/icons/flag_ymd.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='69'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='69'] { background: url('../img/icons/flag_fra.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='70'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='70'] { background: url('../img/icons/flag_guf.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='71'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='71'] { background: url('../img/icons/flag_gab.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='72'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='72'] { background: url('../img/icons/flag_gmb.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='73'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='73'] { background: url('../img/icons/flag_geo.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='74'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='74'] { background: url('../img/icons/flag_deu.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='75'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='75'] { background: url('../img/icons/flag_gha.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='76'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='76'] { background: url('../img/icons/flag_grc.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='77'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='77'] { background: url('../img/icons/flag_grl.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='78'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='78'] { background: url('../img/icons/flag_grd.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='79'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='79'] { background: url('../img/icons/flag_glp.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='80'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='80'] { background: url('../img/icons/flag_gum.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='81'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='81'] { background: url('../img/icons/flag_gtm.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='82'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='82'] { background: url('../img/icons/flag_gin.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='83'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='83'] { background: url('../img/icons/flag_gnb.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='84'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='84'] { background: url('../img/icons/flag_guy.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='85'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='85'] { background: url('../img/icons/flag_hti.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='86'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='86'] { background: url('../img/icons/flag_hnd.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='87'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='87'] { background: url('../img/icons/flag_hkg.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='88'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='88'] { background: url('../img/icons/flag_hun.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='89'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='89'] { background: url('../img/icons/flag_isl.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='90'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='90'] { background: url('../img/icons/flag_ind.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='91'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='91'] { background: url('../img/icons/flag_idn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='92'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='92'] { background: url('../img/icons/flag_irn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='93'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='93'] { background: url('../img/icons/flag_irq.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='94'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='94'] { background: url('../img/icons/flag_irl.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='95'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='95'] { background: url('../img/icons/flag_isr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='96'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='96'] { background: url('../img/icons/flag_ita.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='97'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='97'] { background: url('../img/icons/flag_jam.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='98'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='98'] { background: url('../img/icons/flag_jpn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='99'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='99'] { background: url('../img/icons/flag_jor.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='100'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='100'] { background: url('../img/icons/flag_kaz.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='101'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='101'] { background: url('../img/icons/flag_ken.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='102'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='102'] { background: url('../img/icons/flag_kir.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='103'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='103'] { background: url('../img/icons/flag_prk.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='104'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='104'] { background: url('../img/icons/flag_kor.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='105'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='105'] { background: url('../img/icons/flag_kwt.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='106'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='106'] { background: url('../img/icons/flag_kgz.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='107'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='107'] { background: url('../img/icons/flag_lao.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='108'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='108'] { background: url('../img/icons/flag_lva.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='109'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='109'] { background: url('../img/icons/flag_lbn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='110'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='110'] { background: url('../img/icons/flag_lso.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='111'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='111'] { background: url('../img/icons/flag_lbr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='112'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='112'] { background: url('../img/icons/flag_lby.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='113'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='113'] { background: url('../img/icons/flag_ltu.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='114'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='114'] { background: url('../img/icons/flag_lux.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='115'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='115'] { background: url('../img/icons/flag_mac.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='116'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='116'] { background: url('../img/icons/flag_mkd.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='117'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='117'] { background: url('../img/icons/flag_mdg.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='118'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='118'] { background: url('../img/icons/flag_mwi.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='119'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='119'] { background: url('../img/icons/flag_mys.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='120'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='120'] { background: url('../img/icons/flag_mdv.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='121'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='121'] { background: url('../img/icons/flag_mli.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='122'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='122'] { background: url('../img/icons/flag_mhl.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='123'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='123'] { background: url('../img/icons/flag_mtq.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='124'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='124'] { background: url('../img/icons/flag_mrt.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='125'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='125'] { background: url('../img/icons/flag_mus.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='126'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='126'] { background: url('../img/icons/flag_myt.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='127'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='127'] { background: url('../img/icons/flag_mex.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='128'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='128'] { background: url('../img/icons/flag_fsm.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='129'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='129'] { background: url('../img/icons/flag_mda.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='130'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='130'] { background: url('../img/icons/flag_mng.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='131'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='131'] { background: url('../img/icons/flag_mne.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='132'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='132'] { background: url('../img/icons/flag_mar.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='133'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='133'] { background: url('../img/icons/flag_moz.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='134'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='134'] { background: url('../img/icons/flag_mmr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='135'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='135'] { background: url('../img/icons/flag_nam.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='136'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='136'] { background: url('../img/icons/flag_npl.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='137'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='137'] { background: url('../img/icons/flag_nld.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='138'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='138'] { background: url('../img/icons/flag_ncl.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='139'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='139'] { background: url('../img/icons/flag_nzl.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='140'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='140'] { background: url('../img/icons/flag_nic.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='141'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='141'] { background: url('../img/icons/flag_ner.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='142'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='142'] { background: url('../img/icons/flag_nga.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='143'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='143'] { background: url('../img/icons/flag_nfk.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='144'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='144'] { background: url('../img/icons/flag_nor.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='145'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='145'] { background: url('../img/icons/flag_omn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='146'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='146'] { background: url('../img/icons/flag_pak.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='147'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='147'] { background: url('../img/icons/flag_pse.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='148'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='148'] { background: url('../img/icons/flag_pan.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='149'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='149'] { background: url('../img/icons/flag_png.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='150'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='150'] { background: url('../img/icons/flag_pry.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='151'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='151'] { background: url('../img/icons/flag_per.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='152'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='152'] { background: url('../img/icons/flag_phl.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='153'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='153'] { background: url('../img/icons/flag_pol.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='154'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='154'] { background: url('../img/icons/flag_prt.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='155'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='155'] { background: url('../img/icons/flag_pri.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='156'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='156'] { background: url('../img/icons/flag_qat.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='157'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='157'] { background: url('../img/icons/flag_rou.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='158'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='158'] { background: url('../img/icons/flag_rus.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='159'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='159'] { background: url('../img/icons/flag_rwa.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='160'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='160'] { background: url('../img/icons/flag_spm.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='161'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='161'] { background: url('../img/icons/flag_stp.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='162'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='162'] { background: url('../img/icons/flag_sau.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='163'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='163'] { background: url('../img/icons/flag_sen.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='164'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='164'] { background: url('../img/icons/flag_srb.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='165'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='165'] { background: url('../img/icons/flag_syc.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='166'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='166'] { background: url('../img/icons/flag_sle.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='167'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='167'] { background: url('../img/icons/flag_sgp.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='168'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='168'] { background: url('../img/icons/flag_svk.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='169'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='169'] { background: url('../img/icons/flag_svn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='170'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='170'] { background: url('../img/icons/flag_slb.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='171'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='171'] { background: url('../img/icons/flag_som.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='172'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='172'] { background: url('../img/icons/flag_zaf.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='173'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='173'] { background: url('../img/icons/flag_ssd.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='174'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='174'] { background: url('../img/icons/flag_esp.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='175'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='175'] { background: url('../img/icons/flag_lka.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='176'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='176'] { background: url('../img/icons/flag_shn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='177'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='177'] { background: url('../img/icons/flag_kna.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='178'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='178'] { background: url('../img/icons/flag_lca.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='179'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='179'] { background: url('../img/icons/flag_vct.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='180'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='180'] { background: url('../img/icons/flag_sdn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='181'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='181'] { background: url('../img/icons/flag_sur.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='182'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='182'] { background: url('../img/icons/flag_swz.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='183'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='183'] { background: url('../img/icons/flag_swe.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='184'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='184'] { background: url('../img/icons/flag_che.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='185'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='185'] { background: url('../img/icons/flag_syr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='186'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='186'] { background: url('../img/icons/flag_twn.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='187'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='187'] { background: url('../img/icons/flag_tjk.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='188'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='188'] { background: url('../img/icons/flag_tza.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='189'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='189'] { background: url('../img/icons/flag_tha.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='190'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='190'] { background: url('../img/icons/flag_tgo.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='191'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='191'] { background: url('../img/icons/flag_tto.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='192'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='192'] { background: url('../img/icons/flag_tun.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='193'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='193'] { background: url('../img/icons/flag_tur.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='194'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='194'] { background: url('../img/icons/flag_tkm.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='195'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='195'] { background: url('../img/icons/flag_tca.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='196'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='196'] { background: url('../img/icons/flag_uga.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='197'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='197'] { background: url('../img/icons/flag_ukr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='198'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='198'] { background: url('../img/icons/flag_are.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='199'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='199'] { background: url('../img/icons/flag_gbr.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='200'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='200'] { background: url('../img/icons/flag_usa.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='201'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='201'] { background: url('../img/icons/flag_ury.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='202'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='202'] { background: url('../img/icons/flag_uzb.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='203'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='203'] { background: url('../img/icons/flag_ven.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='204'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='204'] { background: url('../img/icons/flag_vnm.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='205'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='205'] { background: url('../img/icons/flag_vir.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='206'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='206'] { background: url('../img/icons/flag_wbg.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='207'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='207'] { background: url('../img/icons/flag_esh.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='208'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='208'] { background: url('../img/icons/flag_yem.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='209'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='209'] { background: url('../img/icons/flag_zmb.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; } #country1_select_chosen .chosen-results li.active-result[data-option-array-index='210'], #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='210'] { background: url('../img/icons/flag_zwe.png') no-repeat; background-size: 25px; padding-left: 30px; margin-top: -2px; }
+#country1_select_chosen .chosen-results li.active-result[data-option-array-index='1'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='1'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_afg.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='2'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='2'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_alb.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='3'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='3'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_dza.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='4'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='4'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_and.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='5'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='5'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ago.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='6'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='6'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_aia.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='7'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='7'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ata.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='8'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='8'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_atg.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='9'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='9'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_arg.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='10'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='10'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_arm.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='11'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='11'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_abw.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='12'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='12'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_aus.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='13'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='13'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_aut.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='14'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='14'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_aze.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='15'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='15'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bhs.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='16'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='16'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bhr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='17'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='17'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bgd.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='18'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='18'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_brb.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='19'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='19'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_blr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='20'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='20'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bel.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='21'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='21'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_blz.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='22'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='22'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ben.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='23'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='23'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bmu.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='24'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='24'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_btn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='25'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='25'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bol.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='26'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='26'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bih.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='27'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='27'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bwa.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='28'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='28'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bra.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='29'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='29'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_brn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='30'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='30'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bgr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='31'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='31'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bfa.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='32'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='32'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_bdi.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='33'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='33'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_khm.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='34'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='34'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_cmr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='35'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='35'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_can.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='36'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='36'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_cpv.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='37'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='37'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_cym.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='38'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='38'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_caf.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='39'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='39'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tcd.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='40'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='40'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_chi.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='41'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='41'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_chl.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='42'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='42'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_chn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='43'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='43'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_col.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='44'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='44'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_com.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='45'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='45'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_cog.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='46'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='46'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_cod.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='47'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='47'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_cri.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='48'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='48'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_civ.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='49'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='49'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_hrv.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='50'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='50'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_cub.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='51'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='51'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_cyp.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='52'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='52'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_cze.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='53'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='53'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_dnk.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='54'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='54'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_dji.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='55'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='55'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_dma.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='56'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='56'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_dom.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='57'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='57'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ecu.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='58'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='58'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_egy.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='59'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='59'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_slv.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='60'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='60'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_gnq.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='61'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='61'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_eri.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='62'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='62'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_est.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='63'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='63'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_eth.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='64'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='64'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_fro.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='65'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='65'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_flk.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='66'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='66'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_fji.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='67'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='67'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_fin.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='68'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='68'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ymd.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='69'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='69'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_fra.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='70'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='70'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_guf.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='71'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='71'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_gab.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='72'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='72'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_gmb.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='73'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='73'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_geo.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='74'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='74'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_deu.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='75'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='75'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_gha.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='76'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='76'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_grc.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='77'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='77'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_grl.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='78'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='78'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_grd.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='79'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='79'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_glp.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='80'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='80'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_gum.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='81'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='81'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_gtm.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='82'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='82'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_gin.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='83'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='83'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_gnb.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='84'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='84'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_guy.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='85'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='85'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_hti.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='86'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='86'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_hnd.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='87'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='87'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_hkg.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='88'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='88'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_hun.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='89'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='89'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_isl.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='90'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='90'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ind.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='91'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='91'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_idn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='92'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='92'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_irn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='93'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='93'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_irq.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='94'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='94'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_irl.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='95'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='95'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_isr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='96'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='96'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ita.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='97'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='97'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_jam.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='98'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='98'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_jpn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='99'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='99'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_jor.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='100'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='100'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_kaz.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='101'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='101'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ken.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='102'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='102'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_kir.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='103'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='103'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_prk.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='104'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='104'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_kor.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='105'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='105'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_kwt.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='106'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='106'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_kgz.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='107'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='107'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_lao.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='108'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='108'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_lva.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='109'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='109'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_lbn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='110'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='110'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_lso.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='111'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='111'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_lbr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='112'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='112'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_lby.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='113'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='113'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ltu.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='114'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='114'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_lux.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='115'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='115'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mac.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='116'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='116'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mkd.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='117'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='117'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mdg.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='118'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='118'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mwi.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='119'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='119'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mys.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='120'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='120'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mdv.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='121'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='121'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mli.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='122'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='122'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mhl.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='123'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='123'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mtq.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='124'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='124'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mrt.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='125'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='125'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mus.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='126'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='126'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_myt.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='127'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='127'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mex.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='128'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='128'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_fsm.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='129'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='129'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mda.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='130'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='130'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mng.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='131'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='131'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mne.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='132'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='132'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mar.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='133'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='133'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_moz.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='134'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='134'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_mmr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='135'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='135'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_nam.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='136'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='136'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_npl.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='137'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='137'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_nld.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='138'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='138'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ncl.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='139'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='139'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_nzl.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='140'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='140'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_nic.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='141'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='141'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ner.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='142'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='142'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_nga.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='143'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='143'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_nfk.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='144'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='144'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_nor.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='145'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='145'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_omn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='146'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='146'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_pak.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='147'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='147'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_pse.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='148'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='148'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_pan.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='149'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='149'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_png.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='150'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='150'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_pry.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='151'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='151'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_per.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='152'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='152'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_phl.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='153'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='153'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_pol.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='154'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='154'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_prt.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='155'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='155'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_pri.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='156'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='156'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_qat.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='157'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='157'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_rou.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='158'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='158'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_rus.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='159'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='159'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_rwa.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='160'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='160'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_spm.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='161'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='161'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_stp.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='162'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='162'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_sau.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='163'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='163'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_sen.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='164'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='164'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_srb.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='165'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='165'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_syc.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='166'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='166'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_sle.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='167'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='167'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_sgp.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='168'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='168'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_svk.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='169'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='169'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_svn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='170'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='170'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_slb.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='171'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='171'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_som.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='172'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='172'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_zaf.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='173'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='173'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ssd.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='174'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='174'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_esp.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='175'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='175'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_lka.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='176'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='176'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_shn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='177'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='177'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_kna.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='178'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='178'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_lca.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='179'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='179'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_vct.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='180'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='180'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_sdn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='181'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='181'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_sur.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='182'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='182'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_swz.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='183'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='183'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_swe.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='184'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='184'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_che.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='185'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='185'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_syr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='186'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='186'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_twn.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='187'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='187'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tjk.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='188'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='188'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tza.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='189'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='189'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tha.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='190'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='190'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tgo.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='191'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='191'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tto.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='192'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='192'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tun.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='193'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='193'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tur.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='194'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='194'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tkm.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='195'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='195'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_tca.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='196'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='196'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_uga.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='197'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='197'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ukr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='198'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='198'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_are.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='199'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='199'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_gbr.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='200'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='200'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_usa.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='201'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='201'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ury.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='202'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='202'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_uzb.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='203'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='203'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_ven.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='204'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='204'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_vnm.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='205'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='205'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_vir.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='206'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='206'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_wbg.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='207'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='207'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_esh.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='208'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='208'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_yem.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='209'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='209'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_zmb.png') no-repeat;
+    background-size: 25px;
+} #country1_select_chosen .chosen-results li.active-result[data-option-array-index='210'],
+ #country_trade_partner_select_chosen .chosen-results li.active-result[data-option-array-index='210'] {
+    margin-top: -2px;
+    padding-left: 30px;
+    background: url('../img/icons/flag_zwe.png') no-repeat;
+    background-size: 25px;
+}
