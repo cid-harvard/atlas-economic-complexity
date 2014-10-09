@@ -12,3 +12,6 @@ CELERY_QUEUES = (
     Queue('default', Exchange('default'), routing_key='default'),
     Queue('prerender_queue', routing_key='prerender_route'),
 )
+CELERY_ROUTES = {
+    'atlas.celery_tasks.prerender': {'queue': 'prerender_queue'}
+}
