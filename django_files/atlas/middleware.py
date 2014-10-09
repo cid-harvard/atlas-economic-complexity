@@ -17,31 +17,33 @@ class PrerenderMiddleware(object):
     def process_request(self, request):
 
         # See if prerender is needed
-        escaped_fragment = request.GET.get('_escaped_fragment_', None)
-        if not escaped_fragment:
+        bot_crawl = request.GET.get('_escaped_fragment_', None)
+        if not bot_crawl:
             return None
 
         # Pop off _escaped_fragment_
         request.GET = request.GET.copy()
         request.GET.pop('_escaped_fragment_')
-        request.prerender = True
+        request.bot_crawl = True
 
         return None
 
     def process_response(self, request, response):
 
-        # Deal with django streaming responses
-        if response.streaming:
+        # If this is not an explore page, no need to prerender
+        if "observatory.views.explore" != request.resolver_match.url_name:
             return response
 
-        # If prerender is not needed, just return
-        if not (hasattr(request, "prerender") and request.prerender):
+        # Deal with django streaming responses, these don't need to be
+        # prerendered anyway.
+        if response.streaming:
             return response
 
         # TODO: AFAIK there is no better way to send this html to phantomjs
         temp = tempfile.NamedTemporaryFile(dir="/tmp/ramdisk",
                                            prefix="celery-temp-file-",
-                                           suffix=".html")
+                                           suffix=".html",
+                                           delete=False)
         temp.write(response.content)
         temp.flush()
         os.chmod(temp.name, 0755)
@@ -51,14 +53,23 @@ class PrerenderMiddleware(object):
 
         # Try to prerender, if it times out just return the original
         try:
+
             prerender = celery_tasks.prerender.s(url)
             filename = helpers.url_to_hash(request.path, request.GET) + ".png"
             get_image = celery_tasks\
                 .prerendered_html_to_image.s(name=filename,
                                              path=settings.STATIC_IMAGE_PATH)
+
             result = celery.chain(prerender, get_image)()
-            response.content = result.parent.get(timeout=10)
-            return response
+            if not (hasattr(request, "bot_crawl") and request.bot_crawl):
+                # If prerender is not needed, just return after firing the
+                # celery task.
+                return response
+            else:
+                # Otherwise wait for the response
+                response.content = result.parent.get(timeout=15)
+                return response
+
         except Exception:
             if "result" in locals():
                 result.forget()
