@@ -107,8 +107,6 @@ urlpatterns = patterns('',
   (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/show/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_cspy'),
   (r'^api/(?P<trade_flow>[a-z_]{6,10})/show/all/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_sapy'),
 
-  (r'^api/near/(?P<country>\w{3})/(?P<year>[0-9\.]+)/(?P<num_prods>\d+)/$', 'observatory.views_exhibit.api_near'),
-
   (r'^api/search/$', 'observatory.views_search.api_search'),
   (r'^search/$', TemplateView.as_view(template_name='searchresults.html')),
 
