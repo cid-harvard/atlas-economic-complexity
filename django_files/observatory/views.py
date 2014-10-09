@@ -153,17 +153,12 @@ def explore(
     # We are here, so let us store this data somewhere
     request_hash_string = "_".join(request_hash_dictionary.values())
 
-    # Check staic image mode
-    if(settings.STATIC_IMAGE_MODE == "SVG"):
-        # Check if we have a valid PNG image to display for this
-        if os.path.exists(settings.DATA_FILES_PATH + "/" + request_hash_string + ".png"):
-            # display the  static images
-            displayviz = True
-            displayImage = settings.STATIC_URL + \
-                "data/" + request_hash_string + ".png"
-        else:
-            displayviz = False
-            displayImage = settings.STATIC_URL + "img/all/loader.gif"
+    # Code for showing a static image or not
+    static_image_name = helpers.url_to_hash(request.path, request.GET)
+    if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
+                                   static_image_name + ".png")):
+        displayviz = True
+        displayImage = static_image_name + ".png"
     else:
         displayviz = False
         displayImage = settings.STATIC_URL + "img/all/loader.gif"

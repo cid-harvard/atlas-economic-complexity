@@ -404,10 +404,7 @@
           <div id="loader">
           <!--if static image mode is PNG-->
           {% if displayviz %}
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
-              <p>Loading</p>
-              <br />
-            <span style="width: 750px; height:520px; margin-top:-550px; opacity:.7">Loading...</span>
+            <img src="static_image/{{displayImage}}" alt="loading" />
           {% else %}
           <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
           <p>Loading</p>
