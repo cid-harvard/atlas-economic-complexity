@@ -1,13 +1,13 @@
 h1#search_title {
-    font-family: "Gill Sans", "Gill Sans MT", "Helvetica Neue", Calibri, Arial, sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Helvetica Neue', Calibri, Arial, sans-serif;
     font-weight: 300;
-    text-align: center;
     margin-top: 110px;
+    text-align: center;
 }
 
 #search {
-    text-align: center;
     margin-top: 40px;
+    text-align: center;
 }
 #search input {
     font-size: 14px;
@@ -15,21 +15,21 @@ h1#search_title {
 }
 
 #text_title {
+    font-family: 'PT Sans Narrow',sans-serif,'Arial';
     font-size: 30px;
     font-weight: normal;
     line-height: 36px;
-    margin: 6px 0px 0px 10px;
     width: 700px;
-    font-family: "PT Sans Narrow",sans-serif,"Arial";
+    margin: 6px 0 0 10px;
     color: #343434;
 }
 
 .ui-menu {
-    width: 390px;
-    list-style: none;
-    padding: 2px;
-    margin: 0;
     display: block;
+    width: 390px;
+    margin: 0;
+    padding: 2px;
+    list-style: none;
     outline: none;
 }
 .ui-menu .ui-menu {
@@ -38,34 +38,34 @@ h1#search_title {
 }
 .ui-menu .ui-menu-item {
     padding-bottom: 5px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .ui-menu :hover {
-    border-radius: 0px;
-    background: none;
     border: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #CCCCCC;
+    border-radius: 0;
+    background: none;
 }
 .ui-widget-content .ui-state-focus {
-    border-radius: 0px;
     border: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #CCCCCC;
+    border-radius: 0;
 }
 
 .ui-autocomplete {
     position: absolute;
+    z-index: 100000;
     top: 0;
     left: 0;
     cursor: default;
-    z-index: 100000;
 }
 
-.ui-menu-item  {
-    font-size: 24px;
+.ui-menu-item {
     font-family: arial,sans-serif;
+    font-size: 24px;
 }
 
-.app .ui-menu-item  {
+.app .ui-menu-item {
     font-size: 18px;
 }
