@@ -312,7 +312,7 @@ d3plus.pie_scatter = function(vars) {
 
       var val = d[vars.value_var]
       val = val && val > 0 ? val : vars.size_scale.domain()[0]
-      d.arc_radius = vars.size_scale(val);
+      d.arc_radius = viz.value_var() == "" ? 5 : vars.size_scale(val);
       
       d3.select(this).select("circle").transition().duration(d3plus.timing)
         .style("stroke", function(dd){
