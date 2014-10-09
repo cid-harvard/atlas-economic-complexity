@@ -42,7 +42,8 @@ class PrerenderMiddleware(object):
         # TODO: AFAIK there is no better way to send this html to phantomjs
         temp = tempfile.NamedTemporaryFile(dir="/tmp/ramdisk",
                                            prefix="celery-temp-file-",
-                                           suffix=".html")
+                                           suffix=".html",
+                                           delete=False)
         temp.write(response.content)
         temp.flush()
         os.chmod(temp.name, 0755)
