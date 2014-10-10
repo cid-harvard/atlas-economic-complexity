@@ -1718,10 +1718,10 @@ var flat_data,
 
     var single_year_param = "";
 
-    if(app_type=="casy" && (app_name=="tree_map" || app_name=="product_space" || app_name=="country_space")) {
-      single_year = true;
-      single_year_param = "&amp;single_year=true";
-    }
+    //if(app_type=="casy" && (app_name=="tree_map" || app_name=="product_space" || app_name=="country_space")) {
+    //  single_year = true;
+    //  single_year_param = "&amp;single_year=true";
+    //}
 
     d3.json(api_uri + '&amp;data_type=json' + single_year_param, function(error, raw) {
 
