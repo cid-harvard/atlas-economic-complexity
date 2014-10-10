@@ -26,14 +26,24 @@ a:link,
     color: inherit;
 }
 
+ul {
+    margin: 0;
+    padding-left: 0;
+}
+
 
 /*  LAYOUT
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .main-content-wrap {
     max-width: 960px;
-    margin: 40px auto;
+    margin: 60px auto;
     padding: 0 30px;
+}
+
+.atlas-section {
+    padding: 60px 0;
+    border-top: 1px solid #DDDDDD;
 }
 
 /*  GENERAL TYPE
@@ -52,11 +62,12 @@ a:link,
 
 .site-header {
     display: table;
+    margin-bottom: 20px;
 }
 
 .subhead-wrap {
-    margin: 0 auto;
     max-width: 400px;
+    margin: 0 auto 20px;
     text-align: center;
 }
 
@@ -65,25 +76,25 @@ a:link,
 
 .site-wordmark {
     display: inline-block;
-    text-decoration: none;
     float: left;
-    white-space: nowrap;
     margin-bottom: -10px;
+    white-space: nowrap;
+    text-decoration: none;
 }
 
 .site-logo-copy {
     font-family: 'PT Sans Narrow', sans-serif, 'Arial';
     font-weight: 500;
-    text-transform: uppercase;
     line-height: 100%;
     margin: 0;
+    text-transform: uppercase;
 }
 
 .site-logo-firstline {
     font-size: 46.5px;
     display: block;
-    letter-spacing: 0;
     margin-bottom: -7px;
+    letter-spacing: 0;
 }
 
 .site-logo-secondline {
@@ -98,8 +109,8 @@ a:link,
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .site-nav {
-    width: 100%;
     display: table-cell;
+    width: 100%;
 }
 
 .site-nav-list {
@@ -109,17 +120,17 @@ a:link,
 }
 
 .site-nav-item {
-    padding: 0 20px;
     display: inline;
+    padding: 0 20px;
     list-style-type: none;
 }
 
+.site-nav-item:first-child {
+    padding-left: 0;
+}
 
-/*  DESCRIPTION
-// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
-
-.atlas-description-wrap {
-    margin: 200px auto 200px;
+.site-nav-item:last-child {
+    padding-right: 0;
 }
 
 
@@ -127,7 +138,19 @@ a:link,
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .example-wrap {
-    padding: 20px;
+    padding: 0 20px;
+}
+
+.example-wrap:first-child {
+    padding-left: 0;
+}
+
+.example-wrap:nth-child(2) {
+    padding: 0 10px;
+}
+
+.example-wrap:last-child {
+    padding-right: 0;
 }
 
 .example-caption {
@@ -138,6 +161,99 @@ a:link,
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .atlas-search {
-    width: 300px;
+    margin-bottom: 15px;
 }
 
+.subhead-search {
+    margin-bottom: 15px;
+}
+
+
+/*  SELECT
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.select-full {
+    width: 100%;
+}
+
+.select-wrap:first-child {
+    padding-right: 10px;
+}
+
+.select-wrap:last-child {
+    padding-left: 10px;
+}
+
+
+/*  SELECT
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.hausman-video {
+    margin: 0 auto;
+}
+
+
+/*  VIDEO
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+
+
+/*  FOLLOW @ATLASFACTS
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.follow-atlasfacts-btn {
+    display: block;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.atlasfacts-icon {
+    margin-right: 6px;
+}
+
+
+/*  BOTTOM NAV
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.bottomnav-topper {
+    margin-bottom: 20px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.social-wrap {
+    display: inline-block;
+    float: right;
+}
+
+.site-nav-full-list-toplevel:first-child {
+    padding-right: 20px;
+}
+
+.site-nav-full-list-toplevel:last-child {
+    padding-left: 20px;
+}
+
+.site-nav-full-toplevel {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.site-nav-full-secondlevel {
+    font-size: .75em;
+    margin-bottom: 3px;
+}
+
+
+
+/*  FOOTER
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.site-footer {
+    padding: 20px;
+}
+
+.license-copy {
+    display: block;
+    text-align: center;
+}
