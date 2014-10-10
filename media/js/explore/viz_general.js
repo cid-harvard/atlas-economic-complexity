@@ -346,10 +346,10 @@ var flat_data,
     if(typeof(start_year) == "undefined")
       start_year = viz.year();
 
-    var treemap_title = d3.select('#text_title').text();
+    var treemap_title = d3.select('#text_title').attr("value");
     treemap_title = treemap_title.replace(viz.year(), arg);
-    d3.select('#text_title').text(treemap_title);
-    
+    d3.select('#text_title').attr("value", treemap_title);
+
     // Update the URL
     update_url('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
 
