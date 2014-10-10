@@ -93,10 +93,10 @@
       <nav>
         <ul>
           <li><a {% if isbrowsemode %}href="endbrowse"{% else %}href="explore/"{% endif %}>Explore</a></li>
-          <li><a href="rankings">Rankings</a></li>
-          <li><a id="newBook" href="book">New Book</a></li>
+          <li><a href="rankings/">Rankings</a></li>
+          <li><a id="newBook" href="book/">New Book</a></li>
           <li><a href="about/glossary/">Glossary</a></li>
-          <li><a href="about">About</a></li>
+          <li><a href="about/">About</a></li>
         </ul>
       </nav>
       <br class="clear">
@@ -329,9 +329,9 @@
   <div class="tab-pane" id="history">
     <div id="historyBox">
       <div id="historyBoxInner">
-        <a href="#"><i id="hnLeft" class="fa fa-chevron-left historyNav"></i></a>
+        <a href="#"><i id="hnLeft" class="fa fa-chevron-left historyNav" style="opacity: 0"></i></a>
         <a id="historySlide"></a>
-        <a href="#"><i id="hnRight" class="fa fa-chevron-right historyNav"></i></a>
+        <a href="#"><i id="hnRight" class="fa fa-chevron-right historyNav" style="opacity: 0"></i></a>
       </div>
     </div>
   </div>
@@ -1057,7 +1057,7 @@
     product_code = "{{product_code}}",
     prod_class = "{{prod_class}}",
     previous_page = "{{previous_page}}",
-    previous_image = "{{ STATIC_URL }}/img/empty_static.png",
+    previous_image = "{{previous_image}}",
     static_url = "{{STATIC_URL}}",
     in_iframe = is_in_iframe();
 
@@ -1194,7 +1194,7 @@
     } else if(previous_image == "http://atlas.cid.harvard.edu/media/img/all/loader.gif"){
         console.log("this page doesn't exist!");
     } else{
-        previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}";
+        previous_image = "/static_image/{{ previous_image }}";
         $("#historySlide").attr("href", previous_page);
     }
 
