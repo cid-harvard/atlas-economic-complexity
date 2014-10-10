@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   {% if displayviz %}
-  <meta property="og:image" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
+  <meta property="og:image" content="http://atlas.cid.harvard.edu/static_image/{{ displayImage }}"/>
   {% else %}
   <meta property="og:image" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
   {% endif %}
@@ -16,7 +16,7 @@
   <meta name="twitter:creator" content="@romsson">
   <meta name="twitter:title" content="{% if title %}{{title}} @Atlas_facts {% else %} The Atlas Of Economic Complexity {% endif %}">
   {% if displayviz %}
-  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
+  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/static_image/{{ displayImage }}"/>
   {% else %}
   <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
   {% endif %}
@@ -315,13 +315,11 @@
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs" id="utilityBox">
 
-<!--  History Tab
-
 {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None"%}
   <li id="historyTab"><a href="#history" data-toggle="tab">History</a></li>
 {% endif %}
 
- -->
+
 
 
   <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
@@ -399,13 +397,13 @@
 
         <div class="contentViz">
         <!-- ajax loading gif -->
-          <div id="loader">
+          <div id="loader" style="position:absolute; margin-top:-23px">
           <!--if static image mode is PNG-->
           {% if displayviz %}
-            <img src="static_image/{{displayImage}}" alt="loading" />
+            <img src="static_image/{{displayImage}}" alt="loading" style="opacity:.9"/>
           {% else %}
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
-          <p>Loading</p>
+            <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" style="margin-top:200px" />
+            <p>Loading</p>
           {% endif %}
           </div>
 
