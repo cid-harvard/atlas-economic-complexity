@@ -1629,6 +1629,7 @@ var flat_data,
       .call(app);
 
     if(!embed){
+      /* Not used + adds visual artifacts on static images
       key = Key()
         .classification(rawData.class)
         .showing(item_type)
@@ -1652,6 +1653,7 @@ var flat_data,
       d3.select("#tool_pane")
         .datum(rawData)
         .call(controls);
+        */
     }
 
     d3.select("#mdv").attr("fill", "white");
