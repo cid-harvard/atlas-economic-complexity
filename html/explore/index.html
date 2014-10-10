@@ -1101,7 +1101,7 @@
       }
     }
 
-    if(app_name=="stacked") {
+   if(app_name=="stacked" && item_type == "products") {
       d3.selectAll('.capita').classed("active", false);
       if(queryParameters["yaxis"] == "pc_constant")
         d3.select(d3.select("#pc_constant").node().parentNode).classed("active", true)
