@@ -15,8 +15,13 @@
     <base href="{{HTTP_HOST}}">
     <title>The Atlas of Economic Complexity | {% block page_title %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="media/css/normalize.css">
-    <link rel="stylesheet" href="media/css/home.css" />
+    <!-- Place all stylesheets in this block for gzipping - GW -->
+    <!-- Note that the pure.css framework includes normalize.css and is from http://purecss.io/ -->
+    {% block css %}
+        <link rel="stylesheet" href="media/css/pure.css">
+        <link rel="stylesheet" href="media/css/home.css" />
+    {% endblock %}
+
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script src="//www.google-analytics.com/cx/api.js?experiment=1TlRMfvcStutXnhZwghKnw"></script>
@@ -48,13 +53,12 @@
 
 <body>
     <div class="main-content-wrap">
-        <a class="site-wordmark" href="http://atlas.cid.harvard.edu/">
-            <h1 class="site-logo-copy"><span class="site-logo-firstline">The Atlas </span><span class="site-logo-secondline">of Economic Complexity</span></h1>
-        </a>
-        <section class="atlas-description-wrap">
-            <div class="atlas-description">
-        </section>
+
+
         <header class="site-header">
+            <a class="site-wordmark" href="http://atlas.cid.harvard.edu/">
+                <h1 class="site-logo-copy"><span class="site-logo-firstline">The Atlas </span><span class="site-logo-secondline">of Economic Complexity</span></h1>
+            </a>
             <nav class="site-nav">
                 <ul class="site-nav-list">
                     <li class="site-nav-item">
@@ -74,7 +78,37 @@
         </header>
 
         <main class="article">
-            <section>
+            <section class="atlas-section atlas-description-wrap">
+                <div class="subhead-wrap">
+                    <h2 class="subhead atlas-description-subhead">What is the Atlas?</h2>
+                    <p class="subhead-deck atlas-description">Visualize imports and exports and explore growth opportunities for more than a hundred countries.</p>
+                </div>
+            </section>
+            <section class="atlas-section">
+                <div class="subhead-wrap">
+                    <h2 class="subhead atlas-description-subhead">Not Sure Where to Start?</h2>
+                    <p class="subhead-deck">Check out one of these examples.</p>
+                </div>
+                <div class="pure-g">
+                    <div class="example-wrap pure-u-1 pure-u-lg-8-24">
+                        <img class="pure-img example-image" src="media/img/home/us_exports.png" />
+                        <p class="example-caption">Caption TK here.</p>
+                    </div><div class="example-wrap pure-u-1 pure-u-lg-8-24">
+                        <img class="pure-img example-image" src="media/img/home/us_imports_ps.png" />
+                        <p class="example-caption">Caption TK here.</p>
+                    </div><div class="example-wrap pure-u-1 pure-u-lg-8-24">
+                        <img class="pure-img example-image" src="media/img/home/us_exports.png" />
+                        <p class="example-caption">Caption TK here.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="atlas-section">
+                <div class="subhead-wrap search-wrap">
+                    <h2 class="subhead search-subhead">Ask the Atlas</h2>
+                    <form class="pure-form">
+                        <input class="atlas-search" id="searchbar" autocomplete="off" type="text" placeholder="What did Burundi import from 1996&ndash;2012?" >
+                    </form>
+                </div>
             </section>
         </main>
 

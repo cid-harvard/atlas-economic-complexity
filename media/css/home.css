@@ -4,37 +4,92 @@
 
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
+/*  GENERAL RESETS NOT IN NORMALIZE.CSS
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    color: inherit;
 }
 
-*, *:before, *:after {
-  box-sizing: inherit;
+*,
+ *:before,
+ *:after {
+    box-sizing: inherit;
 }
+
+a:link,
+ a:hover,
+ a:active,
+ a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/*  LAYOUT
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .main-content-wrap {
-  margin: 30px 30px;
-  max-width: 960px;
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 0 30px;
 }
 
-/*  LOGO
+/*  GENERAL TYPE
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.subhead {
+    margin: 0 0 6px;
+}
+
+.subhead-deck {
+    margin: 0;
+}
+
+/*  HEADER
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.site-header {
+    display: table;
+}
+
+.subhead-wrap {
+    margin: 0 auto;
+    max-width: 400px;
+    text-align: center;
+}
+
+/*  LOGO (silly, looking forward to changing)
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .site-wordmark {
-  display: inline-block;
-  text-decoration: none;
+    display: inline-block;
+    text-decoration: none;
+    float: left;
+    white-space: nowrap;
+    margin-bottom: -10px;
 }
 
 .site-logo-copy {
-  font-family: 'PT Sans Narrow', sans-serif, 'Arial';
+    font-family: 'PT Sans Narrow', sans-serif, 'Arial';
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 100%;
+    margin: 0;
 }
 
 .site-logo-firstline {
-
+    font-size: 46.5px;
+    display: block;
+    letter-spacing: 0;
+    margin-bottom: -7px;
 }
 
 .site-logo-secondline {
-
+    font-size: 18px;
+    margin-left: 1px;
+    color: #A0A6A9;
 }
 
 
@@ -42,12 +97,47 @@ html {
 /*  NAV
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
+.site-nav {
+    width: 100%;
+    display: table-cell;
+}
+
 .site-nav-list {
-  margin: 0;
-  padding: 0;
+    float: right;
+    margin: 0;
+    padding: 0;
 }
 
 .site-nav-item {
+    padding: 0 20px;
+    display: inline;
+    list-style-type: none;
+}
 
+
+/*  DESCRIPTION
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.atlas-description-wrap {
+    margin: 200px auto 200px;
+}
+
+
+/*  EXAMPLES
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.example-wrap {
+    padding: 20px;
+}
+
+.example-caption {
+    text-align: center;
+}
+
+/*  SEARCH
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.atlas-search {
+    width: 300px;
 }
 
