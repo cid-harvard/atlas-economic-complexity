@@ -60,7 +60,7 @@
   var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot", "rankings"];
   var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
 </script>
-{% if not displayIframe %}
+{% if not display_iframe %}
 
   {% if alert %}
   <div class="alert">
@@ -390,7 +390,7 @@
 
 {% endif %}
       <!-- the Visualization -->
-      <div id="content"  class="container" style="{% if not displayIframe %} width: 750px; min-height:600px; {% else %} width: 100%; height:100%; {% endif %}">
+      <div id="content"  class="container" style="{% if not display_iframe %} width: 750px; min-height:600px; {% else %} width: 100%; height:100%; {% endif %}">
 
         <div class="contentViz">
         <!-- ajax loading gif -->
@@ -414,10 +414,10 @@
             </div>
           </div>
           <!-- Container for the visualization -->
-          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left" id="viz" style="{% if not displayIframe %} width: 750px; min-height:520px; {% else %} width: 100%; height:100%; {% endif %}">
+          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left" id="viz" style="{% if not display_iframe %} width: 750px; min-height:520px; {% else %} width: 100%; height:100%; {% endif %}">
           </div>
 		  </div>
-{% if not displayIframe %}
+{% if not display_iframe %}
         <div class="contentInner">
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
@@ -1152,7 +1152,7 @@
     return update_viz($(this).attr("value"));
   });
 
-  {% if displayIframe %}
+  {% if display_iframe %}
   //To display visualization in full screen, while viewing stories
   var contentWidth = window.innerWidth;
   var contentHeight = window.innerHeight;
@@ -1166,6 +1166,8 @@
   {% endif %}
 
   // Call the original and let is handle the stuff - trying again
+
+  
   build_viz_app_original(api_uri, contentWidth, contentHeight);
 
 
