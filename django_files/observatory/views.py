@@ -5,6 +5,7 @@ import os
 import collections
 import json
 import time
+from urlparse import urlparse
 
 # Django
 from django.shortcuts import render_to_response, redirect
@@ -371,6 +372,24 @@ def explore(
         r = cache.raw_client
         r.rpush("views", json.dumps(view_data))
 
+    previous_page = request.META.get('HTTP_REFERER',
+                                           None),
+
+    if previous_page[0] is not None:
+
+      previous_page = previous_page[0]
+      previous_image = helpers.url_to_hash(urlparse(previous_page).path, {})
+
+      if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
+                                     previous_image + ".png")):
+        previous_image = previous_image + ".png"
+      else:  
+        previous_image = settings.STATIC_URL + "img/all/loader.gif"
+
+    else:
+      previous_image = settings.STATIC_URL + "img/all/loader.gif"
+      previous_page = None
+
     return render_to_response(
         "explore/index.html",
         {"lang": lang,
@@ -400,8 +419,8 @@ def explore(
          "country_code": country_code,
          "prod_or_partner": prod_or_partner,
          "version": VERSION,
-         "previous_page": request.META.get('HTTP_REFERER',
-                                           None),
+         "previous_page": previous_page,
+         "previous_image": previous_image,  
          "item_type": item_type,
          "displayviz": displayviz,
          "displayImage": displayImage,
