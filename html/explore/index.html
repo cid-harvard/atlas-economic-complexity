@@ -183,7 +183,7 @@
               <label class="btn btn-default {% if trade_flow == "export" or trade_flow == "net_export" %} active{% endif %}">
                 <input type="radio" name="flow_direction" value="export" onchange="$('.flow-direction').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;Export&nbsp;
               </label>
-              <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}  {% if app_name == "product_space" or app_name == "pie_scatter" %} disabled{% endif %}">
+              <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}  {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %} disabled{% endif %}">
                 <input type="radio" name="flow_direction" id="flow_direction" value="import" onchange="$('.flow-direction').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;Import&nbsp;
               </label>
             </div>
@@ -267,12 +267,10 @@
               <img src="{{ STATIC_URL }}img/common/feasibility.png" style="width:38px;"/>
             </label>
 
-            {% if app_name == "rings" %}
             <label value="rings" class="btn btn-default {% if app_name == "rings" %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Rings" >
               <input type="radio" name="viz_apps">
               <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:38px;"/>
             </label>
-            {% endif %}
           </div>
 
           </div>
