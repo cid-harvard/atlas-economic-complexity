@@ -314,19 +314,16 @@
     </div>
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs" id="utilityBox">
-
-{% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None"%}
-  <li id="historyTab"><a href="#history" data-toggle="tab">History</a></li>
-{% endif %}
-
-
-
-
+{% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != None%}
+  <li class="active" id="historyTab"><a href="#history" data-toggle="tab">Previous Page</a></li>
+  <li id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
+{% else %}
   <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
+{% endif %}
 </ul>
 <div class="tab-content" style="padding-top:0px;">
   {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None" %}
-  <div class="tab-pane" id="history">
+  <div class="tab-pane active" id="history">
     <div id="historyBox">
       <div id="historyBoxInner">
         <a href="#"><i id="hnLeft" class="fa fa-chevron-left historyNav" style="opacity: 0"></i></a>
@@ -336,7 +333,7 @@
     </div>
   </div>
   {% endif %}
-    <div class="tab-pane active" id="legendPane">
+    <div class="tab-pane {% if previous_page == "http://atlas.cid.harvard.edu/" or previous_page == "http://127.0.0.1:8000/" or previous_page == None %}active{% endif %}" id="legendPane">
       <div id="legend">
         <div id="helpBoxInner">
             <h3> </h3>
