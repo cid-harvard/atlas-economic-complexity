@@ -20,8 +20,9 @@
     {% block css %}
         <link rel="stylesheet" href="media/css/px-video.css">
         <link rel="stylesheet" href="media/css/pure.css">
-        <link rel="stylesheet" href="media/css/home.css">
         <link rel="stylesheet" href="media/css/select-menu.css">
+        <!-- <link rel="stylesheet" href="media/css/fonts.css"> -->
+        <link rel="stylesheet" href="media/css/home.css">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     {% endblock %}
 
@@ -82,11 +83,11 @@
 
         <main class="article">
             <section class="atlas-section">
-                <div class="subhead-wrap search-wrap">
+                <div class="subhead-wrap">
                     <h2 class="subhead subhead-search">Ask the Atlas</h2>
-                    <form class="pure-form pure-g">
-                        <input class="atlas-search pure-u-20-24" id="searchbar" required autocomplete="off" type="text" placeholder="What did Burundi import from 1996&ndash;2012?" >
-                        <button class="pure-button pure-u-4-24" type="submit">Go</button>
+                    <form class="pure-form search-wrap clear">
+                        <input class="atlas-search" id="searchbar" required autocomplete="off" type="text" placeholder="What did Burundi import from 1996&ndash;2012?" >
+                        <button class="atlas-search-btn pure-button" type="submit">Go</button>
                     </form>
                     <p class="subhead-deck atlas-description">Visualize imports and exports and explore growth opportunities for more than a hundred countries.</p>
                 </div>
@@ -148,12 +149,7 @@
                         <video width="640" height="360" poster="media/img/video/ricardo_poster.jpg" controls>
                             <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.mp4" type="video/mp4" />
                             <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.webm" type="video/webm" />
-                            <track kind="captions" label="English captions" src="media/foo.vtt" srclang="en" default />
-                            <div>
-                                <a href="foo.mp4">
-                                    <img src="media/foo.jpg" width="640" height="360" alt="download video" />
-                                </a>
-                            </div>
+                            <!-- <track kind="captions" label="English captions" src="media/foo.vtt" srclang="en" default /> -->
                         </video>
                     </div>
                     <div class="px-video-controls"></div>
@@ -168,12 +164,10 @@
         </main>
 
         <nav class="atlas-bottomnav">
-            <div class="bottomnav-topper">
-                <img class="cid-logo" src="media/img/logos/logo_cid.png" title="The Center for International Development"/>
-                <div class="social-wrap">
-                    <a class="pure-button"><i class="fa fa-twitter"></i></a>
-                    <a class="pure-button"><i class="fa fa-facebook"></i></a>
-                </div>
+            <div class="bottomnav-topper pure-g">
+                <img class="cid-logo pure-u-1 pure-u-md-8-24" src="media/img/logos/logo_cid.png" title="The Center for International Development"/>
+                <a class="pure-button bottomnav-social-btn"><i class="fa fa-twitter"></i></a>
+                <a class="pure-button bottomnav-social-btn"><i class="fa fa-facebook"></i></a>
             </div>
             <nav class="site-nav-full pure-g">
                 <ul class="site-nav-full-list-toplevel pure-u-1 pure-u-md-8-24">
