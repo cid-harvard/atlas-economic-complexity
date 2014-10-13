@@ -143,17 +143,10 @@
                     <h2 class="subhead">What's the story behind the Atlas?</h2>
                     <p class="subhead-deck">Ricardo Hausmann, director of the Center for International Development, explains his theory of Economic Complexity, and why you should care copy TK.</p>
                 </div>
-                <div class="hausman-video px-video-container" id="hausmanVid">
-                    <div class="px-video-img-captions-container">
-                        <div class="px-video-captions hide" aria-hidden="true"></div>
-                        <video width="640" height="360" poster="media/img/video/ricardo_poster.jpg" controls>
-                            <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.mp4" type="video/mp4" />
-                            <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.webm" type="video/webm" />
-                            <!-- <track kind="captions" label="English captions" src="media/foo.vtt" srclang="en" default /> -->
-                        </video>
-                    </div>
-                    <div class="px-video-controls"></div>
-                </div>
+                <video id="0" class="sublime" poster="media/img/video/ricardo_poster.jpg" width="640" height="360" data-uid="0" data-autoresize="fit" preload="none">
+                    <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.mp4" data-quality="hd" />
+                    <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.webm" data-quality="hd" />
+                </video>
             </section>
             <section class="atlas-section">
                 <div class="subhead-wrap">
@@ -215,7 +208,7 @@
         <small class="license-copy">The Atlas of Economic complexity is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License. Current version: 1.0.6.</small>
     </footer>
 
-    <script src="media/js/px-video.js"></script>
+    <script type="text/javascript" src="//cdn.sublimevideo.net/js/6e9hjxp2.js"></script>
     <script>
     // Initialize
     new InitPxVideo({
