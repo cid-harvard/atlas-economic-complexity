@@ -1056,7 +1056,8 @@
     previous_page = "{{previous_page}}",
     previous_image = "{{previous_image}}",
     static_url = "{{STATIC_URL}}",
-    in_iframe = is_in_iframe();
+    in_iframe = is_in_iframe(),
+    static_image = "{{static_image}}";
 
   // language select dropdown
   $(".language_select select").on("change", function(){
@@ -1167,8 +1168,8 @@
 
   // Call the original and let is handle the stuff - trying again
 
-
-  build_viz_app_original(api_uri, contentWidth, contentHeight);
+  if(static_image != "only")
+    build_viz_app_original(api_uri, contentWidth, contentHeight);
 
 
 });
@@ -1188,10 +1189,9 @@
     if(previous_image == "/media/img/all/loader.gif"){
       $("#historyTab").css("display", "none");
       $("#history").css("display", "none");
-      console.log("no previous page!");
     } else{
-        previous_image = "/static_image/{{ previous_image }}";
-        $("#historySlide").attr("href", previous_page);
+      previous_image = "/static_image/{{ previous_image }}";
+      $("#historySlide").attr("href", previous_page);
     }
 
     $("#historySlide, #historyOverlay").css("background-image", "url("+previous_image+")");
