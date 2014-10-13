@@ -424,7 +424,8 @@ def explore(
          "item_type": item_type,
          "displayviz": displayviz,
          "displayImage": displayImage,
-         "display_iframe": request.GET.get("display_iframe", False)
+         "display_iframe": request.GET.get("display_iframe", False),
+         "static_image": request.GET.get("static_image", "loading"),
          },
         context_instance=RequestContext(request))
 
