@@ -314,7 +314,7 @@
     </div>
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs" id="utilityBox">
-{% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != None%}
+{% if previous_image != "/media/img/all/loader.gif" %}
   <li class="active" id="historyTab"><a href="#history" data-toggle="tab">Previous Page</a></li>
   <li id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
 {% else %}
@@ -322,7 +322,7 @@
 {% endif %}
 </ul>
 <div class="tab-content" style="padding-top:0px;">
-  {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None" %}
+{% if previous_image != "/media/img/all/loader.gif" %}
   <div class="tab-pane active" id="history">
     <div id="historyBox">
       <div id="historyBoxInner">
@@ -333,7 +333,7 @@
     </div>
   </div>
   {% endif %}
-    <div class="tab-pane {% if previous_page == "http://atlas.cid.harvard.edu/" or previous_page == "http://127.0.0.1:8000/" or previous_page == None %}active{% endif %}" id="legendPane">
+    <div class="tab-pane {% if previous_image == "/media/img/all/loader.gif" %}active{% endif %}" id="legendPane">
       <div id="legend">
         <div id="helpBoxInner">
             <h3> </h3>
@@ -1056,7 +1056,8 @@
     previous_page = "{{previous_page}}",
     previous_image = "{{previous_image}}",
     static_url = "{{STATIC_URL}}",
-    in_iframe = is_in_iframe();
+    in_iframe = is_in_iframe(),
+    static_image = "{{static_image}}";
 
   // language select dropdown
   $(".language_select select").on("change", function(){
@@ -1167,8 +1168,8 @@
 
   // Call the original and let is handle the stuff - trying again
 
-  
-  build_viz_app_original(api_uri, contentWidth, contentHeight);
+  if(static_image != "only")
+    build_viz_app_original(api_uri, contentWidth, contentHeight);
 
 
 });
@@ -1185,16 +1186,12 @@
   <script type="text/javascript">
 
 
-
-    if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "http://atlas.cid.harvard.edu/beta" || previous_page == "None" || previous_page == "http://127.0.0.1:8000/"){
+    if(previous_image == "/media/img/all/loader.gif"){
       $("#historyTab").css("display", "none");
       $("#history").css("display", "none");
-      console.log("no previous page!");
-    } else if(previous_image == "http://atlas.cid.harvard.edu/media/img/all/loader.gif"){
-        console.log("this page doesn't exist!");
     } else{
-        previous_image = "/static_image/{{ previous_image }}";
-        $("#historySlide").attr("href", previous_page);
+      previous_image = "/static_image/{{ previous_image }}";
+      $("#historySlide").attr("href", previous_page);
     }
 
     $("#historySlide, #historyOverlay").css("background-image", "url("+previous_image+")");
