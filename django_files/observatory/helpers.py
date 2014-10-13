@@ -6,7 +6,7 @@ from cache_utils.decorators import cached
 from observatory.models import (Hs4_cpy, Sitc4_cpy, Country, Hs4, Sitc4,
                                 Sitc4_py, Hs4_py, Cy, Country_region)
 
-import base64
+import hashlib
 from collections import OrderedDict
 
 
@@ -369,9 +369,4 @@ def url_to_hash(url, query_params_dict):
 
     string = str(url) + str(OrderedDict(sorted(query_params_dict.iteritems(),
                                                key=lambda x: x[0])))
-    return base64.b64encode(string)
-
-
-def hash_to_url(hash):
-    """Inverse of url_to_hash."""
-    return base64.b64decode(hash)
+    return hashlib.md5(string).hexdigest()

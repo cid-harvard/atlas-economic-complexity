@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   {% if displayviz %}
-  <meta property="og:image" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
+  <meta property="og:image" content="http://atlas.cid.harvard.edu/static_image/{{ displayImage }}"/>
   {% else %}
   <meta property="og:image" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
   {% endif %}
@@ -16,7 +16,7 @@
   <meta name="twitter:creator" content="@romsson">
   <meta name="twitter:title" content="{% if title %}{{title}} @Atlas_facts {% else %} The Atlas Of Economic Complexity {% endif %}">
   {% if displayviz %}
-  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
+  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/static_image/{{ displayImage }}"/>
   {% else %}
   <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
   {% endif %}
@@ -60,7 +60,7 @@
   var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot", "rankings"];
   var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
 </script>
-{% if not displayIframe %}
+{% if not display_iframe %}
 
   {% if alert %}
   <div class="alert">
@@ -93,10 +93,10 @@
       <nav>
         <ul>
           <li><a {% if isbrowsemode %}href="endbrowse"{% else %}href="explore/"{% endif %}>Explore</a></li>
-          <li><a href="rankings">Rankings</a></li>
-          <li><a id="newBook" href="book">New Book</a></li>
+          <li><a href="rankings/">Rankings</a></li>
+          <li><a id="newBook" href="book/">New Book</a></li>
           <li><a href="about/glossary/">Glossary</a></li>
-          <li><a href="about">About</a></li>
+          <li><a href="about/">About</a></li>
         </ul>
       </nav>
       <br class="clear">
@@ -183,7 +183,7 @@
               <label class="btn btn-default {% if trade_flow == "export" or trade_flow == "net_export" %} active{% endif %}">
                 <input type="radio" name="flow_direction" value="export" onchange="$('.flow-direction').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;Export&nbsp;
               </label>
-              <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}  {% if app_name == "product_space" or app_name == "pie_scatter" %} disabled{% endif %}">
+              <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}  {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %} disabled{% endif %}">
                 <input type="radio" name="flow_direction" id="flow_direction" value="import" onchange="$('.flow-direction').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;Import&nbsp;
               </label>
             </div>
@@ -267,12 +267,10 @@
               <img src="{{ STATIC_URL }}img/common/feasibility.png" style="width:38px;"/>
             </label>
 
-            {% if app_name == "rings" %}
             <label value="rings" class="btn btn-default {% if app_name == "rings" %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Rings" >
               <input type="radio" name="viz_apps">
               <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:38px;"/>
             </label>
-            {% endif %}
           </div>
 
           </div>
@@ -316,31 +314,26 @@
     </div>
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs" id="utilityBox">
-
-<!--  History Tab
-
-{% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None"%}
-  <li id="historyTab"><a href="#history" data-toggle="tab">History</a></li>
-{% endif %}
-
- -->
-
-
+{% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != None%}
+  <li class="active" id="historyTab"><a href="#history" data-toggle="tab">Previous Page</a></li>
+  <li id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
+{% else %}
   <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
+{% endif %}
 </ul>
 <div class="tab-content" style="padding-top:0px;">
   {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None" %}
-  <div class="tab-pane" id="history">
+  <div class="tab-pane active" id="history">
     <div id="historyBox">
       <div id="historyBoxInner">
-        <a href="#"><i id="hnLeft" class="fa fa-chevron-left historyNav"></i></a>
+        <a href="#"><i id="hnLeft" class="fa fa-chevron-left historyNav" style="opacity: 0"></i></a>
         <a id="historySlide"></a>
-        <a href="#"><i id="hnRight" class="fa fa-chevron-right historyNav"></i></a>
+        <a href="#"><i id="hnRight" class="fa fa-chevron-right historyNav" style="opacity: 0"></i></a>
       </div>
     </div>
   </div>
   {% endif %}
-    <div class="tab-pane active" id="legendPane">
+    <div class="tab-pane {% if previous_page == "http://atlas.cid.harvard.edu/" or previous_page == "http://127.0.0.1:8000/" or previous_page == None %}active{% endif %}" id="legendPane">
       <div id="legend">
         <div id="helpBoxInner">
             <h3> </h3>
@@ -397,20 +390,17 @@
 
 {% endif %}
       <!-- the Visualization -->
-      <div id="content"  class="container" style="{% if not displayIframe %} width: 750px; min-height:600px; {% else %} width: 100%; height:100%; {% endif %}">
+      <div id="content"  class="container" style="{% if not display_iframe %} width: 750px; min-height:600px; {% else %} width: 100%; height:100%; {% endif %}">
 
         <div class="contentViz">
         <!-- ajax loading gif -->
-          <div id="loader">
+          <div id="loader" style="position:absolute; margin-top:-23px">
           <!--if static image mode is PNG-->
           {% if displayviz %}
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
-              <p>Loading</p>
-              <br />
-            <span style="width: 750px; height:520px; margin-top:-550px; opacity:.7">Loading...</span>
+            <img src="static_image/{{displayImage}}" alt="loading" style="opacity:.9"/>
           {% else %}
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
-          <p>Loading</p>
+            <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" style="margin-top:200px" />
+            <p>Loading</p>
           {% endif %}
           </div>
 
@@ -424,10 +414,10 @@
             </div>
           </div>
           <!-- Container for the visualization -->
-          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left" id="viz" style="{% if not displayIframe %} width: 750px; min-height:520px; {% else %} width: 100%; height:100%; {% endif %}">
+          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left" id="viz" style="{% if not display_iframe %} width: 750px; min-height:520px; {% else %} width: 100%; height:100%; {% endif %}">
           </div>
 		  </div>
-{% if not displayIframe %}
+{% if not display_iframe %}
         <div class="contentInner">
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
@@ -1064,7 +1054,7 @@
     product_code = "{{product_code}}",
     prod_class = "{{prod_class}}",
     previous_page = "{{previous_page}}",
-    previous_image = "{{ STATIC_URL }}/img/empty_static.png",
+    previous_image = "{{previous_image}}",
     static_url = "{{STATIC_URL}}",
     in_iframe = is_in_iframe();
 
@@ -1104,7 +1094,7 @@
       }
     }
 
-    if(app_name=="stacked") {
+   if(app_name=="stacked" && item_type == "products") {
       d3.selectAll('.capita').classed("active", false);
       if(queryParameters["yaxis"] == "pc_constant")
         d3.select(d3.select("#pc_constant").node().parentNode).classed("active", true)
@@ -1162,7 +1152,7 @@
     return update_viz($(this).attr("value"));
   });
 
-  {% if displayIframe %}
+  {% if display_iframe %}
   //To display visualization in full screen, while viewing stories
   var contentWidth = window.innerWidth;
   var contentHeight = window.innerHeight;
@@ -1176,6 +1166,8 @@
   {% endif %}
 
   // Call the original and let is handle the stuff - trying again
+
+  
   build_viz_app_original(api_uri, contentWidth, contentHeight);
 
 
@@ -1201,7 +1193,7 @@
     } else if(previous_image == "http://atlas.cid.harvard.edu/media/img/all/loader.gif"){
         console.log("this page doesn't exist!");
     } else{
-        previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}";
+        previous_image = "/static_image/{{ previous_image }}";
         $("#historySlide").attr("href", previous_page);
     }
 

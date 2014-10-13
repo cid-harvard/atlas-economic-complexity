@@ -109,7 +109,6 @@ var flat_data,
     if (prod_class=="sitc4"){
       $.each(sitcs,function(key,val){
           if(current.contains(val.name)){
-            console.log("yes")
             return true;
           }
           missing.push(val);
@@ -120,7 +119,6 @@ var flat_data,
     {
       $.each(cats,function(key,val){
           if(current.contains(val.name)){
-            console.log("yes")
             return true;
           }
           missing.push(val);
@@ -348,12 +346,10 @@ var flat_data,
     if(typeof(start_year) == "undefined")
       start_year = viz.year();
 
-    console.log("mouse drag start", start_year, arg);
-
-    var treemap_title = d3.select('#text_title').text();
+    var treemap_title = d3.select('#text_title').attr("value");
     treemap_title = treemap_title.replace(viz.year(), arg);
-    d3.select('#text_title').text(treemap_title);
-    
+    d3.select('#text_title').attr("value", treemap_title);
+
     // Update the URL
     update_url('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
 
@@ -1212,7 +1208,6 @@ var flat_data,
     
     d3.json(req, function(hs) {
 
-      console.log("req", req)
       viz = d3plus.viz()
       
       viz_nodes = hs.nodes
@@ -1243,11 +1238,13 @@ var flat_data,
           link.target =viz_nodes.filter(function(d){ return d.code == link.target })[0]
         })     
       }
-      
-      flat_data.map(function(d){
-        d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+
+      flat_data.map(function(d) {
+        if(typeof(world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]) != "undefined") {
+          d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
+        } 
       })
-      
+        
       data = []
       the_years = d3plus.utils.uniques(flat_data,"year")
       the_years.forEach(function(year){
@@ -1335,14 +1332,15 @@ var flat_data,
       .datum(data)
       .call(viz);  
     
+
+    d3.select("#loader").style("display", "none");  
+
       d3.selectAll(".node, .d3plus_network_connection").on("mouseup", function() {
         
         // Update the keys based on product category availability
-        console.log("click")
       })
     })
     
-    d3.select("#loader").style("display", "none");  
     // Causes a bug
     //highlight(queryParameters['highlight']);
 
@@ -1351,10 +1349,11 @@ var flat_data,
         .classification(rawData.class)
         .showing(item_type)
 
+/*
       d3.select(".key")
         .datum(attr_data)
         .call(key);
-
+*/
       controls = Controls()
         .app_type(app_name)
         .year(year)
@@ -1363,6 +1362,7 @@ var flat_data,
         .datum(rawData)
         .call(controls); 
     }     
+
   }
   
   network = function() {
@@ -1629,6 +1629,7 @@ var flat_data,
       .call(app);
 
     if(!embed){
+      /* Not used + adds visual artifacts on static images
       key = Key()
         .classification(rawData.class)
         .showing(item_type)
@@ -1652,6 +1653,7 @@ var flat_data,
       d3.select("#tool_pane")
         .datum(rawData)
         .call(controls);
+        */
     }
 
     d3.select("#mdv").attr("fill", "white");
@@ -1718,10 +1720,10 @@ var flat_data,
 
     var single_year_param = "";
 
-    if(app_type=="casy" && (app_name=="tree_map" || app_name=="product_space" || app_name=="country_space")) {
-      single_year = true;
-      single_year_param = "&amp;single_year=true";
-    }
+    //if(app_type=="casy" && (app_name=="tree_map" || app_name=="product_space" || app_name=="country_space")) {
+    //  single_year = true;
+    //  single_year_param = "&amp;single_year=true";
+    //}
 
     d3.json(api_uri + '&amp;data_type=json' + single_year_param, function(error, raw) {
 

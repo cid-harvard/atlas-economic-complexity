@@ -5,6 +5,7 @@ import os
 import collections
 import json
 import time
+from urlparse import urlparse
 
 # Django
 from django.shortcuts import render_to_response, redirect
@@ -153,17 +154,12 @@ def explore(
     # We are here, so let us store this data somewhere
     request_hash_string = "_".join(request_hash_dictionary.values())
 
-    # Check staic image mode
-    if(settings.STATIC_IMAGE_MODE == "SVG"):
-        # Check if we have a valid PNG image to display for this
-        if os.path.exists(settings.DATA_FILES_PATH + "/" + request_hash_string + ".png"):
-            # display the  static images
-            displayviz = True
-            displayImage = settings.STATIC_URL + \
-                "data/" + request_hash_string + ".png"
-        else:
-            displayviz = False
-            displayImage = settings.STATIC_URL + "img/all/loader.gif"
+    # Code for showing a static image or not
+    static_image_name = helpers.url_to_hash(request.path, request.GET)
+    if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
+                                   static_image_name + ".png")):
+        displayviz = True
+        displayImage = static_image_name + ".png"
     else:
         displayviz = False
         displayImage = settings.STATIC_URL + "img/all/loader.gif"
@@ -376,6 +372,24 @@ def explore(
         r = cache.raw_client
         r.rpush("views", json.dumps(view_data))
 
+    previous_page = request.META.get('HTTP_REFERER',
+                                           None),
+
+    if previous_page[0] is not None:
+
+      previous_page = previous_page[0]
+      previous_image = helpers.url_to_hash(urlparse(previous_page).path, {})
+
+      if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
+                                     previous_image + ".png")):
+        previous_image = previous_image + ".png"
+      else:  
+        previous_image = settings.STATIC_URL + "img/all/loader.gif"
+
+    else:
+      previous_image = settings.STATIC_URL + "img/all/loader.gif"
+      previous_page = None
+
     return render_to_response(
         "explore/index.html",
         {"lang": lang,
@@ -405,12 +419,12 @@ def explore(
          "country_code": country_code,
          "prod_or_partner": prod_or_partner,
          "version": VERSION,
-         "previous_page": request.META.get('HTTP_REFERER',
-                                           None),
+         "previous_page": previous_page,
+         "previous_image": previous_image,  
          "item_type": item_type,
          "displayviz": displayviz,
          "displayImage": displayImage,
-         "displayIframe": request.GET.get("displayIframe", False)
+         "display_iframe": request.GET.get("display_iframe", False)
          },
         context_instance=RequestContext(request))
 

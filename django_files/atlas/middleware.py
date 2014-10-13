@@ -60,14 +60,17 @@ class PrerenderMiddleware(object):
                 .prerendered_html_to_image.s(name=filename,
                                              path=settings.STATIC_IMAGE_PATH)
 
-            result = celery.chain(prerender, get_image)()
-            if not (hasattr(request, "bot_crawl") and request.bot_crawl):
-                # If prerender is not needed, just return after firing the
-                # celery task.
+            if hasattr(request, "bot_crawl") and request.bot_crawl:
+                # If prerender is needed, wait for phantomjs
+                result = celery.chain(prerender, get_image)()
+                response.content = result.parent.get(timeout=15)
                 return response
             else:
-                # Otherwise wait for the response
-                response.content = result.parent.get(timeout=15)
+                # Otherwise, generate static image in the background, if it
+                # isn't already there
+                if not os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
+                                                   filename)):
+                    result = celery.chain(prerender, get_image)()
                 return response
 
         except Exception:
