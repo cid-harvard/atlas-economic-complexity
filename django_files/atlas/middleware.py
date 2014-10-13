@@ -48,8 +48,8 @@ class PrerenderMiddleware(object):
         temp.flush()
         os.chmod(temp.name, 0755)
 
-        url = "http://127.0.0.1:8000/%s%s" % (os.path.basename(temp.name),
-                                              request.GET.urlencode())
+        url = settings.STATIC_IMAGE_PHANTOMJS_URL + "%s%s" % \
+            (os.path.basename(temp.name), request.GET.urlencode())
 
         # Try to prerender, if it times out just return the original
         try:
