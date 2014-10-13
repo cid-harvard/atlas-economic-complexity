@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="media/css/px-video.css">
         <link rel="stylesheet" href="media/css/pure.css">
         <link rel="stylesheet" href="media/css/home.css">
+        <link rel="stylesheet" href="media/css/select-menu.css">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     {% endblock %}
 
@@ -112,15 +113,27 @@
                 <div class="subhead-wrap">
                     <h2 class="subhead">Alternatively, you can&hellip;</h2>
                 </div>
-                <form class="pure-form pure-g">
+                <form class="pure-g">
                     <div class="select-wrap pure-u-1 pure-u-sm-12-24">
                         <p class="example-caption">See the products exported by:</p>
-                        <select name="select" class="select-full" id="searchbar" autocomplete="off" placeholder="What did Burundi import from 1996&ndash;2012?" >
-                        </select>
+                        <div class="custom-select pure-button">
+                            <select name="select" class="select-full" id="searchbar" autocomplete="off">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
                     </div><div class="select-wrap pure-u-1 pure-u-sm-12-24">
                         <p class="example-caption">See which countries exported:</p>
-                        <select name="select" class="select-full" id="searchbar" autocomplete="off" placeholder="What did Burundi import from 1996&ndash;2012?" >
-                        </select>
+                        <div class="custom-select pure-button">
+                            <select name="select" class="select-full" id="searchbar" autocomplete="off">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
                     </div>
                 </form>
             </section>
