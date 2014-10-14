@@ -206,16 +206,15 @@ ul {
     }
 }
 
-.atlas-search-btn {
-    width: 18%;
+/* Triple classed to override pure.css specificity*/
+.atlas-search-btn.atlas-search-btn.atlas-search-btn {
+    width: 25%;
     margin-bottom: 10px;
 }
 
 @media screen and (min-width: 480px) {
-   .atlas-search-btn {
-        /*position: absolute;*/
-        /*right: 0;*/
-        /*width: 20%;*/
+   .atlas-search-btn.atlas-search-btn.atlas-search-btn {
+        width: 18%;
         float: right;
     }
 }
@@ -239,6 +238,10 @@ ul {
 
     .select-wrap:last-child {
         padding-left: 10px;
+    }
+    .select-menu-wrap {
+        width: 75%;
+        margin: 0 auto;
     }
 }
 

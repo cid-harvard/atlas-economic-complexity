@@ -32,9 +32,11 @@ $.ajax({
     populateSelect(data, $(".js-select-countries"));
 });
 
-// $.ajax({
-//     dataType: "json",
-//     url: "api/dropdowns/products/hs4/"
-// }).done(function(data) {
-//     populateSelect(data, $(".js-select-products"));
-// });
+$('.js-select-countries').on('change', function(){
+    window.location.replace('../explore/tree_map/export/' + $(this).val() + '/all/show/2012/');
+});
+
+
+$('.js-select-products').on('change', function(){
+    window.location.replace('../explore/tree_map/export/show/all/' + $(this).val() + '/2012/');
+});

@@ -126,14 +126,22 @@
                 <form class="pure-g">
                     <div class="select-wrap pure-u-1 pure-u-sm-12-24">
                         <p class="example-caption">See the products exported by:</p>
-                        <div class="custom-select pure-button">
+                        <div class="custom-select select-menu-wrap pure-button">
                             <select name="select" class="select-full js-select-countries" autocomplete="off">
                             </select>
                         </div>
                     </div><div class="select-wrap pure-u-1 pure-u-sm-12-24">
                         <p class="example-caption">See which countries exported:</p>
-                        <div class="custom-select pure-button">
+                        <div class="custom-select select-menu-wrap pure-button">
                             <select name="select" class="select-full js-select-products" autocomplete="off">
+                                <option class="atlas-option atlas-product-option" value="0901">Coffee</option>
+                                <option class="atlas-option atlas-product-option" value="7102">Diamonds</option>
+                                <option class="atlas-option atlas-product-option" value="2709">Crude oil</option>
+                                <option class="atlas-option atlas-product-option" value="0106">Live animals</option>
+                                <option class="atlas-option atlas-product-option" value="8703">Cars</option>
+                                <option class="atlas-option atlas-product-option" value="8485">Boats and boat parts</option>
+                                <option class="atlas-option atlas-product-option" value="2201">Water</option>
+                                <option class="atlas-option atlas-product-option" value="1001">Wheat</option>
                             </select>
                         </div>
                     </div>
@@ -212,7 +220,7 @@
 
     <!-- Templates for States -->
     <script type="text/template" class="atlas-select-template">
-        <option class="atlas-option" value="<%= option[1] %>"><%= option[0] %></option>
+        <option class="atlas-option atlas-country-option" value="<%= option[1] %>"><%= option[0] %></option>
     </script>
 
 
