@@ -39,7 +39,7 @@ function shareClick(event) {
 
 // $('.follow-atlasfacts-btn').on('click', shareClick());
 
-$('.follow-atlasfacts-btn').on('click', function(event) {
+$('.js-popup').on('click', function(event) {
     event.preventDefault();
 
     var $el = $(event.currentTarget),
