@@ -1,24 +1,6 @@
-#from django.conf.urls import patterns, include, url
-#from django.conf.urls import patterns, url
-#from django.views.generic.simple import redirect_to
-from django.conf.urls import patterns, include
+from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView, RedirectView
 
-# sitemap
-from django.conf.urls import *
-from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
-from django.conf import settings
-
-
-sitemaps = {
-    'flatpages': FlatPageSitemap,
-}
-
-
-if not settings.HTTP_HOST:
-  HTTP_HOST = '/'
-else:
-  HTTP_HOST = settings.HTTP_HOST
 
 class TextPlainView(TemplateView):
   def render_to_response(self, context, **kwargs):
@@ -28,10 +10,6 @@ class TextPlainView(TemplateView):
 
 urlpatterns = patterns('',
 
-  ## Exploring new patterns
-  #(r'^redesign/', include('redesign.urls')),
-#  (r'^usa/', include('usa.urls')),
-#  (r'^redesign/', include('redesign.urls')),
   ####
   ## Revisiting old patterns
   ####
