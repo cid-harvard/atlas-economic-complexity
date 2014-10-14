@@ -29,6 +29,7 @@
     {% endblock %}
 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script src="//www.google-analytics.com/cx/api.js?experiment=1TlRMfvcStutXnhZwghKnw"></script>
     <script>
@@ -126,21 +127,13 @@
                     <div class="select-wrap pure-u-1 pure-u-sm-12-24">
                         <p class="example-caption">See the products exported by:</p>
                         <div class="custom-select pure-button">
-                            <select name="select" class="select-full" id="searchbar" autocomplete="off">
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
+                            <select name="select" class="select-full js-select-countries" autocomplete="off">
                             </select>
                         </div>
                     </div><div class="select-wrap pure-u-1 pure-u-sm-12-24">
                         <p class="example-caption">See which countries exported:</p>
                         <div class="custom-select pure-button">
-                            <select name="select" class="select-full" id="searchbar" autocomplete="off">
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
+                            <select name="select" class="select-full js-select-products" autocomplete="off">
                             </select>
                         </div>
                     </div>
@@ -217,9 +210,16 @@
     </footer>
 
 
+    <!-- Templates for States -->
+    <script type="text/template" class="atlas-select-template">
+        <option class="atlas-option" value="<%= option[1] %>"><%= option[0] %></option>
+    </script>
+
+
     {% compress js %}
         <script type="text/javascript" src="//cdn.sublimevideo.net/js/6e9hjxp2.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/social/social.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/views/home.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/searchresults.js"></script>
     {% endcompress %}
 
