@@ -1,3 +1,5 @@
+{% load compress %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -18,11 +20,11 @@
     <!-- Place all stylesheets in this block for gzipping - GW -->
     <!-- Note that the pure.css framework includes normalize.css and is from http://purecss.io/ -->
     {% block css %}
-        <link rel="stylesheet" href="media/css/px-video.css">
-        <link rel="stylesheet" href="media/css/pure.css">
-        <link rel="stylesheet" href="media/css/select-menu.css">
-        <!-- <link rel="stylesheet" href="media/css/fonts.css"> -->
-        <link rel="stylesheet" href="media/css/home.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/px-video.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/pure.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/select-menu.css">
+        <!-- <link rel="stylesheet" href="{{ STATIC_URL }}css/fonts.css"> -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/home.css">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     {% endblock %}
 
@@ -99,13 +101,13 @@
                 </div>
                 <div class="pure-g">
                     <div class="example-wrap pure-u-1 pure-u-md-8-24">
-                        <img class="pure-img example-image" src="media/img/home/us_exports.png" />
+                        <img class="pure-img example-image" src="{{ STATIC_URL }}img/home/us_exports.png" />
                         <p class="example-caption">Caption TK here.</p>
                     </div><div class="example-wrap pure-u-1 pure-u-md-8-24">
-                        <img class="pure-img example-image" src="media/img/home/us_imports_ps.png" />
+                        <img class="pure-img example-image" src="{{ STATIC_URL }}img/home/us_imports_ps.png" />
                         <p class="example-caption">Caption TK here.</p>
                     </div><div class="example-wrap pure-u-1 pure-u-md-8-24">
-                        <img class="pure-img example-image" src="media/img/home/us_exports.png" />
+                        <img class="pure-img example-image" src="{{ STATIC_URL }}img/home/us_exports.png" />
                         <p class="example-caption">Caption TK here.</p>
                     </div>
                 </div>
@@ -143,7 +145,7 @@
                     <h2 class="subhead">What's the story behind the Atlas?</h2>
                     <p class="subhead-deck">Ricardo Hausmann, director of the Center for International Development, explains his theory of Economic Complexity, and why you should care copy TK.</p>
                 </div>
-                <video id="0" class="sublime" poster="media/img/video/ricardo_poster.jpg" width="640" height="360" data-uid="0" data-autoresize="fit" preload="none">
+                <video id="0" class="sublime" poster="{{ STATIC_URL }}img/video/ricardo_poster.jpg" width="640" height="360" data-uid="0" data-autoresize="fit" preload="none">
                     <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.mp4" data-quality="hd" />
                     <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.webm" data-quality="hd" />
                 </video>
@@ -152,13 +154,13 @@
                 <div class="subhead-wrap">
                     <h2 class="subhead">Want to see more hand-picked visualizations?</h2>
                 </div>
-                <a class="follow-atlasfacts-btn pure-button" href="#"><i class="fa fa-twitter atlasfacts-icon"></i>Follow @AtlasFacts</a>
+                <a class="follow-atlasfacts-btn pure-button" href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fatlas.cid.harvard.edu%2F&screen_name=Atlas_Facts" data-popup-width="555" data-popup-height="395"><i class="fa fa-twitter atlasfacts-icon"></i>Follow @Atlas_Facts</a>
             </section>
         </main>
 
         <nav class="atlas-bottomnav">
             <div class="bottomnav-topper pure-g">
-                <img class="cid-logo pure-u-1 pure-u-md-8-24" src="media/img/logos/logo_cid.png" title="The Center for International Development"/>
+                <img class="cid-logo pure-u-1 pure-u-md-8-24" src="{{ STATIC_URL }}img/logos/logo_cid.png" title="The Center for International Development"/>
                 <a class="pure-button bottomnav-social-btn"><i class="fa fa-twitter"></i></a>
                 <a class="pure-button bottomnav-social-btn"><i class="fa fa-facebook"></i></a>
             </div>
@@ -208,5 +210,11 @@
         <small class="license-copy">The Atlas of Economic complexity is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License. Current version: 1.0.6.</small>
     </footer>
 
-    <script type="text/javascript" src="//cdn.sublimevideo.net/js/6e9hjxp2.js"></script>
+
+    {% compress js %}
+        <script type="text/javascript" src="//cdn.sublimevideo.net/js/6e9hjxp2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/social/social.js"></script>
+    {% endcompress %}
+
+
 </body>
