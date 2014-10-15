@@ -31,7 +31,8 @@ class PrerenderMiddleware(object):
     def process_response(self, request, response):
 
         # If this is not an explore page, no need to prerender
-        if "observatory.views.explore" != request.resolver_match.url_name:
+        if request.resolver_match and ("observatory.views.explore"
+                                       != request.resolver_match.url_name):
             return response
 
         # Deal with django streaming responses, these don't need to be

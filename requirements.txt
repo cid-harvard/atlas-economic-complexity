@@ -13,3 +13,4 @@ html5lib
 celery[redis,msgpack]
 click
 selenium
+rjsmin
