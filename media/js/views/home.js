@@ -33,10 +33,10 @@ $.ajax({
 });
 
 $('.js-select-countries').on('change', function(){
-    window.location.replace('../explore/tree_map/export/' + $(this).val() + '/all/show/2012/');
+    window.location.href = '../explore/tree_map/export/' + $(this).val() + '/all/show/2012/';
 });
 
 
 $('.js-select-products').on('change', function(){
-    window.location.replace('../explore/tree_map/export/show/all/' + $(this).val() + '/2012/');
+    window.location.href = '../explore/tree_map/export/show/all/' + $(this).val() + '/2012/';
 });
