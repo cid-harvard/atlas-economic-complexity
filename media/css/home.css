@@ -16,6 +16,7 @@ body, input, textarea {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: subpixel-antialiased;
     -moz-osx-font-smoothing: subpixel-antialiased;
+    color: #404d5b;
 }
 
 *,
@@ -48,11 +49,24 @@ ul {
 }
 
 
+/*  FANCY ANCHORS
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+a {
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #d04c3f;
+}
+
+
 /*  LAYOUT
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .home-body {
-    padding: 60px 0 0;
+    padding: 80px 0 0;
 }
 
 .section-wrap {
@@ -73,20 +87,17 @@ ul {
     border-top: 1px solid #DDDDDD;
 }
 
-.atlas-section-final {
-    margin-bottom: 40px;
-}
-
 /*  GENERAL TYPE
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .subhead {
-    margin: 0 auto;
+    margin: 0 auto 10px;
     max-width: 400px;
 }
 
 .subhead-deck {
-    margin: 0 auto;
+    margin: 0 auto 20px;
+    text-align: center;
     max-width: 400px;
 }
 
@@ -100,7 +111,7 @@ ul {
 
 .subhead-wrap {
     max-width: 500px;
-    margin: 0 auto 20px;
+    margin: 0 auto 40px;
     text-align: center;
 }
 
@@ -192,11 +203,12 @@ ul {
 }
 
 .example-image {
-    margin: 0 auto;
+    margin: 0 auto 20px;
 }
 
 .example-caption {
     text-align: center;
+    margin: 0;
 }
 
 /*  SEARCH
@@ -280,7 +292,7 @@ ul {
 .follow-atlasfacts-btn {
     display: block;
     max-width: 250px;
-    margin: 0 auto;
+    margin: 20px auto 0;
 }
 
 .atlasfacts-icon {
@@ -292,7 +304,7 @@ ul {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .site-footer {
-    padding: 30px 0 0;
+    padding: 50px 0 0;
     background-color: rgb(230, 230, 230);
 }
 
@@ -367,7 +379,7 @@ ul {
 
 .site-nav-full-toplevel > .site-nav-full-link {
     margin-bottom: 6px;
-    display: block;
+    display: inline-block;
 }
 
 .site-nav-full-secondlevel {
