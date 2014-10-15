@@ -51,10 +51,21 @@ ul {
 /*  LAYOUT
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.main-content-wrap {
+.home-body {
+    padding: 60px 0 0;
+}
+
+.section-wrap {
+    padding: 0 20px;
+}
+
+.section-full-width {
+    margin: 0 auto;
+}
+
+.section-constrained-width {
     max-width: 960px;
-    margin: 60px auto;
-    padding: 0 30px;
+    margin: 0 auto;
 }
 
 .atlas-section {
@@ -268,7 +279,7 @@ ul {
 
 .follow-atlasfacts-btn {
     display: block;
-    max-width: 400px;
+    max-width: 250px;
     margin: 0 auto;
 }
 
@@ -279,6 +290,15 @@ ul {
 
 /*  BOTTOM NAV
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.site-footer {
+    padding: 30px 0 0;
+    background-color: rgb(230, 230, 230);
+}
+
+.atlas-bottomnav {
+    margin-bottom: 40px;
+}
 
 .bottomnav-topper {
     display: block;
@@ -360,15 +380,18 @@ ul {
 
 
 
-/*  FOOTER
+/*  LICENSE
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.site-footer {
+.license-wrap {
     padding: 30px 20px;
-    background-color: rgb(230, 230, 230);
+    background-color: gray;
 }
 
 .license-copy {
     display: block;
     text-align: center;
+    color: white;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
 }

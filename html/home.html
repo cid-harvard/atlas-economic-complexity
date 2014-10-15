@@ -20,12 +20,12 @@
     <!-- Place all stylesheets in this block for gzipping - GW -->
     <!-- Note that the pure.css framework includes normalize.css and is from http://purecss.io/ -->
     {% block css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/px-video.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/pure.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/select-menu.css">
-        <!-- <link rel="stylesheet" href="{{ STATIC_URL }}css/fonts.css"> -->
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/home.css">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/px-video.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pure.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/select-menu.css">
+    <!-- <link rel="stylesheet" href="{{ STATIC_URL }}css/fonts.css"> -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/home.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     {% endblock %}
 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -43,7 +43,7 @@
                 (i[r].q = i[r].q || []).push(arguments)
             }, i[r].l = 1 * new Date();
             a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
+            m = s.getElementsByTagName(o)[0];
             a.async = 1;
             a.src = g;
             m.parentNode.insertBefore(a, m)
@@ -58,11 +58,9 @@
     </script>
 </head>
 
-<body>
-    <div class="main-content-wrap">
-
-
-        <header class="site-header">
+<body class="home-body">
+    <section class="section-wrap">
+        <header class="site-header section-constrained-width">
             <a class="site-wordmark" href="/">
                 <h1 class="site-logo-copy"><span class="site-logo-firstline">The Atlas </span><span class="site-logo-secondline">of Economic Complexity</span></h1>
             </a>
@@ -83,9 +81,11 @@
                 </ul>
             </nav>
         </header>
+    </section>
 
-        <main class="article">
-            <section class="atlas-section">
+    <main class="article">
+        <section class="section-wrap">
+            <div class="atlas-section section-constrained-width">
                 <div class="subhead-wrap">
                     <h2 class="subhead subhead-search">Ask the Atlas</h2>
                     <form class="pure-form search-wrap clear">
@@ -94,8 +94,10 @@
                     </form>
                     <p class="subhead-deck atlas-description">Visualize imports and exports and explore growth opportunities for more than a hundred countries.</p>
                 </div>
-            </section>
-            <section class="atlas-section">
+            </div>
+        </section>
+        <section class="section-wrap">
+            <div class="atlas-section section-constrained-width">
                 <div class="subhead-wrap">
                     <h2 class="subhead">Not Sure Where to Start?</h2>
                     <p class="subhead-deck">Check out one of these examples.</p>
@@ -107,64 +109,73 @@
                             <p class="example-caption">What did the United States export between 2006-2012?</p>
                         </a>
                     </div><div class="example-wrap pure-u-1 pure-u-md-1-3">
-                        <a href="../explore/tree_map/import/usa/all/show/2012/">
-                            <img class="pure-img example-image" src="{{ STATIC_URL }}img/common/productspace.png" />
-                            <p class="example-caption">What did the United States import in&nbsp;2012?</p>
-                        </a>
-                    </div><div class="example-wrap pure-u-1 pure-u-md-1-3">
-                        <a href="../explore/tree_map/export/usa/chn/show/2012/">
-                            <img class="pure-img example-image" src="{{ STATIC_URL }}img/common/treemap.png" />
-                            <p class="example-caption">What did the United States export to China in 2012?</p>
-                        </a>
-                    </div>
+                    <a href="../explore/tree_map/import/usa/all/show/2012/">
+                        <img class="pure-img example-image" src="{{ STATIC_URL }}img/common/productspace.png" />
+                        <p class="example-caption">What did the United States import in&nbsp;2012?</p>
+                    </a>
+                </div><div class="example-wrap pure-u-1 pure-u-md-1-3">
+                <a href="../explore/tree_map/export/usa/chn/show/2012/">
+                    <img class="pure-img example-image" src="{{ STATIC_URL }}img/common/treemap.png" />
+                    <p class="example-caption">What did the United States export to China in 2012?</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-wrap">
+    <div class="atlas-section section-constrained-width">
+        <div class="subhead-wrap">
+            <h2 class="subhead">Alternatively, you can&hellip;</h2>
+        </div>
+        <form class="pure-g">
+            <div class="select-wrap pure-u-1 pure-u-sm-12-24">
+                <p class="example-caption">See the products exported by:</p>
+                <div class="custom-select select-menu-wrap pure-button">
+                    <select name="select" class="select-full js-select-countries" autocomplete="off">
+                    </select>
                 </div>
-            </section>
-            <section class="atlas-section">
-                <div class="subhead-wrap">
-                    <h2 class="subhead">Alternatively, you can&hellip;</h2>
-                </div>
-                <form class="pure-g">
-                    <div class="select-wrap pure-u-1 pure-u-sm-12-24">
-                        <p class="example-caption">See the products exported by:</p>
-                        <div class="custom-select select-menu-wrap pure-button">
-                            <select name="select" class="select-full js-select-countries" autocomplete="off">
-                            </select>
-                        </div>
-                    </div><div class="select-wrap pure-u-1 pure-u-sm-12-24">
-                        <p class="example-caption">See which countries exported:</p>
-                        <div class="custom-select select-menu-wrap pure-button">
-                            <select name="select" class="select-full js-select-products" autocomplete="off">
-                                <option class="atlas-option atlas-product-option" value="0901">Coffee</option>
-                                <option class="atlas-option atlas-product-option" value="7102">Diamonds</option>
-                                <option class="atlas-option atlas-product-option" value="2709">Crude oil</option>
-                                <option class="atlas-option atlas-product-option" value="0106">Live animals</option>
-                                <option class="atlas-option atlas-product-option" value="8703">Cars</option>
-                                <option class="atlas-option atlas-product-option" value="8485">Boats and boat parts</option>
-                                <option class="atlas-option atlas-product-option" value="2201">Water</option>
-                                <option class="atlas-option atlas-product-option" value="1001">Wheat</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-            </section>
-            <section class="atlas-section">
-                <div class="subhead-wrap">
-                    <h2 class="subhead">What's the story behind the Atlas?</h2>
-                    <p class="subhead-deck">Ricardo Hausmann, director of the Center for International Development, explains his theory of Economic Complexity, and why you should care copy TK.</p>
-                </div>
-                <video id="0" class="sublime" poster="{{ STATIC_URL }}img/video/ricardo_poster.jpg" width="640" height="360" data-uid="0" data-autoresize="fit" preload="none">
-                    <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.mp4" data-quality="hd" />
-                    <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.webm" data-quality="hd" />
-                </video>
-            </section>
-            <section class="atlas-section atlas-section-final">
-                <div class="subhead-wrap">
-                    <h2 class="subhead">Want to see more hand-picked visualizations?</h2>
-                </div>
-                <a class="follow-atlasfacts-btn pure-button js-popup" href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fatlas.cid.harvard.edu%2F&screen_name=Atlas_Facts" data-popup-width="555" data-popup-height="395"><i class="fa fa-twitter atlasfacts-icon"></i>Follow @Atlas_Facts</a>
-            </section>
-        </main>
-
+            </div><div class="select-wrap pure-u-1 pure-u-sm-12-24">
+            <p class="example-caption">See which countries exported:</p>
+            <div class="custom-select select-menu-wrap pure-button">
+                <select name="select" class="select-full js-select-products" autocomplete="off">
+                    <option class="atlas-option atlas-product-option" selected value="0901">Coffee</option>
+                    <option class="atlas-option atlas-product-option" value="7102">Diamonds</option>
+                    <option class="atlas-option atlas-product-option" value="2709">Crude oil</option>
+                    <option class="atlas-option atlas-product-option" value="0106">Live animals</option>
+                    <option class="atlas-option atlas-product-option" value="8703">Cars</option>
+                    <option class="atlas-option atlas-product-option" value="8485">Boats and boat parts</option>
+                    <option class="atlas-option atlas-product-option" value="2201">Water</option>
+                    <option class="atlas-option atlas-product-option" value="1001">Wheat</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+</section>
+<section class="section-wrap">
+    <div class="atlas-section section-constrained-width">
+        <div class="subhead-wrap">
+            <h2 class="subhead">What's the story behind the Atlas?</h2>
+            <p class="subhead-deck">Ricardo Hausmann, director of the Center for International Development, explains his theory of Economic Complexity, and why you should care copy TK.</p>
+        </div>
+        <video id="0" class="sublime" poster="{{ STATIC_URL }}img/video/ricardo_poster.jpg" width="640" height="360" data-uid="0" data-autoresize="fit" preload="none">
+            <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.mp4" data-quality="hd" />
+            <source src="http://aa0db7f6f38150fa3b2c-b66007ea555d9d059e5575bd1a5d73ef.r91.cf1.rackcdn.com/hausman_on_econ_complexity.webm" data-quality="hd" />
+        </video>
+    </div>
+</section>
+<section class="section-wrap">
+    <div class="atlas-section section-constrained-width atlas-section-final">
+        <div class="subhead-wrap">
+            <h2 class="subhead">Want to see more hand-picked visualizations?</h2>
+        </div>
+        <a class="follow-atlasfacts-btn pure-button js-popup" href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fatlas.cid.harvard.edu%2F&screen_name=Atlas_Facts" data-popup-width="555" data-popup-height="395"><i class="fa fa-twitter atlasfacts-icon"></i>Follow @Atlas_Facts</a>
+    </div>
+</section>
+</main>
+</div>
+<footer class="site-footer">
+    <div class="section-constrained-width">
         <nav class="atlas-bottomnav">
             <div class="bottomnav-topper pure-g">
                 <img class="cid-logo pure-u-sm-1-2 pure-u-md-1-3 pure-img" src="{{ STATIC_URL }}img/logos/logo_cid_no_stripes.png" title="The Center for International Development"/>
@@ -186,52 +197,53 @@
                     </li>
                     <li class="site-nav-full-toplevel"><a class="site-nav-full-link" href="../about/glossary">Atlas Glossary</a></li>
                 </ul><ul class="site-nav-full-list-toplevel pure-u-1 pure-u-md-1-3">
-                    <li class="site-nav-full-toplevel"><a class="site-nav-full-link" href="../about/support">Support</a>
-                        <ul class="site-nav-full-list-secondlevel">
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#santadomingofamily">Alejandro Santo Domingo and Family</a></li>
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#investec">BBVA</a></li>
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#bbva">CAF Development Bank of Latin America</a></li>
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#caf">Investec Asset Management</a></li>
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#icss">International Centre for Sports Security</a></li>
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#mindteck">Mindteck</a></li>
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#usitc">United States International Trade Commission</a></li>
-                        </ul>
-                    </li>
-                </ul><ul class="site-nav-full-list-toplevel pure-u-1 pure-u-md-1-3">
-                    <li class="site-nav-full-toplevel"><a class="site-nav-full-link" href="../about/data/sitc4/">Data and Sharing</a>
-                        <ul class="site-nav-full-list-secondlevel">
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/data/sitc4/#notes">Notes</a></li>
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/data/sitc4/#contributing">Re-use and contributions</a></li>
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/privacy">Privacy policy</a></li>
-                        </ul>
-                    </li>
-                    <li class="site-nav-full-toplevel"><a class="site-nav-full-link" href="../about/research/">Research</a>
-                        <ul class="site-nav-full-list-secondlevel">
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/research/#growthlab">The Growth Lab</a></li>
-                            <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/research/#atlas">The Atlas</a></li>
-                        </ul>
-                    </li>
+                <li class="site-nav-full-toplevel"><a class="site-nav-full-link" href="../about/support">Support</a>
+                    <ul class="site-nav-full-list-secondlevel">
+                        <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#santadomingofamily">Alejandro Santo Domingo and Family</a></li>
+                        <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#investec">BBVA</a></li>
+                        <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#bbva">CAF Development Bank of Latin America</a></li>
+                        <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#caf">Investec Asset Management</a></li>
+                        <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#icss">International Centre for Sports Security</a></li>
+                        <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#mindteck">Mindteck</a></li>
+                        <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/support/#usitc">United States International Trade Commission</a></li>
+                    </ul>
+                </li>
+            </ul><ul class="site-nav-full-list-toplevel pure-u-1 pure-u-md-1-3">
+            <li class="site-nav-full-toplevel"><a class="site-nav-full-link" href="../about/data/sitc4/">Data and Sharing</a>
+                <ul class="site-nav-full-list-secondlevel">
+                    <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/data/sitc4/#notes">Notes</a></li>
+                    <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/data/sitc4/#contributing">Re-use and contributions</a></li>
+                    <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/privacy">Privacy policy</a></li>
                 </ul>
-            </nav>
-        </nav>
-    </div>
-    <footer class="site-footer">
-        <small class="license-copy">The Atlas of Economic complexity is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a></small>
-    </footer>
+            </li>
+            <li class="site-nav-full-toplevel"><a class="site-nav-full-link" href="../about/research/">Research</a>
+                <ul class="site-nav-full-list-secondlevel">
+                    <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/research/#growthlab">The Growth Lab</a></li>
+                    <li class="site-nav-full-secondlevel"><a class="site-nav-full-link" href="../about/research/#atlas">The Atlas</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</nav>
+<div class="license-wrap">
+    <small class="license-copy">The Atlas of Economic complexity is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a></small>
+</div>
+</div>
+</footer>
 
 
-    <!-- Templates for States -->
-    <script type="text/template" class="atlas-select-template">
-        <option class="atlas-option atlas-country-option" value="<%= option[1] %>"><%= option[0] %></option>
-    </script>
+<!-- Templates for States -->
+<script type="text/template" class="atlas-select-template">
+    <option class="atlas-option atlas-country-option" value="<%= option[1] %>"><%= option[0] %></option>
+</script>
 
 
-    {% compress js %}
-        <script type="text/javascript" src="//cdn.sublimevideo.net/js/6e9hjxp2.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/social/social.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/views/home.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/searchresults.js"></script>
-    {% endcompress %}
+{% compress js %}
+<script type="text/javascript" src="//cdn.sublimevideo.net/js/6e9hjxp2.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/social/social.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/views/home.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/searchresults.js"></script>
+{% endcompress %}
 
 
 </body>
