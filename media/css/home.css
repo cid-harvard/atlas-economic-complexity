@@ -286,12 +286,33 @@ ul {
 }
 
 .cid-logo {
-    padding-right: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #DDDDDD;
 }
 
+.bottomnav-social-wrap {
+    margin: 0 auto 10px;
+    text-align: center;
+}
+
+
+@media screen and (min-width: 35.5em) {
+    .bottomnav-social-wrap {
+        margin-bottom: 0;
+        position: absolute;
+        bottom: 10px;
+        right: 0;
+    }
+    .cid-logo {
+        margin-bottom: 0;
+        padding: 0 20px 0 0;
+        border-bottom: none;
+    }
+}
+
+
 .bottomnav-social-btn {
-    position: absolute;
-    bottom: 10px;
     text-align: center;
     height: 40px;
     width: 40px;
