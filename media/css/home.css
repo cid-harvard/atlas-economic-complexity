@@ -107,6 +107,7 @@ a:hover {
 .site-header {
     display: table;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .subhead-wrap {
@@ -115,15 +116,43 @@ a:hover {
     text-align: center;
 }
 
+/*@media screen and (min-width: 48em) {
+    .example-wrap {
+        margin: 0 auto;
+    }
+   .example-wrap:first-child {
+       padding: 0 20px 0 0;
+   }
+
+   .example-wrap:nth-child(2) {
+       padding: 0 10px;
+   }
+
+   .example-wrap:last-child {
+       padding: 0 0 0 20px;
+   }
+}*/
+
 /*  LOGO (silly, looking forward to changing)
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .site-wordmark {
-    display: inline-block;
+    display: block;
+    width: 100%;
     float: left;
-    margin-bottom: -10px;
     white-space: nowrap;
     text-decoration: none;
+    padding: 0 0 10px;
+    border-bottom: 1px solid #DDDDDD;
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 48em) {
+    .site-wordmark {
+        margin-bottom: -10px;
+        padding: 0;
+        border: none;
+    }
 }
 
 .site-logo-copy {
@@ -153,20 +182,34 @@ a:hover {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .site-nav {
-    display: table-cell;
-    width: 100%;
+/*    display: table-cell;
+    width: 100%;*/
 }
 
 .site-nav-list {
-    float: right;
-    margin: 0;
-    padding: 0;
+/*    margin: 0;
+    padding: 0;*/
 }
 
 .site-nav-item {
-    display: inline;
+    display: inline-block;
     padding: 0 20px;
     list-style-type: none;
+}
+
+@media screen and (min-width: 48em) {
+    .site-nav {
+        display: table-cell;
+        width: 100%;
+    }
+    .site-nav-list {
+        float: right;
+        margin: 0;
+        padding: 0;
+    }
+    .site-nav-item {
+        margin-bottom: 0;
+    }
 }
 
 .site-nav-item:first-child {
