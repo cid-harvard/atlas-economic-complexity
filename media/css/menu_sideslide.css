@@ -46,37 +46,14 @@ html,
 
 /* site-nav Button */
 .site-nav-button {
-    font-size: 1.5em;
+    font-size: 1em;
     position: absolute;
-    z-index: 1000;
     right: 0;
-    width: 1.5em;
-    height: 1.5em;
     bottom: 0;
-    /*margin: 1em;*/
-    padding: 0;
-    text-indent: 2.5em;
-    color: transparent;
     border: none;
-    background: transparent;
-}
-
-.site-nav-button::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: '';
-    background: linear-gradient(#373A47 20%, transparent 20%, transparent 40%, #373A47 40%, #373A47 60%, transparent 60%, transparent 80%, #373A47 80%);
-}
-
-.site-nav-button:hover {
-    opacity: .6;
 }
 
 .site-nav-button:focus {
-		opacity: .6;
     outline: 0;
 }
 
@@ -88,14 +65,16 @@ html,
     right: 2em;
     overflow: hidden;
     width: 1em;
+    width: 30px;
     height: 1em;
+    height: 30px;
+    padding: 1em;
+    -webkit-transition: color .2s;
+            transition: color .2s;
     text-indent: 1em;
     color: transparent;
-    border: 1px solid white;
-    height: 30px;
-    width: 30px;
+    border: 2px solid rgb(230, 230, 230);
     border-radius: 50%;
-    padding: 1em;
     background: transparent;
 }
 
@@ -104,15 +83,17 @@ html,
     position: absolute;
     top: 25%;
     left: 46%;
-    width: 3px;
+    width: 2px;
     height: 50%;
     content: '';
-    background: #BDC3C7;
+    -webkit-transition: background-color .2s;
+            transition: background-color .2s;
+    background: rgb(230, 230, 230);
 }
 
-.close-button::before:hover,
- .close-button::after:hover {
-    background: red;
+.close-button:hover::before,
+ .close-button:hover::after {
+    background: #D04C3F;
 }
 
 .close-button::before {
@@ -193,9 +174,15 @@ html,
 }
 
 .site-nav-list a span {
-    font-weight: 700;
     margin-left: 10px;
 }
+
+.site-nav-list span,
+ .site-nav-list i {
+    -webkit-transition: color .2s;
+            transition: color .2s;
+}
+
 
 /* Shown site-nav */
 .show-site-nav .site-nav-wrap {

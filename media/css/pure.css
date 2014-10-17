@@ -225,6 +225,8 @@ Buttons
     white-space: nowrap;
     *display: inline;
     -webkit-user-drag: none;
+    -webkit-transition: background-color .2s;
+            transition: background-color .2s;
 }
 
 .pure-button::-moz-focus-inner {
