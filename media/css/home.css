@@ -67,6 +67,10 @@ a:hover {
     color: inherit;
 }
 
+.anchor-underline-offset {
+    border-bottom: 1px solid white;
+}
+
 
 /*  LAYOUT
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
@@ -337,7 +341,7 @@ a:hover {
 
 .cid-logo {
     margin-bottom: 20px;
-    padding-bottom: 10px;
+    padding: 0 10px 20px;
     border-bottom: 1px solid #DDDDDD;
 }
 
