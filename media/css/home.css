@@ -70,7 +70,7 @@ a:hover {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .home-body {
-    padding: 80px 0 0;
+    /*padding: 80px 0 0;*/
 }
 
 .section-wrap {
@@ -112,6 +112,8 @@ a:hover {
     display: table;
     margin-bottom: 20px;
     width: 100%;
+    margin-top: 80px;
+    position: relative;
 }
 
 .subhead-wrap {
@@ -142,21 +144,10 @@ a:hover {
 
 .site-wordmark {
     display: block;
-    width: 100%;
     float: left;
     white-space: nowrap;
     text-decoration: none;
-    padding: 0 0 10px;
-    border-bottom: 1px solid #DDDDDD;
-    margin-bottom: 20px;
-}
-
-@media screen and (min-width: 48em) {
-    .site-wordmark {
-        margin-bottom: -10px;
-        padding: 0;
-        border: none;
-    }
+    margin-bottom: -10px;
 }
 
 .site-logo-copy {
@@ -186,34 +177,17 @@ a:hover {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .site-nav {
-/*    display: table-cell;
-    width: 100%;*/
+    display: table-cell;
+    width: 100%;
 }
-
 .site-nav-list {
-/*    margin: 0;
-    padding: 0;*/
+    float: right;
+    margin: 0;
+    padding: 0;
 }
-
 .site-nav-item {
-    display: inline-block;
-    padding: 0 20px;
+    margin-bottom: 0;
     list-style-type: none;
-}
-
-@media screen and (min-width: 48em) {
-    .site-nav {
-        display: table-cell;
-        width: 100%;
-    }
-    .site-nav-list {
-        float: right;
-        margin: 0;
-        padding: 0;
-    }
-    .site-nav-item {
-        margin-bottom: 0;
-    }
 }
 
 .site-nav-item:first-child {
