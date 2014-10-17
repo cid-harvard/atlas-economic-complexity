@@ -369,9 +369,10 @@ a:hover {
 .bottomnav-social-btn {
     width: 40px;
     height: 40px;
-    padding: 12px;
+    padding: 10px;
     text-align: center;
     border-radius: 50%;
+    border: 2px solid #D8D8D8;
 }
 
 .bottomnav-social-btn:nth-of-type(1) {
