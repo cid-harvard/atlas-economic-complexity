@@ -171,19 +171,21 @@ a:hover {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .site-nav {
-    display: table-cell;
+    display: none;
     width: 100%;
 }
+
 .site-nav-list {
     float: right;
     margin: 0;
     padding: 0;
 }
+
 .site-nav-item {
+    display: inline-block;
     margin-bottom: 0;
     list-style-type: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    padding: 0 10px;
     -webkit-transition: color .2s;
             transition: color .2s;
 }
@@ -194,6 +196,29 @@ a:hover {
 
 .site-nav-item:last-child {
     padding-right: 0;
+}
+
+@media screen and (min-width: 48em) {
+    .site-nav {
+        display: table-cell;
+    }
+}
+
+
+/*  SLIDEIN NAV
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.site-nav-slidein-item {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition: color .2s;
+            transition: color .2s;
+}
+
+@media screen and (min-width: 48em) {
+    .site-nav-slidein-button {
+        display: none;
+    }
 }
 
 
@@ -398,7 +423,6 @@ a:hover {
     margin-bottom: 3px;
     margin-left: 18px;
     list-style-type: disc;
-    text-indent: -3px;
 }
 
 @media screen and (min-width: 48em) {

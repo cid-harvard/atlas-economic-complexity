@@ -37,10 +37,10 @@
 
 	function toggleNav() {
 		if( isOpen ) {
-			$(bodyEl).removeClass( 'show-site-nav' );
+			$(bodyEl).removeClass( 'show-site-nav-slidein' );
 		}
 		else {
-			$(bodyEl).addClass( 'show-site-nav' );
+			$(bodyEl).addClass( 'show-site-nav-slidein' );
 		}
 		isOpen = !isOpen;
 	}
