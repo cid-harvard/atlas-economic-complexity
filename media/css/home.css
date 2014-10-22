@@ -286,13 +286,15 @@ a:hover {
     list-style: none;
     border-radius: 0;
     outline: 0;
+    background: white;
+    border: 1px solid #DDDDDD;
 }
 
 .ui-menu-item {
     font-size: 12px;
     padding: 10px 0;
     cursor: pointer;
-    border-bottom: 1px solid #CCCCCC;
+    border-bottom: 1px solid #DDDDDD;
 }
 
 .ui-menu-item:last-of-type {
@@ -302,18 +304,16 @@ a:hover {
 .ui-widget-content .ui-state-focus {
     border: none;
     border-radius: 0;
-    background: #DDDDDD;
+    color: #D04C3F;
+    /*background: #DDDDDD;*/
 }
 
 .autocomplete-wrap {
     width: 80px;
 }
 
-.ui-autocomplete {
-/*    position: absolute;
-    top: 0;
-    left: 0;
-    cursor: default;*/
+.ui-helper-hidden-accessible {
+    display: none;
 }
 
 
