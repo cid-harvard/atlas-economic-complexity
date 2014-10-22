@@ -134,6 +134,7 @@ if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefi
     })
 
     autocomplete_settings_home = {
+      appendTo: '.autocomplete-wrap',
       minLength: 3,
       delay: 260,
       source: search_data_source,

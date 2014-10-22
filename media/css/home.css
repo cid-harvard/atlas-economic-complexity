@@ -121,7 +121,7 @@ a:hover {
 }
 
 .offset-text-shadow {
-    text-shadow: rgba(0, 0, 0, 0.4);
+    text-shadow: rgba(0, 0, 0, .4);
 }
 
 /*  HEADER
@@ -193,8 +193,8 @@ a:hover {
 .site-nav-item {
     display: inline-block;
     margin-bottom: 0;
-    list-style-type: none;
     padding: 0 10px;
+    list-style-type: none;
     -webkit-transition: color .2s;
             transition: color .2s;
 }
@@ -222,10 +222,98 @@ a:hover {
             transition: color .2s;
 }
 
+.close-button:focus {
+    outline: 0;
+}
+
 @media screen and (min-width: 48em) {
     .site-nav-slidein-button {
         display: none;
     }
+}
+
+
+/*  SEARCH
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.search-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.atlas-search {
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 20px;
+}
+
+/* To override pure.css specificity*/
+.atlas-search.atlas-search[type=text] {
+    padding: .45em .6em;   /* Yuck magic numbers */
+    border-radius: 0;
+}
+
+@media screen and (min-width: 480px) {
+    .atlas-search {
+        width: 80%;
+    }
+}
+
+/* Triple classed to override pure.css specificity*/
+.atlas-search-btn.atlas-search-btn.atlas-search-btn {
+    width: 25%;
+    margin-bottom: 10px;
+}
+
+@media screen and (min-width: 480px) {
+    .atlas-search-btn.atlas-search-btn.atlas-search-btn {
+        float: right;
+        width: 18%;
+    }
+}
+
+.subhead-search {
+    margin-bottom: 15px;
+}
+
+
+/*  SEARCH (JQUERY UI AUTOCOMPLETE CLASSES)
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.ui-menu {
+    padding: 0 10px;
+    list-style: none;
+    border-radius: 0;
+    outline: 0;
+}
+
+.ui-menu-item {
+    font-size: 12px;
+    padding: 10px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.ui-menu-item:last-of-type {
+    border-bottom: none;
+}
+
+.ui-widget-content .ui-state-focus {
+    border: none;
+    border-radius: 0;
+    background: #DDDDDD;
+}
+
+.autocomplete-wrap {
+    width: 80px;
+}
+
+.ui-autocomplete {
+/*    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;*/
 }
 
 
@@ -262,44 +350,6 @@ a:hover {
     text-align: center;
 }
 
-/*  SEARCH
-// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
-
-.search-wrap {
-    position: relative;
-    width: 100%;
-}
-
-.atlas-search {
-    float: left;
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 20px;
-}
-
-@media screen and (min-width: 480px) {
-    .atlas-search {
-        width: 80%;
-    }
-}
-
-/* Triple classed to override pure.css specificity*/
-.atlas-search-btn.atlas-search-btn.atlas-search-btn {
-    width: 25%;
-    margin-bottom: 10px;
-}
-
-@media screen and (min-width: 480px) {
-    .atlas-search-btn.atlas-search-btn.atlas-search-btn {
-        float: right;
-        width: 18%;
-    }
-}
-
-.subhead-search {
-    margin-bottom: 15px;
-}
-
 
 /*  SELECT
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
@@ -334,8 +384,6 @@ a:hover {
     margin: 0 auto;
 }
 
-
-
 @media screen and (min-width: 48em) {
     .video-section {
         position: relative;
@@ -345,13 +393,13 @@ a:hover {
         position: absolute;
         z-index: 1;
         top: 55%;
-        left: 0;
         right: 0;
-        transform: translateY(-50%);
-        color: white;
+        left: 0;
         max-width: 360px;
         padding: 0 20px;
+        transform: translateY(-50%);
         pointer-events: none;
+        color: white;
     }
 
     .video-subhead {
@@ -428,8 +476,8 @@ a:hover {
     height: 40px;
     padding: 10px;
     text-align: center;
-    border-radius: 50%;
     border: 2px solid #D8D8D8;
+    border-radius: 50%;
 }
 
 .bottomnav-social-btn:nth-of-type(1) {
@@ -478,6 +526,7 @@ a:hover {
 
 .license-copy {
     font-weight: 500;
+    line-height: 140%;
     display: block;
     text-align: center;
     color: white;

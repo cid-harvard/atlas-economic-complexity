@@ -33,22 +33,51 @@ $.ajax({
 });
 
 $('.js-select-countries').on('change', function(){
-    window.location.href = '../explore/tree_map/export/' + $(this).val() + '/all/show/2012/';
+    var $this = $(this);
+    ga('send', {
+      'hitType': 'event',          // Required.
+      'eventCategory': 'Explore by Country',   // Required.
+      'eventAction': 'click',      // Required.
+      'eventLabel': $this.find('option:selected').text()
+    });
+    window.location.href = '../explore/tree_map/export/' + $this.val() + '/all/show/2012/';
 });
 
 
 $('.js-select-products').on('change', function(){
-    window.location.href = '../explore/tree_map/export/show/all/' + $(this).val() + '/2012/';
+    var $this = $(this);
+    ga('send', {
+      'hitType': 'event',          // Required.
+      'eventCategory': 'Explore by Product',   // Required.
+      'eventAction': 'click',      // Required.
+      'eventLabel': $this.find('option:selected').text()
+    });
+    window.location.href = '../explore/tree_map/export/show/all/' + $this.val() + '/2012/';
 });
 
 sublime.ready(function(){
     sublime.player('js-hausman-vid').on('start', function(player) {
         ga('send', {
           'hitType': 'event',          // Required.
-          'eventCategory': 'video',   // Required.
+          'eventCategory': 'Hausman Video',   // Required.
           'eventAction': 'click',      // Required.
-          'eventLabel': 'play'
+          'eventLabel': 'Play'
         });
         $('.video-wrap').fadeOut(200);
     });
 });
+
+$('.track-click').on('click', function(){
+    var $this = $(this);
+    ga('send', {
+      'hitType': 'event',          // Required.
+      'eventCategory': $this.data('ga-category'),   // Required.
+      'eventAction': 'click',      // Required.
+      'eventLabel': $this.data('ga-label')
+    });
+});
+
+jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+  var ul = this.menu.element;
+  ul.outerWidth(this.element.outerWidth());
+}
