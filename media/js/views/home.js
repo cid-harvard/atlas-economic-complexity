@@ -43,6 +43,12 @@ $('.js-select-products').on('change', function(){
 
 sublime.ready(function(){
     sublime.player('js-hausman-vid').on('start', function(player) {
+        ga('send', {
+          'hitType': 'event',          // Required.
+          'eventCategory': 'video',   // Required.
+          'eventAction': 'click',      // Required.
+          'eventLabel': 'play'
+        });
         $('.video-wrap').fadeOut(200);
     });
 });
