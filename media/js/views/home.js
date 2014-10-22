@@ -40,3 +40,9 @@ $('.js-select-countries').on('change', function(){
 $('.js-select-products').on('change', function(){
     window.location.href = '../explore/tree_map/export/show/all/' + $(this).val() + '/2012/';
 });
+
+sublime.ready(function(){
+    sublime.player('js-hausman-vid').on('start', function(player) {
+        $('.video-wrap').fadeOut(200);
+    });
+});

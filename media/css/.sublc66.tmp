@@ -120,10 +120,6 @@ a:hover {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.offset-text-shadow {
-    text-shadow: rgba(0, 0, 0, 0.4);
-}
-
 /*  HEADER
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
@@ -330,33 +326,35 @@ a:hover {
 /*  Video
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
+.video-section {
+    position: relative;
+}
+
+.video-wrap {
+    position: absolute;
+    z-index: 1;
+    top: 33.5%;
+    left: 32%;
+    color: white;
+    max-width: 340px;
+    padding: 0 20px;
+    pointer-events: none;
+}
+
+.video-subhead {
+    margin-bottom: 100px;
+}
+
+.video-subhead-deck {
+
+}
+
 .hausman-video {
     margin: 0 auto;
 }
 
-
-
-@media screen and (min-width: 48em) {
-    .video-section {
-        position: relative;
-    }
-
-    .video-wrap {
-        position: absolute;
-        z-index: 1;
-        top: 55%;
-        left: 0;
-        right: 0;
-        transform: translateY(-50%);
-        color: white;
-        max-width: 360px;
-        padding: 0 20px;
-        pointer-events: none;
-    }
-
-    .video-subhead {
-        margin-bottom: 100px;
-    }
+.sublimevideo-View {
+    z-index: 2;
 }
 
 
