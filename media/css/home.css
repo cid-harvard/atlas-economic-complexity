@@ -108,7 +108,6 @@ a:hover {
 .subhead-deck {
     max-width: 400px;
     margin: 0 auto 20px;
-    text-align: center;
 }
 
 .atlas-btn-icon {
@@ -284,10 +283,10 @@ a:hover {
 .ui-menu {
     padding: 0 10px;
     list-style: none;
+    border: 1px solid #DDDDDD;
     border-radius: 0;
     outline: 0;
     background: white;
-    border: 1px solid #DDDDDD;
 }
 
 .ui-menu-item {
@@ -302,9 +301,9 @@ a:hover {
 }
 
 .ui-widget-content .ui-state-focus {
+    color: #D04C3F;
     border: none;
     border-radius: 0;
-    color: #D04C3F;
     /*background: #DDDDDD;*/
 }
 
@@ -356,6 +355,10 @@ a:hover {
 
 .select-full {
     width: 100%;
+}
+
+.select-wrap {
+    text-align: center;
 }
 
 .select-wrap:first-child {
@@ -423,19 +426,19 @@ a:hover {
 }
 
 
-/*  BOTTOM NAV
+/*  MEGAFOOTER
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.site-footer {
+.site-megafooter {
     padding: 50px 0 0;
     background-color: rgb(230, 230, 230);
 }
 
-.atlas-bottomnav {
+.atlas-megafooter {
     margin-bottom: 40px;
 }
 
-.bottomnav-topper {
+.megafooter-topper {
     position: relative;
     display: block;
     width: 100%;
@@ -450,14 +453,14 @@ a:hover {
     border-bottom: 1px solid #DDDDDD;
 }
 
-.bottomnav-social-wrap {
+.megafooter-social-wrap {
     margin: 0 auto 10px;
     text-align: center;
 }
 
 
 @media screen and (min-width: 35.5em) {
-    .bottomnav-social-wrap {
+    .megafooter-social-wrap {
         position: absolute;
         right: 0;
         bottom: 10px;
@@ -470,8 +473,11 @@ a:hover {
     }
 }
 
+.megafooter-btn {
+    border: 2px solid #D8D8D8;
+}
 
-.bottomnav-social-btn {
+.megafooter-social-btn {
     width: 40px;
     height: 40px;
     padding: 10px;
@@ -480,12 +486,21 @@ a:hover {
     border-radius: 50%;
 }
 
-.bottomnav-social-btn:nth-of-type(1) {
+.megafooter-social-btn:nth-of-type(1) {
     right: 50px;
 }
 
-.bottomnav-social-btn:nth-of-type(2) {
+.megafooter-social-btn:nth-of-type(2) {
     right: 0;
+}
+
+
+/*  SITE NAV FULL
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.site-nav-full {
+    padding-right: 1.5em;
+    border-right: 1px solid #DDDDDD;
 }
 
 .site-nav-full-toplevel {
@@ -495,14 +510,15 @@ a:hover {
 
 .site-nav-full-toplevel > .site-nav-full-link {
     display: inline-block;
-    margin-bottom: 6px;
 }
 
 .site-nav-full-secondlevel {
     font-size: .65em;
     margin-bottom: 3px;
-    margin-left: 18px;
-    list-style-type: disc;
+}
+
+.site-nav-full-secondlevel:first-child {
+    margin-top: 6px;
 }
 
 @media screen and (min-width: 48em) {
@@ -515,6 +531,26 @@ a:hover {
 }
 
 
+/*  MEGAFOOTER SIGNUP
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.megafooter-listserv {
+    float: right;
+    padding-left: 1.5em;
+}
+
+/* Overspecifc to combat pure.css */
+.listserv-input.listserv-input[type=email] {
+    width: 68%;
+}
+
+.listserv-button {
+        padding: .4em 1em .5em;
+    float: right;
+    width: 30%;
+    height: 35px;
+    border-radius: 4px;
+}
 
 /*  LICENSE
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
