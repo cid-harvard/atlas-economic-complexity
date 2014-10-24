@@ -114,6 +114,10 @@ a:hover {
     margin-right: 2px;
 }
 
+.atlas-btn-icon-large {
+    margin-right: 6px;
+}
+
 .offset-text {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -530,16 +534,34 @@ a:hover {
     margin-top: 6px;
 }
 
-@media screen and (min-width: 48em) {
-    .site-nav-full {
-        padding-right: 1.5em;
-        border-right: 1px solid #DDDDDD;
+@media screen and (min-width: 35.5em) {
+    .site-nav-full-list-toplevel {
+        padding-right: 1em;
     }
     .site-nav-full-list-toplevel:first-child {
-        padding-right: 20px;
+        padding-right: 1em;
+        border-right: 1px solid #DDDDDD;
     }
     .site-nav-full-list-toplevel:last-child {
-        padding-left: 20px;
+        padding-left: 1em;
+    }
+}
+
+@media screen and (min-width: 48em) {
+    .site-nav-full-list-toplevel {
+        border-right: 0;
+    }
+    .site-nav-full {
+        padding-right: 1em;
+        border-right: 1px solid #DDDDDD;
+        border-bottom: 0;
+    }
+    .site-nav-full-list-toplevel:first-child {
+        padding-right: 1em;
+        border-right: 0;
+    }
+    .site-nav-full-list-toplevel:last-child {
+        padding: 0 0 0 1em;
     }
 }
 
@@ -547,16 +569,11 @@ a:hover {
 /*  MEGAFOOTER SIGNUP
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.megafooter-listserv {
-/*    float: right;
-    padding-left: 1.5em;*/
-    /*text-align: left;*/
-}
-
 /* Overspecifc to combat pure.css */
 .listserv-input.listserv-input[type=email] {
     width: 100%;
     border-radius: 0;
+    float: left;
 }
 
 .listserv-button {
