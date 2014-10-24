@@ -111,7 +111,7 @@ a:hover {
 }
 
 .atlas-btn-icon {
-    margin-right: 6px;
+    margin-right: 2px;
 }
 
 .offset-text {
@@ -121,6 +121,13 @@ a:hover {
 
 .offset-text-shadow {
     text-shadow: rgba(0, 0, 0, .4);
+}
+
+.atlas-btn {
+    font-size: 11px;
+    font-weight: 700;
+    height: 36px;
+    text-transform: uppercase;
 }
 
 /*  HEADER
@@ -249,7 +256,6 @@ a:hover {
 
 /* To override pure.css specificity*/
 .atlas-search.atlas-search[type=text] {
-    padding: .45em .6em;   /* Yuck magic numbers */
     border-radius: 0;
 }
 
@@ -261,7 +267,7 @@ a:hover {
 
 /* Triple classed to override pure.css specificity*/
 .atlas-search-btn.atlas-search-btn.atlas-search-btn {
-    width: 25%;
+    width: 30%;
     margin-bottom: 10px;
 }
 
@@ -418,7 +424,9 @@ a:hover {
 .follow-atlasfacts-btn {
     display: block;
     max-width: 250px;
+    height: 36px;
     margin: 20px auto 0;
+    padding: 1em;
 }
 
 .atlasfacts-icon {
@@ -435,7 +443,7 @@ a:hover {
 }
 
 .atlas-megafooter {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .megafooter-topper {
@@ -499,8 +507,9 @@ a:hover {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .site-nav-full {
-    padding-right: 1.5em;
-    border-right: 1px solid #DDDDDD;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #DDDDDD;
 }
 
 .site-nav-full-toplevel {
@@ -522,6 +531,10 @@ a:hover {
 }
 
 @media screen and (min-width: 48em) {
+    .site-nav-full {
+        padding-right: 1.5em;
+        border-right: 1px solid #DDDDDD;
+    }
     .site-nav-full-list-toplevel:first-child {
         padding-right: 20px;
     }
@@ -535,22 +548,39 @@ a:hover {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .megafooter-listserv {
-    float: right;
-    padding-left: 1.5em;
+/*    float: right;
+    padding-left: 1.5em;*/
+    /*text-align: left;*/
 }
 
 /* Overspecifc to combat pure.css */
 .listserv-input.listserv-input[type=email] {
-    width: 68%;
+    width: 100%;
+    border-radius: 0;
 }
 
 .listserv-button {
-        padding: .4em 1em .5em;
-    float: right;
     width: 30%;
-    height: 35px;
-    border-radius: 4px;
 }
+
+@media screen and (min-width: 48em) {
+    .megafooter-listserv {
+        text-align: left;
+        float: right;
+        padding-left: 1.5em;
+    }
+}
+
+@media screen and (min-width: 480px) {
+    .listserv-input.listserv-input[type=email] {
+        width: 68%;
+        border-radius: 0;
+    }
+    .listserv-button {
+        float: right;
+    }
+}
+
 
 /*  LICENSE
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */

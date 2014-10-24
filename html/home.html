@@ -88,7 +88,7 @@
             <a class="site-wordmark anchor-no-hover track-click" href="/" data-ga-category="Top Nav" data-ga-label="Home">
                 <h1 class="site-logo-copy"><span class="site-logo-firstline">The Atlas </span><span class="site-logo-secondline">of Economic Complexity</span></h1>
             </a>
-            <button class="site-nav-slidein-button pure-button" id="open-button"><i class="fa fa-bars atlas-btn-icon"></i>Menu</button>
+            <button class="site-nav-slidein-button pure-button atlas-btn" id="open-button"><i class="fa fa-bars atlas-btn-icon"></i>Menu</button>
             <nav class="site-nav">
                 <ul class="site-nav-list">
                     <li class="site-nav-item track-click" data-ga-category="Top Nav" data-ga-label="Full Width: Visualizations">
@@ -115,7 +115,7 @@
                     <h2 class="subhead subhead-search">Ask the Atlas</h2>
                     <form class="pure-form search-wrap clear">
                         <input class="atlas-search" id="searchbar" required autocomplete="off" type="text" placeholder="What did China export between 1996 and 2012?" >
-                        <button class="atlas-search-btn pure-button" type="submit">Go</button>
+                        <button class="atlas-search-btn pure-button atlas-btn" type="submit"><i class="fa fa-fw fa-search atlas-btn-icon"></i>Search</button>
                     </form>
                     <p class="subhead-deck atlas-description">Visualize imports and exports and explore growth opportunities for more than a hundred countries.</p>
                 </div>
@@ -124,7 +124,7 @@
         <section class="section-wrap">
             <div class="atlas-section section-constrained-width">
                 <div class="subhead-wrap">
-                    <h2 class="subhead">Not Sure Where to Start?</h2>
+                    <h2 class="subhead">Not Sure Where to&nbsp;Start?</h2>
                     <p class="subhead-deck">Check out one of these examples.</p>
                 </div>
                 <div class="pure-g">
@@ -192,7 +192,7 @@
             <div class="atlas-section section-constrained-width">
                 <div class="subhead-wrap">
                     <h2 class="subhead">Want to see more hand-picked visualizations?</h2>
-                    <a class="follow-atlasfacts-btn pure-button track-click js-popup anchor-no-hover" href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fatlas.cid.harvard.edu%2F&screen_name=Atlas_Facts" data-popup-width="555" data-popup-height="395" data-ga-category="Follow AtlasFacts" data-ga-label="Twitter"><i class="fa fa-twitter atlasfacts-icon"></i>Follow @Atlas_Facts</a>
+                    <a class="follow-atlasfacts-btn pure-button atlas-btn track-click js-popup anchor-no-hover" href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fatlas.cid.harvard.edu%2F&screen_name=Atlas_Facts" data-popup-width="555" data-popup-height="395" data-ga-category="Follow AtlasFacts" data-ga-label="Twitter"><i class="fa fa-twitter atlasfacts-icon"></i>Follow @Atlas_Facts</a>
                 </div>
             </div>
         </section>
@@ -202,8 +202,8 @@
             <div class="megafooter-topper pure-g">
                 <img class="cid-logo pure-u-sm-1-2 pure-u-md-1-3 pure-img" src="{{ STATIC_URL }}img/logos/logo_cid_no_stripes.png" title="The Center for International Development"/>
                 <div class="megafooter-social-wrap">
-                    <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fatlas.cid.harvard.edu%2F&screen_name=HarvardCID" class="pure-button track-click megafooter-social-btn anchor-no-hover js-popup" data-popup-width="555" data-popup-height="395" data-ga-category="Follow CID" data-ga-label="Twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCenter-for-International-Development-at-Harvard-University%2F136230789744683&app_id=858461610853390&display=popup" class="pure-button track-click megafooter-social-btn anchor-no-hover js-popup" data-popup-width="555" data-popup-height="370" data-ga-category="Follow CID" data-ga-label="Facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fatlas.cid.harvard.edu%2F&screen_name=HarvardCID" class="pure-button atlas-btn track-click megafooter-social-btn anchor-no-hover js-popup" data-popup-width="555" data-popup-height="395" data-ga-category="Follow CID" data-ga-label="Twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCenter-for-International-Development-at-Harvard-University%2F136230789744683&app_id=858461610853390&display=popup" class="pure-button atlas-btn track-click megafooter-social-btn anchor-no-hover js-popup" data-popup-width="555" data-popup-height="370" data-ga-category="Follow CID" data-ga-label="Facebook"><i class="fa fa-facebook"></i></a>
                 </div>
             </div>
             <div class="megafooter-content pure-g">
@@ -245,7 +245,7 @@
                             </ul>
                         </li>
                     </ul>
-                </nav><div id="mc_embed_signup" class="megafooter-listserv pure-u-1 pure-u-md-1-3">
+                </nav><div id="mc_embed_signup" class="megafooter-listserv pure-u-1 pure-u-md-1-3 subhead-wrap">
                     <form action="//harvard.us9.list-manage.com/subscribe/post?u=f67fa0c400c31653f242d2ae3&amp;id=4b9ea1ded5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="pure-form validate" target="_blank" novalidate>
                         <div id="mc_embed_signup_scroll">
                             <h2 class="subhead">Join our mailing list</h2>
@@ -253,7 +253,7 @@
                             <!-- <div class="mc-field-group"> -->
                             <div class="clear">
                                 <input type="email" value="" name="EMAIL" class="required email listserv-input" id="mce-EMAIL" placeholder="your@email.com">
-                                <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button pure-button megafooter-btn listserv-button ">Submit</button>
+                                <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button pure-button atlas-btn megafooter-btn listserv-button ">Submit</button>
                             </div>
                             <!-- </div> -->
                             <div id="mce-responses" class="clear">
