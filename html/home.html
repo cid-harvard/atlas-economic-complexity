@@ -20,23 +20,15 @@
     <!-- Place all stylesheets in this block for gzipping - GW -->
     <!-- Note that the pure.css framework includes normalize.css and is from http://purecss.io/ -->
     {% block css %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/px-video.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/pure.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/select-menu.css">
-    <!-- <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" /> -->
-    <!-- <link rel="stylesheet" href="{{ STATIC_URL }}css/fonts.css"> -->
     <link rel="stylesheet" href="{{ STATIC_URL }}css/home.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/menu_sideslide.css" />
     {% endblock %}
 
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    
     <script src="//www.google-analytics.com/cx/api.js?experiment=1TlRMfvcStutXnhZwghKnw"></script>
-
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/menu_sideslide.css" />
-
-
     <script>
         // Ask GA for the search variation
         var search_var = cxApi.chooseVariation();
@@ -63,7 +55,7 @@
     </script>
 </head>
 
-<body class="home-body content-wrap">
+<body class="home-body js-content-wrap">
     <div class="site-nav-slidein-wrap">
         <nav class="site-nav-slidein">
             <ul class="site-nav-slidein-list">
@@ -124,7 +116,7 @@
         <section class="section-wrap">
             <div class="atlas-section section-constrained-width">
                 <div class="subhead-wrap">
-                    <h2 class="subhead">Not Sure Where to&nbsp;Start?</h2>
+                    <h2 class="subhead">Not sure where to&nbsp;start?</h2>
                     <p class="subhead-deck">Check out one of these examples.</p>
                 </div>
                 <div class="pure-g">
@@ -280,12 +272,14 @@
 
 
     {% compress js %}
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script type="text/javascript" src="//cdn.sublimevideo.net/js/6e9hjxp2.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/social/social.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/views/home.js"></script>
     <script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/searchresults.js"></script>
-    <script src="{{ STATIC_URL }}js/main.js"></script>
     {% endcompress %}
 
 
