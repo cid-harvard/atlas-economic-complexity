@@ -773,29 +773,28 @@ html,
     }
     .site-nav-full-list-toplevel:first-child {
         padding-right: 1em;
-        border-right: 1px solid #DDDDDD;
     }
     .site-nav-full-list-toplevel:last-child {
         padding-left: 1em;
+        border-left: 1px solid #DDDDDD;
     }
 }
 
 @media screen and (min-width: 48em) {
-    .site-nav-full-list-toplevel {
-        border-right: 0;
-    }
     .site-nav-full {
-        padding-right: 1em;
-        border-right: 1px solid #DDDDDD;
         border-bottom: 0;
         float: left;
+        padding-bottom: 0;
+    }
+    .site-nav-full-list-toplevel {
+        border-width: 0;
     }
     .site-nav-full-list-toplevel:first-child {
         padding-right: 1em;
-        border-right: 0;
     }
     .site-nav-full-list-toplevel:last-child {
-        padding: 0 0 0 1em;
+        padding: 0 1em 0 1em;
+        border-right: 1px solid #DDDDDD;
     }
 }
 
