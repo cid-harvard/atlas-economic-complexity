@@ -1660,3 +1660,7 @@ table tr.odd {
     top: 200px;
     text-align: center;
 }
+
+.btn.active {
+  background-color: WhiteSmoke;
+}
