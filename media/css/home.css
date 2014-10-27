@@ -333,7 +333,7 @@ a:hover {
     margin: 0 auto 40px;
 }
 
-@media screen and (min-width: 48em) {
+@media screen and (min-width: 35.5em) {
     .example-wrap {
         margin: 0 auto;
     }
