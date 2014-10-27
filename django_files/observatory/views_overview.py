@@ -107,11 +107,11 @@ def country2(request, country):
   s = time.time()
   # get country name based on url parameter
   c = clean_country(country)
-  
+  year = 2012
   # get country ranking
   try:
-    ranking = Cy.objects.get(year=2008, country=c)
-    ranking_total = len(list(Cy.objects.filter(year=2008)))
+    ranking = Cy.objects.get(year=year, country=c)
+    ranking_total = len(list(Cy.objects.filter(year=year)))
   except Cy.DoesNotExist:
     ranking = None
     ranking_total = 128
@@ -133,6 +133,7 @@ def country2(request, country):
   
   return render_to_response("overview/country.html", {
     "country": c,
+    "year": year,
     "ranking": ranking,
     "ranking_total": ranking_total,
     "export_products": export_products,
@@ -145,11 +146,11 @@ def product(request, product):
   s = time.time()
   # get country name based on url parameter
   p = clean_product(product)
-  
+  year = 2012
   # get country ranking
   try:
-    ranking = Sitc4_py.objects.get(year=2009, product=p)
-    ranking_total = len(list(Sitc4_py.objects.filter(year=2009)))
+    ranking = Sitc4_py.objects.get(year=year, product=p)
+    ranking_total = len(list(Sitc4_py.objects.filter(year=year)))
   except Sitc4_py.DoesNotExist:
     ranking = None
     ranking_total = 773
@@ -168,6 +169,7 @@ def product(request, product):
   
   return render_to_response("overview/product.html", {
     "product": p,
+    "year": year,
     "ranking": ranking,
     "ranking_total": ranking_total,
     "export_countries": export_countries,
