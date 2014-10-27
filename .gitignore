@@ -12,6 +12,7 @@ media/data/*.store
 
 #machine-specific settings
 django_files/atlas/settings_local.py
+django_files/atlas/celeryconfig.py
 #virtualenv
 env/
 
