@@ -78,8 +78,7 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
 }dfn {
     font-style: italic;
 }hr {
-    -moz-box-sizing: content-box;
-         box-sizing: content-box;
+    box-sizing: content-box;
     height: 0;
 }mark {
     color: #000000;
@@ -180,9 +179,7 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
     *height: 13px;
     *width: 13px;
 }input[type=search] {
-    -webkit-box-sizing: content-box;
-       -moz-box-sizing: content-box;
-            box-sizing: content-box;
+    box-sizing: content-box;
     -webkit-appearance: textfield;
 }input[type=search]::-webkit-search-cancel-button,
  input[type=search]::-webkit-search-decoration {
@@ -253,7 +250,7 @@ Buttons
 .pure-button-hover,
  .pure-button:hover,
  .pure-button:focus {
- 	background-color: #D8D8D8 ;
+    background-color: #D8D8D8 ;
     /*background-image: -webkit-gradient(linear,0 0,0 100%,from(transparent),color-stop(40%,rgba(0,0,0,.05)),to(rgba(0,0,0,.1)));
     background-image: -webkit-linear-gradient(transparent,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1));
     background-image:    -moz-linear-gradient(top,rgba(0,0,0,.05) 0,rgba(0,0,0,.1));
@@ -1179,9 +1176,7 @@ Forms
  .pure-form select,
  .pure-form textarea {
     display: inline-block;
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
     padding: .5em .6em;
     border: 1px solid #CCCCCC;
     border-radius: 4px;
@@ -1190,9 +1185,7 @@ Forms
 
 .pure-form input:not([type]) {
     display: inline-block;
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
     padding: .5em .6em;
     border: 1px solid #CCCCCC;
     border-radius: 4px;

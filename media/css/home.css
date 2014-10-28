@@ -79,10 +79,6 @@ a:hover {
     padding: 0 20px;
 }
 
-.section-full-width {
-    margin: 0 auto;
-}
-
 .section-constrained-width {
     max-width: 960px;
     margin: 0 auto;
@@ -264,29 +260,6 @@ html,
     overflow-y: scroll;
 }
 
-.content {
-    position: relative;
-    background: #B4BAD2;
-}
-
-.content::before {
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content: '';
-    -webkit-transition: opacity .4s, -webkit-transform 0s .4s;
-            transition: opacity .4s, transform 0s .4s;
-    -webkit-transition-timing-function: cubic-bezier(.7,0,.3,1);
-            transition-timing-function: cubic-bezier(.7,0,.3,1);
-    -webkit-transform: translate3d(100%,0,0);
-            transform: translate3d(100%,0,0);
-    opacity: 0;
-    background: rgba(0,0,0,.3);
-}
-
 /* site-nav-slidein Button */
 .site-nav-slidein-button {
     font-size: 1em;
@@ -453,16 +426,6 @@ html,
             transition-duration: .9s;
 }
 
-.show-site-nav-slidein .content::before {
-    -webkit-transition: opacity .8s;
-            transition: opacity .8s;
-    -webkit-transition-timing-function: cubic-bezier(.7,0,.3,1);
-            transition-timing-function: cubic-bezier(.7,0,.3,1);
-    -webkit-transform: translate3d(0,0,0);
-            transform: translate3d(0,0,0);
-    opacity: 1;
-}
-
 
 /*  SEARCH
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
@@ -533,9 +496,7 @@ html,
 
 .ui-widget-content .ui-state-focus {
     color: #D04C3F;
-    border: none;
     border-radius: 0;
-    /*background: #DDDDDD;*/
 }
 
 .autocomplete-wrap {
@@ -604,13 +565,6 @@ html,
 }
 
 @media screen and (min-width: 35.5em) {
-    .select-wrap:first-child {
-        /*padding-right: 10px;*/
-    }
-
-    .select-wrap:last-child {
-        /*padding-left: 10px;*/
-    }
     .select-menu-wrap {
         width: 75%;
         margin: 0 auto;
@@ -620,10 +574,6 @@ html,
 
 /*  VIDEO
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
-
-.hausman-video {
-    margin: 0 auto;
-}
 
 @media screen and (min-width: 48em) {
     .video-section {
