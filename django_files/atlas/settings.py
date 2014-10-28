@@ -99,7 +99,6 @@ INSTALLED_APPS = (
   'compressor'
 )
 
-
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.cache.RedisCache',
