@@ -636,13 +636,13 @@ html,
     width: 100%;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #DDDDDD;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .cid-logo {
     margin-bottom: 20px;
     padding: 0 10px 20px;
-    border-bottom: 1px solid #DDDDDD;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .megafooter-social-wrap {
@@ -697,7 +697,7 @@ html,
 .site-nav-full {
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #DDDDDD;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .site-nav-full-toplevel {
@@ -711,6 +711,7 @@ html,
 .site-nav-full-secondlevel {
     font-size: .65em;
     margin-bottom: 10px;
+    color: #66717B;
 }
 
 .site-nav-full-secondlevel:first-child {
@@ -726,7 +727,7 @@ html,
     }
     .site-nav-full-list-toplevel:last-child {
         padding-left: 1em;
-        border-left: 1px solid #DDDDDD;
+        border-left: 1px solid #CCCCCC;
     }
 }
 
@@ -744,7 +745,7 @@ html,
     }
     .site-nav-full-list-toplevel:last-child {
         padding: 0 1em 0 1em;
-        border-right: 1px solid #DDDDDD;
+        border-right: 1px solid #CCCCCC;
     }
 }
 
