@@ -152,35 +152,14 @@ a:hover {
 /*  LOGO (silly, looking forward to changing)
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.site-wordmark {
+.site-logo {
     display: block;
     float: left;
-    margin-bottom: -10px;
+    margin-bottom: -1px;
     white-space: nowrap;
     text-decoration: none;
+    width: 170px;
 }
-
-.site-logo-copy {
-    font-family: 'PT Sans Narrow', sans-serif, 'Arial';
-    font-weight: 500;
-    line-height: 100%;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-.site-logo-firstline {
-    font-size: 46.5px;
-    display: block;
-    margin-bottom: -7px;
-    letter-spacing: 0;
-}
-
-.site-logo-secondline {
-    font-size: 18px;
-    margin-left: 1px;
-    color: #A0A6A9;
-}
-
 
 
 /*  NAV
@@ -609,7 +588,6 @@ html,
 .follow-atlasfacts-btn {
     display: block;
     width: 100%;
-    /*max-width: 250px;*/
     height: 36px;
     margin: 20px auto 0;
     padding: 0.8em 1em 1em;
