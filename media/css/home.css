@@ -93,11 +93,21 @@ a:hover {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .subhead {
+    margin: 0 0 10px;
+}
+
+.section-wrap-main .subhead {
     max-width: 400px;
     margin: 0 auto 10px;
 }
 
 .subhead-deck {
+    text-align: left;
+    margin: 0 0 20px;
+}
+
+.section-wrap-main .subhead-deck {
+    text-align: center;
     max-width: 400px;
     margin: 0 auto 20px;
 }
@@ -142,11 +152,18 @@ a:hover {
     margin-bottom: 20px;
 }
 
-.subhead-wrap {
-    max-width: 500px;
-    margin: 0 auto 40px;
-    text-align: center;
+.section-wrap-main .subhead-wrap {
+        max-width: 500px;
+        margin: 0 auto 40px;
+        text-align: center;
 }
+
+.subhead-wrap {
+    margin: 0 auto 40px;
+}
+
+
+
 
 
 /*  LOGO (silly, looking forward to changing)
@@ -489,46 +506,21 @@ html,
 }
 
 
-/*  EXAMPLES
+/*  TEASES
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.example-wrap {
-    margin: 0 auto 40px;
-    text-align: center;
+.teases-wrap {
+
 }
 
-@media screen and (min-width: 35.5em) {
-    .example-wrap {
-        margin: 0 auto;
-    }
-    .example-wrap:first-child {
-        padding: 0 20px 0 0;
-    }
-
-    .example-wrap:nth-child(2) {
-        padding: 0 10px;
-    }
-
-    .example-wrap:last-child {
-        padding: 0 0 0 20px;
-    }
+.teases-wrap:first-child {
+    padding-right: 1.5em;
+    border-right: 1px solid #DDDDDD;
 }
 
-.example-image {
-    margin: 0 auto 20px;
+.teases-wrap:last-child {
+    padding-left: 1.5em;
 }
-
-.example-label {
-    display: inline-block;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #DDDDDD;
-}
-
-.example-caption {
-    margin: 0;
-    text-align: center;
-}
-
 
 /*  SELECT
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
@@ -547,38 +539,11 @@ html,
 
 @media screen and (min-width: 35.5em) {
     .select-menu-wrap {
-        width: 75%;
+        /*width: 75%;*/
         margin: 0 auto;
     }
 }
 
-
-/*  VIDEO
-// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
-
-@media screen and (min-width: 48em) {
-    .video-section {
-        position: relative;
-    }
-
-    .video-wrap {
-        position: absolute;
-        z-index: 1;
-        top: 55%;
-        right: 0;
-        left: 0;
-        max-width: 360px;
-        padding: 0 20px;
-        -webkit-transform: translateY(-50%);
-                transform: translateY(-50%);
-        pointer-events: none;
-        color: white;
-    }
-
-    .video-subhead {
-        margin-bottom: 100px;
-    }
-}
 
 
 
