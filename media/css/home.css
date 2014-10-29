@@ -128,6 +128,7 @@ a:hover {
 
 .atlas-btn {
     height: 36px;
+    padding: 0.8em 1em 1em;
 }
 
 /*  HEADER
@@ -607,10 +608,12 @@ html,
 
 .follow-atlasfacts-btn {
     display: block;
-    max-width: 250px;
+    width: 100%;
+    /*max-width: 250px;*/
     height: 36px;
     margin: 20px auto 0;
-    padding: 1em;
+    padding: 0.8em 1em 1em;
+    border: 2px solid #D8D8D8;
 }
 
 .atlasfacts-icon {
@@ -636,6 +639,12 @@ html,
     width: 100%;
     margin-bottom: 20px;
     padding-bottom: 10px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.megafooter-section {
+    padding-bottom: 1.5em;
+    margin-bottom: 1.5em;
     border-bottom: 1px solid #CCCCCC;
 }
 
