@@ -128,7 +128,7 @@ a:hover {
 
 .atlas-btn {
     height: 36px;
-    padding: 0.8em 1em 1em;
+    padding: .8em 1em 1em;
 }
 
 /*  HEADER
@@ -155,10 +155,10 @@ a:hover {
 .site-logo {
     display: block;
     float: left;
+    width: 170px;
     margin-bottom: -1px;
     white-space: nowrap;
     text-decoration: none;
-    width: 170px;
 }
 
 
@@ -588,9 +588,10 @@ html,
 .follow-atlasfacts-btn {
     display: block;
     width: 100%;
+    max-width: 300px;
     height: 36px;
     margin: 20px auto 0;
-    padding: 0.8em 1em 1em;
+    padding: .8em 1em 1em;
     border: 2px solid #D8D8D8;
 }
 
@@ -621,8 +622,8 @@ html,
 }
 
 .megafooter-section {
-    padding-bottom: 1.5em;
     margin-bottom: 1.5em;
+    padding-bottom: 1.5em;
     border-bottom: 1px solid #CCCCCC;
 }
 
@@ -739,6 +740,15 @@ html,
 
 /*  MEGAFOOTER SIGNUP
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.megafooter-listserv {
+    text-align: center;
+}
+
+.listserv-submit-wrap {
+    max-width: 300px;
+    margin: 0 auto;
+}
 
 /* Overspecifc to combat pure.css */
 .listserv-input.listserv-input[type=email] {
