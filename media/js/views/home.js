@@ -6,9 +6,9 @@ var openbtn = document.getElementById('open-button');
 var closebtn = document.getElementById('close-button');
 var isOpen = false;
 
-initEvents();
+initSlideinNav();
 
-function initEvents() {
+function initSlideinNav() {
   openbtn.addEventListener('click', toggleNav);
   if (closebtn) {
     closebtn.addEventListener('click', toggleNav);
@@ -22,6 +22,14 @@ function initEvents() {
     }
   });
 }
+
+// Init carousel
+$('.example-carousel').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 2000,
+});
 
 
 // HELPERS
