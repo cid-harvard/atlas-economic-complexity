@@ -509,17 +509,16 @@ html,
 /*  TEASES
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.teases-wrap {
+@media screen and (min-width: 48em) {
+    .teases-wrap:first-child {
+        padding-right: 1.5em;
+        border-right: 1px solid #DDDDDD;
+    }
 
-}
+    .teases-wrap:last-child {
+        padding-left: 1.5em;
+    }
 
-.teases-wrap:first-child {
-    padding-right: 1.5em;
-    border-right: 1px solid #DDDDDD;
-}
-
-.teases-wrap:last-child {
-    padding-left: 1.5em;
 }
 
 /*  SELECT
