@@ -99,6 +99,7 @@ a:hover {
 .section-wrap-main .subhead {
     max-width: 400px;
     margin: 0 auto 10px;
+    padding: 0 20px;
 }
 
 .subhead-deck {
@@ -154,12 +155,12 @@ a:hover {
 
 .section-wrap-main .subhead-wrap {
         max-width: 500px;
-        margin: 0 auto 40px;
+        margin: 0 auto;
         text-align: center;
 }
 
 .subhead-wrap {
-    margin: 0 auto 40px;
+    margin: 0 auto;
 }
 
 
@@ -506,13 +507,39 @@ html,
 }
 
 
+/*  EXAMPLES
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.example-img {
+    width: 100%;
+}
+
+.examples-carousel.examples-carousel {
+    margin-bottom: 0;
+}
+
+/*@media screen and (min-width: 48em) {
+    .examples-carousel.examples-carousel {
+        margin-bottom: 0;
+    }
+}*/
+
 /*  TEASES
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.teases-wrap:first-child {
+    padding-bottom: 60px;
+    border-bottom: 1px solid #DDDDDD;
+    margin-bottom: 60px;
+}
 
 @media screen and (min-width: 48em) {
     .teases-wrap:first-child {
         padding-right: 1.5em;
         border-right: 1px solid #DDDDDD;
+        padding-bottom: 0;
+        border-bottom: 0;
+        margin-bottom: 20px;
     }
 
     .teases-wrap:last-child {

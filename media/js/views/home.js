@@ -24,11 +24,11 @@ function initSlideinNav() {
 }
 
 // Init carousel
-$('.example-carousel').slick({
-  slidesToShow: 3,
+$('#examples-carousel').slick({
+  slidesToShow: 1,
   slidesToScroll: 1,
   autoplay: true,
-  autoplaySpeed: 2000,
+  autoplaySpeed: 4000,
 });
 
 
