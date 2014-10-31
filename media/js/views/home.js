@@ -23,14 +23,6 @@ function initSlideinNav() {
   });
 }
 
-// Init carousel
-$('#examples-carousel').slick({
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 8000,
-});
-
 
 // HELPERS
 
@@ -92,18 +84,6 @@ $('.js-select-products').on('change', function() {
     'eventLabel': $this.find('option:selected').text()
   });
   window.location.href = '../explore/tree_map/export/show/all/' + $this.val() + '/2012/';
-});
-
-sublime.ready(function() {
-  sublime.player('js-hausman-vid').on('start', function(player) {
-    ga('send', {
-      'hitType': 'event', // Required.
-      'eventCategory': 'Hausman Video', // Required.
-      'eventAction': 'click', // Required.
-      'eventLabel': 'Play'
-    });
-    $('.video-wrap').fadeOut(200);
-  });
 });
 
 $('.track-click').on('click', function() {

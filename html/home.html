@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/pure.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/select-menu.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/home.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/slick.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" >
     {% endblock %}
 
@@ -75,7 +74,7 @@
         </nav>
         <button class="close-button" id="close-button"><i class="fa fa-times"></i>Close Menu</button>
     </div>
-    <section class="section-wrap">
+    <section>
         <header class="site-header section-constrained-width">
             <a class="site-logo anchor-no-hover track-click" href="/" data-ga-category="Top Nav" data-ga-label="Home">
                 <img src="{{ STATIC_URL }}img/logos/atlas_logo.png" class="site-logo-img pure-img" />
@@ -102,58 +101,36 @@
 
     <main class="article">
         <section class="section-wrap section-wrap-main">
-            <div class="atlas-section section-constrained-width">
-                <div class="subhead-wrap">
-                    <h2 class="subhead subhead-search">Ask the Atlas</h2>
-                    <form class="pure-form search-wrap clear">
-                        <input class="atlas-search" id="searchbar" required autocomplete="off" type="text" placeholder="What did China export between 1996 and 2012?" >
-                        <button class="atlas-search-btn pure-button atlas-btn-no-outline label" type="submit"><i class="fa fa-fw fa-search atlas-btn-icon"></i>Search</button>
-                    </form>
-                    <p class="subhead-deck atlas-description">Visualize imports and exports and explore growth opportunities for more than a hundred countries.</p>
-                </div>
+            <div class="section-constrained-width examples-grid pure-g" id="js-examples-grid">
+                <div class="example-main">
+                    <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-main-img" />
+                    <p class="example-slug label">Treemap</p>
+                    <p class="example-copy">What did the United States export in 2012?</p>
+                </div><ol class="examples-queue pure-g">
+                    <li class="example-sub pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
+                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
+                        <p class="example-slug label">Treemap</p>
+                        <p class="example-copy">What did the United States export in 2012?</p>
+                    </li><li class="example-sub pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
+                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
+                        <p class="example-slug label">Treemap</p>
+                        <p class="example-copy">What did the United States export in 2012?</p>
+                    </li><li class="example-sub pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
+                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
+                        <p class="example-slug label">Treemap</p>
+                        <p class="example-copy">What did the United States export in 2012?</p>
+                    </li><li class="example-sub pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
+                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
+                        <p class="example-slug label">Treemap</p>
+                        <p class="example-copy">What did the United States export in 2012?</p>
+                    </li>
+                </ol>
             </div>
         </section>
         <section class="section-wrap">
-            <div class="atlas-section section-constrained-width pure-g">
-                <div class="teases-wrap examples-wrap pure-u-1 pure-u-md-2-3">
-                    <div class="subhead-wrap">
-                        <h2 class="subhead">Not sure where to&nbsp;start?</h2>
-                        <p class="subhead-deck">Check out one of these examples.</p>
-                    </div>
-                    <div class="examples-carousel" id="examples-carousel">
-                      <div>
-                        <img data-lazy="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img pure-img" />
-                      </div>
-                      <div>
-                        <img data-lazy="{{ STATIC_URL }}img/examples/us_imports_1996_2012.png" class="example-img pure-img" />
-                      </div>
-                      <div>
-                        <img data-lazy="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img pure-img" />
-                      </div>
-                      <div>
-                        <img data-lazy="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img pure-img" />
-                      </div>
-                    </div>
-                    <div class="examples-caption-wrap">
-                        <div class="examples-caption">
-                            <p class="example-slug label">Treemap</p>
-                            <p class="example-copy">What did the United States export in 2012?</p>
-                        </div>
-                        <div class="examples-caption">
-                            <p class="example-slug label">Treemap</p>
-                            <p class="example-copy">What did the United States export in 2012?</p>
-                        </div>
-                        <div class="examples-caption">
-                            <p class="example-slug label">Treemap</p>
-                            <p class="example-copy">What did the United States export in 2012?</p>
-                        </div>
-                        <div class="examples-caption">
-                            <p class="example-slug label">Treemap</p>
-                            <p class="example-copy">What did the United States export in 2012?</p>
-                        </div>
-                    </div>
-                </div><div class="teases-wrap pure-u-1 pure-u-md-1-3">
-                    <h2 class="subhead">Alternatively, you&nbsp;can&hellip;</h2>
+            <div class="section-constrained-width pure-g">
+                <div class="teases-wrap pure-u-1 pure-u-md-1-2">
+                    <h2 class="subhead">Not sure where to&nbsp;start?</h2>
                     <form>
                         <div class="select-wrap">
                             <p class="subhead-deck">See the products exported by:</p>
@@ -178,6 +155,15 @@
                             </div>
                         </div>
                     </form>
+                </div><div class="ask-wrap pure-u-1 pure-u-md-1-2">
+                    <div class="subhead-wrap">
+                    <h2 class="subhead subhead-search">Alternatively, ask the&nbsp;Atlas</h2>
+                    <form class="pure-form search-wrap clear">
+                        <input class="atlas-search" id="searchbar" required autocomplete="off" type="text" placeholder="What did China export between in 2012?" >
+                        <button class="atlas-search-btn pure-button atlas-btn-no-outline label" type="submit"><i class="fa fa-fw fa-search atlas-btn-icon"></i>Search</button>
+                    </form>
+                    <p class="subhead-deck atlas-description">Visualize imports and exports and explore growth opportunities for more than a hundred countries.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -264,9 +250,6 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/underscore/underscore-min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/sublimevideo/sublimevideo.min.js"></script>
-
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.3.13/slick.min.js"></script>
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/social/social.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/views/home.js"></script>
