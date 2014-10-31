@@ -142,6 +142,10 @@ a:hover {
     padding: .8em 1em 1em;
 }
 
+.atlas-btn-no-outline {
+    height: 36px;
+}
+
 /*  HEADER
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
@@ -510,12 +514,42 @@ html,
 /*  EXAMPLES
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
+.examples-wrap {
+    padding-bottom: 60px;
+    border-bottom: 1px solid #DDDDDD;
+    margin-bottom: 60px;
+    position: relative;
+}
+
 .example-img {
     width: 100%;
 }
 
 .examples-carousel.examples-carousel {
     margin-bottom: 0;
+}
+
+.examples-caption-wrap {
+    position: absolute;
+    right: 1.5em;
+    bottom: 0;
+}
+
+.examples-caption {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.examples-caption:last-child {
+    border-bottom: 0;
+}
+
+.example-slug {
+    margin-bottom: 5px;
+}
+
+.example-copy {
+    margin: 0;
 }
 
 /*@media screen and (min-width: 48em) {
@@ -526,12 +560,6 @@ html,
 
 /*  TEASES
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
-
-.teases-wrap:first-child {
-    padding-bottom: 60px;
-    border-bottom: 1px solid #DDDDDD;
-    margin-bottom: 60px;
-}
 
 @media screen and (min-width: 48em) {
     .teases-wrap:first-child {

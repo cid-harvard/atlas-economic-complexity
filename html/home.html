@@ -107,7 +107,7 @@
                     <h2 class="subhead subhead-search">Ask the Atlas</h2>
                     <form class="pure-form search-wrap clear">
                         <input class="atlas-search" id="searchbar" required autocomplete="off" type="text" placeholder="What did China export between 1996 and 2012?" >
-                        <button class="atlas-search-btn pure-button atlas-btn label" type="submit"><i class="fa fa-fw fa-search atlas-btn-icon"></i>Search</button>
+                        <button class="atlas-search-btn pure-button atlas-btn-no-outline label" type="submit"><i class="fa fa-fw fa-search atlas-btn-icon"></i>Search</button>
                     </form>
                     <p class="subhead-deck atlas-description">Visualize imports and exports and explore growth opportunities for more than a hundred countries.</p>
                 </div>
@@ -115,24 +115,42 @@
         </section>
         <section class="section-wrap">
             <div class="atlas-section section-constrained-width pure-g">
-                <div class="teases-wrap pure-u-1 pure-u-md-2-3">
+                <div class="teases-wrap examples-wrap pure-u-1 pure-u-md-2-3">
                     <div class="subhead-wrap">
                         <h2 class="subhead">Not sure where to&nbsp;start?</h2>
                         <p class="subhead-deck">Check out one of these examples.</p>
                     </div>
                     <div class="examples-carousel" id="examples-carousel">
                       <div>
-                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img pure-img" />
+                        <img data-lazy="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img pure-img" />
                       </div>
                       <div>
-                        <img src="{{ STATIC_URL }}img/examples/us_imports_1996_2012.png" class="example-img pure-img" />
+                        <img data-lazy="{{ STATIC_URL }}img/examples/us_imports_1996_2012.png" class="example-img pure-img" />
                       </div>
                       <div>
-                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img pure-img" />
+                        <img data-lazy="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img pure-img" />
                       </div>
                       <div>
-                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img pure-img" />
+                        <img data-lazy="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img pure-img" />
                       </div>
+                    </div>
+                    <div class="examples-caption-wrap">
+                        <div class="examples-caption">
+                            <p class="example-slug label">Treemap</p>
+                            <p class="example-copy">What did the United States export in 2012?</p>
+                        </div>
+                        <div class="examples-caption">
+                            <p class="example-slug label">Treemap</p>
+                            <p class="example-copy">What did the United States export in 2012?</p>
+                        </div>
+                        <div class="examples-caption">
+                            <p class="example-slug label">Treemap</p>
+                            <p class="example-copy">What did the United States export in 2012?</p>
+                        </div>
+                        <div class="examples-caption">
+                            <p class="example-slug label">Treemap</p>
+                            <p class="example-copy">What did the United States export in 2012?</p>
+                        </div>
                     </div>
                 </div><div class="teases-wrap pure-u-1 pure-u-md-1-3">
                     <h2 class="subhead">Alternatively, you&nbsp;can&hellip;</h2>
