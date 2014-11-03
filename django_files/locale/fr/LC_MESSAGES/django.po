@@ -1,4 +1,4 @@
-# Observatory website translations from english to spanish
+# Observatory website translations from english to france
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <simoes@mit.edu>, 2012.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-13 11:44-0500\n"
+"POT-Creation-Date: 2014-11-03 12:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,38 +16,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+
+msgid "World Data"
+msgstr "Monde"
+
 msgid "Export"
-msgstr "Exporter"
+msgstr "Exports"
 
 msgid "Import"
-msgstr "Importer"
+msgstr "Imports"
 
-msgid "Net Export"
-msgstr "Des exportations nettes"
-
-msgid "Net Import"
-msgstr "Importer net"
-
-msgid "App Selection"
-msgstr "Sélection App"
+msgid "Select a Country"
+msgstr "Sélectionnez un Pays"
 
 msgid "Country"
 msgstr "Pays"
 
-msgid "Country (show trade partners)"
-msgstr "Pays (partenaires commerciaux montrent)"
+msgid "Product"
+msgstr "Produit"
 
-msgid "Products"
-msgstr "Produits"
+msgid "Partner"
+msgstr "Partenaire"
+
+msgid "Trade Data Visualization"
+msgstr "Visualization des Échanges"
+
+msgid "Complexity Visualization"
+msgstr "Visualization de la Complexité"
 
 msgid "Bilateral"
 msgstr "Bilatéral"
-
-msgid "Exports"
-msgstr "Exportations"
-
-msgid "Imports"
-msgstr "Importations"
 
 msgid "Net Exports"
 msgstr "Les exportations nettes"
@@ -85,9 +83,6 @@ msgstr "Pays d'origine"
 msgid "Destination Country"
 msgstr "Pays de destination"
 
-msgid "Product"
-msgstr "Produit"
-
 msgid "Year"
 msgstr "Année"
 
@@ -118,3 +113,19 @@ msgstr "Prochain"
 msgid "Previous"
 msgstr "Précédent"
 
+# Menu
+
+msgid "Explore"
+msgstr "Explorer"
+
+msgid "Rankings"
+msgstr "Classements"
+
+msgid "New Book"
+msgstr "Nouveau Livre"
+
+msgid "Glossary"
+msgstr "Glossaire"
+
+msgid "About"
+msgstr "À Propos"
