@@ -4,6 +4,7 @@
 import os
 import collections
 import json
+import string
 import time
 from urlparse import urlparse
 
@@ -86,6 +87,9 @@ def download(request):
     title = request.POST.get("file_name").replace(" ", "_")
     file_format = request.POST.get("file_format").lower()
 
+    valid_chars = string.ascii_letters + string.digits + "?_"
+    title_clean = ''.join(ch for ch in title if ch in valid_chars)
+
     if len(content) == 0 or "</svg>" not in content:
         return HttpResponse(status=500,
                             content="Invalid svg image.")
@@ -106,7 +110,8 @@ def download(request):
         return HttpResponse(status=500, content="Wrong image format.")
 
     response[
-        "Content-Disposition"] = "attachment; filename=%s.%s" % (title, file_format)
+        "Content-Disposition"] = "attachment; filename=%s.%s" % (title_clean,
+                                                                 file_format)
 
     return response
 
@@ -383,7 +388,7 @@ def explore(
       if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
                                      previous_image + ".png")):
         previous_image = previous_image + ".png"
-      else:  
+      else:
         previous_image = settings.STATIC_URL + "img/all/loader.gif"
 
     else:
@@ -420,7 +425,7 @@ def explore(
          "prod_or_partner": prod_or_partner,
          "version": VERSION,
          "previous_page": previous_page,
-         "previous_image": previous_image,  
+         "previous_image": previous_image,
          "item_type": item_type,
          "displayviz": displayviz,
          "displayImage": displayImage,
