@@ -255,7 +255,7 @@ html,
     font-size: 1em;
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 20px;
     border: none;
 }
 
@@ -479,7 +479,7 @@ html,
     border-radius: 0;
 }
 
-@media screen and (min-width: 35.5em) {
+@media screen and (min-width: 480px) {
     .atlas-search {
         width: 70%;
     }
@@ -491,7 +491,7 @@ html,
 
 /* Triple classed to override pure.css specificity*/
 .atlas-search-btn.atlas-search-btn.atlas-search-btn {
-    width: 30%;
+    width: 34%;
     margin-bottom: 10px;
 }
 
