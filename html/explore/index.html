@@ -92,11 +92,11 @@
       </div>
       <nav>
         <ul>
-          <li><a {% if isbrowsemode %}href="endbrowse"{% else %}href="explore/"{% endif %}>Explore</a></li>
-          <li><a href="rankings/">Rankings</a></li>
-          <li><a id="newBook" href="book/">New Book</a></li>
-          <li><a href="about/glossary/">Glossary</a></li>
-          <li><a href="about/">About</a></li>
+          <li><a {% if isbrowsemode %}href="endbrowse"{% else %}href="explore/"{% endif %}>{% trans "Explore" %}</a></li>
+          <li><a href="rankings/">{% trans "Rankings" %}</a></li>
+          <li><a id="newBook" href="book/">{% trans "New Book" %}</a></li>
+          <li><a href="about/glossary/">{% trans "Glossary" %}</a></li>
+          <li><a href="about/">{% trans "About" %}</a></li>
         </ul>
       </nav>
       <br class="clear">
@@ -111,7 +111,7 @@
       <div class="app_title" id="icons" style="width:230px; height:60px; margin-left:10px;">
 
         <ul class="nav nav-tabs" id="myTab">
-          <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
+          <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">{% trans "World Data" %}</span></a></li>
         </ul>
 
       </div>
@@ -161,7 +161,7 @@
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-countries">
-            <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">Select a Country</span>
+            <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">{% trans "Select a Country" %}</span>
             <div id="country1" width="190px" style="margin-left: 0px;">
 
                 <select data-placeholder="All Countries" id="country1_select" style="width:190px">
@@ -181,17 +181,17 @@
 
             <div class="btn-group flow-direction" data-toggle="buttons" style="margin-top:5px; margin-left:5px">
               <label class="btn btn-default {% if trade_flow == "export" or trade_flow == "net_export" %} active{% endif %}">
-                <input type="radio" name="flow_direction" value="export" onchange="$('.flow-direction').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;Export&nbsp;
+                <input type="radio" name="flow_direction" value="export" onchange="$('.flow-direction').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;{% trans "Exports" %}&nbsp;
               </label>
               <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}  {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %} disabled{% endif %}">
-                <input type="radio" name="flow_direction" id="flow_direction" value="import" onchange="$('.flow-direction').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;Import&nbsp;
+                <input type="radio" name="flow_direction" id="flow_direction" value="import" onchange="$('.flow-direction').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;{% trans "Imports" %}&nbsp;
               </label>
             </div>
           </div>
 
           <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:0px; width:200px;">
-            <li{% if prod_or_partner == "product" %} class="active"{% endif %}><a href="#show-country-product"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray;"></span>  <span style="font-size:14px; color:gray;">Product</span></a></li>
-            <li{% if prod_or_partner == "partner" %} class="active"{% endif %}><a href="#show-country-partner"><span class="glyphicon glyphicon-globe" style="font-size:14px; color:gray;"></span> <span style="font-size:14px;">Partner</span></a></li>
+            <li{% if prod_or_partner == "product" %} class="active"{% endif %}><a href="#show-country-product"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray;"></span>  <span style="font-size:14px; color:gray;">{% trans "Product" %}</span></a></li>
+            <li{% if prod_or_partner == "partner" %} class="active"{% endif %}><a href="#show-country-partner"><span class="glyphicon glyphicon-globe" style="font-size:14px; color:gray;"></span> <span style="font-size:14px;">{% trans "Partner" %}</span></a></li>
           </ul>
 
           <!-- Tab Trade Partner/Product -->
@@ -223,7 +223,7 @@
           <!-- App selection -->
           <div style="font-weight:bold; margin-top:0px; margin-left:5px">
           <br>
-          Trade Data Visualization</div>
+          {% trans "Trade Data Visualization" %}</div>
 
           <div id="tfViz" data-toggle="buttons" style="margin-left:5px;">
 
@@ -255,7 +255,7 @@
             <div style="font-weight:bold; margin-top:0px; margin-left:5px">
             <br>
 
-            Complexity Visualization</div>
+            {% trans "Complexity Visualization" %}</div>
 
             <label value="product_space" class="btn btn-default {% if app_name == 'product_space' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product & Country Space" >
               <input type="radio" style="background:url({{ STATIC_URL }}img/common/productspace.png) no-repeat;">
@@ -430,7 +430,7 @@
           <div class="row">
             {% if app_name != "product_space" %}
             <div class="vizControl col-md-4">
-              <span class="definition" style="font-weight:bold;">Product Class:</span>
+              <span class="definition" style="font-weight:bold;">{% trans "Product Class" %}</span>
               <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
                 <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
                   <input type="radio" onchange="queryActivated=true;queryParameters['prod_class'] = 'sitc4';updateURLQueryParameters();prod_class='sitc4';update_viz(app_name);"> SITC4
@@ -443,7 +443,7 @@
             {% endif %}
             {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}
               <div class="vizControl col-md-4" >
-                <span class="definition" style="font-weight:bold;">Detail Level</span>
+                <span class="definition" style="font-weight:bold;">{% trans "Detail Level" %}</span>
                 <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
                     <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
@@ -462,7 +462,7 @@
 
             {% if app_name != "product_space" and app_name != "rings" and app_name != "pie_scatter"%}
               <div class="vizControl col-md-4" >
-                <span class="definition" style="font-weight:bold;">Trade Flow</span>
+                <span class="definition" style="font-weight:bold;">{% trans "Trade Flow" %}</span>
                 <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
                     <input type="radio" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
@@ -477,7 +477,7 @@
 
           {% if app_name == "tree_map" or app_name == "map" %}
             <div class="vizControl col-md-6" >
-              <span class="definition" style="font-weight:bold;">Color by</span>
+              <span class="definition" style="font-weight:bold;">{% trans "Color by" %}</span>
               <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default btn-detail active">
                   <input type="radio" name="level_detail" value="nesting_0" onchange="d3.select('#viz').call(viz.color_var('color'))"> Category
@@ -555,7 +555,7 @@
                 </div>
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
-                <span class="definition" style="font-weight:bold; display:inline;">Highlight</span>
+                <span class="definition" style="font-weight:bold; display:inline;">{% trans "Highlight" %}</span>
                 <span id="highlight">
                     <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
                 </span>
@@ -813,7 +813,7 @@
       <div id="tool_pane" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media and email." data-toggle="tooltip" data-bootstro-placement="left">
 
     <div id="sharebuttons">
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">Share</h4>
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">{% trans "Share" %}</h4>
         {% with current_url=request.build_absolute_uri|iriencode %}
         <a href="https://facebook.com/sharer.php?u={{current_url}}" target="_blank">
           <i class="fa fa-facebook fa-lg"></i>
@@ -835,7 +835,7 @@
 
     <form id="download" method="POST" action="{{HTTP_HOST}}download/">
         {% csrf_token %}
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">{% trans "Download" %}</h4>
         <a id="pdf" href="#">PDF</a>
         <a id="png" href="#">PNG</a>
         <a id="svg" href="#">SVG</a>
@@ -844,7 +844,7 @@
         <input type="hidden" id="file_format" name="file_format" value="svg"/>
     </form>
 
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">Feedback</h4>
+        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">{% trans "Feedback" %}</h4>
 
         <a id="feedbackPlaceholder" href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform?entry.1903449278&entry.1131927011&entry.49173428&entry.1847748354={{ VERSION }}" target="_blank">
           <i class="fa fa-comment fa-lg"></i>
