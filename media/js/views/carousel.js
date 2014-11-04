@@ -1,19 +1,64 @@
 // GLOBALS
 // =============================================
 var CONFIG = {
-	mainExample: $(".example-main"),
-	subExamples: $(".example-sub"),
-	exampleCounter: 0
+	mainExample: $('.example-main'),
+	subExamples: $('.example-sub'),
+	exampleCounter: 0,
+	carouselLen: $('.example-sub').length,
+	carouselTimer: 0,
+	carouselInterval: 5000
 };
+
+startCarousel();
 
 
 // HELPERS
 // =============================================
 
-function showCorrect($item) {
-	$item.find(".example-expander").show().css("height", "auto");
+// Only runs on page load
+function startCarousel() {
+	CONFIG.carouselTimer = setInterval(advanceCarousel, CONFIG.carouselInterval);
+	CONFIG.carouselInterval = 0
 }
 
+function advanceCarousel() {
+	if ( CONFIG.exampleCounter === CONFIG.carouselLen - 1) {
+		CONFIG.exampleCounter = 0;
+	} else {
+		CONFIG.exampleCounter += 1;
+	}
+	
+	updateCarousel();
+}
+
+function updateCarousel() {
+	// Give the new tease the active class
+	setActiveTease();
+
+	// Swap the main img to the hovered tease
+	setMain();
+}
+
+function setActiveTease() {
+	CONFIG.subExamples.addClass('example-inactive').removeClass('example-active');
+	CONFIG.subExamples.eq(CONFIG.exampleCounter).addClass('example-active');
+}
+
+function setMain() {
+	var $newTease = CONFIG.subExamples.eq(CONFIG.exampleCounter);
+
+	// Switch src of main img
+	CONFIG.mainExample.find('.example-img').attr('src', $newTease.find('.example-img').attr('src'));
+
+	// Switch caption of main img
+	CONFIG.mainExample.find('.example-caption-wrap').html($newTease.find('.example-caption-wrap').html());
+}
+
+function restartTimer() {
+	// clearInterval(CONFIG.carouselTimer);
+	// startCarousel();
+	// window.setTimeout(startCarousel, CONFIG.carouselInterval);
+}
 
 
 // HANDLERS
@@ -21,26 +66,19 @@ function showCorrect($item) {
 
 CONFIG.subExamples.on({
 	mouseenter: function() {
-		CONFIG.subExamples.addClass("example-inactive").removeClass("example-active");
-		$(this).addClass("example-active");
+		var $this = $(this);
+		var newIndex = CONFIG.subExamples.index($(this));
+		CONFIG.exampleCounter = newIndex;
+
+		updateCarousel();
+
+		// Restart carousel timer
+		restartTimer();
 	},
 	mouseleave: function() {
-		CONFIG.subExamples.addClass("example-inactive").removeClass("example-active");
-		CONFIG.subExamples.eq(CONFIG.exampleCounter).addClass("example-active");
+		CONFIG.subExamples.addClass('example-inactive').removeClass('example-active');
+		CONFIG.subExamples.eq(CONFIG.exampleCounter).addClass('example-active');
 	}
-});
-
-CONFIG.subExamples.on("click", function() {
-	var newIndex = CONFIG.subExamples.index($(this));
-	CONFIG.exampleCounter = newIndex;
-	console.log(newIndex);
-
-	// if ($item.hasClass("example-expanded")) {
-	// 	CONFIG.trueSelect = $item;
-	// 	$item.addClass("example-expanded").addClass("example-active");
-	// 	showCorrect($item);
-	// 	setHeight($item);
-	// }
 });
 
 

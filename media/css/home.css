@@ -466,6 +466,11 @@ html,
     background: rgba(64, 77, 91, .95);
 }
 
+.example-caption-wrap-main .example-copy {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
 .example-slug {
     margin: 0 auto 5px;
 }
@@ -501,7 +506,7 @@ html,
     .example-main {
         position: relative;
         overflow: hidden;
-        max-height: 500px;
+        max-height: 400px;
     }
     .example-sub:first-child {
         padding: 0 .75em 0 0;
