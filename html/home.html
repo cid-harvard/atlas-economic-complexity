@@ -74,7 +74,7 @@
         </nav>
         <button class="close-button" id="close-button"><i class="fa fa-times"></i>Close Menu</button>
     </div>
-    <section class="section-wrap">
+    <section class="section-wrap section-wrap-top">
         <header class="site-header section-constrained-width">
             <a class="site-logo anchor-no-hover track-click" href="/" data-ga-category="Top Nav" data-ga-label="Home">
                 <img src="{{ STATIC_URL }}img/logos/atlas_logo.png" class="site-logo-img pure-img" />
@@ -109,25 +109,25 @@
                         <p class="example-copy">What did the United States export in 2012?</p>
                     </div>
                 </div><ol class="examples-queue pure-g">
-                    <li class="example-sub pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
+                    <li class="example-sub example-active pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
                         <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
                         <div class="example-caption-wrap offset-text">
                             <p class="example-slug label">Treemap</p>
                             <p class="example-copy">What did the United States export in 2012?</p>
                         </div>
-                    </li><li class="example-sub pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
+                    </li><li class="example-sub example-inactive pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
+                        <img src="{{ STATIC_URL }}img/examples/us_imports_1996_2012.png" class="example-img example-sub-img" />
+                        <div class="example-caption-wrap offset-text">
+                            <p class="example-slug label">Treemap</p>
+                            <p class="example-copy">What did the United States export in 2012?</p>
+                        </div>
+                    </li><li class="example-sub example-inactive pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
                         <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
                         <div class="example-caption-wrap offset-text">
                             <p class="example-slug label">Treemap</p>
                             <p class="example-copy">What did the United States export in 2012?</p>
                         </div>
-                    </li><li class="example-sub pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
-                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
-                        <div class="example-caption-wrap offset-text">
-                            <p class="example-slug label">Treemap</p>
-                            <p class="example-copy">What did the United States export in 2012?</p>
-                        </div>
-                    </li><li class="example-sub pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
+                    </li><li class="example-sub example-inactive pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
                         <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
                         <div class="example-caption-wrap offset-text">
                             <p class="example-slug label">Treemap</p>
@@ -169,7 +169,7 @@
                     <div class="subhead-wrap">
                     <h2 class="subhead subhead-search">Alternatively, ask the&nbsp;Atlas</h2>
                     <form class="pure-form search-wrap clear">
-                        <input class="atlas-search" id="searchbar" required autocomplete="off" type="text" placeholder="What did China export between in 2012?" >
+                        <input class="atlas-search" id="searchbar" required autocomplete="off" type="text" placeholder="What did China export in 2012?" >
                         <button class="atlas-search-btn pure-button atlas-btn-no-outline label" type="submit"><i class="fa fa-fw fa-search atlas-btn-icon"></i>Search</button>
                     </form>
                     <p class="subhead-deck atlas-description">Visualize imports and exports and explore growth opportunities for more than a hundred countries.</p>
@@ -263,6 +263,7 @@
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/social/social.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/views/home.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/views/carousel.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/searchresults.js"></script>
     {% endcompress %}
 

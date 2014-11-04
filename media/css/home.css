@@ -76,7 +76,13 @@ a:hover {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .section-wrap {
-    margin-bottom: 40px;
+    margin-bottom: 4em;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.section-wrap-top {
+    margin-bottom: 2em;
     padding: 0 20px;
     text-align: center;
 }
@@ -423,6 +429,9 @@ html,
     position: relative;
     overflow: hidden;
     margin-bottom: 1em;
+    cursor: pointer;
+    -webkit-transition: opacity .2s;
+            transition: opacity .2s;
 }
 
 .examples-grid {
@@ -465,6 +474,13 @@ html,
     margin: 0 auto;
 }
 
+.example-inactive {
+    opacity: 0.5;
+}
+
+.example-active {
+    opacity: 1;
+}
 
 @media screen and (min-width: 35.5em) {
     .example-main {
@@ -532,6 +548,9 @@ html,
     .atlas-search {
         width: 70%;
     }
+}
+
+@media screen and (min-width: 48em) {
     .ask-wrap {
         padding-left: 1.5em;
     }
@@ -603,7 +622,7 @@ html,
 
 @media screen and (min-width: 48em) {
     .teases-wrap:first-child {
-        margin-bottom: 20px;
+        margin-bottom: 0px;
         padding-right: 1.5em;
         padding-bottom: 0;
         border-right: 1px solid #DDDDDD;
