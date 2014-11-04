@@ -419,6 +419,12 @@ html,
 /*  EXAMPLES
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
+.example-sub {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1em;
+}
+
 .examples-grid {
     padding-bottom: 40px;
     border-bottom: 1px solid #DDDDDD;
@@ -433,29 +439,72 @@ html,
 
 .example-img {
     width: 100%;
-    /*height: 100%;*/
 }
 
 .example-main {
-    overflow: hidden;
-    height: 500px;
-}
-
-.example-main-img {
-    /*height: 100%;*/
+    display: none;
 }
 
 .examples-queue {
     margin: 0;
     padding: 0;
 }
-.example-sub {
-    overflow: hidden;
-    height: 150px;
+
+.example-caption-wrap {
+    margin-top: -3px;
+    padding: 1em;
+    color: white;
+    background: rgba(64, 77, 91, .95);
 }
 
-.example-sub-img {
-    /*width: 100%;*/
+.example-slug {
+    margin: 0 auto 5px;
+}
+
+.example-copy {
+    margin: 0 auto;
+}
+
+
+@media screen and (min-width: 35.5em) {
+    .example-main {
+        display: block;
+        margin-bottom: 1em;
+    }
+    .example-sub:first-child,
+    .example-sub:nth-child(3) {
+        padding: 0 .5em 0 0;
+    }
+    .example-sub:nth-child(2),
+    .example-sub:last-child {
+        padding: 0 0 0 .5em;
+    }
+}
+
+@media screen and (min-width: 48em) {
+    .example-main {
+        position: relative;
+        overflow: hidden;
+        max-height: 500px;
+    }
+    .example-sub:first-child {
+        padding: 0 .75em 0 0;
+    }
+    .example-sub:nth-child(2) {
+        padding: 0 .5em 0 .25em;
+    }
+    .example-sub:nth-child(3) {
+        padding: 0 .25em 0 .5em;
+    }
+    .example-sub:last-child {
+        padding: 0 0 0 .75em;
+    }
+    .example-caption-wrap-main {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
 }
 
 
@@ -486,7 +535,6 @@ html,
     .ask-wrap {
         padding-left: 1.5em;
     }
-
 }
 
 /* Triple classed to override pure.css specificity*/
@@ -548,9 +596,9 @@ html,
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 .teases-wrap {
+    margin-bottom: 40px;
     padding-bottom: 40px;
     border-bottom: 1px solid #DDDDDD;
-    margin-bottom: 40px;
 }
 
 @media screen and (min-width: 48em) {
@@ -691,8 +739,8 @@ html,
 .site-nav-full {
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #CCCCCC;
     text-align: left;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .site-nav-full-toplevel {
