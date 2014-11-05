@@ -446,12 +446,12 @@ html,
     border-bottom: 1px solid #DDDDDD;
 }
 
-.example-img {
-    width: 100%;
-}
-
 .example-main {
     display: none;
+}
+
+.example-img {
+    width: 100%;
 }
 
 .examples-queue {
@@ -463,7 +463,7 @@ html,
     margin-top: -3px;
     padding: 1em;
     color: white;
-    background: rgba(64, 77, 91, .95);
+    background: rgb(64, 77, 91);
 }
 
 .example-caption-wrap-main .example-copy {
@@ -490,41 +490,29 @@ html,
 @media screen and (min-width: 35.5em) {
     .example-main {
         display: block;
-        margin-bottom: 1em;
+        /*margin-bottom: 1em;*/
     }
-    .example-sub:first-child,
+/*    .example-sub:first-child,
     .example-sub:nth-child(3) {
         padding: 0 .5em 0 0;
     }
     .example-sub:nth-child(2),
     .example-sub:last-child {
         padding: 0 0 0 .5em;
-    }
+    }*/
 }
 
 @media screen and (min-width: 48em) {
-    .example-main {
-        position: relative;
+    .example-img-wrap {
         overflow: hidden;
         max-height: 400px;
     }
-    .example-sub:first-child {
-        padding: 0 .75em 0 0;
+    .example-sub {
+        margin-bottom: 0;
+        padding: 0;
     }
-    .example-sub:nth-child(2) {
-        padding: 0 .5em 0 .25em;
-    }
-    .example-sub:nth-child(3) {
-        padding: 0 .25em 0 .5em;
-    }
-    .example-sub:last-child {
-        padding: 0 0 0 .75em;
-    }
-    .example-caption-wrap-main {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
+    .example-sub:nth-last-child(-n+3) {
+        border-left: 1px solid white;
     }
 }
 

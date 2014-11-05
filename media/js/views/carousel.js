@@ -22,12 +22,12 @@ function startCarousel() {
 }
 
 function advanceCarousel() {
-	if ( CONFIG.exampleCounter === CONFIG.carouselLen - 1) {
+	if (CONFIG.exampleCounter === CONFIG.carouselLen - 1) {
 		CONFIG.exampleCounter = 0;
 	} else {
 		CONFIG.exampleCounter += 1;
 	}
-	
+
 	updateCarousel();
 }
 
@@ -48,10 +48,13 @@ function setMain() {
 	var $newTease = CONFIG.subExamples.eq(CONFIG.exampleCounter);
 
 	// Switch src of main img
-	CONFIG.mainExample.find('.example-img').attr('src', $newTease.find('.example-img').attr('src'));
+	CONFIG.mainExample.find('.example-img').attr('src', $newTease.data('img-src'));
 
 	// Switch caption of main img
-	CONFIG.mainExample.find('.example-caption-wrap').html($newTease.find('.example-caption-wrap').html());
+	var $newCaption = CONFIG.mainExample.find('.example-caption-wrap').html($newTease.find('.example-caption-wrap').html());
+
+	// Set product label, this should probably be templated - GW
+	$newCaption.find('.example-link').prepend("<p class='example-slug label'>" + $newTease.data('graph-type') + "</p>");
 }
 
 function restartTimer() {
@@ -72,7 +75,7 @@ CONFIG.subExamples.on({
 
 		updateCarousel();
 
-		// Restart carousel timer
+		// Restart carousel timer - TK
 		restartTimer();
 	},
 	mouseleave: function() {
@@ -80,9 +83,3 @@ CONFIG.subExamples.on({
 		CONFIG.subExamples.eq(CONFIG.exampleCounter).addClass('example-active');
 	}
 });
-
-
-
-
-// PSEUDOCODE
-// 

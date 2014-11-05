@@ -103,35 +103,39 @@
         <section class="section-wrap section-wrap-main">
             <div class="section-constrained-width examples-grid pure-g" id="js-examples-grid">
                 <div class="example-main">
-                    <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-main-img" />
+                    <div class="example-img-wrap">
+                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-main-img" />
+                    </div>
                     <div class="example-caption-wrap example-caption-wrap-main offset-text">
-                        <p class="example-slug label">Treemap</p>
-                        <p class="example-copy">What did the United States export in 2012?</p>
+                        <a class="example-link anchor-no-hover" href="http://atlas.cid.harvard.edu/explore/product_space/export/usa/all/show/2012/">
+                            <p class="example-slug label">Product Space</p>
+                            <p class="example-copy">What did the United States export in 2012?</p>
+                        </a>
                     </div>
                 </div><ol class="examples-queue pure-g">
-                    <li class="example-sub example-active pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
-                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
+                    <li class="example-sub example-inactive pure-u-1 pure-u-sm-1-2 pure-u-md-1-4" data-graph-type="Treemap" data-img-src="{{ STATIC_URL }}img/examples/us_imports_1996_2012.png">
                         <div class="example-caption-wrap offset-text">
-                            <p class="example-slug label">Treemap</p>
-                            <p class="example-copy">What did the United States export in 2012?</p>
+                            <a class="example-link anchor-no-hover" href="http://atlas.cid.harvard.edu/explore/stacked/export/chn/all/show/1995.2012.2/">
+                                <p class="example-copy">Who exported coffee in&nbsp;2012?</p>
+                            </a>
                         </div>
-                    </li><li class="example-sub example-inactive pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
-                        <img src="{{ STATIC_URL }}img/examples/us_imports_1996_2012.png" class="example-img example-sub-img" />
+                    </li><li class="example-sub example-active pure-u-1 pure-u-sm-1-2 pure-u-md-1-4" data-graph-type="Product Space" data-img-src="{{ STATIC_URL }}img/examples/us_exports_2012.png">
                         <div class="example-caption-wrap offset-text">
-                            <p class="example-slug label">Treemap</p>
-                            <p class="example-copy">What did Peru export in 2013?</p>
+                            <a class="example-link anchor-no-hover" href="http://atlas.cid.harvard.edu/explore/product_space/export/usa/all/show/2012/">
+                                <p class="example-copy">What did the United States export in 2012?</p>
+                            </a>
                         </div>
-                    </li><li class="example-sub example-inactive pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
-                        <img src="{{ STATIC_URL }}img/examples/us_exports_2012.png" class="example-img example-sub-img" />
+                    </li><li class="example-sub example-inactive pure-u-1 pure-u-sm-1-2 pure-u-md-1-4" data-graph-type="Stacked Area" data-img-src="{{ STATIC_URL }}img/examples/us_imports_1996_2012.png">
                         <div class="example-caption-wrap offset-text">
-                            <p class="example-slug label">Treemap</p>
-                            <p class="example-copy">What did the United States export in 2012?</p>
+                            <a class="example-link anchor-no-hover" href="http://atlas.cid.harvard.edu/explore/stacked/export/chn/all/show/1995.2012.2/">
+                                <p class="example-copy">What did China export between 1995 and 2012?</p>
+                            </a>
                         </div>
-                    </li><li class="example-sub example-inactive pure-u-1 pure-u-sm-1-2 pure-u-md-1-4">
-                        <img src="{{ STATIC_URL }}img/examples/us_imports_1996_2012.png" class="example-img example-sub-img" />
+                    </li><li class="example-sub example-inactive pure-u-1 pure-u-sm-1-2 pure-u-md-1-4" data-graph-type="Product Feasibility" data-img-src="{{ STATIC_URL }}img/examples/us_imports_1996_2012.png">
                         <div class="example-caption-wrap offset-text">
-                            <p class="example-slug label">Treemap</p>
-                            <p class="example-copy">What did Peru export in 2013?</p>
+                            <a class="example-link anchor-no-hover" href="http://atlas.cid.harvard.edu/explore/pie_scatter/export/col/all/show/2012/">
+                                <p class="example-copy">What products are feasible for Colombia in 2012?</p>
+                            </a>
                         </div>
                     </li>
                 </ol>
