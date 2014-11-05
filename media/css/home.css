@@ -762,12 +762,17 @@ html,
     border-bottom: 1px solid #CCCCCC;
 }
 
+.site-nav-full-list-toplevel {
+    margin-bottom: 20px;
+}
+
 .site-nav-full-toplevel {
     font-size: .6875em;
     margin-bottom: 20px;
 }
 
-.site-nav-full-toplevel:last-of-type {
+.site-nav-full-toplevel:last-of-type,
+.site-nav-full-toplevel:last-of-type .site-nav-full-secondlevel:last-of-type{
     margin-bottom: 0;
 }
 
@@ -794,6 +799,7 @@ html,
 @media screen and (min-width: 35.5em) {
     .site-nav-full-list-toplevel {
         padding-right: 1em;
+        margin-bottom: 0;
     }
     .site-nav-full-list-toplevel:first-child {
         padding-right: 1em;
