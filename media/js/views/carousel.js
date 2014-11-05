@@ -48,7 +48,8 @@ function setMain() {
 	var $newTease = CONFIG.subExamples.eq(CONFIG.exampleCounter);
 
 	// Switch src of main img
-	CONFIG.mainExample.find('.example-img').attr('src', $newTease.data('img-src'));
+	// CONFIG.mainExample.find('.example-img').attr('src', $newTease.data('img-src'));
+	CONFIG.mainExample.find('.example-img-wrap').css('background-image', 'url(' + $newTease.data('img-src') + ')');
 
 	// Switch caption of main img
 	var $newCaption = CONFIG.mainExample.find('.example-caption-wrap').html($newTease.find('.example-caption-wrap').html());
