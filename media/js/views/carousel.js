@@ -9,6 +9,7 @@ var CONFIG = {
 	carouselInterval: 5000
 };
 
+updateCarousel();
 startCarousel();
 
 
@@ -17,11 +18,18 @@ startCarousel();
 
 // Only runs on page load
 function startCarousel() {
+	// Don't start the carousel if the main example mod is hidden
+	if ( CONFIG.mainExample.css('display') !== 'block' ) {
+		return;
+	}
 	CONFIG.carouselTimer = setInterval(advanceCarousel, CONFIG.carouselInterval);
-	CONFIG.carouselInterval = 0
 }
 
 function advanceCarousel() {
+	// End the carousel if the main example mod is hidden
+	if ( CONFIG.mainExample.css('display') !== 'block' ) {
+		clearInterval(CONFIG.carouselTimer);
+	}
 	if (CONFIG.exampleCounter === CONFIG.carouselLen - 1) {
 		CONFIG.exampleCounter = 0;
 	} else {
@@ -48,7 +56,6 @@ function setMain() {
 	var $newTease = CONFIG.subExamples.eq(CONFIG.exampleCounter);
 
 	// Switch src of main img
-	// CONFIG.mainExample.find('.example-img').attr('src', $newTease.data('img-src'));
 	CONFIG.mainExample.find('.example-img-wrap').css('background-image', 'url(' + $newTease.data('img-src') + ')');
 
 	// Switch caption of main img
@@ -59,9 +66,8 @@ function setMain() {
 }
 
 function restartTimer() {
-	// clearInterval(CONFIG.carouselTimer);
-	// startCarousel();
-	// window.setTimeout(startCarousel, CONFIG.carouselInterval);
+	clearInterval(CONFIG.carouselTimer);
+	startCarousel();
 }
 
 
@@ -84,3 +90,15 @@ CONFIG.subExamples.on({
 		CONFIG.subExamples.eq(CONFIG.exampleCounter).addClass('example-active');
 	}
 });
+
+
+// WINDOW RESIZE
+// =============================================
+
+var lazyLayout = _.debounce(function() {
+	if ( CONFIG.mainExample.css('display') === 'block' ) {
+		restartTimer();
+	}
+}, 100);
+
+$(window).resize(lazyLayout);

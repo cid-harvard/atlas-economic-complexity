@@ -429,28 +429,13 @@ html,
 /*  EXAMPLES
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.example-sub {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1em;
-    cursor: pointer;
-    -webkit-transition: opacity .2s;
-            transition: opacity .2s;
-}
-
 .examples-grid {
     padding-bottom: 40px;
     border-bottom: 1px solid #DDDDDD;
 }
 
-.examples-wrap {
-    position: relative;
-    margin-bottom: 60px;
-    padding-bottom: 60px;
-    border-bottom: 1px solid #DDDDDD;
-}
-
 .example-main {
+    cursor: pointer;
     display: none;
 }
 
@@ -461,13 +446,29 @@ html,
 .examples-queue {
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.example-sub {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1em;
+    cursor: pointer;
+    display: flex;
 }
 
 .example-caption-wrap {
     margin-top: -3px;
     padding: 1em;
     color: white;
-    background: rgb(64, 77, 91);
+    -webkit-transition: background-color .2s;
+            transition: background-color .2s;
+}
+
+.example-caption-wrap-main {
+    background-color: #404D5B;
 }
 
 .example-caption-wrap-main .example-copy {
@@ -482,20 +483,11 @@ html,
 .example-copy {
     margin: 0 auto;
 }
-
-.example-inactive {
-    opacity: .5;
-}
-
-.example-active {
-    opacity: 1;
+.example-inactive .example-caption-wrap {
+    background-color: #a6b3c1;
 }
 
 @media screen and (min-width: 35.5em) {
-    .example-main {
-        display: block;
-        /*margin-bottom: 1em;*/
-    }
     /*    .example-sub:first-child,
     .example-sub:nth-child(3) {
         padding: 0 .5em 0 0;
@@ -507,6 +499,9 @@ html,
 }
 
 @media screen and (min-width: 48em) {
+    .example-main {
+        display: block;
+    }
     .example-img-wrap {
         overflow: hidden;
         height: 400px;
@@ -520,6 +515,9 @@ html,
     }
     .example-sub:nth-last-child(-n+3) {
         border-left: 1px solid white;
+    }
+    .example-active .example-caption-wrap {
+        background-color: #404D5B;
     }
 }
 
