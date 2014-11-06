@@ -1,8 +1,9 @@
 import cairosvg
 from celery import Celery
+from celery.exceptions import SoftTimeLimitExceeded
 from celery.utils.log import get_task_logger
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
@@ -108,16 +109,24 @@ def prerender(url):
         errors = driver.execute_script("return window.jsErrors;")
         page_source = driver.page_source
 
-    except TimeoutException:
+        # Done
+        viz_loaded = True
+
+    except (TimeoutException, SoftTimeLimitExceeded, WebDriverException) as ex:
         viz_loaded = False
+        expected = True
+    except Exception as ex:
+        viz_loaded = False
+        expected = False
 
-    if not viz_loaded or (errors and len(errors) > 0):
+    finally:
+
         driver.quit()
-        raise RuntimeError("""The url could not be prerendered. Visualization
-                           loaded within timeout = %s, JS errors = %s""" %
-                           (viz_loaded, errors))
 
-    driver.quit()
+        if not viz_loaded or (errors and len(errors) > 0):
+            ex.args += ({"viz_loaded": viz_loaded, "js_errors": errors,
+                         "expected": expected},)
+            raise
 
     return page_source
 
