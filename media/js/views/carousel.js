@@ -20,6 +20,7 @@ startCarousel();
 function startCarousel() {
 	// Don't start the carousel if the main example mod is hidden
 	if ( CONFIG.mainExample.css('display') !== 'block' ) {
+		addExampleImg();
 		return;
 	}
 	CONFIG.carouselTimer = setInterval(advanceCarousel, CONFIG.carouselInterval);
@@ -70,6 +71,10 @@ function restartTimer() {
 	startCarousel();
 }
 
+function addExampleImg() {
+	
+}
+
 
 // HANDLERS
 // =============================================
@@ -82,7 +87,7 @@ CONFIG.subExamples.on({
 
 		updateCarousel();
 
-		// Restart carousel timer - TK
+		// Restart carousel timer
 		restartTimer();
 	},
 	mouseleave: function() {
