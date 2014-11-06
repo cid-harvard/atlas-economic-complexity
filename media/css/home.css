@@ -75,8 +75,12 @@ a:hover {
 /*  LAYOUT
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
+.container-main {
+    margin-bottom: 60px;
+}
+
 .section-wrap {
-    margin-bottom: 4em;
+    margin-bottom: 40px;
     padding: 0 20px;
     text-align: center;
 }
@@ -158,7 +162,7 @@ a:hover {
     position: relative;
     display: table;
     width: 100%;
-    margin: 60px auto 20px;
+    margin: 40px auto 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #DDDDDD;
 }

@@ -1,3 +1,9 @@
+
+// Carousel.js
+// =============================================
+// This file contains the logic related to the carousel on the homepage
+// Gus Wezerek is the original author, go to him with questions
+
 // GLOBALS
 // =============================================
 var CONFIG = {
@@ -9,18 +15,21 @@ var CONFIG = {
 	carouselInterval: 5000
 };
 
+// Add our first image
 updateCarousel();
+
+// Start the carousel
 startCarousel();
 
+// When everything else is ready, load the example thumbnails
+$(window).load(addExampleImg());
 
 // HELPERS
 // =============================================
 
-// Only runs on page load
 function startCarousel() {
 	// Don't start the carousel if the main example mod is hidden
 	if ( CONFIG.mainExample.css('display') !== 'block' ) {
-		addExampleImg();
 		return;
 	}
 	CONFIG.carouselTimer = setInterval(advanceCarousel, CONFIG.carouselInterval);
@@ -62,17 +71,22 @@ function setMain() {
 	// Switch caption of main img
 	var $newCaption = CONFIG.mainExample.find('.example-caption-wrap').html($newTease.find('.example-caption-wrap').html());
 
-	// Set product label, this should probably be templated - GW
+	// Set product label, this should probably be templated
 	$newCaption.find('.example-link').prepend("<p class='example-slug label'>" + $newTease.data('graph-type') + "</p>");
 }
 
+// Restarts the carousel timer so the li you just hovered on doesn't advance 
+// a second later because of the setInterval in the bground
 function restartTimer() {
 	clearInterval(CONFIG.carouselTimer);
 	startCarousel();
 }
 
 function addExampleImg() {
-	
+	_.each(CONFIG.subExamples, function(el){
+		var $el = $(el);
+		$el.find('.example-img').attr('src', $el.data('img-src'))
+	});
 }
 
 
@@ -86,8 +100,6 @@ CONFIG.subExamples.on({
 		CONFIG.exampleCounter = newIndex;
 
 		updateCarousel();
-
-		// Restart carousel timer
 		restartTimer();
 	},
 	mouseleave: function() {
@@ -100,6 +112,7 @@ CONFIG.subExamples.on({
 // WINDOW RESIZE
 // =============================================
 
+// Debounce so that we're not constantly checking for window resizing
 var lazyLayout = _.debounce(function() {
 	if ( CONFIG.mainExample.css('display') === 'block' ) {
 		restartTimer();
