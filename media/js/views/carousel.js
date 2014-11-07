@@ -1,8 +1,9 @@
 
-// Carousel.js
+// carousel.js
 // =============================================
 // This file contains the logic related to the carousel on the homepage
 // Gus Wezerek is the original author, go to him with questions
+
 
 // GLOBALS
 // =============================================
@@ -72,7 +73,7 @@ function setMain() {
 	var $newCaption = CONFIG.mainExample.find('.example-caption-wrap').html($newTease.find('.example-caption-wrap').html());
 
 	// Set product label, this should probably be templated
-	$newCaption.find('.example-link').prepend("<p class='example-slug label'>" + $newTease.data('graph-type') + "</p>");
+	$newCaption.find('.example-link').prepend('<p class="example-slug label">' + $newTease.data('graph-type') + '</p>');
 }
 
 // Restarts the carousel timer so the li you just hovered on doesn't advance 
@@ -85,7 +86,7 @@ function restartTimer() {
 function addExampleImg() {
 	_.each(CONFIG.subExamples, function(el){
 		var $el = $(el);
-		$el.find('.example-img').attr('src', $el.data('img-src'))
+		$el.find('.example-img').attr('src', $el.data('img-src'));
 	});
 }
 
@@ -95,7 +96,6 @@ function addExampleImg() {
 
 CONFIG.subExamples.on({
 	mouseenter: function() {
-		var $this = $(this);
 		var newIndex = CONFIG.subExamples.index($(this));
 		CONFIG.exampleCounter = newIndex;
 

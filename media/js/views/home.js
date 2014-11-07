@@ -1,6 +1,14 @@
-// SETUP
 
-var selectTemplate = _.template($(".atlas-select-template").html());
+// home.js
+// =============================================
+// This file contains the logic related to the homepage.
+// Gus Wezerek is the original author; go to him with questions.
+
+
+// SETUP
+// =============================================
+
+var selectTemplate = _.template($('.atlas-select-template').html());
 var bodyEl = document.body;
 var openbtn = document.getElementById('open-button');
 var closebtn = document.getElementById('close-button');
@@ -25,10 +33,11 @@ function initSlideinNav() {
 
 
 // HELPERS
+// =============================================
 
 function populateSelect(options, menu) {
   // Calculate which dropdowns to populate
-  var toAppendString = "";
+  var toAppendString = '';
 
   // Sort the options alphabetically
   options.sort(function(a, b) {
@@ -55,12 +64,13 @@ function toggleNav() {
 
 
 // HANDLERS
+// =============================================
 
 $.ajax({
-  dataType: "json",
-  url: "api/dropdowns/countries/"
+  dataType: 'json',
+  url: 'api/dropdowns/countries/'
 }).done(function(data) {
-  populateSelect(data, $(".js-select-countries"));
+  populateSelect(data, $('.js-select-countries'));
 });
 
 $('.js-select-countries').on('change', function() {
