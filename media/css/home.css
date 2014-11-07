@@ -451,6 +451,8 @@ html,
             flex-direction: row;
     margin: 0;
     padding: 0;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
@@ -462,27 +464,31 @@ html,
 
 .example-sub {
     position: relative;
+    display: block;
     overflow: hidden;
+            flex-direction: column;
     margin-bottom: 1em;
     cursor: pointer;
-    display: block;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
 }
 
 .example-img {
     width: 100%;
-    opacity: 0.85;
     -webkit-transition: opacity .2s;
             transition: opacity .2s;
+    opacity: .85;
 }
 
 .example-caption-wrap {
+    width: 100%;
     margin-top: -3px;
     padding: 1em;
     -webkit-transition: background-color .2s;
             transition: background-color .2s;
     color: white;
-    width: 100%;
     background-color: #A6B3C1;
 }
 
@@ -544,18 +550,25 @@ html,
     .example-img-wrap {
         overflow: hidden;
         height: 400px;
+        -webkit-transition: background-image .2s;
+                transition: background-image .2s;
         background-repeat: no-repeat;
         background-position: center bottom;
         background-size: auto 100%;
-        transition: background-image .2s;
-        -webkit-transition: background-image .2s;
     }
     .example-img {
         display: none;
     }
     .example-sub {
-        flex-direction: row;
-        align-items: stretch;
+                flex-direction: row;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+        -webkit-box-align: stretch;
+        -webkit-align-items: stretch;
+        -ms-flex-align: stretch;
+                align-items: stretch;
     }
     /* nth child-ed to override previous media query specificity */
     .example-sub:nth-child(n) {
@@ -735,7 +748,9 @@ html,
 }
 
 .atlas-megafooter {
-    margin-bottom: 50px;
+    max-width: 1040px;
+    margin: 0 auto;
+    margin-bottom: 45px;
 }
 
 .megafooter-topper {
