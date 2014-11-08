@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
-    livereload = require('gulp-livereload'),
+    svgmin = require('gulp-svgmin'),
+    htmlmin = require('gulp-htmlmin'),
     del = require('del');
 
 gulp.task('styles', function() {
@@ -40,12 +41,24 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
+gulp.task('svg', function() {
+  return gulp.src('media/img/examples/us_exports_2012.svg')
+    .pipe(svgmin())
+    .pipe(gulp.dest('media/dist/assets/img'))
+});
+
+gulp.task('html', function() {
+  gulp.src('html/home.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('dist'))
+});
+
 gulp.task('clean', function(cb) {
     del(['media/dist/assets/css', 'media/dist/assets/js', 'media/dist/assets/img'], cb)
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images');
+    gulp.start('styles', 'scripts', 'images', 'html');
 });
 
 gulp.task('watch', function() {
@@ -58,11 +71,5 @@ gulp.task('watch', function() {
 
   // Watch image files
   gulp.watch('media/img/**/*', ['images']);
-
-  // Create LiveReload server
-  livereload.listen();
-
-  // Watch any files in media/dist/, reload on change
-  gulp.watch(['media/dist/**']).on('change', livereload.changed);
 
 });

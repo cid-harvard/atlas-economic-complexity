@@ -554,8 +554,6 @@ html,
     .example-img-wrap {
         overflow: hidden;
         height: 400px;
-        -webkit-transition: background-image .2s;
-                transition: background-image .2s;
         background-repeat: no-repeat;
         background-position: center bottom;
         background-size: auto 100%;
