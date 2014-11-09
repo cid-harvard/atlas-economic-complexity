@@ -123,7 +123,7 @@ def explore(
         country1,
         country2,
         product,
-        year="2011"):
+        year="2012"):
 
     request.session['app_name'] = app_name
 
@@ -252,7 +252,7 @@ def explore(
         1)
 
     if app_name == "stacked" and year == "2009":
-        year = "1969.2011.10"
+        year = "1969.2013.10"
 
     if "." in year:
         y = [int(x) for x in year.split(".")]

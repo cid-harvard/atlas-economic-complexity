@@ -11,7 +11,7 @@ def index(request, category="country", year=2012):
     year = int(year)
 
     min_year = 1995
-    max_year = 2012 if category == "country" else 2012
+    max_year = 2013 if category == "country" else 2012
     if year < min_year:
         return redirect('/rankings/%s/%d/' % (category, max_year))
     elif year > max_year:
@@ -34,7 +34,7 @@ def download(request, category="country", year=None):
     import csv
 
     min_year = 1995
-    max_year = 2012 if category == "country" else 2012
+    max_year = 2013 if category == "country" else 2012
 
     if category == "country":
         header_row = ["rank", "abbrv", "country", "eci_value", "delta", "year"]
