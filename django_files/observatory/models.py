@@ -99,7 +99,10 @@ class Country_region(models.Model):
 class Country_manager(models.Manager):
 
     def filter_lang(self, lang):
-        return self.extra(select={"name": "name_"+lang})
+
+        # return self.extra(select={"name" : "name_"+lang})
+        # For faling back on english name where  name_lang is '???' or null till        # we clean up the DB. 
+        return self.extra(select={"name" : "if (name_"+lang+" REGEXP '[[.?.]]' or name_"+lang+" is null,name, name_"+lang+")" })
 
     def get_all(self, lang):
 
