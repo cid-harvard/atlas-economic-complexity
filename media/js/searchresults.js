@@ -22,13 +22,14 @@ $.widget( 'ui.autocomplete', $.ui.autocomplete, {
       // First we find and capture the query string within the item label
       var term = this.term.split(' ').join('|'),
           re = new RegExp( '(' + term + ')', 'gi' ),
-          template = '<span class="term-highlight">$1</span>',
-          label = item.label.replace( re, template );              // Replace the term with the highlighted term span
+          highlightClass = 'term-highlight',
+          template = '<span class=' + highlightClass + '>$1</span>',
+          label = item.label.replace( re, template );            // Replace the term with the highlighted term span
          
       // Then we append the <li>
       var $li = $( '<li/>' )
         .data( 'item.autocomplete', item )
-        .append( '<a>' + label + '</a>' )                              // Nest an anchor inside the <li>, as that's what jQuery expects
+        .append( '<a>' + label + '</a>' )                        // Nest an anchor inside the <li>, as that's what jQuery expects
         .appendTo( ul );
 
      return $li;
@@ -41,15 +42,15 @@ $.widget( 'ui.autocomplete', $.ui.autocomplete, {
 // =============================================
 
 // Preserves the url query params on navigate
-var search_select_function = function(event, ui){
-    // Go to selected URL
-    event.preventDefault();
-    $(this).val(ui.item.label);
+var search_select_function = function( event, ui ) {
 
-    if(typeof(queryActivated) != 'undefined' && queryActivated) {
-      window.location.href=ui.item.value+'?'+$.param(queryParameters);
+    event.preventDefault();
+    $( this ).val( ui.item.label );
+
+    if ( typeof queryActivated !== 'undefined' ) {
+      window.location.href = ui.item.value + '?' + $.param( queryParameters );
     } else {
-      window.location.href=ui.item.value; 
+      window.location.href = ui.item.value; 
     }
 };
 
@@ -66,7 +67,7 @@ var search_focus_function = function(event){
 
 // Set up autocomplete callback
 var search_data_source = function(request, response) {
-    if(request.term.length == 0) {
+    if(request.term.length === 0) {
        request.term = $('#text_title').val();
     }
 
