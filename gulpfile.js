@@ -50,7 +50,7 @@ gulp.task('svg', function() {
 gulp.task('html', function() {
   gulp.src('html/home.html')
     .pipe(htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('media/dist'))
 });
 
 gulp.task('clean', function(cb) {
