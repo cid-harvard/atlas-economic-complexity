@@ -641,6 +641,10 @@ html,
     margin-bottom: 15px;
 }
 
+.term-highlight {
+    font-weight: 700;
+}
+
 
 /*  SEARCH (JQUERY UI AUTOCOMPLETE CLASSES)
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
