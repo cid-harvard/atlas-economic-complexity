@@ -84,7 +84,6 @@ $('.js-select-countries').on('change', function() {
   window.location.href = '../explore/tree_map/export/' + $this.val() + '/all/show/2012/';
 });
 
-
 $('.js-select-products').on('change', function() {
   var $this = $(this);
   ga('send', {

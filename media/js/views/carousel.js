@@ -74,6 +74,10 @@ function setMain() {
 
 	// Set product label, this should probably be templated
 	$newCaption.find('.example-link').prepend('<p class="example-slug label">' + $newTease.data('graph-type') + '</p>');
+
+	// Set the analytics info, alright, this should definitely be templated
+	CONFIG.mainExample.data('ga-label', 'Main - ' + $newTease.data('ga-label'));
+
 }
 
 // Restarts the carousel timer so the li you just hovered on doesn't advance 
