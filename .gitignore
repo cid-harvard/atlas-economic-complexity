@@ -19,6 +19,7 @@ django_files/atlas/celeryconfig.py
 #virtualenv
 env/
 node_modules
+bower_components
 
 *.store
 

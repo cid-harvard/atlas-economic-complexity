@@ -263,6 +263,11 @@ html,
     color: rgb(230, 230, 230);
 }
 
+/* Hide the slide-in wrap for browsers with no CSS transforms */
+.csstransforms .site-nav-slidein-wrap {
+    display: none;
+}
+
 .site-nav-slidein-wrap a:hover,
  .site-nav-slidein-wrap a:focus {
     color: #C94E50;

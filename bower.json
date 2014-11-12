@@ -1,0 +1,20 @@
+{
+  "name": "atlas",
+  "version": "0.0.0",
+  "homepage": "https://github.com/cid-harvard/atlas-economic-complexity",
+  "authors": [
+    "gwezerek <gwezerek@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "modernizr": "~2.8.3"
+  }
+}

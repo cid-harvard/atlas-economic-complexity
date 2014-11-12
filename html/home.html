@@ -5,7 +5,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html lang="en" class="no-js">
+<html lang="en no-js">
 <!--<![endif]-->
 
 <head>
@@ -58,7 +58,7 @@
     <div class="site-nav-slidein-wrap">
         <nav class="site-nav-slidein">
             <ul class="site-nav-slidein-list">
-                <li class="site-nav-slidein-item track-click offset-text" data-ga-category="Top Nav" data-ga-label="Slide In: Visualizations">
+                <li rel="prerender" class="site-nav-slidein-item track-click offset-text" data-ga-category="Top Nav" data-ga-label="Slide In: Visualizations">
                     <a href="explore"><i class="fa fa-fw fa-area-chart"></i><span>Visualizations</span></a>
                 </li>
                 <li class="site-nav-slidein-item track-click offset-text" data-ga-category="Top Nav" data-ga-label="Slide In: Rankings">
@@ -272,6 +272,8 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/underscore/underscore-min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/modernizr/modernizr.js"></script>
+
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/social/social.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/searchresults.js"></script>
