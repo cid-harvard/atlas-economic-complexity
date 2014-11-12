@@ -203,7 +203,7 @@
 
               <div id="country-product" width="170px" style="margin-left:10px;">
 
-                <select data-placeholder={% trans "All Products" %} id="country_product_select" style="width:170px">
+                <select data-placeholder="All Products" id="country_product_select" style="width:170px">
                 <option value=""></option>
 
                 </select>
@@ -284,7 +284,7 @@
   <!-- Year tab -->
    <div class="tab-content" style="display:block">
     <ul class="nav nav-tabs" id="myTab">
-      <li class="active"><a href="#country-year"><span class="glyphicon glyphicon-calendar"></span> <span style="font-size:16px;">{% trans "Time Period" %}</span></a></li>
+      <li class="active"><a href="#country-year"><span class="glyphicon glyphicon-calendar"></span> <span style="font-size:16px;">Time Period</span></a></li>
     </ul>
 
     <div class="tab-content" style="height:50px; border: solid 1px #e6e6e6; border-top: 0px; padding-top:10px;">
@@ -340,7 +340,7 @@
         <div id="helpBoxInner">
             <h3> </h3>
             <hr>
-            <p>{% trans "Welcome to The Atlas of Economic Complexity. Hover over an element to see its function." %}</p>
+            <p>Welcome to The Atlas of Economic Complexity. Hover over an element to see its function.</p>
         </div>
         {% if app_name == "product_space" or app_name == "pie_scatter" %}
         <ul>
@@ -387,7 +387,7 @@
       </div>
     </div>
   </div>
-  <button name="button" id="help">{% trans "Help" %}</button>
+  <button name="button" id="help">Help</button>
 </div> <!-- END app selection pane -->
 
 {% endif %}
@@ -448,15 +448,15 @@
                 <span class="definition" style="font-weight:bold;">{% trans "Detail Level" %}</span>
                 <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
-                    <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> {%trans "Low"%}
+                    <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
                   </label>
                   {% if app_type == "casy" or app_type == "ccsy" %}
                   <label class="btn btn-default btn-detail">
-                    <input type="radio" name="level_detail" value="nesting_1" onchange="nest_drop_report(this.value);" > {% trans "Mid" %}
+                    <input type="radio" name="level_detail" value="nesting_1" onchange="nest_drop_report(this.value);" > Mid
                   </label>
                   {% endif %}
                   <label class="btn btn-default btn-detail {% if app_name != "stacked" %} active {% endif %}">
-                    <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> {%trans "Hi" %}
+                    <input type="radio" name="level_detail" value="nesting_2" onchange="nest_drop_report(this.value);"> Hi
                   </label>
                 </div>
               </div>
@@ -467,10 +467,10 @@
                 <span class="definition" style="font-weight:bold;">{% trans "Trade Flow" %}</span>
                 <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
-                    <input type="radio" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> {% trans "Gross" %}
+                    <input type="radio" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
                   </label>
                   <label class="btn btn-default btn-detail {% if trade_flow == "net_import" or trade_flow == "net_export" %} active{% endif %}">
-                    <input type="radio" value="net" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"> {% trans "Net" %}
+                    <input type="radio" value="net" onchange="$('.flow-net-gross').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Net
                   </label>
                 </div>
               </div>
@@ -501,7 +501,7 @@
 
           <div class="row">
             <div class="vizControl col-md-4">
-              <span class="definition" style="font-weight:bold;">{% trans "Labels" %}</span>
+              <span class="definition" style="font-weight:bold;">Labels</span>
               <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default active">
                   <input type="radio" id="true" name="labels" checked="checked">On
@@ -515,23 +515,23 @@
             <span class="definition" style="font-weight:bold;">Layout</span>
               <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default active">
-                  <input type="radio" id="value" name="layout" checked="checked">{% trans "Value" %}
+                  <input type="radio" id="value" name="layout" checked="checked">Value
                 </label>
 
                 <label class="btn btn-default">
-                  <input type="radio" id="share" name="layout">{% trans "Share" %}
+                  <input type="radio" id="share" name="layout">Share
                 </label>
               </div>
             </div>
 
             <div class="vizControl col-md-4">
-            <span class="definition" style="font-weight:bold;">{% trans "Ordering" %}</span>
+            <span class="definition" style="font-weight:bold;">Ordering</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default active">
-                <input type="radio" id="community" name="order" checked="checked">{% trans "Community" %}
+                <input type="radio" id="community" name="order" checked="checked">Community
               </label>
               <label class="btn btn-default">
-                <input type="radio" id="totals" name="order">{% trans "Totals" %}
+                <input type="radio" id="totals" name="order">Totals
               </label>
             </div>
             </div>
@@ -540,19 +540,19 @@
           <div class="ui_bottom_row row">
 
               <div class="vizControl col-md-8">
-                <span class="definition" style="font-weight:bold;">{% trans "Y-axis" %}</span>
+                <span class="definition" style="font-weight:bold;">Y-axis</span>
                 <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default active capita">
-                    <input type="radio" id="current" name="capita" checked="checked"> {% trans "Current" %}
+                    <input type="radio" id="current" name="capita" checked="checked"> Current
                   </label>
                   <label class="btn btn-default capita">
-                    <input type="radio" id="notpc_constant" name="capita"> {% trans "Constant" %}
+                    <input type="radio" id="notpc_constant" name="capita"> Constant
                   </label>
                   <label class="btn btn-default capita">
-                    <input type="radio" id="pc_current" name="capita"> {% trans "Per Capita Current" %}
+                    <input type="radio" id="pc_current" name="capita"> Per Capita Current
                   </label>
                   <label class="btn btn-default capita">
-                    <input type="radio" id="pc_constant" name="capita"> {% trans "Per Capita Constant" %}
+                    <input type="radio" id="pc_constant" name="capita"> Per Capita Constant
                   </label>
                 </div>
               </div>
@@ -680,7 +680,7 @@
           {% if app_name == "product_space" %}
 
           <div class="vizControl col-md-4">
-            <span class="definition" style="font-weight:bold;">{% trans "Product Class" %}:</span>
+            <span class="definition" style="font-weight:bold;">Product Class:</span>
             <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
               <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
                 <input type="radio" onchange="queryActivated=true;queryParameters['prod_class'] = 'sitc4';updateURLQueryParameters();prod_class='sitc4';update_viz(app_name);"> SITC4
@@ -786,7 +786,7 @@
       <footer>
       <div class="footerInner">
 
-        <span>{% trans "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide." %}</span>
+        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
         <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
         <br />
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
