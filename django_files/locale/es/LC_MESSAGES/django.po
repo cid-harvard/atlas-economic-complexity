@@ -37,13 +37,6 @@ msgstr "País"
 msgid "Country (show trade partners)"
 msgstr "País (socios comerciales)"
 
-msgid "Product"
-msgstr "Producto"
-
-msgid "Product Class"
-msgstr "Clase de producto"
-
-
 msgid "Products"
 msgstr "Productos"
 
@@ -92,8 +85,8 @@ msgstr "País de órigen"
 msgid "Destination Country"
 msgstr "País de destino"
 
-msgid "Partner"
-msgstr "Pareja"
+msgid "Product"
+msgstr "Producto"
 
 msgid "Year"
 msgstr "Año"
@@ -110,20 +103,14 @@ msgstr "Intervalo (en años)"
 msgid "Build Visualization"
 msgstr "Construir Visualización"
 
+msgid "Download"
+msgstr "Descargar"
+
 msgid "View as text"
 msgstr "Versión texto"
 
 msgid "View app"
 msgstr "Ver aplicación"
-
-msgid "Gross"
-msgstr "Bruto"
-
-msgid "Net"
-msgstr "Neto"
-
-msgid "Current"
-msgstr "Corriente"
 
 msgid "Next"
 msgstr "Próximo"
@@ -131,111 +118,3 @@ msgstr "Próximo"
 msgid "Previous"
 msgstr "Anterior"
 
-msgid "World Data"
-msgstr "Mundial de Datos"
-
-msgid "Explore"
-msgstr "Explorar"
-
-msgid "Rankings"
-msgstr "Clasificaciones"
-
-msgid "New Book"
-msgstr "Nuevo libro"
-
-msgid "Glossary"
-msgstr "Glosario"
-
-msgid "About"
-msgstr "Acerca de"
-
-msgid "Trade Data Visualization"
-msgstr "Fecha de Negociación Visualización"
-
-msgid "Feedback"
-msgstr "Realimentación"
-
-msgid "Complexity Visualization"
-msgstr "Complejidad Visualización"
-
-msgid "Time Period"
-msgstr "Período de tiempo"
-
-msgid "Detail Level"
-msgstr "Nivel de detalle"
-
-msgid "Color by"
-msgstr "Color por"
-
-
-msgid "All Products"
-msgstr "Todos los productos"
-
-msgid "Legend"
-msgstr "Leyenda"
-
-msgid "Low"
-msgstr "Bajo"
-
-msgid "Mid"
-msgstr "Medio"
-
-msgid "Hi"
-msgstr "Alto"
-
-msgid "Ordering"
-msgstr "Orden"
-
-msgid "Community"
-msgstr "Comunidad"
-
-msgid "Select a Country"
-msgstr "Seleccione un país"
-
-msgid "Share"
-msgstr "Cuota"
-
-msgid "Highlight"
-msgstr "Punto culminante"
-
-msgid "Help"
-msgstr "Ayudar" 
-
-msgid "Totals"
-msgstr "Totales"
-
-msgid "Pattern"
-msgstr "patrón"
-
-msgid "Labels"
-msgstr "Etiquetas"
-
-msgid "Y-axis"
-msgstr "Y- eje"
-
-msgid "Constant"
-msgstr "Constante"
-
-msgid "Per Capita Current"
-msgstr "Corriente per cápita"
-
-
-msgid "Per Capita Constant"
-msgstr "Per cápita constante"
-
-
-msgid "Value"
-msgstr "Valor"
-
-
-msgid "Download"
-msgstr "Descargar"
-
-msgid "Economic Complexity"
-msgstr "Complejidad Económica"
-
-msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
-msgstr "Bienvenidos al Atlas de la Complejidad Económica . Pase el ratón sobre un elemento para ver su función."
-
-msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
-msgstr "El Atlas de complejidad económica es una herramienta interactiva de gran alcance que permite a los usuarios visualizar el comercio total de un país , realizar un seguimiento de cómo estas dinámicas cambian con el tiempo y explorar oportunidades de crecimiento por más de un centenar de países de todo el mundo ."
