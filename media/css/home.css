@@ -8,7 +8,7 @@
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 html {
-    box-sizing: border-box;
+    box-sizing: border-box;   /* Firefox 1, probably can drop this */   /* Safari 3-4, also probably droppable */
     color: inherit;
 }
 
@@ -339,8 +339,8 @@ html,
             transition:         transform .4s;
     -webkit-transition-timing-function: cubic-bezier(.7,0,.3,1);
             transition-timing-function: cubic-bezier(.7,0,.3,1);
-    -webkit-transform: translate3d(-300px,0,0);
-            transform: translate3d(-300px,0,0);
+    -webkit-transform: translate3d(-400px,0,0);
+            transform: translate3d(-400px,0,0);
     background: #373A47;
 }
 
@@ -448,7 +448,9 @@ html,
     display: -webkit-flex;
     display: -ms-flexbox;
     display:         flex;
-            flex-direction: row;
+            -webkit-flex-direction: row;
+                -ms-flex-direction: row;
+                    flex-direction: row;
     margin: 0;
     padding: 0;
     -webkit-flex-direction: row;
@@ -468,7 +470,9 @@ html,
     position: relative;
     display: block;
     overflow: hidden;
-            flex-direction: column;
+            -webkit-flex-direction: column;
+                -ms-flex-direction: column;
+                    flex-direction: column;
     margin-bottom: 1em;
     cursor: pointer;
     -webkit-flex-direction: column;
@@ -487,7 +491,6 @@ html,
 }
 
 .example-caption-wrap {
-    width: 100%;
     margin-top: -3px;
     padding: 1em;
     -webkit-transition: background-color .2s;
@@ -528,28 +531,42 @@ html,
 }
 
 @media screen and (min-width: 35.5em) {
+    .examples-queue {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+    }
     .example-sub {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
         display:         flex;
+        padding: 0;
+        width: 100%;
     }
-    .example-sub:nth-last-child(-n+2) {
+    .example-sub:nth-last-child(-n+1) {
         margin-bottom: 0;
-    }
-    .example-sub:first-child,
-    .example-sub:nth-child(3) {
-        padding: 0 .5em 0 0;
-    }
-    .example-sub:nth-child(2),
-    .example-sub:last-child {
-        padding: 0 0 0 .5em;
     }
 }
 
 @media screen and (min-width: 48em) {
     .example-main {
         display: block;
+    }
+    .examples-queue {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+            -ms-flex-wrap: nowrap;
+                flex-wrap: nowrap;
     }
     .example-img-wrap {
         overflow: hidden;
