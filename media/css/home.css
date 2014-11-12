@@ -8,8 +8,16 @@
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
 html {
+    /* autoprefixer: off */
+    -moz-box-sizing: border-box;
     box-sizing: border-box;   /* Firefox 1, probably can drop this */   /* Safari 3-4, also probably droppable */
     color: inherit;
+}
+
+*, *:before, *:after {
+    /* autoprefixer: off */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body,
@@ -339,8 +347,8 @@ html,
             transition:         transform .4s;
     -webkit-transition-timing-function: cubic-bezier(.7,0,.3,1);
             transition-timing-function: cubic-bezier(.7,0,.3,1);
-    -webkit-transform: translate3d(-400px,0,0);
-            transform: translate3d(-400px,0,0);
+    -webkit-transform: translate3d(-300px,0,0);
+            transform: translate3d(-300px,0,0);
     background: #373A47;
 }
 
