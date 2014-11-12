@@ -74,43 +74,22 @@ function Key() {
   function key_icon(a){
     a.attr("title", function(d){ return d.name; })
     a.attr("data-placement", "bottom")
-
-
-    // Check if any product in this category
-    available_cat = Array();
-
-    flat_data.forEach(function(d) {
-      if(item_type=="country") { 
-        if(typeof(available_cat[d.continent]) == "undefined") {
-          available_cat[d.continent] = true;
-        }
-      } else {
-        if(typeof(available_cat[d.community_id]) == "undefined") {
-          available_cat[d.community_id] = true;
-        }
-      }
-    })
-
+   
     // .attr("class", function(d){ return showing + " cat_"+d.id; })
     // depending on whether we're showing products or countries
     // show icons or just text of that region
     if(showing == "product"){
-
       a.attr("class", function(d){ return showing + " tooltipbs cat_"+d.id; })
-      .style("opacity", function(d){ return typeof(available_cat[d.id]) == "undefined" ? .2 : 1; })
       a.append("img")
         .attr("src", function(d){
           return "/media/img/icons/community_"+d.id+".png"
         })
-        
     }
     else {
-
        a.style("background", function(d){ return d.color; })
         .attr("class", function(d){ return showing + " tooltipbs cat_"+d.id+" "+d.continent; })
         .attr("continent", function(d){ return d.continent; })
         .text(function(d){ return name(d.name);})
-        .style("opacity", function(d){ return typeof(available_cat[d.continent]) == "undefined" ? .2 : 1; })
     }
     // mouseover events (extends the specific apps highlight funciton)
     a.on("mouseover", function(d){
@@ -123,16 +102,6 @@ function Key() {
         // d3.select("#viz").call(viz.highlight(null));
       })
     a.on("click", function(d) {
-
-      if(showing == "product") {
-        console.log("ddd", d.id, d)
-        if(typeof(available_cat[d.id]) == "undefined")
-          return;
-      } else {
-        if(typeof(available_cat[d.continent]) == "undefined")
-          return;
-      }
-
       // If this node is already selected, return to unsorted
       console.log("click", d3.select(this), d)
 
@@ -143,16 +112,9 @@ function Key() {
         d3.select("#viz").call(viz.solo([]));
         d3.select(this).attr("active","false");
         d3.selectAll("."+d.continent).attr("active","false");
-
-        d3.selectAll(".key a").style("pointer-events","auto")  
-                              .style("cursor","");
-
-        if(showing == "product") {
-          d3.selectAll(".key a").style("opacity", function(d){ return typeof(available_cat[d.id]) == "undefined" ? .2 : 1; })
-        } else {
-          d3.selectAll(".key a").style("opacity", function(d){ return typeof(available_cat[d.continent]) == "undefined" ? .1 : 1; })          
-        }
-
+        d3.selectAll(".key a").style("opacity","1")
+                              .style("pointer-events","auto")  
+                              .style("cursor","");    
         sessionStorage.removeItem("productCommunityName");
         sessionStorage.removeItem("productCommunityID"); 
 
@@ -164,7 +126,7 @@ function Key() {
       else
       {
         // Grey out the other communities
-        d3.selectAll(".key a").style("opacity",".3")
+        d3.selectAll(".key a").style("opacity",".1")
                               .style("pointer-events","none")
                               .style("cursor","default");
         
@@ -210,8 +172,8 @@ function Key() {
           })));
 
           // app_name=="stacked" ? stack_solo_filter(d.name) : d3.select("#viz").call(viz.solo([d.name]));
-	        sessionStorage.setItem("productCommunityName",d.name);
-          sessionStorage.setItem("productCommunityID",this.className.replace(" ","."));	
+          sessionStorage.setItem("productCommunityName",d.name);
+          sessionStorage.setItem("productCommunityID",this.className.replace(" ",".")); 
           queryParameters['cat_id'] = d.id;
           //console.log("Filter by", d, flat_data.filter(function(d) { if(d.nesting_0.name == d.name && d.year==year) return d}).map(function(d) { return d.id }));
         }              

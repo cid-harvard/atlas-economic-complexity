@@ -33,7 +33,7 @@ d3plus.tree_map = function(vars) {
     .attr("id",function(d){
       return "cell_"+d[vars.id_var]
     })
-    .attr("opacity", 0)
+    .attr("opacity", 1)
     .attr("transform", function(d) {
       return "translate(" + d.x + "," + d.y + ")"; 
     })

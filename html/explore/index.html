@@ -7,16 +7,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   {% if displayviz %}
-  <meta property="og:image" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
+  <meta property="og:image" content="http://atlas.cid.harvard.edu/static_image/{{ displayImage }}"/>
   {% else %}
   <meta property="og:image" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
   {% endif %}
   <meta name="twitter:card" content="photo">
-  <meta name="twitter:site" content="@romsson">
-  <meta name="twitter:creator" content="@romsson">
+  <meta name="twitter:site" content="@Atlas_facts">
+  <meta name="twitter:creator" content="@Atlas_facts">
   <meta name="twitter:title" content="{% if title %}{{title}} @Atlas_facts {% else %} The Atlas Of Economic Complexity {% endif %}">
   {% if displayviz %}
-  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu{{ displayImage }}"/>
+  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/static_image/{{ displayImage }}"/>
   {% else %}
   <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
   {% endif %}
@@ -36,6 +36,8 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/explore.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/toastr/toastr.min.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
@@ -60,7 +62,7 @@
   var list_viz = ["tree_map", "map", "stacked", "product_space", "pie_scatter", "rings", "scatterplot", "rankings"];
   var dev = {% if DEV %}true{% else %}false{% endif %}; // Variable used mostly to be more verbose for debug
 </script>
-{% if not displayIframe %}
+{% if not display_iframe %}
 
   {% if alert %}
   <div class="alert">
@@ -92,11 +94,11 @@
       </div>
       <nav>
         <ul>
-          <li><a {% if isbrowsemode %}href="endbrowse"{% else %}href="explore"{% endif %}>Explore</a></li>
-          <li><a href="rankings">Rankings</a></li>
-          <li><a id="newBook" href="book">New Book</a></li>
-          <li><a href="about/glossary/">Glossary</a></li>
-          <li><a href="about">About</a></li>
+          <li><a {% if isbrowsemode %}href="endbrowse"{% else %}href="explore/"{% endif %}>{% trans "Explore" %}</a></li>
+          <li><a href="rankings/">{% trans "Rankings" %}</a></li>
+          <li><a id="newBook" href="book/">{% trans "New Book" %}</a></li>
+          <li><a href="about/glossary/">{% trans "Glossary" %}</a></li>
+          <li><a href="about/">{% trans "About" %}</a></li>
         </ul>
       </nav>
       <br class="clear">
@@ -111,7 +113,7 @@
       <div class="app_title" id="icons" style="width:230px; height:60px; margin-left:10px;">
 
         <ul class="nav nav-tabs" id="myTab">
-          <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">World Data</span></a></li>
+          <li class="active"><a href="#tab-countries"><span class="glyphicon glyphicon-globe"></span>  <span style="font-size:18px;">{% trans "World Data" %}</span></a></li>
         </ul>
 
       </div>
@@ -161,7 +163,7 @@
 
           <!-- Country selection -->
           <div class="tab-pane active" id="tab-countries">
-            <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">Select a Country</span>
+            <span title="0 void" toolTip="2" style="margin:10px 0px; font-weight:bold;">{% trans "Select a Country" %}</span>
             <div id="country1" width="190px" style="margin-left: 0px;">
 
                 <select data-placeholder="All Countries" id="country1_select" style="width:190px">
@@ -181,17 +183,17 @@
 
             <div class="btn-group flow-direction" data-toggle="buttons" style="margin-top:5px; margin-left:5px">
               <label class="btn btn-default {% if trade_flow == "export" or trade_flow == "net_export" %} active{% endif %}">
-                <input type="radio" name="flow_direction" value="export" onchange="$('.flow-direction').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;Export&nbsp;
+                <input type="radio" name="flow_direction" value="export" onchange="$('.flow-direction').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;"class="fa fa-sign-out"></i>&nbsp;&nbsp;{% trans "Exports" %}&nbsp;
               </label>
-              <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}  {% if app_name == "product_space" or app_name == "pie_scatter" %} disabled{% endif %}">
-                <input type="radio" name="flow_direction" id="flow_direction" value="import" onchange="$('.flow-direction').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;Import&nbsp;
+              <label class="btn btn-default {% if trade_flow == "import" or trade_flow == "net_import" %} active{% endif %}  {% if app_name == "product_space" or app_name == "pie_scatter" or app_name == "rings" %} disabled{% endif %}">
+                <input type="radio" name="flow_direction" id="flow_direction" value="import" onchange="$('.flow-direction').children().eq(0).removeClass('active'); $(this).parent().addClass('active');update_viz();"><i style="padding:0;" class="fa fa-sign-in fa-flip-horizontal"></i>&nbsp;&nbsp;{% trans "Imports" %}&nbsp;
               </label>
             </div>
           </div>
 
           <ul class="nav nav-tabs tab-trade-partner-product" id="myTab" style="margin-top: 20px; margin-left:0px; width:200px;">
-            <li{% if prod_or_partner == "product" %} class="active"{% endif %}><a href="#show-country-product"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray;"></span>  <span style="font-size:14px; color:gray;">Product</span></a></li>
-            <li{% if prod_or_partner == "partner" %} class="active"{% endif %}><a href="#show-country-partner"><span class="glyphicon glyphicon-globe" style="font-size:14px; color:gray;"></span> <span style="font-size:14px;">Partner</span></a></li>
+            <li{% if prod_or_partner == "product" %} class="active"{% endif %}><a href="#show-country-product"><span class="glyphicon glyphicon-barcode" style="font-size:14px; color:gray;"></span>  <span style="font-size:14px; color:gray;">{% trans "Product" %}</span></a></li>
+            <li{% if prod_or_partner == "partner" %} class="active"{% endif %}><a href="#show-country-partner"><span class="glyphicon glyphicon-globe" style="font-size:14px; color:gray;"></span> <span style="font-size:14px;">{% trans "Partner" %}</span></a></li>
           </ul>
 
           <!-- Tab Trade Partner/Product -->
@@ -223,7 +225,7 @@
           <!-- App selection -->
           <div style="font-weight:bold; margin-top:0px; margin-left:5px">
           <br>
-          Trade Data Visualization</div>
+          {% trans "Trade Data Visualization" %}</div>
 
           <div id="tfViz" data-toggle="buttons" style="margin-left:5px;">
 
@@ -255,11 +257,9 @@
             <div style="font-weight:bold; margin-top:0px; margin-left:5px">
             <br>
 
+            {% trans "Complexity Visualization" %}</div>
 
-            Complexity Visualization</div>
-
-
-            <label value="product_space" class="btn btn-default {% if app_name == 'product_space' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product Space" >
+            <label value="product_space" class="btn btn-default {% if app_name == 'product_space' %}active{% endif %}" data-placement="top" data-toggle="tooltip" title="Product & Country Space" >
               <input type="radio" style="background:url({{ STATIC_URL }}img/common/productspace.png) no-repeat;">
               <img src="{{ STATIC_URL }}img/common/productspace.png" style="width:38px;"/>
             </label>
@@ -269,12 +269,10 @@
               <img src="{{ STATIC_URL }}img/common/feasibility.png" style="width:38px;"/>
             </label>
 
-            {% if app_name == "rings" %}
             <label value="rings" class="btn btn-default {% if app_name == "rings" %}active{%endif%} tooltipbs" data-placement="top" data-toggle="tooltip" title="Rings" >
               <input type="radio" name="viz_apps">
               <img src="{{ STATIC_URL }}img/home/rings-thumb.png" style="width:38px;"/>
             </label>
-            {% endif %}
           </div>
 
           </div>
@@ -318,31 +316,26 @@
     </div>
 </div>
 <ul style="margin-bottom:0px; padding-bottom:0px;" class="nav nav-tabs" id="utilityBox">
-
-<!--  History Tab
-
-{% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None"%}
-  <li id="historyTab"><a href="#history" data-toggle="tab">History</a></li>
-{% endif %}
-
- -->
-
-
+{% if previous_image != "/media/img/all/loader.gif" %}
+  <li class="active" id="historyTab"><a href="#history" data-toggle="tab">Previous Page</a></li>
+  <li id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
+{% else %}
   <li class="active" id="legendTab"><a href="#legendPane" data-toggle="tab">Legend</a></li>
+{% endif %}
 </ul>
 <div class="tab-content" style="padding-top:0px;">
-  {% if previous_page != "http://atlas.cid.harvard.edu/" and previous_page != "http://127.0.0.1:8000/" and previous_page != "None" %}
-  <div class="tab-pane" id="history">
+{% if previous_image != "/media/img/all/loader.gif" %}
+  <div class="tab-pane active" id="history">
     <div id="historyBox">
       <div id="historyBoxInner">
-        <a href="#"><i id="hnLeft" class="fa fa-chevron-left historyNav"></i></a>
+        <a href="#"><i id="hnLeft" class="fa fa-chevron-left historyNav" style="opacity: 0"></i></a>
         <a id="historySlide"></a>
-        <a href="#"><i id="hnRight" class="fa fa-chevron-right historyNav"></i></a>
+        <a href="#"><i id="hnRight" class="fa fa-chevron-right historyNav" style="opacity: 0"></i></a>
       </div>
     </div>
   </div>
   {% endif %}
-    <div class="tab-pane active" id="legendPane">
+    <div class="tab-pane {% if previous_image == "/media/img/all/loader.gif" %}active{% endif %}" id="legendPane">
       <div id="legend">
         <div id="helpBoxInner">
             <h3> </h3>
@@ -399,20 +392,17 @@
 
 {% endif %}
       <!-- the Visualization -->
-      <div id="content"  class="container" style="{% if not displayIframe %} width: 750px; min-height:600px; {% else %} width: 100%; height:100%; {% endif %}">
+      <div id="content"  class="container" style="{% if not display_iframe %} width: 750px; min-height:600px; {% else %} width: 100%; height:100%; {% endif %}">
 
         <div class="contentViz">
         <!-- ajax loading gif -->
-          <div id="loader">
+          <div id="loader" style="position:absolute; margin-top:-23px">
           <!--if static image mode is PNG-->
           {% if displayviz %}
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
-              <p>Loading</p>
-              <br />
-            <span style="width: 750px; height:520px; margin-top:-550px; opacity:.7">Loading...</span>
+            <img src="static_image/{{displayImage}}" alt="loading" style="opacity:.9"/>
           {% else %}
-          <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" />
-          <p>Loading</p>
+            <img src="{{ STATIC_URL }}img/all/loader.gif" alt="loading" style="margin-top:200px" />
+            <p>Loading</p>
           {% endif %}
           </div>
 
@@ -426,10 +416,10 @@
             </div>
           </div>
           <!-- Container for the visualization -->
-          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left" id="viz" style="{% if not displayIframe %} width: 750px; min-height:520px; {% else %} width: 100%; height:100%; {% endif %}">
+          <div class="bootstro" data-bootstro-title="Visualization" data-bootstro-content="The visualization will appear here based off the query you implemented and application you chose." data-toggle="tooltip" data-bootstro-placement="left" id="viz" style="{% if not display_iframe %} width: 750px; min-height:520px; {% else %} width: 100%; height:100%; {% endif %}">
           </div>
 		  </div>
-{% if not displayIframe %}
+{% if not display_iframe %}
         <div class="contentInner">
         <!-- Container for the key/legend -->
         <div class="key {{prod_class}}" style="min-height:50px"></div>
@@ -442,20 +432,20 @@
           <div class="row">
             {% if app_name != "product_space" %}
             <div class="vizControl col-md-4">
-              <span class="definition" style="font-weight:bold;">Product Class:</span>
+              <span class="definition" style="font-weight:bold;">{% trans "Product Class" %}</span>
               <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
                 <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
-                  <input type="radio" name="product_class" value="sitc4"> SITC4
+                  <input type="radio" onchange="queryActivated=true;queryParameters['prod_class'] = 'sitc4';updateURLQueryParameters();prod_class='sitc4';update_viz(app_name);"> SITC4
                 </label>
                  <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-                  <input type="radio" name="product_class" value="hs4"> HS4
+                  <input type="radio" onchange="queryActivated=true;queryParameters['prod_class'] = 'hs4';updateURLQueryParameters();prod_class='hs4';update_viz(app_name);"> HS4
                 </label>
               </div>
             </div>
             {% endif %}
             {% if app_name != "product_space" and app_name != "rings" and app_name != "map" %}
               <div class="vizControl col-md-4" >
-                <span class="definition" style="font-weight:bold;">Detail Level</span>
+                <span class="definition" style="font-weight:bold;">{% trans "Detail Level" %}</span>
                 <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default btn-detail {% if app_name == "stacked" %} active {% endif %}">
                     <input type="radio" name="level_detail" value="nesting_0" onchange="nest_drop_report(this.value);"> Low
@@ -474,7 +464,7 @@
 
             {% if app_name != "product_space" and app_name != "rings" and app_name != "pie_scatter"%}
               <div class="vizControl col-md-4" >
-                <span class="definition" style="font-weight:bold;">Trade Flow</span>
+                <span class="definition" style="font-weight:bold;">{% trans "Trade Flow" %}</span>
                 <div class="btn-group flow-net-gross" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                   <label class="btn btn-default btn-detail {% if trade_flow == "import" or trade_flow == "export" %} active{% endif %}">
                     <input type="radio" value="gross" onchange="$('.flow-net-gross').children().eq(1).removeClass('active'); $(this).parent().addClass('active');update_viz();"> Gross
@@ -489,7 +479,7 @@
 
           {% if app_name == "tree_map" or app_name == "map" %}
             <div class="vizControl col-md-6" >
-              <span class="definition" style="font-weight:bold;">Color by</span>
+              <span class="definition" style="font-weight:bold;">{% trans "Color by" %}</span>
               <div id="level_details" class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default btn-detail active">
                   <input type="radio" name="level_detail" value="nesting_0" onchange="d3.select('#viz').call(viz.color_var('color'))"> Category
@@ -511,7 +501,7 @@
 
           <div class="row">
             <div class="vizControl col-md-4">
-              <span class="definition" style="font-weight:bold;">Labels:</span>
+              <span class="definition" style="font-weight:bold;">Labels</span>
               <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default active">
                   <input type="radio" id="true" name="labels" checked="checked">On
@@ -522,7 +512,7 @@
               </div>
             </div>
             <div class="vizControl col-md-4">
-            <span class="definition" style="font-weight:bold;">Layout:</span>
+            <span class="definition" style="font-weight:bold;">Layout</span>
               <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
                 <label class="btn btn-default active">
                   <input type="radio" id="value" name="layout" checked="checked">Value
@@ -535,7 +525,7 @@
             </div>
 
             <div class="vizControl col-md-4">
-            <span class="definition" style="font-weight:bold;">Ordering:</span>
+            <span class="definition" style="font-weight:bold;">Ordering</span>
             <div class="btn-group" data-toggle="buttons" style="margin-top:0px; margin-right:20px">
               <label class="btn btn-default active">
                 <input type="radio" id="community" name="order" checked="checked">Community
@@ -567,7 +557,7 @@
                 </div>
               </div>
               <div class="vizControl col-md-4" style="float:left; margin-top:10px; position:relative; z-index:100;">
-                <span class="definition" style="font-weight:bold; display:inline;">Highlight</span>
+                <span class="definition" style="font-weight:bold; display:inline;">{% trans "Highlight" %}</span>
                 <span id="highlight">
                     <select id="highlight_select" onchange="highlight();" style="width: 140px"><option/></select>
                 </span>
@@ -598,24 +588,12 @@
             <div class="product_class" style="float:left;">
               <span class="definition" style="font-weight:bold;">Hide exports (Spotlight) </span>
               <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:20px;">
-
                 <label class="btn btn-default active" id="spot-off" name="yvar" >
                   <input type="radio" id="spot_off" name="pie_spot"> Off
                 </label>
                 <label class="btn btn-default" id="spot-on" >
                   <input type="radio" id="spot_on" name="pie_spot"> On
                 </label>
-
-<!--            <label class="btn btn-default">
-                  <input type="radio">None
-                </label>
-                <label class="btn btn-default">
-                  <input type="radio">Available
-                </label>
-                <label class="btn btn-default">
-                  <input type="radio">Missing
-                </label>    -->
-
               </div>
             </div>
 
@@ -637,80 +615,78 @@
 
           {% if app_name == "scatterplot" %}
 
-            <div class="product_class" style="float:left;">
-              <span class="definition" style="font-weight:bold;">X-Axis </span>
-              <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
-                <label class="btn btn-default active" id="complexity" name="yvar" >
-                  <input type="radio" id="complexity" name="yvar"> Distance
-                </label>
-                <label class="btn btn-default" id="opp_gain" >
-                  <input type="radio" id="opp_gain" name="yvar"> PCI
-                </label>
+            {% if item_type == "product" %}
+
+              <div class="product_class" style="float:left;">
+                <span class="definition" style="font-weight:bold;">X-Axis </span>
+                <div class="btn-group" data-toggle="buttons" style="margin-right:10px;">
+                  <label class="btn btn-default active" >
+                    <input type="radio" id="complexity" onchange="d3.select('#viz').call(viz.xaxis_var('distance'))"> Distance
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" name="yvar" onchange="d3.select('#viz').call(viz.xaxis_var('pci'))"> PCI
+                  </label>
+                </div>
               </div>
-            </div>
+
+              <div class="product_class" style="float:left;">
+                <span class="definition" style="font-weight:bold;">Y-Axis </span>
+                <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
+                  <label class="btn btn-default active" id="complexity" name="yvar" >
+                    <input type="radio" id="complexity" name="yvar"> Current
+                  </label>
+                  <label class="btn btn-default" id="complexity" name="yvar" >
+                    <input type="radio" id="complexity" name="yvar"> Complexity
+                  </label>
+                  <label class="btn btn-default" id="opp_gain" >
+                    <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
+                  </label>
+                </div>
+              </div>
+
+              <div class="product_class" style="float:left;">
+                <span class="definition">Size by</span>
+                <div class="btn-group node_size" data-toggle="buttons" >
+                  <label type="button" class="btn btn-default" value="none">
+                    <input type="radio" name="node_size" value="none" onchange="d3.select('#viz').call(viz.value_var(''))"> None
+                  </label>
+                  <label type="button" class="btn btn-default active" value="world_trade">
+                    <input type="radio" name="node_size" value="world_trade" onchange="d3.select('#viz').call(viz.value_var('share'))"> Current
+                  </label>
+                </div>
+              </div>
+
+            {% endif %}
+
+            {% if item_type == "country" %}
+
+
+            {% endif %}
+
+
+            <p style="clear:both">
 
             <div class="product_class" style="float:left;">
-              <span class="definition" style="font-weight:bold;">Y-Axis </span>
-              <div class="btn-group" id="pie_controls" data-toggle="buttons" style="margin-right:10px;">
-                <label class="btn btn-default active" id="complexity" name="yvar" >
-                  <input type="radio" id="complexity" name="yvar"> Complexity
-                </label>
-                <label class="btn btn-default" id="opp_gain" >
-                  <input type="radio" id="opp_gain" name="yvar"> Opportunity Gain
-                </label>
-              </div>
-            </div>
-
-            <div class="product_class" style="float:left;">
-              <span class="definition">Size by: </span>
+              <span class="definition">Color by: </span>
               <div class="btn-group node_size" data-toggle="buttons" >
-                <label type="button" class="btn btn-default active" value="none">
-                  <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
-                </label>
-                <label type="button" class="btn btn-default" value="world_trade">
-                  <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
+                <label type="button" class="btn btn-default active" value="world_trade">
+                  <input type="radio" name="node_size" value="world_trade"> Category
                 </label>
               </div>
             </div>
-
-          <p style="clear:both">
-
-          <div class="product_class" style="float:left;">
-            <span class="definition">Color by: </span>
-            <div class="btn-group node_size" data-toggle="buttons" >
-              <label type="button" class="btn btn-default active" value="none">
-                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
-              </label>
-              <label type="button" class="btn btn-default" value="world_trade">
-                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> Category
-              </label>
-            </div>
-          </div>
-
-          <div class="product_class" style="float:left;">
-            <span class="definition">Scale: </span>
-            <div class="btn-group node_size" data-toggle="buttons" >
-              <label type="button" class="btn btn-default active" value="none">
-                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> Linear
-              </label>
-              <label type="button" class="btn btn-default" value="world_trade">
-                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> Log
-              </label>
-            </div>
-          </div>
 
           {% endif %}
 
           {% if app_name == "product_space" %}
 
           <div class="vizControl col-md-4">
-            <span class="definition" style="font-weight:bold;">Product Class.</span>
+            <span class="definition" style="font-weight:bold;">Product Class:</span>
             <div class="btn-group" id="viz_apps" data-toggle="buttons" style="margin-top:0px; margin-right:20px; height:34px;">
               <label class="btn btn-default {% if prod_class == "sitc4" %}active{% endif %}">
-                <input type="radio" name="product_class" value="sitc4"> SITC4
+                <input type="radio" onchange="queryActivated=true;queryParameters['prod_class'] = 'sitc4';updateURLQueryParameters();prod_class='sitc4';update_viz(app_name);"> SITC4
               </label>
                <label class="btn btn-default {% if prod_class == "hs4" %}active{% endif %}">
-                <input type="radio" name="product_class" value="hs4"> HS4
+                <input type="radio" onchange="queryActivated=true;queryParameters['prod_class'] = 'hs4';updateURLQueryParameters();prod_class='hs4';update_viz(app_name);"> HS4
               </label>
             </div>
           </div>
@@ -839,7 +815,7 @@
       <div id="tool_pane" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media and email." data-toggle="tooltip" data-bootstro-placement="left">
 
     <div id="sharebuttons">
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">Share</h4>
+        <h4 class="explore-share-label" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">{% trans "Share" %}</h4>
         {% with current_url=request.build_absolute_uri|iriencode %}
         <a href="https://facebook.com/sharer.php?u={{current_url}}" target="_blank">
           <i class="fa fa-facebook fa-lg"></i>
@@ -861,7 +837,7 @@
 
     <form id="download" method="POST" action="{{HTTP_HOST}}download/">
         {% csrf_token %}
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">Download</h4>
+        <h4 class="explore-share-label" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">{% trans "Download" %}</h4>
         <a id="pdf" href="#">PDF</a>
         <a id="png" href="#">PNG</a>
         <a id="svg" href="#">SVG</a>
@@ -870,8 +846,7 @@
         <input type="hidden" id="file_format" name="file_format" value="svg"/>
     </form>
 
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">Feedback</h4>
-
+        <h4 class="explore-share-label" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">{% trans "Feedback" %}</h4>
         <a id="feedbackPlaceholder" href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform?entry.1903449278&entry.1131927011&entry.49173428&entry.1847748354={{ VERSION }}" target="_blank">
           <i class="fa fa-comment fa-lg"></i>
         </a>
@@ -967,7 +942,7 @@
 
   {% if app_name == "rankings" %}
 
-    <script src="media/js/libs/sorttable/sorttable.js"></script>
+    <script src="{{ STATIC_URL }}js/apps/rankings.js"></script>
 
   {% endif %}
 
@@ -1080,9 +1055,10 @@
     product_code = "{{product_code}}",
     prod_class = "{{prod_class}}",
     previous_page = "{{previous_page}}",
-    previous_image = "{{ STATIC_URL }}/img/empty_static.png",
+    previous_image = "{{previous_image}}",
     static_url = "{{STATIC_URL}}",
-    in_iframe = is_in_iframe();
+    in_iframe = is_in_iframe(),
+    static_image = "{{static_image}}";
 
   // language select dropdown
   $(".language_select select").on("change", function(){
@@ -1120,7 +1096,7 @@
       }
     }
 
-    if(app_name=="stacked") {
+   if(app_name=="stacked" && item_type == "products") {
       d3.selectAll('.capita').classed("active", false);
       if(queryParameters["yaxis"] == "pc_constant")
         d3.select(d3.select("#pc_constant").node().parentNode).classed("active", true)
@@ -1178,7 +1154,7 @@
     return update_viz($(this).attr("value"));
   });
 
-  {% if displayIframe %}
+  {% if display_iframe %}
   //To display visualization in full screen, while viewing stories
   var contentWidth = window.innerWidth;
   var contentHeight = window.innerHeight;
@@ -1192,7 +1168,9 @@
   {% endif %}
 
   // Call the original and let is handle the stuff - trying again
-  build_viz_app_original(api_uri, contentWidth, contentHeight);
+
+  if(static_image != "only")
+    build_viz_app_original(api_uri, contentWidth, contentHeight);
 
 
 });
@@ -1209,16 +1187,12 @@
   <script type="text/javascript">
 
 
-
-    if(previous_page == "http://atlas.cid.harvard.edu" || previous_page == "http://atlas.cid.harvard.edu/beta" || previous_page == "None" || previous_page == "http://127.0.0.1:8000/"){
+    if(previous_image == "/media/img/all/loader.gif"){
       $("#historyTab").css("display", "none");
       $("#history").css("display", "none");
-      console.log("no previous page!");
-    } else if(previous_image == "http://atlas.cid.harvard.edu/media/img/all/loader.gif"){
-        console.log("this page doesn't exist!");
     } else{
-        previous_image = "http://atlas.cid.harvard.edu{{ displayImage }}";
-        $("#historySlide").attr("href", previous_page);
+      previous_image = "/static_image/{{ previous_image }}";
+      $("#historySlide").attr("href", previous_page);
     }
 
     $("#historySlide, #historyOverlay").css("background-image", "url("+previous_image+")");
@@ -1265,14 +1239,15 @@
     $('button[title]').tipsy({gravity: 'w', delayIn: 500});
     $('label[title]').tipsy({gravity: 'n', delayIn: 500});
 
+    /*
     if(!($.cookie("popup") == "true") && (previous_page == "None" || previous_page == "http://127.0.0.1:8000/" || previous_page == "http://atlas.cid.harvard.edu/")) {
       setTimeout(function() {
         bootstro.start("#text_title",{finishButtonText: "Got it!"});
-        console.log("toto")
        $.cookie("popup", "true");
      }, 2000);
+    
     }
-
+  */
   });
   </script>
 </body>

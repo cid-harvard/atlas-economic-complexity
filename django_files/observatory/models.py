@@ -108,11 +108,9 @@ class Country_manager(models.Manager):
         lang = lang.replace("-", "_")
 
         countries = self.filter_lang(lang)
-        countries = countries.filter(
-            region__isnull=False,
-            name_3char__isnull=False,
-            name_2char__isnull=False).order_by(
-            "name_"+lang)
+        countries = countries\
+            .filter(originally_included=True)\
+            .order_by("name_"+lang)
         return list(countries.values(
             "id",
             "name",
@@ -126,11 +124,7 @@ class Country_manager(models.Manager):
             ))
 
     def get_valid(self):
-        return self.filter(
-            name_3char__isnull=False,
-            name_2char__isnull=False,
-            region__isnull=False
-            )
+        return self.filter(originally_included=True)
 
     def get_random(self):
         """Grab a random country. This uses the 'ORDER BY RAND()' method which

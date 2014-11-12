@@ -1,24 +1,6 @@
-#from django.conf.urls import patterns, include, url
-#from django.conf.urls import patterns, url
-#from django.views.generic.simple import redirect_to
-from django.conf.urls import patterns, include
+from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView, RedirectView
 
-# sitemap
-from django.conf.urls import *
-from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
-from django.conf import settings
-
-
-sitemaps = {
-    'flatpages': FlatPageSitemap,
-}
-
-
-if not settings.HTTP_HOST:
-  HTTP_HOST = '/'
-else:
-  HTTP_HOST = settings.HTTP_HOST
 
 class TextPlainView(TemplateView):
   def render_to_response(self, context, **kwargs):
@@ -28,10 +10,6 @@ class TextPlainView(TemplateView):
 
 urlpatterns = patterns('',
 
-  ## Exploring new patterns
-  #(r'^redesign/', include('redesign.urls')),
-#  (r'^usa/', include('usa.urls')),
-#  (r'^redesign/', include('redesign.urls')),
   ####
   ## Revisiting old patterns
   ####
@@ -106,8 +84,6 @@ urlpatterns = patterns('',
   (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/(?P<country2>\w{3})/show/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_ccsy'),
   (r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/show/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_cspy'),
   (r'^api/(?P<trade_flow>[a-z_]{6,10})/show/all/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views_api.api_sapy'),
-
-  (r'^api/near/(?P<country>\w{3})/(?P<year>[0-9\.]+)/(?P<num_prods>\d+)/$', 'observatory.views_exhibit.api_near'),
 
   (r'^api/search/$', 'observatory.views_search.api_search'),
   (r'^search/$', TemplateView.as_view(template_name='searchresults.html')),

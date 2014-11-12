@@ -1,157 +1,131 @@
+// searchresults.js
+// =============================================
+// This file creates the autocomplete list with AJAX
+// And prepares the string 
+// Romain Vuillemot is the original author, go to him with questions
 
-if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefined" && !queryParameters['disable_search'])) {
+// GLOBALS
+// =============================================
+var cache = {};
+var autocomplete_settings = {};
 
 
-  function title_to_input() {
 
-    var current_content = $("#text_title").html();
-    var new_input = $("<input type='text' id='text_title' />");
-    new_input.val(current_content);
-    $("#text_title").replaceWith(new_input);
-    new_input.focus();
-    new_input.autocomplete(autocomplete_settings);
-    $(".typed-cursor").remove()
+// SETUP
+// =============================================
 
-  }
+// Override the _renderItem method to bold the searched term in the autocomplete results
+$.widget( 'ui.autocomplete', $.ui.autocomplete, {
 
-  $(function() {
+   _renderItem: function( ul, item ) {
 
-    // OLD design
-    //$("#text_title").click(function() {
-    //  title_to_input();
-    //});
+      // First we find and capture the query string within the item label
+      var term = this.term.split(' ').join('|'),
+          re = new RegExp( '(' + term + ')', 'gi' ),
+          highlightClass = 'term-highlight',
+          template = '<span class=' + highlightClass + '>$1</span>',
+          label = item.label.replace( re, template );            // Replace the term with the highlighted term span
+         
+      // Then we append the <li>
+      var $li = $( '<li/>' )
+        .data( 'item.autocomplete', item )
+        .append( '<a>' + label + '</a>' )                        // Nest an anchor inside the <li>, as that's what jQuery expects
+        .appendTo( ul );
 
-    $.ui.autocomplete.prototype._renderItem = function( ul, item){
-      var term = this.term.split(' ').join('|');
-      var re = new RegExp("(" + term + ")", "gi") ;
-      var t = item.label.replace(re,"<b>$1</b>");
+     return $li;
+   }
 
-      var suggestion_page = "Title";
-      if($("#searchbar").length > 0)
-        suggestion_page = "Home";
+});
 
-      return $( "<li></li>" )
-         .data( "item.autocomplete", item )
-         .append('<a onclick="_gaq.push([\'_trackEvent\', \'Suggestion-'+suggestion_page+'\', \'Clicked\', \''+this.term+'\'])">' + t + "</a>" )
-         .appendTo( ul );
-    };
 
-    // Set up autocomplete callback
-    var cache = {};
-    var search_data_source = function(request, response) {
-        if(request.term.length == 0)
-           request.term = $("#text_title").val();
+// HELPERS
+// =============================================
 
-        request.search_var = search_var;
-        var term = request.term;
-        if (term in cache) {
-            response(cache[term]);
-            return;
-        }
-        $.getJSON( "../api/search/",
-            request,
-            function(data, status, xhr) {
-                var reshaped_data = [];
-                for (var i = 0; i < data[1].length; i++){
-                    reshaped_data.push({label: data[1][i], value: data[3][i]});
-                }
-                cache[term] = reshaped_data;
-                response(reshaped_data);
-        });
+// Preserves the url query params on navigate
+var search_select_function = function( event, ui ) {
 
-        if($("#searchbar").length > 0)
-          _gaq.push(['_trackEvent', 'Search-Home', 'Typing', $("#searchbar").val()]);
+    event.preventDefault();
+    $( this ).val( ui.item.label );
 
-        if($("#text_title").length > 0)
-          _gaq.push(['_trackEvent', 'Search-Page', 'Typing', $("#text_title").val()]);
+    if ( typeof queryActivated !== 'undefined' ) {
+      window.location.href = ui.item.value + '?' + $.param( queryParameters );
+    } else {
+      window.location.href = ui.item.value; 
+    }
+};
 
-        console.log("keypress", $("#searchbar").val(), $("#text_title").val());
-    };
+var search_focus_function = function(event){
+    // Get rid of behavior where keyboard up down arrow replaces textbox with
+    // url instead of search result.
+    event.preventDefault();
+};
 
-    var search_select_function = function(event, ui){
-        // Go to selected URL
-        event.preventDefault();
-        $(this).val(ui.item.label);
 
-        if(typeof(queryActivated) != "undefined" && queryActivated)
-          window.location.href=ui.item.value+"?"+$.param(queryParameters);
-        else
-          window.location.href=ui.item.value; 
-    };
 
-    var search_focus_function = function(event, ui){
-        // Get rid of behavior where keyboard up down arrow replaces textbox with
-        // url instead of search result.
-        event.preventDefault();
-    };
+// HANDLERS
+// =============================================
 
-    autocomplete_settings = {
-        minLength: 0,
-        delay: 260,
-        source: search_data_source,
-        select: search_select_function,
-        focus: search_focus_function,
-      //  autoFocus: true,
+// Set up autocomplete callback
+var search_data_source = function(request, response) {
+    if(request.term.length === 0) {
+       request.term = $('#text_title').val();
     }
 
-    
-/*
-    querystring = getQueryParameterByName("term");
-    var bar = $("#searchbar");
-    bar.val(querystring);
-    bar.autocomplete("search", querystring);
-    bar.focus();
+    var term = request.term;
+    if (term in cache) {
+        response(cache[term]);
+        return;
+    }
+    $.getJSON( '../api/search/',
+        request,
+        function(data) {
+            var reshaped_data = [];
+            for (var i = 0; i < data[1].length; i += 1){
+                reshaped_data.push({label: data[1][i], value: data[3][i]});
+            }
+            cache[term] = reshaped_data;
+            response(reshaped_data);
+    });
 
-    $("#text_blink").typed({
-      strings: [""],
-      typeSpeed: 0,
-      callback: function() { 
-
-        // Check to see if the title overflows (in the case of long product names)
-        function isOverflowed(element){
-            return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
-        }
-
-        var title = d3.select("#title")
-        var shrink_size = 30;
-
-        while(isOverflowed(title.node())) {
-          $("#title").children().children().css("font-size", shrink_size+"px")
-          shrink_size -= 1;
-        }
-
-          }
-      });
-*/
-    //$("#text_title").focus();
-
-    $("#text_title").autocomplete(autocomplete_settings);
-    $("#text_title").blur();
-
-    $("#text_title").click(function(e) {
-      $(this).autocomplete( "search", "");
-      _gaq.push(['_trackEvent', 'Search-Page', 'Focus', $(this).val()]);
-    })
-
-    autocomplete_settings_home = {
-      minLength: 3,
-      delay: 260,
-      source: search_data_source,
-      select: search_select_function,
-      focus: search_focus_function,
-    //  autoFocus: true,
+    if($('#searchbar').length > 0) {
+      _gaq.push(['_trackEvent', 'Search-Home', 'Typing', $('#searchbar').val()]);
     }
 
+    if($('#text_title').length > 0) {
+      _gaq.push(['_trackEvent', 'Search-Page', 'Typing', $('#text_title').val()]);
+    }
+};
 
-    //$("#searchbar").focus();
-    $("#searchbar").autocomplete(autocomplete_settings_home);
+// FOR EXPLORE PAGE
+var autocomplete_settings = {
+    minLength: 0,
+    delay: 260,
+    source: search_data_source,
+    select: search_select_function,
+    focus: search_focus_function
+};
 
-    $("#searchbar").click(function(e) {
-      _gaq.push(['_trackEvent', 'Search-Home', 'Focus', $(this).val()]);
-      $(this).autocomplete( "search", "" );
-    })
+$('#text_title').autocomplete(autocomplete_settings);
+$('#text_title').blur();
 
+$('#text_title').click(function() {
+  $(this).autocomplete( 'search', '');
+  _gaq.push(['_trackEvent', 'Search-Page', 'Focus', $(this).val()]);
+});
 
+// FOR HOME PAGE
+var autocomplete_settings_home = {
+  appendTo: '.autocomplete-wrap',
+  minLength: 3,
+  delay: 260,
+  source: search_data_source,
+  select: search_select_function,
+  focus: search_focus_function,
+};
 
-  });
-}
+$('#searchbar').autocomplete(autocomplete_settings_home);
+
+$('#searchbar').click(function() {
+  _gaq.push(['_trackEvent', 'Search-Home', 'Focus', $(this).val()]);
+  $(this).autocomplete( 'search', '' );
+});
