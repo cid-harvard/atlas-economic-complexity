@@ -98,6 +98,9 @@ msgstr "Pareja"
 msgid "Year"
 msgstr "Año"
 
+msgid "year"
+msgstr "año"
+
 msgid "Start Year"
 msgstr "Año inicial"
 
@@ -210,8 +213,8 @@ msgstr "patrón"
 msgid "Labels"
 msgstr "Etiquetas"
 
-msgid "Y-axis"
-msgstr "Y- eje"
+msgid "Y-Axis"
+msgstr "Y- Eje"
 
 msgid "Constant"
 msgstr "Constante"
@@ -223,10 +226,35 @@ msgstr "Corriente per cápita"
 msgid "Per Capita Constant"
 msgstr "Per cápita constante"
 
+msgid "Stacked Graph"
+msgstr "Stcked Gráfico"
 
 msgid "Value"
 msgstr "Valor"
 
+msgid "Hide exports"
+msgstr "Ocultar exportaciónes"
+
+msgid "Spotlight"
+msgstr "Foco"
+
+msgid "Size by"
+msgstr "Tamaño por"
+
+msgid "World Trade"
+msgstr "Mundial Trande"
+
+msgid "Color scale"
+msgstr "Escala de colores"
+
+msgid "Category"
+msgstr "Categoría"
+
+msgid "Growth"
+msgstr "Crecimiento"
+
+msgid "Complexity"
+msgstr "complejidad"
 
 msgid "Download"
 msgstr "Descargar"
