@@ -9,6 +9,7 @@ from observatory.models import (Hs4_cpy, Sitc4_cpy, Country, Hs4, Sitc4,
 import hashlib
 from collections import OrderedDict
 
+from django.utils.translation import ugettext as _
 
 # make sure app name is in the list of possible apps
 def get_app_name(app_name):
@@ -141,37 +142,44 @@ def get_title(api_name, app_name, country_names=None, trade_flow=None,
     # Latvia?
     if api_name == "casy":
         if app_name == "pie_scatter":
-            return "Which products are feasible for %s%s?" % (country_names[0],
+            pre_def_str = _("Which products are feasible for ")
+            #return "Which products are feasible for %s%s?" % (country_names[0],
+            return "%s%s%s?" % (pre_def_str, country_names[0],
                                           get_time_clause(years))
         else:
-            return "What did %s %s%s?" % (country_names[0],
+            pre_def_str = _("What did")
+            return "%s %s %s%s?" % (pre_def_str, country_names[0],
                                           trade_flow,
                                           get_time_clause(years))
 
     # e.g. Where did Albania export to in 2009?
     elif api_name == "csay":
         article = "to" if trade_flow == "export" else "from"
-        return "Where did %s %s %s%s?" % (country_names[0],
+        pre_def_str = _("Where did")
+        return "%s %s %s %s%s?" % ( pre_def_str, country_names[0],
                                           trade_flow,
                                           article,
                                           get_time_clause(years))
 
     # e.g. Who exported Petroleum in 1990?
     elif api_name == "sapy":
-        return "Who %sed %s%s?" % (trade_flow, product_name,
+        pre_def_str = _("Who")
+        return "%s %sed %s%s?" % (trade_flow, product_name,
                                    get_time_clause(years))
 
     # e.g. What did Germany import from Turkey in 2011?
     elif api_name == "ccsy":
         article = "to" if trade_flow == "export" else "from"
-        return "What did %s %s %s %s%s?" % (country_names[0], trade_flow,
+        pre_def_str = _("What did")
+        return "%s %s %s %s %s%s?" % (pre_def_str, country_names[0], trade_flow,
                                             article, country_names[1],
                                             get_time_clause(years))
 
     # e.g. Where did France export wine to in 2012?
     elif api_name == "cspy":
         article = "to" if trade_flow == "export" else "from"
-        return "Where did %s %s %s %s%s?" % (country_names[0], trade_flow,
+        pre_def_str = _("Where did")
+        return "%s %s %s %s %s%s?" % (pre_def_str, country_names[0], trade_flow,
                                              product_name, article,
                                              get_time_clause(years))
 

@@ -95,6 +95,18 @@ msgstr "País de destino"
 msgid "Partner"
 msgstr "Pareja"
 
+msgid "What did"
+msgstr "¿qué hizo"
+
+msgid "Where did"
+msgstr "Donde hizo"
+
+msgid "Who"
+msgstr "Quien"
+
+msgid "Which products are feasible for "
+msgstr "¿Qué productos son factibles para"
+
 msgid "Year"
 msgstr "Año"
 
