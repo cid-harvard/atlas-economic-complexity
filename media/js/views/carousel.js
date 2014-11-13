@@ -75,22 +75,6 @@ function setMain() {
     });
 
     CONFIG.mainExample.html(toAppendString);
-
-	// // Switch src of main img
-	// CONFIG.mainExample.find('.example-img-wrap').css('background-image', 'url(' + $newTease.data('img-src') + ')');
-
-	// // Switch caption of main img
-	// var $newCaption = CONFIG.mainExample.find('.example-caption-wrap').html($newTease.find('.example-caption-wrap').html());
-
-	// // Set product label, this should probably be templated
-	// $newCaption.find('.example-link').prepend('<p class="example-slug label">' + $newTease.data('graph-type') + '</p>');
-
-	// // Set the analytics info, alright, this should definitely be templated
-	// CONFIG.mainExample.data('ga-label', 'Main - ' + $newTease.data('ga-label'));
-
-	// // Annnnnd the link...
-	// CONFIG.mainExample.data('ga-label', 'Main - ' + $newTease.data('ga-label'));
-
 }
 
 // Restarts the carousel timer so the li you just hovered on doesn't advance 
