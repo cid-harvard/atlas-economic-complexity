@@ -267,6 +267,19 @@
         <option class="atlas-option atlas-country-option" value="<%= option[1] %>"><%= option[0] %></option>
     </script>
 
+    <!-- Templates for Main Example -->
+    <script type="text/template" class="atlas-example-template">
+        <div class="example-main track-click" data-ga-category="Examples" data-ga-label="<%= ga_label %>">
+            <a href="<%= url %>">
+                <div class="example-img-wrap" role="img" style="background-image: url(<%= img_src %>);"></div>
+                <div class="example-caption-wrap example-caption-wrap-main offset-text">
+                    <p class="example-slug label"><%= slug %></p>
+                    <p class="example-copy"><%= caption %></p>
+                </div>
+            </a>
+        </div>
+    </script>
+
 
     {% compress js %}
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery/jquery-1.7.1.min.js"></script>

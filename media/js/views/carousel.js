@@ -13,7 +13,8 @@ var CONFIG = {
 	exampleCounter: 0,
 	carouselLen: $('.example-sub').length,
 	carouselTimer: 0,
-	carouselInterval: 5000
+	carouselInterval: 5000,
+	exampleTemplate: _.template($('.atlas-example-template').html())
 };
 
 // Add our first image
@@ -54,7 +55,7 @@ function updateCarousel() {
 	// Give the new tease the active class
 	setActiveTease();
 
-	// Swap the main img to the hovered tease
+	// Swap the content of the hovered tease
 	setMain();
 }
 
@@ -65,18 +66,30 @@ function setActiveTease() {
 
 function setMain() {
 	var $newTease = CONFIG.subExamples.eq(CONFIG.exampleCounter);
+	var toAppendString = CONFIG.exampleTemplate({
+      img_src: $newTease.data('img-src'),
+      caption: $newTease.find('.example-copy').text(),
+      slug: $newTease.data('graph-type'),
+      ga_label:$newTease.data('ga-label'),
+      url: $newTease.find('.example-link').attr('href')
+    });
 
-	// Switch src of main img
-	CONFIG.mainExample.find('.example-img-wrap').css('background-image', 'url(' + $newTease.data('img-src') + ')');
+    CONFIG.mainExample.html(toAppendString);
 
-	// Switch caption of main img
-	var $newCaption = CONFIG.mainExample.find('.example-caption-wrap').html($newTease.find('.example-caption-wrap').html());
+	// // Switch src of main img
+	// CONFIG.mainExample.find('.example-img-wrap').css('background-image', 'url(' + $newTease.data('img-src') + ')');
 
-	// Set product label, this should probably be templated
-	$newCaption.find('.example-link').prepend('<p class="example-slug label">' + $newTease.data('graph-type') + '</p>');
+	// // Switch caption of main img
+	// var $newCaption = CONFIG.mainExample.find('.example-caption-wrap').html($newTease.find('.example-caption-wrap').html());
 
-	// Set the analytics info, alright, this should definitely be templated
-	CONFIG.mainExample.data('ga-label', 'Main - ' + $newTease.data('ga-label'));
+	// // Set product label, this should probably be templated
+	// $newCaption.find('.example-link').prepend('<p class="example-slug label">' + $newTease.data('graph-type') + '</p>');
+
+	// // Set the analytics info, alright, this should definitely be templated
+	// CONFIG.mainExample.data('ga-label', 'Main - ' + $newTease.data('ga-label'));
+
+	// // Annnnnd the link...
+	// CONFIG.mainExample.data('ga-label', 'Main - ' + $newTease.data('ga-label'));
 
 }
 
