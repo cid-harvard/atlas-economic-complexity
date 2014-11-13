@@ -264,7 +264,7 @@ html,
 }
 
 /* Hide the slide-in wrap for browsers with no CSS transforms */
-.csstransforms .site-nav-slidein-wrap {
+.no-csstransforms .site-nav-slidein-wrap {
     display: none;
 }
 
