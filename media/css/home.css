@@ -560,7 +560,6 @@ html,
         display: -ms-flexbox;
         display:         flex;
         padding: 0;
-        width: 100%;
     }
     .example-sub:nth-last-child(-n+1) {
         margin-bottom: 0;

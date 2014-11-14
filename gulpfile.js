@@ -41,6 +41,7 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
+// Not running right now because I was having trouble, revisit - GW
 gulp.task('svg', function() {
   return gulp.src('media/img/examples/us_exports_2012.svg')
     .pipe(svgmin())
