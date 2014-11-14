@@ -6,6 +6,10 @@
 
 var Autocomplete = (function() {
 
+
+    // SETUP
+    // =============================================
+
     var cache = {},
         resultsList = [],
         autocompleteSettings = {
@@ -15,10 +19,6 @@ var Autocomplete = (function() {
             source: autocompleteSource
         };
 
-
-
-    // SETUP
-    // =============================================
 
     // Use the widget factor to extend the _renderItem method 
     // so that now it bolds the searched term in the autocomplete results
@@ -99,7 +99,6 @@ var Autocomplete = (function() {
     }
 
 
-
     // HANDLERS
     // =============================================
 
@@ -124,5 +123,5 @@ var Autocomplete = (function() {
     $('#atlas_search_js').on('autocompleteselect', function(event, ui) {
         searchNavigate(ui.item);
     });
-    
+
 })();
