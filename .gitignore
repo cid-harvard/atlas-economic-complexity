@@ -7,7 +7,7 @@
 CACHE
 
 # dist files
-media/dist
+# media/dist
 
 #sample data
 media/data/*.json
