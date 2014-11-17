@@ -159,13 +159,6 @@ body{
 
   </tbody>
   </table>
-  <button>Download as CSV</button>
-  <form class="download" method="POST" action="download/">
-    {% csrf_token %}
-    <input type="hidden" name="title" value="" />
-    <input type="hidden" name="format" value="csv" />
-    <input type="hidden" name="content" value="" />
-  </form>
 </div>
   <div id="contFooter">
     <footer>
