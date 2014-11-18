@@ -20,8 +20,10 @@ var Autocomplete = (function() {
         };
 
 
-    // Use the widget factor to extend the _renderItem method 
+    // Use the widget factory to extend the _renderItem method 
     // so that now it bolds the searched term in the autocomplete results
+    // This could probably work in the _renderMenu function instead so we only
+    // create on RegExp object, instead of one for each list item
     $.widget('ui.autocomplete', $.ui.autocomplete, {
         _renderItem: function(ul, item) {
 
@@ -30,11 +32,10 @@ var Autocomplete = (function() {
                 re = new RegExp('(' + term + ')', 'gi'),
                 highlightClass = 'term-highlight',
                 template = '<span class=' + highlightClass + '>$1</span>',
-                value = item.value.replace(re, template); // Replace the vlue with the highlighted vlue span
+                value = item.value.replace(re, template); // Replace the value with the highlighted vlue span
 
             // Then we append the <li>
             var $li = $('<li/>')
-                .data('item.autocomplete', item)
                 .append('<a>' + value + '</a>') // Nest an anchor inside the <li>, as that's what jQuery expects
                 .appendTo(ul);
 
@@ -62,6 +63,9 @@ var Autocomplete = (function() {
             response(cache[term]);
             return;
         }
+
+        // Reset our results list
+        resultsList = [];
 
         // On search input change we get the list of matching questions and their urls from the db
         $.getJSON('../api/search/', request, function( data ) {            
