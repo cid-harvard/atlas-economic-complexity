@@ -126,6 +126,12 @@ def explore(
         year="2011"):
 
     request.session['app_name'] = app_name
+    ## pick the lang_code from the url params, still fall back on the coockie as a default.
+    lang_code = request.GET.get("lang",
+                                 request.session.get('django_language', 'en')) 
+    #lang_code = "es"
+    translation.activate(lang_code)
+
 
     was_redirected = request.GET.get("redirect", False)
     lang = helpers.get_language(request)['code']

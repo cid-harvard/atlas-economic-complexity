@@ -1,7 +1,7 @@
 
 // Variables from query string
 var queryParameters = {}, queryString = location.search.substring(1),
-    re = /([^&=]+)=([^&]*)/g, m, queryActivated = false;
+    re = /([^&=]+)=([^&]*)/g, m, queryActivated = true; // Making it true as lang has to picked up from here instead of coockie 
 
 // Creates a map with the query string parameters
 while (m = re.exec(queryString)) {
