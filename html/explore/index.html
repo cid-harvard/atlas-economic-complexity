@@ -36,6 +36,8 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?{{ VERSION }}">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/explore.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/toastr/toastr.min.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/vizwiz/src/utils.slider.css?{{ VERSION }}" />
   <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
@@ -145,7 +147,7 @@
       <div class="app_title" id="title"  original-title='{% trans "Economic Complexity" %}'>
         <h2 style="margin-left:10px; width:700px;"></h2>
         
-        <input type='text' id='text_title' value="{% if title %}{{title}}{% else %}&nbsp;{% endif %}" data-toggle="tooltip" class="tab-content bootstro" data-bootstro-content="<span style='font-size:20px; color:red'>NEW</span><br><span style='font-size:18px'>Titles on the page are now <b>interactive!</b> Type in any <b>Country</b> (France, Germany) or <b>Product</b> (Cars, Horses) and let the magic begin.</span>" data-bootstro-placement="left"/>
+        <input type='text' id='atlas_search_js' value="{% if title %}{{title}}{% else %}&nbsp;{% endif %}" data-toggle="tooltip" class="tab-content bootstro" data-bootstro-content="<span style='font-size:20px; color:red'>NEW</span><br><span style='font-size:18px'>Titles on the page are now <b>interactive!</b> Type in any <b>Country</b> (France, Germany) or <b>Product</b> (Cars, Horses) and let the magic begin.</span>" data-bootstro-placement="left"/>
 
 <!--        <span id="text_title">{% if title %}{{title}}{% else %}&nbsp;{% endif %}</span><span id="text_blink"></span> -->
 
@@ -813,7 +815,7 @@
       <div id="tool_pane" class="bootstro" data-bootstro-title="Sharing Panel" data-bootstro-content="The Sharing Panel allows you to export the current visualization through social media and email." data-toggle="tooltip" data-bootstro-placement="left">
 
     <div id="sharebuttons">
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">{% trans "Share" %}</h4>
+        <h4 class="explore-share-label" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500;">{% trans "Share" %}</h4>
         {% with current_url=request.build_absolute_uri|iriencode %}
         <a href="https://facebook.com/sharer.php?u={{current_url}}" target="_blank">
           <i class="fa fa-facebook fa-lg"></i>
@@ -835,7 +837,7 @@
 
     <form id="download" method="POST" action="{{HTTP_HOST}}download/">
         {% csrf_token %}
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">{% trans "Download" %}</h4>
+        <h4 class="explore-share-label" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; margin: 0; padding: 0 0 2px 0; margin: 10px 0px;  text-align:center; margin-left:-5px; width:40px;">{% trans "Download" %}</h4>
         <a id="pdf" href="#">PDF</a>
         <a id="png" href="#">PNG</a>
         <a id="svg" href="#">SVG</a>
@@ -844,8 +846,7 @@
         <input type="hidden" id="file_format" name="file_format" value="svg"/>
     </form>
 
-        <h4 style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">{% trans "Feedback" %}</h4>
-
+        <h4 class="explore-share-label" style="border-bottom: solid 1px #999; font-family:'PT Sans Narrow',Helvetica,Arial; font-size:95%; font-weight:500; position:relative;left:-2px">{% trans "Feedback" %}</h4>
         <a id="feedbackPlaceholder" href="https://docs.google.com/forms/d/1lj1okNNN4U7O6207dJwxG6i0Yp_NqH1mKFADW_rurfE/viewform?entry.1903449278&entry.1131927011&entry.49173428&entry.1847748354={{ VERSION }}" target="_blank">
           <i class="fa fa-comment fa-lg"></i>
         </a>
@@ -857,6 +858,7 @@
       </div> <!-- END Right pane -->
 
     </div> <!-- END #main -->
+    <div class="autocomplete-wrap"></div>
 
     <canvas style="display: none; overflow:hidden;" id="canvas" width="750px" height="520px"></canvas>
 
@@ -877,6 +879,7 @@
   {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/libs/helpbox.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/explore/dropdowns.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/libs/underscore/underscore-min.js"></script>
 
   <script type="text/javascript" src="{{ STATIC_URL}}js/explore/download.js"></script>
   <script src="{{ STATIC_URL }}js/libs/d3/d3.v3.min.js" charset="utf-8"></script>
