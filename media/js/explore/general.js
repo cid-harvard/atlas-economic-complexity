@@ -189,7 +189,7 @@ function update_viz(viz) {
   var url = $('base')[0].href + "explore/";
 
   var current_viz = (typeof viz != "undefined" )  ? viz : app_name;
-  var current_year1 = $("#year1_select").val();
+  var current_year1 = parseInt($("#year1_select").val());
 
   // Import or Export
   var current_flow = $(".flow-direction").find(".active").index() == 0 ? "export": "import";
@@ -208,7 +208,7 @@ function update_viz(viz) {
   current_product = (typeof current_product == "undefined" || current_product == "") ? "all" : current_product;
 
   var current_year2 = $("#year2_select").find(":selected").val();
-  current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : current_year2;
+  current_year2 = (typeof current_year2 == "undefined" || current_year2 == "") ? "" : parseInt(current_year2);
 
   // From trade partner to map
   if(typeof(viz)=="undefined" && current_country2!="all")
@@ -217,34 +217,45 @@ function update_viz(viz) {
   if(current_year2=="" && current_viz == "stacked")
     current_viz = "tree_map";
 
-  if(viz=="tree_map" || viz=="map" || viz=="scatterplot" || viz=="rankings" || viz=="pie_scatter" || viz=="product_space") {
+  if(viz=="tree_map" || viz=="map" || viz=="scatterplot" || viz=="rankings" || viz=="pie_scatter" || viz=="product_space"|| viz=="rings") {
+    
+    current_year1 = Math.max(current_year2, current_year1);
     current_year2 = "";
     current_viz = viz;
   }
 
   if(viz=="stacked" && current_year2=="") {
-    if(prod_class="hs4") {
-      if(current_year1 < 2012)
-        current_year2 = 2012;
-      else
-        current_year2 = 1995;
-    } else { // "sitc"
-      if(current_year1 < 2010) {
-        current_year2 = 2010;
 
-      }
-      if(current_year2 > 2009)
-        current_year2 = 2009;
+    if(prod_class=="hs4") {
+
+      current_year1 = 1995;
+      current_year2 = 2012;
+
+    } else { // "sitc"
+
+      current_year1 = 1962;
+      current_year2 = 2010;
+
     }
     current_viz = viz;
   }
 
-  // Selecting a specific product doesn't make sense for product feasibility
-  // and product space. And also both of these graphs only answer "what"
-  // questions and not "where" questions.
-  if(viz == "pie_scatter" || viz == "product_space"){
-      current_product = "all";
+  // Making sure we stay in the boundaries
+  if(viz=="stacked") {
+
+    if(prod_class=="hs4") {
+
+      current_year1 = 1995;
+      current_year2 = 2012;
+
+    } else { // "sitc"
+
+
+      current_year1 = 1962;
+      current_year2 = 2010;
+    }
   }
+
 
   // Where does United States export Crude Petroleum to?
   // http://atlas.cid.harvard.edu/beta/explore/tree_map/export/usa/show/2709/2011/
@@ -258,11 +269,6 @@ function update_viz(viz) {
         url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"/";
 
       } else {
-        if(parseInt(current_year1)>parseInt(current_year2)) {
-          var tmp = current_year1;
-          current_year1 = current_year2;
-          current_year2 = tmp;
-        }
 
         url += current_viz+"/"+current_flow+"/show/"+current_country1+"/"+current_product+"/"+current_year1+"."+current_year2+".2/";
       }
@@ -274,7 +280,7 @@ function update_viz(viz) {
       // http://127.0.0.1:8000/explore/tree_map/export/usa/all/show/2011/
       if(current_year2=="") {
 
-        if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings" || current_viz == "pie_scatter" || current_viz == "product_space")
+        if(current_viz == "tree_map" || current_viz == "scatterplot" || current_viz == "rankings" || current_viz == "pie_scatter" || current_viz == "product_space" || viz=="rings")
           url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
         else if(current_viz == "map") // Can't be a map of products
           url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
@@ -284,11 +290,6 @@ function update_viz(viz) {
 
       } else {
 
-        if(parseInt(current_year1)>parseInt(current_year2)) {
-          var tmp = current_year1;
-          current_year1 = current_year2;
-          current_year2 = tmp;
-        }
 
         // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/all/1995.2011.2/
         url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"."+current_year2+".2/"
@@ -303,11 +304,6 @@ function update_viz(viz) {
 
       } else {
 
-        if(parseInt(current_year1)>parseInt(current_year2)) {
-          var tmp = current_year1;
-          current_year1 = current_year2;
-          current_year2 = tmp;
-        }
 
         // Where does United States export Crude Petroleum to?
         // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/show/2709/1995.2011.2/
@@ -330,20 +326,13 @@ function update_viz(viz) {
 
       if(current_year2=="") {
 
-       if(current_viz == "pie_scatter" || current_viz == "product_space"){
+       if(current_viz == "pie_scatter" || current_viz == "product_space" || current_viz=="rings"){
           url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
        } else {
           url += current_viz+"/"+current_flow+"/"+current_country1+"/show/"+current_country2+"/"+current_year1+"/";
       }
 
       } else {
-
-        if(parseInt(current_year1)>parseInt(current_year2)) {
-          var tmp = current_year1;
-          current_year1 = current_year2;
-          current_year2 = tmp;
-
-        }
 
         // http://127.0.0.1:8000/explore/stacked/export/alb/show/all/1995.2011.2/
 
@@ -360,19 +349,12 @@ function update_viz(viz) {
           url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"/";
         else if(current_viz == "map") // Can't be a map of products
           url += current_viz+"/"+current_flow+"/"+current_country1+"/show/all/"+current_year1+"/";
-        else if(current_viz == "pie_scatter" || current_viz == "product_space")
+        else if(current_viz == "pie_scatter" || current_viz == "product_space" || current_viz=="rings")
             url += current_viz+"/"+current_flow+"/"+current_country1+"/all/show/"+current_year1+"/";
         else
           console.log("Should not be here")
 
       } else {
-
-        if(parseInt(current_year1)>parseInt(current_year2)) {
-          var tmp = current_year1;
-          current_year1 = current_year2;
-          current_year2 = tmp;
-
-        }
 
         // http://atlas.cid.harvard.edu/beta/explore/stacked/export/usa/chn/show/1995.2011.2/
         url += current_viz+"/"+current_flow+"/"+current_country1+"/"+current_country2+"/show/"+current_year1+"."+current_year2+".2/"

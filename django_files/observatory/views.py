@@ -4,7 +4,9 @@
 import os
 import collections
 import json
+import string
 import time
+from urlparse import urlparse
 
 # Django
 from django.shortcuts import render_to_response, redirect
@@ -85,6 +87,9 @@ def download(request):
     title = request.POST.get("file_name").replace(" ", "_")
     file_format = request.POST.get("file_format").lower()
 
+    valid_chars = string.ascii_letters + string.digits + "?_"
+    title_clean = ''.join(ch for ch in title if ch in valid_chars)
+
     if len(content) == 0 or "</svg>" not in content:
         return HttpResponse(status=500,
                             content="Invalid svg image.")
@@ -105,7 +110,8 @@ def download(request):
         return HttpResponse(status=500, content="Wrong image format.")
 
     response[
-        "Content-Disposition"] = "attachment; filename=%s.%s" % (title, file_format)
+        "Content-Disposition"] = "attachment; filename=%s.%s" % (title_clean,
+                                                                 file_format)
 
     return response
 
@@ -125,9 +131,10 @@ def explore(
     lang = helpers.get_language(request)['code']
     crawler = request.GET.get("_escaped_fragment_", False)
 
-    prod_class = request.session['product_classification'] if\
-        'product_classification' in request.session else "hs4"
-    prod_class = request.GET.get("product_classification", prod_class)
+    # Get session / request vars
+    prod_class = request.GET.get("prod_class",
+                                 request.session.get('product_classification',
+                                                     'hs4'))
 
     options = request.GET.copy()
     options["lang"] = lang
@@ -152,17 +159,12 @@ def explore(
     # We are here, so let us store this data somewhere
     request_hash_string = "_".join(request_hash_dictionary.values())
 
-    # Check staic image mode
-    if(settings.STATIC_IMAGE_MODE == "SVG"):
-        # Check if we have a valid PNG image to display for this
-        if os.path.exists(settings.DATA_FILES_PATH + "/" + request_hash_string + ".png"):
-            # display the  static images
-            displayviz = True
-            displayImage = settings.STATIC_URL + \
-                "data/" + request_hash_string + ".png"
-        else:
-            displayviz = False
-            displayImage = settings.STATIC_URL + "img/all/loader.gif"
+    # Code for showing a static image or not
+    static_image_name = helpers.url_to_hash(request.path, request.GET)
+    if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
+                                   static_image_name + ".png")):
+        displayviz = True
+        displayImage = static_image_name + ".png"
     else:
         displayviz = False
         displayImage = settings.STATIC_URL + "img/all/loader.gif"
@@ -206,8 +208,7 @@ def explore(
     year1_list, year2_list = None, None
     warning, title = None, None
     data_as_text = {}
-    # What is actually being shown on the page
-    item_type = "product"
+
     prod_or_partner = "partner"
 
     # To make sure it cannot be another product class
@@ -239,7 +240,7 @@ def explore(
     trade_flow_list = [
         ("export", _("Export")), ("import", _("Import")),
         ("net_export", _("Net Export")), ("net_import", _("Net Import"))]
-    if (app_name == "product_space" or app_name == "rings"):
+    if (app_name == "product_space" or app_name == "country_space" or app_name == "rings"):
         trade_flow_list = [trade_flow_list[0]]
 
     year1_list = range(
@@ -298,6 +299,13 @@ def explore(
 
     app_type = helpers.get_app_type(country1, country2, product, year)
 
+    # What is actually being shown on the page
+    if app_type == "csay" or app_type == "sapy":
+      item_type = "country"
+    else:
+      item_type = "product"
+
+
     # Some countries need "the" before their names
     list_countries_the = set(
         ("Cayman Islands",
@@ -353,7 +361,7 @@ def explore(
         if app_type in ["cspy", "sapy"]:
             prod_or_partner = "product"
         elif app_type == "casy":
-            if app_name in ("stacked", "map", "tree_map", "pie_scatter", "product_space"):
+            if app_name in ("stacked", "map", "tree_map", "pie_scatter", "product_space", "country_space", "rankings", "scatterplot"):
                 prod_or_partner = "product"
 
     # Record views in redis for "newest viewed pages" visualization
@@ -368,6 +376,24 @@ def explore(
         }
         r = cache.raw_client
         r.rpush("views", json.dumps(view_data))
+
+    previous_page = request.META.get('HTTP_REFERER',
+                                           None),
+
+    if previous_page[0] is not None:
+
+      previous_page = previous_page[0]
+      previous_image = helpers.url_to_hash(urlparse(previous_page).path, {})
+
+      if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
+                                     previous_image + ".png")):
+        previous_image = previous_image + ".png"
+      else:
+        previous_image = settings.STATIC_URL + "img/all/loader.gif"
+
+    else:
+      previous_image = settings.STATIC_URL + "img/all/loader.gif"
+      previous_page = None
 
     return render_to_response(
         "explore/index.html",
@@ -398,12 +424,13 @@ def explore(
          "country_code": country_code,
          "prod_or_partner": prod_or_partner,
          "version": VERSION,
-         "previous_page": request.META.get('HTTP_REFERER',
-                                           None),
+         "previous_page": previous_page,
+         "previous_image": previous_image,
          "item_type": item_type,
          "displayviz": displayviz,
          "displayImage": displayImage,
-         "displayIframe": request.GET.get("displayIframe", False)
+         "display_iframe": request.GET.get("display_iframe", False),
+         "static_image": request.GET.get("static_image", "loading"),
          },
         context_instance=RequestContext(request))
 

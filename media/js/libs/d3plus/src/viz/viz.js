@@ -643,7 +643,7 @@ d3plus.viz = function() {
       else {
         vars.error = ""
       }
-      
+
       if (vars.dev) console.log("[d3plus] Building \"" + vars.type + "\"")
       d3plus[vars.type](vars)
       if (vars.dev) console.log("[d3plus] *** End Chart ***")
@@ -2068,12 +2068,33 @@ d3plus.viz = function() {
     
     if (typeof y_val == "string") y_val = parseFloat(y_val)
       
+    if(app_name == "pie_scatter") {
+       y_val = d3.mean(flat_data.filter(function(d) { return d.pci != null && d.year == year;}), function(d) { return d.pci; })
+
+      if(queryActivated && typeof(queryParameters['cat_id']) != "undefined" && queryParameters['cat_id']!="") {
+
+//        y_val = d3.mean(flat_data.filter(function(d) {
+//          console.log(queryParameters['cat_id'], d.nesting_0.id, d.pci)
+//          return d.nesting_0.id == queryParameters['cat_id'] && d.pci != null;
+//        }), function(d) { return d.pci; })
+      } else {
+
+      }
+    }
+
+   
+
     d3.select("#y_axis_val").transition().duration(vars.graph.timing)
       .attr("y1",vars.y_scale(y_val))
       .attr("y2",vars.y_scale(y_val))
       .attr("opacity",function(d){
-        var yes = y_val > vars.y_scale.domain()[1] && y_val < vars.y_scale.domain()[0]
-        return y_val != null && yes ? 1 : 0
+        if(app_name == "pie_scatter")
+          return 1;
+        else
+          return 0;
+//        var yes = y_val > vars.y_scale.domain()[1] && y_val < vars.y_scale.domain()[0]
+ //       else
+//          return 0; //y_val != null && yes ? 1 : 0
       })
       
     d3.select("#y_axis_val_text").transition().duration(vars.graph.timing)
@@ -2085,7 +2106,7 @@ d3plus.viz = function() {
         else return null
       })
       .attr("y",(vars.y_scale(y_val)+20)+"px")
-      
+
 
     vars.chart_enter.append("line")
       .attr("id","x_axis_val")

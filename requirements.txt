@@ -5,8 +5,13 @@ pycrypto==2.6.1
 elasticsearch>=1.0.0,<2.0.0
 cairocffi
 redis
+hiredis
 cairosvg
 django-cache-utils
 django-redis
 django-compressor
 html5lib
+celery[redis,msgpack]
+click
+selenium
+rjsmin

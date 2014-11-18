@@ -6,15 +6,23 @@
 .DS_Store
 CACHE
 
+# dist files
+# media/dist
+
 #sample data
 media/data/*.json
 media/data/*.store
 
 #machine-specific settings
 django_files/atlas/settings_local.py
+django_files/atlas/celeryconfig.py
 #virtualenv
 env/
+node_modules
+bower_components
 
 *.store
 
 *.rdb
+
+*.log

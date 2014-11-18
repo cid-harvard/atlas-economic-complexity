@@ -6,6 +6,9 @@ from cache_utils.decorators import cached
 from observatory.models import (Hs4_cpy, Sitc4_cpy, Country, Hs4, Sitc4,
                                 Sitc4_py, Hs4_py, Cy, Country_region)
 
+import hashlib
+from collections import OrderedDict
+
 
 # make sure app name is in the list of possible apps
 def get_app_name(app_name):
@@ -349,3 +352,21 @@ def years_to_string(years):
         return "%d.%d..%d" % year_tuple
     else:
         raise ValueError("Invalid year tuple")
+
+
+def url_to_hash(url, query_params_dict):
+    """Turn a URL into a canonical base64 hash, useful for saving specific
+    urls, e.g. when saving history or to a file. One caveat is that if you pass
+    in a django request.GET, watch out if you have two GET parameters with the
+    same key (HTTP spec allows for this). request.GET.iteritems() returns
+    only the last value for that key but request.GET.iterlists() returns all
+    values.
+
+    :param url: URL relative to django root
+    :param query_params_dict: dict of GET parameters, will be sorted and keys
+    lowercased to remove duplicates.
+    """
+
+    string = str(url) + str(OrderedDict(sorted(query_params_dict.iteritems(),
+                                               key=lambda x: x[0])))
+    return hashlib.md5(string).hexdigest()
