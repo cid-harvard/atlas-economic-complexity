@@ -10,14 +10,16 @@
 html {
     /* autoprefixer: off */
     -moz-box-sizing: border-box;
-    box-sizing: border-box;   /* Firefox 1, probably can drop this */   /* Safari 3-4, also probably droppable */
+         box-sizing: border-box;   /* Firefox 1, probably can drop this */   /* Safari 3-4, also probably droppable */
     color: inherit;
 }
 
-*, *:before, *:after {
+*,
+ *:before,
+ *:after {
     /* autoprefixer: off */
     -moz-box-sizing: border-box;
-    box-sizing: border-box;
+         box-sizing: border-box;
 }
 
 body,
@@ -128,6 +130,7 @@ a:hover {
 
 .subhead-deck {
     margin: 0 0 20px;
+    color: #66717B;
 }
 
 .atlas-btn-icon {
@@ -472,6 +475,8 @@ html,
         -ms-flex-direction: row;
     -webkit-flex-direction: row;
         -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
@@ -490,6 +495,8 @@ html,
                     flex-direction: column;
     margin-bottom: 1em;
     cursor: pointer;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
     -webkit-box-orient: vertical;
@@ -547,11 +554,11 @@ html,
 
 @media screen and (min-width: 35.5em) {
     .examples-queue {
+                flex-direction: column;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
         -webkit-flex-direction: column;
             -ms-flex-direction: column;
-                flex-direction: column;
         -webkit-flex-wrap: wrap;
             -ms-flex-wrap: wrap;
                 flex-wrap: wrap;
@@ -573,11 +580,11 @@ html,
         display: block;
     }
     .examples-queue {
+                flex-direction: row;
         -webkit-box-orient: horizontal;
         -webkit-box-direction: normal;
         -webkit-flex-direction: row;
             -ms-flex-direction: row;
-                flex-direction: row;
         -webkit-flex-wrap: nowrap;
             -ms-flex-wrap: nowrap;
                 flex-wrap: nowrap;
@@ -878,7 +885,7 @@ html,
 /*  SITE NAV FULL
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.site-nav-full {
+.mega-nav {
     text-align: left;
     -webkit-box-ordinal-group: 3;
     -webkit-order: 2;
@@ -886,67 +893,73 @@ html,
             order: 2;
 }
 
-.site-nav-full-list-toplevel {
+.mega-nav-list-toplevel {
     margin-bottom: 20px;
 }
 
-.site-nav-full-toplevel {
+.mega-nav-toplevel {
     font-size: .6875em;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-.site-nav-full-toplevel:last-of-type,
- .site-nav-full-toplevel:last-of-type .site-nav-full-secondlevel:last-of-type {
+.mega-nav-toplevel:last-of-type,
+ .mega-nav-toplevel:last-of-type .mega-nav-secondlevel:last-of-type {
     margin-bottom: 0;
 }
 
-.site-nav-full-toplevel > .site-nav-full-link {
+.mega-nav-toplevel-withkids {
+    margin-bottom: 20px;
+}
+
+.mega-nav-toplevel > .mega-nav-link {
+    font-size: 1.5em;
+    font-weight: 700;
     display: block;
+}
+
+.mega-nav-link-withkids {
+    margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid #CCCCCC;
 }
 
-.site-nav-full-link-withkids {
-    margin-bottom: 10px;
-}
-
-.site-nav-full-secondlevel {
+.mega-nav-secondlevel {
     font-size: 1.5em;
     margin-bottom: 10px;
     color: #66717B;
 }
 
-.site-nav-full-secondlevel:first-child {
+.mega-nav-secondlevel:first-child {
     margin-top: 6px;
 }
 
 @media screen and (min-width: 35.5em) {
-    .site-nav-full-list-toplevel {
+    .mega-nav-list-toplevel {
         margin-bottom: 0;
         padding-right: 1em;
     }
-    .site-nav-full-list-toplevel:first-child {
+    .mega-nav-list-toplevel:first-child {
         padding-right: 1em;
     }
-    .site-nav-full-list-toplevel:last-child {
+    .mega-nav-list-toplevel:last-child {
         padding-left: 1em;
         border-left: 1px solid #CCCCCC;
     }
 }
 
 @media screen and (min-width: 48em) {
-    .site-nav-full {
+    .mega-nav {
         float: left;
         padding-bottom: 0;
         border-bottom: 0;
     }
-    .site-nav-full-list-toplevel {
+    .mega-nav-list-toplevel {
         border-width: 0;
     }
-    .site-nav-full-list-toplevel:first-child {
+    .mega-nav-list-toplevel:first-child {
         padding-right: 1em;
     }
-    .site-nav-full-list-toplevel:last-child {
+    .mega-nav-list-toplevel:last-child {
         padding: 0 1em 0 1em;
         border-right: 1px solid #CCCCCC;
     }
