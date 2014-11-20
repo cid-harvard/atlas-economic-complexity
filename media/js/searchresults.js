@@ -48,7 +48,7 @@ var Autocomplete = (function() {
     // INIT
     // =============================================
 
-    $('#atlas_search_js').autocomplete(autocompleteSettings);
+    $('#atlas-search-js').autocomplete(autocompleteSettings);
 
 
 
@@ -124,7 +124,7 @@ var Autocomplete = (function() {
     });
 
     // When a user selects an item from the autocomplete list, nav to that page
-    $('#atlas_search_js').on('autocompleteselect', function(event, ui) {
+    $('#atlas-search-js').on('autocompleteselect', function(event, ui) {
         searchNavigate(ui.item);
     });
 
