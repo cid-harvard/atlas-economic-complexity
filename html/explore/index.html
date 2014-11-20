@@ -1071,6 +1071,9 @@
   <script src="media/js/highlight.js"></script>
   <script src="media/js/queryparameters.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL}}js/searchresults.js"></script>
+  <!-- Adding the javascript i18l file from django -->
+  <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+  
 
   <script>
 
