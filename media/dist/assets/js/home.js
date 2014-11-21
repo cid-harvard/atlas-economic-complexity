@@ -84,6 +84,10 @@ function restartTimer() {
 	startCarousel();
 }
 
+function pauseTimer() {
+	clearInterval(CONFIG.carouselTimer);
+}
+
 function addExampleImg() {
 	_.each(CONFIG.subExamples, function(el){
 		var $el = $(el);
@@ -101,12 +105,15 @@ CONFIG.subExamples.on({
 		CONFIG.exampleCounter = newIndex;
 
 		updateCarousel();
-		restartTimer();
+		pauseTimer();
 	},
 	mouseleave: function() {
 		CONFIG.subExamples.addClass('example-inactive').removeClass('example-active');
 		CONFIG.subExamples.eq(CONFIG.exampleCounter).addClass('example-active');
-	}
+
+		restartTimer();
+	},
+
 });
 
 
