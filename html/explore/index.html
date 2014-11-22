@@ -1066,6 +1066,8 @@
   $(".language_select select").on("change", function(){
     // set session data to new language
     var language = $(this).val();
+    lang = language;
+    updateURLQueryParameters();
     window.location = "/set_language/"+language+"/";
   });
 

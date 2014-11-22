@@ -1,7 +1,7 @@
 
 // Variables from query string
 var queryParameters = {}, queryString = location.search.substring(1),
-    re = /([^&=]+)=([^&]*)/g, m, queryActivated = false;
+    re = /([^&=]+)=([^&]*)/g, m, queryActivated = true; // Making it true as lang has to picked up from here instead of coockie 
 
 // Creates a map with the query string parameters
 while (m = re.exec(queryString)) {
@@ -39,7 +39,7 @@ function checkParameterExists(parameter) {
 
 function updateURLQueryParameters() {
 
-
+  queryParameters['lang'] = lang;
   // Remove empty query parameters
   for(var k in queryParameters){
     if(queryParameters.hasOwnProperty(k) && !queryParameters[k] && queryParameters[k] != 0){
@@ -47,6 +47,7 @@ function updateURLQueryParameters() {
     }
   }
   if(queryActivated)
+  
     history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
 }
 
@@ -70,6 +71,7 @@ if(typeof(app_name) != "undefined") {
     queryParameters['yaxis'] = ["complexity", "opp_gain"].indexOf(queryParameters['yaxis']) < 0 ? "complexity" : queryParameters['yaxis'];
   }
 }
+
 //queryParameters['cat_id'] = queryParameters['cat_id'] || "";
 //queryParameters['cont_id'] = queryParameters['cont_id'] || "";
 //queryParameters['show_related'] = Boolean(queryParameters['show_related']) || false;
