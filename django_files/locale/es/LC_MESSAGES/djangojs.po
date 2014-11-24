@@ -29,3 +29,9 @@ msgstr "Activo"
 
 msgid "Opportunity Gain"
 msgstr "Oportunidad de Ganancia"
+
+msgid "All Products"
+msgstr "Todos los Productos"
+
+msgid "All Countries"
+msgstr "Todos los Países"
