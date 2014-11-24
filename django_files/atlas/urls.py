@@ -16,7 +16,6 @@ urlpatterns = patterns('',
 
   # internationalization ######################################################
   (r'^i18n/', include('django.conf.urls.i18n')),
-  (r'^set_language/(?P<lang>[a-z-]{2,5})/$', 'observatory.views.set_language'),
 
   # product classification ####################################################
   (r'^set_product_classification/(?P<prod_class>[a-z0-9]{3,5})/$', 'observatory.views.set_product_classification'),
