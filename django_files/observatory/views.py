@@ -218,9 +218,9 @@ def explore(
     # Test for country exceptions
     if prod_class == "hs4":
         # redirect if and exception country
-        if country1 == "bel" or country1 == "lux":
+        if country1 == "blx" or country1 == "lux":
             return redirect(
-                HTTP_HOST+'explore/%s/%s/blx/%s/%s/%s/?redirect=true' %
+                HTTP_HOST+'explore/%s/%s/bel/%s/%s/%s/?redirect=true' %
                 (app_name, trade_flow, country2, product, year))
         if country1 == "bwa" or country1 == "lso" or country1 == "nam" or country1 == "swz":
             return redirect(
@@ -228,10 +228,10 @@ def explore(
                 (app_name, trade_flow, country2, product, year))
     if was_redirected:
         # display warning is redirected from exception
-        if country1 == "blx":
+        if country1 == "bel":
             warning = {
                 "title": "Country Substitution", "text":
-                "In the Harmonized System (HS) classification, trade for Belgium and Luxembourg is reported as 'Belgium-Luxembourg'."}
+                "In the Harmonized System (HS) classification, trade for Belgium and Luxembourg is reported under 'BEL' ."}
         if country1 == "zaf":
             warning = {
                 "title": "Country Substitution", "text":
