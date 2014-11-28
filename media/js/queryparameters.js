@@ -1,7 +1,7 @@
 
 // Variables from query string
 var queryParameters = {}, queryString = location.search.substring(1),
-    re = /([^&=]+)=([^&]*)/g, m, queryActivated = true; // Making it true as lang has to picked up from here instead of coockie 
+    re = /([^&=]+)=([^&]*)/g, m, queryActivated = true; // Making it true as lang has to be picked up from here instead of coockie 
 
 // Creates a map with the query string parameters
 while (m = re.exec(queryString)) {
@@ -46,6 +46,7 @@ function updateURLQueryParameters() {
       delete queryParameters[k];
     }
   }
+  removeDefaultParams()
   if(queryActivated)
   
     history.replaceState({}, "Title", window.location.origin+window.location.pathname+"?"+$.param(queryParameters));
@@ -77,3 +78,11 @@ if(typeof(app_name) != "undefined") {
 //queryParameters['show_related'] = Boolean(queryParameters['show_related']) || false;
 //queryParameters['trade_flow'] = queryParameters['trade_flow'] || "net";
 //queryParameters['highlight'] = queryParameters['highlight'] || "";
+
+function removeDefaultParams(){
+    // CherryPick the defaults and ...
+    if (queryParameters['lang'] == 'en')  delete queryParameters['lang'];
+    if (queryParameters['prod_class']=='hs4') delete queryParameters['prod_class'];
+    if (queryParameters['highlight'] =='') delete queryParameters['highlight'] ;
+    if (queryParameters['loading'] == 'loading') delete  queryParameters['loading'];
+}
