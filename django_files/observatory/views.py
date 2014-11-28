@@ -126,7 +126,12 @@ def explore(
         year="2011"):
 
     request.session['app_name'] = app_name
-
+    # pick the lang_code from the url params, still fall back
+    # on the coockie as a default.
+    lang_code = request.GET.get("lang",
+                                request.session.get('django_language', 'en'))
+    # lang_code = "es"
+    translation.activate(lang_code)
     was_redirected = request.GET.get("redirect", False)
     lang = helpers.get_language(request)['code']
     crawler = request.GET.get("_escaped_fragment_", False)
@@ -222,7 +227,8 @@ def explore(
             return redirect(
                 HTTP_HOST+'explore/%s/%s/bel/%s/%s/%s/?redirect=true' %
                 (app_name, trade_flow, country2, product, year))
-        if country1 == "bwa" or country1 == "lso" or country1 == "nam" or country1 == "swz":
+        if (country1 == "bwa" or country1 == "lso" or
+                country1 == "nam" or country1 == "swz"):
             return redirect(
                 HTTP_HOST+'explore/%s/%s/zaf/%s/%s/%s/?redirect=true' %
                 (app_name, trade_flow, country2, product, year))
@@ -235,12 +241,15 @@ def explore(
         if country1 == "zaf":
             warning = {
                 "title": "Country Substitution", "text":
-                "In the Harmonized System (HS) classification, trade for Namibia, Republic of South Africa, Botswana, Lesotho and Swaziland is reported under 'South African Customs Union'."}
+                "In the Harmonized System (HS) classification, trade for \
+                 Namibia, Republic of South Africa, Botswana, Lesotho and \
+                 Swaziland is reported under 'South African Customs Union'."}
 
     trade_flow_list = [
         ("export", _("Export")), ("import", _("Import")),
         ("net_export", _("Net Export")), ("net_import", _("Net Import"))]
-    if (app_name == "product_space" or app_name == "country_space" or app_name == "rings"):
+    if (app_name == "product_space" or app_name == "country_space" or
+            app_name == "rings"):
         trade_flow_list = [trade_flow_list[0]]
 
     year1_list = range(
@@ -301,10 +310,9 @@ def explore(
 
     # What is actually being shown on the page
     if app_type == "csay" or app_type == "sapy":
-      item_type = "country"
+        item_type = "country"
     else:
-      item_type = "product"
-
+        item_type = "product"
 
     # Some countries need "the" before their names
     list_countries_the = set(
@@ -361,7 +369,9 @@ def explore(
         if app_type in ["cspy", "sapy"]:
             prod_or_partner = "product"
         elif app_type == "casy":
-            if app_name in ("stacked", "map", "tree_map", "pie_scatter", "product_space", "country_space", "rankings", "scatterplot"):
+            if app_name in ("stacked", "map", "tree_map", "pie_scatter",
+                            "product_space", "country_space", "rankings",
+                            "scatterplot"):
                 prod_or_partner = "product"
 
     # Record views in redis for "newest viewed pages" visualization
@@ -382,18 +392,18 @@ def explore(
 
     if previous_page[0] is not None:
 
-      previous_page = previous_page[0]
-      previous_image = helpers.url_to_hash(urlparse(previous_page).path, {})
+        previous_page = previous_page[0]
+        previous_image = helpers.url_to_hash(urlparse(previous_page).path, {})
 
-      if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
+        if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
                                      previous_image + ".png")):
-        previous_image = previous_image + ".png"
-      else:
-        previous_image = settings.STATIC_URL + "img/all/loader.gif"
+            previous_image = previous_image + ".png"
+        else:
+            previous_image = settings.STATIC_URL + "img/all/loader.gif"
 
     else:
-      previous_image = settings.STATIC_URL + "img/all/loader.gif"
-      previous_page = None
+        previous_image = settings.STATIC_URL + "img/all/loader.gif"
+        previous_page = None
 
     return render_to_response(
         "explore/index.html",
@@ -410,7 +420,8 @@ def explore(
          "country1_3char": countries[0].name_3char if countries[0] else "",
          "country2_3char": countries[1].name_3char if countries[1] else "",
          "product": product,
-         "product_code": product.code if not isinstance(product, basestring) else product,
+         "product_code": product.code if not isinstance(product, basestring)
+                                else product,
          "years_available": years_available,
          "year": year,
          "year_start": year_start,
