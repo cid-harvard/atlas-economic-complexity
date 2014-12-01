@@ -13,13 +13,12 @@ var flat_data,
 
   // Change the node size for network app
   function change_node_size(v) {
-    if(typeof(change_size_node) == "undefined")
-       change_size_node = false;
 
-    change_size_node = !change_size_node;
+    change_size_node = v;
+
     d3.select("#viz").call(viz.solo([]));
 
-    queryParameters['node_size'] = change_size_node;
+    queryParameters['node_size'] = v;
     updateURLQueryParameters();
 
   }
