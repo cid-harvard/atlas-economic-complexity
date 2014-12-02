@@ -162,19 +162,20 @@ msgid "Glossary"
 msgstr "Glosario"
 
 msgid "About"
-msgstr "Acerca de"
+msgstr "Acerca del Atlas"
 
 msgid "Trade Data Visualization"
 msgstr "Fecha de Negociación Visualización"
 
 msgid "Feedback"
-msgstr "Realimentación"
+msgstr "Sugerencias"
+#msgstr "Realimentación"
 
 msgid "Complexity Visualization"
 msgstr "Complejidad Visualización"
 
 msgid "Time Period"
-msgstr "Período de tiempo"
+msgstr "Periodicidad"
 
 msgid "Detail Level"
 msgstr "Nivel de detalle"
