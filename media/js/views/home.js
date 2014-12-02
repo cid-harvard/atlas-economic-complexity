@@ -76,7 +76,7 @@ $.ajax({
 $('.js-country-or-product').on('click', function() {
   var $this = $(this);
   var selected = $this.siblings('.select-menu-wrap').find('option:selected');
-  console.log('../explore/tree_map/export/show/all/' + selected.val() + '/2012/');
+  console.log(selected.val());
   ga('send', {
     'hitType': 'event', // Required.
     'eventCategory': $this.data('ga-category'), // Required.
