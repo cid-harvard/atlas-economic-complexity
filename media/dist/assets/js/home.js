@@ -203,26 +203,17 @@ $.ajax({
   populateSelect(data, $('.js-select-countries'));
 });
 
-$('.js-select-countries').on('change', function() {
+$('.js-country-or-product').on('click', function() {
   var $this = $(this);
+  var selected = $this.siblings('.select-menu-wrap').find('option:selected');
+  console.log('../explore/tree_map/export/show/all/' + selected.val() + '/2012/');
   ga('send', {
     'hitType': 'event', // Required.
-    'eventCategory': 'Explore by Country', // Required.
+    'eventCategory': $this.data('ga-category'), // Required.
     'eventAction': 'click', // Required.
-    'eventLabel': $this.find('option:selected').text()
+    'eventLabel': selected.text()
   });
-  window.location.href = '../explore/tree_map/export/' + $this.val() + '/all/show/2012/';
-});
-
-$('.js-select-products').on('change', function() {
-  var $this = $(this);
-  ga('send', {
-    'hitType': 'event', // Required.
-    'eventCategory': 'Explore by Product', // Required.
-    'eventAction': 'click', // Required.
-    'eventLabel': $this.find('option:selected').text()
-  });
-  window.location.href = '../explore/tree_map/export/show/all/' + $this.val() + '/2012/';
+  window.location.href = '../explore/tree_map/export/show/all/' + selected.val() + '/2012/';
 });
 
 $('.track-click').on('click', function() {
