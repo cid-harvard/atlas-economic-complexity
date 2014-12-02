@@ -162,10 +162,6 @@ a:hover {
     padding: .8em 1em 1em;
 }
 
-.atlas-btn-no-outline {
-    height: 36px;
-}
-
 /*  HEADER
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
@@ -660,6 +656,7 @@ html,
 .atlas-search-btn.atlas-search-btn.atlas-search-btn {
     width: 34%;
     margin-bottom: 10px;
+    height: 36px;
 }
 
 @media screen and (min-width: 480px) {
@@ -741,18 +738,36 @@ html,
 /*  SELECT
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 
-.select-full {
+.custom-select {
+    width: 50%;
+}
+
+.select-menu-wrap {
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .select-wrap:first-child {
     margin-bottom: 20px;
 }
 
-@media screen and (min-width: 35.5em) {
+/* Triple classed to override pure.css specificity*/
+.atlas-go-btn.atlas-go-btn.atlas-go-btn {
+    height: 39px;
+    width: 21%;
+}
+
+
+@media screen and (min-width: 480px) {
     .select-menu-wrap {
-        /*width: 75%;*/
-        margin: 0 auto;
+        margin: 0;
+        width: 86%;
+        float: left;
+        display: inline-block;
+    }
+    .atlas-go-btn.atlas-go-btn.atlas-go-btn {
+        float: right;
+        width: 12%;
     }
 }
 
