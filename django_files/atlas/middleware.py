@@ -41,7 +41,7 @@ class PrerenderMiddleware(object):
             return response
 
         # TODO: AFAIK there is no better way to send this html to phantomjs
-        temp = tempfile.NamedTemporaryFile(dir="/tmp/ramdisk",
+        temp = tempfile.NamedTemporaryFile(dir=settings.PHANTOM_JS_TEMP,
                                            prefix="celery-temp-file-",
                                            suffix=".html",
                                            delete=False)
