@@ -335,10 +335,14 @@ d3plus.network = function(vars) {
   })
   // UPDATE
   var max_size = 4, min_size = 4;
-  if(typeof(change_size_node) != "undefined" && change_size_node) {
-    max_size = d3.min(distances,function(d){return d*1.75})
-    min_size = 1;
+  if(typeof(change_size_node) != "undefined" && change_size_node == "world_trade") {
+    //console.log("HEEEERE", distances)
+    max_size = 15;//d3.min(distances,function(d){return d})*1.5;
+    min_size = 2;
   }
+
+
+  console.log(vars.value_var)
   // return
   // x scale
   scale.x.range([offset_left+(max_size*1.5), vars.width-(max_size*1.5)-offset_left])
@@ -346,7 +350,7 @@ d3plus.network = function(vars) {
   scale.y.range([offset_top+(max_size*1.5), vars.height-(max_size*1.5)-offset_top])
   
   // size scale
-  scale.size = d3.scale.log()
+  scale.size = d3.scale.linear()
     .domain(val_range)
     .range([min_size, max_size])
     
