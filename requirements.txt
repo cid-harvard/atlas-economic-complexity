@@ -8,7 +8,7 @@ redis
 hiredis
 cairosvg
 django-cache-utils
-django-redis
+django-redis==3.7.2
 django-compressor
 html5lib
 celery[redis,msgpack]
