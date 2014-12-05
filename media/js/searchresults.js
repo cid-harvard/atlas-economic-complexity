@@ -1,157 +1,131 @@
+// searchresults.js
+// =============================================
+// This file creates the autocomplete list with AJAX
+// And handles search UI/page navigation on submit as well as search analytics
+// Gus Wezerek can answer questions about the functions below
 
-if((typeof queryParameters == "undefined") || (typeof queryParameters != "undefined" && !queryParameters['disable_search'])) {
+var Autocomplete = (function() {
 
 
-  function title_to_input() {
+    // SETUP
+    // =============================================
 
-    var current_content = $("#text_title").html();
-    var new_input = $("<input type='text' id='text_title' />");
-    new_input.val(current_content);
-    $("#text_title").replaceWith(new_input);
-    new_input.focus();
-    new_input.autocomplete(autocomplete_settings);
-    $(".typed-cursor").remove()
+    var cache = {},
+        resultsList = [],
+        autocompleteSettings = {
+            appendTo: '.autocomplete-wrap',
+            minLength: 3,
+            delay: 260,
+            source: autocompleteSource
+        };
 
-  }
 
-  $(function() {
+    // Use the widget factory to extend the _renderItem method 
+    // so that now it bolds the searched term in the autocomplete results
+    // This could probably work in the _renderMenu function instead so we only
+    // create on RegExp object, instead of one for each list item
+    $.widget('ui.autocomplete', $.ui.autocomplete, {
+        _renderItem: function(ul, item) {
 
-    // OLD design
-    //$("#text_title").click(function() {
-    //  title_to_input();
-    //});
+            // First we find and capture the query string within the input's value
+            var term = this.term.split(' ').join('|'),
+                re = new RegExp('(' + term + ')', 'gi'),
+                highlightClass = 'term-highlight',
+                template = '<span class=' + highlightClass + '>$1</span>',
+                value = item.value.replace(re, template); // Replace the value with the highlighted vlue span
 
-    $.ui.autocomplete.prototype._renderItem = function( ul, item){
-      var term = this.term.split(' ').join('|');
-      var re = new RegExp("(" + term + ")", "gi") ;
-      var t = item.label.replace(re,"<b>$1</b>");
+            // Then we append the <li>
+            var $li = $('<li/>')
+                .append('<a>' + value + '</a>') // Nest an anchor inside the <li>, as that's what jQuery expects
+                .appendTo(ul);
 
-      var suggestion_page = "Title";
-      if($("#searchbar").length > 0)
-        suggestion_page = "Home";
+            return $li;
+        }
+    });
 
-      return $( "<li></li>" )
-         .data( "item.autocomplete", item )
-         .append('<a onclick="_gaq.push([\'_trackEvent\', \'Suggestion-'+suggestion_page+'\', \'Clicked\', \''+this.term+'\'])">' + t + "</a>" )
-         .appendTo( ul );
-    };
 
-    // Set up autocomplete callback
-    var cache = {};
-    var search_data_source = function(request, response) {
-        if(request.term.length == 0)
-           request.term = $("#text_title").val();
 
-        request.search_var = search_var;
+    // INIT
+    // =============================================
+
+    $('#atlas-search-js').autocomplete(autocompleteSettings);
+
+
+
+    // HELPERS
+    // =============================================
+
+    function autocompleteSource(request, response) {
         var term = request.term;
+
+        // Cache to prevent unecessary server requests
         if (term in cache) {
             response(cache[term]);
             return;
         }
-        $.getJSON( "../api/search/",
-            request,
-            function(data, status, xhr) {
-                var reshaped_data = [];
-                for (var i = 0; i < data[1].length; i++){
-                    reshaped_data.push({label: data[1][i], value: data[3][i]});
-                }
-                cache[term] = reshaped_data;
-                response(reshaped_data);
+
+        // Reset our results list
+        resultsList = [];
+
+        // On search input change we get the list of matching questions and their urls from the db
+        $.getJSON('../api/search/', request, function( data ) {            
+            _.each(data[1], function(el, i){
+                resultsList.push({
+                    value: data[1][i],
+                    url: data[3][i]
+                });
+            });
+            
+            cache['"' + term + '"'] = resultsList;
+            response(resultsList);
+        });
+    }
+
+    function searchNavigate(el) {
+        ga('send', {
+            'hitType': 'event', // Required.
+            'eventCategory': 'Search', // Required.
+            'eventAction': 'submit', // Required.
+            'eventLabel': el.value
         });
 
-        if($("#searchbar").length > 0)
-          _gaq.push(['_trackEvent', 'Search-Home', 'Typing', $("#searchbar").val()]);
-
-        if($("#text_title").length > 0)
-          _gaq.push(['_trackEvent', 'Search-Page', 'Typing', $("#text_title").val()]);
-
-        console.log("keypress", $("#searchbar").val(), $("#text_title").val());
-    };
-
-    var search_select_function = function(event, ui){
-        // Go to selected URL
-        event.preventDefault();
-        $(this).val(ui.item.label);
-
-        if(typeof(queryActivated) != "undefined" && queryActivated)
-          window.location.href=ui.item.value+"?"+$.param(queryParameters);
-        else
-          window.location.href=ui.item.value; 
-    };
-
-    var search_focus_function = function(event, ui){
-        // Get rid of behavior where keyboard up down arrow replaces textbox with
-        // url instead of search result.
-        event.preventDefault();
-    };
-
-    autocomplete_settings = {
-        minLength: 0,
-        delay: 260,
-        source: search_data_source,
-        select: search_select_function,
-        focus: search_focus_function,
-      //  autoFocus: true,
+        // Checks if we have query parameters
+        // We should remove this from the global namespace - GW
+        if (typeof queryActivated !== 'undefined') {
+            window.location.href = el.url + '?' + $.param(queryParameters);
+        } else {
+            window.location.href = el.url;
+        }
     }
 
-    
-/*
-    querystring = getQueryParameterByName("term");
-    var bar = $("#searchbar");
-    bar.val(querystring);
-    bar.autocomplete("search", querystring);
-    bar.focus();
-
-    $("#text_blink").typed({
-      strings: [""],
-      typeSpeed: 0,
-      callback: function() { 
-
-        // Check to see if the title overflows (in the case of long product names)
-        function isOverflowed(element){
-            return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
-        }
-
-        var title = d3.select("#title")
-        var shrink_size = 30;
-
-        while(isOverflowed(title.node())) {
-          $("#title").children().children().css("font-size", shrink_size+"px")
-          shrink_size -= 1;
-        }
-
-          }
-      });
-*/
-    //$("#text_title").focus();
-
-    $("#text_title").autocomplete(autocomplete_settings);
-    $("#text_title").blur();
-
-    $("#text_title").click(function(e) {
-      $(this).autocomplete( "search", "");
-      _gaq.push(['_trackEvent', 'Search-Page', 'Focus', $(this).val()]);
-    })
-
-    autocomplete_settings_home = {
-      minLength: 3,
-      delay: 260,
-      source: search_data_source,
-      select: search_select_function,
-      focus: search_focus_function,
-    //  autoFocus: true,
+    function showValidationError() {
+        // TODO - GW
     }
 
 
-    //$("#searchbar").focus();
-    $("#searchbar").autocomplete(autocomplete_settings_home);
+    // HANDLERS
+    // =============================================
 
-    $("#searchbar").click(function(e) {
-      _gaq.push(['_trackEvent', 'Search-Home', 'Focus', $(this).val()]);
-      $(this).autocomplete( "search", "" );
-    })
+    // Validate and navigate on search submit
+    $('.search-wrap').on('submit', function(event) {
+        event.preventDefault();
 
+        var searchTerm = $(this).find('.atlas-search').val();
 
+        // Search the cached AJAX results for a value that matches what's in the input
+        // And navigate to that value's corresponding val, or show validation error
+        _.each(cache['"' + searchTerm + '"'], function(el) {
+            if (searchTerm.toUpperCase() === el.value.toUpperCase()) {
+                searchNavigate(el);
+            } else {
+                showValidationError();
+            }
+        });
+    });
 
-  });
-}
+    // When a user selects an item from the autocomplete list, nav to that page
+    $('#atlas-search-js').on('autocompleteselect', function(event, ui) {
+        searchNavigate(ui.item);
+    });
+
+})();

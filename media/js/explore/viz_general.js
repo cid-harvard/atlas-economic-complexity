@@ -184,17 +184,17 @@ var flat_data,
 
   set_stack_year = function(arg) {   
 
-    var stacked_title = d3.select('#text_title').text();
+    var stacked_title = d3.select('#atlas-search-js').text();
     stacked_title = stacked_title.replace(viz.year()[0], arg[0]);
     stacked_title = stacked_title.replace(viz.year()[1], arg[1]);
-    d3.select('#text_title').text(stacked_title);
+    d3.select('#atlas-search-js').text(stacked_title);
     
     var href = window.location.href;
     href = href.replace(viz.year()[0], arg[0]);
     href = href.replace(viz.year()[1], arg[1]);  
 
     // TODO: Check if IE compliant
-    update_url('The Atlas', d3.select('#text_title').text(), href);
+    update_url('The Atlas', d3.select('#atlas-search-js').text(), href);
 
     d3.select("#viz").call(viz.year([arg[0],arg[1]]))
     
@@ -229,13 +229,13 @@ var flat_data,
     // Why are we doing that?
     //set_depth(nest_level)
 
-    var scatter_title = d3.select('#text_title').text();
+    var scatter_title = d3.select('#atlas-search-js').text();
 
     scatter_title = scatter_title.replace(viz.year(), arg);
-    d3.select('#text_title').text(scatter_title);
+    d3.select('#atlas-search-js').text(scatter_title);
 
     // Update the URL
-    update_url('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
+    update_url('The Atlas', d3.select('#atlas-search-js').text(),  window.location.href.replace(viz.year(), arg));
 
     d3.select("#viz").call(viz.year(arg));
 
@@ -346,12 +346,12 @@ var flat_data,
     if(typeof(start_year) == "undefined")
       start_year = viz.year();
 
-    var treemap_title = d3.select('#text_title').attr("value");
+    var treemap_title = d3.select('#atlas-search-js').attr("value");
     treemap_title = treemap_title.replace(viz.year(), arg);
-    d3.select('#text_title').attr("value", treemap_title);
+    d3.select('#atlas-search-js').attr("value", treemap_title);
 
     // Update the URL
-    update_url('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(viz.year(), arg));
+    update_url('The Atlas', d3.select('#atlas-search-js').text(),  window.location.href.replace(viz.year(), arg));
 
     // Update the year drowdown
     $("#year1_select > options").attr("selected", false);
@@ -369,12 +369,12 @@ var flat_data,
   
   set_map_year = function(arg) {
 
-    var map_title = d3.select('#text_title').text();
+    var map_title = d3.select('#atlas-search-js').text();
     map_title = map_title.replace(app.year(), arg);
-    d3.select('#text_title').text(map_title);
+    d3.select('#atlas-search-js').text(map_title);
 
     // TODO: Check if IE compliant
-    update_url('The Atlas', d3.select('#text_title').text(),  window.location.href.replace(app.year(), arg));
+    update_url('The Atlas', d3.select('#atlas-search-js').text(),  window.location.href.replace(app.year(), arg));
 
     d3.select("#viz").call(app.year(parseInt(arg)));
     // Set the controls to this year as well
