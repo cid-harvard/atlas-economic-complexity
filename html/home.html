@@ -119,7 +119,7 @@
                                 <p class="example-copy">Which countries imported coffee in&nbsp;2012?</p>
                             </a>
                         </div>
-                    </li><li class="example-sub track-click example-inactive pure-u-1 pure-u-md-1-4" data-graph-type="Product Space" data-img-src="{{ STATIC_URL }}dist/assets/img/examples/us_exports_2012.jpg" data-ga-category="Examples" data-ga-label="Product Space">
+                    </li><li class="example-sub track-click example-inactive pure-u-1 pure-u-md-1-4" data-graph-type="Product Space" data-img-src="{{ STATIC_URL }}dist/assets/img/examples/product_space_labeled.jpg" data-ga-category="Examples" data-ga-label="Product Space">
                         <img class="example-img" /> 
                         <div class="example-caption-wrap offset-text">
                             <a class="example-link anchor-no-hover" href="explore/product_space/export/usa/all/show/2012/">
@@ -152,17 +152,18 @@
                 <div class="teases-wrap pure-u-1 pure-u-md-1-2">
                     <h2 class="subhead">Not sure where to&nbsp;start?</h2>
                     <form>
-                        <div class="select-wrap">
+                        <div class="select-wrap clear">
                             <p class="subhead-deck">See the products exported by:</p>
                             <div class="custom-select select-menu-wrap pure-button">
                                 <select name="select" class="select-full js-select-countries" autocomplete="off">
                                 </select>
                             </div>
+                            <button class="atlas-go-btn pure-button atlas-btn-no-outline label js-country-or-product js-country" type="button" data-ga-category="Explore by Country">Go</button>
                         </div>
-                        <div class="select-wrap">
-                            <p class="subhead-deck">See which countries exported:</p>
+                        <div class="select-wrap clear">
+                            <p class="subhead-deck">Or see which countries exported:</p>
                             <div class="custom-select select-menu-wrap pure-button">
-                                <select name="select" class="select-full js-select-products" autocomplete="off">
+                                <select name="select" class="select-full" autocomplete="off">
                                     <option class="atlas-option atlas-product-option" selected value="0901">Coffee</option>
                                     <option class="atlas-option atlas-product-option" value="7102">Diamonds</option>
                                     <option class="atlas-option atlas-product-option" value="2709">Crude oil</option>
@@ -173,6 +174,7 @@
                                     <option class="atlas-option atlas-product-option" value="1001">Wheat</option>
                                 </select>
                             </div>
+                            <button class="atlas-go-btn pure-button atlas-btn-no-outline label js-country-or-product js-product" type="button" data-ga-category="Explore by Product">Go</button>
                         </div>
                     </form>
                 </div><div class="ask-wrap pure-u-1 pure-u-md-1-2">
@@ -228,6 +230,7 @@
                                     <li class="mega-nav-secondlevel"><a class="mega-nav-link" href="../about/support/#caf">Investec Asset Management</a></li>
                                     <li class="mega-nav-secondlevel"><a class="mega-nav-link" href="../about/support/#icss">International Centre for Sports Security</a></li>
                                     <li class="mega-nav-secondlevel"><a class="mega-nav-link" href="../about/support/#mindteck">Mindteck</a></li>
+                                    <li class="mega-nav-secondlevel"><a class="mega-nav-link" href="../about/support/#standardbank">The Standard Bank Group</a></li>
                                     <li class="mega-nav-secondlevel"><a class="mega-nav-link" href="../about/support/#usitc">U.S. International Trade Commission</a></li>
                                 </ul>
                             </li>
