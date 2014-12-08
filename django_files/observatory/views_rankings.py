@@ -7,7 +7,7 @@ from observatory.models import Cy, Hs4_py
 from operator import itemgetter
 
 
-def index(request, category="country", year=2012):
+def index(request, category="country", year=2013):
     year = int(year)
 
     min_year = 1995

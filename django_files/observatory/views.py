@@ -123,7 +123,7 @@ def explore(
         country1,
         country2,
         product,
-        year="2012"):
+        year="2013"):
 
     request.session['app_name'] = app_name
 
