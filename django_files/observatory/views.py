@@ -161,14 +161,14 @@ def explore(
 
     # Code for showing a static image or not
     static_image_name = helpers.url_to_hash(request.path, request.GET)
-    if settings.STATIC_IMAGE:
-        if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
-                                       static_image_name + ".png")):
-            displayviz = True
-            displayImage = static_image_name + ".png"
-        else:
-            displayviz = False
-            displayImage = settings.STATIC_URL + "img/all/loader.gif"
+    if settings.STATIC_IMAGE and os.path.exists(
+        os.path.join(settings.STATIC_IMAGE_PATH,
+                     static_image_name + ".png")):
+        displayviz = True
+        displayImage = static_image_name + ".png"
+    else:
+        displayviz = False
+        displayImage = settings.STATIC_URL + "img/all/loader.gif"
 
     # Verify countries from DB
     countries = [None, None]
