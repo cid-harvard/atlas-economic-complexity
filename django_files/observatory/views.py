@@ -332,17 +332,23 @@ def explore(
     if countries[0] and countries[0].name in list_countries_the:
         countries[0].name = "the "+countries[0].name
 
+    product_name = None
+    product_obj = None
     if product not in ("show", "all"):
-        p_code = product
-        product = helpers.get_product_by_code(p_code, prod_class)
+        product_obj = helpers.get_product_by_code(product, prod_class)
+        if product_obj is None:
+            alert = {
+                "title": "Product could not be found.",
+                "text": """There was no product with the code
+                <strong>%s</strong>. Please select a correct one from the
+                dropdown box.""" % (product)}
+        else:
+            product_name = product_obj.name_en
 
     if not alert:
 
         # Generate page title depending on visualization being used
         years = [year_start, year_end] if year_start is not None else [year]
-        product_name = product.name_en if not isinstance(
-            product,
-            basestring) else product
         country_names = [getattr(x, "name", None) for x in countries]
         title = helpers.get_title(app_type, app_name,
                                   country_names=country_names,
@@ -410,8 +416,8 @@ def explore(
          "country2": countries[1] or country2,
          "country1_3char": countries[0].name_3char if countries[0] else "",
          "country2_3char": countries[1].name_3char if countries[1] else "",
-         "product": product,
-         "product_code": product.code if not isinstance(product, basestring) else product,
+         "product": product_obj,
+         "product_code": product,
          "years_available": years_available,
          "year": year,
          "year_start": year_start,
