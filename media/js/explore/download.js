@@ -10,6 +10,7 @@ $(function(){
         var form = $(this).parent();
         var file_type = this.id;
         form.children("#file_format").val(file_type);
+        form.children("#file_name").val($('#atlas-search-js')[0].value);
         var svg_elem = $("#viz svg")[0];
         if (svg_elem.outerHTML !== undefined){
             form.children("#file_content").val(svg_elem.outerHTML);
@@ -21,6 +22,7 @@ $(function(){
             alert("Sorry, your browser doesn't support this feature. Please try the newest Google Chrome or Mozilla Firefox.");
             return;
         }
+
         form.submit();
     });
 
