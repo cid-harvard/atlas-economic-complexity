@@ -1782,7 +1782,7 @@ var flat_data,
         }
 
 
-        if (prod_class == "sitc4" && (app_type == "casy" || app_type == "ccsy"|| app_type=="sapy")){
+        if (prod_class == "sitc4" && (app_type == "casy" || app_type == "ccsy")){
           attr_data.map(function(g){
             g.sitc1_name = attr[g.code.slice(0, 1)+"000"].name;
             g.sitc1_id = parseInt(g.code.slice(0, 1)+"000");
