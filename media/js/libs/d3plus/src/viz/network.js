@@ -316,9 +316,19 @@ d3plus.network = function(vars) {
   scale.y = d3.scale.linear()
     .domain(y_range)
     .range([offset_top, vars.height-offset_top])
-    
-  var val_range = d3.extent(d3.values(vars.data), function(d){
-    return d[vars.value_var] ? d[vars.value_var] : null
+
+  var_node_size = vars.value_var;
+
+  // UPDATE
+  var max_size = 4, min_size = 4;
+  if(typeof(change_size_node) != "undefined" && change_size_node != "none") {
+    max_size = 15;//d3.min(distances,function(d){return d})*1.5;
+    min_size = 2;
+    var_node_size = change_size_node;
+  }
+
+  val_range = d3.extent(d3.values(vars.data), function(d){
+    return d[var_node_size] ? d[var_node_size] : null
   });
   
   if (typeof val_range[0] == "undefined") val_range = [1,1]
@@ -333,16 +343,7 @@ d3plus.network = function(vars) {
       }
     })
   })
-  // UPDATE
-  var max_size = 4, min_size = 4;
-  if(typeof(change_size_node) != "undefined" && change_size_node == "world_trade") {
-    //console.log("HEEEERE", distances)
-    max_size = 15;//d3.min(distances,function(d){return d})*1.5;
-    min_size = 2;
-  }
 
-
-  console.log(vars.value_var)
   // return
   // x scale
   scale.x.range([offset_left+(max_size*1.5), vars.width-(max_size*1.5)-offset_left])
@@ -530,7 +531,7 @@ d3plus.network = function(vars) {
   function node_size(n) {
     n
       .attr("r", function(d) { 
-        var value = find_variable(d[vars.id_var],vars.value_var)
+        var value = find_variable(d[vars.id_var], var_node_size)
         return value > 0 ? scale.size(value) : scale.size(val_range[0])
       })
   }

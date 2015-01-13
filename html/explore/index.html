@@ -690,7 +690,7 @@
               </label>
             </div>
           </div>
-          <div class="vizControl col-md-4">
+          <div class="vizControl col-md-3">
             <span class="definition">Color</span>
             <div class="btn-group community" style="margin-right:20px;" data-toggle="buttons">
               <label type="button" class="btn btn-default active" value="category"> 
@@ -706,14 +706,17 @@
               -->
             </div>
           </div>
-          <div class="vizControl col-md-4">
+          <div class="vizControl col-md-5">
             <span class="definition">Size</span>
             <div class="btn-group node_size" data-toggle="buttons">
               <label type="button" class="btn btn-default active" value="none">
-                <input type="radio" name="node_size" value="none" onchange="change_node_size(this.value)"> None
+                <input type="radio" name="node_size" value="none" onchange="change_node_size('none')"> None
+              </label>
+              <label type="button" class="btn btn-default" value="value">
+                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size('value')"> Country Trade
               </label>
               <label type="button" class="btn btn-default" value="world_trade">
-                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size(this.value)"> World Trade
+                <input type="radio" name="node_size" value="world_trade" onchange="change_node_size('world_trade')"> World Trade
               </label>
             </div>
           </div>
@@ -842,7 +845,7 @@
         <a id="png" href="#">PNG</a>
         <a id="svg" href="#">SVG</a>
         <input type="hidden" id="file_content" name="file_content"/>
-        <input type="hidden" name="file_name" value="{{title}}"/>
+        <input type="hidden" id="file_name" name="file_name" value="{{title}}"/>
         <input type="hidden" id="file_format" name="file_format" value="svg"/>
     </form>
 
