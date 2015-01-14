@@ -185,19 +185,9 @@ def explore(
                     <a href='about/data/country/'>list of countries</a>.""" %
                     (country)}
 
-    # The years of data available tends to vary based on the dataset used (Hs4
-    # vs Sitc4) and the specific country.
-    years_available_model = Sitc4_cpy if prod_class == "sitc4" else Hs4_cpy
-    years_available = years_available_model.objects\
-        .values_list("year", flat=True)\
-        .order_by("year")\
-        .distinct()
-    # Sometimes the query is not about a specific country (e.g. "all countries"
-    # queries) in which case filtering by country is not necessary
-    if countries[0]:
-        years_available = years_available.filter(country=countries[0].id)
     # Force lazy queryset to hit the DB to reduce number of DB queries later
-    years_available = list(years_available)
+    years_available = list(helpers.get_years_available(prod_class=prod_class,
+                                                       country=countries[0]))
 
     if len(years_available) == 0:
         alert = {"title": """The product classification you're using (%s) does
