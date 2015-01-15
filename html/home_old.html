@@ -1,0 +1,222 @@
+{% extends "template.html" %}
+{% block page_title %}Home{% endblock %}
+{% block heading_title %}{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/searchresults.css" />
+  <link rel="stylesheet" href="media/css/home.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.css"/>
+{% endblock %}
+
+<!-- Hidden Modal Window for Video -->
+
+  <div id="videoModal">
+    <a href="#" id="exit">Close</a>
+    <div id="videoModalInner">
+        <iframe width="853" height="480" src="//www.youtube.com/embed/0JC24CBVsdo" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+
+  {% block content %}
+  <div id="content">
+
+  <div id="carousel-example-generic" class="carousel slide" style="width:535px; height:300px;float:left; margin-left:20px; margin-top:20px; margin-right:15px; border:solid 1px #dddddd;">
+  <!-- Indicators -->
+  <!--
+
+  ->>
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <a href="explore/product_space/export/usa/all/show/2012/">
+        <img src="media/img/home/us_imports_ps.png" alt="..." style="width:550px; height:300px">
+        <div class="carousel-caption">
+          <h3 style="font-size:22px; color:gray;">What did the United States import in 2012?</h3>
+          <p></p>
+        </div>
+      </a>
+    </div>
+    <div class="item">
+      <a href="explore/stacked/export/usa/all/show/1996.2012.1/">
+        <img src="media/img/home/us_exports.png" alt="..." style="width:540px; height:300px">
+        <div class="carousel-caption">
+          <h3 style="font-size:22px; color:gray;">What did the United States export between 1996 and 2012?</h3>
+          <p></p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <span class="icon-prev"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <span class="icon-next"></span>
+  </a>
+</div>
+
+    <div style="float:left; width:350px; margin-bottom:30px; font-size: 30px; font-style:italic; background: url(media/img/home/quote.jpg) no-repeat; background-size:100px; padding-left:40px; padding-top:40px; color:gray">
+      Explore Growth Opportunities
+    </div>
+
+  <a id="videoLaunch" href="#">
+
+    <div class="other_apps_first other_apps" style="float:left;width:370px; height:200px; padding:5px; margin-left:20px;border:1px solid lightgray; background-color:#fafafa;">
+
+      <div style="width:210px; height:160px; text-align:justify;">
+        <h3 style="text-transform: none; font-size:30px">What is  <span style="text-transform: uppercase;">THE ATLAS?</span></h3>
+        <p style="text-transform: none; font-size:16px">This interactive tool can generate more than 20 million visualizations and map the path of diversification and prosperity for 128 countries. Learn more about the theory of Economic Complexity.</p>
+      </div>
+      <div style="background:url('media/img/home/teaser_video_obs.png') no-repeat; background-size:130px 130px; width:130px; height:160px; margin-top:10px"></div>
+
+    </div>
+
+  </a>
+<style>
+#search{
+  text-align: center;
+  height: 390px;
+  width: 100%;
+
+}
+#search h2{
+  letter-spacing: .05rem;
+}
+#searchBox{
+  width:668px;
+  height: 52px;
+  margin: 0 auto;
+  position: relative;
+  top:20px;
+  z-index: 1;
+}
+#searchBox input{
+  padding:0px 10px;
+  border: solid 1px rgba(68,68,68,0.4);
+  width:668px;
+  height: 52px;
+  font-size: 20px;
+  border-radius: 5px 5px 5px 5px;
+  background-color: #fafafa;
+  text-rendering:optimizeSpeed;
+  color: #666666;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+}
+
+#searchBox input:focus {
+  outline: transparent;
+  border-color: rgba(68, 68, 68, 1);
+  color: #444;
+}
+#searchButton{
+
+  top: 20px;
+  right: 2px;
+  width:110px;
+  height:48px;
+  text-align:  center;
+  border-radius: 0px 3px 3px 0px;
+  cursor: pointer;
+/*  background-color:#2574A9;*/
+  background-color: #444;
+}
+#searchButton:hover{
+  background-color: #333;
+  width:110px;
+  height: 47px;
+  padding-top: 1px;
+}
+#searchButton h4{
+  margin: 15px 0px 0px 0px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+}
+</style>
+
+  <p style="clear:both"></p>
+
+      <div id="searchBox">
+        <span style="float:left; margin-left:0px;font-size:30px; text-transform: none;">Search The Atlas »</span>
+        <input id="searchbar" placeholder="E.g. 'Burundi imports 1997 2000', 'wine Italy', 'petroleum'" >
+      </div>
+
+  <p style="clear:both"></p>
+
+    <div class="other_apps" style="float:left; width:455px; margin:20px; margin-top:80px; border: solid 1px lightgray;">
+
+    <a href="explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/">
+      <h3 style="float:left; margin-left:50px;font-size:30px; text-transform: none;">Browse Countries »</h3>
+        <!--<div class="earth_teaser" style="margin-top:0px"></div>-->
+        <div id="map" style="width:450px; height:250px"></div>
+    </a>
+   <div style="text-align:right; float:right; color:lightgray;" >Map transition by <a href="http://www.jasondavies.com/maps/transition/" style="text-decoration:none;color:lightgray; padding:0px; padding-top:10px" class="credits">Jason Davies</a></div>
+   </div>
+
+<style>
+
+
+</style>
+
+    <div class="other_apps" style="float:left; width:455px; margin:20px; margin-top:80px;  border: solid 1px lightgray;">
+      <a href="explore/tree_map/export/show/all/8703/2012/"><h3 style="float:left; margin-left:50px;font-size:30px; text-transform: none;">Browse Products »</h3></a><p style="clear:both">
+      <div style="padding-left:20px; padding-bottom:30px">
+        <a href="explore/tree_map/export/show/all/0106/2012/" class="products-tmb" style="background: url('media/img/icons/community_0.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/8703/2012/" class="products-tmb" style="background: url('media/img/icons/community_10.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/8509/2012/" class="products-tmb" style="background: url('media/img/icons/community_11.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/8473/2012/" class="products-tmb" style="background: url('media/img/icons/community_12.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/3813/2012/" class="products-tmb" style="background: url('media/img/icons/community_13.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/8485/" class="products-tmb" style="background: url('media/img/icons/community_14.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/8455/2012/" class="products-tmb" style="background: url('media/img/icons/community_15.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/6302/2012/" class="products-tmb" style="background: url('media/img/icons/community_20.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/0901/2012/" class="products-tmb" style="background: url('media/img/icons/community_21.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/4405/2012/" class="products-tmb" style="background: url('media/img/icons/community_22.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/7010/2012/" class="products-tmb" style="background: url('media/img/icons/community_30.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/7612/2012/" class="products-tmb" style="background: url('media/img/icons/community_31.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/2201/2012/" class="products-tmb" style="background: url('media/img/icons/community_40.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/import/show/all/7102/2012/" class="products-tmb" style="background: url('media/img/icons/community_41.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/4704/2012/" class="products-tmb" style="background: url('media/img/icons/community_42.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/1121/2012/" class="products-tmb" style="background: url('media/img/icons/community_43.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/5417/2012/" class="products-tmb" style="background: url('media/img/icons/community_44.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/8455/2012/" class="products-tmb" style="background: url('media/img/icons/community_50.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/8006/2012/" class="products-tmb" style="background: url('media/img/icons/community_51.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/2709/2012/" class="products-tmb" style="background: url('media/img/icons/community_52.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/7102/2012/" class="products-tmb" style="background: url('media/img/icons/community_54.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/8445/2012/" class="products-tmb" style="background: url('media/img/icons/community_60.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/5908/2012/" class="products-tmb" style="background: url('media/img/icons/community_61.png') no-repeat; background-size:50px;"></a>
+        <a href="explore/tree_map/export/show/all/1001/2010/" class="products-tmb" style="background: url('media/img/icons/community_70.png') no-repeat; background-size:50px;"></a>
+
+      </div>
+    </div>
+
+      <div class="footerInner" style="width:800px; margin-left:100px">
+
+        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+        <p style="clear:both"></p>
+        <a style=" margin-left:300px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
+
+      </div>
+
+{% endblock %}
+
+{% block js %}
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<script src="{{ STATIC_URL }}js/libs/bootstro/bootstro.min.js"></script>
+<script src="media/js/libs/d3/d3.v3.min.js"></script>
+<script src="media/js/libs/d3/d3.geo.projection.min.js"></script>
+<script src="media/js/libs/d3/topojson.min.js"></script>
+<script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+<script src="media/js/queryparameters.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL}}js/searchresults.js"></script>
+
+{% endblock %}

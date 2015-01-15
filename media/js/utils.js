@@ -36,9 +36,6 @@ function is_in_iframe() {
 }
 
 function update_url(a, b, c) {
-
-  console.log("update url")
-
   if(!in_iframe)
     window.history.pushState(a, b, c);
   else

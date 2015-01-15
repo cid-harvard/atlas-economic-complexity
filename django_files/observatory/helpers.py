@@ -295,14 +295,19 @@ def get_attrs(prod_class="hs4", name="name_en"):
 
 
 @cached(settings.CACHE_VERY_LONG)
-def get_years_available(prod_class="hs4"):
-    """Get years available for a given classification."""
+def get_years_available(prod_class="hs4", country=None):
+    """Get years available for a given classification. The years of data
+    available tends to vary based on the dataset used (Hs4 vs Sitc4) and the
+    specific country. """
+
     if prod_class == "sitc4":
         years_available = Sitc4_cpy.objects\
             .values_list("year", flat=True).distinct()
     else:
         years_available = Hs4_cpy.objects\
             .values_list("year", flat=True).distinct()
+    if country is not None:
+        years_available = years_available.filter(country=country.id)
     return sorted(list(years_available))
 
 

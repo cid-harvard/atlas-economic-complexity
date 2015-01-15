@@ -16,6 +16,9 @@ class PrerenderMiddleware(object):
 
     def process_request(self, request):
 
+        if not settings.STATIC_IMAGE:
+            return None
+
         # See if prerender is needed
         bot_crawl = request.GET.get('_escaped_fragment_', None)
         if not bot_crawl:
@@ -30,6 +33,9 @@ class PrerenderMiddleware(object):
 
     def process_response(self, request, response):
 
+        if not settings.STATIC_IMAGE:
+            return response
+
         # If this is not an explore page, no need to prerender
         if request.resolver_match and ("observatory.views.explore"
                                        != request.resolver_match.url_name):
@@ -41,7 +47,7 @@ class PrerenderMiddleware(object):
             return response
 
         # TODO: AFAIK there is no better way to send this html to phantomjs
-        temp = tempfile.NamedTemporaryFile(dir="/tmp/ramdisk",
+        temp = tempfile.NamedTemporaryFile(dir=settings.PHANTOM_JS_TEMP,
                                            prefix="celery-temp-file-",
                                            suffix=".html",
                                            delete=False)
