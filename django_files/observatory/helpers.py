@@ -166,7 +166,7 @@ def get_title(api_name, app_name, country_names=None, trade_flow=None,
     # e.g. Who exported Petroleum in 1990?
     elif api_name == "sapy":
         pre_def_str = _("Who")
-        return "%s %sed %s%s?" % (trade_flow, product_name,
+        return "%s %sed %s %s?" % (pre_def_str,trade_flow, product_name,
                                   get_time_clause(years))
 
     # e.g. What did Germany import from Turkey in 2011?
