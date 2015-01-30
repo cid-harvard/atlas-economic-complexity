@@ -26,16 +26,22 @@ msgid "Net Export"
 msgstr "Καθαρή Εξαγωγή"
 
 msgid "Net Import"
-msgstr "Οι καθαρές εισαγωγές"
+msgstr "Καθαρή Εισαγωγή"
 
 msgid "App Selection"
-msgstr "Επιλογή App"
+msgstr "App Επιλογής"
 
 msgid "Country"
 msgstr "Χώρα"
 
 msgid "Country (show trade partners)"
-msgstr "Χώρα (εμφάνιση εμπορικών εταίρων)"
+msgstr "Χώρα (Εμφάνιση εμπορικών εταίρων)"
+
+msgid "Product"
+msgstr "Προϊόν"
+
+msgid "Product Class"
+msgstr "Κατηγορία προϊόντων"
 
 msgid "Products"
 msgstr "Προϊόντα"
@@ -50,25 +56,25 @@ msgid "Imports"
 msgstr "Εισαγωγές"
 
 msgid "Net Exports"
-msgstr "Καθαρές εξαγωγές"
+msgstr "Καθαρές Εξαγωγές"
 
 msgid "Net Imports"
-msgstr "Καθαρές Εισαγωγές"
+msgstr "Καθαρές εισαγωγές"
 
 msgid "Exports To Destination"
 msgstr "Οι εξαγωγές προς Προορισμός"
 
 msgid "Imports From Origin"
-msgstr "Εισαγωγές από την εκκίνηση"
+msgstr "Οι εισαγωγές από την προέλευσή"
 
 msgid "Exports by Product"
-msgstr "Εξαγωγές προϊόντων"
+msgstr "Εξαγωγές Προϊόντων"
 
 msgid "Imports by Product"
-msgstr "Οι εισαγωγές προϊόντων από"
+msgstr "Εισαγωγές ανά Προϊόν"
 
 msgid "Play"
-msgstr "Παίξτε"
+msgstr "Παίζω"
 
 msgid "Stop"
 msgstr "Stop"
@@ -77,44 +83,197 @@ msgid "Controls"
 msgstr "Έλεγχοι"
 
 msgid "Trade Flow"
-msgstr "Ροή Εμπορίου"
+msgstr "Ροή των εμπορικών συναλλαγών"
 
 msgid "Origin Country"
 msgstr "Χώρα Προέλευσης"
 
 msgid "Destination Country"
-msgstr "Χώρα προορισμού"
+msgstr "Χώρα Προορισμού"
 
-msgid "Product"
-msgstr "Προϊόν"
+msgid "Partner"
+msgstr "Εταίρος"
+
+msgid "What did"
+msgstr "Τι έκανε"
+
+msgid "Where did"
+msgstr "Πού πήγε"
+
+msgid "Who"
+msgstr "Ποιος"
+
+msgid "Which products are feasible for "
+msgstr "Ποια προϊόντα είναι εφικτό για"
 
 msgid "Year"
 msgstr "Έτος"
 
+msgid "year"
+msgstr "έτος"
+
 msgid "Start Year"
-msgstr "Έτος Έναρξης"
+msgstr "Έτος έναρξης"
 
 msgid "End Year"
-msgstr "Στο τέλος του έτους"
+msgstr "Τέλος Έτος"
 
 msgid "Year Interval"
-msgstr "Διάστημα Έτος"
+msgstr "Έτος Διάστημα"
 
 msgid "Build Visualization"
 msgstr "Κατασκευάστηκε Οπτικοποίηση"
 
-msgid "Download"
-msgstr "Λήψη"
-
 msgid "View as text"
-msgstr "Έκδοση κειμένου"
+msgstr "Προβολή ως κείμενο"
 
 msgid "View app"
 msgstr "Προβολή app"
 
+msgid "Gross"
+msgstr "Μικτό"
+
+msgid "Net"
+msgstr "Δίχτυ"
+
+msgid "Current"
+msgstr "Ρεύμα"
+
 msgid "Next"
-msgstr "Επόμενη"
+msgstr "Επόμενος"
 
 msgid "Previous"
-msgstr "Προηγούμενη"
+msgstr "Προηγούμενος"
+
+msgid "World Data"
+msgstr "Κόσμος Δεδομένων"
+
+msgid "Explore"
+msgstr "Εξερευνήστε"
+
+msgid "Rankings"
+msgstr "Κατάταξη"
+
+msgid "New Book"
+msgstr "Νέο βιβλίο"
+
+msgid "Glossary"
+msgstr "Γλωσσάριο"
+
+msgid "About"
+msgstr "Περίπου"
+
+msgid "Trade Data Visualization"
+msgstr "Οπτικοποίηση δεδομένων για εμπορική χρήση"
+
+msgid "Feedback"
+msgstr "Ανατροφοδότηση"
+
+msgid "Complexity Visualization"
+msgstr "Πολυπλοκότητα Οπτικοποίηση"
+
+msgid "Time Period"
+msgstr "Χρονική Περίοδος"
+
+msgid "Detail Level"
+msgstr "Λεπτομέρεια Επίπεδο"
+
+msgid "Color by"
+msgstr "Χρώμα από"
+
+msgid "All Products"
+msgstr "Όλα τα Προϊόντα"
+
+msgid "Legend"
+msgstr "Θρύλος"
+
+msgid "Low"
+msgstr "Χαμηλός"
+
+msgid "Mid"
+msgstr "Στα μέσα"
+
+msgid "Hi"
+msgstr "Γεια"
+
+msgid "Ordering"
+msgstr "Παραγγελία"
+
+msgid "Community"
+msgstr "Κοινότητα"
+
+msgid "Select a Country"
+msgstr "Επιλέξτε μια χώρα"
+
+msgid "Share"
+msgstr "Μετοχή"
+
+msgid "Highlight"
+msgstr "Αποκορύφωμα"
+
+msgid "Help"
+msgstr "Βοήθεια"
+
+msgid "Totals"
+msgstr "Σύνολα"
+
+msgid "Pattern"
+msgstr "Πρότυπο"
+
+msgid "Labels"
+msgstr "Ετικέτες"
+
+msgid "Y-Axis"
+msgstr "Άξονας Υ"
+
+msgid "Constant"
+msgstr "Συνεχής"
+
+msgid "Per Capita Current"
+msgstr "Κεφαλήν Τρέχουσα"
+
+msgid "Per Capita Constant"
+msgstr "Κεφαλήν Constant"
+
+msgid "Stacked Graph"
+msgstr "Στοιβάζονται Γράφημα"
+
+msgid "Value"
+msgstr "Τιμή"
+
+msgid "Hide exports"
+msgstr "Απόκρυψη εξαγωγές"
+
+msgid "Spotlight"
+msgstr "Καυτά νέα"
+
+msgid "Size by"
+msgstr "Μέγεθος από"
+
+msgid "World Trade"
+msgstr "Του Παγκόσμιου Οργανισμού Εμπορίου"
+
+msgid "Color scale"
+msgstr "Χρωματική κλίμακα"
+
+msgid "Category"
+msgstr "Κατηγορία"
+
+msgid "Growth"
+msgstr "Ανάπτυξη"
+
+msgid "Complexity"
+msgstr "Περίπλοκο"
+
+msgid "Download"
+msgstr "Λήψη"
+
+msgid "Economic Complexity"
+msgstr "Οικονομική Πολυπλοκότητα"
+
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "Καλώς ήρθατε στον Άτλαντα της Οικονομικής Πολυπλοκότητας. Hover πάνω από ένα στοιχείο για να δείτε την λειτουργία."
+
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "Ο Άτλας της οικονομικής πολυπλοκότητας είναι ένα ισχυρό διαδραστικό εργαλείο που επιτρέπει στους χρήστες να απεικονίσει συνολικών εμπορικών συναλλαγών μιας χώρας, να παρακολουθείτε το πώς αυτές οι δυναμικές αλλάζουν με την πάροδο του χρόνου και να διερευνηθούν οι δυνατότητες ανάπτυξης για περισσότερες από εκατό χώρες σε όλο τον κόσμο."
 

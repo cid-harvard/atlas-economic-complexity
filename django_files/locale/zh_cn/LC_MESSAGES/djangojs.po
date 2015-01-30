@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "距离"
+
+msgid "Year"
+msgstr "年"
+
+msgid "Share"
+msgstr "分享"
+
+msgid "Current"
+msgstr "当前"
+
+msgid "Per Capita Constant"
+msgstr "人均恒"
+
+msgid "Per Capita Current"
+msgstr "人均电流"
+
+msgid "Constant"
+msgstr "不变"
+
+msgid "World Trade"
+msgstr "世界贸易"
+
+msgid "Active"
+msgstr "积极"
+
+msgid "Opportunity Gain"
+msgstr "机会收益"
+
+msgid "All Products"
+msgstr "所有产品"
+
+msgid "All Countries"
+msgstr "所有国家"
+

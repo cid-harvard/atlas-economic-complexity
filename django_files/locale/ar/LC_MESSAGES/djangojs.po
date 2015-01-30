@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "بعد"
+
+msgid "Year"
+msgstr "عام"
+
+msgid "Share"
+msgstr "حصة"
+
+msgid "Current"
+msgstr "تيار"
+
+msgid "Per Capita Constant"
+msgstr "نصيب الفرد ثابت"
+
+msgid "Per Capita Current"
+msgstr "نصيب الفرد الحالي"
+
+msgid "Constant"
+msgstr "ثابت"
+
+msgid "World Trade"
+msgstr "التجارة العالمية"
+
+msgid "Active"
+msgstr "نشط"
+
+msgid "Opportunity Gain"
+msgstr "فرصة ربح"
+
+msgid "All Products"
+msgstr "جميع المنتجات"
+
+msgid "All Countries"
+msgstr "جميع البلدان"
+

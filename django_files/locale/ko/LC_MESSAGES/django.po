@@ -23,25 +23,31 @@ msgid "Import"
 msgstr "수입"
 
 msgid "Net Export"
-msgstr "당기 수출"
+msgstr "순수출"
 
 msgid "Net Import"
-msgstr "당기 가져오기"
+msgstr "인터넷 가져 오기"
 
 msgid "App Selection"
 msgstr "응용 프로그램 선택"
 
 msgid "Country"
-msgstr "나라"
+msgstr "국가"
 
 msgid "Country (show trade partners)"
 msgstr "국가 (쇼 무역 파트너)"
+
+msgid "Product"
+msgstr "생성물"
+
+msgid "Product Class"
+msgstr "제품 클래스"
 
 msgid "Products"
 msgstr "제품"
 
 msgid "Bilateral"
-msgstr "국가간 관계"
+msgstr "쌍 무적"
 
 msgid "Exports"
 msgstr "수출"
@@ -50,25 +56,25 @@ msgid "Imports"
 msgstr "수입"
 
 msgid "Net Exports"
-msgstr "당기 수출"
+msgstr "순수출"
 
 msgid "Net Imports"
-msgstr "당기 수입"
+msgstr "순 수입"
 
 msgid "Exports To Destination"
-msgstr "목적지까지 수출"
+msgstr "목적지에 수출"
 
 msgid "Imports From Origin"
-msgstr "유래부터 수입"
+msgstr "원산지에서 수입"
 
 msgid "Exports by Product"
-msgstr "제품별 수출"
+msgstr "제품 별 수출"
 
 msgid "Imports by Product"
-msgstr "제품별 수입"
+msgstr "제품 별 수입"
 
 msgid "Play"
-msgstr "재생"
+msgstr "놀이"
 
 msgid "Stop"
 msgstr "정지"
@@ -85,14 +91,29 @@ msgstr "원산지 국가"
 msgid "Destination Country"
 msgstr "대상 국가"
 
-msgid "Product"
-msgstr "제품"
+msgid "Partner"
+msgstr "파트너"
+
+msgid "What did"
+msgstr "무엇 않았다"
+
+msgid "Where did"
+msgstr "어디 한"
+
+msgid "Who"
+msgstr "누구"
+
+msgid "Which products are feasible for "
+msgstr "어떤 제품 가능하다"
 
 msgid "Year"
 msgstr "년"
 
+msgid "year"
+msgstr "년"
+
 msgid "Start Year"
-msgstr "년 시작"
+msgstr "시작 년도"
 
 msgid "End Year"
 msgstr "최종 년도"
@@ -101,20 +122,158 @@ msgid "Year Interval"
 msgstr "년 간격"
 
 msgid "Build Visualization"
-msgstr "시각화를 빌드"
+msgstr "시각화를 구축"
+
+msgid "View as text"
+msgstr "텍스트로보기"
+
+msgid "View app"
+msgstr "보기 응용 프로그램"
+
+msgid "Gross"
+msgstr "심한"
+
+msgid "Net"
+msgstr "그물"
+
+msgid "Current"
+msgstr "현재"
+
+msgid "Next"
+msgstr "다음에"
+
+msgid "Previous"
+msgstr "이전"
+
+msgid "World Data"
+msgstr "세계 데이터"
+
+msgid "Explore"
+msgstr "탐색"
+
+msgid "Rankings"
+msgstr "순위"
+
+msgid "New Book"
+msgstr "새 책"
+
+msgid "Glossary"
+msgstr "어휘"
+
+msgid "About"
+msgstr "약"
+
+msgid "Trade Data Visualization"
+msgstr "무역 데이터 시각화"
+
+msgid "Feedback"
+msgstr "피드백"
+
+msgid "Complexity Visualization"
+msgstr "복잡성 시각화"
+
+msgid "Time Period"
+msgstr "시간주기"
+
+msgid "Detail Level"
+msgstr "상세 수준"
+
+msgid "Color by"
+msgstr "별 컬러"
+
+msgid "All Products"
+msgstr "모든 제품"
+
+msgid "Legend"
+msgstr "전설"
+
+msgid "Low"
+msgstr "낮은"
+
+msgid "Mid"
+msgstr "중앙의"
+
+msgid "Hi"
+msgstr "안녕"
+
+msgid "Ordering"
+msgstr "주문"
+
+msgid "Community"
+msgstr "집단"
+
+msgid "Select a Country"
+msgstr "국가 선택"
+
+msgid "Share"
+msgstr "몫"
+
+msgid "Highlight"
+msgstr "하이라이트"
+
+msgid "Help"
+msgstr "도와주세요"
+
+msgid "Totals"
+msgstr "합계"
+
+msgid "Pattern"
+msgstr "무늬"
+
+msgid "Labels"
+msgstr "레이블"
+
+msgid "Y-Axis"
+msgstr "Y 축"
+
+msgid "Constant"
+msgstr "상수"
+
+msgid "Per Capita Current"
+msgstr "인당 현재"
+
+msgid "Per Capita Constant"
+msgstr "인당 상수"
+
+msgid "Stacked Graph"
+msgstr "누적 된 그래프"
+
+msgid "Value"
+msgstr "값"
+
+msgid "Hide exports"
+msgstr "숨기기 수출"
+
+msgid "Spotlight"
+msgstr "스포트라이트"
+
+msgid "Size by"
+msgstr "크기에 의하여"
+
+msgid "World Trade"
+msgstr "세계 무역"
+
+msgid "Color scale"
+msgstr "색상 규모"
+
+msgid "Category"
+msgstr "범주"
+
+msgid "Growth"
+msgstr "성장"
+
+msgid "Complexity"
+msgstr "복잡성"
 
 msgid "Download"
 msgstr "다운로드"
 
-msgid "View as text"
-msgstr "텍스트 버전"
+msgid "Economic Complexity"
+msgstr "경제 복잡성"
 
-msgid "View app"
-msgstr "응용 프로그램보기"
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "경제 복잡성 아틀라스에 오신 것을 환영합니다. 이 함수의 볼 요소 위로 마우스를."
 
-msgid "Next"
-msgstr "다음"
-
-msgid "Previous"
-msgstr "이전"
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "경제 복잡성의 아틀라스, 국가의 총 무역을 시각화 이러한 역학 전세계 백 개 이상의 국가에서 성장 기회를 시간에 따라 변화 탐구 방식을 추적 할 수있게하는 강력한 대화 형 도구입니다."
 

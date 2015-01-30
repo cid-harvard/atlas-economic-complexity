@@ -35,7 +35,13 @@ msgid "Country"
 msgstr "البلد"
 
 msgid "Country (show trade partners)"
-msgstr "البلد - عرض الشركاء التجاريين"
+msgstr "الدولة (شركاء المعرض التجاري)"
+
+msgid "Product"
+msgstr "نتاج"
+
+msgid "Product Class"
+msgstr "فئة المنتج"
 
 msgid "Products"
 msgstr "المنتجات"
@@ -44,10 +50,10 @@ msgid "Bilateral"
 msgstr "ثنائي"
 
 msgid "Exports"
-msgstr "الصادرات"
+msgstr "صادرات"
 
 msgid "Imports"
-msgstr "الواردات"
+msgstr "واردات"
 
 msgid "Net Exports"
 msgstr "صافي الصادرات"
@@ -56,7 +62,7 @@ msgid "Net Imports"
 msgstr "صافي الواردات"
 
 msgid "Exports To Destination"
-msgstr "الصادرات إلى المقصد"
+msgstr "الصادرات إلى الوجهة"
 
 msgid "Imports From Origin"
 msgstr "الواردات من المنشأ"
@@ -68,7 +74,7 @@ msgid "Imports by Product"
 msgstr "الواردات حسب المنتج"
 
 msgid "Play"
-msgstr "إبدأ"
+msgstr "لعب"
 
 msgid "Stop"
 msgstr "توقف"
@@ -83,38 +89,191 @@ msgid "Origin Country"
 msgstr "بلد المنشأ"
 
 msgid "Destination Country"
-msgstr "الوجهة"
+msgstr "بلد المقصد"
 
-msgid "Product"
-msgstr "المنتج"
+msgid "Partner"
+msgstr "شريك"
+
+msgid "What did"
+msgstr "ما فعله"
+
+msgid "Where did"
+msgstr "أين"
+
+msgid "Who"
+msgstr "الذي"
+
+msgid "Which products are feasible for "
+msgstr "المنتجات التي هي عمليا ل"
 
 msgid "Year"
-msgstr "السنة"
+msgstr "عام"
+
+msgid "year"
+msgstr "عام"
 
 msgid "Start Year"
-msgstr "السنة - البداية"
+msgstr "بداية السنة"
 
 msgid "End Year"
-msgstr "السنة - النهاية"
+msgstr "نهاية السنة"
 
 msgid "Year Interval"
-msgstr "الفاصل السنوي"
+msgstr "العام الفاصل"
 
 msgid "Build Visualization"
 msgstr "بناء التصور"
 
-msgid "Download"
-msgstr "تحميل"
-
 msgid "View as text"
-msgstr "نص الصيغة"
+msgstr "عرض كنص"
 
 msgid "View app"
-msgstr "رأي الوكالة"
+msgstr "مشاهدة التطبيق"
+
+msgid "Gross"
+msgstr "إجمالي"
+
+msgid "Net"
+msgstr "شبكة"
+
+msgid "Current"
+msgstr "تيار"
 
 msgid "Next"
-msgstr "التالي"
+msgstr "التالى"
 
 msgid "Previous"
 msgstr "سابق"
+
+msgid "World Data"
+msgstr "البيانات العالمية"
+
+msgid "Explore"
+msgstr "بحث"
+
+msgid "Rankings"
+msgstr "التصنيف العالمي"
+
+msgid "New Book"
+msgstr "كتاب جديد"
+
+msgid "Glossary"
+msgstr "قاموس مصطلحات"
+
+msgid "About"
+msgstr "حول"
+
+msgid "Trade Data Visualization"
+msgstr "التصور بيانات التجارة"
+
+msgid "Feedback"
+msgstr "ردود الفعل"
+
+msgid "Complexity Visualization"
+msgstr "تعقيد التصور"
+
+msgid "Time Period"
+msgstr "الفترة الزمنية"
+
+msgid "Detail Level"
+msgstr "مستوى التفاصيل"
+
+msgid "Color by"
+msgstr "اللون عن طريق"
+
+msgid "All Products"
+msgstr "جميع المنتجات"
+
+msgid "Legend"
+msgstr "أسطورة"
+
+msgid "Low"
+msgstr "منخفض"
+
+msgid "Mid"
+msgstr "منتصف"
+
+msgid "Hi"
+msgstr "مرحبا"
+
+msgid "Ordering"
+msgstr "تنظيم"
+
+msgid "Community"
+msgstr "مجتمع"
+
+msgid "Select a Country"
+msgstr "اختر البلد"
+
+msgid "Share"
+msgstr "حصة"
+
+msgid "Highlight"
+msgstr "تسليط الضوء"
+
+msgid "Help"
+msgstr "مساعدة"
+
+msgid "Totals"
+msgstr "المجاميع"
+
+msgid "Pattern"
+msgstr "نمط"
+
+msgid "Labels"
+msgstr "تسميات"
+
+msgid "Y-Axis"
+msgstr "Y-المحور"
+
+msgid "Constant"
+msgstr "ثابت"
+
+msgid "Per Capita Current"
+msgstr "نصيب الفرد الحالي"
+
+msgid "Per Capita Constant"
+msgstr "نصيب الفرد ثابت"
+
+msgid "Stacked Graph"
+msgstr "الرسم البياني مكدسة"
+
+msgid "Value"
+msgstr "قيمة"
+
+msgid "Hide exports"
+msgstr "إخفاء الصادرات"
+
+msgid "Spotlight"
+msgstr "ضوء كشاف"
+
+msgid "Size by"
+msgstr "حجم من قبل"
+
+msgid "World Trade"
+msgstr "التجارة العالمية"
+
+msgid "Color scale"
+msgstr "مقياس اللون"
+
+msgid "Category"
+msgstr "فئة"
+
+msgid "Growth"
+msgstr "نمو"
+
+msgid "Complexity"
+msgstr "تعقيد"
+
+msgid "Download"
+msgstr "تحميل"
+
+msgid "Economic Complexity"
+msgstr "التعقيد الاقتصادي"
+
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "مرحبا بكم في أطلس التعقيد الاقتصادية. تحوم فوق عنصر أن نرى أنه من وظيفة."
+
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "أطلس من التعقيد الاقتصادي هو أداة قوية تفاعلية تمكن المستخدمين من تصور إجمالي التجارة في بلد ما، وتتبع كيفية تغير هذه الديناميات مع مرور الوقت واستكشاف فرص النمو لأكثر من مائة دولة حول العالم."
 

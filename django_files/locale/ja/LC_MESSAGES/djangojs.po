@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "距離"
+
+msgid "Year"
+msgstr "年"
+
+msgid "Share"
+msgstr "シェア"
+
+msgid "Current"
+msgstr "現在"
+
+msgid "Per Capita Constant"
+msgstr "一人当たりの定数"
+
+msgid "Per Capita Current"
+msgstr "一人当たりの現在"
+
+msgid "Constant"
+msgstr "コンスタント"
+
+msgid "World Trade"
+msgstr "世界貿易"
+
+msgid "Active"
+msgstr "アクティブ"
+
+msgid "Opportunity Gain"
+msgstr "オポチュニティゲイン"
+
+msgid "All Products"
+msgstr "すべての製品"
+
+msgid "All Countries"
+msgstr "すべての国"
+

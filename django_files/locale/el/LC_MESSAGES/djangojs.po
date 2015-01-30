@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "Απόσταση"
+
+msgid "Year"
+msgstr "Έτος"
+
+msgid "Share"
+msgstr "Μετοχή"
+
+msgid "Current"
+msgstr "Ρεύμα"
+
+msgid "Per Capita Constant"
+msgstr "Κεφαλήν Constant"
+
+msgid "Per Capita Current"
+msgstr "Κεφαλήν Τρέχουσα"
+
+msgid "Constant"
+msgstr "Συνεχής"
+
+msgid "World Trade"
+msgstr "Του Παγκόσμιου Οργανισμού Εμπορίου"
+
+msgid "Active"
+msgstr "Ενεργός"
+
+msgid "Opportunity Gain"
+msgstr "Ευκαιρία Κέρδος"
+
+msgid "All Products"
+msgstr "Όλα τα Προϊόντα"
+
+msgid "All Countries"
+msgstr "Όλες οι χώρες"
+

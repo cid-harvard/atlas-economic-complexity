@@ -17,47 +17,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-msgid "World Data"
-msgstr "Monde"
+
 
 msgid "Export"
-msgstr "Exports"
+msgstr "Exportation"
 
 msgid "Import"
-msgstr "Imports"
+msgstr "Importation"
 
-msgid "Select a Country"
-msgstr "Sélectionnez un Pays"
+msgid "Net Export"
+msgstr "Export Net"
+
+msgid "Net Import"
+msgstr "Importer Net"
+
+msgid "App Selection"
+msgstr "Sélection App"
 
 msgid "Country"
 msgstr "Pays"
 
+msgid "Country (show trade partners)"
+msgstr "Pays (partenaires commerciaux spectacle)"
+
 msgid "Product"
 msgstr "Produit"
 
-msgid "Partner"
-msgstr "Partenaire"
+msgid "Product Class"
+msgstr "Classe de produit"
 
-msgid "Trade Data Visualization"
-msgstr "Visualization des Échanges"
-
-msgid "Complexity Visualization"
-msgstr "Visualization de la Complexité"
+msgid "Products"
+msgstr "Produits"
 
 msgid "Bilateral"
 msgstr "Bilatéral"
 
+msgid "Exports"
+msgstr "Exportations"
+
+msgid "Imports"
+msgstr "Importations"
+
 msgid "Net Exports"
-msgstr "Les exportations nettes"
+msgstr "Exportations nettes"
 
 msgid "Net Imports"
-msgstr "Les importations nettes"
+msgstr "Importations nettes"
 
 msgid "Exports To Destination"
 msgstr "Les exportations vers la destination"
 
 msgid "Imports From Origin"
-msgstr "Les importations d'origine"
+msgstr "Les importations d&#39;origine"
 
 msgid "Exports by Product"
 msgstr "Exportations par produit"
@@ -69,51 +80,76 @@ msgid "Play"
 msgstr "Jouer"
 
 msgid "Stop"
-msgstr "Stop"
+msgstr "Arrêtez"
 
 msgid "Controls"
 msgstr "Contrôles"
 
 msgid "Trade Flow"
-msgstr "Flux du commerce"
+msgstr "Trade Flow"
 
 msgid "Origin Country"
-msgstr "Pays d'origine"
+msgstr "Pays d&#39;origine"
 
 msgid "Destination Country"
 msgstr "Pays de destination"
 
+msgid "Partner"
+msgstr "Partenaire"
+
+msgid "What did"
+msgstr "Qu&#39;est-ce que"
+
+msgid "Where did"
+msgstr "Où avez-"
+
+msgid "Who"
+msgstr "Qui"
+
+msgid "Which products are feasible for "
+msgstr "Quels sont les produits faisable pour"
+
 msgid "Year"
 msgstr "Année"
 
+msgid "year"
+msgstr "année"
+
 msgid "Start Year"
-msgstr "année (début)"
+msgstr "Année de début"
 
 msgid "End Year"
-msgstr "année (fin)"
+msgstr "Fin de l&#39;année"
 
 msgid "Year Interval"
-msgstr "Intervalle Année"
+msgstr "Année Intervalle"
 
 msgid "Build Visualization"
-msgstr "Construire visualisation"
-
-msgid "Download"
-msgstr "Télécharger"
+msgstr "Construire Visualisation"
 
 msgid "View as text"
-msgstr "Version texte"
+msgstr "Voir sous forme de texte"
 
 msgid "View app"
-msgstr "Voir app"
+msgstr "Voir l&#39;application"
+
+msgid "Gross"
+msgstr "Brut"
+
+msgid "Net"
+msgstr "Net"
+
+msgid "Current"
+msgstr "Courant"
 
 msgid "Next"
-msgstr "Prochain"
+msgstr "Suivant"
 
 msgid "Previous"
 msgstr "Précédent"
 
-# Menu
+msgid "World Data"
+msgstr "World Data"
 
 msgid "Explore"
 msgstr "Explorer"
@@ -122,10 +158,125 @@ msgid "Rankings"
 msgstr "Classements"
 
 msgid "New Book"
-msgstr "Nouveau Livre"
+msgstr "Nouveau livre"
 
 msgid "Glossary"
 msgstr "Glossaire"
 
 msgid "About"
-msgstr "À Propos"
+msgstr "Sur"
+
+msgid "Trade Data Visualization"
+msgstr "Visualisation de données commerciales"
+
+msgid "Feedback"
+msgstr "Réaction"
+
+msgid "Complexity Visualization"
+msgstr "Complexité Visualisation"
+
+msgid "Time Period"
+msgstr "Période"
+
+msgid "Detail Level"
+msgstr "Niveau de détail"
+
+msgid "Color by"
+msgstr "Couleur par"
+
+msgid "All Products"
+msgstr "Tous les produits"
+
+msgid "Legend"
+msgstr "Légende"
+
+msgid "Low"
+msgstr "Faible"
+
+msgid "Mid"
+msgstr "Milieu"
+
+msgid "Hi"
+msgstr "Salut"
+
+msgid "Ordering"
+msgstr "Commande"
+
+msgid "Community"
+msgstr "Communauté"
+
+msgid "Select a Country"
+msgstr "Choisissez un Pays"
+
+msgid "Share"
+msgstr "Part"
+
+msgid "Highlight"
+msgstr "Surligner"
+
+msgid "Help"
+msgstr "Aidez-Moi"
+
+msgid "Totals"
+msgstr "Totaux"
+
+msgid "Pattern"
+msgstr "Motif"
+
+msgid "Labels"
+msgstr "Étiquettes"
+
+msgid "Y-Axis"
+msgstr "Y-Axis"
+
+msgid "Constant"
+msgstr "Constante"
+
+msgid "Per Capita Current"
+msgstr "Par habitant actuel"
+
+msgid "Per Capita Constant"
+msgstr "Par habitant Constant"
+
+msgid "Stacked Graph"
+msgstr "Graphique empilé"
+
+msgid "Value"
+msgstr "Valeur"
+
+msgid "Hide exports"
+msgstr "Masquer les exportations"
+
+msgid "Spotlight"
+msgstr "Lumière"
+
+msgid "Size by"
+msgstr "Taille par"
+
+msgid "World Trade"
+msgstr "Mondiale du commerce"
+
+msgid "Color scale"
+msgstr "échelle de couleur"
+
+msgid "Category"
+msgstr "Catégorie"
+
+msgid "Growth"
+msgstr "Croissance"
+
+msgid "Complexity"
+msgstr "Complexité"
+
+msgid "Download"
+msgstr "Télécharger"
+
+msgid "Economic Complexity"
+msgstr "Complexité économique"
+
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "Bienvenue à l&#39;Atlas de la complexité économique. Passez la souris sur un élément pour voir sa fonction."
+
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "L&#39;Atlas de la complexité économique est un outil interactif puissant qui permet aux utilisateurs de visualiser l&#39;ensemble des échanges d&#39;un pays, de déterminer comment ces dynamiques changent avec le temps et d&#39;explorer les opportunités de croissance pour plus d&#39;une centaine de pays à travers le monde."
+

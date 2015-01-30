@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "Mesafe"
+
+msgid "Year"
+msgstr "Yıl"
+
+msgid "Share"
+msgstr "Pay"
+
+msgid "Current"
+msgstr "Akım"
+
+msgid "Per Capita Constant"
+msgstr "Başına Sabit"
+
+msgid "Per Capita Current"
+msgstr "Başına Güncel"
+
+msgid "Constant"
+msgstr "Sabit"
+
+msgid "World Trade"
+msgstr "Dünya Ticaret"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Opportunity Gain"
+msgstr "Fırsat Kazanç"
+
+msgid "All Products"
+msgstr "Tüm Ürünler"
+
+msgid "All Countries"
+msgstr "Tüm Ülkeler"
+

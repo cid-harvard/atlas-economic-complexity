@@ -161,8 +161,9 @@ def explore(
 
     # Code for showing a static image or not
     static_image_name = helpers.url_to_hash(request.path, request.GET)
-    if os.path.exists(os.path.join(settings.STATIC_IMAGE_PATH,
-                                   static_image_name + ".png")):
+    if settings.STATIC_IMAGE and os.path.exists(
+        os.path.join(settings.STATIC_IMAGE_PATH,
+                     static_image_name + ".png")):
         displayviz = True
         displayImage = static_image_name + ".png"
     else:
@@ -184,19 +185,9 @@ def explore(
                     <a href='about/data/country/'>list of countries</a>.""" %
                     (country)}
 
-    # The years of data available tends to vary based on the dataset used (Hs4
-    # vs Sitc4) and the specific country.
-    years_available_model = Sitc4_cpy if prod_class == "sitc4" else Hs4_cpy
-    years_available = years_available_model.objects\
-        .values_list("year", flat=True)\
-        .order_by("year")\
-        .distinct()
-    # Sometimes the query is not about a specific country (e.g. "all countries"
-    # queries) in which case filtering by country is not necessary
-    if countries[0]:
-        years_available = years_available.filter(country=countries[0].id)
     # Force lazy queryset to hit the DB to reduce number of DB queries later
-    years_available = list(years_available)
+    years_available = list(helpers.get_years_available(prod_class=prod_class,
+                                                       country=countries[0]))
 
     if len(years_available) == 0:
         alert = {"title": """The product classification you're using (%s) does
@@ -331,17 +322,23 @@ def explore(
     if countries[0] and countries[0].name in list_countries_the:
         countries[0].name = "the "+countries[0].name
 
+    product_name = None
+    product_obj = None
     if product not in ("show", "all"):
-        p_code = product
-        product = helpers.get_product_by_code(p_code, prod_class)
+        product_obj = helpers.get_product_by_code(product, prod_class)
+        if product_obj is None:
+            alert = {
+                "title": "Product could not be found.",
+                "text": """There was no product with the code
+                <strong>%s</strong>. Please select a correct one from the
+                dropdown box.""" % (product)}
+        else:
+            product_name = product_obj.name_en
 
     if not alert:
 
         # Generate page title depending on visualization being used
         years = [year_start, year_end] if year_start is not None else [year]
-        product_name = product.name_en if not isinstance(
-            product,
-            basestring) else product
         country_names = [getattr(x, "name", None) for x in countries]
         title = helpers.get_title(app_type, app_name,
                                   country_names=country_names,
@@ -409,8 +406,8 @@ def explore(
          "country2": countries[1] or country2,
          "country1_3char": countries[0].name_3char if countries[0] else "",
          "country2_3char": countries[1].name_3char if countries[1] else "",
-         "product": product,
-         "product_code": product.code if not isinstance(product, basestring) else product,
+         "product": product_obj,
+         "product_code": product,
          "years_available": years_available,
          "year": year,
          "year_start": year_start,

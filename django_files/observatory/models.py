@@ -99,7 +99,8 @@ class Country_region(models.Model):
 class Country_manager(models.Manager):
 
     def filter_lang(self, lang):
-        return self.extra(select={"name": "name_"+lang})
+
+        return self.extra(select={"name" : "name_"+lang})
 
     def get_all(self, lang):
 

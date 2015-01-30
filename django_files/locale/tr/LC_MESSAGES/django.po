@@ -35,7 +35,13 @@ msgid "Country"
 msgstr "Ülke"
 
 msgid "Country (show trade partners)"
-msgstr "Ülke (gösterisi ticaret ortakları)"
+msgstr "Ülke (show ticaret ortakları)"
+
+msgid "Product"
+msgstr "Ürün"
+
+msgid "Product Class"
+msgstr "Ürün Sınıfı"
 
 msgid "Products"
 msgstr "Ürünler"
@@ -77,7 +83,7 @@ msgid "Controls"
 msgstr "Kontrolleri"
 
 msgid "Trade Flow"
-msgstr "Ticaret Akış"
+msgstr "Ticaret Akışı"
 
 msgid "Origin Country"
 msgstr "Menşe Ülke"
@@ -85,14 +91,29 @@ msgstr "Menşe Ülke"
 msgid "Destination Country"
 msgstr "Hedef Ülke"
 
-msgid "Product"
-msgstr "Ürün"
+msgid "Partner"
+msgstr "Ortak"
+
+msgid "What did"
+msgstr "Ne yaptım"
+
+msgid "Where did"
+msgstr "Nerede yaptım"
+
+msgid "Who"
+msgstr "Kim"
+
+msgid "Which products are feasible for "
+msgstr "Hangi ürünler için uygun olan"
 
 msgid "Year"
 msgstr "Yıl"
 
+msgid "year"
+msgstr "yıl"
+
 msgid "Start Year"
-msgstr "Başlama Yılı"
+msgstr "Başlangıç ​​Yılı"
 
 msgid "End Year"
 msgstr "Bitiş Yılı"
@@ -101,20 +122,158 @@ msgid "Year Interval"
 msgstr "Yıl Aralığı"
 
 msgid "Build Visualization"
-msgstr "Görselleştirme oluşturun"
-
-msgid "Download"
-msgstr "Indirin"
+msgstr "Görselleştirme inşa"
 
 msgid "View as text"
-msgstr "Text sürümü"
+msgstr "Metin olarak görüntüle"
 
 msgid "View app"
-msgstr "Profil app"
+msgstr "Görünüm uygulaması"
+
+msgid "Gross"
+msgstr "Brüt"
+
+msgid "Net"
+msgstr "Net"
+
+msgid "Current"
+msgstr "Akım"
 
 msgid "Next"
 msgstr "Sonraki"
 
 msgid "Previous"
 msgstr "Önceki"
+
+msgid "World Data"
+msgstr "Dünya Verileri"
+
+msgid "Explore"
+msgstr "Keşfetmek"
+
+msgid "Rankings"
+msgstr "Sıralamalar"
+
+msgid "New Book"
+msgstr "Yeni Kitap"
+
+msgid "Glossary"
+msgstr "Sözlük"
+
+msgid "About"
+msgstr "Hakkında"
+
+msgid "Trade Data Visualization"
+msgstr "Ticaret Veri Görselleştirme"
+
+msgid "Feedback"
+msgstr "Geribesleme"
+
+msgid "Complexity Visualization"
+msgstr "Karmaşıklık Görselleştirme"
+
+msgid "Time Period"
+msgstr "Zaman Dönemi"
+
+msgid "Detail Level"
+msgstr "Detay Seviyesi"
+
+msgid "Color by"
+msgstr "Göre Renk"
+
+msgid "All Products"
+msgstr "Tüm Ürünler"
+
+msgid "Legend"
+msgstr "Efsane"
+
+msgid "Low"
+msgstr "Düşük"
+
+msgid "Mid"
+msgstr "Orta"
+
+msgid "Hi"
+msgstr "Selam"
+
+msgid "Ordering"
+msgstr "Sipariş"
+
+msgid "Community"
+msgstr "Topluluk"
+
+msgid "Select a Country"
+msgstr "Bir Ülke Seçin"
+
+msgid "Share"
+msgstr "Pay"
+
+msgid "Highlight"
+msgstr "Vurgu"
+
+msgid "Help"
+msgstr "Yardım"
+
+msgid "Totals"
+msgstr "Toplamları"
+
+msgid "Pattern"
+msgstr "Model"
+
+msgid "Labels"
+msgstr "Etiketler"
+
+msgid "Y-Axis"
+msgstr "Y-Ekseni"
+
+msgid "Constant"
+msgstr "Sabit"
+
+msgid "Per Capita Current"
+msgstr "Başına Güncel"
+
+msgid "Per Capita Constant"
+msgstr "Başına Sabit"
+
+msgid "Stacked Graph"
+msgstr "Yığılmış Grafik"
+
+msgid "Value"
+msgstr "Değer"
+
+msgid "Hide exports"
+msgstr "Gizle ihracatı"
+
+msgid "Spotlight"
+msgstr "Spot"
+
+msgid "Size by"
+msgstr "Tarafından Boyutu"
+
+msgid "World Trade"
+msgstr "Dünya Ticaret"
+
+msgid "Color scale"
+msgstr "Renk skalası"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Growth"
+msgstr "Büyüme"
+
+msgid "Complexity"
+msgstr "Karmaşa"
+
+msgid "Download"
+msgstr "İndir"
+
+msgid "Economic Complexity"
+msgstr "Ekonomik Karmaşıklık"
+
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "Ekonomik Karmaşıklık Atlası hoş geldiniz. Işlev olduğunu görmek için bir öğenin üzerine gelin."
+
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "Ekonomik karmaşıklık Atlas, bir ülkenin toplam ticaret görselleştirmek bu dinamikler dünyada yüzden fazla ülke için büyüme fırsatları zamanla değişir ve keşfetmek nasıl izlemek için kullanıcıların sağlayan güçlü interaktif bir araçtır."
 

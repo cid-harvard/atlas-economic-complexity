@@ -37,6 +37,12 @@ msgstr "Land"
 msgid "Country (show trade partners)"
 msgstr "Land (toon handelspartners)"
 
+msgid "Product"
+msgstr "Product"
+
+msgid "Product Class"
+msgstr "Product klasse"
+
 msgid "Products"
 msgstr "Producten"
 
@@ -56,7 +62,7 @@ msgid "Net Imports"
 msgstr "Netto-invoer"
 
 msgid "Exports To Destination"
-msgstr "De export naar bestemming"
+msgstr "De export naar Bestemming"
 
 msgid "Imports From Origin"
 msgstr "Invoer uit Origin"
@@ -71,50 +77,203 @@ msgid "Play"
 msgstr "Spelen"
 
 msgid "Stop"
-msgstr "Stop"
+msgstr "Stoppen"
 
 msgid "Controls"
-msgstr "Controls"
+msgstr "Controles"
 
 msgid "Trade Flow"
 msgstr "Trade Flow"
 
 msgid "Origin Country"
-msgstr "Land van Herkomst"
+msgstr "Herkomst Land"
 
 msgid "Destination Country"
-msgstr "Bestemming Land"
+msgstr "Land Van Bestemming"
 
-msgid "Product"
-msgstr "Product"
+msgid "Partner"
+msgstr "Partner"
+
+msgid "What did"
+msgstr "Wat deed"
+
+msgid "Where did"
+msgstr "Waar deed"
+
+msgid "Who"
+msgstr "Wie"
+
+msgid "Which products are feasible for "
+msgstr "Welke producten zijn haalbaar voor"
 
 msgid "Year"
 msgstr "Jaar"
 
+msgid "year"
+msgstr "jaar"
+
 msgid "Start Year"
-msgstr "Jaar (start)"
+msgstr "Start Jaar"
 
 msgid "End Year"
-msgstr "Jaar (einde)"
+msgstr "Einde Jaar"
 
 msgid "Year Interval"
 msgstr "Jaar Interval"
 
 msgid "Build Visualization"
-msgstr "Build Visualisatie"
-
-msgid "Download"
-msgstr "Download"
+msgstr "Bouwen Visualisatie"
 
 msgid "View as text"
-msgstr "Tekst versie"
+msgstr "Bekijk als tekst"
 
 msgid "View app"
 msgstr "Bekijk app"
+
+msgid "Gross"
+msgstr "Bruto"
+
+msgid "Net"
+msgstr "Netto"
+
+msgid "Current"
+msgstr "Stroom"
 
 msgid "Next"
 msgstr "Volgende"
 
 msgid "Previous"
 msgstr "Vorig"
+
+msgid "World Data"
+msgstr "Wereld Gegevens"
+
+msgid "Explore"
+msgstr "Onderzoeken"
+
+msgid "Rankings"
+msgstr "Rankings"
+
+msgid "New Book"
+msgstr "Nieuw boek"
+
+msgid "Glossary"
+msgstr "Woordenlijst"
+
+msgid "About"
+msgstr "Over"
+
+msgid "Trade Data Visualization"
+msgstr "Handel Data Visualization"
+
+msgid "Feedback"
+msgstr "Terugkoppeling"
+
+msgid "Complexity Visualization"
+msgstr "Complexiteit Visualisatie"
+
+msgid "Time Period"
+msgstr "Tijdsperiode"
+
+msgid "Detail Level"
+msgstr "Detail Niveau"
+
+msgid "Color by"
+msgstr "Kleur door"
+
+msgid "All Products"
+msgstr "Alle producten"
+
+msgid "Legend"
+msgstr "Legende"
+
+msgid "Low"
+msgstr "Laag"
+
+msgid "Mid"
+msgstr "Midden"
+
+msgid "Hi"
+msgstr "Hi"
+
+msgid "Ordering"
+msgstr "Bestellen"
+
+msgid "Community"
+msgstr "Gemeenschap"
+
+msgid "Select a Country"
+msgstr "Selecteer een land"
+
+msgid "Share"
+msgstr "Aandeel"
+
+msgid "Highlight"
+msgstr "Hoogtepunt"
+
+msgid "Help"
+msgstr "Helpen"
+
+msgid "Totals"
+msgstr "Totalen"
+
+msgid "Pattern"
+msgstr "Patroon"
+
+msgid "Labels"
+msgstr "Labels"
+
+msgid "Y-Axis"
+msgstr "Y-as"
+
+msgid "Constant"
+msgstr "Constante"
+
+msgid "Per Capita Current"
+msgstr "Per capita Actueel"
+
+msgid "Per Capita Constant"
+msgstr "Per capita Constant"
+
+msgid "Stacked Graph"
+msgstr "Gestapelde grafiek"
+
+msgid "Value"
+msgstr "Waarde"
+
+msgid "Hide exports"
+msgstr "Export verbergen"
+
+msgid "Spotlight"
+msgstr "Schijnwerpers"
+
+msgid "Size by"
+msgstr "Grootte door"
+
+msgid "World Trade"
+msgstr "World Trade"
+
+msgid "Color scale"
+msgstr "Kleurenschaal"
+
+msgid "Category"
+msgstr "Categorie"
+
+msgid "Growth"
+msgstr "Groei"
+
+msgid "Complexity"
+msgstr "Ingewikkeldheid"
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Economic Complexity"
+msgstr "Economische Complexiteit"
+
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "Welkom bij de Atlas of Economic Complexity. Zweven over een element om te zien dat het de functie."
+
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "De Atlas van Economische complexiteit is een krachtige interactieve tool die gebruikers in staat stelt om te visualiseren de totale handel van een land, bij te houden hoe deze dynamiek veranderen in de tijd en ontdek groeimogelijkheden voor meer dan honderd landen wereldwijd."
 

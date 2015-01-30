@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "거리"
+
+msgid "Year"
+msgstr "년"
+
+msgid "Share"
+msgstr "몫"
+
+msgid "Current"
+msgstr "현재"
+
+msgid "Per Capita Constant"
+msgstr "인당 상수"
+
+msgid "Per Capita Current"
+msgstr "인당 현재"
+
+msgid "Constant"
+msgstr "상수"
+
+msgid "World Trade"
+msgstr "세계 무역"
+
+msgid "Active"
+msgstr "활동적인"
+
+msgid "Opportunity Gain"
+msgstr "기회 이득"
+
+msgid "All Products"
+msgstr "모든 제품"
+
+msgid "All Countries"
+msgstr "모든 국가"
+
