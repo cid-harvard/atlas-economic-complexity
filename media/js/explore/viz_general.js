@@ -586,28 +586,28 @@ var flat_data,
 
     switch(words) {
      case 'pc_constant':
-       return "Per Capita Constant"
+       return gettext("Per Capita Constant")
        break;
      case 'year':
-       return "Year"
+       return gettext("Year")
        break;
      case 'pc_current':
-       return "Per Capita Current"
+       return gettext("Per Capita Current")
        break;
      case 'notpc_constant':
-       return "Constant"
+       return gettext("Constant")
        break;
      case 'value':
-       return "Current"
+       return gettext("Current")
        break;
      case 'distance':
-       return "Distance"
+       return gettext("Distance")
        break;
      case 'share':
-       return "Share"
+       return gettext("Share")
        break;
      case 'complexity':
-       return "Complexity"
+       return gettext("Complexity")
        break;
      case 'rca':
        return 'RCA'
@@ -616,13 +616,13 @@ var flat_data,
        return "Code"
        break;
      case 'world_trade':
-       return "World Trade"
+       return gettext("World Trade")
        break;
      case 'active':
-       return "Active"
+       return gettext("Active")
        break;
      case 'opp_gain':
-       return "Opportunity Gain"
+       return gettext("Opportunity Gain")
        break;
      default:
        return words

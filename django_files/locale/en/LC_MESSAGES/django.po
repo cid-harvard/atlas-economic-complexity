@@ -46,9 +46,6 @@ msgstr "Bilateral"
 msgid "Imports"
 msgstr "Imports"
 
-msgid "Net Export"
-msgstr "Net Export"
-
 msgid "Net Imports"
 msgstr "Net Imports"
 

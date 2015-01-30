@@ -18,9 +18,9 @@ $(document).ready(function(){
         for(var i = 0; i < data.length; i++){
             $(product_dropdowns.join(", ")).append($('<option/>').val(data[i][1]).text(data[i][0]));
         }
-
+        var trans_text =  gettext("All Products");   
         var product_options = {
-            placeholder:"All Products",
+            placeholder: trans_text,
             allowClear: true,
         };
 
@@ -58,9 +58,9 @@ $(document).ready(function(){
         function format_country_dropdown(country){
             return "<img class='flag' src='media/img/icons/flag_" + country.id + ".png' width='20%'/> " + country.text;
         }
-
+        var trans_text = gettext("All Countries");
         var country_options = {
-            placeholder:"All Countries",
+            placeholder: trans_text,
             formatResult: format_country_dropdown,
             formatSelection: format_country_dropdown,
             allowClear: true,
