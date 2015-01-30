@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "Расстояние"
+
+msgid "Year"
+msgstr "Год"
+
+msgid "Share"
+msgstr "Доля"
+
+msgid "Current"
+msgstr "Ток"
+
+msgid "Per Capita Constant"
+msgstr "На душу населения Постоянное"
+
+msgid "Per Capita Current"
+msgstr "На душу населения Текущий"
+
+msgid "Constant"
+msgstr "Постоянная"
+
+msgid "World Trade"
+msgstr "Мировая торговля"
+
+msgid "Active"
+msgstr "Активный"
+
+msgid "Opportunity Gain"
+msgstr "Возможность усиления"
+
+msgid "All Products"
+msgstr "Все продукты"
+
+msgid "All Countries"
+msgstr "Все страны"
+

@@ -1,21 +1,3 @@
-# Observatory website translations from english to spanish
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <simoes@mit.edu>, 2012.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-13 11:44-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: hi\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
 msgid "Export"
 msgstr "निर्यात"
 
@@ -29,13 +11,19 @@ msgid "Net Import"
 msgstr "नेट आयात"
 
 msgid "App Selection"
-msgstr "App चयन"
+msgstr "अनुप्रयोग चयन"
 
 msgid "Country"
-msgstr "देश"
+msgstr "कंट्री"
 
 msgid "Country (show trade partners)"
-msgstr "देश (शो व्यापार भागीदारों)"
+msgstr "देश (शो व्यापार भागीदार)"
+
+msgid "Product"
+msgstr "उत्पाद"
+
+msgid "Product Class"
+msgstr "उत्पाद वर्ग"
 
 msgid "Products"
 msgstr "उत्पाद"
@@ -44,16 +32,16 @@ msgid "Bilateral"
 msgstr "द्विपक्षीय"
 
 msgid "Exports"
-msgstr "निर्यात"
+msgstr "एक्सपोर्ट्स"
 
 msgid "Imports"
 msgstr "आयात"
 
 msgid "Net Exports"
-msgstr "नेट निर्यात"
+msgstr "शुद्ध निर्यात"
 
 msgid "Net Imports"
-msgstr "नेट आयात"
+msgstr "शुद्ध आयात"
 
 msgid "Exports To Destination"
 msgstr "गंतव्य के लिए निर्यात"
@@ -62,13 +50,13 @@ msgid "Imports From Origin"
 msgstr "मूल से आयात"
 
 msgid "Exports by Product"
-msgstr "उत्पाद द्वारा निर्यात"
+msgstr "उत्पाद द्वारा एक्सपोर्ट्स"
 
 msgid "Imports by Product"
 msgstr "उत्पाद द्वारा आयात"
 
 msgid "Play"
-msgstr "खेल"
+msgstr "प्ले"
 
 msgid "Stop"
 msgstr "रोक"
@@ -77,7 +65,7 @@ msgid "Controls"
 msgstr "नियंत्रण"
 
 msgid "Trade Flow"
-msgstr "व्यापार प्रवाह"
+msgstr "व्यापार फ्लो"
 
 msgid "Origin Country"
 msgstr "मूल देश"
@@ -85,11 +73,26 @@ msgstr "मूल देश"
 msgid "Destination Country"
 msgstr "गंतव्य देश"
 
-msgid "Product"
-msgstr "उत्पाद"
+msgid "Partner"
+msgstr "पाटनर"
+
+msgid "What did"
+msgstr "क्या किया"
+
+msgid "Where did"
+msgstr "कहां किया"
+
+msgid "Who"
+msgstr "किसने"
+
+msgid "Which products are feasible for "
+msgstr "कौन से उत्पादों के लिए संभव है"
 
 msgid "Year"
-msgstr "वर्ष"
+msgstr "साल"
+
+msgid "year"
+msgstr "साल"
 
 msgid "Start Year"
 msgstr "प्रारंभ वर्ष"
@@ -98,23 +101,161 @@ msgid "End Year"
 msgstr "समाप्ति वर्ष"
 
 msgid "Year Interval"
-msgstr "वर्ष अंतराल"
+msgstr "वर्ष के अंतराल"
 
 msgid "Build Visualization"
-msgstr "विज़ुअलाइज़ेशन बनाएँ"
+msgstr "दृश्य बनाएँ"
+
+msgid "View as text"
+msgstr "पाठ के रूप में देखें"
+
+msgid "View app"
+msgstr "देखें एप्लिकेशन"
+
+msgid "Gross"
+msgstr "सकल"
+
+msgid "Net"
+msgstr "जाल"
+
+msgid "Current"
+msgstr "वर्तमान"
+
+msgid "Next"
+msgstr "अगली"
+
+msgid "Previous"
+msgstr "प्रीवियस"
+
+msgid "World Data"
+msgstr "दुनिया डेटा"
+
+msgid "Explore"
+msgstr "अन्वेषण"
+
+msgid "Rankings"
+msgstr "रैंकिंग"
+
+msgid "New Book"
+msgstr "नई किताब"
+
+msgid "Glossary"
+msgstr "शब्दकोष"
+
+msgid "About"
+msgstr "तकरीबन"
+
+msgid "Trade Data Visualization"
+msgstr "ट्रेड डेटा विज़ुअलाइज़ेशन"
+
+msgid "Feedback"
+msgstr "प्रतिक्रिया"
+
+msgid "Complexity Visualization"
+msgstr "जटिलता विज़ुअलाइज़ेशन"
+
+msgid "Time Period"
+msgstr "समय अवधि"
+
+msgid "Detail Level"
+msgstr "विवरण स्तर"
+
+msgid "Color by"
+msgstr "रंग"
+
+msgid "All Products"
+msgstr "सभी उत्पाद"
+
+msgid "Legend"
+msgstr "किंवदंती"
+
+msgid "Low"
+msgstr "कम"
+
+msgid "Mid"
+msgstr "मध्य"
+
+msgid "Hi"
+msgstr "हाय"
+
+msgid "Ordering"
+msgstr "आदेश"
+
+msgid "Community"
+msgstr "समुदाय"
+
+msgid "Select a Country"
+msgstr "कोई देश चुनें"
+
+msgid "Share"
+msgstr "शेयर"
+
+msgid "Highlight"
+msgstr "हाइलाइट"
+
+msgid "Help"
+msgstr "सहायता"
+
+msgid "Totals"
+msgstr "योग"
+
+msgid "Pattern"
+msgstr "पैटर्न"
+
+msgid "Labels"
+msgstr "लेबल"
+
+msgid "Y-Axis"
+msgstr "शाफ़्ट"
+
+msgid "Constant"
+msgstr "लगातार"
+
+msgid "Per Capita Current"
+msgstr "प्रति व्यक्ति करंट"
+
+msgid "Per Capita Constant"
+msgstr "प्रति व्यक्ति लगातार"
+
+msgid "Stacked Graph"
+msgstr "स्टैक्ड ग्राफ"
+
+msgid "Value"
+msgstr "मूल्य"
+
+msgid "Hide exports"
+msgstr "छुपाएं निर्यात"
+
+msgid "Spotlight"
+msgstr "स्पॉटलाइट"
+
+msgid "Size by"
+msgstr "द्वारा आकार"
+
+msgid "World Trade"
+msgstr "वर्ल्ड ट्रेड"
+
+msgid "Color scale"
+msgstr "रंग पैमाने"
+
+msgid "Category"
+msgstr "श्रेणी"
+
+msgid "Growth"
+msgstr "विकास"
+
+msgid "Complexity"
+msgstr "जटिलता"
 
 msgid "Download"
 msgstr "डाउनलोड"
 
-msgid "View as text"
-msgstr "पाठ संस्करण"
+msgid "Economic Complexity"
+msgstr "आर्थिक जटिलता"
 
-msgid "View app"
-msgstr "देखें अनुप्रयोग"
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "आर्थिक जटिलता का एटलस में आपका स्वागत है। यह समारोह को देखने के लिए एक तत्व पर होवर करें।"
 
-msgid "Next"
-msgstr "अगला"
-
-msgid "Previous"
-msgstr "पिछला"
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "आर्थिक जटिलता का एटलस, एक देश के कुल व्यापार कल्पना इन गतिशीलता दुनिया भर में एक सौ से अधिक देशों के लिए विकास के अवसर समय के साथ बदल सकते हैं और पता लगाने के कैसे ट्रैक करने के लिए उपयोगकर्ताओं को सक्षम बनाता है एक शक्तिशाली इंटरैक्टिव उपकरण है।"
 

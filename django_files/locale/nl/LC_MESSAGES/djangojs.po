@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "Afstand"
+
+msgid "Year"
+msgstr "Jaar"
+
+msgid "Share"
+msgstr "Aandeel"
+
+msgid "Current"
+msgstr "Stroom"
+
+msgid "Per Capita Constant"
+msgstr "Per capita Constant"
+
+msgid "Per Capita Current"
+msgstr "Per capita Actueel"
+
+msgid "Constant"
+msgstr "Constante"
+
+msgid "World Trade"
+msgstr "World Trade"
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "Opportunity Gain"
+msgstr "Gelegenheid Gain"
+
+msgid "All Products"
+msgstr "Alle producten"
+
+msgid "All Countries"
+msgstr "Alle Landen"
+

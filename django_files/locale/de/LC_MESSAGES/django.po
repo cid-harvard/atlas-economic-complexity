@@ -18,13 +18,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 
 msgid "Export"
-msgstr "Exporte"
+msgstr "Export"
 
 msgid "Import"
-msgstr "Importe"
+msgstr "Import"
 
 msgid "Net Export"
-msgstr "Netto Export"
+msgstr "Net Export"
 
 msgid "Net Import"
 msgstr "Net Import"
@@ -36,7 +36,13 @@ msgid "Country"
 msgstr "Land"
 
 msgid "Country (show trade partners)"
-msgstr "Land (Karte Handelspartner)"
+msgstr "Land (show Handelspartner)"
+
+msgid "Product"
+msgstr "Produkt"
+
+msgid "Product Class"
+msgstr "Produktklasse"
 
 msgid "Products"
 msgstr "Produkte"
@@ -54,67 +60,221 @@ msgid "Net Exports"
 msgstr "Nettoexporte"
 
 msgid "Net Imports"
-msgstr "Nettoeinfuhren"
+msgstr "Net Importe"
 
 msgid "Exports To Destination"
-msgstr "Exporte nach Zielland"
+msgstr "Exporte nach Reiseziel"
 
 msgid "Imports From Origin"
-msgstr "Importe aus Ursprungsland"
+msgstr "Die Einfuhr von Origin"
 
 msgid "Exports by Product"
-msgstr "Exporte nach Gütergruppen"
+msgstr "Die Exporte nach Produkt"
 
 msgid "Imports by Product"
-msgstr "Importe nach Gütergruppen"
+msgstr "Importe nach Produkt"
 
 msgid "Play"
-msgstr "Abspielen"
+msgstr "Spielen"
 
 msgid "Stop"
-msgstr "Stop"
+msgstr "Stopp"
 
 msgid "Controls"
-msgstr "Einstellungen"
+msgstr "Steuerung"
 
 msgid "Trade Flow"
-msgstr "Handelsströme"
+msgstr "Umweltsysteme"
 
 msgid "Origin Country"
-msgstr "Ursprungsland"
+msgstr "Herkunftsland"
 
 msgid "Destination Country"
 msgstr "Zielland"
 
-msgid "Product"
-msgstr "Produkt"
+msgid "Partner"
+msgstr "Partner"
+
+msgid "What did"
+msgstr "Was hat"
+
+msgid "Where did"
+msgstr "Wo haben"
+
+msgid "Who"
+msgstr "Die"
+
+msgid "Which products are feasible for "
+msgstr "Welche Produkte sind denkbar,"
 
 msgid "Year"
 msgstr "Jahr"
 
+msgid "year"
+msgstr "Jahr"
+
 msgid "Start Year"
-msgstr "Anfangsjahr"
+msgstr "Beginn Jahr"
 
 msgid "End Year"
-msgstr "Endjahr"
+msgstr "Ende Jahr"
 
 msgid "Year Interval"
 msgstr "Jahres-Intervall"
 
 msgid "Build Visualization"
-msgstr "Visualisierung aktualisieren"
+msgstr "Baue Visualisierung"
+
+msgid "View as text"
+msgstr "Als Text"
+
+msgid "View app"
+msgstr "Ansicht App"
+
+msgid "Gross"
+msgstr "Brutto"
+
+msgid "Net"
+msgstr "Netto-"
+
+msgid "Current"
+msgstr "Strom"
+
+msgid "Next"
+msgstr "Nächster"
+
+msgid "Previous"
+msgstr "Früher"
+
+msgid "World Data"
+msgstr "World Data"
+
+msgid "Explore"
+msgstr "Erkunden"
+
+msgid "Rankings"
+msgstr "Rankings"
+
+msgid "New Book"
+msgstr "Neues Buch"
+
+msgid "Glossary"
+msgstr "Glossar"
+
+msgid "About"
+msgstr "Über"
+
+msgid "Trade Data Visualization"
+msgstr "Fachdatenvisualisierung"
+
+msgid "Feedback"
+msgstr "Rückkopplung"
+
+msgid "Complexity Visualization"
+msgstr "Komplexität Visualisierung"
+
+msgid "Time Period"
+msgstr "Zeitraum"
+
+msgid "Detail Level"
+msgstr "Detailebene"
+
+msgid "Color by"
+msgstr "Farbe durch"
+
+msgid "All Products"
+msgstr "Alle Artikel"
+
+msgid "Legend"
+msgstr "Legende"
+
+msgid "Low"
+msgstr "Niedrig"
+
+msgid "Mid"
+msgstr "Mittel-"
+
+msgid "Hi"
+msgstr "Hallo"
+
+msgid "Ordering"
+msgstr "Bestellung"
+
+msgid "Community"
+msgstr "Gemeinde"
+
+msgid "Select a Country"
+msgstr "Wählen Sie ein Land"
+
+msgid "Share"
+msgstr "Aktie"
+
+msgid "Highlight"
+msgstr "Höhepunkt"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "Totals"
+msgstr "Totals"
+
+msgid "Pattern"
+msgstr "Muster"
+
+msgid "Labels"
+msgstr "Labels"
+
+msgid "Y-Axis"
+msgstr "Y-Achse"
+
+msgid "Constant"
+msgstr "Konstante"
+
+msgid "Per Capita Current"
+msgstr "Pro-Kopf-Strom"
+
+msgid "Per Capita Constant"
+msgstr "Pro-Kopf-Konstante"
+
+msgid "Stacked Graph"
+msgstr "Gestapelte Grafik"
+
+msgid "Value"
+msgstr "Wert"
+
+msgid "Hide exports"
+msgstr "Exporte ausblenden"
+
+msgid "Spotlight"
+msgstr "Scheinwerfer"
+
+msgid "Size by"
+msgstr "Größe von"
+
+msgid "World Trade"
+msgstr "World Trade"
+
+msgid "Color scale"
+msgstr "Farbskala"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Growth"
+msgstr "Wachstum"
+
+msgid "Complexity"
+msgstr "Komplexität"
 
 msgid "Download"
 msgstr "Herunterladen"
 
-msgid "View as text"
-msgstr "Textversion"
+msgid "Economic Complexity"
+msgstr "Wirtschafts Komplexität"
 
-msgid "View app"
-msgstr "App anzeigen"
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "Willkommen im Atlas der Komplexität. Zeigen Sie auf ein Element, um zu sehen, es ist Funktion."
 
-msgid "Next"
-msgstr "Nächste"
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "Der Atlas der Komplexität ist ein leistungsstarkes interaktives Tool, das es Benutzern ermöglicht, Gesamthandel eines Landes zu visualisieren, zu verfolgen, wie diese Dynamik zu ändern im Laufe der Zeit und erkunden Wachstumschancen für mehr als hundert Ländern weltweit."
 
-msgid "Previous"
-msgstr "Vorherige"

@@ -35,7 +35,13 @@ msgid "Country"
 msgstr "国家"
 
 msgid "Country (show trade partners)"
-msgstr "国家（秀的贸易伙伴）"
+msgstr "国家（秀贸易伙伴）"
+
+msgid "Product"
+msgstr "产品"
+
+msgid "Product Class"
+msgstr "产品类别"
 
 msgid "Products"
 msgstr "产品"
@@ -59,13 +65,13 @@ msgid "Exports To Destination"
 msgstr "出口目的地"
 
 msgid "Imports From Origin"
-msgstr "从原产地进口"
+msgstr "进口原产地"
 
 msgid "Exports by Product"
-msgstr "产品出口"
+msgstr "出口产品"
 
 msgid "Imports by Product"
-msgstr "产品进口"
+msgstr "进口产品"
 
 msgid "Play"
 msgstr "玩"
@@ -77,7 +83,7 @@ msgid "Controls"
 msgstr "控制"
 
 msgid "Trade Flow"
-msgstr "贸易流量"
+msgstr "贸易流"
 
 msgid "Origin Country"
 msgstr "原产地"
@@ -85,36 +91,189 @@ msgstr "原产地"
 msgid "Destination Country"
 msgstr "目的地国家"
 
-msgid "Product"
-msgstr "产品"
+msgid "Partner"
+msgstr "伙伴"
+
+msgid "What did"
+msgstr "做什么"
+
+msgid "Where did"
+msgstr "在哪里做"
+
+msgid "Who"
+msgstr "谁"
+
+msgid "Which products are feasible for "
+msgstr "哪些产品是可行的"
 
 msgid "Year"
+msgstr "年"
+
+msgid "year"
 msgstr "年"
 
 msgid "Start Year"
 msgstr "开始年份"
 
 msgid "End Year"
-msgstr "年底前完成"
+msgstr "结束年份"
 
 msgid "Year Interval"
-msgstr "今年区间"
+msgstr "间隔一年"
 
 msgid "Build Visualization"
-msgstr "建立可视化"
-
-msgid "Download"
-msgstr "下载"
+msgstr "构建可视化"
 
 msgid "View as text"
-msgstr "文字版"
+msgstr "查看文本"
 
 msgid "View app"
 msgstr "查看应用程序"
 
+msgid "Gross"
+msgstr "毛"
+
+msgid "Net"
+msgstr "净"
+
+msgid "Current"
+msgstr "当前"
+
 msgid "Next"
-msgstr "未来"
+msgstr "下一个"
 
 msgid "Previous"
 msgstr "前"
+
+msgid "World Data"
+msgstr "世界数据"
+
+msgid "Explore"
+msgstr "探索"
+
+msgid "Rankings"
+msgstr "排行榜"
+
+msgid "New Book"
+msgstr "新书"
+
+msgid "Glossary"
+msgstr "词汇表"
+
+msgid "About"
+msgstr "大约"
+
+msgid "Trade Data Visualization"
+msgstr "贸易数据可视化"
+
+msgid "Feedback"
+msgstr "信息反馈"
+
+msgid "Complexity Visualization"
+msgstr "复杂的可视化"
+
+msgid "Time Period"
+msgstr "时间段"
+
+msgid "Detail Level"
+msgstr "详细程度"
+
+msgid "Color by"
+msgstr "通过色彩"
+
+msgid "All Products"
+msgstr "所有产品"
+
+msgid "Legend"
+msgstr "传说"
+
+msgid "Low"
+msgstr "低"
+
+msgid "Mid"
+msgstr "中"
+
+msgid "Hi"
+msgstr "你好"
+
+msgid "Ordering"
+msgstr "订购"
+
+msgid "Community"
+msgstr "社区"
+
+msgid "Select a Country"
+msgstr "选择一个国家"
+
+msgid "Share"
+msgstr "分享"
+
+msgid "Highlight"
+msgstr "突出"
+
+msgid "Help"
+msgstr "救命"
+
+msgid "Totals"
+msgstr "总计"
+
+msgid "Pattern"
+msgstr "模式"
+
+msgid "Labels"
+msgstr "标签"
+
+msgid "Y-Axis"
+msgstr "Y轴"
+
+msgid "Constant"
+msgstr "不变"
+
+msgid "Per Capita Current"
+msgstr "人均电流"
+
+msgid "Per Capita Constant"
+msgstr "人均恒"
+
+msgid "Stacked Graph"
+msgstr "叠图"
+
+msgid "Value"
+msgstr "值"
+
+msgid "Hide exports"
+msgstr "隐藏出口"
+
+msgid "Spotlight"
+msgstr "聚光灯"
+
+msgid "Size by"
+msgstr "大小"
+
+msgid "World Trade"
+msgstr "世界贸易"
+
+msgid "Color scale"
+msgstr "色阶"
+
+msgid "Category"
+msgstr "类别"
+
+msgid "Growth"
+msgstr "发展"
+
+msgid "Complexity"
+msgstr "复杂性"
+
+msgid "Download"
+msgstr "下载"
+
+msgid "Economic Complexity"
+msgstr "经济的复杂性"
+
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "欢迎光临经济复杂性的地图集。将鼠标悬停在一个元素上看到它的功能。"
+
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "经济复杂性的Atlas是一个强大的互动工具，使用户可以看到一个国家的贸易总额，如何跟踪一段时间内超过了一百多个国家和地区，这些动态变化，并探索发展机会。"
 

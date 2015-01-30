@@ -16,6 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+
+
+
 msgid "Export"
 msgstr "יצוא"
 
@@ -29,19 +32,25 @@ msgid "Net Import"
 msgstr "יבוא נטו"
 
 msgid "App Selection"
-msgstr "בחירת אפליקציה"
+msgstr "אפליקציה בחירה"
 
 msgid "Country"
 msgstr "מדינה"
 
 msgid "Country (show trade partners)"
-msgstr "(מדינה (הצג שותפות למסחר"
+msgstr "מדינה (שותפות סחר תכנית)"
+
+msgid "Product"
+msgstr "מוצר"
+
+msgid "Product Class"
+msgstr "מחלקת מוצר"
 
 msgid "Products"
 msgstr "מוצרים"
 
 msgid "Bilateral"
-msgstr "דו צדדי"
+msgstr "הדו-צדדי"
 
 msgid "Exports"
 msgstr "יצוא"
@@ -68,53 +77,206 @@ msgid "Imports by Product"
 msgstr "יבוא לפי מוצרים"
 
 msgid "Play"
-msgstr "נגן"
+msgstr "שחק"
 
 msgid "Stop"
-msgstr "עצור"
+msgstr "להפסיק"
 
 msgid "Controls"
-msgstr "בקרה"
+msgstr "בקרות"
 
 msgid "Trade Flow"
-msgstr "כיוון"
+msgstr "תערוכות Flow"
 
 msgid "Origin Country"
-msgstr "מדינת מקור"
+msgstr "מדינה מקור"
 
 msgid "Destination Country"
-msgstr "מדינת יעד"
+msgstr "מדינה יעד"
 
-msgid "Product"
-msgstr "מוצר"
+msgid "Partner"
+msgstr "פרטנר"
+
+msgid "What did"
+msgstr "מה עשה"
+
+msgid "Where did"
+msgstr "איפה עשה"
+
+msgid "Who"
+msgstr "מי"
+
+msgid "Which products are feasible for "
+msgstr "אילו מוצרים ריאלי עבור"
 
 msgid "Year"
 msgstr "שנה"
 
+msgid "year"
+msgstr "שנה"
+
 msgid "Start Year"
-msgstr "שנת התחלה"
+msgstr "התחל שנה"
 
 msgid "End Year"
-msgstr "שנת סיום"
+msgstr "סוף השנה"
 
 msgid "Year Interval"
-msgstr "מרווח"
+msgstr "השנה Interval"
 
 msgid "Build Visualization"
-msgstr "הצג"
-
-msgid "Download"
-msgstr "הורד"
+msgstr "לבנות ויזואליזציה"
 
 msgid "View as text"
-msgstr "גרסת טקסט"
+msgstr "צפה כבטקסט"
 
 msgid "View app"
-msgstr "גרסת איור"
+msgstr "צפה באפליקציה"
+
+msgid "Gross"
+msgstr "גרוס"
+
+msgid "Net"
+msgstr "Net"
+
+msgid "Current"
+msgstr "נוכחי"
 
 msgid "Next"
 msgstr "הבא"
 
 msgid "Previous"
 msgstr "קודם"
+
+msgid "World Data"
+msgstr "עולם נתונים"
+
+msgid "Explore"
+msgstr "סייר"
+
+msgid "Rankings"
+msgstr "דירוג"
+
+msgid "New Book"
+msgstr "ספר חדש"
+
+msgid "Glossary"
+msgstr "מילון מונחים"
+
+msgid "About"
+msgstr "אודות"
+
+msgid "Trade Data Visualization"
+msgstr "ויזואליזציה תערוכות נתונים"
+
+msgid "Feedback"
+msgstr "משוב"
+
+msgid "Complexity Visualization"
+msgstr "ויזואליזציה מורכבות"
+
+msgid "Time Period"
+msgstr "תקופת זמן"
+
+msgid "Detail Level"
+msgstr "רמת פירוט"
+
+msgid "Color by"
+msgstr "צבע על ידי"
+
+msgid "All Products"
+msgstr "כל המוצרים"
+
+msgid "Legend"
+msgstr "אגדה"
+
+msgid "Low"
+msgstr "נמוך"
+
+msgid "Mid"
+msgstr "אמצע"
+
+msgid "Hi"
+msgstr "היי"
+
+msgid "Ordering"
+msgstr "הזמנה"
+
+msgid "Community"
+msgstr "קהילה"
+
+msgid "Select a Country"
+msgstr "בחר מדינה"
+
+msgid "Share"
+msgstr "שתף"
+
+msgid "Highlight"
+msgstr "גולת כותרת"
+
+msgid "Help"
+msgstr "עזרה"
+
+msgid "Totals"
+msgstr "סיכומים"
+
+msgid "Pattern"
+msgstr "דפוס"
+
+msgid "Labels"
+msgstr "תוויות"
+
+msgid "Y-Axis"
+msgstr "Y-ציר"
+
+msgid "Constant"
+msgstr "קבוע"
+
+msgid "Per Capita Current"
+msgstr "לנפש נוכחית"
+
+msgid "Per Capita Constant"
+msgstr "קבוע לנפש"
+
+msgid "Stacked Graph"
+msgstr "גרף מוערם"
+
+msgid "Value"
+msgstr "ערך"
+
+msgid "Hide exports"
+msgstr "יצוא הסתר"
+
+msgid "Spotlight"
+msgstr "זרקור"
+
+msgid "Size by"
+msgstr "גודל על ידי"
+
+msgid "World Trade"
+msgstr "סחר עולמי"
+
+msgid "Color scale"
+msgstr "סולם צבעים"
+
+msgid "Category"
+msgstr "קטגוריה"
+
+msgid "Growth"
+msgstr "צמיחה"
+
+msgid "Complexity"
+msgstr "מורכבות"
+
+msgid "Download"
+msgstr "הורדה"
+
+msgid "Economic Complexity"
+msgstr "מורכבות כלכליות"
+
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "ברוכים הבאים לאטלס כלכלי מורכבות. העבר את העכבר על אלמנט כדי לראות שזה פונקציה."
+
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "האטלס של מורכבות כלכליות הוא כלי אינטראקטיבי רב עוצמה המאפשר למשתמשים לדמיין סחר הכולל של מדינה, לעקוב אחר הדינמיקה אלה משתנות עם הזמן ולבחון הזדמנויות צמיחה ליותר ממאה מדינות ברחבי העולם."
 

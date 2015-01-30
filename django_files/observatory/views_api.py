@@ -56,7 +56,7 @@ def calculate_rca(items, trade_flow="export"):
 @cache_control(max_age=settings.CACHE_VERY_SHORT)
 def api_casy(request, trade_flow, country1, year):
     """<COUNTRY> / all / show / <YEAR>"""
-
+    print "casy"
     # Get session / request vars
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
@@ -148,6 +148,7 @@ def api_casy(request, trade_flow, country1, year):
 @cache_control(max_age=settings.CACHE_VERY_SHORT)
 def api_sapy(request, trade_flow, product, year):
     """show / all / <product> / <year>"""
+    print "sapy"
 
     # Get session / request vars
     prod_class = request.GET.get("prod_class",
@@ -229,7 +230,7 @@ def api_sapy(request, trade_flow, product, year):
 @cache_control(max_age=settings.CACHE_VERY_SHORT)
 def api_csay(request, trade_flow, country1, year):
     """<COUNTRY> / show / all / <YEAR>"""
-
+    print "csay"
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
@@ -283,7 +284,8 @@ def api_csay(request, trade_flow, country1, year):
         complete_query = str(items.query) + \
             " group by `year`, `destination_id`" + \
             " HAVING sum(%s) > 0" % val
-
+        print "csay"
+	print complete_query
         cursor.execute(complete_query)
         rows = cursor.fetchall()
         total_val = sum([r[0] for r in rows])
@@ -340,6 +342,7 @@ def api_csay(request, trade_flow, country1, year):
 def api_ccsy(request, trade_flow, country1, country2, year):
 
     # Get session / request vars
+    print "ccsy"
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))
@@ -434,6 +437,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
 def api_cspy(request, trade_flow, country1, product, year):
     """ country / show / product / year """
 
+    print "cspy"
     prod_class = request.GET.get("prod_class",
                                  request.session.get('product_classification',
                                                      'hs4'))

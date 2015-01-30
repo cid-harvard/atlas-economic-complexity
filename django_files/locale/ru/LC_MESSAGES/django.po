@@ -20,7 +20,7 @@ msgid "Export"
 msgstr "Экспорт"
 
 msgid "Import"
-msgstr "Импортировать"
+msgstr "Импорт"
 
 msgid "Net Export"
 msgstr "Чистый экспорт"
@@ -35,7 +35,13 @@ msgid "Country"
 msgstr "Страна"
 
 msgid "Country (show trade partners)"
-msgstr "Страны (участники выставки)"
+msgstr "Страна (показать торговыми партнерами)"
+
+msgid "Product"
+msgstr "Продукт"
+
+msgid "Product Class"
+msgstr "Продукт класса"
 
 msgid "Products"
 msgstr "Продукция"
@@ -56,10 +62,10 @@ msgid "Net Imports"
 msgstr "Чистый импорт"
 
 msgid "Exports To Destination"
-msgstr "Экспорт назначения"
+msgstr "Экспорт по назначению"
 
 msgid "Imports From Origin"
-msgstr "Импорт из стран происхождения"
+msgstr "Импорт из Происхождение"
 
 msgid "Exports by Product"
 msgstr "Экспорт по продукту"
@@ -77,7 +83,7 @@ msgid "Controls"
 msgstr "Управления"
 
 msgid "Trade Flow"
-msgstr "Торговых потоков"
+msgstr "Торговый поток"
 
 msgid "Origin Country"
 msgstr "Страна происхождения"
@@ -85,36 +91,189 @@ msgstr "Страна происхождения"
 msgid "Destination Country"
 msgstr "Страна назначения"
 
-msgid "Product"
-msgstr "Продукт"
+msgid "Partner"
+msgstr "Партнер"
+
+msgid "What did"
+msgstr "Что сделал"
+
+msgid "Where did"
+msgstr "Откуда"
+
+msgid "Who"
+msgstr "Кто"
+
+msgid "Which products are feasible for "
+msgstr "Какие продукты являются выполнимыми для"
 
 msgid "Year"
 msgstr "Год"
 
+msgid "year"
+msgstr "год"
+
 msgid "Start Year"
-msgstr "Начало года"
+msgstr "Год начала"
 
 msgid "End Year"
-msgstr "К концу года"
+msgstr "Год окончания"
 
 msgid "Year Interval"
-msgstr "Летнего перерыва"
+msgstr "Год Интервал"
 
 msgid "Build Visualization"
-msgstr "Δημιουργία"
-
-msgid "Download"
-msgstr "Скачать"
+msgstr "Создание Визуализация"
 
 msgid "View as text"
-msgstr "Текстовая версия"
+msgstr "Просмотр в виде текста"
 
 msgid "View app"
-msgstr "Просмотр приложений"
+msgstr "Посмотреть приложение"
+
+msgid "Gross"
+msgstr "Валовой"
+
+msgid "Net"
+msgstr "Чистый"
+
+msgid "Current"
+msgstr "Ток"
 
 msgid "Next"
 msgstr "Следующий"
 
 msgid "Previous"
 msgstr "Предыдущий"
+
+msgid "World Data"
+msgstr "Всемирные данные"
+
+msgid "Explore"
+msgstr "Исследовать"
+
+msgid "Rankings"
+msgstr "Рейтинг"
+
+msgid "New Book"
+msgstr "Новая книга"
+
+msgid "Glossary"
+msgstr "Глоссарий"
+
+msgid "About"
+msgstr "О"
+
+msgid "Trade Data Visualization"
+msgstr "Визуализация торговых данных"
+
+msgid "Feedback"
+msgstr "Обратная связь"
+
+msgid "Complexity Visualization"
+msgstr "Сложность Визуализация"
+
+msgid "Time Period"
+msgstr "Период"
+
+msgid "Detail Level"
+msgstr "Уровень детализации"
+
+msgid "Color by"
+msgstr "Цвет по"
+
+msgid "All Products"
+msgstr "Все продукты"
+
+msgid "Legend"
+msgstr "Легенда"
+
+msgid "Low"
+msgstr "Низкий"
+
+msgid "Mid"
+msgstr "В середине"
+
+msgid "Hi"
+msgstr "Привет"
+
+msgid "Ordering"
+msgstr "Заказ"
+
+msgid "Community"
+msgstr "Сообщество"
+
+msgid "Select a Country"
+msgstr "Выберите страну"
+
+msgid "Share"
+msgstr "Доля"
+
+msgid "Highlight"
+msgstr "Основной момент"
+
+msgid "Help"
+msgstr "Помогите"
+
+msgid "Totals"
+msgstr "Общие данные"
+
+msgid "Pattern"
+msgstr "Шаблон"
+
+msgid "Labels"
+msgstr "Этикетки"
+
+msgid "Y-Axis"
+msgstr "Y-Axis"
+
+msgid "Constant"
+msgstr "Постоянная"
+
+msgid "Per Capita Current"
+msgstr "На душу населения Текущий"
+
+msgid "Per Capita Constant"
+msgstr "На душу населения Постоянное"
+
+msgid "Stacked Graph"
+msgstr "С накоплением График"
+
+msgid "Value"
+msgstr "Значение"
+
+msgid "Hide exports"
+msgstr "Скрыть экспорт"
+
+msgid "Spotlight"
+msgstr "Прожектор"
+
+msgid "Size by"
+msgstr "Площадь по"
+
+msgid "World Trade"
+msgstr "Мировая торговля"
+
+msgid "Color scale"
+msgstr "Цветовая гамма"
+
+msgid "Category"
+msgstr "Категория"
+
+msgid "Growth"
+msgstr "Рост"
+
+msgid "Complexity"
+msgstr "Сложность"
+
+msgid "Download"
+msgstr "Скачать"
+
+msgid "Economic Complexity"
+msgstr "Экономическая Сложность"
+
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "Добро пожаловать в Атлас экономического сложности. Наведите указатель мыши на элемент, чтобы увидеть его функция."
+
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "Атлас экономического сложности мощный интерактивный инструмент, который позволяет пользователям визуализировать общего объема торговли страны, отслеживать, как меняются эти динамики во времени и изучить возможности для роста более чем ста странах по всему миру."
 

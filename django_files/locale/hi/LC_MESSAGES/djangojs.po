@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "दूरी"
+
+msgid "Year"
+msgstr "साल"
+
+msgid "Share"
+msgstr "शेयर"
+
+msgid "Current"
+msgstr "वर्तमान"
+
+msgid "Per Capita Constant"
+msgstr "प्रति व्यक्ति लगातार"
+
+msgid "Per Capita Current"
+msgstr "प्रति व्यक्ति करंट"
+
+msgid "Constant"
+msgstr "लगातार"
+
+msgid "World Trade"
+msgstr "वर्ल्ड ट्रेड"
+
+msgid "Active"
+msgstr "सक्रिय"
+
+msgid "Opportunity Gain"
+msgstr "अवसर का लाभ"
+
+msgid "All Products"
+msgstr "सभी उत्पाद"
+
+msgid "All Countries"
+msgstr "सभी देश"
+

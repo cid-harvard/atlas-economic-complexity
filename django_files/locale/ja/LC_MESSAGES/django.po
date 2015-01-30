@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 msgid "Export"
-msgstr "エクスポート"
+msgstr "輸出"
 
 msgid "Import"
 msgstr "インポート"
@@ -29,16 +29,22 @@ msgid "Net Import"
 msgstr "純輸入"
 
 msgid "App Selection"
-msgstr "アプリケーションの選択"
+msgstr "アプリセレクション"
 
 msgid "Country"
-msgstr "国"
+msgstr "カントリー"
 
 msgid "Country (show trade partners)"
-msgstr "国（貿易相手国を表示する）"
+msgstr "カントリー（ショーの貿易パートナー）"
+
+msgid "Product"
+msgstr "製品"
+
+msgid "Product Class"
+msgstr "製品クラス"
 
 msgid "Products"
-msgstr "製品"
+msgstr "プロダクト"
 
 msgid "Bilateral"
 msgstr "二国間"
@@ -56,16 +62,16 @@ msgid "Net Imports"
 msgstr "純輸入"
 
 msgid "Exports To Destination"
-msgstr "デスティネーションへの輸出"
+msgstr "目的地への輸出"
 
 msgid "Imports From Origin"
-msgstr "原産地からの輸入"
+msgstr "原点からの輸入"
 
 msgid "Exports by Product"
-msgstr "製品別輸出"
+msgstr "製品の輸出"
 
 msgid "Imports by Product"
-msgstr "製品別の輸入"
+msgstr "製品別輸入"
 
 msgid "Play"
 msgstr "遊ぶ"
@@ -77,22 +83,37 @@ msgid "Controls"
 msgstr "コントロール"
 
 msgid "Trade Flow"
-msgstr "貿易の流れ"
+msgstr "展覧会の流れ"
 
 msgid "Origin Country"
-msgstr "起源国"
+msgstr "原産国"
 
 msgid "Destination Country"
 msgstr "目的国"
 
-msgid "Product"
-msgstr "製品"
+msgid "Partner"
+msgstr "パートナー"
+
+msgid "What did"
+msgstr "何やった"
+
+msgid "Where did"
+msgstr "どこでやった"
+
+msgid "Who"
+msgstr "誰"
+
+msgid "Which products are feasible for "
+msgstr "どの製品のための実現可能である"
 
 msgid "Year"
 msgstr "年"
 
+msgid "year"
+msgstr "年"
+
 msgid "Start Year"
-msgstr "年開始"
+msgstr "開始年"
 
 msgid "End Year"
 msgstr "終了年"
@@ -101,20 +122,158 @@ msgid "Year Interval"
 msgstr "年間隔"
 
 msgid "Build Visualization"
-msgstr "可視化を構築"
+msgstr "可視化を構築する"
+
+msgid "View as text"
+msgstr "テキストとして表示"
+
+msgid "View app"
+msgstr "ビューアプリ"
+
+msgid "Gross"
+msgstr "グロス"
+
+msgid "Net"
+msgstr "ネット"
+
+msgid "Current"
+msgstr "現在"
+
+msgid "Next"
+msgstr "次"
+
+msgid "Previous"
+msgstr "前"
+
+msgid "World Data"
+msgstr "世界資料"
+
+msgid "Explore"
+msgstr "探る"
+
+msgid "Rankings"
+msgstr "ランキング"
+
+msgid "New Book"
+msgstr "新刊"
+
+msgid "Glossary"
+msgstr "用語集"
+
+msgid "About"
+msgstr "約"
+
+msgid "Trade Data Visualization"
+msgstr "展覧データの可視化"
+
+msgid "Feedback"
+msgstr "フィードバック"
+
+msgid "Complexity Visualization"
+msgstr "複雑性の可視化"
+
+msgid "Time Period"
+msgstr "期間"
+
+msgid "Detail Level"
+msgstr "詳細レベル"
+
+msgid "Color by"
+msgstr "色で"
+
+msgid "All Products"
+msgstr "すべての製品"
+
+msgid "Legend"
+msgstr "伝説"
+
+msgid "Low"
+msgstr "ロー"
+
+msgid "Mid"
+msgstr "ミッド"
+
+msgid "Hi"
+msgstr "ハイ"
+
+msgid "Ordering"
+msgstr "発注"
+
+msgid "Community"
+msgstr "コミュニティ"
+
+msgid "Select a Country"
+msgstr "国を選択"
+
+msgid "Share"
+msgstr "シェア"
+
+msgid "Highlight"
+msgstr "ハイライト"
+
+msgid "Help"
+msgstr "助けて"
+
+msgid "Totals"
+msgstr "合計"
+
+msgid "Pattern"
+msgstr "パターン"
+
+msgid "Labels"
+msgstr "ラベル"
+
+msgid "Y-Axis"
+msgstr "Y軸"
+
+msgid "Constant"
+msgstr "コンスタント"
+
+msgid "Per Capita Current"
+msgstr "一人当たりの現在"
+
+msgid "Per Capita Constant"
+msgstr "一人当たりの定数"
+
+msgid "Stacked Graph"
+msgstr "積み上げグラフ"
+
+msgid "Value"
+msgstr "値"
+
+msgid "Hide exports"
+msgstr "輸出を非表示にする"
+
+msgid "Spotlight"
+msgstr "スポットライト"
+
+msgid "Size by"
+msgstr "サイズによって"
+
+msgid "World Trade"
+msgstr "世界貿易"
+
+msgid "Color scale"
+msgstr "カラースケール"
+
+msgid "Category"
+msgstr "カテゴリ"
+
+msgid "Growth"
+msgstr "成長"
+
+msgid "Complexity"
+msgstr "複雑"
 
 msgid "Download"
 msgstr "ダウンロード"
 
-msgid "View as text"
-msgstr "テキスト版"
+msgid "Economic Complexity"
+msgstr "経済の複雑"
 
-msgid "View app"
-msgstr "ビューのアプリ"
+msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
+msgstr "経済複雑のアトラスへようこそ。それは、関数の参照する要素の上にマウスを移動。"
 
-msgid "Next"
-msgstr "次の"
-
-msgid "Previous"
-msgstr "前"
+msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
+msgstr "経済の複雑さのアトラスは、同国の貿易総額を視覚化時間をかけてこれらのダイナミクスがどのように変化するかを追跡し、全世界で100カ国の成長機会を探るために、ユーザーを可能にする強力な対話型ツールです。"
 

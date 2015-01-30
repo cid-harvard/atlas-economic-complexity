@@ -1,0 +1,36 @@
+msgid "Distance"
+msgstr "מרחק"
+
+msgid "Year"
+msgstr "שנה"
+
+msgid "Share"
+msgstr "שתף"
+
+msgid "Current"
+msgstr "נוכחי"
+
+msgid "Per Capita Constant"
+msgstr "קבוע לנפש"
+
+msgid "Per Capita Current"
+msgstr "לנפש נוכחית"
+
+msgid "Constant"
+msgstr "קבוע"
+
+msgid "World Trade"
+msgstr "סחר עולמי"
+
+msgid "Active"
+msgstr "פעיל"
+
+msgid "Opportunity Gain"
+msgstr "הזדמנות רווח"
+
+msgid "All Products"
+msgstr "כל המוצרים"
+
+msgid "All Countries"
+msgstr "כל המדינות"
+
