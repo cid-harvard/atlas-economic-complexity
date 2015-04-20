@@ -182,7 +182,7 @@ class Country(models.Model):
 class Cy(models.Model):
 
     class Meta:
-        db_table = DB_PREFIX+"observatory_cy"
+        db_table = DB_PREFIX+"observatory_sitc4_cy"
 
     country = models.ForeignKey(Country)
     year = models.PositiveSmallIntegerField(max_length=4)
