@@ -10,8 +10,8 @@ from django.conf import settings
 
 def index(request, category="country", year=settings.YEAR_MAX_HS4):
     year = int(year)
-    min_year = int(settings.YEAR_MIN_HS4)
-    max_year = int(settings.YEAR_MAX_HS4) if category == "country" else int(settings.YEAR_MAX_SITC)
+    min_year = settings.YEAR_MIN_HS4
+    max_year = settings.YEAR_MAX_HS4 if category == "country" else settings.YEAR_MAX_SITC4
     if year < min_year:
         return redirect('/rankings/%s/%d/' % (category, max_year))
     elif year > max_year:
@@ -33,8 +33,8 @@ def index(request, category="country", year=settings.YEAR_MAX_HS4):
 def download(request, category="country", year=None):
     import csv
 
-    min_year = int(settings.YEAR_MIN_HS4)
-    max_year = settings.YEAR_MAX_HS4 if category == "country" else settings.YEAR_MAX_SITC
+    min_year = settings.YEAR_MIN_HS4
+    max_year = settings.YEAR_MAX_HS4 if category == "country" else settings.YEAR_MAX_SITC4
 
     if category == "country":
         header_row = ["rank", "abbrv", "country", "eci_value", "delta", "year"]
