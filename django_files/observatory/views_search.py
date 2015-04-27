@@ -97,7 +97,7 @@ def extract_years(input_str):
     else:
         years = results[0].groups()
         for year in years:
-            if not (1995 <= int(year) <= 2013):
+            if not (settings.YEAR_MIN_HS4 <= int(year) <= settings.YEAR_MAX_HS4):
                 return None, None
         return results[0].span(), [int(y) for y in years]
 
@@ -352,9 +352,9 @@ def api_search(request):
         # If no years specified, use default years
         if years is None:
             if app_name == "stacked":
-                years = [1995, 2012]
+                years = [settings.YEAR_MIN_HS4, settings.YEAR_MAX_HS4]
             else:
-                years = [2012]
+                years = [settings.YEAR_MAX_HS4]
 
         # You can't show a product space based on imports so ignore those
         if app_name == "product_space" and data["trade_flow"] == "import":
