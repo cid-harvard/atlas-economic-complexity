@@ -442,7 +442,7 @@ def explore_random(request):
                                               random_country,
                                               'all',
                                               'show',
-                                              2012
+                                              settings.YEAR_MAX_HS4
                                               )))
 
 
