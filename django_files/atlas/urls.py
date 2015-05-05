@@ -1,12 +1,16 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView, RedirectView
-
+from django.views.i18n import javascript_catalog
 
 class TextPlainView(TemplateView):
   def render_to_response(self, context, **kwargs):
     return super(TextPlainView, self).render_to_response(
       context, content_type='text/plain', **kwargs)
 
+## List apps which shd hv js internationalization
+js_info_dict = {
+	'packages': ('observatory',)
+}
 
 urlpatterns = patterns('',
 
@@ -17,6 +21,7 @@ urlpatterns = patterns('',
   # internationalization ######################################################
   (r'^i18n/', include('django.conf.urls.i18n')),
   (r'^set_language/(?P<lang>[a-z-]{2,5})/$', 'observatory.views.set_language'),
+  (r'^jsi18n/$', 'django.views.i18n.javascript_catalog' ,js_info_dict), 
 
   # product classification ####################################################
   (r'^set_product_classification/(?P<prod_class>[a-z0-9]{3,5})/$', 'observatory.views.set_product_classification'),

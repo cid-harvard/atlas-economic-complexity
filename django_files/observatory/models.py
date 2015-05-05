@@ -99,7 +99,8 @@ class Country_region(models.Model):
 class Country_manager(models.Manager):
 
     def filter_lang(self, lang):
-        return self.extra(select={"name": "name_"+lang})
+
+        return self.extra(select={"name" : "name_"+lang})
 
     def get_all(self, lang):
 
@@ -181,7 +182,7 @@ class Country(models.Model):
 class Cy(models.Model):
 
     class Meta:
-        db_table = DB_PREFIX+"observatory_cy"
+        db_table = DB_PREFIX+"observatory_sitc4_cy"
 
     country = models.ForeignKey(Country)
     year = models.PositiveSmallIntegerField(max_length=4)

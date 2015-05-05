@@ -16,6 +16,9 @@ class PrerenderMiddleware(object):
 
     def process_request(self, request):
 
+        if not settings.STATIC_IMAGE:
+            return None
+
         # See if prerender is needed
         bot_crawl = request.GET.get('_escaped_fragment_', None)
         if not bot_crawl:
@@ -29,6 +32,9 @@ class PrerenderMiddleware(object):
         return None
 
     def process_response(self, request, response):
+
+        if not settings.STATIC_IMAGE:
+            return response
 
         # If this is not an explore page, no need to prerender
         if request.resolver_match and ("observatory.views.explore"

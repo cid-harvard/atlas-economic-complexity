@@ -5,13 +5,13 @@ from django.template import RequestContext
 from observatory.models import Cy, Hs4_py
 
 from operator import itemgetter
+from django.conf import settings
 
 
-def index(request, category="country", year=2012):
+def index(request, category="country", year=settings.YEAR_MAX_HS4):
     year = int(year)
-
-    min_year = 1995
-    max_year = 2012 if category == "country" else 2012
+    min_year = settings.YEAR_MIN_HS4
+    max_year = settings.YEAR_MAX_HS4 if category == "country" else settings.YEAR_MAX_SITC4
     if year < min_year:
         return redirect('/rankings/%s/%d/' % (category, max_year))
     elif year > max_year:
@@ -33,8 +33,8 @@ def index(request, category="country", year=2012):
 def download(request, category="country", year=None):
     import csv
 
-    min_year = 1995
-    max_year = 2012 if category == "country" else 2012
+    min_year = settings.YEAR_MIN_HS4
+    max_year = settings.YEAR_MAX_HS4 if category == "country" else settings.YEAR_MAX_SITC4
 
     if category == "country":
         header_row = ["rank", "abbrv", "country", "eci_value", "delta", "year"]

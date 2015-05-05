@@ -115,6 +115,9 @@ CACHE_VERY_LONG = 60*60*24*7  # 1 week
 
 COMPRESS_DEBUG_TOGGLE = "no_compress"
 
+# Use localization
+USE_L10N = True
+
 try:
   from settings_local import *
 except ImportError:
