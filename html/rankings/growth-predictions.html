@@ -1,0 +1,98 @@
+{% extends "template.html" %}
+
+{% block page_title %}A Title!{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/rankings.css">
+{% endblock %}
+
+{% block content %}
+
+<div id="sticky-anchor"></div>
+<div id="sticky">
+  <div id="sidebar">
+    <h3><a href="rankings/growth-predictions/">Growth Predictions</a></h3>
+    <p>New Growth Projections Predict the Rise of India, East Africa and Fall of Oil Economies</p>
+    <h3><a href="rankings/country/">Country Rankings</a></h3>
+    <p>Rank countries based on their economic complexity for a given year</p>
+    <h3><a href="rankings/product/">Product Rankings</a></h3>
+    <p>Rank products in the HS4 classification based on their complexity for a given year</p>
+    <h3>Download</h3>
+    <p>
+      <a href="rankings/{{category}}/{{year}}/download/">&raquo; Download {{year}} data</a><br />
+      <a href="rankings/{{category}}/download/">&raquo; Download all years data</a>
+    </p>
+  </div>
+</div>
+
+<article class="news__article">
+  <h3 class="news__head">New Growth Projections Predict the Rise of India, East Africa and Fall of Oil Economies</h3>
+
+  <p class="news__p"><span class="news__dateline">Cambridge, Massachusetts</span> – South Asia and East Africa top the list, while oil-driven economies face the sharpest fall in new growth projections and rankings of productive dynamism for 128 countries, as presented by researchers at the Center for International Development at Harvard University (CID). Using their own measure of economic complexity that captures the productive capabilities embedded in a country’s exports, CID researchers paint a new picture of the economic growth landscape, which foresees growth in emerging markets to continue to outpace developed countries. They also predict important reversals among growth leaders, with India expected to overtake China.</p>
+
+  <p class="news__p">After decades spent trailing the growth of its northern neighbor and economic rival, India now tops the projections of annual growth rates to 2023. This finding adds to the recent debate over India’s own revisions to its 2014 growth statistics, which showed India’s growth edging out China for 2014.</p>
+
+  <figure class="news__figure">
+    <figcaption class="news__figure__caption">Projections of GDP Growth to 2023 Rankings: Selected Top Countries</figcaption>
+    <img src="{{ STATIC_URL }}img/growth-predictions/top_growers.png" alt="" class="news__figure__img"/>
+    <cite class="news__figure__cite">Source: The Atlas of Economic Complexity, 2015. Harvard Center for International Development. Note: Rankings out of 128 countries.</cite>
+  </figure>
+
+  <p class="news__p">“Our Economic Complexity predictions find India’s disputed upper hand in growth will expand into a widening gap in the medium-term, with growth projections to 2023 predicted to be at 7.9 percent annually, well ahead of the 4.6 percent projected for China,” said Ricardo Hausmann, Professor of the Practice of Economic Development at Harvard Kennedy School (HKS), the leading researcher of The Atlas, and the director of CID.</p>
+
+  <p class="news__p">Relative to China’s 9.1 percent annual growth of the past quarter century, this growth projection presents an important slowdown for China, but stands just below the 6 percent growth rate in 2020 predicted by the IMF and China’s leadership.</p>
+
+  <p class="news__p">CID’s projections are also bullish on East Africa. Four East African countries – Uganda, Tanzania, Kenya, and Madagascar – rank in the top ten, with all predicted to grow at least 6 percent annually.  The projections also favor Pakistan’s potential, at 5.1 percent predicted growth, presenting a clear picture of South Asia and East Africa’s positive growth outlook. Southeast Asia also includes several high-growth countries, driven by its largest country, Indonesia, which is anticipated to grow at 5.2 percent annually to 2023.</p>
+
+  <p class="news__p">Outlooks for Europe and the U.S. show little optimism. The U.S. growth rate in 2023 is predicted to be 2.4 percent, while major European players range from 2.3 percent in Italy to 3.7 percent in Spain. Among OECD countries, Turkey holds the greatest optimism, at 5.3 percent growth. Overall, the model predicts significant convergence in global incomes, with significant catch-up in parts of Sub-Saharan Africa and Southeast Asia.</p>
+
+  <figure class="news__figure">
+    <figcaption class="news__figure__caption">Economic Complexity Index: Rank of Expected GDP Growth to 2023</figcaption>
+    <img src="{{ STATIC_URL }}img/growth-predictions/eci_map.png" alt="" class="news__figure__img"/>
+    <cite class="news__figure__cite">Source: The Center for International Development at Harvard University. Economic Complexity Index. 2015</cite>
+  </figure>
+
+  <p class="news__p">“Countries accumulate productive knowledge by developing their respective capacity to make both more products, and products of increasing complexity—this underpins economic growth,” said Hausmann.  “Countries like India, Kenya, and the Philippines have made important recent gains in diversifying their exports into more complex products. Historically, these gains in economic complexity have translated into higher incomes, which position them as the frontrunners globally for their growth prospects.”</p>
+
+  <p class="news__p">CID’s projections are based on newly released 2013 global trade data and The Atlas of Economic Complexity (www.atlas.cid.harvard.edu), an online tool which measures a country’s productive knowledge and predicts its rate of growth. Productive knowledge – the knowledge that goes into making products – captures more relevant information as to the drivers of economic growth, to provide a more accurate explanation for why countries are rich or poor. The Atlas shows remarkable accuracy in predicting future economic growth. Relative to the leading measures of governance, competitiveness, and education, The Atlas’ Economic Complexity measures are found to best forecast growth rates—with 10 times greater accuracy than the World Economic Forum’s Global Competitiveness Index.</p>
+
+  <h4 class="news__subhead">New Country Rankings in Economic Complexity</h4>
+  <p class="news__p">Along with the growth projections, CID released the new 2013 Economic Complexity Index (ECI). The ECI ranks countries based on the average complexity of their export basket, using the same indicator that generated the growth projections. Of the countries that made the greatest improvements in ECI from 2003-2013, four of the top five are in Sub-Saharan Africa: Zambia, Tanzania, Uganda and Malawi. The region is not uniformly improving, however, as Mauritania, Namibia, and Zimbabwe are among the group with the worst declines in ECI. Policy approaches toward diversification and the management of commodities, like oil, increasingly diverge within regions and underpin differing economic outcomes.</p>
+
+  <figure class="news__figure">
+    <figcaption class="news__figure__caption">Biggest Winners and Losers in Economic Complexity: 2003-2013</figcaption>
+    <img src="{{ STATIC_URL }}img/growth-predictions/winners_losers.png" alt="" class="news__figure__img"/>
+    <cite class="news__figure__cite">Source: The Atlas of Economic Complexity, 2015. Harvard Center for International Development. Note: Rankings out of 128 countries.</cite>
+  </figure>
+
+  <p class="news__p">The Economic Complexity growth projections underscore that not all exports are created equal. Rather, moving into greater productive diversity and more complex exports may hold the secret to countries’ growth prospects.</p>
+
+  <p class="news__p">The countries that slipped the most in the complexity rankings are all commodity-driven economies, including Libya, Venezuela, Namibia, Georgia and Qatar. After a decade that saw oil prices triple to $98 at the end of 2013, oil-based economies translated higher prices into larger export value, becoming some of the fastest growing countries over the 2003-2013 period. This growth is not expected to be sustained; however, as CID’s growth projections show the concentration of exports in oil has come at the expense of greater diversification into other industries not as sensitive to price fluctuations. The dramatic decline in oil prices in mid-2014 bear out these risks: these oil-driven economies have witnessed downward revisions to their official growth projections, with a correction more closely aligned to the CID projections.</p>
+
+  <p class="news__p">“Resource wealth appears to be rife with pitfalls that inhibit the diversification of productive knowledge into more complex areas, as seen from Libya to Venezuela to Qatar,” said Sebastian Bustos, a lead CID researcher on the project. “But this is not destiny, as Oman and the United Arab Emirates show the scope of what is achievable by focusing on productive capabilities and strategically increasing the complexity of one’s exports, starting from nearby products that rely on similar capabilities to those currently present in the country.”</p>
+
+  <p class="news__p">The top of the rankings remain largely unchanged, with Japan, Switzerland, and Germany maintaining the greatest diversity in productive knowledge. The United States ranks 12th in the 2013 rankings, slipping four places over the prior decade. South Korea, by contrast, has shown the greatest rise among the leaders, up 13 spots to fourth.  Other top risers are China (up 14 spots to 23rd), and Thailand (up 12 spots to 25th). When comparing a country’s ECI rankings to its income per capita over time, the growth projections look favorably on those countries, like Vietnam, that show the capabilities to produce more complex products than expected by its current income level. At 66th globally, Vietnam now outranks countries with significantly higher income per capita, like Chile (67th) and Australia (76th), as predictive of higher income growth in Vietnam. This pattern holds at the other extreme, too, where previous iterations of the rankings showed Greece as an outlier for having a higher income level than expected for its level of complexity, predicting a dip in growth.</p>
+
+  <figure class="news__figure">
+    <figcaption class="news__figure__caption">Economic Complexity Index: 2003-2013 Country Rankings – Top 25 Countries</figcaption>
+    <img src="{{ STATIC_URL }}img/growth-predictions/eci_bumps.png" alt="" class="news__figure__img"/>
+    <cite class="news__figure__cite">Source: The Center for International Development at Harvard University. Economic Complexity Index. 2015</cite>
+  </figure>
+
+  <h4 class="news__subhead">About the Center for International Development</h4>
+  <p class="news__p">The Center for International Development (CID) at Harvard University is a university-wide center that works to advance the understanding of development challenges and offer viable solutions to problems of global poverty. CID is Harvard’s leading research hub focusing on resolving the dilemmas of public policy associated with generating stable, shared, and sustainable prosperity in developing countries. Our ongoing mission is to apply knowledge to and revolutionize the world of development practice.</p>
+
+  <div class="news__contact">
+    <p class="news__contact__entry"><span class="news__contact__entryname">Contact</span>: Chuck McKenney</p>
+    <p class="news__contact__entry"><span class="news__contact__entryname">Email</span>: chuck_mckenney@hks.harvard.edu</p>
+    <p class="news__contact__entry"><span class="news__contact__entryname">Phone</span>: (617) 495-8496</p>
+    <p class="news__contact__entry"><span class="news__contact__entryname">Date</span>: May 7, 2015</p>
+  </div>
+
+</article>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+

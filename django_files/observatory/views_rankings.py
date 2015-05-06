@@ -129,4 +129,4 @@ def get_rankings(category, year):
 
 
 def growth_predictions(request):
-    return render(request, "rankings/growth_predictions.html")
+    return render(request, "rankings/growth-predictions.html")

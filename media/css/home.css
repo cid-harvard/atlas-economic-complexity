@@ -177,6 +177,7 @@ a:hover {
 
 .alert__link {
     text-decoration: underline;
+    font-weight: 700;
 }
 
 
