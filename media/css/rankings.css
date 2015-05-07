@@ -60,11 +60,24 @@ ul {
     max-width: 600px;
 }
 
+.news__header {
+    margin-bottom: 40px;
+    height: inherit;
+}
+
+.news__date {
+    /*font-weight*/
+}
+
 .news__head {
     font-size: 24px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 700;
     margin-bottom: 20px;
+}
+
+.news__dateline {
+    font-weight: 700;
 }
 
 .news__subhead {
@@ -109,10 +122,6 @@ ul {
 }
 
 .news__contact__entryname {
-    font-weight: 700;
-}
-
-.news__dateline {
     font-weight: 700;
 }
 
