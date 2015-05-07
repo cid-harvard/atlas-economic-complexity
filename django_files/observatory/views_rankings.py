@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponse
 from django.template import RequestContext
 
@@ -126,3 +126,7 @@ def get_rankings(category, year):
         rankings_with_delta.append([r[5], r[1], r[2], r[3], delta])
 
     return rankings_with_delta
+
+
+def growth_predictions(request):
+    return render(request, "rankings/growth-predictions.html")
