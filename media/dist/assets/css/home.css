@@ -37,7 +37,7 @@ body,
     box-sizing: inherit;
 }
 
-a:link,
+a,
  a:hover,
  a:active,
  a:visited {
@@ -160,6 +160,25 @@ a:hover {
     height: 36px;
     padding: .8em 1em 1em;
 }
+
+
+/*  ALERT
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+.section-alert {
+    background-color: #FD8B83;
+    padding: 10px 40px;
+    text-align: center;
+}
+
+.alert__text {
+    color: white;
+}
+
+.alert__link {
+    text-decoration: underline;
+    font-weight: 700;
+}
+
 
 /*  HEADER
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */

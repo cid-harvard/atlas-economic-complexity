@@ -1,0 +1,211 @@
+/* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+//  Ranking styles
+
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+/*  GENERAL RESETS NOT IN NORMALIZE.CSS
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+html {
+    /* autoprefixer: off */
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;   /* Firefox 1, probably can drop this */   /* Safari 3-4, also probably droppable */
+    color: inherit;
+}
+
+*,
+ *:before,
+ *:after {
+    /* autoprefixer: off */
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+}
+
+body,
+ input,
+ textarea {
+    color: #404D5B;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: subpixel-antialiased;
+}
+
+a,
+ a:hover,
+ a:active,
+ a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    margin: 0;
+    padding-left: 0;
+}
+
+.clear:before,
+ .clear:after {
+    display: table;
+    content: ' ';
+}
+
+.clear:after {
+    clear: both;
+}
+
+/*  NEWS
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+.news__article {
+    margin-left: 300px;
+    max-width: 600px;
+}
+
+.news__head {
+    font-size: 24px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.news__subhead {
+    margin-top: 40px;
+    font-weight: 700;
+    text-transform: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.news__figure {
+    padding: 40px 0;
+    margin: 40px 0;
+    max-width: 600px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    text-align: center;
+}
+
+.news__figure__caption {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.news__figure__img {
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.news__figure__cite {
+    display: block;
+}
+
+.news__contact {
+    margin: 20px 0;
+}
+
+.news__contact__entry {
+    font-size: 16px;
+    line-height: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.news__contact__entryname {
+    font-weight: 700;
+}
+
+.news__dateline {
+    font-weight: 700;
+}
+
+.news__p {
+    font-size: 16px;
+    line-height: 150%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+/*  LEGACY
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+body{
+  background-color: white;
+}
+#sidebar h3 {
+  border: none !important;
+  font-size: 18px;
+}
+.change_year {
+/*  overflow: hidden;*/
+  width: 100%;
+}
+.change_year a.prev {
+  display: block;
+  float: left;
+  font-size: 22px;
+}
+.change_year h3 {
+  float: left;
+  font-size: 34px;
+  margin: 0 215px;
+  text-align: center;
+}
+.change_year a.next {
+  display: block;
+  font-size: 22px;
+  float: right;
+}
+
+.dropdown {
+  display: inline;
+  float: left;
+  font-size: 34px;
+  margin: 0 200px;
+  text-align: center;
+  z-index: 99;
+}
+.dropdown dt{
+  display: inline;
+}
+.q {
+  float: left;
+}
+.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
+.dropdown dd { position:relative; }
+.dropdown a, .dropdown a:visited {
+  text-decoration:none;
+  outline:none;
+  text-align: left;
+}
+.dropdown dt a:hover {
+  border: 1px solid #666;
+}
+.dropdown dt a {
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 36px;
+
+  background: url("media/img/all/arrow.png") no-repeat scroll right center;
+  padding-right: 20px;
+  border: 1px solid #bbb;
+  width: 150px;
+}
+.dropdown dt a span {
+  cursor: pointer;
+  padding: 5px;
+}
+.dropdown dd ul {
+  background: white none repeat scroll 0 0;
+  border: 1px solid #efefef;
+  display: none;
+  left: 0px;
+  padding: 5px 0px;
+  position: absolute;
+  top: 2px;
+  width: auto;
+  min-width: 90px;
+  list-style: none;
+  height: 200px;
+  overflow-y: scroll;
+}
+.dropdown span.value { display:none; }
+.dropdown dd ul li a { padding:5px; display:block;}
+.dropdown dd ul li a:hover { background-color:#eee;}

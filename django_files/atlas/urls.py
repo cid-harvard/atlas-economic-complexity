@@ -21,7 +21,7 @@ urlpatterns = patterns('',
   # internationalization ######################################################
   (r'^i18n/', include('django.conf.urls.i18n')),
   (r'^set_language/(?P<lang>[a-z-]{2,5})/$', 'observatory.views.set_language'),
-  (r'^jsi18n/$', 'django.views.i18n.javascript_catalog' ,js_info_dict), 
+  (r'^jsi18n/$', 'django.views.i18n.javascript_catalog' ,js_info_dict),
 
   # product classification ####################################################
   (r'^set_product_classification/(?P<prod_class>[a-z0-9]{3,5})/$', 'observatory.views.set_product_classification'),
@@ -111,6 +111,7 @@ urlpatterns = patterns('',
   (r'^rankings/(?P<category>\w{7})/(?P<year>[0-9\.]+)/$', 'observatory.views_rankings.index'),
   (r'^rankings/(?P<category>\w{7})/download/$', 'observatory.views_rankings.download'),
   (r'^rankings/(?P<category>\w{7})/(?P<year>[0-9\.]+)/download/$', 'observatory.views_rankings.download'),
+  (r'^rankings/growth-predictions/$', 'observatory.views_rankings.growth_predictions'),
 
   # ROBOTS.TXT AND FAVICO ########################################
   url(r'^robots\.txt$', TextPlainView.as_view(template_name='robots.txt')),
