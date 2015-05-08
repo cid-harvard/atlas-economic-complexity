@@ -218,7 +218,7 @@ function update_viz(viz) {
     current_viz = "tree_map";
 
   if(viz=="tree_map" || viz=="map" || viz=="scatterplot" || viz=="rankings" || viz=="pie_scatter" || viz=="product_space"|| viz=="rings") {
-    
+
     current_year1 = Math.max(current_year2, current_year1);
     current_year2 = "";
     current_viz = viz;
@@ -229,12 +229,12 @@ function update_viz(viz) {
     if(prod_class=="hs4") {
 
       current_year1 = 1995;
-      current_year2 = 2012;
+      current_year2 = 2013;
 
     } else { // "sitc"
 
       current_year1 = 1962;
-      current_year2 = 2010;
+      current_year2 = 2013;
 
     }
     current_viz = viz;
@@ -246,13 +246,13 @@ function update_viz(viz) {
     if(prod_class=="hs4") {
 
       current_year1 = 1995;
-      current_year2 = 2012;
+      current_year2 = 2013;
 
     } else { // "sitc"
 
 
       current_year1 = 1962;
-      current_year2 = 2010;
+      current_year2 = 2013;
     }
   }
 
