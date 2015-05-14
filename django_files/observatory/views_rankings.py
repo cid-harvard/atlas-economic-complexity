@@ -54,7 +54,7 @@ def download(request, category="country", year=None):
             r.append(year)
             csv_writer.writerow(r)
     else:
-        for y in range(min_year, max_year):
+        for y in range(min_year, max_year + 1):
             rankings = get_rankings(category, y)
             for r in rankings:
                 r.append(y)
