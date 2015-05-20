@@ -67,13 +67,11 @@ body {
 
 .sidebar__head {
   margin: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .sidebar__subhead {
   margin: 10px 0 20px;
   text-transform: none;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .sidebar__list {
@@ -84,10 +82,27 @@ body {
 
 
 
-/*  SIDEBAR
+/*  FOOTER
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
-.footer__logo {
+.news__footer {
+  margin: 80px 0 20px;
+  padding: 20px 0;
+  border-top: 1px solid black;
+}
+
+.footer__logo__link { 
+  display: block;
+  margin-bottom: 20px;
+}
+
+.footer__logo__img {
+  display: block;
   margin: 0 auto;
+}
+
+.footer__license {
+  text-align: center;
+  display: block;
 }
 
 
@@ -126,11 +141,9 @@ body {
 }
 
 .news__figure {
-    padding: 40px 0;
+    padding: 20px 0;
     margin: 40px 0;
     max-width: 600px;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
     text-align: center;
 }
 
