@@ -130,3 +130,6 @@ def get_rankings(category, year):
 
 def growth_predictions(request):
     return render(request, "rankings/growth-predictions.html")
+
+def growth_predictions_latin_america(request):
+    return render(request, "rankings/growth-predictions-latin-america.html")

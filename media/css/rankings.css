@@ -53,6 +53,42 @@ ul {
     clear: both;
 }
 
+body {
+  background: white;
+}
+
+
+/*  SIDEBAR
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+.sidebar {
+  float: left;
+  width: 265px;
+}
+
+.sidebar__head {
+  margin: 0;
+}
+
+.sidebar__subhead {
+  margin: 10px 0 20px;
+  text-transform: none;
+}
+
+.sidebar__list {
+  margin: 10px 0 20px;
+  list-style-type: none;
+}
+
+
+
+
+/*  SIDEBAR
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+.footer__logo {
+  margin: 0 auto;
+}
+
+
 /*  NEWS
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 .news__article {
@@ -70,7 +106,7 @@ ul {
 }
 
 .news__head {
-    font-size: 24px;
+    font-size: 31px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 700;
     margin-bottom: 20px;
@@ -130,91 +166,3 @@ ul {
     line-height: 150%;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
-
-/*  LEGACY
-// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
-
-body{
-  background-color: white;
-}
-#sidebar h3 {
-  border: none !important;
-  font-size: 18px;
-}
-.change_year {
-/*  overflow: hidden;*/
-  width: 100%;
-}
-.change_year a.prev {
-  display: block;
-  float: left;
-  font-size: 22px;
-}
-.change_year h3 {
-  float: left;
-  font-size: 34px;
-  margin: 0 215px;
-  text-align: center;
-}
-.change_year a.next {
-  display: block;
-  font-size: 22px;
-  float: right;
-}
-
-.dropdown {
-  display: inline;
-  float: left;
-  font-size: 34px;
-  margin: 0 200px;
-  text-align: center;
-  z-index: 99;
-}
-.dropdown dt{
-  display: inline;
-}
-.q {
-  float: left;
-}
-.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
-.dropdown dd { position:relative; }
-.dropdown a, .dropdown a:visited {
-  text-decoration:none;
-  outline:none;
-  text-align: left;
-}
-.dropdown dt a:hover {
-  border: 1px solid #666;
-}
-.dropdown dt a {
-  font-size: 30px;
-  font-weight: normal;
-  line-height: 36px;
-
-  background: url("media/img/all/arrow.png") no-repeat scroll right center;
-  padding-right: 20px;
-  border: 1px solid #bbb;
-  width: 150px;
-}
-.dropdown dt a span {
-  cursor: pointer;
-  padding: 5px;
-}
-.dropdown dd ul {
-  background: white none repeat scroll 0 0;
-  border: 1px solid #efefef;
-  display: none;
-  left: 0px;
-  padding: 5px 0px;
-  position: absolute;
-  top: 2px;
-  width: auto;
-  min-width: 90px;
-  list-style: none;
-  height: 200px;
-  overflow-y: scroll;
-}
-.dropdown span.value { display:none; }
-.dropdown dd ul li a { padding:5px; display:block;}
-.dropdown dd ul li a:hover { background-color:#eee;}
