@@ -53,6 +53,59 @@ ul {
     clear: both;
 }
 
+body {
+  background: white;
+}
+
+
+/*  SIDEBAR
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+.sidebar {
+  float: left;
+  width: 265px;
+}
+
+.sidebar__head {
+  margin: 0;
+}
+
+.sidebar__subhead {
+  margin: 10px 0 20px;
+  text-transform: none;
+}
+
+.sidebar__list {
+  margin: 10px 0 20px;
+  list-style-type: none;
+}
+
+
+
+
+/*  FOOTER
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+.news__footer {
+  margin: 80px 0 20px;
+  padding: 20px 0;
+  border-top: 1px solid black;
+}
+
+.footer__logo__link { 
+  display: block;
+  margin-bottom: 20px;
+}
+
+.footer__logo__img {
+  display: block;
+  margin: 0 auto;
+}
+
+.footer__license {
+  text-align: center;
+  display: block;
+}
+
+
 /*  NEWS
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
 .news__article {
@@ -70,7 +123,7 @@ ul {
 }
 
 .news__head {
-    font-size: 24px;
+    font-size: 31px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 700;
     margin-bottom: 20px;
@@ -88,11 +141,9 @@ ul {
 }
 
 .news__figure {
-    padding: 40px 0;
+    padding: 20px 0;
     margin: 40px 0;
     max-width: 600px;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
     text-align: center;
 }
 
@@ -138,25 +189,30 @@ ul {
 body{
   background-color: white;
 }
+
 #sidebar h3 {
   border: none !important;
   font-size: 18px;
 }
+
 .change_year {
-/*  overflow: hidden;*/
+  overflow: hidden;
   width: 100%;
 }
+
 .change_year a.prev {
   display: block;
   float: left;
   font-size: 22px;
 }
+
 .change_year h3 {
   float: left;
   font-size: 34px;
   margin: 0 215px;
   text-align: center;
 }
+
 .change_year a.next {
   display: block;
   font-size: 22px;
@@ -171,12 +227,15 @@ body{
   text-align: center;
   z-index: 99;
 }
+
 .dropdown dt{
   display: inline;
 }
+
 .q {
   float: left;
 }
+
 .dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
 .dropdown dd { position:relative; }
 .dropdown a, .dropdown a:visited {
@@ -184,9 +243,11 @@ body{
   outline:none;
   text-align: left;
 }
+
 .dropdown dt a:hover {
   border: 1px solid #666;
 }
+
 .dropdown dt a {
   font-size: 30px;
   font-weight: normal;
@@ -197,10 +258,12 @@ body{
   border: 1px solid #bbb;
   width: 150px;
 }
+
 .dropdown dt a span {
   cursor: pointer;
   padding: 5px;
 }
+
 .dropdown dd ul {
   background: white none repeat scroll 0 0;
   border: 1px solid #efefef;
@@ -215,6 +278,7 @@ body{
   height: 200px;
   overflow-y: scroll;
 }
+
 .dropdown span.value { display:none; }
 .dropdown dd ul li a { padding:5px; display:block;}
 .dropdown dd ul li a:hover { background-color:#eee;}
