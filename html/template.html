@@ -7,9 +7,31 @@
   <base href="{{HTTP_HOST}}">
 
   <title>The Atlas of Economic Complexity | {% block page_title %}{% endblock %}</title>
-  <meta name="description" content="Networks in Macro Economics with World Trade Data">
+  <meta name="description" content="{% block page_description %}{% endblock %}">
+  
+  <!-- Facebook -->
+  {% if displayviz %}
+  <meta property="og:image" content="http://atlas.cid.harvard.edu/static_image/{{ displayImage }}"/>
+  {% else %}
+  <meta property="og:image" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
+  {% endif %}
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="photo">
+  <meta name="twitter:domain" content="http://www.atlas.cid.harvard.edu/">
+  <meta name="twitter:site" content="@Atlas_facts">
+  <meta name="twitter:creator" content="@Atlas_facts">
+  <meta name="twitter:title" content="{% if title %}{{title}} @Atlas_facts {% else %} The Atlas Of Economic Complexity {% endif %}">
+  {% if displayviz %}
+  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/static_image/{{ displayImage }}"/>
+  {% else %}
+  <meta name="twitter:image:src" content="http://atlas.cid.harvard.edu/media/img/empty_static_200x200.png"/>
+  {% endif %}
+
+  <!-- Open Search? -->
   <link rel="search" type="application/opensearchdescription+xml" href="{{HTTP_HOST}}opensearch.xml" title="Atlas of Economic Complexity" />
 
+  <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="media/img/favicon.ico">
 
   <!-- Load non-standard fonts -->

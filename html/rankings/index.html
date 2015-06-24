@@ -2,6 +2,7 @@
 
 {% block page_title %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
 {% block heading_title %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
+{% block page_description %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
 
 {% block css %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/rankings.css">
