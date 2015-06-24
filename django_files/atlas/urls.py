@@ -113,6 +113,8 @@ urlpatterns = patterns('',
   (r'^rankings/(?P<category>\w{7})/(?P<year>[0-9\.]+)/download/$', 'observatory.views_rankings.download'),
   (r'^rankings/growth-predictions/$', 'observatory.views_rankings.growth_predictions'),
   (r'^rankings/growth-predictions-latin-america/$', 'observatory.views_rankings.growth_predictions_latin_america'),
+  (r'^rankings/growth-predictions-list/$', 'observatory.views_rankings.growth_predictions_list'),
+
 
   # ROBOTS.TXT AND FAVICO ########################################
   url(r'^robots\.txt$', TextPlainView.as_view(template_name='robots.txt')),

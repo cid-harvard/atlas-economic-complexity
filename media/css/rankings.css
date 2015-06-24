@@ -183,6 +183,21 @@ body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+/* News table, specific to overwrite element styles elsewhere */
+.news__table {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.news__th {
+  padding-bottom: 10px;
+}
+
+table tbody tr td.news__td--categorial:nth-child(1) {
+  text-align: left;
+  padding: 10px 0;
+}
+
+
 
 /*  LEGACY
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
