@@ -7,7 +7,7 @@ msgid "Year"
 msgstr "Año"
 
 msgid "Share"
-msgstr "cuota"
+msgstr "Compartir"
 
 msgid "Current"
 msgstr "Corriente"
@@ -16,13 +16,13 @@ msgid "Per Capita Constant"
 msgstr "Per Cápita Constante"
 
 msgid "Per Capita Current"
-msgstr "Per Cápita actual"
+msgstr "Per Cápita Corriente"
 
 msgid "Constant"
 msgstr "Constante"
 
 msgid "World Trade"
-msgstr "Mercado mundial"
+msgstr "Comercio Internacional"
 
 msgid "Active"
 msgstr "Activo"
