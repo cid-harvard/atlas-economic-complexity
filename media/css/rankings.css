@@ -70,8 +70,9 @@ body {
 }
 
 .sidebar__subhead {
-  margin: 10px 0 20px;
+  margin: 5px 0 20px;
   text-transform: none;
+  color: #A6B3C1;
 }
 
 .sidebar__list {
