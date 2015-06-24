@@ -41,7 +41,8 @@ msgid "Product"
 msgstr "Producto"
 
 msgid "Product Class"
-msgstr "Clase de producto"
+msgstr "Clasificación de productos"
+#msgstr "Clase de producto"
 
 
 msgid "Products"
@@ -87,22 +88,28 @@ msgid "Trade Flow"
 msgstr "Flujo comercial"
 
 msgid "Origin Country"
-msgstr "País de órigen"
+msgstr "País de origen"
 
 msgid "Destination Country"
 msgstr "País de destino"
 
 msgid "Partner"
-msgstr "Pareja"
+msgstr "Contraparte"
 
-msgid "What did"
-msgstr "¿qué hizo"
+#The translation won't work this way because some things change order in the sentence. Suppose the sentence is " `What did' `Kenya' `export' `to Argentina' in `2013'? "
+#This would work, but it would sound a bit strange in spanish. To make it sound better, you would have to swap `Kenya' with `export', such that it goes like this:
+# " ¿`Qué productos' `exportó' `Kenya' `a Argentina' en `2013'? "
+msgid "What did" 
+msgstr "¿Qué productos" 
 
-msgid "Where did"
-msgstr "Donde hizo"
+#Same here. The elements of the sentence have to change order. But also the sentence "Where did XXXX export" will be different from "Where did XXXX import". 
+# " `Where did' `Kenya' `export/import' in `2013'?" would correspond to: " ¿`A/De dónde' `exportó/importó' `Kenya' en `2013'? "
+
+msgid "Where did" 
+msgstr " ¿A donde hizo" 
 
 msgid "Who"
-msgstr "Quien"
+msgstr " ¿Quién"
 
 msgid "Which products are feasible for "
 msgstr "¿Qué productos son factibles para"
@@ -147,13 +154,13 @@ msgid "Previous"
 msgstr "Anterior"
 
 msgid "World Data"
-msgstr "Mundial de Datos"
+msgstr "Datos Mundiales"
 
 msgid "Explore"
 msgstr "Explorar"
 
 msgid "Rankings"
-msgstr "Clasificaciones"
+msgstr "Rankings"
 
 msgid "New Book"
 msgstr "Nuevo libro"
@@ -165,17 +172,17 @@ msgid "About"
 msgstr "Acerca del Atlas"
 
 msgid "Trade Data Visualization"
-msgstr "Fecha de Negociación Visualización"
+msgstr "Visualización Datos de Comercio"
 
 msgid "Feedback"
 msgstr "Sugerencias"
 #msgstr "Realimentación"
 
 msgid "Complexity Visualization"
-msgstr "Complejidad Visualización"
+msgstr "Visualización Complejidad Económica"
 
 msgid "Time Period"
-msgstr "Periodicidad"
+msgstr "Periodo"
 
 msgid "Detail Level"
 msgstr "Nivel de detalle"
@@ -209,44 +216,44 @@ msgid "Select a Country"
 msgstr "Seleccione un país"
 
 msgid "Share"
-msgstr "Cuota"
+msgstr "Compartir"
 
 msgid "Highlight"
-msgstr "Punto culminante"
+msgstr "Resaltar"
 
 msgid "Help"
-msgstr "Ayudar" 
+msgstr "Ayuda" 
 
 msgid "Totals"
 msgstr "Totales"
 
 msgid "Pattern"
-msgstr "patrón"
+msgstr "Patrón"
 
 msgid "Labels"
 msgstr "Etiquetas"
 
 msgid "Y-Axis"
-msgstr "Y- Eje"
+msgstr "Eje Y"
 
 msgid "Constant"
 msgstr "Constante"
 
 msgid "Per Capita Current"
-msgstr "Corriente per cápita"
+msgstr "Per Cápita Corriente"
 
 
 msgid "Per Capita Constant"
-msgstr "Per cápita constante"
+msgstr "Per Cápita Constante"
 
 msgid "Stacked Graph"
-msgstr "Stcked Gráfico"
+msgstr "Stacked Gráfico"
 
 msgid "Value"
 msgstr "Valor"
 
 msgid "Hide exports"
-msgstr "Ocultar exportaciónes"
+msgstr "Ocultar exportaciones"
 
 msgid "Spotlight"
 msgstr "Foco"
@@ -255,7 +262,7 @@ msgid "Size by"
 msgstr "Tamaño por"
 
 msgid "World Trade"
-msgstr "Mundial Trande"
+msgstr "Comercio Internacional"
 
 msgid "Color scale"
 msgstr "Escala de colores"
@@ -267,7 +274,7 @@ msgid "Growth"
 msgstr "Crecimiento"
 
 msgid "Complexity"
-msgstr "complejidad"
+msgstr "Complejidad"
 
 msgid "Download"
 msgstr "Descargar"
@@ -276,7 +283,7 @@ msgid "Economic Complexity"
 msgstr "Complejidad Económica"
 
 msgid "Welcome to the Atlas of Economic Complexity. Hover over an element to see it's function."
-msgstr "Bienvenidos al Atlas de la Complejidad Económica . Pase el ratón sobre un elemento para ver su función."
+msgstr "Bienvenidos al Atlas de Complejidad Económica. Pase el cursor sobre un elemento para ver su función."
 
 msgid "The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide."
-msgstr "El Atlas de complejidad económica es una herramienta interactiva de gran alcance que permite a los usuarios visualizar el comercio total de un país , realizar un seguimiento de cómo estas dinámicas cambian con el tiempo y explorar oportunidades de crecimiento por más de un centenar de países de todo el mundo ."
+msgstr "El Atlas de Complejidad Económica es una herramienta interactiva de gran alcance que permite a los usuarios visualizar el comercio total de un país, realizar un seguimiento de cómo estas dinámicas cambian con el tiempo y explorar oportunidades de crecimiento para más de un centenar de países de todo el mundo."
