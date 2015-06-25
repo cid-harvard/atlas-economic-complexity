@@ -133,3 +133,6 @@ def growth_predictions(request):
 
 def growth_predictions_latin_america(request):
     return render(request, "rankings/growth-predictions-latin-america.html")
+
+def growth_predictions_list(request):
+    return render(request, "rankings/growth-predictions-list.html")

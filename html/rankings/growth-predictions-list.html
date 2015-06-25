@@ -1,0 +1,548 @@
+{% extends "template.html" %}
+{% block page_title %}Growth Projections - Latin America{% endblock %}
+{% block page_description %}New growth projections predict the rise of India, East Africa and fall of oil economies{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/rankings.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="sidebar">
+  <h3 class="sidebar__head"><a href="rankings/country/">Country Rankings</a></h3>
+  <h4 class="sidebar__subhead">Rank countries based on their economic complexity for a given year</h4>
+  <h3 class="sidebar__head"><a href="rankings/product/">Product Rankings</a></h3>
+  <h4 class="sidebar__subhead">Rank products in the HS4 classification based on their complexity for a given year</h4>
+  <h3 class="sidebar__head"><a href="rankings/growth-predictions-list/">Growth Predictions</a></h3>
+  <h4 class="sidebar__subhead">Rank countries based on their predicted annual growth through 2023</h4>
+  <h3 class="sidebar__head"><a href="rankings/growth-predictions/">Summary: International Growth Predictions</a></h3>
+  <h4 class="sidebar__subhead">New Growth Projections Predict the Rise of India, East Africa and Fall of Oil Economies</h4>
+  <h3 class="sidebar__head"><a href="rankings/growth-predictions-latin-america/">Summary: Latin America Growth Predictions</a></h3>
+  <h4 class="sidebar__subhead">New Growth Projections Predict the Continued, Uneven Slowdown of Latin America</h4>
+  <h3 class="sidebar__head">Download</h3>
+  <ul class="sidebar__list">
+    <li class="sidebar__item"><a href="/media/growth_projections/country_rankings_and_projections_2013.csv">&raquo; Download 2013 data and growth projections</a></li>
+    <li class="sidebar__item"><a href="rankings/country/download/">&raquo; Download all years data</a></li>
+  </ul>
+</div>
+
+<article class="news__article">
+
+  <header class="news__header">
+    <h3 class="news__head">Growth Projections based on 2013 Exports</h3>
+    <p class="news__p"><span class="news__date">May 7, 2015</span></p>
+  </header>
+
+  <table class="news__table">
+    <thead>
+      <tr class="news__tr">
+        <th class="news__th">Country</th>
+        <th class="news__th">Projected Annual Growth Through 2023 (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="news__tr">
+        <td class="news__td--categorial">India</td>
+        <td class="news__td--quantitative">7.89</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Uganda</td>
+        <td class="news__td--quantitative">7.00</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Kenya</td>
+        <td class="news__td--quantitative">6.74</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Malawi</td>
+        <td class="news__td--quantitative">6.54</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Tanzania</td>
+        <td class="news__td--quantitative">6.54</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Egypt</td>
+        <td class="news__td--quantitative">6.03</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Madagascar</td>
+        <td class="news__td--quantitative">5.85</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Zambia</td>
+        <td class="news__td--quantitative">5.82</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Senegal</td>
+        <td class="news__td--quantitative">5.53</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Philippines</td>
+        <td class="news__td--quantitative">5.53</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Mali</td>
+        <td class="news__td--quantitative">5.37</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Guatemala</td>
+        <td class="news__td--quantitative">5.30</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Turkey</td>
+        <td class="news__td--quantitative">5.29</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Kyrgyzstan</td>
+        <td class="news__td--quantitative">5.25</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Indonesia</td>
+        <td class="news__td--quantitative">5.15</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Pakistan</td>
+        <td class="news__td--quantitative">5.13</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Zimbabwe</td>
+        <td class="news__td--quantitative">4.93</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Vietnam</td>
+        <td class="news__td--quantitative">4.91</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Malaysia</td>
+        <td class="news__td--quantitative">4.89</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Thailand</td>
+        <td class="news__td--quantitative">4.89</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Jordan</td>
+        <td class="news__td--quantitative">4.78</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Mozambique</td>
+        <td class="news__td--quantitative">4.63</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">China</td>
+        <td class="news__td--quantitative">4.56</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Ghana</td>
+        <td class="news__td--quantitative">4.50</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Yemen</td>
+        <td class="news__td--quantitative">4.45</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Mexico</td>
+        <td class="news__td--quantitative">4.43</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Ethiopia</td>
+        <td class="news__td--quantitative">4.41</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Israel</td>
+        <td class="news__td--quantitative">4.38</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Tunisia</td>
+        <td class="news__td--quantitative">4.18</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Guinea</td>
+        <td class="news__td--quantitative">4.17</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Cote d&#39;Ivoire</td>
+        <td class="news__td--quantitative">4.05</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Honduras</td>
+        <td class="news__td--quantitative">3.94</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Belarus</td>
+        <td class="news__td--quantitative">3.91</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Lebanon</td>
+        <td class="news__td--quantitative">3.87</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Serbia</td>
+        <td class="news__td--quantitative">3.87</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Korea, Rep.</td>
+        <td class="news__td--quantitative">3.85</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Angola</td>
+        <td class="news__td--quantitative">3.71</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Slovak Republic</td>
+        <td class="news__td--quantitative">3.69</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Romania</td>
+        <td class="news__td--quantitative">3.67</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Ukraine</td>
+        <td class="news__td--quantitative">3.65</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Bosnia and Herzegovina</td>
+        <td class="news__td--quantitative">3.63</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Switzerland</td>
+        <td class="news__td--quantitative">3.62</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Brazil</td>
+        <td class="news__td--quantitative">3.62</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Uzbekistan</td>
+        <td class="news__td--quantitative">3.62</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Spain</td>
+        <td class="news__td--quantitative">3.60</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Cambodia</td>
+        <td class="news__td--quantitative">3.53</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Paraguay</td>
+        <td class="news__td--quantitative">3.52</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">El Salvador</td>
+        <td class="news__td--quantitative">3.50</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Portugal</td>
+        <td class="news__td--quantitative">3.50</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Bulgaria</td>
+        <td class="news__td--quantitative">3.49</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Cameroon</td>
+        <td class="news__td--quantitative">3.46</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Nigeria</td>
+        <td class="news__td--quantitative">3.44</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Morocco</td>
+        <td class="news__td--quantitative">3.43</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Poland</td>
+        <td class="news__td--quantitative">3.42</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Sri Lanka</td>
+        <td class="news__td--quantitative">3.39</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Tajikistan</td>
+        <td class="news__td--quantitative">3.38</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">United Kingdom</td>
+        <td class="news__td--quantitative">3.36</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Mauritania</td>
+        <td class="news__td--quantitative">3.34</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Hungary</td>
+        <td class="news__td--quantitative">3.33</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Colombia</td>
+        <td class="news__td--quantitative">3.33</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Congo</td>
+        <td class="news__td--quantitative">3.30</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Bangladesh</td>
+        <td class="news__td--quantitative">3.29</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Estonia</td>
+        <td class="news__td--quantitative">3.28</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Papua New Guinea</td>
+        <td class="news__td--quantitative">3.27</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Lao PDR</td>
+        <td class="news__td--quantitative">3.21</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Slovenia</td>
+        <td class="news__td--quantitative">3.19</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Croatia</td>
+        <td class="news__td--quantitative">3.19</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Finland</td>
+        <td class="news__td--quantitative">3.19</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Namibia</td>
+        <td class="news__td--quantitative">3.14</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Greece</td>
+        <td class="news__td--quantitative">3.14</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Dominican Republic</td>
+        <td class="news__td--quantitative">3.12</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Ireland</td>
+        <td class="news__td--quantitative">3.09</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Nicaragua</td>
+        <td class="news__td--quantitative">3.07</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Canada</td>
+        <td class="news__td--quantitative">3.02</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Czech Republic</td>
+        <td class="news__td--quantitative">3.02</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Argentina</td>
+        <td class="news__td--quantitative">3.02</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Latvia</td>
+        <td class="news__td--quantitative">2.99</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Bolivia</td>
+        <td class="news__td--quantitative">2.97</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">South Africa</td>
+        <td class="news__td--quantitative">2.96</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Costa Rica</td>
+        <td class="news__td--quantitative">2.94</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Lithuania</td>
+        <td class="news__td--quantitative">2.91</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Netherlands</td>
+        <td class="news__td--quantitative">2.84</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Mongolia</td>
+        <td class="news__td--quantitative">2.81</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Peru</td>
+        <td class="news__td--quantitative">2.77</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Moldova</td>
+        <td class="news__td--quantitative">2.76</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Belgium</td>
+        <td class="news__td--quantitative">2.74</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Denmark</td>
+        <td class="news__td--quantitative">2.73</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Saudi Arabia</td>
+        <td class="news__td--quantitative">2.66</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Sweden</td>
+        <td class="news__td--quantitative">2.60</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">United Arab Emirates</td>
+        <td class="news__td--quantitative">2.53</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Macedonia</td>
+        <td class="news__td--quantitative">2.53</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Russia</td>
+        <td class="news__td--quantitative">2.51</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Uruguay</td>
+        <td class="news__td--quantitative">2.41</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">France</td>
+        <td class="news__td--quantitative">2.37</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Mauritius</td>
+        <td class="news__td--quantitative">2.31</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Algeria</td>
+        <td class="news__td--quantitative">2.23</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Japan</td>
+        <td class="news__td--quantitative">2.13</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Ecuador</td>
+        <td class="news__td--quantitative">2.12</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Oman</td>
+        <td class="news__td--quantitative">2.10</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Kazakhstan</td>
+        <td class="news__td--quantitative">2.09</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">United States</td>
+        <td class="news__td--quantitative">2.09</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Jamaica</td>
+        <td class="news__td--quantitative">2.04</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Chile</td>
+        <td class="news__td--quantitative">2.03</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">New Zealand</td>
+        <td class="news__td--quantitative">2.01</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Iran</td>
+        <td class="news__td--quantitative">1.97</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Venezuela</td>
+        <td class="news__td--quantitative">1.93</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Albania</td>
+        <td class="news__td--quantitative">1.91</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Georgia</td>
+        <td class="news__td--quantitative">1.90</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Kuwait</td>
+        <td class="news__td--quantitative">1.87</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Gabon</td>
+        <td class="news__td--quantitative">1.80</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Italy</td>
+        <td class="news__td--quantitative">1.62</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Norway</td>
+        <td class="news__td--quantitative">1.61</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Austria</td>
+        <td class="news__td--quantitative">1.60</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Turkmenistan</td>
+        <td class="news__td--quantitative">1.57</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Botswana</td>
+        <td class="news__td--quantitative">1.54</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Azerbaijan</td>
+        <td class="news__td--quantitative">1.47</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Qatar</td>
+        <td class="news__td--quantitative">1.36</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Australia</td>
+        <td class="news__td--quantitative">1.36</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Cuba</td>
+        <td class="news__td--quantitative">1.25</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Libya</td>
+        <td class="news__td--quantitative">0.69</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Trinidad and Tobago</td>
+        <td class="news__td--quantitative">0.67</td>
+      </tr>
+      <tr class="news__tr">
+        <td class="news__td--categorial">Germany</td>
+        <td class="news__td--quantitative">-1.33</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer class="news__footer">
+    <a class="footer__logo__link" href="http://www.hks.harvard.edu/centers/cid">
+      <img class="footer__logo__img" src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/>
+    </a>
+    <small class="footer__license">The Atlas of Economic complexity is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.</small>
+  </footer>
+
+</article>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+

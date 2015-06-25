@@ -2,6 +2,7 @@
 
 {% block page_title %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
 {% block heading_title %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
+{% block page_description %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
 
 {% block css %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/rankings.css">
@@ -16,13 +17,15 @@
     <p>Rank countries based on their economic complexity for a given year</p>
     <h3><a href="rankings/product/">Product Rankings</a></h3>
     <p>Rank products in the HS4 classification based on their complexity for a given year</p>
-    <h3><a href="rankings/growth-predictions/">Growth Predictions</a></h3>
+    <h3><a href="rankings/growth-predictions-list/">Growth Predictions</a></h3>
+    <p>Rank countries based on their predicted annual growth through 2023</p>
+    <h3><a href="rankings/growth-predictions/">Summary: International Growth Predictions</a></h3>
     <p>New Growth Projections Predict the Rise of India, East Africa and Fall of Oil Economies</p>
-    <h3><a href="rankings/growth-predictions-latin-america/">Growth Predictions - Latin America</a></h3>
+    <h3><a href="rankings/growth-predictions-latin-america/">Summary: Latin America Growth Predictions</a></h3>
     <p>New Growth Projections Predict the Continued, Uneven Slowdown of Latin America</p>
     <h3>Download</h3>
     <p>
-      <a href="rankings/country/2013/download/">&raquo; Download {{year}} data</a><br />
+      <a href="/media/growth_projections/country_rankings_and_projections_2013.csv">&raquo; Download 2013 data and growth projections</a><br />
       <a href="rankings/country/download/">&raquo; Download all years data</a>
     </p>
   </div>
