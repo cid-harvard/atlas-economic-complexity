@@ -192,6 +192,10 @@ body {
   padding-bottom: 10px;
 }
 
+.news__td {
+  padding: 10px 0;
+}
+
 table tbody tr td.news__td--categorial:nth-child(1) {
   text-align: left;
   padding: 10px 0;
