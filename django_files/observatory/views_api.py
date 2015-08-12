@@ -40,6 +40,14 @@ def calculate_volume(items, trade_flow="export", sum_val=False):
     return items.extra(select={'val': val},
                        where=filter_expr)
 
+def trade_type(trade_flow):
+    # Takes the trade_flow and returns the correct
+    # table attribute
+    if trade_flow == "export":
+        return '`export_value`'
+    else:
+        return  '`import_value`'
+
 
 def calculate_rca(items, trade_flow="export"):
     """Given a queryset and trade flow value, append the proper rca field to
@@ -95,7 +103,8 @@ def api_casy(request, trade_flow, country1, year):
         items = items.filter(year=year)
 
     items = items.filter(country_id=country1.id)
-    items = items.extra(where=["export_value > 0"])
+    filter_expr = "%s > 0" % trade_type(trade_flow)
+    items = items.extra(where=[filter_expr])
 
 
     json_response = {}
