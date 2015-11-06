@@ -973,8 +973,6 @@ var flat_data,
 
     d3.select("#loader").style("display", "none");
 
-    flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
-
     flat_data.map(function(d) {
       if(typeof(world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]) != "undefined") {
         d.world_trade = world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]['world_trade']
@@ -1070,8 +1068,6 @@ var flat_data,
       .year(year)
 
     d3.select("#loader").style("display", "none");
-
-    flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
 
     flat_data.map(function(d) {
       if(typeof(world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]) != "undefined") {
