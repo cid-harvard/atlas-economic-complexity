@@ -27,6 +27,10 @@
 #   '/Users/[USERNAME]/Sites/env/observatory/html',
 # )
 #
+# STATIC_IMAGE_PATH = ''
+# STATIC_IMAGE = ''
+# YEAR_MAX_HS4 = 2013
+#
 # SECRET_KEY = 'my_pets_name_is_eloise'
 #
 # IF YOU ARE RUNNING THE SERVER LOCALLY (AND DO NOT WANT TO INSTALL REDIS):
