@@ -951,7 +951,7 @@ var flat_data,
       .id_var("id")
       .attrs(attr)
       .xaxis_var("distance")
-      .value_var("world_trade")
+      .value_var("value")
       .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
       .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
