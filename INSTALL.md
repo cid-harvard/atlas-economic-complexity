@@ -49,7 +49,11 @@ Adding the Atlas to computer via virtualenv
 10. If you would like to run the Atlas with a cache (if, for instance, you wished to deploy it on a live server)
     All you will need to do is install the proper libraries and resources --
 
-11. Download, extract and compile Redis itself with:
+11. Install redis using Homebrew
+
+        $ brew install redis
+
+And you are done. Or download, extract and compile Redis itself with:
 		
         $ wget http://redis.googlecode.com/files/redis-2.6.7.tar.gz
         $ tar xzf redis-2.6.7.tar.gz
