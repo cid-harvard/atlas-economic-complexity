@@ -951,7 +951,7 @@ var flat_data,
       .id_var("id")
       .attrs(attr)
       .xaxis_var("distance")
-      .value_var("world_trade")
+      .value_var("value")
       .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
       .nesting_aggs({"complexity":"mean","distance":"mean","rca":"mean"})
@@ -972,8 +972,6 @@ var flat_data,
     }
 
     d3.select("#loader").style("display", "none");
-
-    flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
 
     flat_data.map(function(d) {
       if(typeof(world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]) != "undefined") {
@@ -1070,8 +1068,6 @@ var flat_data,
       .year(year)
 
     d3.select("#loader").style("display", "none");
-
-    flat_data = flat_data.filter(function(d){ return d.share > 0.00125})
 
     flat_data.map(function(d) {
       if(typeof(world_totals[d.year].filter(function(z){ return d.item_id==z.product_id })[0]) != "undefined") {
