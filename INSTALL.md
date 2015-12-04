@@ -1,6 +1,18 @@
 
 Adding the Atlas to computer via virtualenv
 
+### Install Virtualenv
+
+1. Install virtualenv first and then virtualenvwrapper via pip
+
+        $ pip install virtualenv
+        $ pip install virtualenvwrapper
+
+2. Add those two lines to your shell startup file
+
+        $ export WORKON_HOME=$HOME/.virtualenvs
+        $ source /usr/local/bin/virtualenvwrapper.sh
+
 ### Getting The Atlas Running Locally via Virtualenv 
 
 1. Clone from github (this will create an atlas_economic_complexity folder in the current directory)
