@@ -114,7 +114,9 @@ urlpatterns = patterns('',
   (r'^rankings/growth-predictions/$', 'observatory.views_rankings.growth_predictions'),
   (r'^rankings/growth-predictions-latin-america/$', 'observatory.views_rankings.growth_predictions_latin_america'),
   (r'^rankings/growth-predictions-list/$', 'observatory.views_rankings.growth_predictions_list'),
-
+  (r'^rankings/growth-predictions/(?P<year>[0-9\.]+)/$', 'observatory.views_rankings.growth_predictions'),
+  (r'^rankings/growth-predictions-latin-america/(?P<year>[0-9\.]+)/$', 'observatory.views_rankings.growth_predictions_latin_america'),
+  (r'^rankings/growth-predictions-list/(?P<year>[0-9\.]+)/$', 'observatory.views_rankings.growth_predictions_list'),
 
   # ROBOTS.TXT AND FAVICO ########################################
   url(r'^robots\.txt$', TextPlainView.as_view(template_name='robots.txt')),
