@@ -87,9 +87,9 @@ $('.js-country-or-product').on('click', function() {
   });
 
   if ( $this.hasClass('js-country') ) {
-    url = '../explore/tree_map/export/' + selected.val() + '/all/show/2013/';
+    url = '../explore/tree_map/export/' + selected.val() + '/all/show/2014/';
   } else if ( $this.hasClass('js-product') ) {
-    url = '../explore/tree_map/export/show/all/' + selected.val() + '/2013/';
+    url = '../explore/tree_map/export/show/all/' + selected.val() + '/2014/';
   }
 
   window.location.href = url;
