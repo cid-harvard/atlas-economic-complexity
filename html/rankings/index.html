@@ -18,20 +18,20 @@
     <h3><a href="rankings/product/">Product Rankings</a></h3>
     <p>Products in the HS4 classification ranked based on their complexity for a given year</p>
     <h3><a href="rankings/growth-predictions-list/">Country Growth Projections</a></h3>
-    <p>Growth rankings and annual growth projections through 2023</p>
+    <p>Growth rankings and annual growth projections through 2024</p>
     <h3><a href="rankings/growth-predictions/">Summary: International Growth Projections</a></h3>
     <p>New Growth Projections Predict the Rise of India, East Africa and Fall of Oil Economies</p>
     <h3><a href="rankings/growth-predictions-latin-america/">Summary: Latin America Growth Projections</a></h3>
     <p>New Growth Projections Predict the Continued, Uneven Slowdown of Latin America</p>
     <h3>Download</h3>
     <p>
-      <a href="/media/growth_projections/country_rankings_and_projections_2013.csv">&raquo; Download 2013 data and growth projections</a><br />
+      <a href="/media/growth_projections/country_rankings_and_projections_2014.csv">&raquo; Download 2014 data and growth projections</a><br />
       <a href="rankings/country/download/">&raquo; Download all years data</a>
     </p>
   </div>
 </div>
 
-<div id="content" style="float:none; margin-left:291px;">  
+<div id="content" style="float:none; margin-left:291px;">
   <div id="contInner">
   <div class="change_year">
     <a class="prev" href="rankings/{{category}}/{{year|add:'-1'}}/">&laquo; Previous Year</a>
@@ -47,9 +47,9 @@
     </dl>
     <a class="next" href="rankings/{{category}}/{{year|add:'1'}}/">Next Year &raquo;</a>
   </div>
-  
+
   <table class="sortable"><thead><tr>
-    
+
     {% if category == "country" %}
     <th class="sorttable_sorted"><a class="sort">Rank</a><div id="sorttable_sortfwdind" class="sort_arrow_down"></div></th>
     <th><a class="sort">Abbrv</a></th>
@@ -65,10 +65,10 @@
     <th></th>
     <th><a class="sort">Delta</a></th>
     {% endif %}
-    
+
   </tr></thead>
   <tbody>
-    
+
     {% for r in rankings %}
     <tr>
       <td><span>{{r.0}}</span></td>
@@ -100,11 +100,11 @@
             {% for lang in supported_langs %}
             <option style="" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
             {% endfor %}
-          </select> 
+          </select>
         </div>
       </div>
     </footer>
-  </div> 
+  </div>
 </div>
 
 {% endblock %}
@@ -126,7 +126,7 @@ d3.selectAll("tbody tr").select("td span").style("background", function(d, i){
 // Handle download as CSV
 $("button").click(function(){
   var data = [];
-  
+
   $("tr").each(function(i, el){
     var row = [];
     $(el).children().each(function(i, el){
@@ -136,10 +136,10 @@ $("button").click(function(){
     })
     data.push(row)
   })
-  
+
   $("input[name='content']").val(JSON.stringify(data));
   $("input[name='title']").val("{{category}}_rankings_{{year}}");
-  
+
   $('form').submit();
   return false;
 })
