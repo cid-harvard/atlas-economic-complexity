@@ -1,0 +1,204 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="js/d3.js"></script>
+<script src="js/vistk.js"></script>
+<link href="css/vistk.css" rel="stylesheet">
+<script src="js/queue.v1.min.js"></script>
+<script src="js/topojson.js"></script>
+<body>
+<style>
+
+text: {
+  stroke: white;
+  fill: white;
+}
+
+</style>
+
+<div id="viz"></div>
+
+<div id="countries"></div>
+<script>
+
+d3.csv("data/atlas_growth_projections_2024.csv", function(error, data) {
+
+  queue()
+      .defer(d3.json, "shapefiles/world/world-110m.json")
+      .defer(d3.tsv, "data/world-country-names.tsv")
+      .await(ready);
+
+  function ready(error, world, names) {
+
+    var color_scale = d3.scale.linear()
+              .domain([0, 7])
+              .range(["#e5f5f9", "#2ca25f"])
+
+    var selection = ['India'];
+
+    visualization_geomap = vistk.viz()
+      .params({
+        dev: true,
+        type: "geomap",
+        container: "#viz",
+        height: 400,
+        width: 600,
+        margin: {top: 10, right: 10, bottom: 10, left: 10},
+        data: data,
+        topology: world,
+        names: names,
+        var_id: "name",
+        var_x: "x",
+        var_y: "y",
+        var_color: "value",
+        var_text: "name",
+        items: [{
+          marks: [{
+            type: "shape",
+            fill: function(d) {
+              if(typeof d === 'undefined') {
+                return 'white';
+              } else {
+                return color_scale(d);
+              }
+            }
+          }],
+          evt:[{
+            type: "highlightOn",
+            callback: function(d, i, vars) {
+
+              d3.selectAll('.mark__group').filter(function(e) {
+                return e.name !== d.name;
+              }).style('opacity', .5);
+
+              // visualization_grid.params().refresh = true
+              visualization_tick.params().highlight = [d.name];
+              d3.select(visualization_tick.container()).call(visualization_tick);
+
+            }
+          }, {
+            type: "highlightOut",
+            callback: function(d, i, vars) {
+
+              // visualization_grid.params().refresh = true
+              visualization_tick.params().highlight = [];
+              d3.select(visualization_tick.container()).call(visualization_tick);
+              d3.selectAll('.mark__group').style('opacity', 1);
+            }
+          }],
+        }],
+
+        time: {
+          var_time: "year",
+          current_time: 2014
+        },
+        ui: {
+          default: false
+        },
+        selection: selection
+      });
+
+    d3.select("#viz").call(visualization_geomap);
+
+    visualization_tick = vistk.viz().params({
+      dev: false,
+      type: "dotplot",
+      height: 60,
+      width: 590,
+      margin: {top: 10, right: 10, bottom: 20, left: 10},
+      container: "#countries",
+      data: data,
+      var_x: 'value',
+      var_y: function() { return this.height/2; },
+      var_color: "value",
+      color: color_scale,
+      var_sort: 'value',
+      var_sort_asc: true,
+      var_id: 'name',
+      var_text: 'name',
+      x_domain: [0, 8],
+      x_tickValues: null,
+      x_format: function(d) { return d + '%'; },
+      x_text_custom: 'Projected growth',
+      time: {
+        var_time: "year",
+        parse: d3.time.format("%Y").parse,
+        current_time: 2014
+      },
+      //x_format: function(d) { return '$' + d3.format(".2s")(d); },
+      items: [{
+        attr: "name",
+        marks: [{
+          type: "tick",
+          stroke: color_scale,
+          stroke_width: 5,
+          stroke_opacity: 0.7
+        }, {
+          var_mark: '__highlighted',
+          type: d3.scale.ordinal().domain([true, false]).range(['text', 'none']),
+          translate: [0, -30],
+          text_anchor: "middle"
+        }, {
+          var_mark: '__selected',
+          type: d3.scale.ordinal().domain([true, false]).range(['text', 'none']),
+          translate: [0, -30],
+          text_anchor: "middle"
+        }, {
+          var_mark: '__highlighted',
+          type: d3.scale.ordinal().domain([true, false]).range(['text', 'none']),
+          text_anchor: "middle",
+          translate: [0, 10],
+          text: function(d, i, vars) {
+            return d['value'] + '%';
+          }
+        }, {
+          var_mark: '__selected',
+          type: d3.scale.ordinal().domain([true, false]).range(['text', 'none']),
+          text_anchor: "middle",
+          translate: [0, 10],
+          text: function(d, i, vars) {
+            return d['value'] + '%';
+          }
+        }],
+        evt:[{
+          type: "highlightOn",
+          callback: function(d, i, vars) {
+
+            d3.selectAll('.mark__group').filter(function(e) {
+              return e.name !== d.name;
+            }).style('opacity', .5);
+
+            // visualization_geomap.params().refresh = true
+            visualization_geomap.params().highlight = [d.name];
+            d3.select(visualization_geomap.container()).call(visualization_geomap);
+
+          }
+        }, {
+          type: "highlightOut",
+          callback: function(d, i, vars) {
+
+            visualization_geomap.params().refresh = true
+            visualization_geomap.params().highlight = [];
+            d3.select(visualization_geomap.container()).call(visualization_geomap);
+            d3.selectAll('.mark__group').style('opacity', 1);
+          }
+        }]
+      }],
+      selection: selection,
+    });
+
+    d3.select("#countries").call(visualization_tick);
+
+  }
+
+});
+
+function sort_by(param) {
+
+  visualization_tick.params().refresh = true
+  visualization_tick.params().sort = param;
+  d3.select(visualization_tick.container()).call(visualization_tick);
+
+}
+
+</script>
+</body>

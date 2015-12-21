@@ -1,0 +1,74 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="js/d3.js"></script>
+<script src="js/vistk.js"></script>
+<link href="css/vistk.css" rel="stylesheet">
+<body>
+
+<div id="viz"></div>
+
+<body>
+<script src="js/d3.js"></script>
+<script>
+
+d3.csv("data/atlas_eci_rankings_2004_2014.csv", function(error, data) {
+
+  d3.json("data/countries.json", function(error, countries) {
+
+    function find_country(var_filter, value) {
+
+      var metadata = countries.filter(function(d) {
+        return d['name'][var_filter] == value;
+      })
+
+      if(metadata.length == 0) {
+        return "ERROR";
+      } else {
+        return metadata[0]['region'];
+      }
+
+    }
+
+    data.forEach(function(d) {
+
+      d.continent = find_country('common', d.name);
+
+    });
+
+    visualization = vistk.viz().params({
+      type: "linechart",
+      container: "#viz",
+      height: 1000,
+      width: 580,
+      margin: {top: 20, right: 100, bottom: 30, left: 10},
+      data: data,
+      var_id: "iso",
+      var_group: "continent",
+      var_color: "continent",
+      color: d3.scale.ordinal().domain(["Africa", "Americas", "Asia", "Europe", "Oceania"]).range(["#99237d", "#c72439", "#6bc145", "#88c7ed", "#dd9f98"]),
+      var_text: "name",
+      y_text: "ECI Rank",
+      var_y: "rank_eci",
+      var_x: 'year',
+      y_invert: true,
+      time: {
+        parse: d3.time.format("%Y").parse,
+        var_time: 'year',
+        current_time: '2014',
+        filter_interval: [2004, 2014]
+      },
+      selection: ["JPN", "DEU", "CHE", "KOR", "USA", "GBR", "FRA", "CHN", "MEX", "THAI", "TUR", "IND", "BRA"],
+      highlight: ["IND"],
+      ui: {
+        default: false,
+        options: ["country", "continent"]
+      }
+    });
+
+    d3.select("#viz").call(visualization);
+
+  });
+
+});
+
+</script>
