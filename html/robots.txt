@@ -1,2 +1,6 @@
 User-agent: *
+Disallow: /hs4/
+Disallow: /sitc4/
+Disallow: /country/
 Sitemap: /sitemap.xml
+Crawl-delay: 15
