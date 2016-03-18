@@ -44,7 +44,7 @@
     content: '';
     /* This hack make the select behind the arrow clickable in some browsers */
     pointer-events: none;
-    background-image: url(http://filamentgroup.com/files/select-arrow.png);
+    background-image: url(/media/img/rankings/select-arrow.png);
     background-repeat: no-repeat;
     background-size: 100%;
 }

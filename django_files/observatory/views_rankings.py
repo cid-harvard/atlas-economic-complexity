@@ -128,11 +128,11 @@ def get_rankings(category, year):
     return rankings_with_delta
 
 
-def growth_predictions(request):
-    return render(request, "rankings/growth-predictions.html")
+def growth_predictions(request, year=2024):
+    return render(request, "rankings/growth-predictions-%s.html" % (year))
 
-def growth_predictions_latin_america(request):
-    return render(request, "rankings/growth-predictions-latin-america.html")
+def growth_predictions_latin_america(request, year=2024):
+    return render(request, "rankings/growth-predictions-latin-america-%s.html" % (year))
 
-def growth_predictions_list(request):
-    return render(request, "rankings/growth-predictions-list.html")
+def growth_predictions_list(request, year=2024):
+    return render(request, "rankings/growth-predictions-list-%s.html" % (year))

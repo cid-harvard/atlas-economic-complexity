@@ -229,12 +229,12 @@ function update_viz(viz) {
     if(prod_class=="hs4") {
 
       current_year1 = 1995;
-      current_year2 = 2013;
+      current_year2 = 2014;
 
     } else { // "sitc"
 
       current_year1 = 1962;
-      current_year2 = 2013;
+      current_year2 = 2014;
 
     }
     current_viz = viz;
@@ -246,13 +246,13 @@ function update_viz(viz) {
     if(prod_class=="hs4") {
 
       current_year1 = 1995;
-      current_year2 = 2013;
+      current_year2 = 2014;
 
     } else { // "sitc"
 
 
       current_year1 = 1962;
-      current_year2 = 2013;
+      current_year2 = 2014;
     }
   }
 

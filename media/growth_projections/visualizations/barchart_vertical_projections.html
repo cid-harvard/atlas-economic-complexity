@@ -1,0 +1,78 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="js/d3.js"></script>
+<script src="js/vistk.js"></script>
+<link href="css/vistk.css" rel="stylesheet">
+<body>
+<script>
+
+  // google analytics
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41291966-1', 'harvard.edu');
+  ga('send', 'pageview');
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41291966-1']);
+  _gaq.push(['_trackPageview']);
+
+</script>
+
+<style>
+.domain, .x__axis__label {
+  visibility: hidden;
+}
+</style>
+
+<div id="viz"></div>
+<script>
+
+d3.csv("data/atlas_growth_projections_2024.csv", function(error, data) {
+
+  data = data.filter(function(d, i) {
+    return d.value != '';
+  })
+
+  data.forEach(function(d, i) {
+    d.value = +d.value;
+  })
+
+  visualization = vistk.viz()
+    .params({
+      type: 'barchart_vertical',
+      width: 500,
+      height: 1500,
+      margin: {top: 0, right: 25, bottom: 30, left: 50},
+      container: '#viz',
+      data: data,
+      var_id: 'iso',
+      var_group: 'iso',
+      var_color: 'value',
+      color: d3.scale.linear().domain([0, 7]).range(["blue", "red"]),
+      var_x: 'value',
+      var_sort: 'value',
+      var_y: 'name',
+      y_text_custom: "",
+      y_grid_show: false,
+      time: {
+        var_time: "year",
+        current_time: "2014",
+        parse: d3.time.format("%Y").parse,
+      },
+      ui: {
+        default: false,
+        options: ["country", "continent", "year"],
+        sort: ['continent', "name", 'value']
+      },
+      selection: ["IND"],
+      highlight: ["France", "Germany"]
+    });
+
+  d3.select("#viz").call(visualization);
+
+});
+
+</script>

@@ -1,0 +1,134 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="js/d3.js"></script>
+<script src="js/vistk.js"></script>
+<link href="css/vistk.css" rel="stylesheet">
+<body>
+
+<script>
+
+  // google analytics
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41291966-1', 'harvard.edu');
+  ga('send', 'pageview');
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41291966-1']);
+  _gaq.push(['_trackPageview']);
+
+</script>
+
+<div id="viz"></div>
+
+<script>
+
+d3.csv("data/atlas_eci_rankings_2004_2014.csv", function(error, data) {
+
+  visualization = vistk.viz().params({
+    type: "slopegraph",
+    container: "#viz",
+    height: 1500,
+    width: 400,
+    margin: {top: 30, right: 120, bottom: 30, left: 100},
+    data: data,
+    var_id: "iso",
+    var_group: "continent",
+    var_color: 'value',
+    color: d3.scale.linear().domain([0, 10]).range(["blue", "red"]),
+    var_text: "name",
+    y_text: "ECI Rank",
+    var_y: "rank_eci",
+    y_invert: true,
+    var_x: "year",
+    items: [{
+      attr: "right_label",
+      marks: [{
+        type: "text",
+        text_anchor: "start",
+        text: function(d, i, vars) {
+          var change = d.values['2004']['rank_eci'] - d.values['2014']['rank_eci'];
+          var text_change = "";
+          if(change > 0) {
+            text_change = ' ▴ +' + change + '';
+          } else if(change < 0) {
+            text_change = ' ▾ ' + change + '';
+          } else {
+            text_change = ' = ' + change + '';
+          }
+          return text_change + ' ' + d['name'];
+        },
+        stroke: function(d) {
+          var scale = d3.scale.linear()
+            .domain([-1, 0, 1])
+            .range(["red", "black", "#006400"]);
+          var change = d.values['2004']['rank_eci'] - d.values['2014']['rank_eci'];
+          var change_bin = change > 0 ? 1 : change < 0 ? -1: 0;
+          return scale(change_bin);
+        },
+        translate: [5, 0]
+      }]
+    }, {
+      attr: "left_label",
+      accessor_data: function(d) {
+        return d.values.filter(function(e) {
+          return e.year == 2004;
+        })[0];
+      },
+      marks: [{
+        type: "text",
+        text_anchor: "end",
+        translate: [-20, 0],
+        text: function(d) {
+          // return d['name'] + '  ' + d.values['2004']['rank_eci'];
+          return d.values['2004']['rank_eci'];
+        },
+        stroke: function(d) {
+          var scale = d3.scale.linear()
+            .domain([-1, 0, 1])
+            .range(["red", "black", "#006400"]);
+          var change = d.values['2004']['rank_eci'] - d.values['2014']['rank_eci'];
+          var change_bin = change > 0 ? 1 : change < 0 ? -1: 0;
+          return scale(change_bin);
+        }
+      }]
+    }],
+    connect: [{
+      marks: [{
+        type: "path",
+        rotate: "0",
+        fill: function(d) {
+          var scale = d3.scale.linear()
+            .domain([-1, 0, 1])
+            .range(["red", "black", "green"]);
+          var change = d.values['2004']['rank_eci'] - d.values['2014']['rank_eci'];
+          var change_bin = change > 0 ? 1 : change < 0 ? -1: 0;
+          return scale(change_bin);
+        },
+        func: function(d, i, vars) {
+          return d3.svg.line()
+             .interpolate(vars.interpolate)
+             .x(function(d) { return vars.x_scale[0]["func"](d[vars.var_x]); })
+             .y(function(d) { return vars.y_scale[0]["func"](d[vars.var_y]); })
+           }
+      }]
+    }],
+    time: {
+      parse: d3.time.format("%Y").parse,
+      var_time: 'year',
+      current_time: '2014',
+      filter: ['2004', '2014']
+    },
+    selection: ["IND", "UGA", "KEN", "TZA", "EGY"],
+    ui: {
+      default: false
+    },
+  });
+
+  d3.select("#viz").call(visualization);
+
+});
+</script>

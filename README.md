@@ -15,4 +15,3 @@ The **Atlas** is a tool that allows users to quickly compose a visual narrative 
 **The Atlas** will run in all modern browsers so long as they have Javascript turned on and have full support for SVG graphics. This includes the latest versions of Firefox, Chrome (Chromium), Safari (WebKit), Opera and IE.
 
 Note: Internet Explorer versions 8 and below will not work as they do not have SVG support built in.
-o

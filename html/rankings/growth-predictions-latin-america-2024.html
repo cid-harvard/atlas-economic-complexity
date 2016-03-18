@@ -1,0 +1,97 @@
+{% extends "template.html" %}
+{% block page_title %}Growth Projections - Latin America{% endblock %}
+{% block test %}Growth Projections - Latin America{% endblock %}
+{% block page_description %}New growth projections predict the continued, uneven slowdown of Latin America{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/rankings.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="sidebar">
+  <h3 class="sidebar__head"><a href="rankings/country/">Country Rankings</a></h3>
+  <h4 class="sidebar__subhead">Based on a country’s economic complexity for a given year</h4>
+  <h3 class="sidebar__head"><a href="rankings/product/">Product Rankings</a></h3>
+  <h4 class="sidebar__subhead">Products in the HS4 classification ranked based on their complexity for a given year</h4>
+  <h3 class="sidebar__head"><a href="rankings/growth-predictions-list/">Country Growth Projections</a></h3>
+  <h4 class="sidebar__subhead">Growth rankings and annual growth projections through 2024</h4>
+  <h3 class="sidebar__head"><a href="rankings/growth-predictions/">Summary: International Growth Projections</a></h3>
+  <h4 class="sidebar__subhead">New Global Growth Projections Predict the Decade of India (2024)</h4>
+  <h3 class="sidebar__head"><a href="rankings/growth-predictions-latin-america/">Summary: Latin America Growth Projections</a></h3>
+  <h4 class="sidebar__subhead">Growth Projections Predict the Continued, Uneven Slowdown of Latin America (2023)</h4>
+  <h3 class="sidebar__head">Download</h3>
+  <ul class="sidebar__list">
+    <li class="sidebar__item"><a href="/media/growth_projections/country_rankings_and_projections_2014.csv">&raquo; Download 2014 data and growth projections</a></li>
+    <li class="sidebar__item"><a href="rankings/country/download/">&raquo; Download all years data</a></li>
+  </ul>
+</div>
+
+<article class="news__article">
+
+  <header class="news__header">
+    <h3 class="news__head">New Growth Projections Predict the Continued, Uneven Slowdown of Latin America</h3>
+    <p class="news__p"><span class="news__date">May 7, 2015</span></p>
+  </header>
+
+  <p class="news__p"><span class="news__dateline">Cambridge, Massachusetts</span> – After a decade lagging behind South America in economic growth, Mexico and Central America are now poised to lead the region, according to new projections presented by researchers at the Center for International Development at Harvard University (CID). At the opposite end, the more commodity-driven economies of South America, especially Venezuela, Chile, and Ecuador, hold the lowest growth potential. Using their own measures of economic complexity, CID researchers show that the diversity and sophistication of the products a country produces are central in determining economic growth prospects. After five straight years of growth slowdown in Latin America and the Caribbean, CID’s findings predict the coming decade to continue this modest—if uneven—growth.</p>
+
+  <p class="news__p">"The past decade proved a boon for commodity-driven economies in Latin America, riding rapid price increases to expand export values. Often, this came at the expense of diversification into a broader manufacturing base. Moving forward, our findings foresee a tough road ahead for commodity-driven economies," said Professor Ricardo Hausmann of the Harvard Kennedy School, the leading researcher of The Atlas of Economic Complexity, and the director of CID.</p>
+
+  <p class="news__p">As evidence of the importance of diversification, Hausmann points to the turnaround in Mexico. The past decade saw Brazil overtake Mexico as the largest economy in Latin America, continuing its strong growth to stand at nearly twice the size of Mexico’s economy at present. Now, Mexico’s recent diversification into sophisticated electronics manufacturing, as well as a growing automobile industry, leaves it poised to quite literally regain its position as the economic engine of Latin America.</p>
+
+  <p class="news__p">According to CID projections of annualized growth rates to 2023, Mexico, at 4.4 percent, is predicted to outpace Brazil (3.6 percent) and the rest of Latin America in the medium-term. A slowdown in China and uptick in U.S. growth have resulted in renewed optimism for Mexican manufacturers to face less competition in its largest export market. Brazil, on the other hand, faces reduced demand for the commodities that underpinned past gains. Nevertheless, the projections remain bullish on Brazil, as well as Colombia (at 3.5 percent annual growth projected to 2023), to outperform the traditionally faster growing Peru (2.8 percent) and Chile (2.0 percent).</p>
+
+  <figure class="news__figure">
+    <figcaption class="news__figure__caption">Projections of GDP Growth to 2023 Rankings: Latin America and the Caribbean</figcaption>
+    <img src="{{ STATIC_URL }}img/growth-predictions/top_growers_la.png" alt="" class="news__figure__img"/>
+  </figure>
+
+  <p class="news__p">CID’s new growth projections present a new lens to understand the growth landscape in Latin America and the Caribbean. Traditional growth forecasts focused on a North-South divide centered on proximity to the United States. Recent prognosticators flipped this understanding to a new Pacific-Atlantic division, as the region turns to serve the voracious Chinese appetite for commodities. Looking ahead, CID’s projections find its top growth leaders to include Guatemala, Mexico, Brazil, Paraguay, Colombia, and the Dominican Republic. Taken together, these countries fail to adhere to either geographic axis of the North-South or Atlantic-Pacific outlook. Nor are these growth leaders tied together by education levels, population size, or competitiveness indices. This leading group does not align with common economic paradigms of the pulling away of dominant regional economies (or regional divergence in incomes) nor is there a uniform catch-up in the least developed countries outpacing the advanced countries (regional convergence). Rather, the new growth projections presented by CID’s researchers find a new divide altogether: one driven in the long-run by the gains made in economic diversification and complexity.</p>
+
+  <p class="news__p">“The economic outlook in Latin America continues to be driven by a country’s ability to make both more diverse products, and products of increasing complexity—this underpins economic growth,” said Timothy Cheston, a lead CID researcher on the project.  “Mexico, Paraguay, and Costa Rica have diversified their exports into more complex products. Historically, these gains in economic complexity have translated into higher incomes, which position them to lead the region in their growth prospects.”</p>
+
+  <p class="news__p">CID’s projections are also bullish on East Africa. Four East African countries – Uganda, Tanzania, Kenya, and Madagascar – rank in the top ten, with all predicted to grow at least 6 percent annually.  The projections also favor Pakistan’s potential, at 5.1 percent predicted growth, presenting a clear picture of South Asia and East Africa’s positive growth outlook. Southeast Asia also includes several high-growth countries, driven by its largest country, Indonesia, which is anticipated to grow at 5.2 percent annually to 2023.</p>
+
+  <p class="news__p">Outlooks for Europe and the U.S. show little optimism. The U.S. growth rate in 2023 is predicted to be 2.4 percent, while major European players range from 2.3 percent in Italy to 3.7 percent in Spain. Among OECD countries, Turkey holds the greatest optimism, at 5.3 percent growth. Overall, the model predicts significant convergence in global incomes, with significant catch-up in parts of Sub-Saharan Africa and Southeast Asia.</p>
+
+  <figure class="news__figure">
+    <figcaption class="news__figure__caption">Economic Complexity Index: Rank of Expected GDP Growth to 2023</figcaption>
+    <img src="{{ STATIC_URL }}img/growth-predictions/eci_map_la.png" alt="" class="news__figure__img"/>
+  </figure>
+
+  <p class="news__p">CID’s projections are based on newly released 2013 global trade data and The Atlas of Economic Complexity, an online tool which measures a country’s trade patterns across 50 years and thousands of products to analyze its economic complexity and new export possibilities. The Atlas’ measure of economic complexity is found to capture more relevant information as to the drivers of economic growth, to provide a more accurate explanation for why countries are rich or poor. The Atlas also shows remarkable accuracy in predicting future economic growth. Relative to the leading measures of governance, competitiveness, and education, The Atlas’ Economic Complexity measures are found to best forecast growth rates—with 5 times greater accuracy than the World Economic Forum’s Global Competitiveness Index.</p>
+
+  <p class="news__p">These new concepts of economic complexity are reframing how leaders in the region think about promoting growth. The new <a href="http://www.imf.org/external/pubs/ft/reo/2015/whd/eng/wreo0415.htm">IMF Western Hemisphere Outlook 2015</a> dedicates its core economic forecasting to this analysis of economic complexity. The report notes:  “Economic diversification and complexity…matter for long-term growth. However, Latin America and the Caribbean scores relatively low in both dimensions, with little progress made over the last decade.” As CID researchers note, by reorienting policy to focus centrally on economic complexity, policymakers and business leaders hold new promise to improve upon these growth projections.</p>
+
+  <h4 class="news__subhead">New Country Rankings in Economic Complexity</h4>
+  <p class="news__p">Along with the growth projections, CID released the new 2013 Economic Complexity Index (ECI). The ECI ranks countries based on the average complexity of their export basket. Of the countries that made the greatest improvements in ECI from 2003-2013, Paraguay, El Salvador, and Costa Rica show the strongest gains in the global rankings. The region is not uniformly improving, however, as Venezuela, Bolivia, and Argentina are among the group with the worst declines in ECI in the region, and for Venezuela and Bolivia, among the worst declines in the world. Policy approaches toward diversification and the management of commodities, like oil, increasingly diverge within regions and underpin differing economic outcomes.</p>
+
+  <figure class="news__figure">
+    <figcaption class="news__figure__caption">Biggest Winners and Losers in Economic Complexity: 2003-2013</figcaption>
+    <img src="{{ STATIC_URL }}img/growth-predictions/winners_losers_la.png" alt="" class="news__figure__img"/>
+  </figure>
+
+  <p class="news__p">The Economic Complexity growth projections underscore that not all exports are created equal. Rather, moving into greater productive diversity and more complex exports may hold the secret to countries’ growth prospects.</p>
+
+  <div class="news__contact">
+    <p class="news__contact__entry"><span class="news__contact__entryname">Contact</span>: Chuck McKenney</p>
+    <p class="news__contact__entry"><span class="news__contact__entryname">Email</span>: chuck_mckenney@hks.harvard.edu</p>
+    <p class="news__contact__entry"><span class="news__contact__entryname">Phone</span>: (617) 495-8496</p>
+    <p class="news__contact__entry"><span class="news__contact__entryname">Date</span>: May 7, 2015</p>
+  </div>
+
+  <footer class="news__footer">
+    <a class="footer__logo__link" href="http://www.hks.harvard.edu/centers/cid">
+      <img class="footer__logo__img" src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/>
+    </a>
+    <small class="footer__license">The Atlas of Economic complexity is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.</small>
+  </footer>
+
+</article>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
