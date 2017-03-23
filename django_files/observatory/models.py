@@ -110,7 +110,6 @@ class Country_manager(models.Manager):
 
         countries = self.filter_lang(lang)
         countries = countries\
-            .filter(originally_included=True)\
             .order_by("name_"+lang)
         return list(countries.values(
             "id",
@@ -124,14 +123,11 @@ class Country_manager(models.Manager):
             "region__text_color",
             ))
 
-    def get_valid(self):
-        return self.filter(originally_included=True)
-
     def get_random(self):
         """Grab a random country. This uses the 'ORDER BY RAND()' method which
         is fine for this purpose but slow in mysql for larger tables so
         beware."""
-        return self.get_valid().order_by('?')[1]
+        return self.order_by('?')[1]
 
 
 class Country(models.Model):
