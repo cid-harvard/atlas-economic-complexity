@@ -36,6 +36,8 @@ def api_dropdown_countries(request):
 
     countries = Country.objects\
         .filter_lang(lang)\
+        .exclude(name_3char__isnull=True)\
+        .exclude(region_id__isnull=True)\
         .values("name", "name_3char")
 
     country_info = list((c["name"], c["name_3char"].lower())
