@@ -24,6 +24,8 @@ REGIONS = [
 ]
 
 COUNTRY_CODE = Country.objects\
+    .exclude(name_3char__isnull=True)\
+    .exclude(region_id__isnull=True)\
     .values_list("name_3char", flat=True)
 
 # These are different from the product communities in the DB in that the names
