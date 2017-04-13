@@ -129,6 +129,15 @@ class Country_manager(models.Manager):
         beware."""
         return self.order_by('?')[1]
 
+    def get_queryset(self):
+        """Filter out some invalid countries with no 3 digit code or no
+        associated region (these are usually aggregate "countries" like "south
+        american countries")"""
+        return super(Country_manager, self)\
+            .get_queryset()\
+            .exclude(name_3char__isnull=True)\
+            .exclude(region_id__isnull=True)
+
 
 class Country(models.Model):
 
