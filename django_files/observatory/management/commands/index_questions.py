@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
         # TODO: "the" in country names
         trade_flows = ["import", "export"]
-        countries_flat = list(Country.objects.get_valid()
+        countries_flat = list(Country.objects
                               .only('name_en',
                                     'name_3char',
                                     'region__name',
