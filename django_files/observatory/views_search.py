@@ -301,11 +301,12 @@ def api_search(request):
     # after taking out the filters
     if query.strip() != "":
         es_query["query"]["filtered"]["query"] = {
-            "fuzzy_like_this": {
+            "more_like_this": {
                 "like_text": query,
                 "fields": ["title"],
                 "max_query_terms": 15,
-                "prefix_length": 3
+                "prefix_length": 3,
+                "fuzziness": "AUTO"
             }
         }
 
