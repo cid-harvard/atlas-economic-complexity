@@ -857,7 +857,12 @@ var flat_data,
     // Since there is no title bar, we're gona bump the viz down
     d3.select("#viz").style("margin-top","15px")
 
-    flat_data = flat_data.filter(function(d){ return d.share > 0.0075})
+    // See IAEC-312: thresholding seems to be in place to reduce number of DOM
+    // elements to make render quicker. This affects totals in categories in
+    // large countries. By tweaking this number, in effect, you're trading off
+    // numerical accuracy for render speed, with diminishing returns after a
+    // while.
+    flat_data = flat_data.filter(function(d){ return d.share > 0.00075})
 
     // INCASE WE WANT TO COMBINE ALL THE FILTERED ELEMENTS INTO A SINGLE ELEMENT
     // flat_data = flat_data.filter(function(d){return d.value > 85000000})
