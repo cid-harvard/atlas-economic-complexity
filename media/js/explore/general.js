@@ -368,12 +368,10 @@ function update_viz(viz) {
 
   if(current_country1=="all" && current_product=="all") {
     alert("Please, select at least one country or one product");
-    return;
 
   } else  if(current_country1=="all" && current_country2=="all" && $(".tab-trade-partner-product").find(".active").index()==1) {
 
     alert("Please, select at least one country");
-    return;
 
   }
 
