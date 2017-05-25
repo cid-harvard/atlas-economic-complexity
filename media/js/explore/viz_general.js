@@ -1321,7 +1321,6 @@ var flat_data,
         .nesting([])
         .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
         .click_function(inner_html)
-        .descs({"id": "This is ID", "val_usd": "This is value USD."})
         .footer("")
         .year(year)
         // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
