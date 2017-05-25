@@ -713,7 +713,7 @@ var flat_data,
       .attrs(attr)
       .text_var("name")
       .value_var("value")
-      .tooltip_info({"short": ["value", "distance", "year"], "long": ["value", "distance", "year"]})
+      .tooltip_info({"short": ["value", "year"], "long": ["value", "distance", "rca", "year"]})
       .name_array(["name"])
       .total_bar({"prefix": "", "suffix": " USD"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
