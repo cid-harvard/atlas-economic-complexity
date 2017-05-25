@@ -963,7 +963,7 @@ var flat_data,
       .depth("nesting_2")
       .text_format(txt_format)
       .number_format(num_format)
-      .spotlight(false)
+      .spotlight(true)
       .dev(false)
       .font('PT Sans Narrow')
       .click_function(inner_html)
