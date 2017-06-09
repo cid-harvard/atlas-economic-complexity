@@ -624,6 +624,9 @@ var flat_data,
      case 'opp_gain':
        return gettext("Opportunity Gain")
        break;
+     case 'code':
+       return gettext("Code")
+       break;
      default:
        return words
     }
@@ -713,7 +716,7 @@ var flat_data,
       .attrs(attr)
       .text_var("name")
       .value_var("value")
-      .tooltip_info({"short": ["value", "year"], "long": ["value", "distance", "rca", "year"]})
+      .tooltip_info({"short": ["value", "year"], "long": ["value", "distance", "rca", "year", "code"]})
       .name_array(["name"])
       .total_bar({"prefix": "", "suffix": " USD"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
@@ -790,7 +793,7 @@ var flat_data,
       .sort("color")
       .xaxis_var("year")
       .attrs(attr)
-      .tooltip_info({"short": ["value", "distance", "year"], "long": ["value", "distance", "year"]})
+      .tooltip_info({"short": ["value", "distance", "year"], "long": ["value", "distance", "year", "code"]})
       .text_var("name")
       .id_var("id")
       .nesting(["nesting_0","nesting_1","nesting_2"])
@@ -834,7 +837,7 @@ var flat_data,
     if (app_type!="sapy") {
 
       magic_numbers = rawData["magic_numbers"]
-      viz.tooltip_info({"short": ["distance", "year", "pc_current","pc_constant","notpc_constant"]})
+      viz.tooltip_info({"short": ["value", "distance", "year"], "long": ["distance", "year", "pc_current","pc_constant","notpc_constant", "code"]})
       flat_data.map(function(d){
 
         // Quick fix by rv
@@ -951,7 +954,7 @@ var flat_data,
       .type("pie_scatter")
       .height(height)
       .width(width)
-      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca", "code"]})
       .text_var("name")
       .id_var("id")
       .attrs(attr)
