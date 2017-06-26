@@ -1,0 +1,95 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="js/d3.js"></script>
+<script src="js/vistk.js"></script>
+<link href="css/vistk.css" rel="stylesheet">
+<style>
+  #legend div {
+    padding: 5px;
+    height: 12px;
+    width: 45px;
+    border-radius: 2px;
+    font-size: 8pt;
+    text-align: center;
+    float: left;
+    margin: 0px 0px 15px 3px;
+    color: #fff;
+  }
+</style>
+<body>
+
+<div id="legend" style="margin-left:10px;"></div>
+<div id="viz" style="clear:both;"></div>
+
+
+<script>
+var regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+var regionColors = ["#99237d", "#c72439", "#6bc145", "#88c7ed", "#dd9f98"];
+
+d3.csv("data/atlas_eci_rankings_2004_2015.csv", function(error, data) {
+  d3.json("data/countries.json", function(error, countries) {
+    
+    function find_country(var_filter, value) {
+      var metadata = countries.filter(function(d) {
+        return d['name'][var_filter] == value;
+      })
+      if(metadata.length == 0) {
+        return "ERROR";
+      } else {
+        return metadata[0]['region'];
+      }
+    }
+
+    data.forEach(function(d) {
+      d.continent = find_country('common', d.name);
+    });
+
+    console.log(data);
+
+    visualization = vistk.viz().params({
+      type: "linechart",
+      container: "#viz",
+      height: 1000,
+      width: 580,
+      margin: {top: 20, right: 100, bottom: 200, left: 10},
+      data: data,
+      var_id: "iso",
+      var_group: "continent",
+      var_color: "continent",
+      color: d3.scale.ordinal().domain(regions).range(regionColors),
+      var_text: "name",
+      y_text: "ECI Rank",
+      var_y: "rank_eci",
+      var_x: 'year',
+      y_invert: true,
+      time: {
+        parse: d3.time.format("%Y").parse,
+        var_time: 'year',
+        current_time: '2015',
+        filter_interval: [2004, 2015]
+      },
+      selection: ["JPN", "DEU", "CHE", "KOR", "USA", "GBR", "FRA", "CHN", "MEX", "THAI", "TUR", "IND", "BRA"],
+      highlight: ["IND"],
+      ui: {
+        default: false,
+        options: ["country", "continent"]
+      }
+    });
+    d3.select("#viz").call(visualization);
+  });
+});
+
+var legend = document.getElementById('legend');
+
+regions.forEach(function makeLegend(element, index) {
+  var regionkey = document.createElement('div');
+  regionkey.id = element;
+  regionkey.innerHTML = element;
+  regionkey.style.backgroundColor = regionColors[index];
+  legend.appendChild(regionkey);
+});
+
+
+
+
+</script>
