@@ -34,9 +34,9 @@ body {
 <script src="http://d3js.org/d3.v3.min.js"></script>
 
 <script>
-var margin = {top: 50, right: 220, bottom: 100, left: 80},
+var margin = {top: 50, right: 220, bottom: 20, left: 80},
     width = 700 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
+    height = 525 - margin.top - margin.bottom;
 
 var regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 var regionColors = ["#99237d", "#c72439", "#6bc145", "#88c7ed", "#dd9f98"];
@@ -104,6 +104,7 @@ d3.csv("data/atlas_growth_projections_2025.csv", function(error, data) {
       .style("font-size", "12pt")
       .call(xAxis)
       .select(".domain").remove()
+    /*
     svg.append("text")
       .attr("class", "label")
       .attr("x", width/2+100)
@@ -112,6 +113,7 @@ d3.csv("data/atlas_growth_projections_2025.csv", function(error, data) {
       .style("font-size", "14pt")
       .style("font-weight", "bold")
       .text("Region");
+    */
 
   // y-axis
   svg.append("g")
