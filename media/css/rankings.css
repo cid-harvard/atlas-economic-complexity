@@ -159,6 +159,24 @@ body {
     margin-bottom: 20px;
 }
 
+.news__figure__imageparent {
+    display: inline-block;
+    margin-left: -140px;
+    margin-right: -140px;
+}
+
+.news__figure__imageparent .left{
+    display: inline-block;
+    float: left;
+    width: 50%;
+}
+
+.news__figure__imageparent .right{
+    display: inline-block;
+    float: right;
+    width: 50%;
+}
+
 .news__figure__cite {
     display: block;
 }
