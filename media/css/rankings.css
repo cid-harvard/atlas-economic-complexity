@@ -177,6 +177,11 @@ body {
     width: 50%;
 }
 
+
+.news__figure h4 {
+    font-size: 14px;
+}
+
 .news__figure__cite {
     display: block;
 }
