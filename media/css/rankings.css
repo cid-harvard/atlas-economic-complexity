@@ -142,10 +142,15 @@ body {
 }
 
 .news__figure {
-    padding: 20px 0;
+    padding: 5px;
     margin: 40px 0;
     max-width: 600px;
     text-align: center;
+}
+
+
+.news__figure h4 {
+    margin-top: 0px;
 }
 
 .news__figure__caption {
@@ -177,11 +182,6 @@ body {
     width: 50%;
 }
 
-
-.news__figure h4 {
-    font-size: 14px;
-}
-
 .news__figure__cite {
     display: block;
 }
@@ -204,6 +204,11 @@ body {
     font-size: 16px;
     line-height: 150%;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+.news__p a {
+    text-decoration: underline;
 }
 
 /* News table, specific to overwrite element styles elsewhere */
