@@ -142,10 +142,15 @@ body {
 }
 
 .news__figure {
-    padding: 20px 0;
+    padding: 5px;
     margin: 40px 0;
     max-width: 600px;
     text-align: center;
+}
+
+
+.news__figure h4 {
+    margin-top: 0px;
 }
 
 .news__figure__caption {
@@ -157,6 +162,24 @@ body {
 .news__figure__img {
     max-width: 100%;
     margin-bottom: 20px;
+}
+
+.news__figure__imageparent {
+    display: inline-block;
+    margin-left: -140px;
+    margin-right: -140px;
+}
+
+.news__figure__imageparent .left{
+    display: inline-block;
+    float: left;
+    width: 50%;
+}
+
+.news__figure__imageparent .right{
+    display: inline-block;
+    float: right;
+    width: 50%;
 }
 
 .news__figure__cite {
@@ -181,6 +204,11 @@ body {
     font-size: 16px;
     line-height: 150%;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+.news__p a {
+    text-decoration: underline;
 }
 
 /* News table, specific to overwrite element styles elsewhere */

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Karla|Lora:700" rel="stylesheet">
+<style>
+body {
+  font-size: 11px;
+  font-family: 'Karla', sans-serif;
+}
+.label {
+  font-family: "Karla";
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.xaxis.tick line{
+      visibility:hidden;
+}
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background-color: rgba(245,245,255,0.9);
+  border-radius: 4px;
+  padding: 8px;
+  color: rgba(0,0,0,0.8);
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+var margin = {top: 50, right: 220, bottom: 20, left: 80},
+    width = 700 - margin.left - margin.right,
+    height = 525 - margin.top - margin.bottom;
+
+var regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+var regionColors = ["#99237d", "#c72439", "#6bc145", "#88c7ed", "#dd9f98"];
+var onPageLabels = ["Uganda", "India", "Mexico", "China", "Spain", "Argentina", "France", "United States", "Australia", "Egypt", "Kenya", "Indonesia", "Vietnam"];
+
+
+// setup x 
+var xValue = function(d) { return d.continent; }, // data -> value
+    xScale = d3.scale.ordinal().domain(["Africa", "Americas", "Asia", "Europe", "Oceania"]).rangePoints([0, width]), // value -> display
+    xMap = function(d) { return xScale(xValue(d));}, // data -> display
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+
+// setup y
+var yValue = function(d) { return d.value;}, // data -> value
+    yScale = d3.scale.linear().range([height, 0]), // value -> display
+    yMap = function(d) { return yScale(yValue(d));}, // data -> display
+    yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+// setup fill color
+var cValue = function(d) { return d.continent;};
+color = d3.scale.ordinal()
+  .domain(["Africa", "Americas", "Asia", "Europe", "Oceania"])
+  .range(["#99237d", "#c72439", "#6bc145", "#88c7ed", "#dd9f98"]);
+
+// add the graph canvas to the body of the webpage
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// add the tooltip area to the webpage
+var tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("font-size", "10pt")
+    .style("opacity", 0);
+
+// load data
+d3.csv("data/atlas_growth_projections_2025.csv", function(error, data) {
+  d3.json("data/countries.json", function(error, countries) {
+    
+    function find_country(var_filter, value, d) {
+      var metadata = countries.filter(function(d) {
+        return d['name'][var_filter] == value;
+      })
+      if(metadata.length == 0) {
+        return "ERROR";
+      } else {
+        return metadata[0]['region'];
+      }
+    }
+
+    data.forEach(function(d) {
+      d.continent = find_country('common', d.name, d);
+    });
+
+    console.log(data.length);
+
+  yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
+
+  // x-axis
+  svg.append("g")
+      .attr("class", "xaxis")
+      .attr("transform", "translate(100," + (height-20) + ")")
+      .style("font-size", "12pt")
+      .call(xAxis)
+      .select(".domain").remove()
+    /*
+    svg.append("text")
+      .attr("class", "label")
+      .attr("x", width/2+100)
+      .attr("y", height+80)
+      .style("text-anchor", "end")
+      .style("font-size", "14pt")
+      .style("font-weight", "bold")
+      .text("Region");
+    */
+
+  // y-axis
+  svg.append("g")
+      .attr("class", "axis")
+      .style("font-size", "11pt")
+      .attr("transform", "translate(20,0)")
+      .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -60)
+      .attr("x", -95)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .style("font-size", "11pt")
+      .style("font-weight", "bold")
+      .text("Growth Projection (%)");
+
+  // draw dots
+  var points = svg.selectAll(".dot")
+      .data(data)
+    .enter().append('g');
+
+    points.append("circle")
+      .attr("class", "dot")
+      .attr("r", function(d) { 
+       var a = onPageLabels.indexOf(d["name"]);
+       if (a > -1) { return 7;}
+        else { return 5.5;}
+        
+      })
+      .attr("cx", function(d) { d["x"] = xMap(d) + 100; return xMap(d) + 100;})
+      .attr("cy", function(d) { d["y"] = yMap(d); return yMap(d); })
+      .style("stroke", "white")
+      .style("stroke-width", 1)
+
+      .style("opacity", function(d) { 
+        var a = onPageLabels.indexOf(d["name"]);
+        if (xMap(d) === NaN || xMap(d) === undefined) {return 0;} 
+        else if (a > -1) { return 1;}
+        else { return 0.7;}
+      })
+      .style("fill", function(d) { return color(cValue(d));}) 
+      .on("mouseover", function(d) {
+        d3.select(this)
+        .style("stroke-width", 3)
+          .style("opacity", 1)
+          .style("stroke-width", 3)
+          .attr({ r: 9 });
+
+          var label = svg.selectAll("."+d["name"]);
+          label.transition()
+               .duration(150)
+               .style("opacity", 0);
+
+          tooltip.transition()
+               .duration(150)
+               .style("font-size", "12pt")
+               .style("opacity", 1);
+          tooltip.html(d["name"] + " (<b>+" + yValue(d) + "% </b>)")
+               .style("left", (d3.event.pageX + 15) + "px")
+               .style("top", (d3.event.pageY - 20) + "px");
+      })
+      .on("mouseout", function(d) {
+        var a = onPageLabels.indexOf(d["name"]);
+
+          d3.select(this).transition()
+          .attr("r", 5)
+          .duration(500)
+          .style("stroke-width", 1)
+          .style("opacity", function(d) { 
+            if (xMap(d) === NaN || xMap(d) === undefined) {return 0;} 
+            else if (a > -1) { return 1;}
+            else { return 0.7;}
+          });
+
+          var label = svg.selectAll("."+d["name"]);
+          label.transition()
+               .duration(500)
+               .style("opacity", 1);
+
+          tooltip.transition()
+               .duration(500)
+               .style("opacity", 0);
+      });
+
+    // add persistent labels, formatting
+    points.append("text").text(function(d){
+        var a = onPageLabels.indexOf(d["name"]);
+        if (a > -1) {
+          var label = d["name"];
+          return label;
+        } else { return ""; }
+       })
+        .style("font-size", "12px")
+        .style("font-weight", "bold")
+        .attr("class", function (d) { return d["name"]; })
+        .attr("x", function (d) { return d.x + 18; })
+        .attr("y", function (d) { return d.y -5; });
+
+     points.append("text").text(function(d){
+        var a = onPageLabels.indexOf(d["name"]);
+        if (a > -1) {
+          var label = " (+" + yValue(d) + "% )";
+          return label;
+        } else { return ""; }
+       })
+        .style("fill", "#888888")
+        .attr("class", function (d) { return d["name"]; })
+        .attr("x", function (d) { return d.x + 18; })
+        .attr("y", function (d) { return d.y + 10; }); 
+
+  // draw legend
+  var legend = svg.selectAll(".legend")
+      .data(xScale.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(" + i * width/3.7 + ", 0)"; });
+
+  // draw legend colored rectangles
+  legend.append("rect")
+      .attr("x", 20)
+      .attr("y", height - 40)
+      .attr("width", width/3.7)
+      .attr("height", 5)
+      .style("fill", color);
+  });
+});
+
+
+</script>
+</body>
+</html>

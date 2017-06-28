@@ -167,7 +167,6 @@ function App() {
       "category_text_color": attr_data[d.properties.item_id].category_text_color,
       "values": [
         ["Value:", "$" + format_big_num(d.properties.value)[0] + " " + format_big_num(d.properties.value)[1]],
-        ["RCA:", d3.format(".2f")(d.properties.rca)],
         ["Share:", d3.format(".2p")(d.properties.value / current_years_sum)]
       ]
     });

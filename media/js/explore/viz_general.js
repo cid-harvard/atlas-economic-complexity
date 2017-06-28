@@ -615,6 +615,12 @@ var flat_data,
      case 'id':
        return "Code"
        break;
+     case 'eci':
+       return "Economic Complexity"
+       break;
+     case 'pop':
+       return "Population"
+       break;
      case 'world_trade':
        return gettext("World Trade")
        break;
@@ -623,6 +629,9 @@ var flat_data,
        break;
      case 'opp_gain':
        return gettext("Opportunity Gain")
+       break;
+     case 'code':
+       return gettext("Code")
        break;
      default:
        return words
@@ -713,7 +722,7 @@ var flat_data,
       .attrs(attr)
       .text_var("name")
       .value_var("value")
-      .tooltip_info({"short": ["value", "distance", "year"], "long": ["value", "distance", "year"]})
+      .tooltip_info({"short": ["value", "year"], "long": ["code", "year", "value", "rca", "distance"]})
       .name_array(["name"])
       .total_bar({"prefix": "", "suffix": " USD"})
       .nesting(["nesting_0","nesting_1","nesting_2"])
@@ -790,7 +799,7 @@ var flat_data,
       .sort("color")
       .xaxis_var("year")
       .attrs(attr)
-      .tooltip_info({"short": ["value", "distance", "year"], "long": ["value", "distance", "year"]})
+      .tooltip_info({"short": ["value", "year"], "long": ["code", "year", "value", "rca", "distance"]})
       .text_var("name")
       .id_var("id")
       .nesting(["nesting_0","nesting_1","nesting_2"])
@@ -834,7 +843,7 @@ var flat_data,
     if (app_type!="sapy") {
 
       magic_numbers = rawData["magic_numbers"]
-      viz.tooltip_info({"short": ["distance", "year", "pc_current","pc_constant","notpc_constant"]})
+      viz.tooltip_info({"short": ["value", "year"], "long": ["code", "year", "pc_current","pc_constant","notpc_constant", "rca", "distance"]})
       flat_data.map(function(d){
 
         // Quick fix by rv
@@ -857,7 +866,12 @@ var flat_data,
     // Since there is no title bar, we're gona bump the viz down
     d3.select("#viz").style("margin-top","15px")
 
-    flat_data = flat_data.filter(function(d){ return d.share > 0.0075})
+    // See IAEC-312: thresholding seems to be in place to reduce number of DOM
+    // elements to make render quicker. This affects totals in categories in
+    // large countries. By tweaking this number, in effect, you're trading off
+    // numerical accuracy for render speed, with diminishing returns after a
+    // while.
+    flat_data = flat_data.filter(function(d){ return d.share > 0.00075})
 
     // INCASE WE WANT TO COMBINE ALL THE FILTERED ELEMENTS INTO A SINGLE ELEMENT
     // flat_data = flat_data.filter(function(d){return d.value > 85000000})
@@ -946,7 +960,7 @@ var flat_data,
       .type("pie_scatter")
       .height(height)
       .width(width)
-      .tooltip_info({"short": ["value", "distance", "complexity","rca"], "long": ["value", "distance", "complexity","rca"]})
+      .tooltip_info({"short": ["distance", "complexity", "value", "rca"], "long": ["code", "year", "value", "distance", "complexity", "rca"]})
       .text_var("name")
       .id_var("id")
       .attrs(attr)
@@ -958,7 +972,7 @@ var flat_data,
       .depth("nesting_2")
       .text_format(txt_format)
       .number_format(num_format)
-      .spotlight(false)
+      .spotlight(true)
       .dev(false)
       .font('PT Sans Narrow')
       .click_function(inner_html)
@@ -1312,11 +1326,12 @@ var flat_data,
         .name_array(["value"])
         .value_var("world_trade")
         .highlight(max_id+"")
-        .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
+        .tooltip_info(["code", "year", "value", "world_trade", "rca", "distance", "complexity"])
+        .text_format(txt_format)
+        .number_format(num_format)
         .nesting([])
-        .total_bar({"prefix": "Export Value: $", "suffix": " USD", "format": ",f"})
+        .total_bar({"prefix": "Export Value: ", "suffix": " USD", "format": ",f"})
         .click_function(inner_html)
-        .descs({"id": "This is ID", "val_usd": "This is value USD."})
         .footer("")
         .year(year)
         // .text_format(function(d){return d+"longtext longtext longtext longtext longtext"})
@@ -1552,7 +1567,7 @@ var flat_data,
       .value_var("value")
       .name_array(["value"])
       .nesting([])
-      .tooltip_info(["id","value","complexity","distance","rca","world_trade"])
+      .tooltip_info(["code", "year", "value", "world_trade", "rca", "distance", "complexity"])
       .total_bar({"prefix": "", "suffix": " USD", "format": ",f"})
       .text_format(txt_format)
       .number_format(num_format)
@@ -1564,7 +1579,7 @@ var flat_data,
 
       viz
         .name_array(["name"])
-        .tooltip_info(["pop", "id", "eci"])
+        .tooltip_info(["code", "year", "eci", "pop", "rca"])
         .attrs(attr_data)
         .value_var("rca");
     }

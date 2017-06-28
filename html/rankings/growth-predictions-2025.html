@@ -1,0 +1,126 @@
+{% extends "template.html" %}
+
+{% block page_title %}Growth Projections{% endblock %}
+{% block page_description %}New Global Growth Projections Predict the Decade of India{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/rankings.css">
+{% endblock %}f
+
+{% block content %}
+
+<div class="sidebar">
+  <h3 class="sidebar__head"><a href="rankings/country/">Country Rankings</a></h3>
+  <h4 class="sidebar__subhead">Based on a country’s economic complexity for a given year</h4>
+  <h3 class="sidebar__head"><a href="rankings/product/">Product Rankings</a></h3>
+  <h4 class="sidebar__subhead">Products in the HS4 classification ranked based on their complexity for a given year</h4>
+  <h3 class="sidebar__head"><a href="rankings/growth-predictions/">Summary: International Growth Projections</a></h3>
+  <h4 class="sidebar__subhead">New 2025 Global Growth Projections Predict China’s Further Slowdown and the Continued Rise of India</h4>
+  <h3 class="sidebar__head">Download</h3>
+  <ul class="sidebar__list">
+    <li class="sidebar__item"><a href="/media/growth_projections/visualizations/data/atlas_growth_projections_2025.csv">&raquo; Download 2015 data and growth projections</a></li>
+    <li class="sidebar__item"><a href="rankings/country/download/">&raquo; Download all years data</a></li>
+  </ul>
+</div>
+
+<article class="news__article">
+
+  <header class="news__header">
+    <h3 class="news__head">New 2025 Global Growth Projections Predict China’s Further Slowdown and the Continued Rise of India</h3>
+    <p class="news__p"><span class="news__date">June 28, 2017</span></p>
+  </header>
+
+  <p class="news__p"><span class="news__dateline"><b>Cambridge, Massachusetts</b></span> – The economic pole of global growth has moved over the past few years from <b>China</b> to neighboring <b>India</b>, where it is likely to stay over the coming decade, according to new growth projections presented by researchers at the <a href="http://www.cid.harvard.edu">Center for International Development at Harvard University</a> (CID). Growth in emerging markets is predicted to continue to outpace that of advanced economies, though not uniformly. The projections are optimistic about new growth hubs in <b>East Africa</b> and new segments of <b>Southeast Asia</b>, led by <b>Indonesia</b> and <b>Vietnam</b>. The growth projections are based on measures of each country’s economic complexity, which captures the diversity and sophistication of the productive capabilities embedded in its exports and the ease with which it could further diversify by expanding those capabilities. </p>
+
+  <p class="news__p">In examining the latest 2015 global trade data, CID researchers find a clear turn in trade winds, as 2015 marks the first year for which world exports have fallen since the 2009 global financial crisis. This time around, the decline in trade was driven largely by the fall in oil prices. High oil prices had driven a decade of rapid growth in oil economies, outpacing expectations. Since the decline in oil prices in mid 2014, growth in oil economies ground to a halt, where it is likely to stay, according to the projections, given little progress on diversification and complexity.</p>
+
+  <p class="news__p">“The major oil economies are experiencing the pitfalls of their reliance on one resource. India, Indonesia, and Vietnam have accumulated new capabilities that allow for more diverse and more complex production that predicts faster growth in the coming years,” said Ricardo Hausmann, director of CID, professor at the Harvard Kennedy School (HKS), and the lead researcher of The Atlas of Economic Complexity.</p>
+
+  <p class="news__p">The projections warn of a continued slowdown in global growth over the coming decade. <b>India</b> and <b>Uganda</b> top the list of the fastest growing economies to 2025, at 7.7 percent annually, but for different reasons. Uganda joins three other East African countries in the top 10 fastest growing countries, though a significant fraction of that growth is due to rapid population growth. On a per capita basis, Uganda is the only East African country that remains in the top 10 in the growth projections, though at 4.5 percent annually its prospects are more modest. On the other hand, the researchers attribute India’s rapid growth prospects to the fact that it is particularly well positioned to continue diversifying into new areas, given the capabilities accumulated to date. India has made inroads in diversifying its export base to include more complex sectors, such as chemicals, vehicles, and certain electronics.</p>
+
+  <figure class="news__figure">
+    <h4 class="news__subhead">Economic Complexity Global Growth Projections: Predicted Annual Growth Rate to 2025</h4>
+    <iframe src="media/growth_projections/visualizations/geomap_projections_2015.html" width=650 height=440 frameBorder=0></iframe>
+    <cite class="news__figure__cite">Source: The Atlas of Economic Complexity, 2015. Harvard Center for International Development.</cite>
+  </figure>
+
+  <p class="news__p">The new 2015 data reveal a decline in <b>China</b>’s exports. China’s economic complexity ranking also falls four spots for the first time since the global financial crisis. China’s rapid growth rate over the past decade has narrowed the gap between its complexity and its income, which researchers suggest is the harbinger of slower growth. The growth projections still have China growing above the world average, though at 4.4 percent annually for the coming decade, the slowdown relative to the current growth trend is significant.</p>
+
+  <figure class="news__figure">
+    <h4 class="news__subhead">Economic Complexity Global Growth Projections: Growth By Region</h4>
+    <iframe src="media/growth_projections/visualizations/regional_growth_projections_2015.html" width=750 height=560 frameBorder=0 style="margin-left:-60px;"></iframe>
+    <cite class="news__figure__cite">Source: The Atlas of Economic Complexity, 2015. Harvard Center for International Development.</cite>
+  </figure>
+
+  <p class="news__p">The researchers place the diversity of tacit productive knowledge—or knowhow—that a society has at the heart of the economic growth story. A central stylized fact of world income differences is that poor countries produce few goods that many countries can make, while rich countries produce a great diversity of goods, including products that few other countries can make. The team uses this fact to measure the amount of knowhow that is held in each economy. “Economic complexity not only describes why countries are rich or poor today, but also can predict future growth, about five times more accurately than the World Economic Forum’s Global Competitiveness Index,” said Sebastian Bustos, a research fellow at CID.</p>
+
+  <h4 class="news__subhead">New Economic Complexity Index Rankings</h4>
+  <p class="news__p">CID also released new country rankings of the <a href="/rankings/country/" style="text-decoration: underline">2015 Economic Complexity Index</a> (ECI), the measure that forms the basis for much of the growth projections. The ECI finds the most complex countries in the world, as measured by the average complexity of their export basket, remain <b>Japan</b>, <b>Switzerland</b>, <b>Germany</b>, <b>South Korea</b>, and <b>Austria.</b> Of the 40 most complex countries, the biggest risers in the rankings for the decade ending in 2015 have been the <b>Philippines</b> (ECI rank: up 28 positions to rank 32nd globally), <b>Thailand</b> (+11 to 25th), <b>China</b> (+10 to 23rd), <b>Lithuania</b> (+9 to 30th), and <b>South Korea</b> (+8 to 4th). Conversely, the biggest losers have been <b>Canada</b> (-9 to 33rd), <b>Serbia</b>, <b>Belarus</b>, <b>Spain</b> (-6 to 29th), and <b>France</b> (-6 to 16th).</p>
+
+  <p class="news__p">The countries that show the fastest declines in the complexity rankings in the decade ending in 2015 nearly all have had policy regimes that have been adversarial to the accumulation of productive knowhow, with the largest declines in <b>Cuba</b> (-50), <b>Venezuela</b> (-44), <b>Zimbabwe</b> (-23), <b>Tajikistan</b> (-22), <b>Libya</b> (-22), and <b>Argentina</b> (-18). Globally, the fastest risers in complexity in 2015 have been the <b>Philippines</b>, <b>Malawi</b> (+26 to 94th), <b>Uganda</b> (+24 to 77th), <b>Vietnam</b> (+24 to 64th), and <b>Cambodia</b> (+16 to 88th).</p>
+
+  <figure class="news__figure">
+    <h4 class="news__subhead">Economic Complexity Global Growth Projections: Most and Least Complex Countries</h4>
+    <div class="news__figure__imageparent" style="margin-top:-40px; margin-bottom: -40px;">
+      <img src="media/growth_projections/visualizations/graph-images/mostcomplex_eci_f.png" class="left"></img>
+      <img src="media/growth_projections/visualizations/graph-images/leastcomplex_eci_f.png" class="right"></img>
+    </div>
+    <cite class="news__figure__cite">
+        <br/>
+        Click to enlarge <a href="media/growth_projections/visualizations/graph-images/mostcomplex_eci_f.png" target="_blank" style="text-decoration: underline">left</a>
+        or <a href="media/growth_projections/visualizations/graph-images/leastcomplex_eci_f.png" target="_blank" style="text-decoration: underline">right</a> image.
+    </cite>
+  </figure>
+
+  <figure class="news__figure">
+    <h4 class="news__subhead">Economic Complexity Global Growth Projections: Largest Wins and Losses</h4>
+    <div class="news__figure__imageparent">
+      <img src="media/growth_projections/visualizations/graph-images/largestwins_eci_f.png" class="left"></img>
+      <img src="media/growth_projections/visualizations/graph-images/largestlosses_eci_f.png" class="right"></img>
+    <cite class="news__figure__cite">
+        Click to enlarge <a href="media/growth_projections/visualizations/graph-images/largestwins_eci_f.png" target="_blank" style="text-decoration: underline">left</a>
+        or <a href="media/growth_projections/visualizations/graph-images/largestlosses_eci_f.png" target="_blank" style="text-decoration: underline">right</a> image.
+    </cite>
+    </div>
+  </figure>
+
+  <p class="news__p">The growth projections highlight that economic growth fails to follow one easy pattern or rule system. The countries that are expected to be the fastest growing – <b>India</b>, <b>Turkey</b>, <b>Indonesia</b>, <b>Uganda</b>, and <b>Bulgaria</b> – are diverse in all political, institutional, geographic and demographic dimensions. “What they share is a focus on expanding the capabilities of their workforce that leaves them well positioned to diversify into new products, and products of increasingly greater complexity,” said Timothy Cheston, a research fellow at CID.</p>
+
+  <p class="news__p">The projections divide global countries into three basic categories: those countries with too few productive capabilities to easily diversify into related products, including <b>Bangladesh</b>, <b>Ecuador</b>, and <b>Guinea</b>; those countries which have enough capabilities that make diversification and growth easier, which include <b>India</b>, <b>Indonesia</b>, and <b>Turkey</b>; and those advanced countries – such as <b>Japan</b>, <b>Germany</b>, and the <b>United States</b> – that already produce nearly all existing products, so that progress will require pushing the world’s technological frontier by inventing new products, a process that implies slower growth.</p>
+
+  <figure class="news__figure">
+    <h4 class="news__subhead">Economic Complexity Global Growth Projections: Economic Complexity Ranking Changes</h4>
+    <iframe src="media/growth_projections/visualizations/linechart_eci_rankings_2015.html" width=600 height=550 frameBorder=0></iframe>
+    <cite class="news__figure__cite">
+      Source: The Atlas of Economic Complexity, 2015. Harvard Center for International Development.
+      <br><a href="media/growth_projections/visualizations/linechart_eci_rankings_2015.html" target="_blank" style="text-decoration: underline">Click here</a> to view the visualization full-screen.
+    </cite>
+  </figure>
+
+  <p class="news__p">The economic complexity growth projections differ from those of the IMF and the Economist Intelligence Unit (EIU). Relative to EIU predictions, CID researchers are less optimistic about a set of countries that include <b>Bangladesh</b>, <b>Cambodia</b>, <b>Iran</b>, <b>Sri Lanka</b>, and <b>Cuba.</b> Conversely, CID researchers have greater optimism for the growth prospects of <b>Uganda</b>, <b>Guatemala</b>, <b>Mexico</b>, <b>Tanzania</b>, and <b>Brazil</b>.</p>
+
+  <p class="news__p">The researchers emphasize that the benefit of these medium-term projections is that nothing is set in stone, but there are many steps policymakers, investors, and business leaders can take to enter more complex production to realize faster growth.</p>
+
+  <h4 class="news__subhead">About the Center for International Development</h4>
+  <p class="news__p">The Center for International Development (CID) at Harvard University is a university-wide center that works to advance the understanding of development challenges and offer viable solutions to problems of global poverty. CID is Harvard’s leading research hub focusing on resolving the dilemmas of public policy associated with generating stable, shared, and sustainable prosperity in developing countries. Our ongoing mission is to revolutionize the world of development practice.</p>
+
+  <div class="news__contact">
+    <p class="news__contact__entry"><span class="news__contact__entryname">Contact</span>: Chuck McKenney</p>
+    <p class="news__contact__entry"><span class="news__contact__entryname">Email</span>: chuck_mckenney@hks.harvard.edu</p>
+    <p class="news__contact__entry"><span class="news__contact__entryname">Phone</span>: (617) 495-4112</p>
+  </div>
+
+  <footer class="news__footer">
+    <a class="footer__logo__link" href="http://www.hks.harvard.edu/centers/cid">
+      <img class="footer__logo__img" src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/>
+    </a>
+    <small class="footer__license">The Atlas of Economic complexity is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.</small>
+  </footer>
+
+</article>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
